@@ -1,2 +1,2 @@
 # XCLCMS
-XCLCMS 内容管理系统
+XCLCMS内容管理系统（asp.net mvc）

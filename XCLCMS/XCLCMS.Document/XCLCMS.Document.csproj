@@ -44,6 +44,12 @@
     <None Include="数据库设计\XCLCMS.pdm" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Img\11.jpg" />
+    <Content Include="Img\22.jpg" />
+    <Content Include="Img\33.jpg" />
+    <Content Include="Img\44.jpg" />
+    <Content Include="Img\55.jpg" />
+    <Content Include="Img\66.jpg" />
     <Content Include="Libs\COM.Excel.dll" />
     <Content Include="Libs\Excel.dll" />
     <Content Include="Libs\HtmlAgilityPack\Net40\HtmlAgilityPack.dll" />
@@ -115,6 +121,7 @@
     <Content Include="SQL\SQLSourceControl Scripts Location.ExtendedProperty.sql" />
     <Content Include="数据库设计\XCLCMS.pdb" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

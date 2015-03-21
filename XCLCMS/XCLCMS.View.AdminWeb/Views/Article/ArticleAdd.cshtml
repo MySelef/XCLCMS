@@ -1,0 +1,225 @@
+﻿@{
+    Layout = "~/Views/MasterView/Main.cshtml";
+}
+@model XCLCMS.View.AdminViewModel.Article.ArticleAddVM
+
+
+
+<form id="mainForm" action="@Model.FormAction">
+    <input type="hidden" id="ArticleID" name="ArticleID" value="@Model.Article.ArticleID" />
+
+    <div class="XCLAccordion" style="border-top: none;">
+        <div class="XCLAccordionHeader">1、基本信息：</div>
+        <div class="XCLAccordionBody">
+            <table class="XCLTableEdit">
+                <tr>
+                    <td class="XCLTitle" style="width: 10%" rowspan="2"><span class="XCLRedBolder">*</span>标题：</td>
+                    <td style="width: 25%">
+                        主标题：
+                        <textarea id="txtTitle" name="txtTile" style="height:40px;" >@Model.Article.Title</textarea>
+                    </td>
+                    <td class="XCLTitle" style="width: 10%">作者：</td>
+                    <td style="width: 25%">
+                        <input type="text" id="txtAuthorName" name="txtAuthorName" value="@Model.Article.AuthorName" />
+                    </td>
+                    <td class="XCLTitle" style="width: 10%">来源：</td>
+                    <td style="width: 25%">
+                        <input type="text" id="txtFromInfo" name="txtFromInfo" value="@Model.Article.FromInfo" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        子标题：
+                        <textarea id="txtSubTitle" name="txtSubTitle" style="height:40px;" >@Model.Article.SubTitle</textarea>
+                    </td>
+                    <td class="XCLTitle">内容类型：</td>
+                    <td>
+                        <select id="selArticleContentType" name="selArticleContentType"></select>
+                    </td>
+                    <td class="XCLTitle">打开方式：</td>
+                    <td>
+                        <select id="selURLOpenType" name="selURLOpenType"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">分类：</td>
+                    <td>
+                        <select id="selArticleType" name="selArticleType"></select>
+                    </td>
+                    <td class="XCLTitle">关键字：</td>
+                    <td>
+                        <input type="text" id="txtKeyWords" name="txtKeyWords" value="" />
+                    </td>
+                    <td class="XCLTitle">Tags：</td>
+                    <td>
+                        <input type="text" id="txtTags" name="txtTags" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">主图：</td>
+                    <td>
+                        <table class="XCLTableEdit" style="height:150px;">
+                            <tr style="height:100px;">
+                                <td width="33%" id="mainImage1FileList"></td>
+                                <td width="33%"></td>
+                                <td width="33%"></td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <a href="javascript:void(0);" id="btnMainImage1">选择图片</a>
+                                </td>
+                                <td align="center">
+                                    <a href="javascript:void(0);">选择图片</a>
+                                </td>
+                                <td align="center">
+                                    <a href="javascript:void(0);">选择图片</a>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </td>
+                    <td class="XCLTitle">发布时间：</td>
+                    <td>
+                        <input type="text" id="txtPublishTime" name="txtPublishTime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'}); return false;" />
+                    </td>
+                    <td class="XCLTitle">唯一标识：</td>
+                    <td>
+                        <input type="text" id="txtCode" name="txtCode" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">图集：</td>
+                    <td colspan="5">
+                 
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">属性：</td>
+                    <td colspan="5">
+                        <input type="checkbox" id="ckIsCanComment" name="ckIsCanComment" /><label for="ckIsCanComment">可以评论</label>
+                        <input type="checkbox" id="ckIsNeedVerify" name="ckIsNeedVerify" /><label for="ckIsNeedVerify">需要审核</label>
+                        <input type="checkbox" id="ckIsRecommend" name="ckIsRecommend" /><label for="ckIsRecommend">推荐</label>
+                        <input type="checkbox" id="ckIsEssence" name="ckIsEssence" /><label for="ckIsEssence">精华</label>
+                        <input type="checkbox" id="ckIsTop" name="ckIsTop" /><label for="ckIsTop">置顶</label>（<input type="text" id="txtBeginTop" name="txtBeginTop" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />~<input type="text" id="txtEndTop" name="txtEndTop" onclick="    WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />）
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle" rowspan="2">概述：</td>
+                    <td colspan="5">
+                        <textarea id="txtSummary" name="txtSummary">@Model.Article.Summary</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <a href="javascript:void(0);" class="easyui-linkbutton" >提取内容前200字</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle" rowspan="2">内容：</td>
+                    <td colspan="5">
+                        <textarea id="txtContents" name="txtContents" style="height:500px;">@Model.Article.Contents</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="divContentNote"></div>
+                        <script id="divContentNoteTemp" type="text/html">
+                            您已输入{{WordCount}}个文字！
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">点评：</td>
+                    <td colspan="5">
+                        <textarea id="txtComments" name="txtComments"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">附件：</td>
+                    <td colspan="5">
+                        <input type="file" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle">浏览数：</td>
+                    <td>
+                        <input type="text" id="txtViewCount" name="txtViewCount" value="@Model.Article.ViewCount"   class="easyui-numberbox"  style="height:25px;"/>
+                    </td>
+                    <td class="XCLTitle">热度：</td>
+                    <td>
+                        <input type="text" id="txtHotCount" name="txtHotCount" value="@Model.Article.HotCount"   class="easyui-numberbox"  style="height:25px;"/>
+                    </td>
+                    <td class="XCLTitle"></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle">好评数：</td>
+                    <td>
+                        <input type="text" id="txtGoodCount" name="txtGoodCount" value="@Model.Article.GoodCount"  class="easyui-numberbox"  style="height:25px;"/>
+                    </td>
+                    <td class="XCLTitle">中评数：</td>
+                    <td>
+                        <input type="text" id="txtMiddleCount" name="txtMiddleCount" value="@Model.Article.MiddleCount"   class="easyui-numberbox"  style="height:25px;"/>
+                    </td>
+                    <td class="XCLTitle">差评数：</td>
+                    <td>
+                        <input type="text" id="txtBadCount" name="txtBadCount" value="@Model.Article.BadCount"   class="easyui-numberbox"  style="height:25px;"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle">文章状态：</td>
+                    <td>
+                        <select id="selArticleState" name="selArticleState"></select>
+                    </td>
+                    <td class="XCLTitle">记录状态：</td>
+                    <td>
+                        @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                        {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString())
+                        }
+                        else {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.Article.RecordState.ToString())
+                        }
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="XCLHandBar">
+            <a href="@XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+            @switch ((XCLCMS.Lib.Common.Comm.HandleType)ViewBag.CurrentHandleType)
+            {
+                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存配置</a>
+                    break;
+                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
+                    if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingDel))
+                    { 
+                        <a id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删 除</a>
+                    }
+                    break;
+            }
+        </div>
+    </div>
+</form>
+
+<div class="XCLPanel" style="margin-top: 5px;">
+    <div class="XCLPanelHeader XCLBolder">
+        操作说明：
+    </div>
+    <div class="XCLPanelBody">
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        XCLCMS.Article.ArticleAdd.Init();
+    });
+</script>

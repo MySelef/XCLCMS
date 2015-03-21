@@ -1,0 +1,202 @@
+﻿@{
+    Layout = "~/Views/MasterView/Simple.cshtml";
+}
+
+@Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
+        "moxie.js",
+        "plupload_queue.css",
+        "plupload_queue.js",
+        "plupload.js",
+        "plupload_zh_CN.js",
+        "jquery.color.js",
+        "Jcrop.css",
+        "Jcrop.js"
+    }))
+
+<style type="text/css">
+        .XCLUploadFile .trTitle
+        {
+            font-size:15px;
+            font-weight:bolder;
+            text-align:center;
+        }
+        .XCLUploadFile .UploadItemDiv
+        {
+            height:500px;
+            overflow:auto;
+            border:solid 1px #ccc;
+        }
+        .XCLUploadFile .UploadItemDiv ul
+        {
+            
+        }
+        .XCLUploadFile .UploadItemDiv li
+        {
+            width:200px;
+            text-align:center;
+            list-style:none;
+            list-style-position:inside;
+            float:left;
+            border:solid 1px #ccc;
+            margin:5px;
+            padding:3px;
+        }
+        .XCLUploadFile .UploadItemDiv .itemContent
+        {
+            height:180px;
+            line-height:180px;
+        }
+        .XCLUploadFile .UploadItemDiv .itemDescription
+        {
+            height:40px;
+            border-top:solid 1px #ccc;
+            overflow:hidden;
+        }
+        .XCLUploadFile .UploadItemDiv .itemBottom
+        {
+            height:20px;
+            text-align:center;
+            border-top:solid 2px #ccc;
+        }
+</style>
+
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'west'" title="已选文件" style="width:50%;padding:5px" class="XCLUploadFile">
+            <div class="XCLNote">您当前已添加3个文件，最多可以添加{0}个{0}的文件。</div>
+            <div class="UploadItemDiv">
+                <ul id="ItemsUL"></ul>
+            </div>
+            <div style="padding:10px;">
+                <div style="text-align:left;width:20%;float:left;">
+                    <input type="checkbox" />全选
+                </div>
+                <div style="text-align:right;width:80%;float:left;">
+                    <a href="javascript:void(0);" class="easyui-linkbutton " data-options="iconCls:'icon-cancel'">删除已选项</a>
+                    <a href="javascript:void(0);" id="btnAddFile" class="easyui-linkbutton " data-options="iconCls:'icon-add'">添加文件</a>
+                    <a href="javascript:void(0);" id="btnUploadFile" class="easyui-linkbutton " data-options="iconCls:'icon-ok'">开始上传</a>
+                </div>
+            </div>
+        </div>
+        <div data-options="region:'center'" title="编辑">
+            <div id="divEditFile"></div>
+        </div>
+    </div>
+
+    <div id="divShowImg" style="display:none;"></div>
+
+<!--文件选择模板-->
+<script type="text/html" id="fileItemTemp">
+    {{each FileModelList as m i}}
+        <li>
+            <div class="itemContent">
+                <img{{}} src="{{m.SmallPath}}" id="{{m.Id}}"/>
+            </div>
+            <div class="itemDescription">
+                大小：{{m.Size}}，格式：{{m.Format}}<br />
+                文件名：{{m.Name}}
+            </div>
+            <div class="itemBottom">
+                <input type="checkbox" />
+                <a href="javascript:void(0);" rel="fileEdit" xcl-Id="{{m.Id}}">编辑</a>
+                <a href="javascript:void(0);" rel="fileDel">删除</a>
+            </div>
+        </li>
+    {{/each}}
+</script>
+    
+<!--图片编辑模板-->
+<script type="text/html" id="divEditFileTemp">
+    <table class="XCLTableEdit">
+        <tr>
+            <td colspan="2" align="center" style="vertical-align:top;">
+                <fieldset>
+                    <legend class="XCLGray">原图：</legend>
+                    <div>
+                        <div>
+                            <img src="{{BigPath}}" id="ImgToEdit" />
+                        </div>
+                        <div style="padding:5px;">
+                            <a href="javascript:void(0);" class="easyui-linkbutton" id="btnShowSource">查看原图</a>
+                            <a href="javascript:void(0);" class="easyui-linkbutton" id="btnLeftRotate">左旋转</a>
+                            <a href="javascript:void(0);" class="easyui-linkbutton" id="btnRightRotate">右旋转</a>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <legend class="XCLGray">原图属性：</legend>
+                                <div>
+                                    宽高：{{Width}}*{{Height}}，大小：{{Size}}，文件名：{{Name}}
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend class="XCLGray">裁剪属性：</legend>
+                                <div>
+                                    X1：，Y1：，X2：，Y2：。宽高：110*200
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend class="XCLGray">生成参数设置：</legend>
+                                <div>
+                                    <table class="XCLTableEdit">
+                                        <tr>
+                                            <td class="XCLTitle" width="20%">文件名：</td>
+                                            <td width="30%">
+                                                <input type="text" value="{{Name}}"/>
+                                            </td>
+                                            <td width="20%"></td>
+                                            <td width="30%"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="XCLHandBar">
+                            <a id="btnCreateView" class="easyui-linkbutton" data-options="iconCls:'icon-save'">生成预览图片</a>
+                    </div>
+                </fieldset>
+            </td>
+            <td colspan="2" align="center" style="vertical-align:top;">
+                <fieldset>
+                    <legend class="XCLGray">最终预览：</legend>
+                    <div id="divToUseFile"></div>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+</script>
+
+<!--处理后的图片模板-->
+<script  id="divToUseFileTemp" type="text/html">
+    <div>
+        <div>
+            <img src="" id="ImgToUse" />
+        </div>
+        <div style="padding:5px;">
+            <a href="javascript:void(0);" class="easyui-linkbutton" id="btnShowUse">查看原图</a>
+        </div>
+        <div>
+            <fieldset>
+                <legend class="XCLGray">基本属性：</legend>
+                <div>
+                    宽高：100*200，文件名：
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="XCLHandBar">
+            <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">确认</a>
+    </div>
+</script>
+
+<!--新窗口查看图片模板-->
+<script id="divShowImgTemp" type="text/html">
+    <form action="@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)Common/ShowImg" method="post" target="_blank" id="formShowImg">
+        <input type="hidden" name="ImgSrc" value="{{ImgSrc}}" />
+    </form>
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        XCLCMS.Uploader.Add.Init();
+    });
+</script>

@@ -1,0 +1,32 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@model XCLCMS.View.AdminViewModel.UserControl.XCLPagerVM
+
+<div style="text-align:right;">
+    共@(Model.RecordCount)条记录，每页最多显示@(Model.PageSize)条， 当前为第<span style="color:#f00;">@(Model.PageIndex)</span>/@(Model.PageCount)页
+</div>
+
+    @Html.Pager(Model.RecordCount, Model.PageSize, Model.PageIndex, Model.ActionName, Model.ControllerName, new PagerOptions()
+   {
+       PageIndexParameterName = "page",
+       ShowFirstLast = true,
+       CssClass = "XCLPager",
+       CurrentPagerItemWrapperFormatString = "<a class='XCLPager_CurrentItem' disabled='disabled'>{0}</a>",
+       HorizontalAlign = "right",
+       PageIndexBoxType = PageIndexBoxType.TextBox,
+       ShowPageIndexBox = true,
+       GoButtonText="跳转",
+       ShowGoButton=true
+   }, null, null, null)
+    @{Html.RegisterMvcPagerScriptResource();}
+
+
+<script type="text/javascript">
+    $(function () {
+        var $XCLPager = $(".XCLPager");
+        $XCLPager.find("a[disabled]").addClass("PagerItemDisabled");
+        var $input = $XCLPager.find("input[data-pageindexbox]");
+        var $btn = $XCLPager.find("input[data-submitbutton]");
+        $btn.addClass("JumpButton");
+        $input.addClass("IndexBox");
+    });
+</script>

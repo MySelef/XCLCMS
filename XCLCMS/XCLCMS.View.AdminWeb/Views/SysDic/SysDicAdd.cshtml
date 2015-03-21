@@ -1,0 +1,151 @@
+﻿@{
+    Layout = "~/Views/MasterView/Simple.cshtml";
+}
+@model XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM
+
+<form id="mainForm" action="@Model.FormAction">
+    <input type="hidden" name="SysDicID" id="SysDicID" value="@Model.SysDicID" />
+    <input type="hidden" name="ParentID" id="ParentID" value="@Model.ParentID" />
+
+    <div class="XCLPanel">
+        <div class="XCLPanelHeader XCLBolder">
+            @if (null != Model.PathList && Model.PathList.Count > 0)
+            {
+                System.Text.StringBuilder str = new System.Text.StringBuilder();
+                str.Append(string.Join("-&gt;", Model.PathList.Select(k => k.DicName).ToArray()));
+                if (null != ViewBag.CurrentHandleType && ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                {
+                    str.Append("-&gt;");
+                }
+                @Html.Raw(str.ToString())
+            }
+        </div>
+        <div class="XCLPanelBody">
+
+            <div class="XCLAccordion">
+                <div class="XCLAccordionHeader">基本信息：</div>
+                <div class="XCLAccordionBody">
+                    <table class="XCLTableEdit">
+                        <tr>
+                            <td class="XCLTitle" width="20%"><span class="XCLRedBolder">*</span>字典名：</td>
+                            <td width="30%">
+                                <textarea id="txtDicName" name="txtDicName">@Model.SysDic.DicName</textarea>
+                            </td>
+                            <td class="XCLTitle" width="20%">字典值：</td>
+                            <td width="30%">
+                                <textarea id="txtDicValue" name="txtDicValue">@Model.SysDic.DicValue</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="XCLTitle"><span class="XCLRedBolder">*</span>唯一标识：</td>
+                            <td>
+                                <textarea id="txtCode" name="txtCode">@Model.SysDic.Code</textarea>
+                                <br />
+                                <a href="javascript:void(0);" id="btnCreateAutoCode">自动生成</a>
+                            </td>
+                            <td class="XCLTitle"><span class="XCLRedBolder">*</span>字典类型：</td>
+                            <td>
+                                <select id="selDicType" name="selDicType">
+                                    @Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum), new XCLCMS.Data.CommonHelper.Model.SetOption()
+                               {
+                                   DefaultValue = Model.SysDic.DicType
+                               }))
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="XCLTitle">所属功能模块：</td>
+                            <td colspan="3">
+                                 <input class="easyui-combogrid" id="selFunctionID" name="selFunctionID" style="width:300px;" value="@Model.SysDic.FK_FunctionID" data-options="
+                                            panelWidth: 500,
+                                            idField: 'SysFunctionID',
+                                            textField: 'FunctionName',
+                                            url: '@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)SysFunctionCommon/GetList',
+                                            method: 'get',
+                                            columns: [[
+                                                {field:'C_TypeName',title:'所属模块'},
+                                                {field:'SysFunctionID',title:'功能ID'},
+                                                {field:'FunctionName',title:'功能名'},
+                                                {field:'Remark',title:'说明'}
+                                            ]],
+                                            fitColumns: true
+                                        "/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="XCLTitle">权重：</td>
+                            <td>
+                                <input type="text" id="txtWeight" name="txtWeight" class="easyui-numberbox" value="@Model.SysDic.Weight"  style="height:25px;" />
+                            </td>
+                            <td class="XCLTitle">备注：</td>
+                            <td>
+                                <textarea id="txtRemark" name="txtRemark">@Model.SysDic.Remark</textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                @if (Model.SysDicCategory == XCLCMS.View.AdminViewModel.SysDic.SysDicCategoryEnum.Role)
+                {
+
+                    <div class="XCLAccordionHeader">权限分配：</div>
+                    <div class="XCLAccordionBody">
+
+                        @if (null != Model.FunctionTypes && Model.FunctionTypes.Count > 0)
+                        {
+                            for (int idx = 0; idx < Model.FunctionTypes.Count; idx++)
+                            {
+                                var m = Model.FunctionTypes[idx];
+                                var items = Model.FunctionList.Where(k => k.FK_TypeID == m.SysDicID).ToList();
+                                <fieldset>
+                                    <legend class="XCLRedBolder">
+                                        @m.DicName：
+                                    </legend>
+                                    <div>
+                                        @if (null != items && items.Count > 0)
+                                        {
+                                            for (int i = 0; i < items.Count; i++)
+                                            {
+                                                var item = items[i];
+                                                bool isCheck = false;
+                                                if (null != Model.RoleFunctionIDList && Model.RoleFunctionIDList.Count > 0)
+                                                {
+                                                    isCheck = Model.RoleFunctionIDList.Contains(item.SysFunctionID);
+                                                }
+                                            <div style="border: solid 1px #ccc; margin: 3px; line-height: 20px; height: 20px; padding: 2px 5px 2px 5px;width:20%;float:left;">
+                                                <input type="checkbox" id="ckRoleFunction@(item.SysFunctionID)" name="ckRoleFunction" value="@item.SysFunctionID" @Html.Raw(isCheck?" checked='checked' ":"")/>
+                                                <label for="ckRoleFunction@(item.SysFunctionID)">@item.Remark</label>
+                                            </div>
+                                            }
+                                        }
+                                    </div>
+                                </fieldset>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+            <div class="XCLHandBar">
+                <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="XCLPanel" style="margin-top: 5px;">
+    <div class="XCLPanelHeader XCLBolder">
+        操作说明：
+    </div>
+    <div class="XCLPanelBody">
+        <ul>
+            <li>1、只有特定权限的人员，才能修改【字典类型】。</li>
+            <li>2、在配置角色信息时，权重值越大，则表示该角色的权力越大。</li>
+            <li>3、在配置系统菜单时，根据需要，为其配置一个功能权限，便于不同角色的用户显示不同的菜单。</li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        XCLCMS.SysDic.SysDicAdd.Init();
+    });
+</script>

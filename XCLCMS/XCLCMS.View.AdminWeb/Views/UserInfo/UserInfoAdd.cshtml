@@ -1,0 +1,184 @@
+﻿@{
+    Layout = "~/Views/MasterView/Main.cshtml";
+}
+@model XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM
+
+<form id="mainForm" action="@Model.FormAction">
+    <input type="hidden" id="UserInfoID" name="UserInfoID" value="@Model.UserInfoWithMore.UserInfo.UserInfoID" />
+
+    <div class="XCLAccordion" style="border-top: none;">
+        <div class="XCLAccordionHeader">1、基本信息：</div>
+        <div class="XCLAccordionBody">
+            <table class="XCLTableEdit">
+                <tr>
+                    <td class="XCLTitle" style="width: 10%">@Html.Raw(ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD?@"<span class=""XCLRedBolder"">*</span>":"")用户名：</td>
+                    <td style="width: 25%">
+                        @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                        { 
+                            <input type="text" id="txtUserName" name="txtUserName" value="@Model.UserInfoWithMore.UserInfo.UserName" />
+                            <br />
+                            <div class="XCLNote" style="width:150px;">提交后，将不能修改！</div>
+                        }
+                        else
+                        {
+                            @Model.UserInfoWithMore.UserInfo.UserName
+                        }
+                    </td>
+                    <td class="XCLTitle" style="width: 10%">真实姓名：</td>
+                    <td style="width: 25%">
+                        <input type="text" id="txtRealName" name="txtRealName" value="@Model.UserInfoWithMore.UserInfo.RealName" />
+                    </td>
+                    <td class="XCLTitle" style="width: 10%">昵称：</td>
+                    <td style="width: 25%">
+                        <input type="text" id="txtNickName" name="txtNickName" value="@Model.UserInfoWithMore.UserInfo.NickName" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">密码：</td>
+                    <td>
+                        <input type="password" id="txtPwd" name="txtPwd" value="" />
+                        <span class="XCLNote">
+                            @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                            {
+                                @:若不填写，则为默认密码@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserDefaultPwd)！
+                            }
+                            else
+                            {
+                                @:若不填写，则不会修改原密码！
+                            }
+                            
+                        </span>
+                    </td>
+                    <td class="XCLTitle">重复密码：</td>
+                    <td>
+                        <input type="password" id="txtPwd1" name="txtPwd1" value="" />
+                    </td>
+                    <td class="XCLTitle"><span class="XCLRedBolder">*</span>性别：</td>
+                    <td>
+                        <select id="selSexType" name="selSexType">
+                            @Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum), new XCLCMS.Data.CommonHelper.Model.SetOption() { 
+                                DefaultValue=Model.UserInfoWithMore.UserInfo.SexType
+                            }))
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">出生日期：</td>
+                    <td>
+                        <input type="text" id="txtBirthday" name="txtBirthday" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' }); return false;" value="@string.Format("{0:yyyy-MM-dd}", Model.UserInfoWithMore.UserInfo.Birthday)" />
+                    </td>
+                    <td class="XCLTitle">年龄：</td>
+                    <td>
+                        <input type="text" id="txtAge" name="txtAge" class="easyui-numberbox" value="@Model.UserInfoWithMore.UserInfo.Age"  style="height:25px;"/>
+                    </td>
+                    <td class="XCLTitle">手机号：</td>
+                    <td>
+                        <input type="text" id="txtTel" name="txtTel" value="@Model.UserInfoWithMore.UserInfo.Tel" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">QQ：</td>
+                    <td>
+                        <input type="text" id="txtQQ" name="txtQQ" value="@Model.UserInfoWithMore.UserInfo.QQ" />
+                    </td>
+                    <td class="XCLTitle">电子邮件：</td>
+                    <td>
+                        <input type="text" id="txtEmail" name="txtEmail" value="@Model.UserInfoWithMore.UserInfo.Email" />
+                    </td>
+                    <td class="XCLTitle">其实联系方式：</td>
+                    <td>
+                        <input type="text" id="txtOtherContact" name="txtOtherContact" value="@Model.UserInfoWithMore.UserInfo.OtherContact" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">备注：</td>
+                    <td>
+                        <textarea id="txtRemark" name="txtRemark">@Model.UserInfoWithMore.UserInfo.Remark</textarea>
+                    </td>
+                    <td class="XCLTitle"><span class="XCLRedBolder">*</span>用户状态：</td>
+                    <td>
+                        <select id="selUserState" name="selUserState">
+                            @Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserStateEnum), new XCLCMS.Data.CommonHelper.Model.SetOption() { 
+                                DefaultValue=Model.UserInfoWithMore.UserInfo.UserState
+                            }))
+                        </select>                        
+                    </td>
+                    <td class="XCLTitle">记录状态：</td>
+                    <td>
+                        @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                        {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString())
+                        }
+                        else {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.UserInfoWithMore.UserInfo.RecordState.ToString())
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="XCLAccordionHeader">2、角色权限信息：</div>
+        <div class="XCLAccordionBody">
+            <table class="XCLTableEdit">
+                <tr>
+                    <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>角色配置：</td>
+                    <td style="width: 25%">
+                        @if (null != Model.AllRoleList && Model.AllRoleList.Count > 0)
+                        {
+                            for (int i = 0; i < Model.AllRoleList.Count; i++)
+                            {
+                                var m = Model.AllRoleList[i];
+                                bool isChecked=false;
+                                if(null!=Model.UserInfoWithMore.UserRoleIDs && Model.UserInfoWithMore.UserRoleIDs.Count>0)
+                                {
+                                    if(Model.UserInfoWithMore.UserRoleIDs.Exists(k=>k==m.SysDicID))
+                                    {
+                                        isChecked=true;
+                                    }
+                                }
+
+                                bool isDisabled = ((XCLCMS.Lib.Model.CommonModel)ViewBag.CommonModel).CurrentUserModel.RoleMaxWeight < m.Weight ? true :false;
+                                
+                                <input type="checkbox" name="ckRoles" id="ckRoles@(i)" value="@m.SysDicID" XCLValidShowErrorID="err_ckRoles"  @Html.Raw(isChecked?" checked='checked' ":"")  @Html.Raw(isDisabled ? " onclick='return false;' " : "")  /><label for="ckRoles@(i)"  @Html.Raw(isDisabled ? " class='XCLGray' " : "")  >@m.DicName</label>
+                            }
+                        }
+                        <span id="err_ckRoles"></span>
+                    </td>
+                    <td style="width: 10%"></td>
+                    <td style="width: 25%"></td>
+                    <td style="width: 10%"></td>
+                    <td style="width: 25%"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="XCLHandBar">
+            <a href="@XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+            @switch ((XCLCMS.Lib.Common.Comm.HandleType)ViewBag.CurrentHandleType)
+            {
+                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存用户</a>
+                    break;
+                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
+                    if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserDel)){
+                        <a id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删 除</a>
+                    }
+                    break;
+            }
+        </div>
+    </div>
+</form>
+
+<div class="XCLPanel" style="margin-top: 5px;">
+    <div class="XCLPanelHeader XCLBolder">
+        操作说明：
+    </div>
+    <div class="XCLPanelBody">
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        XCLCMS.UserInfo.UserAdd.Init();
+    });
+</script>

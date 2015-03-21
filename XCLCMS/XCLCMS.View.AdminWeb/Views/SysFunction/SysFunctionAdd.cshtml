@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/MasterView/Main.cshtml";
+}
+@model XCLCMS.View.AdminViewModel.SysFunction.SysFunctionAddVM
+
+
+
+<form id="mainForm" action="@Model.FormAction">
+    <input type="hidden" id="SysFunctionID" name="SysFunctionID" value="@Model.SysFunction.SysFunctionID" />
+
+    <div class="XCLAccordion" style="border-top: none;">
+        <div class="XCLAccordionHeader">1、基本信息：</div>
+        <div class="XCLAccordionBody">
+            <table class="XCLTableEdit">
+                <tr>
+                    <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>所属模块：</td>
+                    <td style="width: 25%">
+                        <select id="selFK_TypeID" name="selFK_TypeID">
+                            @Html.Raw(XCLCMS.Lib.Common.Tool.GetSysDicOptionsByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysFunModules, new XCLCMS.Data.CommonHelper.Model.SetOption() { 
+                                    DefaultValue=Model.SysFunction.FK_TypeID.ToString(),IsNeedPleaseSelect=true
+                              }))
+                        </select>
+                    </td>
+                    <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>功能名称：</td>
+                    <td style="width: 25%">
+                        <textarea id="txtFunctionName" name="txtFunctionName" >@Model.SysFunction.FunctionName</textarea>
+                    </td>
+                    <td class="XCLTitle" style="width: 10%"></td>
+                    <td style="width: 25%">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">备注：</td>
+                    <td>
+                        <textarea id="txtRemark" name="txtRemark">@Model.SysFunction.Remark</textarea>
+                    </td>
+                    <td class="XCLTitle">记录状态：</td>
+                    <td>
+                        @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                        {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString())
+                        }
+                        else {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.SysFunction.RecordState.ToString())
+                        }
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="XCLHandBar">
+            <a href="@XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+            @switch ((XCLCMS.Lib.Common.Comm.HandleType)ViewBag.CurrentHandleType)
+            {
+                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保 存</a>
+                    break;
+                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
+                    if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionDel)){
+                        <a id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删 除</a>
+                    }
+                    break;
+            }
+        </div>
+    </div>
+</form>
+
+<div class="XCLPanel" style="margin-top: 5px;">
+    <div class="XCLPanelHeader XCLBolder">
+        操作说明：
+    </div>
+    <div class="XCLPanelBody">
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        XCLCMS.SysFunction.SysFunctionAdd.Init();
+    });
+</script>

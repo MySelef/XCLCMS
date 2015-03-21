@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Views/MasterView/Main.cshtml";
+}
+
+@model XCLCMS.View.AdminViewModel.Article.ArticleListVM
+
+<form>
+
+
+<div class="XCLPanel" style="margin-top:5px;">
+    <div class="XCLPanelHeader">
+        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingAdd)) { 
+            <a href="@(string.Format("{0}Article/Add?{1}",XCLCMS.View.AdminWeb.Common.WebCommon.RootURL,XCLCMS.View.AdminWeb.Common.WebCommon.UrlAdditiveParams))" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+        }
+        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingEdit)) { 
+            <a href="@(string.Format("{0}Article/Add?{1}",XCLCMS.View.AdminWeb.Common.WebCommon.RootURL,XCLCMS.View.AdminWeb.Common.WebCommon.UrlAdditiveParams))" id="btnUpdate" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a>
+        }
+        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingDel)) { 
+            <a href="javascript:void(0);" id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除</a>         
+        }
+    </div>
+    <div class="XCLPanelBody">
+        <div>
+            @Html.Raw(Model.Search.XCLNetSearchHTML())
+        </div>
+        <table class="XCLTableList">
+            <tr class="XCLTableHeader XCLTableNoHover">
+                <td>
+                    <input type="checkbox" class="XCLTableCheckAll" value="" />
+                </td>
+                <td>序号</td>
+                <td>文章ID</td>
+                <td>标题</td>
+                <td>作者</td>
+                <td>来源</td>
+                <td>文章类型</td>
+                <td>浏览数</td>
+                <td>评论数</td>
+                <td>热度</td>
+                <td>文章状态</td>
+                <td>记录状态</td>
+                <td>创建时间</td>
+                <td>创建者名</td>
+                <td>更新时间</td>
+                <td>更新人名</td>
+            </tr>
+            @{
+                if (null != Model.ArticleList && Model.ArticleList.Count > 0)
+                {
+                    for (int i = 0; i < Model.ArticleList.Count; i++)
+                    {
+                        var m = Model.ArticleList[i];
+                        <tr>
+                            <td align="center"><input type="checkbox" class="XCLTableCheckItem" value="@m.ArticleID" /></td>
+                            <td align="center">
+                                @((Model.PagerModel.PageIndex > 1 ? Model.PagerModel.PageIndex - 1 : 0) * Model.PagerModel.PageSize + i + 1)
+                            </td>
+                            <td align="center" class="XCLNoWrap">@m.ArticleID</td>
+                            <td>@m.Title</td>
+                            <td>@m.AuthorName</td>
+                            <td>@m.FromInfo</td>
+                            <td>@m.ArticleType</td>
+                            <td>@m.ViewCount</td>
+                            <td>@m.CommentCount</td>
+                            <td>@m.HotCount</td>
+                            <td>@m.ArticleState</td>
+                            <td align="center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), m.RecordState)</td>
+                            <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.CreateTime)</td>
+                            <td align="center">@m.CreaterName</td>
+                            <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.UpdateTime)</td>
+                            <td align="center">@m.UpdaterName</td>
+                        </tr>
+                    }
+                }
+                else
+                { 
+                    <tr>
+                        <td colspan="100" align="center">
+                            暂无数据！
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>           
+
+        @Html.Partial("~/Views/UserControl/XCLPager.cshtml", Model.PagerModel)
+
+    </div>
+</div>
+
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        XCLCMS.Article.ArticleList.Init();
+    });
+</script>

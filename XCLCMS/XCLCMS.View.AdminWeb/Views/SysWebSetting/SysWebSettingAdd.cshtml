@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "~/Views/MasterView/Main.cshtml";
+}
+@model XCLCMS.View.AdminViewModel.SysWebSetting.SysWebSettingAddVM
+
+
+
+<form id="mainForm" action="@Model.FormAction">
+    <input type="hidden" id="SysWebSettingID" name="SysWebSettingID" value="@Model.SysWebSetting.SysWebSettingID" />
+
+    <div class="XCLAccordion" style="border-top: none;">
+        <div class="XCLAccordionHeader">1、基本信息：</div>
+        <div class="XCLAccordionBody">
+            <table class="XCLTableEdit">
+                <tr>
+                    <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>名称：</td>
+                    <td style="width: 25%">
+                        <textarea id="txtKeyName" name="txtKeyName" >@Model.SysWebSetting.KeyName</textarea>
+                    </td>
+                    <td class="XCLTitle" style="width: 10%">值：</td>
+                    <td style="width: 25%">
+                        <textarea id="txtKeyValue" name="txtKeyValue" >@Model.SysWebSetting.KeyValue</textarea>
+                    </td>
+                    <td class="XCLTitle" style="width: 10%"></td>
+                    <td style="width: 25%">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">备注：</td>
+                    <td>
+                        <textarea id="txtRemark" name="txtRemark">@Model.SysWebSetting.Remark</textarea>
+                    </td>
+                    <td class="XCLTitle">记录状态：</td>
+                    <td>
+                        @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                        {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString())
+                        }
+                        else {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.SysWebSetting.RecordState.ToString())
+                        }
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="XCLHandBar">
+            <a href="@XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+            @switch ((XCLCMS.Lib.Common.Comm.HandleType)ViewBag.CurrentHandleType)
+            {
+                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存配置</a>
+                    break;
+                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
+                    if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingDel))
+                    { 
+                        <a id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删 除</a>
+                    }
+                    break;
+            }
+        </div>
+    </div>
+</form>
+
+<div class="XCLPanel" style="margin-top: 5px;">
+    <div class="XCLPanelHeader XCLBolder">
+        操作说明：
+    </div>
+    <div class="XCLPanelBody">
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        XCLCMS.SysWebSetting.SysWebSettingAdd.Init();
+    });
+</script>

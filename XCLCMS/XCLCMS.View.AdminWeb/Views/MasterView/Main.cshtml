@@ -1,0 +1,131 @@
+﻿@{
+        XCLCMS.View.AdminViewModel.Main.MainVM mainViewModel = null;
+        if(null != ViewBag.MainViewModel){
+            mainViewModel = ViewBag.MainViewModel as XCLCMS.View.AdminViewModel.Main.MainVM;
+        }
+        XCLCMS.Data.Model.UserInfo CurrentUserModel = null;
+        if (null != ViewBag.CommonModel)
+        {
+            CurrentUserModel = ViewBag.CommonModel.CurrentUserModel as XCLCMS.Data.Model.UserInfo;
+        }
+}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    @Html.Partial("~/Views/MasterView/Header.cshtml")
+</head>
+<body class="easyui-layout">
+
+    <div data-options="region:'center',border:false">
+
+        <div class="easyui-panel" style="height:50px;overflow:hidden;border:0px;">
+            <span style="font-size:25px;font-weight:bolder;line-height:50px;padding-left:10px;">@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebName)后台管理</span>
+        </div>
+
+        <div class="XCLPanel" style="border-bottom:none;">
+            <div class="XCLPanelHeader">
+                @if(null!=CurrentUserModel){
+                    @:您好，@(string.Format("{0}（{1}）",CurrentUserModel.UserName,CurrentUserModel.RoleName))  <a href="javascript:void(0);" id="btnLoginOut">安全退出</a>
+                    @:&nbsp;&nbsp;&nbsp;
+                }
+                公告通知：<a href="">2014又要放假了，大家火车票买了没？</a>
+            </div>
+        </div>
+
+
+        <div id="DivMenuTabs" class="easyui-tabs" style="height:auto;">
+            @if (null != mainViewModel)
+            {
+                var bll = new XCLCMS.Data.BLL.SysDic();
+                if (null != mainViewModel.MenuList && mainViewModel.MenuList.Count > 0)
+                {
+                    foreach (var m in mainViewModel.MenuList)
+                    {
+                    <div title="@m.DicName" xcl-sysdicid="@m.SysDicID" xcl-sysdiccode="@m.Code" style="padding:10px" data-options="@(m.SysDicID==mainViewModel.CurrentParentMenuID?"selected:true":"")">
+                        <div>
+                            @{
+                                    var childMenu = bll.GetChildListByID(new XCLCMS.Data.Model.SysDic() { 
+                                        SysDicID=m.SysDicID,
+                                        RecordState=XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()
+                                    });
+                                    if(null!=childMenu && childMenu.Count>0)
+                                    {
+                                        childMenu=childMenu.Where(ch=>ch.FK_FunctionID==null || XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,(XCLCMS.Lib.Permission.Function.FunctionEnum)ch.FK_FunctionID)).ToList();
+                                        foreach(var child in childMenu)
+                                        {
+                                            var linkUrl=(child.DicValue??"").Trim();
+                                            linkUrl=linkUrl.Replace("~/",XCLCMS.View.AdminWeb.Common.WebCommon.RootURL);
+                                            if(string.IsNullOrEmpty(linkUrl))
+                                            {
+                                                linkUrl = "javascript:void(0);";
+                                            }
+                                            else
+                                            {
+                                                linkUrl = XCLNetTools.StringHander.UrlOper.AddParam(linkUrl, XCLCMS.View.AdminWeb.Common.WebCommon.MenuIDsParamName, string.Format("{0}", child.SysDicID));
+                                            }
+                                            <a href="@linkUrl" class="easyui-linkbutton @(mainViewModel.CurrentMenuID==child.SysDicID?"XCLRedBolder":"")" style="width:auto;padding-left:10px;padding-right:10px;" xcl-sysdicid="@child.SysDicID" xcl-sysdiccode="@child.Code">@child.DicName</a>
+                                        }
+                                    }
+                                }
+                       </div>      
+                    </div>
+                    }
+                }
+            }
+        </div>
+
+
+        @if (null!=mainViewModel && !string.IsNullOrEmpty(mainViewModel.PagePath))
+        { 
+            <div class="XCLPanel" style="border-top:none;">
+                <div class="XCLPanelHeader XCLBolder">
+                    首页->@Html.Raw(mainViewModel.PagePath)
+                </div>
+            </div>
+        }
+
+        @RenderBody()
+
+
+    </div>
+
+    <div data-options="region:'south'" style="height: 30px;text-align:center;padding-top:5px;">
+        如有疑问，请<a href="mailto:@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_AdminEmail">联系我们</a>
+        @Html.Raw(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_CopyRight)
+        @Html.Partial("~/Views/MasterView/Footer.cshtml")
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            var $DivMenuTabs=$("#DivMenuTabs");
+            var tabs = $DivMenuTabs.tabs('tabs');
+            //选项卡处理
+            for (var i = 0; i < tabs.length; i++) {
+                //鼠标划过，选中选项卡
+                tabs[i].panel('options').tab.unbind().bind('mouseenter', { index: i }, function (e) {
+                    $DivMenuTabs.tabs('select', e.data.index);
+                });
+                //无菜单按钮，隐藏选项卡
+                if(tabs[i].panel().find(".easyui-linkbutton").length==0){
+                    tabs[i].panel('options').tab.hide();
+                }
+            }
+            //鼠标移出菜单时，回到当前选中的菜单
+            var needInitMenu = @(null != mainViewModel && mainViewModel.CurrentParentMenuID > 0 && mainViewModel.CurrentMenuID > 0?"true;":"false;")
+            if(needInitMenu){
+                var m1 = "@mainViewModel.CurrentParentMenuID";
+                var m2 = "@mainViewModel.CurrentMenuID";
+                var $m2=$DivMenuTabs.find("a[xcl-sysdicid='"+m2+"']");
+                $DivMenuTabs.on("mouseleave",function(){
+                    if(!($m2.is(":visible"))){
+                        var index=$m2.closest(".panel").index();
+                        $DivMenuTabs.tabs('select', index);
+                    }
+                });
+            };
+            //form标签中追加附加信息
+            $("form").append('@Html.Raw(XCLCMS.View.AdminWeb.Common.WebCommon.FormAdditiveParams)');
+        });
+    </script>
+</body>
+</html>

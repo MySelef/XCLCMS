@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    @Html.Partial("~/Views/MasterView/Header.cshtml")
+    <link href="@Url.Content("~/Resources/Css/Login.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="login-welcome">
+        您好！欢迎使用本系统！
+    </div>
+    <div class="login-wrap">
+        <div class="login-top">
+        </div>
+        <div class="login fixed">
+            <div class="login-l">
+            </div>
+            <div class="login-c">
+                <div>
+                    <img src="@Url.Content("~/Resources/Images/login_04.gif")" />
+                </div>
+                <div>
+                    <img src="@Url.Content("~/Resources/Images/login_05.gif")" />
+                </div>
+                <div class="login-c-00 fixed">
+                    <div class="login-c-01" style="text-align: center;">
+                    </div>
+                    <div class="login-c-02 fixed">
+                        <form id="form1" name="form1" method="post">
+                            <table cellpadding="0" border="0" cellspacing="0" class="loginTable">
+                                <tr>
+                                    <td align="right" width="25%">用户名：
+                                    </td>
+                                    <td width="75%">
+                                        <input type="text" id="txtUserName" name="txtUserName" style="width:140px;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">密码：
+                                    </td>
+                                    <td>
+                                        <input type="password" id="txtPwd" name="txtPwd" style="width:140px;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">验证码：
+                                    </td>
+                                    <td>
+                                        <span>
+                                            <img src="@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)Login/GenerateValidCode" alt="单击进行更换图片！" title="单击进行更换图片！" onclick="this.src='@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)Login/GenerateValidCode'+'?'+Math.random();return false;" style="width:66px;height:29px;" />
+                                        </span>
+                                        <input type="text" id="txtValidCode" name="txtValidCode" style="width:70px;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="login-anniu">
+                                        <a href="javascript:void(0);" id="btnLogin">登录</a>
+                                        <a href="javascript:void(0);" id="btnReset">重置</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="login-c-03" style="text-align: center; width: 70px;">
+                    </div>
+                </div>
+                <div>
+                    <img src="@Url.Content("~/Resources/Images/login_08.gif")" />
+                </div>
+            </div>
+            <div class="login-r">
+            </div>
+        </div>
+        <div class="login-bottom">
+            <img src="@Url.Content("~/Resources/Images/login_09.gif")" /><img src="@Url.Content("~/Resources/Images/login_10.gif")" /><img src="@Url.Content("~/Resources/Images/login_11.gif")" />
+        </div>
+    </div>
+    <div class="login-footer">
+        @Html.Partial("~/Views/MasterView/Footer.cshtml")
+    </div>
+    <script type="text/javascript">
+        var funs = {
+            Init: function () {
+                var _this = this;
+                _this.InitValidator();
+                $("#btnReset").on("click", function () {
+                    _this.Reset();
+                    return false;
+                });
+            },
+            InitValidator: function () {
+                var validator = $("form:first").validate({
+                    rules: {
+                        txtUserName: {required: true},
+                        txtPwd: { required: true },
+                        txtValidCode: { required: true }
+                    }
+                });
+
+                var login = function () {
+                    if (!XCLCMS.CommonFormValid(validator)) {
+                        return false;
+                    }
+                    var $btnLogin = $("#btnLogin");
+                    if ($btnLogin.hasClass("submitting")) {
+                        return false;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        dataType: "JSON",
+                        url: XCLCMS.RootURL + "Login/LogonSubmit",
+                        data: $btnLogin.closest("form").serialize(),
+                        beforeSend: function () {
+                            $btnLogin.html("登录中...").addClass("submitting");
+                        },
+                        success: function (data) {
+                            $btnLogin.html("登录").removeClass("submitting");
+                            if (data.IsSuccess) {
+                                art.dialog.tips("登录成功，正在跳转中......", 500000);
+                                location.href = XCLCMS.RootURL + "Home/Index";
+                            } else {
+                                art.dialog({
+                                    time: 1,
+                                    icon: 'error',
+                                    content: data.Message
+                                });
+                            }
+                        },
+                        complete: function () {
+                            $btnLogin.html("登录").removeClass("submitting");
+                        }
+                    });
+                }
+
+                $("#btnLogin").on("click", function () {
+                    login();
+                    return false;
+                });
+
+                $("body").keypress(function (event) {
+                    if (event.keyCode == 13) {
+                        login();
+                    }
+                });
+
+            },
+            Reset: function () {
+                $("form")[0].reset();
+            }
+        };
+        $(function () {
+            funs.Init();
+        });
+    </script>
+</body>
+</html>

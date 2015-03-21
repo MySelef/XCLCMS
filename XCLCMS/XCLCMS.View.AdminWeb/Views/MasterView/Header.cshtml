@@ -1,0 +1,48 @@
+﻿<title>@(string.IsNullOrEmpty(ViewBag.Title)?XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaTitle:string.Format("{0}——{1}",XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaTitle,ViewBag.Title))</title>
+<meta name="keywords" content="@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaKeyWords" />
+<meta name="description" content="@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaDescription" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+@Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
+        "icon",
+        "jqurey",
+        "easyui_ico.css",
+        "easyui.css",
+        "easyui.js",
+        "artDialog.css",
+        "artDialog.js",
+        "artDialog.iframeTools.js",
+        "artTemplate.js",
+        "metadata.js",
+        "validate.js",
+        "XCLValidatorMethod.js",
+        "WdatePicker.js",
+        "base.css",
+        "table.js",
+        "XCLCMS.js"
+   }))
+
+<script src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Js/App/require.js" data-main="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Js/App/main"></script>
+    
+<script type="text/javascript">
+    $(function () {
+        //消息提示
+        XCLCMS.XCLJsonMessageName = "@XCLNetTools.Message.Log.JsonMessageName";
+        //站点根路径
+        XCLCMS.RootURL = "@XCLCMS.View.AdminWeb.Common.WebCommon.RootURL";
+        //所有枚举项
+        @Html.Raw(string.Format("XCLCMS.EnumConfig={0};",XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson))
+
+        //dialog
+        (function (config) {
+            config['lock'] = true;
+            config['opacity'] = 0.2;
+            config['resize'] = true;
+        })(art.dialog.defaults);
+
+    });
+
+</script>
+

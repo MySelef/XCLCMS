@@ -1,0 +1,42 @@
+﻿@model XCLNetTools.Message.MessageModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>抱歉，您访问的页面出问题啦！</title>
+    <style type="text/css">
+        html, body
+        {
+            height: 100%;
+            background: #186aa9 url(@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Images/sky-background.png) top repeat-x;
+            overflow: hidden;
+            height: 100%;font-family:"Microsoft YaHei",Sans-Serif;width:100%;margin:0;padding:0px;font-size:14px;
+            color:#fff;
+        }
+        a{color:#fff;text-decoration:none;}
+        a:hover{text-decoration:underline;}
+    </style>
+</head>
+<body>
+        <div style="margin-top:150px;font-size:50px;text-align:center;font-weight:bolder;letter-spacing:5px;">
+            非常抱歉，您访问的页面出错啦！
+        </div>
+        <div style="text-align:center;padding:15px;">
+                如有疑问，请联系：@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_AdminEmail
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="@Model.FromUrl">回到上一页</a>
+        </div>
+        <div style="padding:20px;margin-top:100px;margin-bottom:100px;border:dashed 1px #fff;">
+            错误码：@Model.ErrorCode
+            <br /><br />
+            出错页面：@Model.Url
+            <br /><br />
+            错误信息：@Model.Message
+            <br /><br />
+            详细错误信息：@Model.MessageMore
+        </div>
+        <div style="text-align:center;">
+            @Html.Raw(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_CopyRight)
+        </div>
+</body>
+</html>

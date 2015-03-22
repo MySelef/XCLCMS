@@ -75,7 +75,9 @@
 </div>
 
 <script type="text/javascript">
-    $(function () {
-        XCLCMS.SysWebSetting.SysWebSettingAdd.Init();
+    require(["Lib/SysWebSetting"], function (sysWebSetting) {
+        $(function () {
+            sysWebSetting.SysWebSettingAdd.Init();
+        });
     });
 </script>

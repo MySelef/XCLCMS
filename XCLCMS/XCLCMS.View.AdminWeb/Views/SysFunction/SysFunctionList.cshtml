@@ -82,7 +82,9 @@
 </form>
 
 <script type="text/javascript">
-    $(function () {
-        XCLCMS.SysFunction.SysFunctionList.Init();
+    require(["Lib/SysFunction"], function (sysFunction) {
+        $(function () {
+            sysFunction.SysFunctionList.Init();
+        });
     });
 </script>

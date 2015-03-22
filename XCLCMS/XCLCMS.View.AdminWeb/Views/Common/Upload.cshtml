@@ -196,7 +196,9 @@
 </script>
 
 <script type="text/javascript">
-    $(function () {
-        XCLCMS.Uploader.Add.Init();
+    require(["Lib/Uploader"], function (uploader) {
+        $(function () {
+            uploader.Add.Init();
+        });
     });
 </script>

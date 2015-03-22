@@ -1,4 +1,4 @@
-﻿define(function () {
+﻿define(["Lib/Common"],function (common) {
 
     var app = {
         /**
@@ -25,7 +25,7 @@
          * @returns {undefined}
          */
         Init: function () {
-            var mainThis = this;
+            var _this = this;
 
             //溢出隐藏
             //$(".XCLTextEllipsis").textEllipsis();
@@ -34,17 +34,17 @@
 
             //缓存清理
             $("a[xcl-sysdiccode='ClearCache']").on("click", function () {
-                lib.Common.ClearCache();
+                common.ClearCache();
                 return false;
             });
             //垃圾数据清理
             $("a[xcl-sysdiccode='ClearRubbishData']").on("click", function () {
-                lib.Common.ClearRubbishData();
+                common.ClearRubbishData();
                 return false;
             });
             //退出
             $("#btnLoginOut").on("click", function () {
-                lib.Common.LogOut();
+                common.LogOut();
                 return false;
             });
         },
@@ -54,9 +54,10 @@
          * @returns {unresolved}
          */
         CommonFormValid: function (validator) {
+            var _this = this;
             var result = validator.form();
             if (!result) {
-                $("." + lib.XCLValidErrorClassName).filter(":visible:first").focus();
+                $("." + _this.XCLValidErrorClassName).filter(":visible:first").focus();
             }
             return result;
         },

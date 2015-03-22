@@ -60,7 +60,9 @@
 </div>
 
 <script type="text/javascript">
-    $(function () {
-        XCLCMS.SysDic.SysDicList.Init();
+    require(["Lib/SysDic"], function (sysDic) {
+        $(function () {
+            sysDic.SysDicList.Init();
+        });
     });
 </script>

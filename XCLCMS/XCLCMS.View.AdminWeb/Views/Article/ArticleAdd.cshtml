@@ -219,7 +219,9 @@
 </div>
 
 <script type="text/javascript">
-    $(function () {
-        XCLCMS.Article.ArticleAdd.Init();
+    require(["Lib/Article"], function (article) {
+        $(function () {
+            article.ArticleAdd.Init();
+        });
     });
 </script>

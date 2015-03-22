@@ -20,29 +20,30 @@
         "XCLValidatorMethod.js",
         "WdatePicker.js",
         "base.css",
-        "table.js",
-        "XCLCMS.js"
+        "table.js"
    }))
 
 <script src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Js/App/require.js" data-main="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Js/App/main"></script>
     
 <script type="text/javascript">
-    $(function () {
-        //消息提示
-        XCLCMS.XCLJsonMessageName = "@XCLNetTools.Message.Log.JsonMessageName";
-        //站点根路径
-        XCLCMS.RootURL = "@XCLCMS.View.AdminWeb.Common.WebCommon.RootURL";
-        //所有枚举项
-        @Html.Raw(string.Format("XCLCMS.EnumConfig={0};",XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson))
+    require(["Lib/XCLCMS"], function (lib) {
+        $(function () {
+            //消息提示
+            lib.XCLJsonMessageName = "@XCLNetTools.Message.Log.JsonMessageName";
+            //站点根路径
+            lib.RootURL = "@XCLCMS.View.AdminWeb.Common.WebCommon.RootURL";
+            //所有枚举项
+            @Html.Raw(string.Format("lib.EnumConfig={0};",XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson))
+        });
+    });
 
+    $(function () {
         //dialog
         (function (config) {
             config['lock'] = true;
             config['opacity'] = 0.2;
             config['resize'] = true;
         })(art.dialog.defaults);
-
     });
-
 </script>
 

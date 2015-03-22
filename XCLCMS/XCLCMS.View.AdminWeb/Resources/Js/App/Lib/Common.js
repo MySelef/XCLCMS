@@ -1,5 +1,5 @@
-﻿define(["Lib/XCLCMS"], function (app) {
-    app.Common = {
+﻿define(["Lib/XCLCMS"], function (lib) {
+    var app = {
         /**
          * 枚举值字母转换为Description
          */
@@ -62,4 +62,5 @@
             });
         }
     };
+    return app;
 });

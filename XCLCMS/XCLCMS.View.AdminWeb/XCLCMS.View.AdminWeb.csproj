@@ -171,8 +171,16 @@
     <Content Include="Resources\Images\login_12.gif" />
     <Content Include="Resources\Images\sky-background.png" />
     <Content Include="Resources\Images\sky-shine.jpg" />
+    <Content Include="Resources\Js\App\Lib\Article.js" />
     <Content Include="Resources\Js\App\Lib\Common.js" />
     <Content Include="Resources\Js\App\Lib\EasyUI.js" />
+    <Content Include="Resources\Js\App\Lib\Home.js" />
+    <Content Include="Resources\Js\App\Lib\SysDic.js" />
+    <Content Include="Resources\Js\App\Lib\SysFunction.js" />
+    <Content Include="Resources\Js\App\Lib\SysLog.js" />
+    <Content Include="Resources\Js\App\Lib\SysWebSetting.js" />
+    <Content Include="Resources\Js\App\Lib\Uploader.js" />
+    <Content Include="Resources\Js\App\Lib\UserInfo.js" />
     <Content Include="Resources\Js\App\Lib\XCLCMS.js" />
     <Content Include="Resources\Js\App\main.js" />
     <Content Include="Resources\Js\App\require.js" />

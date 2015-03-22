@@ -178,7 +178,9 @@
 </div>
 
 <script type="text/javascript">
-    $(function () {
-        XCLCMS.UserInfo.UserAdd.Init();
+    require(["Lib/UserInfo"], function (userInfo) {
+        $(function () {
+            userInfo.UserAdd.Init();
+        });
     });
 </script>

@@ -83,7 +83,9 @@
 </form>
 
 <script type="text/javascript">
-    $(function () {
-        XCLCMS.SysLog.SysLogList.Init();
+    require(["Lib/SysLog"], function (sysLog) {
+        $(function () {
+            sysLog.SysLogList.Init();
+        });
     });
 </script>

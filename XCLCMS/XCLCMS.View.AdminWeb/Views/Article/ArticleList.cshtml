@@ -92,7 +92,9 @@
 </form>
 
 <script type="text/javascript">
-    $(function () {
-        XCLCMS.Article.ArticleList.Init();
+    require(["Lib/Article"], function (article) {
+        $(function () {
+            article.ArticleList.Init();
+        });
     });
 </script>

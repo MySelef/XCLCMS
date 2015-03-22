@@ -99,7 +99,9 @@
 </form>
 
 <script type="text/javascript">
-    $(function () {
-        XCLCMS.UserInfo.UserInfoList.Init();
+    require(["Lib/UserInfo"], function (userInfo) {
+        $(function () {
+            userInfo.UserInfoList.Init();
+        });
     });
 </script>

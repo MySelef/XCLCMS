@@ -1,8 +1,8 @@
-﻿define(["Lib/XCLCMS","Lib/Common"], function (app,common) {
+﻿define(["Lib/Common"], function (common) {
     /**
      * Easyui相关
      */
-    app.EasyUI = {
+    var app = {
         /**
          * 绑定数据时，将枚举转为描述信息
          */
@@ -10,4 +10,5 @@
             return common.EnumConvert(this.field, value);
         }
     };
+    return app;
 });

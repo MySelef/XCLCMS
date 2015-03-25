@@ -171,6 +171,7 @@
     <Content Include="Resources\Images\login_12.gif" />
     <Content Include="Resources\Images\sky-background.png" />
     <Content Include="Resources\Images\sky-shine.jpg" />
+    <Content Include="Resources\Js\App\config.js" />
     <Content Include="Resources\Js\App\Lib\Article.js" />
     <Content Include="Resources\Js\App\Lib\Common.js" />
     <Content Include="Resources\Js\App\Lib\EasyUI.js" />
@@ -188,6 +189,7 @@
     <Content Include="Resources\Js\dynamicCon.js" />
     <Content Include="Resources\Js\Jcrop\css\Jcrop.gif" />
     <Content Include="Resources\Js\Jcrop\css\jquery.Jcrop.css" />
+    <Content Include="Resources\Js\Jquery\jquery-1.11.2.js" />
     <Content Include="Resources\Js\Jquery\jquery.color.js" />
     <Content Include="Resources\Js\Jcrop\js\jquery.Jcrop.js" />
     <Content Include="Resources\Js\jquery.metadata.js" />
@@ -546,7 +548,6 @@
     <Content Include="Resources\Js\EasyUI\themes\icons\tip.png" />
     <Content Include="Resources\Js\EasyUI\themes\icons\undo.png" />
     <Content Include="Resources\Js\GoAjax.js" />
-    <Content Include="Resources\Js\Jquery\jquery-1.11.1.min.js" />
     <Content Include="Resources\Js\table.js" />
     <Content Include="Resources\Js\textEllipsis\jquery.textEllipsis.js" />
     <Content Include="Resources\Js\XCLCMS.js" />

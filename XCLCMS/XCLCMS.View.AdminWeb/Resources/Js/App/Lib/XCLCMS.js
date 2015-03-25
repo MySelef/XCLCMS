@@ -1,5 +1,4 @@
-﻿define(["Lib/Common"],function (common) {
-
+﻿define(["jquery", "Lib/Common","table"], function ($, common,table) {
     var app = {
         /**
          * XCLNetTools消息所在json名

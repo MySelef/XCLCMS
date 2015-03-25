@@ -6,18 +6,20 @@
  * 本程序部分功能依赖于jquery插件，本项目中使用的是jquery-1.11.1
  */
 
-(function (win) {
+(function (window) {
     "use strict";
 
-    if (win.XCLJsTool) {
-        return win.XCLJsTool;
-    }
+    //页面加载时的全局变量
+    var _xj = window.xj,
+    _XCLJsTool = window.XCLJsTool,
+    doc = window.document,
+    $ = window.jQuery;
 
-    var doc = win.document;
-    var $ = $ || win.jQuery || {};
-
-    var XCLJsTool = {
-        Version: "1.0",
+    var lib = {
+        /**
+         * 版本信息
+         */
+        Version: "V1.0,By:XCL @ 2014.11 in Shanghai China,project url:https://github.com/xucongli1989/XCLJsTool",
         /**
          * 公共model
          */
@@ -85,11 +87,30 @@
         /**
          * Url处理相关
          */
-        URL: {}
+        URL: {},
+        /**
+         * JSON处理相关
+         */
+        Json: {}
+    };
+
+    /**
+     * 释放全局变量"xj/XCLJsTool"的控制权
+     * @param {bool} deep ,若为true，则也释放全局变量"XCLJsTool"的控制权；若为false，则仅释放全局变量"xj"的控制权
+     * @returns {object} 原始类的变量
+     */
+    lib.noConflict = function (deep) {
+        if (window.xj === lib) {
+            window.xj = _xj;
+        }
+        if (deep && window.XCLJsTool === lib) {
+            window.XCLJsTool = _XCLJsTool;
+        }
+        return lib;
     };
 
 
-    XCLJsTool.Models = {
+    lib.Models = {
         /**
          * key value 模型
          * @param {string} key
@@ -103,17 +124,33 @@
 
 
 
-    XCLJsTool.Common = {
+    lib.Common = {
         /**
          * 向document输出字符串
          * @param {string} str
          */
         Write: function (str) {
             doc.write(str);
+        },
+        /**
+         * 创建全局命名空间
+         * @param {type} namespace 名称，如"A.B.C"
+         * @returns {object}
+         */
+        CreateNamespace: function (namespace) {
+            var obj = this, tokens = namespace.split("."), token;
+            while (tokens.length > 0) {
+                token = tokens.shift();
+                if (typeof obj[token] === "undefined") {
+                    obj[token] = {};
+                }
+                obj = obj[token];
+            }
+            return obj;
         }
     };
 
-    XCLJsTool.Dom = {
+    lib.Dom = {
         /**
          * 根据id，获取或设置指定元素的value
          * @param {string} id 元素的id值
@@ -143,14 +180,14 @@
         /**
          * 向form追加hidden，key为name和id
          * @param {object} $container 被追加的容器（默认为form对象）
-         * @param {json array} data json数组，如[{key:key1,value:value1},{key:key2,value:value2}]
+         * @param {jsonArray} data json数组，如[{key:key1,value:value1},{key:key2,value:value2}]
          */
         AddHiddens: function ($container, data) {
             $container = $container || $("form");
             if (data && data.length > 0) {
                 var html = "";
                 for (var i = 0; i < data.length; i++) {
-                    html += (XCLJsTool.String.Format("<input type='hidden' name='{0}' id='{0}' value='{1}' />", data[i].key, data[i].value));
+                    html += (lib.String.Format("<input type='hidden' name='{0}' id='{0}' value='{1}' />", data[i].key, data[i].value));
                 }
                 $container.append(html);
             }
@@ -160,7 +197,7 @@
     /**
      * 正则常量
      */
-    XCLJsTool.Regex.Regexs = {
+    lib.Regex.Regexs = {
         /**
          * Email
          * @type RegExp
@@ -275,7 +312,7 @@
     /**
      * 正则验证
      */
-    XCLJsTool.Regex.ValidRegex = {
+    lib.Regex.ValidRegex = {
         /**
          * 验证指定值是否与正则匹配
          * @param {RegExp} regex
@@ -287,7 +324,7 @@
         }
     };
 
-    XCLJsTool.String = {
+    lib.String = {
         /**
          * 去左右空格
          * @param {string} str
@@ -344,10 +381,49 @@
             } else {
                 return false;
             }
+        },
+        /**
+         * StringBuilder
+         */
+        Builder: function () {
+            this._arr = [];
         }
     };
+    /**
+     * 追加字符
+     */
+    lib.String.Builder.prototype.Append = function (str) {
+        this._arr.push(str);
+    };
+    /**
+     * 带格式追加字符
+     */
+    lib.String.Builder.prototype.AppendFormat = function () {
+        this._arr.push(lib.String.Format.apply(null, arguments));
+    };
+    /**
+     * 返回StringBuilder的字符串
+     * @returns {string}
+     */
+    lib.String.Builder.prototype.ToString = function () {
+        return this._arr.join("");
+    };
+    /**
+     * 清除StringBuilder
+     */
+    lib.String.Builder.prototype.Clear = function () {
+        this._arr = [];
+    };
+    /**
+     * 返回StringBuilder的字符串的长度
+     * @returns {int}
+     */
+    lib.String.Builder.prototype.Length = function () {
+        return this.ToString().length;
+    };
 
-    XCLJsTool.Cookie = {
+
+    lib.Cookie = {
         /**
          * 根据cookie名，获取cookie
          * @param {string} name
@@ -389,7 +465,7 @@
         }
     };
 
-    XCLJsTool.Http = {
+    lib.Http = {
         /**
          * 获取HttpRequest对象
          * @returns {XMLHttpRequest|ActiveXObject|Boolean}
@@ -414,9 +490,9 @@
                     xmlhttp = false;
                 }
             }
-            if (!xmlhttp && win.createRequest) {
+            if (!xmlhttp && window.createRequest) {
                 try {
-                    xmlhttp = win.createRequest();
+                    xmlhttp = window.createRequest();
                 } catch (e) {
                     xmlhttp = false;
                 }
@@ -425,7 +501,7 @@
         }
     };
 
-    XCLJsTool.Ajax = {
+    lib.Ajax = {
         /**
          * 获取同步请求的数据
          * @param {object} ajaxOption 自定义option
@@ -442,7 +518,7 @@
         }
     };
 
-    XCLJsTool.Data = {
+    lib.Data = {
         /**
          * 将值转为int型，若失败，则返回0
          * @param {string} val
@@ -547,7 +623,7 @@
          * @returns {Boolean}
          */
         IsNullOrWhiteSpace: function (val) {
-            return this.IsNullOrEmpty(XCLJsTool.String.Trim(val));
+            return this.IsNullOrEmpty(lib.String.Trim(val));
         },
         /**
          * 判断指定值是否为html元素
@@ -631,7 +707,7 @@
         }
     };
 
-    XCLJsTool.Date = {
+    lib.Date = {
         /**
          * 是否为int（私有）
          * @param {string} val
@@ -947,7 +1023,7 @@
         }
     };
 
-    XCLJsTool.Events = {
+    lib.Events = {
         /**
          * 阻止事件，默认类名（私有）
          */
@@ -982,7 +1058,7 @@
     };
 
 
-    XCLJsTool.Browser = {
+    lib.Browser = {
         /**
          * 判断是否为IE
          * @param {int} version（6，7，8，9） 当指定此参数时，返回判断指定的IE版本结果，否则，则返回是否为IE
@@ -1026,7 +1102,7 @@
         }
     };
 
-    XCLJsTool.Mobile = {
+    lib.Mobile = {
         /**
          * 判断是否为Android
          */
@@ -1065,14 +1141,14 @@
         }
     };
 
-    XCLJsTool.Math = {
+    lib.Math = {
         /**
          * 返回指定值中的最小值
-         * @param {type} val 可以为一个数组，也可以为多个参数
+         * @param {array} val 可以为一个数组，也可以为多个参数
          * @returns {Number}
          */
         Min: function (val) {
-            if (XCLJsTool.Data.IsArray(val)) {
+            if (lib.Data.IsArray(val)) {
                 return Math.min.apply(null, val);
             } else {
                 return Math.min(arguments);
@@ -1080,11 +1156,11 @@
         },
         /**
          * 返回指定值中的最大值
-         * @param {type} val 可以为一个数组，也可以为多个参数
+         * @param {array} val 可以为一个数组，也可以为多个参数
          * @returns {Number}
          */
         Max: function (val) {
-            if (XCLJsTool.Data.IsArray(val)) {
+            if (lib.Data.IsArray(val)) {
                 return Math.max.apply(null, val);
             } else {
                 return Math.max(arguments);
@@ -1092,11 +1168,11 @@
         }
     };
 
-    XCLJsTool.Random = {
+    lib.Random = {
         /**
          * 生成指定范围内的随机数
-         * @param {type} min 最小值
-         * @param {type} max 最大值
+         * @param {Number} min 最小值
+         * @param {Number} max 最大值
          * @returns {Number}
          */
         Range: function (min, max) {
@@ -1115,10 +1191,10 @@
         }
     };
 
-    XCLJsTool.Array = {
+    lib.Array = {
         /**
          * 合并多个数组为一个数组
-         * @param {type} args 要合并的数组参数，如：arr1,arr2,arr3...
+         * @param {array} args 要合并的数组参数，如：arr1,arr2,arr3...
          * @returns {Array} 合并后的结果数组
          */
         Concat: function (args) {
@@ -1126,8 +1202,8 @@
         },
         /**
          * 将一个或多个数组合并为一个字符串
-         * @param {type} separator 指定分隔符
-         * @param {type} args 要合并的数组参数(arr1,arr2,arr3...)
+         * @param {string} separator 指定分隔符
+         * @param {array} args 要合并的数组参数(arr1,arr2,arr3...)
          * @returns {string} 合并后的字符串
          */
         Join: function (separator, args) {
@@ -1143,11 +1219,11 @@
         }
     };
 
-    XCLJsTool.URL = {
+    lib.URL = {
         /**
          * 向URL中添加新的参数
-         * @param {type} url
-         * @param {type} json参数,如：{k1:v1,k2:v2}
+         * @param {string} url
+         * @param {json} params json参数,如：{k1:v1,k2:v2}
          * @returns {String}
          */
         AddParam: function (url, params) {
@@ -1155,15 +1231,85 @@
             if (params) {
                 query = $.param(params);
             }
+            if (query === "") {
+                return url;
+            }
             if (url.indexOf('?') > -1) {
                 url = url + '&' + query;
             } else {
                 url = url + '?' + query;
             }
             return url;
+        },
+        /**
+         * 将url查询参数转为json对象，如果该url中多个参数名一样，则该参数名对应的值是array类型
+         * 如："www.a.com?a=1&b=2&c=3&c=4" -> {"a":"1","b":"2","c":["3","4"]}
+         * @param {string} url
+         * @returns {json}
+         */
+        GetUrlParamsJson: function (url) {
+            var m = {};
+            var strUrl = [];
+            strUrl = url.substring(url.indexOf('?') + 1, url.length).split('&');
+            for (var i = 0; i < strUrl.length; i++) {
+                var curStr = strUrl[i].split('=');
+                if (curStr.length === 2) {
+                    var k = curStr[0];
+                    var v = curStr[1];
+                    if (lib.Json.HasKey(m, k)) {
+                        //如果key已经存在，则该key值为数组类型，将值放入数组即可
+                        if (lib.Data.IsArray(m[k])) {
+                            m[k].push(v);
+                        } else {
+                            var arr = [];
+                            arr.push(m[k], v);
+                            m[k] = arr;
+                        }
+                    } else {
+                        m[k] = v;
+                    }
+                }
+            }
+            return m;
         }
     };
 
-    win.XCLJsTool = win.XCLJsTool || XCLJsTool;
+    lib.Json = {
+        /**
+         * 是否包含名key
+         * @param {json} json
+         * @param {string} keyName
+         * @returns {bool}
+         */
+        HasKey: function (json, keyName) {
+            var r = false;
+            if (json) {
+                if (keyName in json) {
+                    r = true;
+                }
+            }
+            return r;
+        },
+        /**
+         * 是否包含值value
+         * @param {json} json
+         * @param {string} keyValue
+         * @returns {bool}
+         */
+        HasValue: function (json, keyValue) {
+            var r = false;
+            if (json) {
+                for (var k in json) {
+                    if (json[k] === keyValue) {
+                        r = true;
+                        break;
+                    }
+                }
+            }
+            return r;
+        }
+    };
+
+    window.XCLJsTool = window.xj = lib;
 
 })(window);

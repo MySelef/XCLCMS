@@ -1,4 +1,4 @@
-﻿require(["jquery", "Lib/XCLCMS"], function ($, lib) {
+﻿require(["Lib/XCLCMS"], function (lib) {
     $(function () {
         lib.Init();
     });

@@ -1,4 +1,4 @@
-﻿define(["jquery", "Lib/Common","table"], function ($, common,table) {
+﻿define(["require"],function (require) {
     var app = {
         /**
          * XCLNetTools消息所在json名
@@ -33,17 +33,17 @@
 
             //缓存清理
             $("a[xcl-sysdiccode='ClearCache']").on("click", function () {
-                common.ClearCache();
+                require("Lib/Common").ClearCache();
                 return false;
             });
             //垃圾数据清理
             $("a[xcl-sysdiccode='ClearRubbishData']").on("click", function () {
-                common.ClearRubbishData();
+                require("Lib/Common").ClearRubbishData();
                 return false;
             });
             //退出
             $("#btnLoginOut").on("click", function () {
-                common.LogOut();
+                require("Lib/Common").LogOut();
                 return false;
             });
         },

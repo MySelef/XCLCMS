@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminWebResources", "AdminWebResources\AdminWebResources.csproj", "{0554B255-9992-4B9B-B2FB-89F2BA3F1253}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCLCMS.Resources.AdminWeb", "XCLCMS.Resources.AdminWeb\XCLCMS.Resources.AdminWeb.csproj", "{0554B255-9992-4B9B-B2FB-89F2BA3F1253}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserWebResources", "UserWebResources\UserWebResources.csproj", "{9685B761-558F-460D-889B-3A1113CDB70C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCLCMS.Resources.UserWeb", "XCLCMS.Resources.UserWeb\XCLCMS.Resources.UserWeb.csproj", "{9685B761-558F-460D-889B-3A1113CDB70C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

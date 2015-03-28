@@ -49,6 +49,13 @@
     <Compile Include="Common\Common.cs" />
     <Compile Include="GenerateID.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategy\BaseStrategy.cs" />
+    <Compile Include="Strategy\IStrategy.cs" />
+    <Compile Include="Strategy\StrategyLib.cs" />
+    <Compile Include="Strategy\UserInfo\BaseInfo.cs" />
+    <Compile Include="Strategy\UserInfo\RoleInfo.cs" />
+    <Compile Include="Strategy\UserInfo\SaveUserInfoStrategy.cs" />
+    <Compile Include="Strategy\UserInfo\UserInfoContext.cs" />
     <Compile Include="SysDic.cs" />
     <Compile Include="SysFunction.cs" />
     <Compile Include="SysLog.cs" />
@@ -73,6 +80,7 @@
       <Name>XCLCMS.Data.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /y $(ProjectDir)\bin\Debug\XCLCMS.Data.BLL.dll $(ProjectDir)\..\..\XCLCMS.Document\Libs\ProjectLibs\

@@ -70,6 +70,116 @@
             </summary>
             <param name="IDType">类型</param>
         </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.BaseStrategy">
+            <summary>
+            策略基类
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.IStrategy">
+            <summary>
+            策略接口
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.IStrategy.DoWork``1(``0)">
+            <summary>
+            执行策略链
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.IStrategy.Name">
+            <summary>
+            当前策略名
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.IStrategy.Remark">
+            <summary>
+            当前策略链备注
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.IStrategy.Result">
+            <summary>
+            当前策略执行结果
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.IStrategy.ResultMessage">
+            <summary>
+            当前策略执行结果消息
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.BaseStrategy.DoWork``1(``0)">
+            <summary>
+            执行当前策略
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.BaseStrategy.Name">
+            <summary>
+            当前策略名
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.BaseStrategy.Remark">
+            <summary>
+            当前策略链备注
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.BaseStrategy.Result">
+            <summary>
+            当前策略执行结果
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.BaseStrategy.ResultMessage">
+            <summary>
+            当前策略执行结果消息
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.StrategyLib">
+            <summary>
+            策略链公共类
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum">
+            <summary>
+            执行结果状态枚举
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum.NONE">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum.SUCCESS">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL">
+            <summary>
+            失败
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.UserInfo.BaseInfo">
+            <summary>
+            保存用户基础信息
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo">
+            <summary>
+            保存用户角色信息
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.UserInfo.SaveUserInfoStrategy">
+            <summary>
+            保存用户信息
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext">
+            <summary>
+            用户上下文
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext.UserInfo">
+            <summary>
+            用户信息
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.BLL.SysDic">
             <summary>
             系统字典表

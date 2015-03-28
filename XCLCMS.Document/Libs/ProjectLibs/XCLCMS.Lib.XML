@@ -1,0 +1,431 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XCLCMS.Lib</name>
+    </assembly>
+    <members>
+        <member name="T:XCLCMS.Lib.Base.AdminBaseController">
+            <summary>
+            后台基类
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Base.IBaseController">
+            <summary>
+            基类接口
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Base.IBaseController.CurrentUserModel">
+            <summary>
+            当前所登录的用户model
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Base.AdminBaseController.AddSubmit(System.Web.Mvc.FormCollection)">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Base.AdminBaseController.DelSubmit(System.Web.Mvc.FormCollection)">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Base.AdminBaseController.UpdateSubmit(System.Web.Mvc.FormCollection)">
+            <summary>
+            更新
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Base.AdminBaseController.InputSubmit(System.Web.Mvc.FormCollection)">
+            <summary>
+            导入
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Base.AdminBaseController.OutputSubmit(System.Web.Mvc.FormCollection)">
+            <summary>
+            导出
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Base.AdminBaseController.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>
+            拦截action
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Base.AdminBaseController.CurrentUserModel">
+            <summary>
+            当前登录的用户实体
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Base.AdminBaseController.UserID">
+            <summary>
+            当前已登录用户的ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Base.AdminBaseController.CurrentHandleType">
+            <summary>
+            当前页面操作类型
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Base.AdminBaseController.CurrentHandleTypeValue">
+            <summary>
+            页面操作类型HandleType的参数值
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Common.Comm.SettingCacheName">
+            <summary>
+            站点配置信息缓存
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Common.Comm.ClearCache">
+            <summary>
+            缓存清理
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Common.Comm.XCLJsonResult(System.Object,System.Web.Mvc.JsonRequestBehavior)">
+            <summary>
+            重写json
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Common.Comm.HandleType">
+            <summary>
+            页面操作类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Common.Comm.HandleType.ADD">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Common.Comm.HandleType.DEL">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Common.Comm.HandleType.UPDATE">
+            <summary>
+            更新
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Common.Comm.HandleType.INPUT">
+            <summary>
+            导入
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Common.Comm.HandleType.OUTPUT">
+            <summary>
+            导出
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Common.Comm.HandleType.OTHER">
+            <summary>
+            其它
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Common.Tool">
+            <summary>
+            公共工具类
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Common.Tool.GetSysDicOptionsByCode(System.String,XCLCMS.Data.CommonHelper.Model.SetOption)">
+            <summary>
+            将指定code的SysDic的子项转为options
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Encrypt.EncryptHelper">
+            <summary>
+            加密解密相关
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5(System.String)">
+            <summary>
+            给字符串md5加密（使用key）
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5IsEqual(System.String,System.String)">
+            <summary>
+            判断md5明文和密文是否匹配
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringDES(System.String)">
+            <summary>
+            des加密(已带key)
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Encrypt.EncryptHelper.DecryptStringDES(System.String)">
+            <summary>
+            des 解密
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Filters.FunctionFilter">
+            <summary>
+            功能Filter
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Filters.FunctionFilter.Function">
+            <summary>
+            当前功能标识组
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Filters.PermissionFilter">
+            <summary>
+            权限拦截
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Filters.PermissionFilter.AuthorizeCore(System.Web.HttpContextBase)">
+            <summary>
+            登录权限验证
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Filters.PermissionFilter.HandleUnauthorizedRequest(System.Web.Mvc.AuthorizationContext)">
+            <summary>
+            处理无权限的请求
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Filters.PermissionFilter.OnAuthorization(System.Web.Mvc.AuthorizationContext)">
+            <summary>
+            功能权限验证
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Filters.PermissionFilter.IsMustLogin">
+            <summary>
+            是否必须验证登录
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Login.LoginHelper">
+            <summary>
+            登录相关
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Login.LoginHelper.SetLogInfo(XCLCMS.Lib.Login.LoginHelper.LoginType,XCLCMS.Data.Model.UserInfo)">
+            <summary>
+            设置登录与退出的相关信息（session/cookie...）
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Login.LoginHelper.GetUserInfoFromLoginInfo">
+            <summary>
+            从登录信息所保存的session或cookie获取当前用户model
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCLCMS.Lib.Login.LoginHelper.GetUserLoginInfo(System.String)">
+            <summary>
+            根据该model的字符串形式还原该model
+            </summary>
+            <param name="str">如：admin^21232F297A57A5A743894A0E4A801FC3</param>
+            <returns></returns>
+        </member>
+        <member name="P:XCLCMS.Lib.Login.LoginHelper.IsLogOn">
+            <summary>
+            是否已登录
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Login.LoginHelper.LoginType">
+            <summary>
+            登录类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Login.LoginHelper.LoginType.ON">
+            <summary>
+            登录
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Login.LoginHelper.LoginType.OFF">
+            <summary>
+            退出
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Login.UserLoginInfoModel">
+            <summary>
+            用户登录时，存放在cookie中的登录信息
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Login.UserLoginInfoModel.ToString">
+            <summary>
+            tostring
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Login.UserLoginInfoModel.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Login.UserLoginInfoModel.Pwd">
+            <summary>
+            密码 （已加密）
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Model.CommonModel">
+            <summary>
+            全局公共model
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Model.CommonModel.CurrentUserModel">
+            <summary>
+            当前登录用户
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Model.CommonModel.IsLogOn">
+            <summary>
+            是否已登录
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Permission.Function">
+            <summary>
+            系统功能相关
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Permission.Function.FunctionEnum">
+            <summary>
+            所有功能枚举（数据来源于存储过程proc_Sys_GetFunctionEnumList）
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_ClearCache">
+             <summary>
+            后台_系统设置模块缓存清理
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_ClearRubbishData">
+             <summary>
+            后台_系统设置模块垃圾数据清理
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicAdd">
+             <summary>
+            后台_系统设置模块系统字典添加
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicDel">
+             <summary>
+            后台_系统设置模块系统字典删除
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicEdit">
+             <summary>
+            后台_系统设置模块系统字典修改
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicView">
+             <summary>
+            后台_系统设置模块系统字典查看
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionAdd">
+             <summary>
+            后台_系统设置模块功能模块添加
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionDel">
+             <summary>
+            后台_系统设置模块功能模块删除
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionEdit">
+             <summary>
+            后台_系统设置模块功能模块修改
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView">
+             <summary>
+            后台_系统设置模块功能模块查看
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysLogDel">
+             <summary>
+            后台_系统设置模块系统日志删除
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysLogView">
+             <summary>
+            后台_系统设置模块系统日志查看
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingAdd">
+             <summary>
+            后台_系统设置模块系统配置添加
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingDel">
+             <summary>
+            后台_系统设置模块系统配置删除
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingEdit">
+             <summary>
+            后台_系统设置模块系统配置修改
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingView">
+             <summary>
+            后台_系统设置模块系统配置查看
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserAdd">
+             <summary>
+            后台_用户管理模块用户信息添加
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserDel">
+             <summary>
+            后台_用户管理模块用户信息删除
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserEdit">
+             <summary>
+            后台_用户管理模块用户信息修改
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserView">
+             <summary>
+            后台_用户管理模块用户信息查看
+             </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Permission.PerHelper">
+            <summary>
+            权限帮助类
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Permission.PerHelper.GetRoleList">
+            <summary>
+            获取角色列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Permission.PerHelper.GetFunctionList">
+            <summary>
+            获取功能列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Permission.PerHelper.GetRoleByUserID(System.Int64)">
+            <summary>
+            获取指定用户的角色
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Permission.PerHelper.HasAnyPermission(System.Int64,System.Collections.Generic.List{XCLCMS.Lib.Permission.Function.FunctionEnum})">
+            <summary>
+            判断指定用户是否至少拥有权限组中的某个权限
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Permission.PerHelper.HasPermission(System.Int64,XCLCMS.Lib.Permission.Function.FunctionEnum)">
+            <summary>
+            判断指定用户是否拥有某个权限
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.SysWebSetting.Setting">
+            <summary>
+            获取站点配置
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.SysWebSetting.Setting.AllSettings">
+            <summary>
+            所有配置
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.SysWebSetting.Setting.SettingModel">
+            <summary>
+            model形式的配置
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.SysWebSetting.SettingModel">
+            <summary>
+            站点配置model
+            </summary>
+        </member>
+    </members>
+</doc>

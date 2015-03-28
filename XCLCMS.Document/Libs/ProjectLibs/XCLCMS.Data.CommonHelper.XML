@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XCLCMS.Data.CommonHelper</name>
+    </assembly>
+    <members>
+        <member name="M:XCLCMS.Data.CommonHelper.EnumHelper.GetOptions(System.Type,XCLCMS.Data.CommonHelper.Model.SetOption)">
+            <summary>
+            将枚举转为options
+            <param name="t">枚举type</param>
+            <param name="options">选项</param>
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson">
+            <summary>
+            将所有枚举以json形式显示
+            如：{"Enum1":{"N":"正常","D":"已删除"},"Enum2":{"S":"系统","U":"用户"}}
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType">
+            <summary>
+            枚举类型
+            </summary>
+            <remarks>
+            所有枚举，定长char
+            </remarks>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum">
+            <summary>
+            主体类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.ART">
+            <summary>
+            文章表 Article
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.PRO">
+            <summary>
+            产品表 Product
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.YesNoEnum">
+            <summary>
+            是否
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y">
+            <summary>
+            是 Yes
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.N">
+            <summary>
+            否 No
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum">
+            <summary>
+            记录状态
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N">
+            <summary>
+            正常 Normal
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R">
+            <summary>
+            回收 Recycle
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D">
+            <summary>
+            已删除 Deleted
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum">
+            <summary>
+            链接打开方式
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum.NON">
+            <summary>
+            默认 None
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum.BLA">
+            <summary>
+            新窗口 _blank
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.VerifyStateEnum">
+            <summary>
+            审核状态
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.VerifyStateEnum.WAT">
+            <summary>
+            待审核  Wait
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.VerifyStateEnum.NON">
+            <summary>
+            审核不通过 No
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.VerifyStateEnum.YES">
+            <summary>
+            审核通过 Yes
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum">
+            <summary>
+            文章状态
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum.DRA">
+            <summary>
+            草稿 Draft
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum.PUB">
+            <summary>
+            已发布 Published
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum">
+            <summary>
+            文章内容类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum.NOR">
+            <summary>
+            普通文章 Normal
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum.IMG">
+            <summary>
+            图片浏览 Image
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum.VID">
+            <summary>
+            视频观看 Video
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum.URL">
+            <summary>
+            仅跳转链接 URL
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.AttachmentViewTypeEnum">
+            <summary>
+            附件浏览方式
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.AttachmentViewTypeEnum.NOR">
+            <summary>
+            普通 Normal
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.AttachmentViewTypeEnum.DOW">
+            <summary>
+            需要下载 Download
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.AttachmentFormatTypeEnum">
+            <summary>
+            附件格式类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.AttachmentFormatTypeEnum.WOR">
+            <summary>
+            文字 Word
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.AttachmentFormatTypeEnum.IMG">
+            <summary>
+            图片 Image
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.AttachmentFormatTypeEnum.VID">
+            <summary>
+            视频 Video
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.AttachmentFormatTypeEnum.RAR">
+            <summary>
+            压缩包 RAR
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.AttachmentFormatTypeEnum.OTH">
+            <summary>
+            其它 Other
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.FeedbackTypeEnum">
+            <summary>
+            反馈类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.FeedbackTypeEnum.ADV">
+            <summary>
+            建议 Advise
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.FeedbackTypeEnum.ERR">
+            <summary>
+            系统异常 Error
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum">
+            <summary>
+            字典类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.S">
+            <summary>
+            系统级 System
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.U">
+            <summary>
+            用户级 User
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum.M">
+            <summary>
+            男 Man
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum.F">
+            <summary>
+            女 Female
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.UserStateEnum">
+            <summary>
+            用户状态
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.N">
+            <summary>
+            正常 Normal
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.D">
+            <summary>
+            禁用 Disabled
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.LogTypeEnum">
+            <summary>
+            日志类型  (该类型varchar(50))
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.LogTypeEnum.SYSTEM">
+            <summary>
+            系统日志 System
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.LogTypeEnum.LOGIN">
+            <summary>
+            登录日志 Logon
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.LogTypeEnum.OTHER">
+            <summary>
+            其它日志 Other
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.AdsTypeEnum">
+            <summary>
+            广告类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.AdsTypeEnum.WOR">
+            <summary>
+            文字 Word
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.AdsTypeEnum.IMG">
+            <summary>
+            图片 Image
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.AdsTypeEnum.COD">
+            <summary>
+            纯代码 Code
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.IDTypeEnum">
+            <summary>
+            ID生成类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.IDTypeEnum.USR">
+            <summary>
+            用户信息  UserInfo
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.IDTypeEnum.SET">
+            <summary>
+            系统配置  SysWebSetting
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.IDTypeEnum.DIC">
+            <summary>
+            系统字典 SysDic
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.IDTypeEnum.FUN">
+            <summary>
+            系统功能 SysFunction
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.Model.SetOption">
+            <summary>
+            将枚举生成option时的选项
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.CommonHelper.Model.SetOption.IsNeedPleaseSelect">
+            <summary>
+            是否需要生成"请选择"的option
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.CommonHelper.Model.SetOption.DefaultValue">
+            <summary>
+            默认选中的项
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.SysDicConst">
+            <summary>
+            字典库常量code值
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.Root">
+            <summary>
+            根节点
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysMenu">
+            <summary>
+            系统菜单
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysFunModules">
+            <summary>
+            权限功能模块
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysRoles">
+            <summary>
+            角色组织架构
+            </summary>
+        </member>
+    </members>
+</doc>

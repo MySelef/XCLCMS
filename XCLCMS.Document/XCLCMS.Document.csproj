@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9E4D4430-C8A3-4321-9C82-784C3AAE3297}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XCLCMS.Document</RootNamespace>
+    <AssemblyName>XCLCMS.Document</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Libs\Newtonsoft.Json.6.0.6\Newtonsoft.Json.6.0.6.nupkg" />
+    <None Include="Libs\Newtonsoft.Json.6.0.6\Newtonsoft.Json.6.0.6.nuspec" />
+    <None Include="Libs\Newtonsoft.Json.6.0.6\tools\install.ps1" />
+    <None Include="后台登录图片.psd" />
+    <None Include="数据库设计\Workspace.sws" />
+    <None Include="数据库设计\XCLCMS.pdm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Img\11.jpg" />
+    <Content Include="Img\22.jpg" />
+    <Content Include="Img\33.jpg" />
+    <Content Include="Img\44.jpg" />
+    <Content Include="Img\55.jpg" />
+    <Content Include="Img\66.jpg" />
+    <Content Include="Libs\COM.Excel.dll" />
+    <Content Include="Libs\Excel.dll" />
+    <Content Include="Libs\HtmlAgilityPack\Net40\HtmlAgilityPack.dll" />
+    <Content Include="Libs\HtmlAgilityPack\Net40\HtmlAgilityPack.pdb" />
+    <Content Include="Libs\HtmlAgilityPack\Net40\HtmlAgilityPack.XML" />
+    <Content Include="Libs\IBatisNet.Common.dll" />
+    <Content Include="Libs\IBatisNet.DataMapper.dll" />
+    <Content Include="Libs\LitJson.dll" />
+    <Content Include="Libs\log4net.dll" />
+    <Content Include="Libs\LTP.Accounts.dll" />
+    <Content Include="Libs\LTP.Accounts.txt" />
+    <Content Include="Libs\LtpPageControl.dll" />
+    <Content Include="Libs\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="Libs\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+    <Content Include="Libs\Microsoft.Web.UI.WebControls.dll" />
+    <Content Include="Libs\MvcPager\MvcPager.dll" />
+    <Content Include="Libs\MySql.Data.dll" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net20\Newtonsoft.Json.dll" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net20\Newtonsoft.Json.xml" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net35\Newtonsoft.Json.dll" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net35\Newtonsoft.Json.xml" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net40\Newtonsoft.Json.dll" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net40\Newtonsoft.Json.xml" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.xml" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\netcore45\Newtonsoft.Json.dll" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\netcore45\Newtonsoft.Json.xml" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.xml" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.dll" />
+    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.xml" />
+    <Content Include="Libs\OpenSmtp.dll" />
+    <Content Include="Libs\OWC10Chart.dll" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Data.BLL.dll" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Data.BLL.XML" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Data.CommonHelper.dll" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Data.CommonHelper.xml" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Data.DAL.dll" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Data.DAL.xml" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Data.DBUtility.dll" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Data.DBUtility.xml" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Data.Model.dll" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Data.Model.xml" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Lib.dll" />
+    <Content Include="Libs\ProjectLibs\XCLCMS.Lib.XML" />
+    <Content Include="Libs\TopSdk.dll" />
+    <Content Include="Libs\XCLNetLogger.dll" />
+    <Content Include="Libs\XCLNetLogger.XML" />
+    <Content Include="Libs\XCLNetSearch.dll" />
+    <Content Include="Libs\XCLNetSearch.xml" />
+    <Content Include="Libs\XCLNetTools.dll" />
+    <Content Include="Libs\XCLNetTools.xml" />
+    <Content Include="SQL\dbo.Ads.Table.sql" />
+    <Content Include="SQL\dbo.Article.Table.sql" />
+    <Content Include="SQL\dbo.ArticleType.Table.sql" />
+    <Content Include="SQL\dbo.Attachment.Table.sql" />
+    <Content Include="SQL\dbo.Comments.Table.sql" />
+    <Content Include="SQL\dbo.CommonDic.Table.sql" />
+    <Content Include="SQL\dbo.Feedback.Table.sql" />
+    <Content Include="SQL\dbo.FriendLinks.Table.sql" />
+    <Content Include="SQL\dbo.fun_SysDic_GetAllUnderListByCode.UserDefinedFunction.sql" />
+    <Content Include="SQL\dbo.fun_SysDic_GetLayerListByID.UserDefinedFunction.sql" />
+    <Content Include="SQL\dbo.GenerateID.Table.sql" />
+    <Content Include="SQL\dbo.MenuInfo.Table.sql" />
+    <Content Include="SQL\dbo.ObjectAttachment.Table.sql" />
+    <Content Include="SQL\dbo.ObjectTag.Table.sql" />
+    <Content Include="SQL\dbo.proc_CheckUserHasAnyFunction.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.proc_ClearRubbishData.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.proc_GenerateID.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.proc_pager.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.proc_Sys_GetFunctionEnumList.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.Product.Table.sql" />
+    <Content Include="SQL\dbo.RefreshAllView.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.SysDic.Table.sql" />
+    <Content Include="SQL\dbo.SysDic_ADD.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.SysDic_Update.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.SysFunction.Table.sql" />
+    <Content Include="SQL\dbo.SysFunction_ADD.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.SysFunction_Update.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.SysLog.Table.sql" />
+    <Content Include="SQL\dbo.SysLog_ADD.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.SysRoleFunction.Table.sql" />
+    <Content Include="SQL\dbo.SysUserRole.Table.sql" />
+    <Content Include="SQL\dbo.SysWebSetting.Table.sql" />
+    <Content Include="SQL\dbo.SysWebSetting_ADD.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.SysWebSetting_Update.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.Tags.Table.sql" />
+    <Content Include="SQL\dbo.UserInfo.Table.sql" />
+    <Content Include="SQL\dbo.UserInfo_ADD.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.UserInfo_Update.StoredProcedure.sql" />
+    <Content Include="SQL\dbo.v_SysDic.View.sql" />
+    <Content Include="SQL\dbo.v_SysDic_Roles.View.sql" />
+    <Content Include="SQL\dbo.v_SysFunction.View.sql" />
+    <Content Include="SQL\SQLSourceControl Database Revision.ExtendedProperty.sql" />
+    <Content Include="SQL\SQLSourceControl Scripts Location.ExtendedProperty.sql" />
+    <Content Include="数据库设计\XCLCMS.pdb" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

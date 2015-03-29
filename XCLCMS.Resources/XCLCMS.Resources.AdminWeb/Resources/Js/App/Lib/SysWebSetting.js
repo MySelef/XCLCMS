@@ -55,7 +55,7 @@
             art.dialog.confirm("您确定要删除此信息吗？", function () {
                 $.XCLGoAjax({
                     obj: $("#btnDel")[0],
-                    url: lib.RootURL + "SysWebSetting/DelSubmit",
+                    url: XCLCMSPageGlobalConfig.RootURL + "SysWebSetting/DelSubmit",
                     data: { SysWebSettingIDs: ids.join(',') },
                     beforeSendMsg: "正在删除中，请稍后...",
                     isRefreshSelf: true
@@ -84,7 +84,7 @@
                     txtKeyName: {
                         required: true,
                         XCLCustomRemote: {
-                            url: lib.RootURL + "SysWebSettingCommon/IsExistKeyName",
+                            url: XCLCMSPageGlobalConfig.RootURL + "SysWebSettingCommon/IsExistKeyName",
                             data: {
                                 KeyName: function () {
                                     return $("#txtKeyName").val();
@@ -112,7 +112,7 @@
             art.dialog.confirm("您确定要删除此信息吗？", function () {
                 $.XCLGoAjax({
                     obj: $("#btnDel")[0],
-                    url: lib.RootURL + "SysWebSetting/DelSubmit",
+                    url: XCLCMSPageGlobalConfig.RootURL + "SysWebSetting/DelSubmit",
                     data: { SysWebSettingIDs: id },
                     beforeSendMsg: "正在删除中，请稍后...",
                     isRefreshSelf: true

@@ -1,4 +1,4 @@
-﻿define(["Lib/XCLCMS"], function (lib) {
+﻿define(["Lib/XCLCMS", "Lib/EasyUI"], function (lib, easyUI) {
     /**
       * 系统字典库
       */
@@ -16,7 +16,7 @@
             _this.TreeObj = $('#tableSysDicList');
             //加载列表树
             _this.TreeObj.treegrid({
-                url: lib.RootURL + 'SysDic/GetList',
+                url: XCLCMSPageGlobalConfig.RootURL + 'SysDic/GetList',
                 method: 'get',
                 idField: 'SysDicID',
                 treeField: 'DicName',
@@ -27,7 +27,25 @@
                         }
                     }
                     return data;
-                }
+                },
+                columns: [[
+                    { field: 'SysDicID', title: 'ID' },
+                    { field: 'ParentID', title: '父ID' },
+                    { field: 'NodeLevel', title: '层级' },
+                    { field: 'DicName', title: '字典名' },
+                    { field: 'DicValue', title: '字典值' },
+                    { field: 'Weight', title: '权重' },
+                    { field: 'Code', title: '唯一标识' },
+                    { field: 'DicType', title: '字典类型', formatter: easyUI.EnumToDescription },
+                    { field: 'Sort', title: '排序号' },
+                    { field: 'FK_FunctionID', title: '所属功能ID' },
+                    { field: 'RecordState', title: '记录状态', formatter: easyUI.EnumToDescription },
+                    { field: 'Remark', title: '备注' },
+                    { field: 'CreateTime', title: '创建时间' },
+                    { field: 'CreaterName', title: '创建者名' },
+                    { field: 'UpdateTime', title: '更新时间' },
+                    { field: 'UpdaterName', title: '更新者名' }
+                ]]
             });
             //按钮事件绑定
             $("#btnAdd").on("click", function () {
@@ -72,7 +90,7 @@
             var _this = this;
             var ids = _this.GetSelectedIds();
             if (ids && ids.length === 1) {
-                art.dialog.open(lib.RootURL + 'SysDic/Add?sysDicId=' + ids[0], {
+                art.dialog.open(XCLCMSPageGlobalConfig.RootURL + 'SysDic/Add?sysDicId=' + ids[0], {
                     title: '添加子节点', width: 1100, height: 600, close: function () {
                         //叶子节点，刷新其父节点，非叶子节点刷新自己即可
                         var row = _this.TreeObj.treegrid("find", ids[0]);
@@ -92,7 +110,7 @@
             var _this = this;
             var ids = this.GetSelectedIds();
             if (ids && ids.length === 1) {
-                art.dialog.open(lib.RootURL + 'SysDic/Add?handletype=update&sysDicId=' + ids[0], {
+                art.dialog.open(XCLCMSPageGlobalConfig.RootURL + 'SysDic/Add?handletype=update&sysDicId=' + ids[0], {
                     title: '修改节点', width: 1100, height: 600, close: function () {
                         var parent = _this.TreeObj.treegrid("getParent", ids[0]);
                         if (parent) {
@@ -122,7 +140,7 @@
             art.dialog.confirm("您确定要删除此节点吗？", function () {
                 $.XCLGoAjax({
                     obj: $("#btnDel")[0],
-                    url: lib.RootURL + "SysDic/DelSubmit",
+                    url: XCLCMSPageGlobalConfig.RootURL + "SysDic/DelSubmit",
                     data: { SysDicIds: ids.join(',') },
                     beforeSendMsg: "正在删除中，请稍后...",
                     afterSuccessFunction: function () {
@@ -149,7 +167,7 @@
             art.dialog.confirm("您确定要清空此节点的所有子节点吗？", function () {
                 $.XCLGoAjax({
                     obj: $("#btnClearChild")[0],
-                    url: lib.RootURL + "SysDic/DelChildSubmit",
+                    url: XCLCMSPageGlobalConfig.RootURL + "SysDic/DelChildSubmit",
                     data: { sysDicID: ids[0] },
                     beforeSendMsg: "正在清空中，请稍后...",
                     afterSuccessFunction: function () {
@@ -188,7 +206,7 @@
                     txtDicName: {
                         required: true,
                         XCLCustomRemote: {
-                            url: lib.RootURL + "SysDicCommon/IsExistSysDicNameInSameLevel",
+                            url: XCLCMSPageGlobalConfig.RootURL + "SysDicCommon/IsExistSysDicNameInSameLevel",
                             data: {
                                 sysDicName: function () {
                                     return $("#txtDicName").val();
@@ -205,7 +223,7 @@
                     txtCode: {
                         required: true,
                         XCLCustomRemote: {
-                            url: lib.RootURL + "SysDicCommon/IsExistSysDicCode",
+                            url: XCLCMSPageGlobalConfig.RootURL + "SysDicCommon/IsExistSysDicCode",
                             data: {
                                 code: function () {
                                     return $("#txtCode").val();

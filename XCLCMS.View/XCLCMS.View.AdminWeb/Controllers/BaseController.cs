@@ -43,6 +43,7 @@ namespace XCLCMS.View.AdminWeb.Controllers
             pageConfig.UserName = ViewBag.CommonModel.CurrentUserModel.UserName;
             pageConfig.XCLJsonMessageName = XCLNetTools.Message.Log.JsonMessageName;
             pageConfig.ResourceVersion = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
+            pageConfig.EnumConfig = string.Empty;
             ViewBag.PageGlobalConfigJSON = new JavaScriptSerializer().Serialize(pageConfig);
         }
         #endregion

@@ -48,7 +48,7 @@
             });
         },
         UploadMainImage: function () {
-            art.dialog.open(lib.RootURL + 'Upload/Index', { title: '文件上传', width: 1100, height: 650 });
+            art.dialog.open(XCLCMSPageGlobalConfig.RootURL + 'Upload/Index', { title: '文件上传', width: 1100, height: 650 });
         }
     };
 

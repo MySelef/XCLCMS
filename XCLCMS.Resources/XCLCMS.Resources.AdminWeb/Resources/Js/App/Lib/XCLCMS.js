@@ -1,15 +1,6 @@
 ﻿define(["require"],function (require) {
     var app = {
         /**
-         * 枚举项
-         */
-        EnumConfig: "",
-        /**
-         * 网站根路径
-         * @type String
-         */
-        RootURL: "",
-        /**
          * 验证插件错误的class
          * @type String
          */

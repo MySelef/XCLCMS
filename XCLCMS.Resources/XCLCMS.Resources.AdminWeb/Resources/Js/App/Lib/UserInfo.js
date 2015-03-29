@@ -64,7 +64,7 @@
             art.dialog.confirm("您确定要删除此信息吗？", function () {
                 $.XCLGoAjax({
                     obj: $("#btnDel")[0],
-                    url: lib.RootURL + "UserInfo/DelSubmit",
+                    url: XCLCMSPageGlobalConfig.RootURL + "UserInfo/DelSubmit",
                     data: { UserInfoIds: ids.join(',') },
                     beforeSendMsg: "正在删除中，请稍后...",
                     isRefreshSelf: true
@@ -97,7 +97,7 @@
                     txtUserName: {
                         required: true,
                         XCLCustomRemote: {
-                            url: lib.RootURL + "UserInfoCommon/IsExistUserName",
+                            url: XCLCMSPageGlobalConfig.RootURL + "UserInfoCommon/IsExistUserName",
                             data: {
                                 UserName: function () {
                                     return $("#txtUserName").val();
@@ -128,7 +128,7 @@
             art.dialog.confirm("您确定要删除此信息吗？", function () {
                 $.XCLGoAjax({
                     obj: $("#btnDel")[0],
-                    url: lib.RootURL + "UserInfo/DelSubmit",
+                    url: XCLCMSPageGlobalConfig.RootURL + "UserInfo/DelSubmit",
                     data: { UserInfoIds: id },
                     beforeSendMsg: "正在删除中，请稍后...",
                     isRefreshSelf: true

@@ -6,8 +6,8 @@
         EnumConvert: function (name, val) {
             var result = "";
             name = name + "Enum";
-            if (lib.EnumConfig) {
-                var valJson = lib.EnumConfig[name];
+            if (XCLCMSPageGlobalConfig.EnumConfig) {
+                var valJson = XCLCMSPageGlobalConfig.EnumConfig[name];
                 if (valJson) {
                     result = valJson[val] || "";
                 }
@@ -19,7 +19,7 @@
          */
         CreateAutoCode: function () {
             var data = XCLJsTool.Ajax.GetSyncData({
-                url: lib.RootURL + "Common/CreateAutoCode",
+                url: XCLCMSPageGlobalConfig.RootURL + "Common/CreateAutoCode",
                 type: "JSON",
                 data: { v: Math.random() }
             });
@@ -31,7 +31,7 @@
         ClearCache: function () {
             $.XCLGoAjax({
                 obj: $("a[xcl-sysdiccode='ClearCache']")[0],
-                url: lib.RootURL + "Common/ClearCache",
+                url: XCLCMSPageGlobalConfig.RootURL + "Common/ClearCache",
                 data: { v: Math.random() },
                 beforeSendMsg: "正在清理缓存中，请稍后...",
                 isRefreshSelf: true
@@ -42,7 +42,7 @@
         */
         LogOut: function () {
             art.dialog.tips("正在安全退出中，请稍后......", 999999999);
-            $.getJSON(lib.RootURL + "Login/LogOut", { v: Math.random() }, function (data) {
+            $.getJSON(XCLCMSPageGlobalConfig.RootURL + "Login/LogOut", { v: Math.random() }, function (data) {
                 if (data.IsSuccess) {
                     top.location.reload(true);
                 } else {
@@ -56,7 +56,7 @@
         ClearRubbishData: function () {
             $.XCLGoAjax({
                 obj: $("a[xcl-sysdiccode='ClearRubbishData']")[0],
-                url: lib.RootURL + "Common/ClearRubbishData",
+                url: XCLCMSPageGlobalConfig.RootURL + "Common/ClearRubbishData",
                 data: { v: Math.random() },
                 beforeSendMsg: "正在清理垃圾数据，请稍后..."
             });

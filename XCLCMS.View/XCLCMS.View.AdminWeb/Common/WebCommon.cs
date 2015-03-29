@@ -24,7 +24,8 @@ namespace XCLCMS.View.AdminWeb.Common
                     newStaticResourceConfig.StaticResourceList.ForEach(k =>
                     {
                         k.Version = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
-                        k.Src = string.Format("{0}/{1}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL.Trim().TrimEnd('/'), k.Src.Trim().TrimStart('/'));
+                        k.Src=k.Src.Replace("{ResourcesRootURL}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL);
+                        k.Attr=k.Attr.Replace("{ResourcesRootURL}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL);
                     });
                 }
                 return newStaticResourceConfig;

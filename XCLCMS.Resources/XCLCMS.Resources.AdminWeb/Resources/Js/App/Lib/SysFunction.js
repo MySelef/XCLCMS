@@ -55,7 +55,7 @@
             art.dialog.confirm("您确定要删除此信息吗？", function () {
                 $.XCLGoAjax({
                     obj: $("#btnDel")[0],
-                    url: lib.RootURL + "SysFunction/DelSubmit",
+                    url: XCLCMSPageGlobalConfig.RootURL + "SysFunction/DelSubmit",
                     data: { SysFunctionIDs: ids.join(',') },
                     beforeSendMsg: "正在删除中，请稍后...",
                     isRefreshSelf: true
@@ -85,7 +85,7 @@
                     txtFunctionName: {
                         required: true,
                         XCLCustomRemote: {
-                            url: lib.RootURL + "SysFunctionCommon/IsExistSysFunctionName",
+                            url: XCLCMSPageGlobalConfig.RootURL + "SysFunctionCommon/IsExistSysFunctionName",
                             data: {
                                 functionName: function () {
                                     return $("#txtFunctionName").val();
@@ -110,7 +110,7 @@
             art.dialog.confirm("您确定要删除此信息吗？", function () {
                 $.XCLGoAjax({
                     obj: $("#btnDel")[0],
-                    url: lib.RootURL + "SysFunction/DelSubmit",
+                    url: XCLCMSPageGlobalConfig.RootURL + "SysFunction/DelSubmit",
                     data: { SysFunctionIDs: id },
                     beforeSendMsg: "正在删除中，请稍后...",
                     isRefreshSelf: true

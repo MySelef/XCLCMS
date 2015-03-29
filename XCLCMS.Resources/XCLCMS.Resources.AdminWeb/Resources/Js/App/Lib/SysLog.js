@@ -15,7 +15,7 @@
             var data = $.parseJSON($menuItem.attr("xcl-data"));
             art.dialog.confirm("您确定要清空【" + data.txt + "】的所有日志信息吗？", function () {
                 $.XCLGoAjax({
-                    url: lib.RootURL + "SysLog/ClearSubmit",
+                    url: XCLCMSPageGlobalConfig.RootURL + "SysLog/ClearSubmit",
                     data: { dateType: data.val },
                     beforeSendMsg: "正在删除中，请稍后...",
                     isRefreshSelf: true

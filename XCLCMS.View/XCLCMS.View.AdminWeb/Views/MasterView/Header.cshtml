@@ -8,6 +8,7 @@
 <script type="text/javascript">
     //全局配置
     var XCLCMSPageGlobalConfig =@(Html.Raw(ViewBag.PageGlobalConfigJSON));
+    XCLCMSPageGlobalConfig.EnumConfig=@(Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson));
 </script>
 
 @Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
@@ -37,41 +38,8 @@
         
         "kindeditor.css",
         "kindeditor.js",
-        "kindeditor-zh_CN.js"        
+        "kindeditor-zh_CN.js",
+        
+        "config.js",
+        "require.js"
    }))
-
-<!--requirejs配置 start-->
-<script type="text/javascript">
-    /**
-    *   说明：使用requirejs只加载本项目的js模块，其它插件等不使用require加载
-    */
-    var require = {
-        //requirejs配置信息，其它具体配置请写在config.js中
-        baseUrl: XCLCMSPageGlobalConfig.ResourceURL+"Resources/Js/App/"
-    };
-</script>
-<script src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Js/App/config.js"></script>
-<script src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Js/App/require.js" data-main="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Js/App/main.js"></script>
-<!--requirejs配置 end-->
-
-
-<script type="text/javascript">
-    require(["Lib/XCLCMS"], function (lib) {
-        $(function () {
-            //站点根路径
-            lib.RootURL = XCLCMSPageGlobalConfig.RootURL;
-            //所有枚举项
-            @Html.Raw(string.Format("lib.EnumConfig={0};",XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson))
-        });
-    });
-
-    $(function () {
-        //art dialog config
-        (function (config) {
-            config.lock = true;
-            config.opacity = 0.2;
-            config.resize = true;
-        })(art.dialog.defaults);
-    });
-</script>
-

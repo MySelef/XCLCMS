@@ -41,7 +41,7 @@ namespace XCLCMS.View.AdminWeb.Controllers
             pageConfig.RootURL = XCLCMS.View.AdminWeb.Common.WebCommon.RootURL;
             pageConfig.UserID = ViewBag.CommonModel.CurrentUserModel.UserInfoID;
             pageConfig.UserName = ViewBag.CommonModel.CurrentUserModel.UserName;
-            pageConfig.XCLJsonMessageName = "XCLCMS2015";
+            pageConfig.XCLJsonMessageName = XCLNetTools.Message.Log.JsonMessageName;
             pageConfig.ResourceVersion = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
             ViewBag.PageGlobalConfigJSON = new JavaScriptSerializer().Serialize(pageConfig);
         }

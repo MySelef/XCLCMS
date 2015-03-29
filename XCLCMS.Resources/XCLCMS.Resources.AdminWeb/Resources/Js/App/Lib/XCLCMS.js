@@ -1,11 +1,6 @@
 ﻿define(["require"],function (require) {
     var app = {
         /**
-         * XCLNetTools消息所在json名
-         * @type String
-         */
-        XCLJsonMessageName: "",
-        /**
          * 枚举项
          */
         EnumConfig: "",

@@ -139,6 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\PageGlobalConfig.cs" />
     <Compile Include="Common\WebCommon.cs" />
     <Compile Include="Controllers\Atricle\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />

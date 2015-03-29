@@ -5,6 +5,11 @@
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<script type="text/javascript">
+    //全局配置
+    var XCLCMSPageGlobalConfig =@(Html.Raw(ViewBag.PageGlobalConfigJSON));
+</script>
+
 @Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
         "icon",
         "jquery",
@@ -25,7 +30,6 @@
         "WdatePicker.js",
         "base.css",
         "table.js",
-        "XCLCMS.js",
         "GoAjax.js",
         "dynamicCon.js",
         "XCLJsTool.js",
@@ -43,7 +47,7 @@
     */
     var require = {
         //requirejs配置信息，其它具体配置请写在config.js中
-        baseUrl: "@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Js/App/"
+        baseUrl: XCLCMSPageGlobalConfig.ResourceURL+"Resources/Js/App/"
     };
 </script>
 <script src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Js/App/config.js"></script>
@@ -54,10 +58,8 @@
 <script type="text/javascript">
     require(["Lib/XCLCMS"], function (lib) {
         $(function () {
-            //消息提示
-            lib.XCLJsonMessageName = "@XCLNetTools.Message.Log.JsonMessageName";
             //站点根路径
-            lib.RootURL = "@XCLCMS.View.AdminWeb.Common.WebCommon.RootURL";
+            lib.RootURL = XCLCMSPageGlobalConfig.RootURL;
             //所有枚举项
             @Html.Raw(string.Format("lib.EnumConfig={0};",XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson))
         });

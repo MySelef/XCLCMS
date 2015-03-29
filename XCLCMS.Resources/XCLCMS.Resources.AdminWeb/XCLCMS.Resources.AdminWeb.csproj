@@ -419,7 +419,6 @@
     <Content Include="Resources\Js\WdatePicker\skin\whyGreen\datepicker.css" />
     <Content Include="Resources\Js\WdatePicker\skin\whyGreen\img.gif" />
     <Content Include="Resources\Js\WdatePicker\WdatePicker.js" />
-    <Content Include="Resources\Js\XCLCMS.js" />
     <Content Include="Resources\Js\XCLJsTool.js" />
     <Content Include="Web.config" />
   </ItemGroup>

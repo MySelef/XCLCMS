@@ -70,7 +70,7 @@
                 },
                 success: function (data) {
 
-                    var data = data[XCLCMS.XCLJsonMessageName] || data;
+                    var data = data[XCLCMSPageGlobalConfig.XCLJsonMessageName] || data;
 
                     if (null != options.successFunction) {
                         options.successFunction(data);

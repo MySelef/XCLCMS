@@ -1,5 +1,5 @@
-﻿require(["Lib/XCLCMS"], function (lib) {
+﻿require(["Lib/Common"], function (common) {
     $(function () {
-        lib.Init();
+        common.Init();
     });
 });

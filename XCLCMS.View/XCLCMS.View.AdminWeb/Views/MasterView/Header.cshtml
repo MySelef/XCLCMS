@@ -7,8 +7,17 @@
 
 <script type="text/javascript">
     //全局配置
-    var XCLCMSPageGlobalConfig =@(Html.Raw(ViewBag.PageGlobalConfigJSON));
-    XCLCMSPageGlobalConfig.EnumConfig=@(Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson));
+    @if(null==ViewBag.PageGlobalConfigJSON){
+        @:var XCLCMSPageGlobalConfig={
+            @:RootURL:"@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)",
+            @:ResourceURL: "@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)"
+        @:};
+    }
+    else
+    {
+        @:var XCLCMSPageGlobalConfig =@(Html.Raw(ViewBag.PageGlobalConfigJSON));
+        @:XCLCMSPageGlobalConfig.EnumConfig=@(Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson));
+    }
 </script>
 
 @Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){

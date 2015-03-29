@@ -1,4 +1,4 @@
-﻿define(["Lib/XCLCMS"], function (lib) {
+﻿define(["Lib/Common"], function (common) {
     var app = {};
     app.SysFunctionList = {
         Init: function () {
@@ -95,8 +95,8 @@
                     }
                 }
             });
-            lib.BindLinkButtonEvent("click", $("#btnSave"), function () {
-                if (!lib.CommonFormValid(validator)) {
+            common.BindLinkButtonEvent("click", $("#btnSave"), function () {
+                if (!common.CommonFormValid(validator)) {
                     return false;
                 }
                 $.XCLGoAjax({ obj: $("#btnSave")[0] });

@@ -1,4 +1,4 @@
-﻿define(["Lib/XCLCMS"], function (lib) {
+﻿define(function () {
     //文件上传
     var app = {};
     app.Add = {

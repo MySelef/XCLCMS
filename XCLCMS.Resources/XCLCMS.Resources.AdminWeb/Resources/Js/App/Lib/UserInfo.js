@@ -1,4 +1,4 @@
-﻿define(["Lib/XCLCMS"],function (lib) {
+﻿define(["Lib/Common"], function (common) {
     /**
      * 用户管理
      * @type type
@@ -113,8 +113,8 @@
                     ckRoles: { required: true }
                 }
             });
-            lib.BindLinkButtonEvent("click", $("#btnSave"), function () {
-                if (!lib.CommonFormValid(validator)) {
+            common.BindLinkButtonEvent("click", $("#btnSave"), function () {
+                if (!common.CommonFormValid(validator)) {
                     return false;
                 }
                 $.XCLGoAjax({ obj: $("#btnSave")[0] });

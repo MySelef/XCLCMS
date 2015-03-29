@@ -1,4 +1,4 @@
-﻿define(["Lib/XCLCMS"], function (lib) {
+﻿define(function () {
     /*
     * 系统日志
     */

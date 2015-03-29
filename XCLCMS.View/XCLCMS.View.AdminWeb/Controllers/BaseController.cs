@@ -44,6 +44,8 @@ namespace XCLCMS.View.AdminWeb.Controllers
             pageConfig.XCLJsonMessageName = XCLNetTools.Message.Log.JsonMessageName;
             pageConfig.ResourceVersion = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
             pageConfig.EnumConfig = string.Empty;
+            pageConfig.CurrentMenuID = mainViewModel.CurrentMenuID;
+            pageConfig.CurrentParentMenuID = mainViewModel.CurrentParentMenuID;
             ViewBag.PageGlobalConfigJSON = new JavaScriptSerializer().Serialize(pageConfig);
         }
         #endregion

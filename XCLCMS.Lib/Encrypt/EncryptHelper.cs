@@ -16,7 +16,7 @@ namespace XCLCMS.Lib.Encrypt
         /// </summary>
         public static string EncryptStringMD5(string str)
         {
-            return XCLNetTools.StringHander.StringUtil.str_md5(string.Format("{0}{1}", str,XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_PwdKey));
+            return XCLNetTools.Encrypt.MD5.EncodeMD5(str, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_PwdKey);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace XCLCMS.Lib.Encrypt
         /// </summary>
         public static bool EncryptStringMD5IsEqual(string str, string md5Str)
         {
-            return string.Equals(EncryptHelper.EncryptStringMD5(str), md5Str);
+            return XCLNetTools.Encrypt.MD5.IsEqualMD5(str, md5Str, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_PwdKey);
         }
 
         /// <summary>
@@ -32,14 +32,14 @@ namespace XCLCMS.Lib.Encrypt
         /// </summary>
         public static string EncryptStringDES(string str)
         {
-            return XCLNetTools.StringHander.DESEncrypt.Encrypt(str, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_DESKey);
+            return XCLNetTools.Encrypt.DESEncrypt.Encrypt(str, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_DESKey);
         }
         /// <summary>
         /// des 解密
         /// </summary>
         public static string DecryptStringDES(string desString)
         {
-            return XCLNetTools.StringHander.DESEncrypt.Decrypt(desString, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_DESKey);
+            return XCLNetTools.Encrypt.DESEncrypt.Decrypt(desString, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_DESKey);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿define(["Lib/XCLCMS"], function (lib) {
+﻿define(function () {
     /**
      * 首页
      * @type type

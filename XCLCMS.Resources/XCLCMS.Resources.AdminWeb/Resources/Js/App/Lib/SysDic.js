@@ -1,4 +1,4 @@
-﻿define(["Lib/XCLCMS", "Lib/EasyUI"], function (lib, easyUI) {
+﻿define(["Lib/Common", "Lib/EasyUI"], function (common, easyUI) {
     /**
       * 系统字典库
       */
@@ -197,7 +197,7 @@
             _this.InitValidator();
 
             $("#btnCreateAutoCode").on("click", function () {
-                $("#txtCode").val(lib.Common.CreateAutoCode());
+                $("#txtCode").val(common.CreateAutoCode());
             });
         },
         InitValidator: function () {
@@ -239,8 +239,8 @@
                     }
                 }
             });
-            lib.BindLinkButtonEvent("click", $("#btnSave"), function () {
-                if (!lib.CommonFormValid(validator)) {
+            common.BindLinkButtonEvent("click", $("#btnSave"), function () {
+                if (!common.CommonFormValid(validator)) {
                     return false;
                 }
                 $.XCLGoAjax({ obj: $("#btnSave")[0] });

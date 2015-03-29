@@ -2,7 +2,9 @@
 <html lang="zh-cn">
 <head>
     @Html.Partial("~/Views/MasterView/Header.cshtml")
-    <link href="@Url.Content("~/Resources/Css/Login.css")" rel="stylesheet" type="text/css" />
+    @Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
+            "login.css"
+       }))
 </head>
 <body>
     <div class="login-welcome">
@@ -16,10 +18,10 @@
             </div>
             <div class="login-c">
                 <div>
-                    <img src="@Url.Content("~/Resources/Images/login_04.gif")" />
+                    <img src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Images/login_04.gif" />
                 </div>
                 <div>
-                    <img src="@Url.Content("~/Resources/Images/login_05.gif")" />
+                    <img src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Images/login_05.gif" />
                 </div>
                 <div class="login-c-00 fixed">
                     <div class="login-c-01" style="text-align: center;">
@@ -65,91 +67,24 @@
                     </div>
                 </div>
                 <div>
-                    <img src="@Url.Content("~/Resources/Images/login_08.gif")" />
+                    <img src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Images/login_08.gif" />
                 </div>
             </div>
             <div class="login-r">
             </div>
         </div>
         <div class="login-bottom">
-            <img src="@Url.Content("~/Resources/Images/login_09.gif")" /><img src="@Url.Content("~/Resources/Images/login_10.gif")" /><img src="@Url.Content("~/Resources/Images/login_11.gif")" />
+            <img src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Images/login_09.gif" /><img src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Images/login_10.gif" /><img src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Images/login_11.gif" />
         </div>
     </div>
     <div class="login-footer">
         @Html.Partial("~/Views/MasterView/Footer.cshtml")
     </div>
     <script type="text/javascript">
-        var funs = {
-            Init: function () {
-                var _this = this;
-                _this.InitValidator();
-                $("#btnReset").on("click", function () {
-                    _this.Reset();
-                    return false;
-                });
-            },
-            InitValidator: function () {
-                var validator = $("form:first").validate({
-                    rules: {
-                        txtUserName: {required: true},
-                        txtPwd: { required: true },
-                        txtValidCode: { required: true }
-                    }
-                });
-
-                var login = function () {
-                    if (!XCLCMS.CommonFormValid(validator)) {
-                        return false;
-                    }
-                    var $btnLogin = $("#btnLogin");
-                    if ($btnLogin.hasClass("submitting")) {
-                        return false;
-                    }
-                    $.ajax({
-                        type: "POST",
-                        dataType: "JSON",
-                        url: XCLCMS.RootURL + "Login/LogonSubmit",
-                        data: $btnLogin.closest("form").serialize(),
-                        beforeSend: function () {
-                            $btnLogin.html("登录中...").addClass("submitting");
-                        },
-                        success: function (data) {
-                            $btnLogin.html("登录").removeClass("submitting");
-                            if (data.IsSuccess) {
-                                art.dialog.tips("登录成功，正在跳转中......", 500000);
-                                location.href = XCLCMS.RootURL + "Home/Index";
-                            } else {
-                                art.dialog({
-                                    time: 1,
-                                    icon: 'error',
-                                    content: data.Message
-                                });
-                            }
-                        },
-                        complete: function () {
-                            $btnLogin.html("登录").removeClass("submitting");
-                        }
-                    });
-                }
-
-                $("#btnLogin").on("click", function () {
-                    login();
-                    return false;
-                });
-
-                $("body").keypress(function (event) {
-                    if (event.keyCode == 13) {
-                        login();
-                    }
-                });
-
-            },
-            Reset: function () {
-                $("form")[0].reset();
-            }
-        };
-        $(function () {
-            funs.Init();
+        require(["Lib/Login"], function (login) {
+            $(function () {
+                login.Init();
+            });
         });
     </script>
 </body>

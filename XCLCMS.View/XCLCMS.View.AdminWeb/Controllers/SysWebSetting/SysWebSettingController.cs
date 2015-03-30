@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
 {
+    /// <summary>
+    /// 配置controller
+    /// </summary>
     public class SysWebSettingController : BaseController
     {
         /// <summary>

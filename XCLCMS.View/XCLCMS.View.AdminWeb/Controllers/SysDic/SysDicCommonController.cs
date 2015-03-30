@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysDic
 {
+    /// <summary>
+    /// 字典库公共controller
+    /// </summary>
     public class SysDicCommonController : BaseController
     {
         /// <summary>

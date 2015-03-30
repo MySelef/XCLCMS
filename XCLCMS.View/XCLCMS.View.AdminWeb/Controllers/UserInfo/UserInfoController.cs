@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
 {
+    /// <summary>
+    /// 用户controller
+    /// </summary>
     public class UserInfoController : BaseController
     {
         /// <summary>

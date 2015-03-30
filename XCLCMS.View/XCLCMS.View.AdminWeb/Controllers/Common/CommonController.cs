@@ -7,6 +7,9 @@ using System.Web.Script.Serialization;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Common
 {
+    /// <summary>
+    /// 公共controller
+    /// </summary>
     public class CommonController : BaseController
     {
         /// <summary>

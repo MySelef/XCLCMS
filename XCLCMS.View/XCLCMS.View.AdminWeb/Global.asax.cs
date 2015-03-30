@@ -20,11 +20,11 @@ namespace XCLCMS.View.AdminWeb
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
+            //静态资源配置信息
             XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig = XCLNetTools.StringHander.Common.GetStaticResourceConfig(Server.MapPath("~/Config/StaticResourceConfig.config"));
-
+            //XCLNetLogger配置信息
             XCLNetLogger.Config.LogConfig.SetConfig(Server.MapPath("~/Config/XCLNetLogger.config"));
-
+            //消息输出及异常处理
             XCLNetTools.Message.Log.JsonMessageName = "XCL20141111";
             XCLNetTools.Message.Log.LogApplicationErrorAction = new Action<XCLNetTools.Message.MessageModel>((model) =>
             {

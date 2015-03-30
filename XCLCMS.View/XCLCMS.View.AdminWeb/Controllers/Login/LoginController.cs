@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace XCLCMS.View.AdminWeb.Controllers.Login
 {
     /// <summary>
-    /// 登录
+    /// 登录controller
     /// </summary>
     public class LoginController : Controller
     {

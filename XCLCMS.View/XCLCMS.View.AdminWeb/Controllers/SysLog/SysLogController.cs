@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysLog
 {
+    /// <summary>
+    /// 日志controller
+    /// </summary>
     public class SysLogController : BaseController
     {
         /// <summary>

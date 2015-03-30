@@ -7,6 +7,9 @@ using System.ComponentModel;
 
 namespace XCLCMS.View.AdminWeb.Common
 {
+    /// <summary>
+    /// 站点公共信息
+    /// </summary>
     public class WebCommon
     {
         #region 静态资源相关

@@ -3,8 +3,8 @@
 *   说明：使用requirejs只加载本项目的js模块，其它插件等不使用require加载
 */
 var require = $.extend({}, window.require || {}, {
-    //其它配置
-    baseUrl: XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/App/"
+    baseUrl: XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/App/",
+    urlArgs: "v=" + XCLCMSPageGlobalConfig.ResourceVersion
 });
 
 

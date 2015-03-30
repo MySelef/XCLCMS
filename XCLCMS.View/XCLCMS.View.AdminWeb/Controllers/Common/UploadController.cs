@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Common
 {
+    /// <summary>
+    /// 文件上传controller
+    /// </summary>
     public class UploadController : BaseController
     {
         /// <summary>

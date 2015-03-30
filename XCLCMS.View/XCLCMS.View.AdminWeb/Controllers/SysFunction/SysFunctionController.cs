@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
 {
+    /// <summary>
+    /// 功能controller
+    /// </summary>
     public class SysFunctionController : BaseController
     {
         [XCLCMS.Lib.Filters.FunctionFilter(Function=XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView)]

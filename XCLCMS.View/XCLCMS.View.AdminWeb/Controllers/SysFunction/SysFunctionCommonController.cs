@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
 {
+    /// <summary>
+    /// 功能公共controller
+    /// </summary>
     public class SysFunctionCommonController : BaseController
     {
         /// <summary>

@@ -15,96 +15,6 @@ namespace XCLCMS.Data.DAL
         { }
         #region  Method
 
-        /// <summary>
-        ///  增加一条数据
-        /// </summary>
-        public bool Add(XCLCMS.Data.Model.SysUserRole model)
-        {
-            int rowsAffected;
-            SqlParameter[] parameters = {
-					new SqlParameter("@FK_UserInfoID", SqlDbType.BigInt,8),
-					new SqlParameter("@FK_SysRoleID", SqlDbType.BigInt,8),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50)};
-            parameters[0].Value = model.FK_UserInfoID;
-            parameters[1].Value = model.FK_SysRoleID;
-            parameters[2].Value = model.RecordState;
-            parameters[3].Value = model.CreateTime;
-            parameters[4].Value = model.CreaterID;
-            parameters[5].Value = model.CreaterName;
-            parameters[6].Value = model.UpdateTime;
-            parameters[7].Value = model.UpdaterID;
-            parameters[8].Value = model.UpdaterName;
-
-            DbHelperSQL.RunProcedure("SysUserRole_ADD", parameters, out rowsAffected);
-            return rowsAffected > 0;
-        }
-
-        /// <summary>
-        ///  更新一条数据
-        /// </summary>
-        public bool Update(XCLCMS.Data.Model.SysUserRole model)
-        {
-            int rowsAffected = 0;
-            SqlParameter[] parameters = {
-					new SqlParameter("@FK_UserInfoID", SqlDbType.BigInt,8),
-					new SqlParameter("@FK_SysRoleID", SqlDbType.BigInt,8),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50)};
-            parameters[0].Value = model.FK_UserInfoID;
-            parameters[1].Value = model.FK_SysRoleID;
-            parameters[2].Value = model.RecordState;
-            parameters[3].Value = model.CreateTime;
-            parameters[4].Value = model.CreaterID;
-            parameters[5].Value = model.CreaterName;
-            parameters[6].Value = model.UpdateTime;
-            parameters[7].Value = model.UpdaterID;
-            parameters[8].Value = model.UpdaterName;
-
-            DbHelperSQL.RunProcedure("SysUserRole_Update", parameters, out rowsAffected);
-            if (rowsAffected > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public XCLCMS.Data.Model.SysUserRole GetModel(long FK_UserInfoID, long FK_SysRoleID)
-        {
-            SqlParameter[] parameters = {
-					new SqlParameter("@FK_UserInfoID", SqlDbType.BigInt,8),
-					new SqlParameter("@FK_SysRoleID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = FK_UserInfoID;
-            parameters[1].Value = FK_SysRoleID;
-
-            XCLCMS.Data.Model.SysUserRole model = new XCLCMS.Data.Model.SysUserRole();
-            DataSet ds = DbHelperSQL.RunProcedure("SysUserRole_GetModel", parameters, "ds");
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                return DataRowToModel(ds.Tables[0].Rows[0]);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
 
         /// <summary>
         /// 得到一个对象实体
@@ -171,7 +81,61 @@ namespace XCLCMS.Data.DAL
 
         #endregion  Method
         #region  MethodEx
+        /// <summary>
+        ///  增加一条数据
+        ///  注：如果roleIdList为空，则添加model.FK_SysRoleID，否则，则添加roleIdList
+        /// </summary>
+        public bool Add(XCLCMS.Data.Model.SysUserRole model,List<long> roleIdList=null)
+        {
+            if (null == roleIdList || roleIdList.Count == 0)
+            {
+                if (model.FK_SysRoleID > 0)
+                {
+                    roleIdList = new List<long>() { 
+                        model.FK_SysRoleID
+                    };
+                }
+            }
+            
+            SqlParameter[] parameters = {
+					new SqlParameter("@FK_UserInfoID", SqlDbType.BigInt,8),
+					new SqlParameter("@FK_SysRoleIDXML", SqlDbType.Xml),
+					new SqlParameter("@RecordState", SqlDbType.Char,1),
+					new SqlParameter("@CreateTime", SqlDbType.DateTime),
+					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
+					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
+					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
+					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
+					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
+                                        
+					new SqlParameter("@ResultCode", SqlDbType.Int,4),
+					new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
+                   };
+            parameters[0].Value = model.FK_UserInfoID;
+            parameters[1].Value = XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(roleIdList);
+            parameters[2].Value = model.RecordState;
+            parameters[3].Value = model.CreateTime;
+            parameters[4].Value = model.CreaterID;
+            parameters[5].Value = model.CreaterName;
+            parameters[6].Value = model.UpdateTime;
+            parameters[7].Value = model.UpdaterID;
+            parameters[8].Value = model.UpdaterName;
 
+            parameters[9].Direction = ParameterDirection.Output;
+            parameters[10].Direction = ParameterDirection.Output;
+
+            DbHelperSQL.RunProcedure("sp_SysUserRole_ADD", parameters, "ds");
+
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception(result.ResultMessage);
+            }
+        }
         #endregion  MethodEx
     }
 }

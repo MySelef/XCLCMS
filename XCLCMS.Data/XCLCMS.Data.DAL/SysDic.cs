@@ -246,11 +246,10 @@ namespace XCLCMS.Data.DAL
         }
 
          /// <summary>
-        ///  增加一条数据(带其它信息)
+        ///  增加一条数据
         /// </summary>
-        public bool Add(XCLCMS.Data.Model.Custom.SysDicWithMore model)
+        public bool Add(XCLCMS.Data.Model.SysDic model)
         {
-            int rowsAffected;
             SqlParameter[] parameters = {
 					new SqlParameter("@SysDicID", SqlDbType.BigInt,8),
 					new SqlParameter("@Code", SqlDbType.VarChar,50),
@@ -270,104 +269,102 @@ namespace XCLCMS.Data.DAL
 					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
 					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
 
-                    new SqlParameter("@RoleFunctionXML",SqlDbType.Xml),//角色的功能
-                    new SqlParameter("@WithMoreState",SqlDbType.Int)//存储过程功能分组状态位
+                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
+                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
                                         
                                         };
-            parameters[0].Value = model.SysDic.SysDicID;
-            parameters[1].Value = model.SysDic.Code;
-            parameters[2].Value = model.SysDic.DicType;
-            parameters[3].Value = model.SysDic.ParentID;
-            parameters[4].Value = model.SysDic.DicName;
-            parameters[5].Value = model.SysDic.DicValue;
-            parameters[6].Value = model.SysDic.Sort;
-            parameters[7].Value = model.SysDic.Weight;
-            parameters[8].Value = model.SysDic.Remark;
-            parameters[9].Value = model.SysDic.FK_FunctionID;
-            parameters[10].Value = model.SysDic.RecordState;
-            parameters[11].Value = model.SysDic.CreateTime;
-            parameters[12].Value = model.SysDic.CreaterID;
-            parameters[13].Value = model.SysDic.CreaterName;
-            parameters[14].Value = model.SysDic.UpdateTime;
-            parameters[15].Value = model.SysDic.UpdaterID;
-            parameters[16].Value = model.SysDic.UpdaterName;
+            parameters[0].Value = model.SysDicID;
+            parameters[1].Value = model.Code;
+            parameters[2].Value = model.DicType;
+            parameters[3].Value = model.ParentID;
+            parameters[4].Value = model.DicName;
+            parameters[5].Value = model.DicValue;
+            parameters[6].Value = model.Sort;
+            parameters[7].Value = model.Weight;
+            parameters[8].Value = model.Remark;
+            parameters[9].Value = model.FK_FunctionID;
+            parameters[10].Value = model.RecordState;
+            parameters[11].Value = model.CreateTime;
+            parameters[12].Value = model.CreaterID;
+            parameters[13].Value = model.CreaterName;
+            parameters[14].Value = model.UpdateTime;
+            parameters[15].Value = model.UpdaterID;
+            parameters[16].Value = model.UpdaterName;
 
-            //角色的功能处理
-            string functionXML = string.Empty;
-            if (null != model.RoleFunctionList && model.RoleFunctionList.Count > 0)
-            {
-                functionXML = XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(model.RoleFunctionList);
-            }
-            parameters[17].Value = functionXML;
-            parameters[18].Value = model.WithMoreState;
+            parameters[17].Direction = ParameterDirection.Output;
+            parameters[18].Direction = ParameterDirection.Output;
 
-            DbHelperSQL.RunProcedure("SysDic_ADD", parameters, out rowsAffected);
-            return rowsAffected > 0;
-        }
+            DbHelperSQL.RunProcedure("sp_SysDic_ADD", parameters, "ds");
 
-        /// <summary>
-        ///  更新一条数据(带其它信息)
-        /// </summary>
-        public bool Update(XCLCMS.Data.Model.Custom.SysDicWithMore model)
-        {
-            int rowsAffected = 0;
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysDicID", SqlDbType.BigInt,8),
-					new SqlParameter("@Code", SqlDbType.VarChar,50),
-					new SqlParameter("@DicType", SqlDbType.Char,1),
-					new SqlParameter("@ParentID", SqlDbType.BigInt,8),
-					new SqlParameter("@DicName", SqlDbType.VarChar,200),
-					new SqlParameter("@DicValue", SqlDbType.VarChar,1000),
-					new SqlParameter("@Sort", SqlDbType.Int,4),
-					new SqlParameter("@Weight", SqlDbType.Int,4),
-					new SqlParameter("@Remark", SqlDbType.VarChar,1000),
-                    new SqlParameter("@FK_FunctionID", SqlDbType.BigInt,8),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
-
-                    new SqlParameter("@RoleFunctionXML",SqlDbType.Xml),//角色的功能
-                    new SqlParameter("@WithMoreState",SqlDbType.Int)//存储过程功能分组状态位                                        
-                                        };
-            parameters[0].Value = model.SysDic.SysDicID;
-            parameters[1].Value = model.SysDic.Code;
-            parameters[2].Value = model.SysDic.DicType;
-            parameters[3].Value = model.SysDic.ParentID;
-            parameters[4].Value = model.SysDic.DicName;
-            parameters[5].Value = model.SysDic.DicValue;
-            parameters[6].Value = model.SysDic.Sort;
-            parameters[7].Value = model.SysDic.Weight;
-            parameters[8].Value = model.SysDic.Remark;
-            parameters[9].Value = model.SysDic.FK_FunctionID;
-            parameters[10].Value = model.SysDic.RecordState;
-            parameters[11].Value = model.SysDic.CreateTime;
-            parameters[12].Value = model.SysDic.CreaterID;
-            parameters[13].Value = model.SysDic.CreaterName;
-            parameters[14].Value = model.SysDic.UpdateTime;
-            parameters[15].Value = model.SysDic.UpdaterID;
-            parameters[16].Value = model.SysDic.UpdaterName;
-
-            //角色的功能处理
-            string functionXML = string.Empty;
-            if (null != model.RoleFunctionList && model.RoleFunctionList.Count > 0)
-            {
-                functionXML = XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(model.RoleFunctionList);
-            }
-            parameters[17].Value = functionXML;
-            parameters[18].Value = model.WithMoreState;
-
-            DbHelperSQL.RunProcedure("SysDic_Update", parameters, out rowsAffected);
-            if (rowsAffected > 0)
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
             {
                 return true;
             }
             else
             {
-                return false;
+                throw new Exception(result.ResultMessage);
+            }
+        }
+
+        /// <summary>
+        ///  更新一条数据
+        /// </summary>
+        public bool Update(XCLCMS.Data.Model.SysDic model)
+        {
+            SqlParameter[] parameters = {
+					new SqlParameter("@SysDicID", SqlDbType.BigInt,8),
+					new SqlParameter("@Code", SqlDbType.VarChar,50),
+					new SqlParameter("@DicType", SqlDbType.Char,1),
+					new SqlParameter("@ParentID", SqlDbType.BigInt,8),
+					new SqlParameter("@DicName", SqlDbType.VarChar,200),
+					new SqlParameter("@DicValue", SqlDbType.VarChar,1000),
+					new SqlParameter("@Sort", SqlDbType.Int,4),
+					new SqlParameter("@Weight", SqlDbType.Int,4),
+					new SqlParameter("@Remark", SqlDbType.VarChar,1000),
+                    new SqlParameter("@FK_FunctionID", SqlDbType.BigInt,8),
+					new SqlParameter("@RecordState", SqlDbType.Char,1),
+					new SqlParameter("@CreateTime", SqlDbType.DateTime),
+					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
+					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
+					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
+					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
+					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
+
+                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
+                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
+                                        };
+            parameters[0].Value = model.SysDicID;
+            parameters[1].Value = model.Code;
+            parameters[2].Value = model.DicType;
+            parameters[3].Value = model.ParentID;
+            parameters[4].Value = model.DicName;
+            parameters[5].Value = model.DicValue;
+            parameters[6].Value = model.Sort;
+            parameters[7].Value = model.Weight;
+            parameters[8].Value = model.Remark;
+            parameters[9].Value = model.FK_FunctionID;
+            parameters[10].Value = model.RecordState;
+            parameters[11].Value = model.CreateTime;
+            parameters[12].Value = model.CreaterID;
+            parameters[13].Value = model.CreaterName;
+            parameters[14].Value = model.UpdateTime;
+            parameters[15].Value = model.UpdaterID;
+            parameters[16].Value = model.UpdaterName;
+
+            parameters[17].Direction = ParameterDirection.Output;
+            parameters[18].Direction = ParameterDirection.Output;
+
+            DbHelperSQL.RunProcedure("sp_SysDic_Update", parameters, "ds");
+
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception(result.ResultMessage);
             }
         }
         #endregion  MethodEx

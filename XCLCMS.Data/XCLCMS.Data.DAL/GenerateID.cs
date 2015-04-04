@@ -36,16 +36,16 @@ namespace XCLCMS.Data.DAL
             parameters[3].Direction = ParameterDirection.Output;
             parameters[4].Value = IDType;
             parameters[5].Value = remark;
-            DbHelperSQL.RunProcedure("proc_GenerateID", parameters,"ds");
+            DbHelperSQL.RunProcedure("sp_GenerateID", parameters,"ds");
 
-            long value = XCLNetTools.StringHander.Common.GetLong(parameters[3].Value);
-            if (value > 0)
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
             {
-                return value;
+                return XCLNetTools.StringHander.Common.GetLong(parameters[3].Value);
             }
             else
             {
-                throw new Exception(Convert.ToString(parameters[1].Value));
+                throw new Exception(result.ResultMessage);
             }
         }
         #endregion  MethodEx

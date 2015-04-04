@@ -15,31 +15,6 @@ namespace XCLCMS.Data.BLL
         #region  BasicMethod
 
         /// <summary>
-        /// 增加一条数据
-        /// </summary>
-        public bool Add(XCLCMS.Data.Model.SysUserRole model)
-        {
-            return dal.Add(model);
-        }
-
-        /// <summary>
-        /// 更新一条数据
-        /// </summary>
-        public bool Update(XCLCMS.Data.Model.SysUserRole model)
-        {
-            return dal.Update(model);
-        }
-
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public XCLCMS.Data.Model.SysUserRole GetModel(long FK_UserInfoID, long FK_SysRoleID)
-        {
-
-            return dal.GetModel(FK_UserInfoID, FK_SysRoleID);
-        }
-
-        /// <summary>
         /// 获得数据列表
         /// </summary>
         public DataSet GetList(string strWhere)
@@ -86,7 +61,13 @@ namespace XCLCMS.Data.BLL
 
         #endregion  BasicMethod
         #region  ExtensionMethod
-
+        /// <summary>
+        /// 增加数据
+        /// </summary>
+        public bool Add(XCLCMS.Data.Model.SysUserRole model, List<long> roleIdList = null)
+        {
+            return dal.Add(model,roleIdList);
+        }
         #endregion  ExtensionMethod
     }
 }

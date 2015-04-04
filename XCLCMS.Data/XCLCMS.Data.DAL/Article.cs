@@ -20,7 +20,6 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Add(XCLCMS.Data.Model.Article model)
         {
-            int rowsAffected;
             SqlParameter[] parameters = {
 					new SqlParameter("@ArticleID", SqlDbType.BigInt,8),
 					new SqlParameter("@Code", SqlDbType.VarChar,50),
@@ -75,8 +74,17 @@ namespace XCLCMS.Data.DAL
             parameters[24].Value = model.UpdaterID;
             parameters[25].Value = model.UpdaterName;
 
-            DbHelperSQL.RunProcedure("Article_ADD", parameters, out rowsAffected);
-            return rowsAffected > 0;
+            DbHelperSQL.RunProcedure("sp_Article_ADD", parameters, "ds");
+
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception(result.ResultMessage);
+            }
         }
 
         /// <summary>
@@ -84,7 +92,6 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Update(XCLCMS.Data.Model.Article model)
         {
-            int rowsAffected = 0;
             SqlParameter[] parameters = {
 					new SqlParameter("@ArticleID", SqlDbType.BigInt,8),
 					new SqlParameter("@Code", SqlDbType.VarChar,50),
@@ -139,14 +146,16 @@ namespace XCLCMS.Data.DAL
             parameters[24].Value = model.UpdaterID;
             parameters[25].Value = model.UpdaterName;
 
-            DbHelperSQL.RunProcedure("Article_Update", parameters, out rowsAffected);
-            if (rowsAffected > 0)
+            DbHelperSQL.RunProcedure("sp_Article_Update", parameters, "ds");
+
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
             {
                 return true;
             }
             else
             {
-                return false;
+                throw new Exception(result.ResultMessage);
             }
         }
 
@@ -160,7 +169,7 @@ namespace XCLCMS.Data.DAL
             parameters[0].Value = ArticleID;
 
             XCLCMS.Data.Model.Article model = new XCLCMS.Data.Model.Article();
-            DataSet ds = DbHelperSQL.RunProcedure("Article_GetModel", parameters, "ds");
+            DataSet ds = DbHelperSQL.Query("select * from Article where ArticleID=@ArticleID", parameters);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return DataRowToModel(ds.Tables[0].Rows[0]);

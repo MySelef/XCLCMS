@@ -72,25 +72,25 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
 
             XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
             XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM viewModel = new AdminViewModel.UserInfo.UserInfoAddVM();
-            viewModel.UserInfoWithMore = new Data.Model.Custom.UserInfoWithMore();
+            viewModel.UserInfo = new XCLCMS.Data.Model.UserInfo();
 
             viewModel.AllRoleList = XCLCMS.Lib.Permission.PerHelper.GetRoleList();
 
             switch (base.CurrentHandleType)
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
-                    viewModel.UserInfoWithMore.UserInfo = new Data.Model.UserInfo();
-                    viewModel.UserInfoWithMore.UserInfo.SexType = XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum.M.ToString();
-                    viewModel.UserInfoWithMore.UserInfo.UserState = XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.N.ToString();
+                    viewModel.UserInfo = new Data.Model.UserInfo();
+                    viewModel.UserInfo.SexType = XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum.M.ToString();
+                    viewModel.UserInfo.UserState = XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.N.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "UserInfo");
                     break;
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
-                    viewModel.UserInfoWithMore.UserInfo = userInfoBLL.GetModel(userInfoId);
+                    viewModel.UserInfo = userInfoBLL.GetModel(userInfoId);
                     viewModel.FormAction = Url.Action("UpdateSubmit", "UserInfo");
-                    var roleList = XCLCMS.Lib.Permission.PerHelper.GetRoleByUserID(viewModel.UserInfoWithMore.UserInfo.UserInfoID);
+                    var roleList = XCLCMS.Lib.Permission.PerHelper.GetRoleByUserID(viewModel.UserInfo.UserInfoID);
                     if (null != roleList && roleList.Count > 0)
                     {
-                        viewModel.UserInfoWithMore.UserRoleIDs = roleList.Select(k => (long)k.SysDicID).ToList();
+                        viewModel.UserRoleIDs = roleList.Select(k => (long)k.SysDicID).ToList();
                     }
                     break;
             }
@@ -104,77 +104,93 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
         private XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM GetViewModel(FormCollection fm)
         {
             XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM viewModel = new AdminViewModel.UserInfo.UserInfoAddVM();
-            viewModel.UserInfoWithMore = new Data.Model.Custom.UserInfoWithMore();
-            viewModel.UserInfoWithMore.UserInfo = new Data.Model.UserInfo();
-            viewModel.UserInfoWithMore.UserInfo.Age = XCLNetTools.StringHander.Common.GetInt((fm["txtAge"] ?? "").Trim());
-            viewModel.UserInfoWithMore.UserInfo.Birthday = XCLNetTools.StringHander.Common.GetDateTimeNullable((fm["txtBirthday"] ?? "").Trim());
-            viewModel.UserInfoWithMore.UserInfo.Email = (fm["txtEmail"] ?? "").Trim();
-            viewModel.UserInfoWithMore.UserInfo.NickName = (fm["txtNickName"] ?? "").Trim();
-            viewModel.UserInfoWithMore.UserInfo.OtherContact = (fm["txtOtherContact"] ?? "").Trim();
-            viewModel.UserInfoWithMore.UserInfo.Pwd = (fm["txtPwd"] ?? "").Trim();
-            viewModel.UserInfoWithMore.UserInfo.QQ = (fm["txtQQ"] ?? "").Trim();
-            viewModel.UserInfoWithMore.UserInfo.RealName = (fm["txtRealName"] ?? "").Trim();
-            viewModel.UserInfoWithMore.UserInfo.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
-            viewModel.UserInfoWithMore.UserInfo.Remark = (fm["txtRemark"] ?? "").Trim();
-            viewModel.UserInfoWithMore.UserInfo.SexType = (fm["selSexType"] ?? "").Trim();
-            viewModel.UserInfoWithMore.UserInfo.Tel = (fm["txtTel"] ?? "").Trim();
-            viewModel.UserInfoWithMore.UserInfo.UserName = (fm["txtUserName"] ?? "").Trim();
-            viewModel.UserInfoWithMore.UserInfo.UserState = (fm["selUserState"] ?? "").Trim();
+            viewModel.UserInfo = new Data.Model.UserInfo();
+            viewModel.UserInfo.Age = XCLNetTools.StringHander.Common.GetInt((fm["txtAge"] ?? "").Trim());
+            viewModel.UserInfo.Birthday = XCLNetTools.StringHander.Common.GetDateTimeNullable((fm["txtBirthday"] ?? "").Trim());
+            viewModel.UserInfo.Email = (fm["txtEmail"] ?? "").Trim();
+            viewModel.UserInfo.NickName = (fm["txtNickName"] ?? "").Trim();
+            viewModel.UserInfo.OtherContact = (fm["txtOtherContact"] ?? "").Trim();
+            viewModel.UserInfo.Pwd = (fm["txtPwd"] ?? "").Trim();
+            viewModel.UserInfo.QQ = (fm["txtQQ"] ?? "").Trim();
+            viewModel.UserInfo.RealName = (fm["txtRealName"] ?? "").Trim();
+            viewModel.UserInfo.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
+            viewModel.UserInfo.Remark = (fm["txtRemark"] ?? "").Trim();
+            viewModel.UserInfo.SexType = (fm["selSexType"] ?? "").Trim();
+            viewModel.UserInfo.Tel = (fm["txtTel"] ?? "").Trim();
+            viewModel.UserInfo.UserName = (fm["txtUserName"] ?? "").Trim();
+            viewModel.UserInfo.UserState = (fm["selUserState"] ?? "").Trim();
             string roles = fm["ckRoles"] ?? "";
             if (!string.IsNullOrEmpty(roles))
             {
-                viewModel.UserInfoWithMore.UserRoleIDs = XCLNetTools.StringHander.Common.GetLongArrayByStringArray(roles.Split(',')).ToList();
+                viewModel.UserRoleIDs = XCLNetTools.StringHander.Common.GetLongArrayByStringArray(roles.Split(',')).ToList();
             }
             return viewModel;
         }
 
+        /// <summary>
+        /// 添加用户信息
+        /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function=XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserAdd)]
         public override ActionResult AddSubmit(FormCollection fm)
         {
             XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
-            XCLCMS.Data.Model.Custom.UserInfoWithMore model = new Data.Model.Custom.UserInfoWithMore();
+            XCLCMS.Data.Model.UserInfo model = new XCLCMS.Data.Model.UserInfo();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            model.UserInfo = new Data.Model.UserInfo();
-            model.UserInfo.UserInfoID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.USR);
-            model.UserInfo.AccessToken = viewModel.UserInfoWithMore.UserInfo.AccessType;
-            model.UserInfo.AccessType = viewModel.UserInfoWithMore.UserInfo.AccessType;
-            model.UserInfo.Age = viewModel.UserInfoWithMore.UserInfo.Age;
-            model.UserInfo.Birthday = viewModel.UserInfoWithMore.UserInfo.Birthday;
-            model.UserInfo.CreaterID = base.CurrentUserModel.UserInfoID;
-            model.UserInfo.CreaterName = base.CurrentUserModel.UserName;
-            model.UserInfo.CreateTime = DateTime.Now;
-            model.UserInfo.UpdaterID = base.CurrentUserModel.UserInfoID;
-            model.UserInfo.UpdaterName = base.CurrentUserModel.UserName;
-            model.UserInfo.UpdateTime = DateTime.Now;
-            model.UserInfo.Email = viewModel.UserInfoWithMore.UserInfo.Email;
-            model.UserInfo.NickName = viewModel.UserInfoWithMore.UserInfo.NickName;
-            model.UserInfo.OtherContact = viewModel.UserInfoWithMore.UserInfo.OtherContact;
-            model.UserInfo.Pwd = XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5(string.IsNullOrEmpty(viewModel.UserInfoWithMore.UserInfo.Pwd) ? XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserDefaultPwd : viewModel.UserInfoWithMore.UserInfo.Pwd);
-            model.UserInfo.QQ = viewModel.UserInfoWithMore.UserInfo.QQ;
-            model.UserInfo.RealName = viewModel.UserInfoWithMore.UserInfo.RealName;
-            model.UserInfo.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
-            model.UserInfo.Remark = viewModel.UserInfoWithMore.UserInfo.Remark;
-            model.UserInfo.SexType = viewModel.UserInfoWithMore.UserInfo.SexType;
-            model.UserInfo.Tel = viewModel.UserInfoWithMore.UserInfo.Tel;
-            model.UserInfo.UserName = viewModel.UserInfoWithMore.UserInfo.UserName;
-            model.UserInfo.UserState = viewModel.UserInfoWithMore.UserInfo.UserState;
-            model.UserRoleIDs = viewModel.UserInfoWithMore.UserRoleIDs;
-            model.WithMoreState = 3;
-            if (userInfoBLL.Add(model))
+            model.UserInfoID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.USR);
+            model.AccessToken = viewModel.UserInfo.AccessType;
+            model.AccessType = viewModel.UserInfo.AccessType;
+            model.Age = viewModel.UserInfo.Age;
+            model.Birthday = viewModel.UserInfo.Birthday;
+            model.CreaterID = base.CurrentUserModel.UserInfoID;
+            model.CreaterName = base.CurrentUserModel.UserName;
+            model.CreateTime = DateTime.Now;
+            model.UpdaterID = base.CurrentUserModel.UserInfoID;
+            model.UpdaterName = base.CurrentUserModel.UserName;
+            model.UpdateTime = DateTime.Now;
+            model.Email = viewModel.UserInfo.Email;
+            model.NickName = viewModel.UserInfo.NickName;
+            model.OtherContact = viewModel.UserInfo.OtherContact;
+            model.Pwd = XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5(string.IsNullOrEmpty(viewModel.UserInfo.Pwd) ? XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserDefaultPwd : viewModel.UserInfo.Pwd);
+            model.QQ = viewModel.UserInfo.QQ;
+            model.RealName = viewModel.UserInfo.RealName;
+            model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
+            model.Remark = viewModel.UserInfo.Remark;
+            model.SexType = viewModel.UserInfo.SexType;
+            model.Tel = viewModel.UserInfo.Tel;
+            model.UserName = viewModel.UserInfo.UserName;
+            model.UserState = viewModel.UserInfo.UserState;
+
+            XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext userInfoContext = new Data.BLL.Strategy.UserInfo.UserInfoContext();
+            userInfoContext.CurrentUserInfo = base.CurrentUserModel;
+            userInfoContext.UserInfo = model;
+            userInfoContext.UserRoleIDs = viewModel.UserRoleIDs;
+            userInfoContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.ADD;
+
+            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
+                new XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo(),
+                new XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo()
+            });
+            strategy.Execute<XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext>(userInfoContext);
+
+            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
             {
                 msgModel.Message = "添加成功！";
                 msgModel.IsSuccess = true;
             }
             else
             {
-                msgModel.Message = "添加失败！";
+                msgModel.Message = strategy.ResultMessage;
                 msgModel.IsSuccess = false;
             }
+
             return Json(msgModel);
         }
 
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserEdit)]
         public override ActionResult UpdateSubmit(FormCollection fm)
@@ -183,44 +199,58 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             long userInfoId = XCLNetTools.StringHander.FormHelper.GetLong("userInfoId");
             XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
-            XCLCMS.Data.Model.Custom.UserInfoWithMore model = new Data.Model.Custom.UserInfoWithMore();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            model.UserInfo = userInfoBLL.GetModel(userInfoId);
-            model.UserInfo.AccessToken = viewModel.UserInfoWithMore.UserInfo.AccessType;
-            model.UserInfo.AccessType = viewModel.UserInfoWithMore.UserInfo.AccessType;
-            model.UserInfo.Age = viewModel.UserInfoWithMore.UserInfo.Age;
-            model.UserInfo.Birthday = viewModel.UserInfoWithMore.UserInfo.Birthday;
-            model.UserInfo.UpdaterID = base.CurrentUserModel.UserInfoID;
-            model.UserInfo.UpdaterName = base.CurrentUserModel.UserName;
-            model.UserInfo.UpdateTime = DateTime.Now;
-            model.UserInfo.Email = viewModel.UserInfoWithMore.UserInfo.Email;
-            model.UserInfo.NickName = viewModel.UserInfoWithMore.UserInfo.NickName;
-            model.UserInfo.OtherContact = viewModel.UserInfoWithMore.UserInfo.OtherContact;
-            if (!string.IsNullOrEmpty(viewModel.UserInfoWithMore.UserInfo.Pwd))
+            XCLCMS.Data.Model.UserInfo model = userInfoBLL.GetModel(userInfoId);
+            model.AccessToken = viewModel.UserInfo.AccessType;
+            model.AccessType = viewModel.UserInfo.AccessType;
+            model.Age = viewModel.UserInfo.Age;
+            model.Birthday = viewModel.UserInfo.Birthday;
+            model.UpdaterID = base.CurrentUserModel.UserInfoID;
+            model.UpdaterName = base.CurrentUserModel.UserName;
+            model.UpdateTime = DateTime.Now;
+            model.Email = viewModel.UserInfo.Email;
+            model.NickName = viewModel.UserInfo.NickName;
+            model.OtherContact = viewModel.UserInfo.OtherContact;
+            if (!string.IsNullOrEmpty(viewModel.UserInfo.Pwd))
             {
-                model.UserInfo.Pwd = XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5(viewModel.UserInfoWithMore.UserInfo.Pwd);
+                model.Pwd = XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5(viewModel.UserInfo.Pwd);
             }
-            model.UserInfo.QQ = viewModel.UserInfoWithMore.UserInfo.QQ;
-            model.UserInfo.RealName = viewModel.UserInfoWithMore.UserInfo.RealName;
-            model.UserInfo.Remark = viewModel.UserInfoWithMore.UserInfo.Remark;
-            model.UserInfo.SexType = viewModel.UserInfoWithMore.UserInfo.SexType;
-            model.UserInfo.Tel = viewModel.UserInfoWithMore.UserInfo.Tel;
-            model.UserInfo.UserState = viewModel.UserInfoWithMore.UserInfo.UserState;
-            model.UserRoleIDs = viewModel.UserInfoWithMore.UserRoleIDs;
-            model.WithMoreState = 3;
-            if (userInfoBLL.Update(model))
+            model.QQ = viewModel.UserInfo.QQ;
+            model.RealName = viewModel.UserInfo.RealName;
+            model.Remark = viewModel.UserInfo.Remark;
+            model.SexType = viewModel.UserInfo.SexType;
+            model.Tel = viewModel.UserInfo.Tel;
+            model.UserState = viewModel.UserInfo.UserState;
+
+            XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext userInfoContext = new Data.BLL.Strategy.UserInfo.UserInfoContext();
+            userInfoContext.CurrentUserInfo = base.CurrentUserModel;
+            userInfoContext.UserInfo = model;
+            userInfoContext.UserRoleIDs = viewModel.UserRoleIDs;
+            userInfoContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.UPDATE;
+
+            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
+                new XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo(),
+                new XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo()
+            });
+            strategy.Execute<XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext>(userInfoContext);
+
+            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
             {
                 msgModel.Message = "修改成功！";
                 msgModel.IsSuccess = true;
             }
             else
             {
-                msgModel.Message = "修改失败！";
+                msgModel.Message = strategy.ResultMessage;
                 msgModel.IsSuccess = false;
             }
+
             return Json(msgModel);
         }
 
+        /// <summary>
+        /// 删除用户信息
+        /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserDel)]
         public override ActionResult DelSubmit(FormCollection fm)
@@ -242,11 +272,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
                         userInfoModel.UpdateTime = DateTime.Now;
                         userInfoModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
                         userInfoModel.UserState = XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.D.ToString();
-
-                        var userInfoMoreModel = new Data.Model.Custom.UserInfoWithMore();
-                        userInfoMoreModel.UserInfo = userInfoModel;
-                        userInfoMoreModel.WithMoreState = 1;
-                        userInfoBLL.Update(userInfoMoreModel);
+                        userInfoBLL.Update(userInfoModel);
                     }
                 }
             }

@@ -211,11 +211,10 @@ namespace XCLCMS.Data.DAL
         }
 
         /// <summary>
-        ///  增加一条数据(带其它信息)
+        ///  增加一条数据
         /// </summary>
-        public bool Add(XCLCMS.Data.Model.Custom.UserInfoWithMore model)
+        public bool Add(XCLCMS.Data.Model.UserInfo model)
         {
-            int rowsAffected;
             SqlParameter[] parameters = {
 					new SqlParameter("@UserInfoID", SqlDbType.BigInt,8),
 					new SqlParameter("@UserName", SqlDbType.VarChar,50),
@@ -243,62 +242,56 @@ namespace XCLCMS.Data.DAL
 					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
 					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
 
-                    new SqlParameter("@UserRoleIDXML",SqlDbType.Xml),//用户角色id
-                    new SqlParameter("@WithMoreState",SqlDbType.Int)//存储过程功能分组状态位
+                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
+                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
                                         };
-            parameters[0].Value = model.UserInfo.UserInfoID;
-            parameters[1].Value = model.UserInfo.UserName;
-            parameters[2].Value = model.UserInfo.RealName;
-            parameters[3].Value = model.UserInfo.NickName;
-            parameters[4].Value = model.UserInfo.Pwd;
-            parameters[5].Value = model.UserInfo.Age;
-            parameters[6].Value = model.UserInfo.SexType;
-            parameters[7].Value = model.UserInfo.Birthday;
-            parameters[8].Value = model.UserInfo.Tel;
-            parameters[9].Value = model.UserInfo.QQ;
-            parameters[10].Value = model.UserInfo.Email;
-            parameters[11].Value = model.UserInfo.OtherContact;
-            parameters[12].Value = model.UserInfo.AccessType;
-            parameters[13].Value = model.UserInfo.AccessToken;
-            parameters[14].Value = model.UserInfo.UserState;
-            parameters[15].Value = model.UserInfo.Remark;
-            parameters[16].Value = model.UserInfo.RoleName;
-            parameters[17].Value = model.UserInfo.RoleMaxWeight;
-            parameters[18].Value = model.UserInfo.RecordState;
-            parameters[19].Value = model.UserInfo.CreateTime;
-            parameters[20].Value = model.UserInfo.CreaterID;
-            parameters[21].Value = model.UserInfo.CreaterName;
-            parameters[22].Value = model.UserInfo.UpdateTime;
-            parameters[23].Value = model.UserInfo.UpdaterID;
-            parameters[24].Value = model.UserInfo.UpdaterName;
+            parameters[0].Value = model.UserInfoID;
+            parameters[1].Value = model.UserName;
+            parameters[2].Value = model.RealName;
+            parameters[3].Value = model.NickName;
+            parameters[4].Value = model.Pwd;
+            parameters[5].Value = model.Age;
+            parameters[6].Value = model.SexType;
+            parameters[7].Value = model.Birthday;
+            parameters[8].Value = model.Tel;
+            parameters[9].Value = model.QQ;
+            parameters[10].Value = model.Email;
+            parameters[11].Value = model.OtherContact;
+            parameters[12].Value = model.AccessType;
+            parameters[13].Value = model.AccessToken;
+            parameters[14].Value = model.UserState;
+            parameters[15].Value = model.Remark;
+            parameters[16].Value = model.RoleName;
+            parameters[17].Value = model.RoleMaxWeight;
+            parameters[18].Value = model.RecordState;
+            parameters[19].Value = model.CreateTime;
+            parameters[20].Value = model.CreaterID;
+            parameters[21].Value = model.CreaterName;
+            parameters[22].Value = model.UpdateTime;
+            parameters[23].Value = model.UpdaterID;
+            parameters[24].Value = model.UpdaterName;
 
-            //角色处理
-            string roleXML = string.Empty;
-            if (null != model.UserRoleIDs && model.UserRoleIDs.Count > 0)
-            {
-                roleXML = XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(model.UserRoleIDs);
-            }
-            parameters[25].Value = roleXML;
-            parameters[26].Value = model.WithMoreState;
+            parameters[25].Direction = ParameterDirection.Output;
+            parameters[26].Direction = ParameterDirection.Output;
 
+            DbHelperSQL.RunProcedure("sp_UserInfo_ADD", parameters, "ds");
 
-            DbHelperSQL.RunProcedure("UserInfo_ADD", parameters, out rowsAffected);
-            if (rowsAffected > 0)
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
             {
                 return true;
             }
             else
             {
-                return false;
+                throw new Exception(result.ResultMessage);
             }
         }
 
         /// <summary>
-        ///  更新一条数据(带其它信息)
+        ///  更新一条数据
         /// </summary>
-        public bool Update(XCLCMS.Data.Model.Custom.UserInfoWithMore model)
+        public bool Update(XCLCMS.Data.Model.UserInfo model)
         {
-            int rowsAffected = 0;
             SqlParameter[] parameters = {
 					new SqlParameter("@UserInfoID", SqlDbType.BigInt,8),
 					new SqlParameter("@UserName", SqlDbType.VarChar,50),
@@ -325,52 +318,49 @@ namespace XCLCMS.Data.DAL
 					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
 					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
 					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
-                    new SqlParameter("@UserRoleIDXML",SqlDbType.Xml),//用户角色id
-                    new SqlParameter("@WithMoreState",SqlDbType.Int)//存储过程功能分组状态位
+
+                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
+                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
                                         };
-            parameters[0].Value = model.UserInfo.UserInfoID;
-            parameters[1].Value = model.UserInfo.UserName;
-            parameters[2].Value = model.UserInfo.RealName;
-            parameters[3].Value = model.UserInfo.NickName;
-            parameters[4].Value = model.UserInfo.Pwd;
-            parameters[5].Value = model.UserInfo.Age;
-            parameters[6].Value = model.UserInfo.SexType;
-            parameters[7].Value = model.UserInfo.Birthday;
-            parameters[8].Value = model.UserInfo.Tel;
-            parameters[9].Value = model.UserInfo.QQ;
-            parameters[10].Value = model.UserInfo.Email;
-            parameters[11].Value = model.UserInfo.OtherContact;
-            parameters[12].Value = model.UserInfo.AccessType;
-            parameters[13].Value = model.UserInfo.AccessToken;
-            parameters[14].Value = model.UserInfo.UserState;
-            parameters[15].Value = model.UserInfo.Remark;
-            parameters[16].Value = model.UserInfo.RoleName;
-            parameters[17].Value = model.UserInfo.RoleMaxWeight;
-            parameters[18].Value = model.UserInfo.RecordState;
-            parameters[19].Value = model.UserInfo.CreateTime;
-            parameters[20].Value = model.UserInfo.CreaterID;
-            parameters[21].Value = model.UserInfo.CreaterName;
-            parameters[22].Value = model.UserInfo.UpdateTime;
-            parameters[23].Value = model.UserInfo.UpdaterID;
-            parameters[24].Value = model.UserInfo.UpdaterName;
+            parameters[0].Value = model.UserInfoID;
+            parameters[1].Value = model.UserName;
+            parameters[2].Value = model.RealName;
+            parameters[3].Value = model.NickName;
+            parameters[4].Value = model.Pwd;
+            parameters[5].Value = model.Age;
+            parameters[6].Value = model.SexType;
+            parameters[7].Value = model.Birthday;
+            parameters[8].Value = model.Tel;
+            parameters[9].Value = model.QQ;
+            parameters[10].Value = model.Email;
+            parameters[11].Value = model.OtherContact;
+            parameters[12].Value = model.AccessType;
+            parameters[13].Value = model.AccessToken;
+            parameters[14].Value = model.UserState;
+            parameters[15].Value = model.Remark;
+            parameters[16].Value = model.RoleName;
+            parameters[17].Value = model.RoleMaxWeight;
+            parameters[18].Value = model.RecordState;
+            parameters[19].Value = model.CreateTime;
+            parameters[20].Value = model.CreaterID;
+            parameters[21].Value = model.CreaterName;
+            parameters[22].Value = model.UpdateTime;
+            parameters[23].Value = model.UpdaterID;
+            parameters[24].Value = model.UpdaterName;
 
-            //角色处理
-            string roleXML = string.Empty;
-            if (null != model.UserRoleIDs && model.UserRoleIDs.Count > 0)
-            {
-                roleXML = XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(model.UserRoleIDs);
-            }
-            parameters[25].Value = roleXML;
-            parameters[26].Value = model.WithMoreState;
+            parameters[25].Direction = ParameterDirection.Output;
+            parameters[26].Direction = ParameterDirection.Output;
 
-            DbHelperSQL.RunProcedure("UserInfo_Update", parameters, out rowsAffected);
-            if (rowsAffected > 0)
+            DbHelperSQL.RunProcedure("sp_UserInfo_Update", parameters, "ds");
+
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
             {
                 return true;
             }
             else
             {
-                return false;
+                throw new Exception(result.ResultMessage);
             }
         }
         #endregion  MethodEx

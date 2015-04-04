@@ -19,7 +19,12 @@ namespace XCLCMS.View.AdminViewModel.UserInfo
         /// <summary>
         /// 用户model
         /// </summary>
-        public XCLCMS.Data.Model.Custom.UserInfoWithMore UserInfoWithMore { get; set; }
+        public XCLCMS.Data.Model.UserInfo UserInfo { get; set; }
+
+        /// <summary>
+        /// 角色id list
+        /// </summary>
+        public List<long> UserRoleIDs { get; set; }
 
         /// <summary>
         /// 角色列表

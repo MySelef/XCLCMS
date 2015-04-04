@@ -21,7 +21,6 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Add(XCLCMS.Data.Model.SysFunction model)
         {
-            int rowsAffected;
             SqlParameter[] parameters = {
 					new SqlParameter("@SysFunctionID", SqlDbType.BigInt,8),
 					new SqlParameter("@FunctionName", SqlDbType.VarChar,100),
@@ -33,7 +32,11 @@ namespace XCLCMS.Data.DAL
 					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
 					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
 					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50)};
+					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
+                                        
+                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
+                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
+                                        };
             parameters[0].Value = model.SysFunctionID;
             parameters[1].Value = model.FunctionName;
             parameters[2].Value = model.FK_TypeID;
@@ -46,8 +49,20 @@ namespace XCLCMS.Data.DAL
             parameters[9].Value = model.UpdaterID;
             parameters[10].Value = model.UpdaterName;
 
-            DbHelperSQL.RunProcedure("SysFunction_ADD", parameters, out rowsAffected);
-            return rowsAffected > 0;
+            parameters[11].Direction = ParameterDirection.Output;
+            parameters[12].Direction = ParameterDirection.Output;
+
+            DbHelperSQL.RunProcedure("sp_SysFunction_ADD", parameters, "ds");
+
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception(result.ResultMessage);
+            }
         }
 
         /// <summary>
@@ -55,7 +70,6 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Update(XCLCMS.Data.Model.SysFunction model)
         {
-            int rowsAffected = 0;
             SqlParameter[] parameters = {
 					new SqlParameter("@SysFunctionID", SqlDbType.BigInt,8),
 					new SqlParameter("@FunctionName", SqlDbType.VarChar,100),
@@ -67,7 +81,11 @@ namespace XCLCMS.Data.DAL
 					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
 					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
 					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50)};
+					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
+                                        
+                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
+                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
+                                        };
             parameters[0].Value = model.SysFunctionID;
             parameters[1].Value = model.FunctionName;
             parameters[2].Value = model.FK_TypeID;
@@ -80,14 +98,19 @@ namespace XCLCMS.Data.DAL
             parameters[9].Value = model.UpdaterID;
             parameters[10].Value = model.UpdaterName;
 
-            DbHelperSQL.RunProcedure("SysFunction_Update", parameters, out rowsAffected);
-            if (rowsAffected > 0)
+            parameters[11].Direction = ParameterDirection.Output;
+            parameters[12].Direction = ParameterDirection.Output;
+
+            DbHelperSQL.RunProcedure("sp_SysFunction_Update", parameters, "ds");
+
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
             {
                 return true;
             }
             else
             {
-                return false;
+                throw new Exception(result.ResultMessage);
             }
         }
 
@@ -213,7 +236,7 @@ namespace XCLCMS.Data.DAL
             parameters[1].Value=userId;
             parameters[2].Value=XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(functionList);
 
-            DbHelperSQL.RunProcedure("proc_CheckUserHasAnyFunction", parameters, "ds");
+            DbHelperSQL.RunProcedure("sp_CheckUserHasAnyFunction", parameters, "ds");
 
             return XCLNetTools.StringHander.Common.GetInt(parameters[0].Value) == 1;
         }

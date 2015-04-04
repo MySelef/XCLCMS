@@ -18,9 +18,8 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         ///  增加一条数据
         /// </summary>
-        public long Add(XCLCMS.Data.Model.SysLog model)
+        public bool Add(XCLCMS.Data.Model.SysLog model)
         {
-            int rowsAffected;
             SqlParameter[] parameters = {
 					new SqlParameter("@SysLogID", SqlDbType.BigInt,8),
 					new SqlParameter("@LogLevel", SqlDbType.VarChar,50),
@@ -32,7 +31,11 @@ namespace XCLCMS.Data.DAL
 					new SqlParameter("@Contents", SqlDbType.VarChar,4000),
 					new SqlParameter("@ClientIP", SqlDbType.VarChar,50),
 					new SqlParameter("@Remark", SqlDbType.VarChar,2000),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime)};
+					new SqlParameter("@CreateTime", SqlDbType.DateTime),
+                                        
+                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
+                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)                                        
+                                        };
             parameters[0].Direction = ParameterDirection.Output;
             parameters[1].Value = model.LogLevel;
             parameters[2].Value = model.LogType;
@@ -45,70 +48,19 @@ namespace XCLCMS.Data.DAL
             parameters[9].Value = model.Remark;
             parameters[10].Value = model.CreateTime;
 
-            DbHelperSQL.RunProcedure("SysLog_ADD", parameters, out rowsAffected);
-            return (long)parameters[0].Value;
-        }
+            parameters[11].Direction = ParameterDirection.Output;
+            parameters[12].Direction = ParameterDirection.Output;
 
-        /// <summary>
-        ///  更新一条数据
-        /// </summary>
-        public bool Update(XCLCMS.Data.Model.SysLog model)
-        {
-            int rowsAffected = 0;
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysLogID", SqlDbType.BigInt,8),
-					new SqlParameter("@LogLevel", SqlDbType.VarChar,50),
-					new SqlParameter("@LogType", SqlDbType.VarChar,50),
-					new SqlParameter("@RefferUrl", SqlDbType.VarChar,1000),
-					new SqlParameter("@Url", SqlDbType.VarChar,1000),
-					new SqlParameter("@Code", SqlDbType.VarChar,50),
-					new SqlParameter("@Title", SqlDbType.VarChar,500),
-					new SqlParameter("@Contents", SqlDbType.VarChar,4000),
-					new SqlParameter("@ClientIP", SqlDbType.VarChar,50),
-					new SqlParameter("@Remark", SqlDbType.VarChar,2000),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime)};
-            parameters[0].Value = model.SysLogID;
-            parameters[1].Value = model.LogLevel;
-            parameters[2].Value = model.LogType;
-            parameters[3].Value = model.RefferUrl;
-            parameters[4].Value = model.Url;
-            parameters[5].Value = model.Code;
-            parameters[6].Value = model.Title;
-            parameters[7].Value = model.Contents;
-            parameters[8].Value = model.ClientIP;
-            parameters[9].Value = model.Remark;
-            parameters[10].Value = model.CreateTime;
+            DbHelperSQL.RunProcedure("sp_SysLog_ADD", parameters, "ds");
 
-            DbHelperSQL.RunProcedure("SysLog_Update", parameters, out rowsAffected);
-            if (rowsAffected > 0)
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
             {
                 return true;
             }
             else
             {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public XCLCMS.Data.Model.SysLog GetModel(long SysLogID)
-        {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysLogID", SqlDbType.BigInt)
-			};
-            parameters[0].Value = SysLogID;
-
-            XCLCMS.Data.Model.SysLog model = new XCLCMS.Data.Model.SysLog();
-            DataSet ds = DbHelperSQL.RunProcedure("SysLog_GetModel", parameters, "ds");
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                return DataRowToModel(ds.Tables[0].Rows[0]);
-            }
-            else
-            {
-                return null;
+                throw new Exception(result.ResultMessage);
             }
         }
 

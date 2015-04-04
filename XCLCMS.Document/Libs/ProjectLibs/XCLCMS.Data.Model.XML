@@ -139,46 +139,6 @@
             更新人名
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.Model.Custom.SysDicWithMore">
-            <summary>
-            字典库扩展model
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.Custom.SysDicWithMore.SysDic">
-            <summary>
-            字典model
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.Custom.SysDicWithMore.RoleFunctionList">
-            <summary>
-            角色功能list
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.Custom.SysDicWithMore.WithMoreState">
-            <summary>
-            状态位
-            </summary>
-        </member>
-        <member name="T:XCLCMS.Data.Model.Custom.UserInfoWithMore">
-            <summary>
-            包含其它信息的用户model
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.Custom.UserInfoWithMore.UserInfo">
-            <summary>
-            用户model
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.Custom.UserInfoWithMore.UserRoleIDs">
-            <summary>
-            当前用户的角色id
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.Custom.UserInfoWithMore.WithMoreState">
-            <summary>
-            状态位
-            </summary>
-        </member>
         <member name="T:XCLCMS.Data.Model.GenerateID">
             <summary>
             ID生成表
@@ -417,6 +377,56 @@
         <member name="P:XCLCMS.Data.Model.SysLog.CreateTime">
             <summary>
             创建时间
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.Model.SysRoleFunction">
+            <summary>
+            角色功能关系表
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRoleFunction.FK_SysRoleID">
+            <summary>
+            角色ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRoleFunction.FK_SysFunctionID">
+            <summary>
+            功能ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRoleFunction.RecordState">
+            <summary>
+            记录状态(RecordStateEnum)
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRoleFunction.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRoleFunction.CreaterID">
+            <summary>
+            创建者ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRoleFunction.CreaterName">
+            <summary>
+            创建者名
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRoleFunction.UpdateTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRoleFunction.UpdaterID">
+            <summary>
+            更新人ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRoleFunction.UpdaterName">
+            <summary>
+            更新人名
             </summary>
         </member>
         <member name="T:XCLCMS.Data.Model.SysUserRole">

@@ -9,8 +9,10 @@ namespace XCLCMS.Data.BLL.Strategy
     /// <summary>
     /// 策略基类
     /// </summary>
-    public class BaseStrategy:IStrategy
+    public class BaseStrategy
     {
+        private XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum _result = StrategyLib.ResultEnum.NONE;
+
         /// <summary>
         /// 当前策略名
         /// </summary>
@@ -22,9 +24,19 @@ namespace XCLCMS.Data.BLL.Strategy
         public string Remark { get; set; }
 
         /// <summary>
-        /// 当前策略执行结果
+        /// 当前策略执行结果（默认NONE）
         /// </summary>
-        public XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum Result { get; set; }
+        public XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum Result
+        {
+            get
+            {
+                return this._result;
+            }
+            set
+            {
+                this._result = value;
+            }
+        }
 
         /// <summary>
         /// 当前策略执行结果消息

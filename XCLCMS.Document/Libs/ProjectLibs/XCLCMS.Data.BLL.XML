@@ -70,39 +70,24 @@
             </summary>
             <param name="IDType">类型</param>
         </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.BaseContext">
+            <summary>
+            上下文基类
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.BaseContext.CurrentUserInfo">
+            <summary>
+            当前用户信息
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.BaseContext.HandleType">
+            <summary>
+            操作类型枚举
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.BLL.Strategy.BaseStrategy">
             <summary>
             策略基类
-            </summary>
-        </member>
-        <member name="T:XCLCMS.Data.BLL.Strategy.IStrategy">
-            <summary>
-            策略接口
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.BLL.Strategy.IStrategy.DoWork``1(``0)">
-            <summary>
-            执行策略链
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.BLL.Strategy.IStrategy.Name">
-            <summary>
-            当前策略名
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.BLL.Strategy.IStrategy.Remark">
-            <summary>
-            当前策略链备注
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.BLL.Strategy.IStrategy.Result">
-            <summary>
-            当前策略执行结果
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.BLL.Strategy.IStrategy.ResultMessage">
-            <summary>
-            当前策略执行结果消息
             </summary>
         </member>
         <member name="M:XCLCMS.Data.BLL.Strategy.BaseStrategy.DoWork``1(``0)">
@@ -122,12 +107,43 @@
         </member>
         <member name="P:XCLCMS.Data.BLL.Strategy.BaseStrategy.Result">
             <summary>
-            当前策略执行结果
+            当前策略执行结果（默认NONE）
             </summary>
         </member>
         <member name="P:XCLCMS.Data.BLL.Strategy.BaseStrategy.ResultMessage">
             <summary>
             当前策略执行结果消息
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.ExecuteStrategy">
+            <summary>
+            执行策略链
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.ExecuteStrategy.#ctor(System.Collections.Generic.List{XCLCMS.Data.BLL.Strategy.BaseStrategy})">
+            <summary>
+            构造函数
+            </summary>
+            <param name="strategyList">当前待执行的策略链list</param>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.ExecuteStrategy.Execute``1(``0)">
+            <summary>
+            执行策略链
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.ExecuteStrategy.Result">
+            <summary>
+            当前策略链执行结果（默认NONE）
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.ExecuteStrategy.ResultMessage">
+            <summary>
+            当前策略执行结果消息
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.ExecuteStrategy.StrategyList">
+            <summary>
+            当前待执行的策略链
             </summary>
         </member>
         <member name="T:XCLCMS.Data.BLL.Strategy.StrategyLib">
@@ -155,9 +171,94 @@
             失败
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.BLL.Strategy.UserInfo.BaseInfo">
+        <member name="T:XCLCMS.Data.BLL.Strategy.StrategyLib.HandleType">
+            <summary>
+            页面操作类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.BLL.Strategy.StrategyLib.HandleType.NONE">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.BLL.Strategy.StrategyLib.HandleType.ADD">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.BLL.Strategy.StrategyLib.HandleType.DEL">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.BLL.Strategy.StrategyLib.HandleType.UPDATE">
+            <summary>
+            更新
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.BLL.Strategy.StrategyLib.HandleType.OTHER">
+            <summary>
+            其它
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.SysDic.SysDic">
+            <summary>
+            保存字典库基本信息
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.SysDic.SysDic.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.SysDic.SysDic.DoWork``1(``0)">
+            <summary>
+            执行策略
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext">
+            <summary>
+            字典库上下文
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext.SysDic">
+            <summary>
+            字典库信息
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext.FunctionIdList">
+            <summary>
+            角色所对应的功能id列表
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.SysDic.SysRoleFunction">
+            <summary>
+            保存字典库中的角色功能信息
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.SysDic.SysRoleFunction.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.SysDic.SysRoleFunction.DoWork``1(``0)">
+            <summary>
+            执行策略
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo">
             <summary>
             保存用户基础信息
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo.#ctor">
+            <summary>
+            构造
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo.DoWork``1(``0)">
+            <summary>
+            执行策略
             </summary>
         </member>
         <member name="T:XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo">
@@ -165,9 +266,14 @@
             保存用户角色信息
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.BLL.Strategy.UserInfo.SaveUserInfoStrategy">
+        <member name="M:XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo.#ctor">
             <summary>
-            保存用户信息
+            构造
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo.DoWork``1(``0)">
+            <summary>
+            执行策略
             </summary>
         </member>
         <member name="T:XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext">
@@ -178,6 +284,11 @@
         <member name="P:XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext.UserInfo">
             <summary>
             用户信息
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext.UserRoleIDs">
+            <summary>
+            用户的角色id
             </summary>
         </member>
         <member name="T:XCLCMS.Data.BLL.SysDic">
@@ -238,14 +349,14 @@
             （条件：SysDicID、RecordState）
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.SysDic.Add(XCLCMS.Data.Model.Custom.SysDicWithMore)">
+        <member name="M:XCLCMS.Data.BLL.SysDic.Add(XCLCMS.Data.Model.SysDic)">
             <summary>
-             增加一条数据(带其它信息)
+             增加一条数据
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.SysDic.Update(XCLCMS.Data.Model.Custom.SysDicWithMore)">
+        <member name="M:XCLCMS.Data.BLL.SysDic.Update(XCLCMS.Data.Model.SysDic)">
             <summary>
-             更新一条数据(带其它信息)
+             更新一条数据
             </summary>
         </member>
         <member name="T:XCLCMS.Data.BLL.SysFunction">
@@ -314,16 +425,6 @@
             增加一条数据
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.SysLog.Update(XCLCMS.Data.Model.SysLog)">
-            <summary>
-            更新一条数据
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.BLL.SysLog.GetModel(System.Int64)">
-            <summary>
-            得到一个对象实体
-            </summary>
-        </member>
         <member name="M:XCLCMS.Data.BLL.SysLog.GetList(System.String)">
             <summary>
             获得数据列表
@@ -356,24 +457,19 @@
             <param name="startTime">开始时间</param>
             <param name="endTime">结束时间</param>
         </member>
-        <member name="T:XCLCMS.Data.BLL.SysUserRole">
+        <member name="T:XCLCMS.Data.BLL.SysRoleFunction">
             <summary>
-            用户角色关系表
+            角色功能关系表
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.SysUserRole.Add(XCLCMS.Data.Model.SysUserRole)">
+        <member name="M:XCLCMS.Data.BLL.SysRoleFunction.Add(XCLCMS.Data.Model.SysRoleFunction,System.Collections.Generic.List{System.Int64})">
             <summary>
             增加一条数据
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.SysUserRole.Update(XCLCMS.Data.Model.SysUserRole)">
+        <member name="T:XCLCMS.Data.BLL.SysUserRole">
             <summary>
-            更新一条数据
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.BLL.SysUserRole.GetModel(System.Int64,System.Int64)">
-            <summary>
-            得到一个对象实体
+            用户角色关系表
             </summary>
         </member>
         <member name="M:XCLCMS.Data.BLL.SysUserRole.GetList(System.String)">
@@ -394,6 +490,11 @@
         <member name="M:XCLCMS.Data.BLL.SysUserRole.GetAllList">
             <summary>
             获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysUserRole.Add(XCLCMS.Data.Model.SysUserRole,System.Collections.Generic.List{System.Int64})">
+            <summary>
+            增加数据
             </summary>
         </member>
         <member name="T:XCLCMS.Data.BLL.SysWebSetting">
@@ -491,14 +592,14 @@
             根据用户名和密码获取用户实体
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.UserInfo.Add(XCLCMS.Data.Model.Custom.UserInfoWithMore)">
+        <member name="M:XCLCMS.Data.BLL.UserInfo.Add(XCLCMS.Data.Model.UserInfo)">
             <summary>
-             增加一条数据(带其它信息)
+             增加一条数据
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.UserInfo.Update(XCLCMS.Data.Model.Custom.UserInfoWithMore)">
+        <member name="M:XCLCMS.Data.BLL.UserInfo.Update(XCLCMS.Data.Model.UserInfo)">
             <summary>
-             更新一条数据(带其它信息)
+             更新一条数据
             </summary>
         </member>
         <member name="M:XCLCMS.Data.BLL.View.v_SysDic.GetModel(System.Int64)">

@@ -29,5 +29,32 @@ namespace XCLCMS.Data.BLL.Strategy
             /// </summary>
             FAIL
         }
+
+        /// <summary>
+        /// 页面操作类型
+        /// </summary>
+        public enum HandleType
+        {
+            /// <summary>
+            /// 未知
+            /// </summary>
+            NONE,
+            /// <summary>
+            /// 添加
+            /// </summary>
+            ADD,
+            /// <summary>
+            /// 删除
+            /// </summary>
+            DEL,
+            /// <summary>
+            /// 更新
+            /// </summary>
+            UPDATE,
+            /// <summary>
+            /// 其它
+            /// </summary>
+            OTHER
+        }
     }
 }

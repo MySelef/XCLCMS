@@ -39,12 +39,18 @@
             分页数据列表
             </summary>
         </member>
+        <member name="T:XCLCMS.Data.DAL.CommonDAL.CommonDALHelper">
+            <summary>
+            DAL层公共方法
+            </summary>
+        </member>
         <member name="M:XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetPageList(System.String,System.Int32,System.Int32,System.Int32@,System.String,System.String,System.String,System.String)">
              <summary>
              分页(可按非主键排序)
              </summary>
-             <param name="PageSize">每页最多显示的条数</param>
-             <param name="PageIndex">当前为第几页 1为第1页</param>
+             <param name="tableName">表名</param>
+             <param name="pageSize">每页最多显示的条数</param>
+             <param name="pageIndex">当前为第几页 1为第1页</param>
              <param name="recordCount">总记录数</param>
              <param name="strWhere"> 查询条件 (注意: 不要加 where)</param>
              <param name="fieldName">列名，若为空，则取所有列</param>
@@ -55,6 +61,32 @@
         <member name="M:XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.ClearRubbishData">
             <summary>
             垃圾数据清理
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            从存储过程参数中获取存储过程的执行结果
+            </summary>
+            <param name="parameters">存储过程参数</param>
+        </member>
+        <member name="T:XCLCMS.Data.DAL.Entity.ProcedureResultModel">
+            <summary>
+            存储过程执行结果model
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.DAL.Entity.ProcedureResultModel.IsSuccess">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.DAL.Entity.ProcedureResultModel.ResultCode">
+            <summary>
+            执行结果状态（1：成功，其它为失败）
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.DAL.Entity.ProcedureResultModel.ResultMessage">
+            <summary>
+            执行结果返回的消息
             </summary>
         </member>
         <member name="T:XCLCMS.Data.DAL.GenerateID">
@@ -115,14 +147,14 @@
             （条件：SysDicID、RecordState）
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.SysDic.Add(XCLCMS.Data.Model.Custom.SysDicWithMore)">
+        <member name="M:XCLCMS.Data.DAL.SysDic.Add(XCLCMS.Data.Model.SysDic)">
             <summary>
-             增加一条数据(带其它信息)
+             增加一条数据
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.SysDic.Update(XCLCMS.Data.Model.Custom.SysDicWithMore)">
+        <member name="M:XCLCMS.Data.DAL.SysDic.Update(XCLCMS.Data.Model.SysDic)">
             <summary>
-             更新一条数据(带其它信息)
+             更新一条数据
             </summary>
         </member>
         <member name="T:XCLCMS.Data.DAL.SysFunction">
@@ -181,16 +213,6 @@
              增加一条数据
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.SysLog.Update(XCLCMS.Data.Model.SysLog)">
-            <summary>
-             更新一条数据
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.DAL.SysLog.GetModel(System.Int64)">
-            <summary>
-            得到一个对象实体
-            </summary>
-        </member>
         <member name="M:XCLCMS.Data.DAL.SysLog.DataRowToModel(System.Data.DataRow)">
             <summary>
             得到一个对象实体
@@ -213,24 +235,20 @@
             <param name="startTime">开始时间</param>
             <param name="endTime">结束时间</param>
         </member>
+        <member name="T:XCLCMS.Data.DAL.SysRoleFunction">
+            <summary>
+            数据访问类:SysRoleFunction
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysRoleFunction.Add(XCLCMS.Data.Model.SysRoleFunction,System.Collections.Generic.List{System.Int64})">
+            <summary>
+             增加一条数据
+             注：如果functionIdList为空，则添加model.FK_SysFunctionID，否则，则添加functionIdList
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.DAL.SysUserRole">
             <summary>
             数据访问类:SysUserRole
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.DAL.SysUserRole.Add(XCLCMS.Data.Model.SysUserRole)">
-            <summary>
-             增加一条数据
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.DAL.SysUserRole.Update(XCLCMS.Data.Model.SysUserRole)">
-            <summary>
-             更新一条数据
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.DAL.SysUserRole.GetModel(System.Int64,System.Int64)">
-            <summary>
-            得到一个对象实体
             </summary>
         </member>
         <member name="M:XCLCMS.Data.DAL.SysUserRole.DataRowToModel(System.Data.DataRow)">
@@ -241,6 +259,12 @@
         <member name="M:XCLCMS.Data.DAL.SysUserRole.GetList(System.String)">
             <summary>
             获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysUserRole.Add(XCLCMS.Data.Model.SysUserRole,System.Collections.Generic.List{System.Int64})">
+            <summary>
+             增加一条数据
+             注：如果roleIdList为空，则添加model.FK_SysRoleID，否则，则添加roleIdList
             </summary>
         </member>
         <member name="T:XCLCMS.Data.DAL.SysWebSetting">
@@ -318,14 +342,14 @@
             根据用户名和密码获取用户实体
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.UserInfo.Add(XCLCMS.Data.Model.Custom.UserInfoWithMore)">
+        <member name="M:XCLCMS.Data.DAL.UserInfo.Add(XCLCMS.Data.Model.UserInfo)">
             <summary>
-             增加一条数据(带其它信息)
+             增加一条数据
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.UserInfo.Update(XCLCMS.Data.Model.Custom.UserInfoWithMore)">
+        <member name="M:XCLCMS.Data.DAL.UserInfo.Update(XCLCMS.Data.Model.UserInfo)">
             <summary>
-             更新一条数据(带其它信息)
+             更新一条数据
             </summary>
         </member>
         <member name="M:XCLCMS.Data.DAL.View.v_SysDic.GetModel(System.Int64)">

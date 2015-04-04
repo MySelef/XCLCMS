@@ -9,13 +9,17 @@ using XCLCMS.Data.DBUtility;
 
 namespace XCLCMS.Data.DAL.CommonDAL
 {
+    /// <summary>
+    /// DAL层公共方法
+    /// </summary>
     public class CommonDALHelper
     {
         /// <summary>
         /// 分页(可按非主键排序)
         /// </summary>
-        /// <param name="PageSize">每页最多显示的条数</param>
-        /// <param name="PageIndex">当前为第几页 1为第1页</param>
+        /// <param name="tableName">表名</param>
+        /// <param name="pageSize">每页最多显示的条数</param>
+        /// <param name="pageIndex">当前为第几页 1为第1页</param>
         /// <param name="recordCount">总记录数</param>
         /// <param name="strWhere"> 查询条件 (注意: 不要加 where)</param>
         /// <param name="fieldName">列名，若为空，则取所有列</param>
@@ -45,7 +49,7 @@ namespace XCLCMS.Data.DAL.CommonDAL
             parameters[6].Value = strWhere;
             parameters[7].Value = fieldOrder;
             parameters[8].Value = fieldKey;
-            DataSet ds = DbHelperSQL.RunProcedure("proc_pager", parameters, "ds");
+            DataSet ds = DbHelperSQL.RunProcedure("sp_Pager", parameters, "ds");
             int.TryParse(parameters[0].Value.ToString(), out recordCount);
 
             if (null != ds && ds.Tables.Count > 0)
@@ -60,8 +64,35 @@ namespace XCLCMS.Data.DAL.CommonDAL
         /// </summary>
         public static void ClearRubbishData()
         {
-            string strSql = "exec proc_ClearRubbishData";
-            DbHelperSQL.ExecuteSql(strSql);
+            DbHelperSQL.RunProcedure("sp_ClearRubbishData", null, "ds");
+        }
+
+        /// <summary>
+        /// 从存储过程参数中获取存储过程的执行结果
+        /// </summary>
+        /// <param name="parameters">存储过程参数</param>
+        public static XCLCMS.Data.DAL.Entity.ProcedureResultModel GetProcedureResult(SqlParameter[] parameters)
+        {
+            XCLCMS.Data.DAL.Entity.ProcedureResultModel model = new Entity.ProcedureResultModel();
+            model.IsSuccess = true;
+
+            if (null != parameters && parameters.Length > 0)
+            {
+                var lst = parameters.ToList();
+                var paramsModel = lst.Where(k => string.Equals(k.ParameterName, "@ResultCode", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                if (null != paramsModel)
+                {
+                    model.ResultCode = Int32.Parse(Convert.ToString(paramsModel.Value));
+                    model.IsSuccess = (model.ResultCode == 1);
+                }
+                paramsModel = lst.Where(k => string.Equals(k.ParameterName, "@ResultMessage", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                if (null != paramsModel)
+                {
+                    model.ResultMessage =Convert.ToString(paramsModel.Value);
+                }
+            }
+
+            return model;
         }
     }
 }

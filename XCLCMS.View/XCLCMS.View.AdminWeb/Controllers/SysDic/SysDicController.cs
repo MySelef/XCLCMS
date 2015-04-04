@@ -114,39 +114,99 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM viewModel = this.GetViewModel(fm);
 
             XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
-            XCLCMS.Data.Model.Custom.SysDicWithMore sysDicModel = new Data.Model.Custom.SysDicWithMore();
-            sysDicModel.SysDic = new Data.Model.SysDic();
+            XCLCMS.Data.Model.SysDic sysDicModel = new Data.Model.SysDic();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
 
-            sysDicModel.SysDic.Code = viewModel.SysDic.Code;
-            sysDicModel.SysDic.CreaterID = base.CurrentUserModel.UserInfoID;
-            sysDicModel.SysDic.CreaterName = base.CurrentUserModel.UserName;
-            sysDicModel.SysDic.CreateTime = DateTime.Now;
-            sysDicModel.SysDic.UpdaterID = base.CurrentUserModel.UserInfoID;
-            sysDicModel.SysDic.UpdaterName = base.CurrentUserModel.UserName;
-            sysDicModel.SysDic.UpdateTime = DateTime.Now;
-            sysDicModel.SysDic.DicName = viewModel.SysDic.DicName;
-            sysDicModel.SysDic.DicType = viewModel.SysDic.DicType;
-            sysDicModel.SysDic.DicValue = viewModel.SysDic.DicValue;
-            sysDicModel.SysDic.ParentID = viewModel.ParentID;
-            sysDicModel.SysDic.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
-            sysDicModel.SysDic.Sort = viewModel.SysDic.Sort;
-            sysDicModel.SysDic.Remark = viewModel.SysDic.Remark;
-            sysDicModel.SysDic.Weight = viewModel.SysDic.Weight;
-            sysDicModel.SysDic.FK_FunctionID = viewModel.SysDic.FK_FunctionID;
-            sysDicModel.SysDic.SysDicID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.DIC);
-            sysDicModel.RoleFunctionList = viewModel.RoleFunctionIDList;
-            sysDicModel.WithMoreState = 3;
-            if (sysDicBLL.Add(sysDicModel))
+            sysDicModel.Code = viewModel.SysDic.Code;
+            sysDicModel.CreaterID = base.CurrentUserModel.UserInfoID;
+            sysDicModel.CreaterName = base.CurrentUserModel.UserName;
+            sysDicModel.CreateTime = DateTime.Now;
+            sysDicModel.UpdaterID = base.CurrentUserModel.UserInfoID;
+            sysDicModel.UpdaterName = base.CurrentUserModel.UserName;
+            sysDicModel.UpdateTime = DateTime.Now;
+            sysDicModel.DicName = viewModel.SysDic.DicName;
+            sysDicModel.DicType = viewModel.SysDic.DicType;
+            sysDicModel.DicValue = viewModel.SysDic.DicValue;
+            sysDicModel.ParentID = viewModel.ParentID;
+            sysDicModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
+            sysDicModel.Sort = viewModel.SysDic.Sort;
+            sysDicModel.Remark = viewModel.SysDic.Remark;
+            sysDicModel.Weight = viewModel.SysDic.Weight;
+            sysDicModel.FK_FunctionID = viewModel.SysDic.FK_FunctionID;
+            sysDicModel.SysDicID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.DIC);
+
+            XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext sysDicContext = new Data.BLL.Strategy.SysDic.SysDicContext();
+            sysDicContext.CurrentUserInfo = base.CurrentUserModel;
+            sysDicContext.FunctionIdList = viewModel.RoleFunctionIDList;
+            sysDicContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.ADD;
+            sysDicContext.SysDic = sysDicModel;
+
+            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
+                new XCLCMS.Data.BLL.Strategy.SysDic.SysDic(),
+                new XCLCMS.Data.BLL.Strategy.SysDic.SysRoleFunction()
+            });
+            strategy.Execute<XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext>(sysDicContext);
+
+            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
             {
                 msgModel.Message = "添加成功！";
                 msgModel.IsSuccess = true;
             }
             else
             {
-                msgModel.Message = "添加失败！";
+                msgModel.Message = strategy.ResultMessage;
                 msgModel.IsSuccess = false;
             }
+
+            return Json(msgModel);
+        }
+
+        [HttpPost]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicEdit)]
+        public override ActionResult UpdateSubmit(FormCollection fm)
+        {
+            base.UpdateSubmit(fm);
+            XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM viewModel = this.GetViewModel(fm);
+
+            XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
+            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
+            XCLCMS.Data.Model.SysDic sysDicModel = sysDicBLL.GetModel(viewModel.SysDicID);
+            sysDicModel.Code = viewModel.SysDic.Code;
+            sysDicModel.UpdaterID = base.CurrentUserModel.UserInfoID;
+            sysDicModel.UpdaterName = base.CurrentUserModel.UserName;
+            sysDicModel.UpdateTime = DateTime.Now;
+            sysDicModel.DicName = viewModel.SysDic.DicName;
+            sysDicModel.DicType = viewModel.SysDic.DicType;
+            sysDicModel.DicValue = viewModel.SysDic.DicValue;
+            sysDicModel.Sort = viewModel.SysDic.Sort;
+            sysDicModel.Remark = viewModel.SysDic.Remark;
+            sysDicModel.Weight = viewModel.SysDic.Weight;
+            sysDicModel.FK_FunctionID = viewModel.SysDic.FK_FunctionID;
+
+
+            XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext sysDicContext = new Data.BLL.Strategy.SysDic.SysDicContext();
+            sysDicContext.CurrentUserInfo = base.CurrentUserModel;
+            sysDicContext.FunctionIdList = viewModel.RoleFunctionIDList;
+            sysDicContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.UPDATE;
+            sysDicContext.SysDic = sysDicModel;
+
+            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
+                new XCLCMS.Data.BLL.Strategy.SysDic.SysDic(),
+                new XCLCMS.Data.BLL.Strategy.SysDic.SysRoleFunction()
+            });
+            strategy.Execute<XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext>(sysDicContext);
+
+            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
+            {
+                msgModel.Message = "修改成功！";
+                msgModel.IsSuccess = true;
+            }
+            else
+            {
+                msgModel.Message = strategy.ResultMessage;
+                msgModel.IsSuccess = false;
+            }
+
             return Json(msgModel);
         }
 
@@ -170,11 +230,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                         sysDicModel.UpdaterName = base.CurrentUserModel.UserName;
                         sysDicModel.UpdateTime = DateTime.Now;
                         sysDicModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString();
-
-                        var sysDicMoreModel = new XCLCMS.Data.Model.Custom.SysDicWithMore();
-                        sysDicMoreModel.SysDic = sysDicModel;
-                        sysDicMoreModel.WithMoreState = 1;
-                        sysDicBLL.Update(sysDicMoreModel);
+                        sysDicBLL.Update(sysDicModel);
                     }
                 }
             }
@@ -197,45 +253,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             });
             msgModel.IsSuccess = true;
             msgModel.Message = "子节点清理成功！";
-            return Json(msgModel);
-        }
-
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicEdit)]
-        public override ActionResult UpdateSubmit(FormCollection fm)
-        {
-            base.UpdateSubmit(fm);
-            XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM viewModel = this.GetViewModel(fm);
-
-            XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
-            XCLCMS.Data.Model.Custom.SysDicWithMore sysDicModel = new Data.Model.Custom.SysDicWithMore();
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            sysDicModel.SysDic = sysDicBLL.GetModel(viewModel.SysDicID);
-            sysDicModel.SysDic.Code = viewModel.SysDic.Code;
-            sysDicModel.SysDic.UpdaterID = base.CurrentUserModel.UserInfoID;
-            sysDicModel.SysDic.UpdaterName = base.CurrentUserModel.UserName;
-            sysDicModel.SysDic.UpdateTime = DateTime.Now;
-            sysDicModel.SysDic.DicName = viewModel.SysDic.DicName;
-            sysDicModel.SysDic.DicType = viewModel.SysDic.DicType;
-            sysDicModel.SysDic.DicValue = viewModel.SysDic.DicValue;
-            sysDicModel.SysDic.Sort = viewModel.SysDic.Sort;
-            sysDicModel.SysDic.Remark = viewModel.SysDic.Remark;
-            sysDicModel.SysDic.Weight = viewModel.SysDic.Weight;
-            sysDicModel.SysDic.FK_FunctionID = viewModel.SysDic.FK_FunctionID;
-
-            sysDicModel.RoleFunctionList = viewModel.RoleFunctionIDList;
-            sysDicModel.WithMoreState = 3;
-
-            if (sysDicBLL.Update(sysDicModel))
-            {
-                msgModel.Message = "修改成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = "修改失败！";
-                msgModel.IsSuccess = false;
-            }
             return Json(msgModel);
         }
 

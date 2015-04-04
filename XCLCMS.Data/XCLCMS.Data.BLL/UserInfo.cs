@@ -94,17 +94,17 @@ namespace XCLCMS.Data.BLL
         }
 
          /// <summary>
-        ///  增加一条数据(带其它信息)
+        ///  增加一条数据
         /// </summary>
-        public bool Add(XCLCMS.Data.Model.Custom.UserInfoWithMore model)
+        public bool Add(XCLCMS.Data.Model.UserInfo model)
         {
             return dal.Add(model);
         }
 
         /// <summary>
-        ///  更新一条数据(带其它信息)
+        ///  更新一条数据
         /// </summary>
-        public bool Update(XCLCMS.Data.Model.Custom.UserInfoWithMore model)
+        public bool Update(XCLCMS.Data.Model.UserInfo model)
         {
             return dal.Update(model);
         }

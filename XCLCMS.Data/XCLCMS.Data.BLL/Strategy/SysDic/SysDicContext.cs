@@ -4,26 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XCLCMS.Data.Model.Custom
+namespace XCLCMS.Data.BLL.Strategy.SysDic
 {
     /// <summary>
-    /// 字典库扩展model
+    /// 字典库上下文
     /// </summary>
-    public class SysDicWithMore
+    public class SysDicContext:BaseContext
     {
         /// <summary>
-        /// 字典model
+        /// 字典库信息
         /// </summary>
         public XCLCMS.Data.Model.SysDic SysDic { get; set; }
 
         /// <summary>
-        /// 角色功能list
+        /// 角色所对应的功能id列表
         /// </summary>
-        public List<long> RoleFunctionList { get; set; }
-
-        /// <summary>
-        /// 状态位
-        /// </summary>
-        public int WithMoreState { get; set; }
+        public List<long> FunctionIdList { get; set; }
     }
 }

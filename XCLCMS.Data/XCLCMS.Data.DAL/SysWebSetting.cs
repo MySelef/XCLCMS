@@ -21,7 +21,6 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Add(XCLCMS.Data.Model.SysWebSetting model)
         {
-            int rowsAffected;
             SqlParameter[] parameters = {
 					new SqlParameter("@SysWebSettingID", SqlDbType.BigInt,8),
 					new SqlParameter("@KeyName", SqlDbType.VarChar,100),
@@ -33,7 +32,11 @@ namespace XCLCMS.Data.DAL
 					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
 					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
 					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50)};
+					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
+                                        
+                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
+                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)                             
+                                        };
             parameters[0].Value = model.SysWebSettingID;
             parameters[1].Value = model.KeyName;
             parameters[2].Value = model.KeyValue;
@@ -46,8 +49,20 @@ namespace XCLCMS.Data.DAL
             parameters[9].Value = model.UpdaterID;
             parameters[10].Value = model.UpdaterName;
 
-            DbHelperSQL.RunProcedure("SysWebSetting_ADD", parameters, out rowsAffected);
-            return rowsAffected > 0;
+            parameters[11].Direction = ParameterDirection.Output;
+            parameters[12].Direction = ParameterDirection.Output;
+
+            DbHelperSQL.RunProcedure("sp_SysWebSetting_ADD", parameters, "ds");
+
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception(result.ResultMessage);
+            }
         }
 
         /// <summary>
@@ -55,7 +70,6 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Update(XCLCMS.Data.Model.SysWebSetting model)
         {
-            int rowsAffected = 0;
             SqlParameter[] parameters = {
 					new SqlParameter("@SysWebSettingID", SqlDbType.BigInt,8),
 					new SqlParameter("@KeyName", SqlDbType.VarChar,100),
@@ -67,7 +81,11 @@ namespace XCLCMS.Data.DAL
 					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
 					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
 					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50)};
+					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
+                                        
+                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
+                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)                                        
+                                        };
             parameters[0].Value = model.SysWebSettingID;
             parameters[1].Value = model.KeyName;
             parameters[2].Value = model.KeyValue;
@@ -80,14 +98,19 @@ namespace XCLCMS.Data.DAL
             parameters[9].Value = model.UpdaterID;
             parameters[10].Value = model.UpdaterName;
 
-            DbHelperSQL.RunProcedure("SysWebSetting_Update", parameters, out rowsAffected);
-            if (rowsAffected > 0)
+            parameters[11].Direction = ParameterDirection.Output;
+            parameters[12].Direction = ParameterDirection.Output;
+
+            DbHelperSQL.RunProcedure("sp_SysWebSetting_Update", parameters, "ds");
+
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            if (result.IsSuccess)
             {
                 return true;
             }
             else
             {
-                return false;
+                throw new Exception(result.ResultMessage);
             }
         }
 

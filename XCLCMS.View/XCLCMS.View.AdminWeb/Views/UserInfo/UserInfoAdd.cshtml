@@ -4,7 +4,7 @@
 @model XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM
 
 <form id="mainForm" action="@Model.FormAction">
-    <input type="hidden" id="UserInfoID" name="UserInfoID" value="@Model.UserInfoWithMore.UserInfo.UserInfoID" />
+    <input type="hidden" id="UserInfoID" name="UserInfoID" value="@Model.UserInfo.UserInfoID" />
 
     <div class="XCLAccordion" style="border-top: none;">
         <div class="XCLAccordionHeader">1、基本信息：</div>
@@ -15,22 +15,22 @@
                     <td style="width: 25%">
                         @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
                         { 
-                            <input type="text" id="txtUserName" name="txtUserName" value="@Model.UserInfoWithMore.UserInfo.UserName" />
+                            <input type="text" id="txtUserName" name="txtUserName" value="@Model.UserInfo.UserName" />
                             <br />
                             <div class="XCLNote" style="width:150px;">提交后，将不能修改！</div>
                         }
                         else
                         {
-                            @Model.UserInfoWithMore.UserInfo.UserName
+                            @Model.UserInfo.UserName
                         }
                     </td>
                     <td class="XCLTitle" style="width: 10%">真实姓名：</td>
                     <td style="width: 25%">
-                        <input type="text" id="txtRealName" name="txtRealName" value="@Model.UserInfoWithMore.UserInfo.RealName" />
+                        <input type="text" id="txtRealName" name="txtRealName" value="@Model.UserInfo.RealName" />
                     </td>
                     <td class="XCLTitle" style="width: 10%">昵称：</td>
                     <td style="width: 25%">
-                        <input type="text" id="txtNickName" name="txtNickName" value="@Model.UserInfoWithMore.UserInfo.NickName" />
+                        <input type="text" id="txtNickName" name="txtNickName" value="@Model.UserInfo.NickName" />
                     </td>
                 </tr>
                 <tr>
@@ -57,7 +57,7 @@
                     <td>
                         <select id="selSexType" name="selSexType">
                             @Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum), new XCLCMS.Data.CommonHelper.Model.SetOption() { 
-                                DefaultValue=Model.UserInfoWithMore.UserInfo.SexType
+                                DefaultValue=Model.UserInfo.SexType
                             }))
                         </select>
                     </td>
@@ -65,41 +65,41 @@
                 <tr>
                     <td class="XCLTitle">出生日期：</td>
                     <td>
-                        <input type="text" id="txtBirthday" name="txtBirthday" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' }); return false;" value="@string.Format("{0:yyyy-MM-dd}", Model.UserInfoWithMore.UserInfo.Birthday)" />
+                        <input type="text" id="txtBirthday" name="txtBirthday" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' }); return false;" value="@string.Format("{0:yyyy-MM-dd}", Model.UserInfo.Birthday)" />
                     </td>
                     <td class="XCLTitle">年龄：</td>
                     <td>
-                        <input type="text" id="txtAge" name="txtAge" class="easyui-numberbox" value="@Model.UserInfoWithMore.UserInfo.Age"  style="height:25px;"/>
+                        <input type="text" id="txtAge" name="txtAge" class="easyui-numberbox" value="@Model.UserInfo.Age"  style="height:25px;"/>
                     </td>
                     <td class="XCLTitle">手机号：</td>
                     <td>
-                        <input type="text" id="txtTel" name="txtTel" value="@Model.UserInfoWithMore.UserInfo.Tel" />
+                        <input type="text" id="txtTel" name="txtTel" value="@Model.UserInfo.Tel" />
                     </td>
                 </tr>
                 <tr>
                     <td class="XCLTitle">QQ：</td>
                     <td>
-                        <input type="text" id="txtQQ" name="txtQQ" value="@Model.UserInfoWithMore.UserInfo.QQ" />
+                        <input type="text" id="txtQQ" name="txtQQ" value="@Model.UserInfo.QQ" />
                     </td>
                     <td class="XCLTitle">电子邮件：</td>
                     <td>
-                        <input type="text" id="txtEmail" name="txtEmail" value="@Model.UserInfoWithMore.UserInfo.Email" />
+                        <input type="text" id="txtEmail" name="txtEmail" value="@Model.UserInfo.Email" />
                     </td>
                     <td class="XCLTitle">其实联系方式：</td>
                     <td>
-                        <input type="text" id="txtOtherContact" name="txtOtherContact" value="@Model.UserInfoWithMore.UserInfo.OtherContact" />
+                        <input type="text" id="txtOtherContact" name="txtOtherContact" value="@Model.UserInfo.OtherContact" />
                     </td>
                 </tr>
                 <tr>
                     <td class="XCLTitle">备注：</td>
                     <td>
-                        <textarea id="txtRemark" name="txtRemark">@Model.UserInfoWithMore.UserInfo.Remark</textarea>
+                        <textarea id="txtRemark" name="txtRemark">@Model.UserInfo.Remark</textarea>
                     </td>
                     <td class="XCLTitle"><span class="XCLRedBolder">*</span>用户状态：</td>
                     <td>
                         <select id="selUserState" name="selUserState">
                             @Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserStateEnum), new XCLCMS.Data.CommonHelper.Model.SetOption() { 
-                                DefaultValue=Model.UserInfoWithMore.UserInfo.UserState
+                                DefaultValue=Model.UserInfo.UserState
                             }))
                         </select>                        
                     </td>
@@ -110,7 +110,7 @@
                             @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString())
                         }
                         else {
-                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.UserInfoWithMore.UserInfo.RecordState.ToString())
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.UserInfo.RecordState.ToString())
                         }
                     </td>
                 </tr>
@@ -129,9 +129,9 @@
                             {
                                 var m = Model.AllRoleList[i];
                                 bool isChecked=false;
-                                if(null!=Model.UserInfoWithMore.UserRoleIDs && Model.UserInfoWithMore.UserRoleIDs.Count>0)
+                                if(null!=Model.UserRoleIDs && Model.UserRoleIDs.Count>0)
                                 {
-                                    if(Model.UserInfoWithMore.UserRoleIDs.Exists(k=>k==m.SysDicID))
+                                    if(Model.UserRoleIDs.Exists(k=>k==m.SysDicID))
                                     {
                                         isChecked=true;
                                     }

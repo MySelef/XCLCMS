@@ -17,26 +17,9 @@ namespace XCLCMS.Data.BLL
         /// <summary>
         /// 增加一条数据
         /// </summary>
-        public long Add(XCLCMS.Data.Model.SysLog model)
+        public bool Add(XCLCMS.Data.Model.SysLog model)
         {
             return dal.Add(model);
-        }
-
-        /// <summary>
-        /// 更新一条数据
-        /// </summary>
-        public bool Update(XCLCMS.Data.Model.SysLog model)
-        {
-            return dal.Update(model);
-        }
-
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public XCLCMS.Data.Model.SysLog GetModel(long SysLogID)
-        {
-
-            return dal.GetModel(SysLogID);
         }
 
         /// <summary>

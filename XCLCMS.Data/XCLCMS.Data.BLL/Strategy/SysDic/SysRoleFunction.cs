@@ -43,7 +43,16 @@ namespace XCLCMS.Data.BLL.Strategy.SysDic
             model.FK_SysRoleID = sysDicContext.SysDic.SysDicID;
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
 
-            bool flag = bll.Add(model, sysDicContext.FunctionIdList);
+            bool flag = false;
+            try
+            {
+                flag=bll.Add(model, sysDicContext.FunctionIdList);
+            }
+            catch (Exception ex)
+            {
+                flag = false;
+                this.ResultMessage += string.Format("异常信息：{0}", ex.Message);
+            }
 
             if (flag)
             {
@@ -52,7 +61,7 @@ namespace XCLCMS.Data.BLL.Strategy.SysDic
             else
             {
                 this.Result = StrategyLib.ResultEnum.FAIL;
-                this.ResultMessage = "保存字典库中的角色功能信息失败！";
+                this.ResultMessage =string.Format("保存字典库中的角色功能信息失败！{0}",this.ResultMessage);
             }
         }
     }

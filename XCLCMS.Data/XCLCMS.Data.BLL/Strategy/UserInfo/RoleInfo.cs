@@ -43,7 +43,18 @@ namespace XCLCMS.Data.BLL.Strategy.UserInfo
             model.FK_UserInfoID = userInfoContext.UserInfo.UserInfoID;
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
 
-            bool flag=bll.Add(model, userInfoContext.UserRoleIDs);
+            bool flag = false;
+
+            try
+            { 
+                flag=bll.Add(model, userInfoContext.UserRoleIDs);
+            }
+            catch(Exception ex)
+            {
+                flag = false;
+                this.ResultMessage += string.Format("异常信息：{0}", ex.Message);
+            }
+            
 
             if (flag)
             {
@@ -52,7 +63,7 @@ namespace XCLCMS.Data.BLL.Strategy.UserInfo
             else
             {
                 this.Result = StrategyLib.ResultEnum.FAIL;
-                this.ResultMessage = "保存用户角色信息失败！";
+                this.ResultMessage =string.Format("保存用户角色信息失败！{0}",this.ResultMessage);
             }
         }
     }

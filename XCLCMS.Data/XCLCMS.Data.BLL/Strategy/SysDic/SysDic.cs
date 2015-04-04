@@ -33,14 +33,23 @@ namespace XCLCMS.Data.BLL.Strategy.SysDic
 
             bool flag = false;
             XCLCMS.Data.BLL.SysDic bll = new BLL.SysDic();
-            switch (sysDicContext.HandleType)
+
+            try
             {
-                case StrategyLib.HandleType.ADD:
-                    flag = bll.Add(sysDicContext.SysDic);
-                    break;
-                case StrategyLib.HandleType.UPDATE:
-                    flag = bll.Update(sysDicContext.SysDic);
-                    break;
+                switch (sysDicContext.HandleType)
+                {
+                    case StrategyLib.HandleType.ADD:
+                        flag = bll.Add(sysDicContext.SysDic);
+                        break;
+                    case StrategyLib.HandleType.UPDATE:
+                        flag = bll.Update(sysDicContext.SysDic);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                flag = false;
+                this.ResultMessage += string.Format("异常信息：{0}", ex.Message);
             }
 
             if (flag)
@@ -50,7 +59,7 @@ namespace XCLCMS.Data.BLL.Strategy.SysDic
             else
             {
                 this.Result = StrategyLib.ResultEnum.FAIL;
-                this.ResultMessage = "保存字典库基本信息失败！";
+                this.ResultMessage =string.Format("保存字典库基本信息失败！{0}",this.ResultMessage);
             }
         }
     }

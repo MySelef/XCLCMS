@@ -156,6 +156,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             {
                 msgModel.Message = strategy.ResultMessage;
                 msgModel.IsSuccess = false;
+                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "添加字典库失败", strategy.ResultMessage);
             }
 
             return Json(msgModel);
@@ -205,6 +206,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             {
                 msgModel.Message = strategy.ResultMessage;
                 msgModel.IsSuccess = false;
+                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "修改字典库失败", strategy.ResultMessage);
             }
 
             return Json(msgModel);

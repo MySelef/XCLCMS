@@ -68,6 +68,7 @@
     <Compile Include="UserInfo.cs" />
     <Compile Include="View\v_SysDic.cs" />
     <Compile Include="View\v_SysDic_Roles.cs" />
+    <Compile Include="View\v_SysDic_SysMenu.cs" />
     <Compile Include="View\v_SysFunction.cs" />
   </ItemGroup>
   <ItemGroup>

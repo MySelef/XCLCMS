@@ -158,6 +158,18 @@ namespace XCLCMS.Data.BLL
         {
             return dal.Update(model);
         }
+
+        /// <summary>
+        /// 获取后台系统菜单
+        /// </summary>
+        public List<XCLCMS.Data.Model.SysDic> GetSysMenuList()
+        {
+            return this.GetChildListByCode(new Data.Model.SysDic()
+            {
+                Code = XCLCMS.Data.CommonHelper.SysDicConst.SysMenu,
+                RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()
+            });
+        }
         #endregion  ExtensionMethod
     }
 }

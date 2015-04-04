@@ -53,35 +53,50 @@
                                 </select>
                             </td>
                         </tr>
+
+                        @if(Model.SysDicCategory==XCLCMS.View.AdminViewModel.SysDic.SysDicCategoryEnum.SysMenu)
+                        {
+                            <tr>
+                                <td class="XCLTitle">所属功能模块：</td>
+                                <td colspan="3">
+                                     <input class="easyui-combogrid" id="selFunctionID" name="selFunctionID" style="width:300px;" value="@Model.SysDic.FK_FunctionID" data-options="
+                                                panelWidth: 500,
+                                                idField: 'SysFunctionID',
+                                                textField: 'FunctionName',
+                                                url: '@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)SysFunctionCommon/GetList',
+                                                method: 'get',
+                                                columns: [[
+                                                    {field:'C_TypeName',title:'所属模块'},
+                                                    {field:'SysFunctionID',title:'功能ID'},
+                                                    {field:'FunctionName',title:'功能名'},
+                                                    {field:'Remark',title:'说明'}
+                                                ]],
+                                                fitColumns: true
+                                            "/>
+                                </td>
+                            </tr>
+                        }
+
+                        @if(Model.SysDicCategory==XCLCMS.View.AdminViewModel.SysDic.SysDicCategoryEnum.Role)
+                        {
+                            <tr>
+                                <td class="XCLTitle">权重：</td>
+                                <td>
+                                    <input type="text" id="txtWeight" name="txtWeight" class="easyui-numberbox" value="@Model.SysDic.Weight"  style="height:25px;" />
+                                </td>
+                                <td class="XCLTitle"></td>
+                                <td></td>
+                            </tr>
+                        }
+                            
                         <tr>
-                            <td class="XCLTitle">所属功能模块：</td>
-                            <td colspan="3">
-                                 <input class="easyui-combogrid" id="selFunctionID" name="selFunctionID" style="width:300px;" value="@Model.SysDic.FK_FunctionID" data-options="
-                                            panelWidth: 500,
-                                            idField: 'SysFunctionID',
-                                            textField: 'FunctionName',
-                                            url: '@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)SysFunctionCommon/GetList',
-                                            method: 'get',
-                                            columns: [[
-                                                {field:'C_TypeName',title:'所属模块'},
-                                                {field:'SysFunctionID',title:'功能ID'},
-                                                {field:'FunctionName',title:'功能名'},
-                                                {field:'Remark',title:'说明'}
-                                            ]],
-                                            fitColumns: true
-                                        "/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="XCLTitle">权重：</td>
-                            <td>
-                                <input type="text" id="txtWeight" name="txtWeight" class="easyui-numberbox" value="@Model.SysDic.Weight"  style="height:25px;" />
-                            </td>
                             <td class="XCLTitle">备注：</td>
-                            <td>
+                            <td colspan="3">
                                 <textarea id="txtRemark" name="txtRemark">@Model.SysDic.Remark</textarea>
                             </td>
                         </tr>
+
+
                     </table>
                 </div>
                 @if (Model.SysDicCategory == XCLCMS.View.AdminViewModel.SysDic.SysDicCategoryEnum.Role)

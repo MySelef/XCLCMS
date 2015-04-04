@@ -44,15 +44,33 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             XCLCMS.Data.BLL.SysFunction functionBLL=new Data.BLL.SysFunction();
             XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM viewModel = new AdminViewModel.SysDic.SysDicAddVM();
 
-            var roles = XCLCMS.Lib.Permission.PerHelper.GetRoleList();
-            if (null != roles && roles.Count > 0)
+            //判断当前字典是否属于【角色】
+            if (viewModel.SysDicCategory == AdminViewModel.SysDic.SysDicCategoryEnum.None)
             {
-                if (roles.Exists(k => k.SysDicID == sysDicId))
+                var roles = XCLCMS.Lib.Permission.PerHelper.GetRoleList();
+                if (null != roles && roles.Count > 0)
                 {
-                    viewModel.SysDicCategory = AdminViewModel.SysDic.SysDicCategoryEnum.Role;
-                    viewModel.FunctionList = XCLCMS.Lib.Permission.PerHelper.GetFunctionList();
+                    if (roles.Exists(k => k.SysDicID == sysDicId || (k.ParentID==sysDicId && base.CurrentHandleType==Lib.Common.Comm.HandleType.ADD)))
+                    {
+                        viewModel.SysDicCategory = AdminViewModel.SysDic.SysDicCategoryEnum.Role;
+                        viewModel.FunctionList = XCLCMS.Lib.Permission.PerHelper.GetFunctionList();
+                    }
                 }
             }
+
+            //判断当前字典是否属于【系统菜单】
+            if (viewModel.SysDicCategory == AdminViewModel.SysDic.SysDicCategoryEnum.None)
+            {
+                var menus = new XCLCMS.Data.BLL.View.v_SysDic_SysMenu().GetModelList("");
+                if (null != menus && menus.Count > 0)
+                {
+                    if (menus.Exists(k => k.SysDicID == sysDicId || (k.ParentID==sysDicId && base.CurrentHandleType==Lib.Common.Comm.HandleType.ADD)))
+                    {
+                        viewModel.SysDicCategory = AdminViewModel.SysDic.SysDicCategoryEnum.SysMenu;
+                    }
+                }
+            }
+
 
             switch (base.CurrentHandleType)
             {

@@ -354,6 +354,11 @@
              更新一条数据
             </summary>
         </member>
+        <member name="M:XCLCMS.Data.BLL.SysDic.GetSysMenuList">
+            <summary>
+            获取后台系统菜单
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.BLL.SysFunction">
             <summary>
             系统功能表
@@ -660,6 +665,36 @@
         <member name="M:XCLCMS.Data.BLL.View.v_SysDic_Roles.GetListByUserID(System.Int64)">
             <summary>
             获取指定userid的角色
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.BLL.View.v_SysDic_SysMenu">
+            <summary>
+            v_SysDic_SysMenu
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.View.v_SysDic_SysMenu.GetModel(System.Int64)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.View.v_SysDic_SysMenu.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.View.v_SysDic_SysMenu.GetModelList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.View.v_SysDic_SysMenu.DataTableToList(System.Data.DataTable)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.View.v_SysDic_SysMenu.GetAllList">
+            <summary>
+            获得数据列表
             </summary>
         </member>
         <member name="T:XCLCMS.Data.BLL.View.v_SysFunction">

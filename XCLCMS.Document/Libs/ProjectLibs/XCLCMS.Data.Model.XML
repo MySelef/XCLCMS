@@ -869,6 +869,106 @@
             
             </summary>
         </member>
+        <member name="T:XCLCMS.Data.Model.View.v_SysDic_SysMenu">
+            <summary>
+            v_SysDic_SysMenu:实体类(属性说明自动提取数据库字段的描述信息)
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.SysDicID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.Code">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.DicType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.ParentID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.DicName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.DicValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.Sort">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.Weight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.Remark">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.FK_FunctionID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.RecordState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.CreateTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.CreaterID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.CreaterName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.UpdateTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.UpdaterID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.UpdaterName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.NodeLevel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.IsLeaf">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.Model.View.v_SysFunction">
             <summary>
             v_SysFunction:实体类(属性说明自动提取数据库字段的描述信息)

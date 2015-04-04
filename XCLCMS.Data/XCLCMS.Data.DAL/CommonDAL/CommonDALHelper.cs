@@ -64,7 +64,8 @@ namespace XCLCMS.Data.DAL.CommonDAL
         /// </summary>
         public static void ClearRubbishData()
         {
-            DbHelperSQL.RunProcedure("sp_ClearRubbishData", null, "ds");
+            SqlParameter[] parameters = { };
+            DbHelperSQL.RunProcedure("sp_ClearRubbishData", parameters, "ds");
         }
 
         /// <summary>

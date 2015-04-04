@@ -99,8 +99,7 @@
                             }
                             art.dialog({
                                 icon: dialogIcon,
-                                width:500,
-                                content: data.Message,
+                                content:"<div style='max-width:500px;'>"+ data.Message+"</div>",
                                 cancelVal: '知道了',
                                 cancel: function () {
                                     funs.Refresh(options, data);

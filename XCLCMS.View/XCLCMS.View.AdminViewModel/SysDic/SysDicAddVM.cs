@@ -84,6 +84,10 @@ namespace XCLCMS.View.AdminViewModel.SysDic
         /// <summary>
         /// 角色相关
         /// </summary>
-        Role
+        Role,
+        /// <summary>
+        /// 系统菜单
+        /// </summary>
+        SysMenu
     }
 }

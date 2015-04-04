@@ -107,7 +107,7 @@
         </member>
         <member name="P:XCLCMS.Data.BLL.Strategy.BaseStrategy.Result">
             <summary>
-            当前策略执行结果（默认NONE）
+            当前策略执行结果（默认SUCCESS）
             </summary>
         </member>
         <member name="P:XCLCMS.Data.BLL.Strategy.BaseStrategy.ResultMessage">
@@ -133,7 +133,7 @@
         </member>
         <member name="P:XCLCMS.Data.BLL.Strategy.ExecuteStrategy.Result">
             <summary>
-            当前策略链执行结果（默认NONE）
+            当前策略链执行结果（默认SUCCESS）
             </summary>
         </member>
         <member name="P:XCLCMS.Data.BLL.Strategy.ExecuteStrategy.ResultMessage">
@@ -154,11 +154,6 @@
         <member name="T:XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum">
             <summary>
             执行结果状态枚举
-            </summary>
-        </member>
-        <member name="F:XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum.NONE">
-            <summary>
-            未知
             </summary>
         </member>
         <member name="F:XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum.SUCCESS">
@@ -418,11 +413,6 @@
         <member name="T:XCLCMS.Data.BLL.SysLog">
             <summary>
             系统日志记录
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.BLL.SysLog.Add(XCLCMS.Data.Model.SysLog)">
-            <summary>
-            增加一条数据
             </summary>
         </member>
         <member name="M:XCLCMS.Data.BLL.SysLog.GetList(System.String)">

@@ -20,10 +20,10 @@ namespace XCLCMS.Data.BLL.Strategy
             this.StrategyList = strategyList;
         }
 
-        private XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum _result = StrategyLib.ResultEnum.NONE;
+        private XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum _result = StrategyLib.ResultEnum.SUCCESS;
 
         /// <summary>
-        /// 当前策略链执行结果（默认NONE）
+        /// 当前策略链执行结果（默认SUCCESS）
         /// </summary>
         public XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum Result
         {
@@ -61,7 +61,7 @@ namespace XCLCMS.Data.BLL.Strategy
                     if (m.Result == StrategyLib.ResultEnum.FAIL)
                     {
                         this.Result = StrategyLib.ResultEnum.FAIL;
-                        this.ResultMessage = string.Format("第【{0}】个策略【{0}】执行失败！",i+1,m.Name);
+                        this.ResultMessage = string.Format("第【{0}】个策略【{1}】执行失败，详情：{2}！",i+1,m.Name,m.ResultMessage);
                         break;
                     }
                 }

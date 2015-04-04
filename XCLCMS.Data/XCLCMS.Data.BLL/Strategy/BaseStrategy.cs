@@ -11,7 +11,7 @@ namespace XCLCMS.Data.BLL.Strategy
     /// </summary>
     public class BaseStrategy
     {
-        private XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum _result = StrategyLib.ResultEnum.NONE;
+        private XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum _result = StrategyLib.ResultEnum.SUCCESS;
 
         /// <summary>
         /// 当前策略名
@@ -24,7 +24,7 @@ namespace XCLCMS.Data.BLL.Strategy
         public string Remark { get; set; }
 
         /// <summary>
-        /// 当前策略执行结果（默认NONE）
+        /// 当前策略执行结果（默认SUCCESS）
         /// </summary>
         public XCLCMS.Data.BLL.Strategy.StrategyLib.ResultEnum Result
         {

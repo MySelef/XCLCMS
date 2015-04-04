@@ -33,14 +33,23 @@ namespace XCLCMS.Data.BLL.Strategy.UserInfo
 
             bool flag = false;
             XCLCMS.Data.BLL.UserInfo bll = new BLL.UserInfo();
-            switch (userInfoContext.HandleType)
-            { 
-                case StrategyLib.HandleType.ADD:
-                    flag = bll.Add(userInfoContext.UserInfo);
-                    break;
-                case StrategyLib.HandleType.UPDATE:
-                    flag = bll.Update(userInfoContext.UserInfo);
-                    break;
+
+            try
+            {
+                switch (userInfoContext.HandleType)
+                {
+                    case StrategyLib.HandleType.ADD:
+                        flag = bll.Add(userInfoContext.UserInfo);
+                        break;
+                    case StrategyLib.HandleType.UPDATE:
+                        flag = bll.Update(userInfoContext.UserInfo);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                flag = false;
+                this.ResultMessage += string.Format("异常信息：{0}",ex.Message);
             }
 
             if (flag)
@@ -50,7 +59,7 @@ namespace XCLCMS.Data.BLL.Strategy.UserInfo
             else
             {
                 this.Result = StrategyLib.ResultEnum.FAIL;
-                this.ResultMessage = "保存用户基础信息失败！";
+                this.ResultMessage = string.Format("保存用户基础信息失败！{0}",this.ResultMessage);
             }
         }
     }

@@ -17,10 +17,6 @@ namespace XCLCMS.Data.BLL.Strategy
         public enum ResultEnum
         { 
             /// <summary>
-            /// 未知
-            /// </summary>
-            NONE,
-            /// <summary>
             /// 成功
             /// </summary>
             SUCCESS,

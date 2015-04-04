@@ -183,6 +183,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             {
                 msgModel.Message = strategy.ResultMessage;
                 msgModel.IsSuccess = false;
+                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "添加用户信息失败", strategy.ResultMessage);
             }
 
             return Json(msgModel);
@@ -243,6 +244,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             {
                 msgModel.Message = strategy.ResultMessage;
                 msgModel.IsSuccess = false;
+                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "修改用户信息失败", strategy.ResultMessage);
             }
 
             return Json(msgModel);

@@ -208,11 +208,6 @@
             数据访问类:SysLog
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.SysLog.Add(XCLCMS.Data.Model.SysLog)">
-            <summary>
-             增加一条数据
-            </summary>
-        </member>
         <member name="M:XCLCMS.Data.DAL.SysLog.DataRowToModel(System.Data.DataRow)">
             <summary>
             得到一个对象实体

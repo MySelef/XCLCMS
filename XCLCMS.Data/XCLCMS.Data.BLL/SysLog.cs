@@ -15,14 +15,6 @@ namespace XCLCMS.Data.BLL
         #region  BasicMethod
 
         /// <summary>
-        /// 增加一条数据
-        /// </summary>
-        public bool Add(XCLCMS.Data.Model.SysLog model)
-        {
-            return dal.Add(model);
-        }
-
-        /// <summary>
         /// 获得数据列表
         /// </summary>
         public DataSet GetList(string strWhere)

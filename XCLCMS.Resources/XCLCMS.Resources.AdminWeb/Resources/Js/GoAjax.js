@@ -69,8 +69,14 @@
                     art.dialog.tips("抱歉，出错啦！请稍后再试！");
                 },
                 success: function (data) {
-
                     var data = data[XCLCMSPageGlobalConfig.XCLJsonMessageName] || data;
+                    var dialogIcon = "succeed";
+
+                    if (data && data.Message && !data.IsSuccess) {
+                        //如果【该请求返回的json中的IsSuccess为false】，则弹出对话框提示相关信息。
+                        options.isAlertShowMsg = true;
+                        dialogIcon = "error";
+                    }
 
                     if (null != options.successFunction) {
                         options.successFunction(data);
@@ -92,6 +98,8 @@
                                 list.close();
                             }
                             art.dialog({
+                                icon: dialogIcon,
+                                width:500,
                                 content: data.Message,
                                 cancelVal: '知道了',
                                 cancel: function () {
@@ -99,6 +107,7 @@
                                 }
                             });
                         } else {
+                            //以tips方式显示消息
                             art.dialog.tips(data.Message);
                             funs.Refresh(options, data);
                         }

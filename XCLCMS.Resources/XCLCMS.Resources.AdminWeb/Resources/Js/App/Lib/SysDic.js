@@ -29,22 +29,22 @@
                     return data;
                 },
                 columns: [[
-                    { field: 'SysDicID', title: 'ID' },
-                    { field: 'ParentID', title: '父ID' },
-                    { field: 'NodeLevel', title: '层级' },
-                    { field: 'DicName', title: '字典名' },
-                    { field: 'DicValue', title: '字典值' },
-                    { field: 'Weight', title: '权重' },
-                    { field: 'Code', title: '唯一标识' },
-                    { field: 'DicType', title: '字典类型', formatter: easyUI.EnumToDescription },
-                    { field: 'Sort', title: '排序号' },
-                    { field: 'FK_FunctionID', title: '所属功能ID' },
-                    { field: 'RecordState', title: '记录状态', formatter: easyUI.EnumToDescription },
-                    { field: 'Remark', title: '备注' },
-                    { field: 'CreateTime', title: '创建时间' },
-                    { field: 'CreaterName', title: '创建者名' },
-                    { field: 'UpdateTime', title: '更新时间' },
-                    { field: 'UpdaterName', title: '更新者名' }
+                    { field: 'SysDicID', title: 'ID',width:'5%' },
+                    { field: 'ParentID', title: '父ID', width: '5%' },
+                    { field: 'NodeLevel', title: '层级', width: '2%' },
+                    { field: 'DicName', title: '字典名', width: '25%' },
+                    { field: 'DicValue', title: '字典值', width: '11%' },
+                    { field: 'Weight', title: '权重', width: '2%' },
+                    { field: 'Code', title: '唯一标识', width: '5%' },
+                    { field: 'DicType', title: '字典类型', formatter: easyUI.EnumToDescription, width: '5%' },
+                    { field: 'Sort', title: '排序号', width: '5%' },
+                    { field: 'FK_FunctionID', title: '所属功能ID', width: '5%' },
+                    { field: 'RecordState', title: '记录状态', formatter: easyUI.EnumToDescription, width: '5%' },
+                    { field: 'Remark', title: '备注', width: '5%' },
+                    { field: 'CreateTime', title: '创建时间', width: '5%' },
+                    { field: 'CreaterName', title: '创建者名', width: '5%' },
+                    { field: 'UpdateTime', title: '更新时间', width: '5%' },
+                    { field: 'UpdaterName', title: '更新者名', width: '5%' }
                 ]]
             });
             //按钮事件绑定

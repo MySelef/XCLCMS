@@ -16,6 +16,15 @@ namespace XCLCMS.View.AdminViewModel.SysFunction
         /// </summary>
         public string FormAction { get; set; }
 
+        public long SysFunctionID { get; set; }
+
+        public long ParentID { get; set; }
+
         public XCLCMS.Data.Model.SysFunction SysFunction { get; set; }
+
+        /// <summary>
+        /// 当前节点路径
+        /// </summary>
+        public List<XCLCMS.Data.Model.Custom.SysFunctionSimple> PathList { get; set; }
     }
 }

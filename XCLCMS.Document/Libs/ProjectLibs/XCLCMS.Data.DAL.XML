@@ -187,9 +187,9 @@
             获得数据列表
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.SysFunction.IsExistFunctionName(System.String)">
+        <member name="M:XCLCMS.Data.DAL.SysFunction.IsExistCode(System.String)">
             <summary>
-            判断功能名称是否存在
+            判断功能标识是否存在
             </summary>
         </member>
         <member name="M:XCLCMS.Data.DAL.SysFunction.CheckUserHasAnyFunction(System.Int64,System.Collections.Generic.List{System.Int64})">
@@ -202,6 +202,21 @@
             获取指定角色的所有功能
             </summary>
             <param name="sysRoleID">角色ID</param>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysFunction.GetLayerListBySysFunctionID(System.Int64)">
+            <summary>
+            获取指定SysFunctionID所属的层级list
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysFunction.DelChild(XCLCMS.Data.Model.SysFunction)">
+            <summary>
+            删除指定SysFunctionID下面的子节点
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysFunction.GetChildListByID(System.Int64)">
+            <summary>
+            根据SysFunctionID查询其子项
+            </summary>
         </member>
         <member name="T:XCLCMS.Data.DAL.SysLog">
             <summary>
@@ -362,7 +377,7 @@
             获得数据列表
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.View.v_SysDic.GetList(System.Int64,System.String)">
+        <member name="M:XCLCMS.Data.DAL.View.v_SysDic.GetList(System.Int64)">
             <summary>
             根据parentID返回列表
             </summary>
@@ -440,6 +455,11 @@
         <member name="M:XCLCMS.Data.DAL.View.v_SysFunction.GetPageList(System.Int32,System.Int32,System.Int32@,System.String,System.String,System.String,System.String)">
             <summary>
             分页数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.View.v_SysFunction.GetList(System.Int64)">
+            <summary>
+            根据parentID返回列表
             </summary>
         </member>
     </members>

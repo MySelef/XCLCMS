@@ -40,6 +40,7 @@ namespace XCLCMS.Data.DAL.View
         }
 
 
+
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
@@ -52,13 +53,17 @@ namespace XCLCMS.Data.DAL.View
                 {
                     model.SysFunctionID = long.Parse(row["SysFunctionID"].ToString());
                 }
+                if (row["ParentID"] != null && row["ParentID"].ToString() != "")
+                {
+                    model.ParentID = long.Parse(row["ParentID"].ToString());
+                }
                 if (row["FunctionName"] != null)
                 {
                     model.FunctionName = row["FunctionName"].ToString();
                 }
-                if (row["FK_TypeID"] != null && row["FK_TypeID"].ToString() != "")
+                if (row["Code"] != null)
                 {
-                    model.FK_TypeID = long.Parse(row["FK_TypeID"].ToString());
+                    model.Code = row["Code"].ToString();
                 }
                 if (row["Remark"] != null)
                 {
@@ -92,9 +97,13 @@ namespace XCLCMS.Data.DAL.View
                 {
                     model.UpdaterName = row["UpdaterName"].ToString();
                 }
-                if (row["C_TypeName"] != null)
+                if (row["NodeLevel"] != null && row["NodeLevel"].ToString() != "")
                 {
-                    model.C_TypeName = row["C_TypeName"].ToString();
+                    model.NodeLevel = int.Parse(row["NodeLevel"].ToString());
+                }
+                if (row["IsLeaf"] != null && row["IsLeaf"].ToString() != "")
+                {
+                    model.IsLeaf = int.Parse(row["IsLeaf"].ToString());
                 }
             }
             return model;
@@ -106,7 +115,7 @@ namespace XCLCMS.Data.DAL.View
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select SysFunctionID,FunctionName,FK_TypeID,Remark,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName,C_TypeName ");
+            strSql.Append("select SysFunctionID,ParentID,FunctionName,Code,Remark,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName,NodeLevel,IsLeaf ");
             strSql.Append(" FROM v_SysFunction ");
             if (strWhere.Trim() != "")
             {
@@ -124,6 +133,20 @@ namespace XCLCMS.Data.DAL.View
         {
             DataTable dt = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetPageList("v_SysFunction", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
             return XCLNetTools.Generic.ListHelper<XCLCMS.Data.Model.View.v_SysFunction>.DataTableToList(dt) as List<XCLCMS.Data.Model.View.v_SysFunction>;
+        }
+
+        /// <summary>
+        /// 根据parentID返回列表
+        /// </summary>
+        public DataTable GetList(long parentID)
+        {
+            SqlParameter[] parameters = {
+					new SqlParameter("@ParentID", SqlDbType.BigInt,8)			};
+            parameters[0].Value = parentID;
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select * from v_SysFunction where ParentID=@ParentID");
+            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
         #endregion  MethodEx
     }

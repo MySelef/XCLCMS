@@ -1,7 +1,6 @@
 ﻿html, body {height: 100%;font-family:"Microsoft YaHei",Sans-Serif;width:100%;margin:0;padding:0px;font-size:13px;}
 body
 {
-    min-width:1000px;
     width:auto;
 }
 input[type='text'],input[type='password']

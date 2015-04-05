@@ -10,25 +10,35 @@ namespace XCLCMS.Data.Model.View
         public v_SysFunction()
         { }
         #region Model
-        private long _sysfunctionid;
+        private long? _sysfunctionid;
+        private long? _parentid;
         private string _functionname;
-        private long _fk_typeid;
+        private string _code;
         private string _remark;
         private string _recordstate;
-        private DateTime _createtime;
-        private long _createrid;
+        private DateTime? _createtime;
+        private long? _createrid;
         private string _creatername;
-        private DateTime _updatetime;
-        private long _updaterid;
+        private DateTime? _updatetime;
+        private long? _updaterid;
         private string _updatername;
-        private string _c_typename;
+        private int? _nodelevel;
+        private int _isleaf;
         /// <summary>
         /// 
         /// </summary>
-        public long SysFunctionID
+        public long? SysFunctionID
         {
             set { _sysfunctionid = value; }
             get { return _sysfunctionid; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public long? ParentID
+        {
+            set { _parentid = value; }
+            get { return _parentid; }
         }
         /// <summary>
         /// 
@@ -41,10 +51,10 @@ namespace XCLCMS.Data.Model.View
         /// <summary>
         /// 
         /// </summary>
-        public long FK_TypeID
+        public string Code
         {
-            set { _fk_typeid = value; }
-            get { return _fk_typeid; }
+            set { _code = value; }
+            get { return _code; }
         }
         /// <summary>
         /// 
@@ -65,7 +75,7 @@ namespace XCLCMS.Data.Model.View
         /// <summary>
         /// 
         /// </summary>
-        public DateTime CreateTime
+        public DateTime? CreateTime
         {
             set { _createtime = value; }
             get { return _createtime; }
@@ -73,7 +83,7 @@ namespace XCLCMS.Data.Model.View
         /// <summary>
         /// 
         /// </summary>
-        public long CreaterID
+        public long? CreaterID
         {
             set { _createrid = value; }
             get { return _createrid; }
@@ -89,7 +99,7 @@ namespace XCLCMS.Data.Model.View
         /// <summary>
         /// 
         /// </summary>
-        public DateTime UpdateTime
+        public DateTime? UpdateTime
         {
             set { _updatetime = value; }
             get { return _updatetime; }
@@ -97,7 +107,7 @@ namespace XCLCMS.Data.Model.View
         /// <summary>
         /// 
         /// </summary>
-        public long UpdaterID
+        public long? UpdaterID
         {
             set { _updaterid = value; }
             get { return _updaterid; }
@@ -113,10 +123,18 @@ namespace XCLCMS.Data.Model.View
         /// <summary>
         /// 
         /// </summary>
-        public string C_TypeName
+        public int? NodeLevel
         {
-            set { _c_typename = value; }
-            get { return _c_typename; }
+            set { _nodelevel = value; }
+            get { return _nodelevel; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int IsLeaf
+        {
+            set { _isleaf = value; }
+            get { return _isleaf; }
         }
         #endregion Model
 

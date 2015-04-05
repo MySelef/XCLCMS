@@ -50,17 +50,17 @@ namespace XCLCMS.View.AdminViewModel.SysDic
                 List<XCLCMS.Data.Model.SysDic> lst = null;
                 if (null != this.FunctionList && this.FunctionList.Count > 0)
                 {
-                    var selList = (from k in this.FunctionList select new { TypeID = k.FK_TypeID, TypeName = k.C_TypeName }).Distinct().ToList();
-                    if (null != selList && selList.Count > 0)
-                    {
-                        lst = new List<Data.Model.SysDic>();
-                        selList.ForEach(k => {
-                            lst.Add(new Data.Model.SysDic() { 
-                                SysDicID=k.TypeID,
-                                DicName=k.TypeName
-                            });
-                        });
-                    }
+                    //var selList = (from k in this.FunctionList select new { TypeID = k.FK_TypeID, TypeName = k.C_TypeName }).Distinct().ToList();
+                    //if (null != selList && selList.Count > 0)
+                    //{
+                    //    lst = new List<Data.Model.SysDic>();
+                    //    selList.ForEach(k => {
+                    //        lst.Add(new Data.Model.SysDic() { 
+                    //            SysDicID=k.TypeID,
+                    //            DicName=k.TypeName
+                    //        });
+                    //    });
+                    //}
                 }
                 return lst;
             }

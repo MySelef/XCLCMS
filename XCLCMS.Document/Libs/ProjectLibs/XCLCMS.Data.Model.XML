@@ -269,14 +269,19 @@
             
             </summary>
         </member>
+        <member name="P:XCLCMS.Data.Model.SysFunction.ParentID">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:XCLCMS.Data.Model.SysFunction.FunctionName">
             <summary>
             功能名
             </summary>
         </member>
-        <member name="P:XCLCMS.Data.Model.SysFunction.FK_TypeID">
+        <member name="P:XCLCMS.Data.Model.SysFunction.Code">
             <summary>
-            分类(在字典库中配置)
+            
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysFunction.Remark">
@@ -979,12 +984,17 @@
             
             </summary>
         </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysFunction.ParentID">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.FunctionName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysFunction.FK_TypeID">
+        <member name="P:XCLCMS.Data.Model.View.v_SysFunction.Code">
             <summary>
             
             </summary>
@@ -1029,7 +1039,12 @@
             
             </summary>
         </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysFunction.C_TypeName">
+        <member name="P:XCLCMS.Data.Model.View.v_SysFunction.NodeLevel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysFunction.IsLeaf">
             <summary>
             
             </summary>

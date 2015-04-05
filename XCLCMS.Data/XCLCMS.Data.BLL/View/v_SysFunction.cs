@@ -78,6 +78,20 @@ namespace XCLCMS.Data.BLL.View
         {
             return dal.GetPageList(pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
         }
+
+        /// <summary>
+        /// 根据parentID返回列表
+        /// </summary>
+        public List<XCLCMS.Data.Model.View.v_SysFunction> GetList(long parentID)
+        {
+            List<XCLCMS.Data.Model.View.v_SysFunction> lst = null;
+            DataTable dt = dal.GetList(parentID);
+            if (null != dt && dt.Rows.Count > 0)
+            {
+                lst = DataTableToList(dt);
+            }
+            return lst;
+        }
         #endregion  ExtensionMethod
     }
 }

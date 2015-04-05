@@ -66,7 +66,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysDic\SysDicAddVM.cs" />
     <Compile Include="SysFunction\SysFunctionAddVM.cs" />
-    <Compile Include="SysFunction\SysFunctionListVM.cs" />
     <Compile Include="SysLog\SysLogListVM.cs" />
     <Compile Include="SysWebSetting\SysWebSettingAddVM.cs" />
     <Compile Include="SysWebSetting\SysWebSettingListVM.cs" />

@@ -87,11 +87,11 @@ namespace XCLCMS.Data.BLL
         #endregion  BasicMethod
         #region  ExtensionMethod
         /// <summary>
-        /// 判断功能名称是否存在
+        /// 判断功能标识是否存在
         /// </summary>
-        public bool IsExistFunctionName(string functionName)
+        public bool IsExistCode(string code)
         {
-            return dal.IsExistFunctionName(functionName);
+            return dal.IsExistCode(code);
         }
 
         /// <summary>
@@ -110,6 +110,54 @@ namespace XCLCMS.Data.BLL
         {
             List<XCLCMS.Data.Model.SysFunction> lst = null;
             DataTable dt = dal.GetListByRoleID(sysRoleID);
+            if (null != dt && dt.Rows.Count > 0)
+            {
+                lst = this.DataTableToList(dt);
+            }
+            return lst;
+        }
+
+        /// <summary>
+        /// 获取当前SysFunctionID所属的层级list
+        /// 如:根目录/子目录/文件
+        /// </summary>
+        public List<XCLCMS.Data.Model.Custom.SysFunctionSimple> GetLayerListBySysFunctionId(long sysFunctionId)
+        {
+            List<XCLCMS.Data.Model.Custom.SysFunctionSimple> lst = null;
+            DataTable dt = dal.GetLayerListBySysFunctionID(sysFunctionId);
+            if (null != dt && dt.Rows.Count > 0)
+            {
+                lst = new List<XCLCMS.Data.Model.Custom.SysFunctionSimple>();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    XCLCMS.Data.Model.Custom.SysFunctionSimple model = new XCLCMS.Data.Model.Custom.SysFunctionSimple()
+                    {
+                        FunctionName = dt.Rows[i]["FunctionName"].ToString(),
+                        SysFunctionID = Convert.ToInt64(dt.Rows[i]["SysFunctionId"].ToString()),
+                        ParentID = Convert.ToInt64(dt.Rows[i]["ParentID"].ToString())
+                    };
+                    lst.Add(model);
+                }
+                lst.Reverse();
+            }
+            return lst;
+        }
+
+        /// <summary>
+        /// 删除指定SysFunctionId下面的子节点
+        /// </summary>
+        public bool DelChild(XCLCMS.Data.Model.SysFunction model)
+        {
+            return dal.DelChild(model);
+        }
+
+         /// <summary>
+        /// 根据SysFunctionID查询其子项
+        /// </summary>
+        public List<XCLCMS.Data.Model.SysFunction> GetChildListByID(long sysFunctionID)
+        {
+            List<XCLCMS.Data.Model.SysFunction> lst = null;
+            DataTable dt = dal.GetChildListByID(sysFunctionID);
             if (null != dt && dt.Rows.Count > 0)
             {
                 lst = this.DataTableToList(dt);

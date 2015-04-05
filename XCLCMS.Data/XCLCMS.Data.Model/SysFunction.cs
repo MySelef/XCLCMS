@@ -11,8 +11,9 @@ namespace XCLCMS.Data.Model
         { }
         #region Model
         private long _sysfunctionid;
+        private long _parentid;
         private string _functionname;
-        private long _fk_typeid;
+        private string _code;
         private string _remark;
         private string _recordstate;
         private DateTime _createtime;
@@ -30,6 +31,14 @@ namespace XCLCMS.Data.Model
             get { return _sysfunctionid; }
         }
         /// <summary>
+        /// 
+        /// </summary>
+        public long ParentID
+        {
+            set { _parentid = value; }
+            get { return _parentid; }
+        }
+        /// <summary>
         /// 功能名
         /// </summary>
         public string FunctionName
@@ -38,12 +47,12 @@ namespace XCLCMS.Data.Model
             get { return _functionname; }
         }
         /// <summary>
-        /// 分类(在字典库中配置)
+        /// 
         /// </summary>
-        public long FK_TypeID
+        public string Code
         {
-            set { _fk_typeid = value; }
-            get { return _fk_typeid; }
+            set { _code = value; }
+            get { return _code; }
         }
         /// <summary>
         /// 备注

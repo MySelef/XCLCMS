@@ -28,7 +28,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
         {
             XCLCMS.Data.BLL.View.v_SysDic bll = new Data.BLL.View.v_SysDic();
             long parentID = XCLNetTools.StringHander.FormHelper.GetLong("id");
-            List<XCLCMS.Data.Model.View.v_SysDic> lst = bll.GetList(parentID, string.Format("RecordState='{0}'",XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()));
+            List<XCLCMS.Data.Model.View.v_SysDic> lst = bll.GetList(parentID);
             return XCLCMS.Lib.Common.Comm.XCLJsonResult(lst, JsonRequestBehavior.AllowGet);
         }
 

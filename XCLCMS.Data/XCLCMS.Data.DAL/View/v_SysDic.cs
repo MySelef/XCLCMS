@@ -147,17 +147,13 @@ namespace XCLCMS.Data.DAL.View
         /// <summary>
         /// 根据parentID返回列表
         /// </summary>
-        public DataTable GetList(long parentID,string where="")
+        public DataTable GetList(long parentID)
         {
             SqlParameter[] parameters = {
 					new SqlParameter("@ParentID", SqlDbType.BigInt,8)			};
             parameters[0].Value = parentID;
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select * from v_SysDic where ParentID=@ParentID");
-            if (!string.IsNullOrEmpty(where))
-            {
-                strSql.AppendFormat(" and ({0}) ",where);
-            }
             DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }

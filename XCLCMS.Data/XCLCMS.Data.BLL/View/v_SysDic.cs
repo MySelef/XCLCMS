@@ -73,10 +73,10 @@ namespace XCLCMS.Data.BLL.View
         /// <summary>
         /// 根据parentID返回列表
         /// </summary>
-        public List<XCLCMS.Data.Model.View.v_SysDic> GetList(long parentID, string where = "")
+        public List<XCLCMS.Data.Model.View.v_SysDic> GetList(long parentID)
         {
             List<XCLCMS.Data.Model.View.v_SysDic> lst = null;
-            DataTable dt = dal.GetList(parentID,where);
+            DataTable dt = dal.GetList(parentID);
             if (null != dt && dt.Rows.Count > 0)
             {
                 lst = DataTableToList(dt);

@@ -101,41 +101,9 @@
                 </div>
                 @if (Model.SysDicCategory == XCLCMS.View.AdminViewModel.SysDic.SysDicCategoryEnum.Role)
                 {
-
                     <div class="XCLAccordionHeader">权限分配：</div>
-                    <div class="XCLAccordionBody">
-
-                        @if (null != Model.FunctionTypes && Model.FunctionTypes.Count > 0)
-                        {
-                            for (int idx = 0; idx < Model.FunctionTypes.Count; idx++)
-                            {
-                                var m = Model.FunctionTypes[idx];
-                                var items = Model.FunctionList.Where(k => k.FK_TypeID == m.SysDicID).ToList();
-                                <fieldset>
-                                    <legend class="XCLRedBolder">
-                                        @m.DicName：
-                                    </legend>
-                                    <div>
-                                        @if (null != items && items.Count > 0)
-                                        {
-                                            for (int i = 0; i < items.Count; i++)
-                                            {
-                                                var item = items[i];
-                                                bool isCheck = false;
-                                                if (null != Model.RoleFunctionIDList && Model.RoleFunctionIDList.Count > 0)
-                                                {
-                                                    isCheck = Model.RoleFunctionIDList.Contains(item.SysFunctionID);
-                                                }
-                                            <div style="border: solid 1px #ccc; margin: 3px; line-height: 20px; height: 20px; padding: 2px 5px 2px 5px;width:20%;float:left;">
-                                                <input type="checkbox" id="ckRoleFunction@(item.SysFunctionID)" name="ckRoleFunction" value="@item.SysFunctionID" @Html.Raw(isCheck?" checked='checked' ":"")/>
-                                                <label for="ckRoleFunction@(item.SysFunctionID)">@item.Remark</label>
-                                            </div>
-                                            }
-                                        }
-                                    </div>
-                                </fieldset>
-                            }
-                        }
+                    <div class="XCLAccordionBody" style="width:100%;">
+                        <table id="tableSysFunctionList" style="height: auto;"></table>
                     </div>
                 }
             </div>

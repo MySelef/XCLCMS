@@ -3,24 +3,28 @@
 }
 
 <div class="XCLPanel" style="margin-top: 5px;">
-    <div class="XCLPanelHeader">
-        @if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicAdd))
-        {
-            <a href="javascript:void(0);" id="btnAdd" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加子节点</a>
-        }
-        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicEdit)) { 
-            <a href="javascript:void(0);" id="btnUpdate" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改节点</a>
-        }
-        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicDel)) { 
-            <a href="javascript:void(0);" id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除节点</a>
-            <a href="javascript:void(0);" id="btnClearChild" class="easyui-linkbutton" data-options="iconCls:'icon-clear'">清空子节点</a>            
-        }
-        @if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicView)){
-            <a href="javascript:void(0);" id="btnRefresh" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">刷新列表</a>
-        }
-    </div>
+    <div class="XCLPanelHeader"></div>
     <div class="XCLPanelBody" style="border-top: none;">
         <table id="tableSysDicList" style="height: auto;"></table>
+
+        <div id="menu_SysDic" class="easyui-menu" style="width:120px;">
+            <div id="menu_SysDic_refresh" data-options="iconCls:'icon-reload'">刷新节点</div>
+            @if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicAdd))
+            {
+            <div id="menu_SysDic_add" data-options="iconCls:'icon-add'">添加子项</div>
+            }
+            @if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicEdit))
+            {
+            <div id="menu_SysDic_edit" data-options="iconCls:'icon-edit'">修改节点</div>
+            }
+            @if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicDel))
+            {
+                <div id="menu_SysDic_del" data-options="iconCls:'icon-cancel'">删除节点</div>
+                <div id="menu_SysDic_delSub" data-options="iconCls:'icon-cancel'">清空子节点</div>
+            }
+            <div id="menu_SysDicSetFunction" data-options="iconCls:'icon-edit'">分配功能权限</div>
+        </div>
+
     </div>
 </div>
 

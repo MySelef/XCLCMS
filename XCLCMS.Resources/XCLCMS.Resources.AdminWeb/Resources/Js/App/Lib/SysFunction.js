@@ -181,8 +181,6 @@
                     }
                 });
             }, function () { });
-
-            return false;
         },
         /**
          * 清空子节点
@@ -198,7 +196,7 @@
                     afterSuccessFunction: function () {
                         var parent = _this.TreeObj.treegrid("getParent", ids[0]);
                         if (parent) {
-                            _this.TreeObj.treegrid("reload", parent.sysFunctionId);
+                            _this.TreeObj.treegrid("reload", parent.SysFunctionID);
                         } else {
                             _this.Refresh();
                         }
@@ -206,7 +204,6 @@
                 });
             }, function () {
             });
-            return false;
         },
         /**
          * 刷新列表

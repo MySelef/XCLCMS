@@ -18,106 +18,105 @@ namespace XCLCMS.Lib.Permission
         public enum FunctionEnum
         {
             /// <summary>
-            ///后台_系统设置模块缓存清理
+            ///用户基本信息-添加
             /// </summary>
-            [Description("后台_系统设置模块缓存清理")]
-            SysFun_Set_ClearCache = 400125,
+            [Description("用户基本信息-添加")]
+            SysFun_UserAdmin_UserAdd = 400135,
             /// <summary>
-            ///后台_系统设置模块垃圾数据清理
+            ///用户基本信息-删除
             /// </summary>
-            [Description("后台_系统设置模块垃圾数据清理")]
-            SysFun_Set_ClearRubbishData = 400124,
+            [Description("用户基本信息-删除")]
+            SysFun_UserAdmin_UserDel = 400136,
             /// <summary>
-            ///后台_系统设置模块系统字典添加
+            ///用户基本信息-修改
             /// </summary>
-            [Description("后台_系统设置模块系统字典添加")]
-            SysFun_Set_SysDicAdd = 400113,
+            [Description("用户基本信息-修改")]
+            SysFun_UserAdmin_UserEdit = 400137,
             /// <summary>
-            ///后台_系统设置模块系统字典删除
+            ///用户基本信息-查看
             /// </summary>
-            [Description("后台_系统设置模块系统字典删除")]
-            SysFun_Set_SysDicDel = 400115,
+            [Description("用户基本信息-查看")]
+            SysFun_UserAdmin_UserView = 400138,
             /// <summary>
-            ///后台_系统设置模块系统字典修改
+            ///系统日志-查看
             /// </summary>
-            [Description("后台_系统设置模块系统字典修改")]
-            SysFun_Set_SysDicEdit = 400114,
+            [Description("系统日志-查看")]
+            SysFun_Set_SysLogView = 400140,
             /// <summary>
-            ///后台_系统设置模块系统字典查看
+            ///系统日志-删除
             /// </summary>
-            [Description("后台_系统设置模块系统字典查看")]
-            SysFun_Set_SysDicView = 400112,
+            [Description("系统日志-删除")]
+            SysFun_Set_SysLogDel = 400141,
             /// <summary>
-            ///后台_系统设置模块功能模块添加
+            ///系统字典-添加
             /// </summary>
-            [Description("后台_系统设置模块功能模块添加")]
-            SysFun_Set_SysFunctionAdd = 400123,
+            [Description("系统字典-添加")]
+            SysFun_Set_SysDicAdd = 400143,
             /// <summary>
-            ///后台_系统设置模块功能模块删除
+            ///系统字典-删除
             /// </summary>
-            [Description("后台_系统设置模块功能模块删除")]
-            SysFun_Set_SysFunctionDel = 400122,
+            [Description("系统字典-删除")]
+            SysFun_Set_SysDicDel = 400144,
             /// <summary>
-            ///后台_系统设置模块功能模块修改
+            ///系统字典-修改
             /// </summary>
-            [Description("后台_系统设置模块功能模块修改")]
-            SysFun_Set_SysFunctionEdit = 400121,
+            [Description("系统字典-修改")]
+            SysFun_Set_SysDicEdit = 400145,
             /// <summary>
-            ///后台_系统设置模块功能模块查看
+            ///系统字典-查看
             /// </summary>
-            [Description("后台_系统设置模块功能模块查看")]
-            SysFun_Set_SysFunctionView = 400120,
+            [Description("系统字典-查看")]
+            SysFun_Set_SysDicView = 400146,
             /// <summary>
-            ///后台_系统设置模块系统日志删除
+            ///系统配置-添加
             /// </summary>
-            [Description("后台_系统设置模块系统日志删除")]
-            SysFun_Set_SysLogDel = 400111,
+            [Description("系统配置-添加")]
+            SysFun_Set_SysWebSettingAdd = 400148,
             /// <summary>
-            ///后台_系统设置模块系统日志查看
+            ///系统配置-删除
             /// </summary>
-            [Description("后台_系统设置模块系统日志查看")]
-            SysFun_Set_SysLogView = 400110,
+            [Description("系统配置-删除")]
+            SysFun_Set_SysWebSettingDel = 400149,
             /// <summary>
-            ///后台_系统设置模块系统配置添加
+            ///系统配置-修改
             /// </summary>
-            [Description("后台_系统设置模块系统配置添加")]
-            SysFun_Set_SysWebSettingAdd = 400119,
+            [Description("系统配置-修改")]
+            SysFun_Set_SysWebSettingEdit = 400150,
             /// <summary>
-            ///后台_系统设置模块系统配置删除
+            ///系统配置-查看
             /// </summary>
-            [Description("后台_系统设置模块系统配置删除")]
-            SysFun_Set_SysWebSettingDel = 400118,
+            [Description("系统配置-查看")]
+            SysFun_Set_SysWebSettingView = 400151,
             /// <summary>
-            ///后台_系统设置模块系统配置修改
+            ///功能模块-添加
             /// </summary>
-            [Description("后台_系统设置模块系统配置修改")]
-            SysFun_Set_SysWebSettingEdit = 400117,
+            [Description("功能模块-添加")]
+            SysFun_Set_SysFunctionAdd = 400153,
             /// <summary>
-            ///后台_系统设置模块系统配置查看
+            ///功能模块-删除
             /// </summary>
-            [Description("后台_系统设置模块系统配置查看")]
-            SysFun_Set_SysWebSettingView = 400116,
+            [Description("功能模块-删除")]
+            SysFun_Set_SysFunctionDel = 400154,
             /// <summary>
-            ///后台_用户管理模块用户信息添加
+            ///功能模块-修改
             /// </summary>
-            [Description("后台_用户管理模块用户信息添加")]
-            SysFun_UserAdmin_UserAdd = 400106,
+            [Description("功能模块-修改")]
+            SysFun_Set_SysFunctionEdit = 400155,
             /// <summary>
-            ///后台_用户管理模块用户信息删除
+            ///功能模块-查看
             /// </summary>
-            [Description("后台_用户管理模块用户信息删除")]
-            SysFun_UserAdmin_UserDel = 400108,
+            [Description("功能模块-查看")]
+            SysFun_Set_SysFunctionView = 400156,
             /// <summary>
-            ///后台_用户管理模块用户信息修改
+            ///其它-垃圾数据清理
             /// </summary>
-            [Description("后台_用户管理模块用户信息修改")]
-            SysFun_UserAdmin_UserEdit = 400107,
+            [Description("其它-垃圾数据清理")]
+            SysFun_Set_ClearRubbishData = 400158,
             /// <summary>
-            ///后台_用户管理模块用户信息查看
+            ///其它-缓存清理
             /// </summary>
-            [Description("后台_用户管理模块用户信息查看")]
-            SysFun_UserAdmin_UserView = 400109,
-
+            [Description("其它-缓存清理")]
+            SysFun_Set_ClearCache = 400159,
 
         }
     }

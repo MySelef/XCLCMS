@@ -53,7 +53,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                     if (roles.Exists(k => k.SysDicID == sysDicId || (k.ParentID==sysDicId && base.CurrentHandleType==Lib.Common.Comm.HandleType.ADD)))
                     {
                         viewModel.SysDicCategory = AdminViewModel.SysDic.SysDicCategoryEnum.Role;
-                        viewModel.FunctionList = XCLCMS.Lib.Permission.PerHelper.GetFunctionList();
                     }
                 }
             }

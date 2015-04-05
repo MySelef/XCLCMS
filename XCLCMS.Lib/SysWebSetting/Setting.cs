@@ -65,7 +65,7 @@ namespace XCLCMS.Lib.SysWebSetting
                             for (int i = 0; i < props.Length; i++)
                             {
                                 propsName = props[i].Name;
-                                tempKeyModel = all.Where(k => string.Equals(k.Key, string.Format("XCLCMS_{0}", propsName), StringComparison.OrdinalIgnoreCase)).First();
+                                tempKeyModel = all.Where(k => string.Equals(k.Key, propsName, StringComparison.OrdinalIgnoreCase)).First();
                                 if (null != tempKeyModel)
                                 {
                                     props[i].SetValue(model, tempKeyModel.Value);

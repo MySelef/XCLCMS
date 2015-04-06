@@ -34,6 +34,12 @@
             this.Name = "";
             this.Width = 0;
             this.Height = 0;
+            this.X1 = 0;
+            this.Y1 = 0;
+            this.X2 = 0;
+            this.Y2 = 0;
+            this.CropWidth = 0;
+            this.CropHeight = 0;
         },
         Init: function () {
             var _this = this;
@@ -83,22 +89,28 @@
                 $("#divEditFile").html(template('divEditFileTemp', model));
                 $("#divEditFile .easyui-linkbutton").linkbutton();
                 //图片裁剪
-                $("img#ImgToEdit").Jcrop();
+                var getCropImgXYInfo = function (img) {
+                    model.X1 = img.x;
+                    model.X2 = img.x2;
+                    model.Y1 = img.y;
+                    model.Y2 = img.y2;
+                    model.CropWidth = img.w;
+                    model.CropHeight = img.h;
+                    $("#divImgCropInfo").html("X1：" + model.X1 + "，Y1：" + model.Y1 + "，X2：" + model.X2 + "，Y2：" + model.Y2 + "。宽高：" + model.CropWidth + "*" + model.CropHeight);
+                };
+                $("img#ImgToEdit").Jcrop({
+                    onSelect: getCropImgXYInfo,
+                    onChange: getCropImgXYInfo,
+                    onRelease: function () {
+                        getCropImgXYInfo({x:0,y:0,x2:0,y2:0,w:0,h:0});
+                    }
+                });
                 //查看原图
                 $(document).off("click", "#btnShowSource").on("click", "#btnShowSource", function () {
                     $("#divShowImg").html(template('divShowImgTemp', { ImgSrc: model.Path })).find("form").submit();
                     return false;
                 });
                 return false;
-            });
-            //图片旋转
-            $("body").on("click", "#btnLeftRotate", function () {
-                //左旋转
-                $("img#ImgToEdit").rotate(-90);
-            });
-            $("body").on("click", "#btnRightRotate", function () {
-                //右旋转
-                $("img#ImgToEdit").rotate(90);
             });
         },
         /**

@@ -2,18 +2,23 @@
     Layout = "~/Views/MasterView/Simple.cshtml";
 }
 
-@Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
-        "moxie.js",
-        "plupload_queue.css",
-        "plupload_queue.js",
-        "plupload.js",
-        "plupload_zh_CN.js",
-        "jquery.color.js",
-        "Jcrop.css",
-        "Jcrop.js"
-    }))
+@section CustomHeader
+{
+    
+    
 
-<style type="text/css">
+    @Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
+            "moxie.js",
+            "plupload_queue.css",
+            "plupload_queue.js",
+            "plupload.js",
+            "plupload_zh_CN.js",
+            "jquery.color.js",
+            "Jcrop.css",
+            "Jcrop.js"
+        }))
+
+    <style type="text/css">
         .XCLUploadFile .trTitle
         {
             font-size:15px;
@@ -60,6 +65,7 @@
         }
 </style>
 
+    }
     <div class="easyui-layout" data-options="fit:true">
         <div data-options="region:'west'" title="已选文件" style="width:50%;padding:5px" class="XCLUploadFile">
             <div class="XCLNote">您当前已添加3个文件，最多可以添加{0}个{0}的文件。</div>

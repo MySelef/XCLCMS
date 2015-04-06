@@ -12,10 +12,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
+
     @Html.Partial("~/Views/MasterView/Header.cshtml")
+
     <style type="text/css">
         body {min-width:1000px;}
     </style>
+
+    @RenderSection("CustomHeader", false)
+
+   @Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
+        "config.js",
+        "require.js"
+   }))
 </head>
 <body class="easyui-layout">
 
@@ -106,5 +115,7 @@
             });
         });
     </script>
+
+    @RenderSection("CustomFooter", false)
 </body>
 </html>

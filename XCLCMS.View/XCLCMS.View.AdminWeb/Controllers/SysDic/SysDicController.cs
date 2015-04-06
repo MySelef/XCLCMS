@@ -78,7 +78,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                     viewModel.SysDic.DicType = XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.U.ToString();
                     viewModel.ParentID = sysDicId;
                     viewModel.SysDicID = -1;
-                    viewModel.SysDic.Code = XCLNetTools.StringHander.RandomHelper.GenerateStringId();
                     viewModel.FormAction = Url.Action("AddSubmit", "SysDic");
                     break;
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:

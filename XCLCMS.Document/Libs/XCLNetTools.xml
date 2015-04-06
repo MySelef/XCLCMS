@@ -1960,22 +1960,32 @@
             tree的每项(注意大小写，此js插件中是小写)
             </summary>
         </member>
-        <member name="P:XCLNetTools.EasyUI.Model.Tree.TreeItem.id">
+        <member name="P:XCLNetTools.EasyUI.Model.Tree.TreeItem.ID">
             <summary>
-            id
+            标识
             </summary>
         </member>
-        <member name="P:XCLNetTools.EasyUI.Model.Tree.TreeItem.text">
+        <member name="P:XCLNetTools.EasyUI.Model.Tree.TreeItem.Text">
             <summary>
-            text
+            显示文本
             </summary>
         </member>
-        <member name="P:XCLNetTools.EasyUI.Model.Tree.TreeItem.state">
+        <member name="P:XCLNetTools.EasyUI.Model.Tree.TreeItem.State">
             <summary>
-            state
+            状态（open/closed）
             </summary>
         </member>
-        <member name="P:XCLNetTools.EasyUI.Model.Tree.TreeItem.children">
+        <member name="P:XCLNetTools.EasyUI.Model.Tree.TreeItem.Checked">
+            <summary>
+            是否选中该节点
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.EasyUI.Model.Tree.TreeItem.Attributes">
+            <summary>
+            自定义属性
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.EasyUI.Model.Tree.TreeItem.Children">
             <summary>
             子项数组
             </summary>

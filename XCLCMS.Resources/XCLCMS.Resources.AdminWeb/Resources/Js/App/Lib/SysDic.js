@@ -244,46 +244,44 @@
 
 
     app.SysDicAdd = {
+
         /**
-        * 功能模块的tree
+        * 输入元素
         */
-        TreeObj:null,
+        Elements: {
+            //字典所属功能输入框对象
+            txtFunctionID: null,
+            //字典所属功能输入框对象
+            txtRoleFunction: null,
+            Init: function () {
+                this.txtFunctionID = $("#txtFunctionID");
+                this.txtRoleFunction = $("#txtRoleFunction");
+            }
+        },
+        /**
+        * 界面初始化
+        */
         Init: function () {
             var _this = this;
+            _this.Elements.Init();
             _this.InitValidator();
 
-            _this.TreeObj = $('#tableSysFunctionList');
-            //加载列表树
-            _this.TreeObj.treegrid({
-                url: XCLCMSPageGlobalConfig.RootURL + 'SysFunction/GetList',
+            _this.CreateFunctionTree(_this.Elements.txtFunctionID);
+            _this.CreateFunctionTree(_this.Elements.txtRoleFunction);
+        },
+        /**
+        * 创建功能模块的combotree
+        */
+        CreateFunctionTree: function ($obj) {
+            if (!$obj) {
+                return;
+            }
+            $obj.combotree({
+                url: XCLCMSPageGlobalConfig.RootURL + 'SysFunctionCommon/GetAllJsonForEasyUITree',
                 method: 'get',
-                idField: 'SysFunctionID',
-                treeField: 'FunctionName',
-                rownumbers: true,
-                loadFilter: function (data) {
-                    if (data) {
-                        for (var i = 0; i < data.length; i++) {
-                            data[i].state = (data[i].IsLeaf === 1) ? "" : "closed";
-                        }
-                    }
-                    return data;
-                },
-                columns: [[
-                    { field: 'SysFunctionID', title: 'ID', width: '5%' },
-                    { field: 'ParentID', title: '父ID', width: '5%' },
-                    { field: 'FunctionName', title: '功能名', width: '20%' },
-                    { field: 'Code', title: '功能标识', width: '20%' },
-                    { field: 'Remark', title: '备注', width: '10%' },
-                    { field: 'RecordState', title: '记录状态', formatter: easyUI.EnumToDescription, width: '5%' },
-                    { field: 'CreateTime', title: '创建时间', width: '10%' },
-                    { field: 'CreaterName', title: '创建者名', width: '5%' },
-                    { field: 'UpdateTime', title: '更新时间', width: '10%' },
-                    { field: 'UpdaterName', title: '更新者名', width: '5%' }
-                ]]
-            });
-
-            $("#btnCreateAutoCode").on("click", function () {
-                $("#txtCode").val(common.CreateAutoCode());
+                checkbox: true,
+                onlyLeafCheck: true,
+                lines:true
             });
         },
         InitValidator: function () {
@@ -307,7 +305,6 @@
                         }
                     },
                     txtCode: {
-                        required: true,
                         XCLCustomRemote: {
                             url: XCLCMSPageGlobalConfig.RootURL + "SysDicCommon/IsExistSysDicCode",
                             data: {

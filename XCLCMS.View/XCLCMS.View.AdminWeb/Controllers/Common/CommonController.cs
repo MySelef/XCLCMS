@@ -13,17 +13,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
     public class CommonController : BaseController
     {
         /// <summary>
-        /// 自动生成随机数
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult CreateAutoCode()
-        {
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            msgModel.Message = XCLNetTools.StringHander.RandomHelper.GenerateStringId();
-            return Json(msgModel, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
         /// 清理缓存
         /// </summary>
         [XCLCMS.Lib.Filters.FunctionFilter(Function=XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_ClearCache)]

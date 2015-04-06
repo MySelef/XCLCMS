@@ -280,7 +280,6 @@
                 url: XCLCMSPageGlobalConfig.RootURL + 'SysFunctionCommon/GetAllJsonForEasyUITree',
                 method: 'get',
                 checkbox: true,
-                onlyLeafCheck: true,
                 lines:true
             });
         },

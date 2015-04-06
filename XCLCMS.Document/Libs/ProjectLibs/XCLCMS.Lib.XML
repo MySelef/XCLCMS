@@ -279,92 +279,92 @@
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserAdd">
              <summary>
-            用户基本信息-添加
+            用户基本信息-用户基本信息添加
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserDel">
              <summary>
-            用户基本信息-删除
+            用户基本信息-用户基本信息删除
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserEdit">
              <summary>
-            用户基本信息-修改
+            用户基本信息-用户基本信息修改
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserView">
              <summary>
-            用户基本信息-查看
+            用户基本信息-用户基本信息查看
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysLogView">
              <summary>
-            系统日志-查看
+            系统日志-系统日志查看
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysLogDel">
              <summary>
-            系统日志-删除
+            系统日志-系统日志删除
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicAdd">
              <summary>
-            系统字典-添加
+            系统字典-系统字典添加
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicDel">
              <summary>
-            系统字典-删除
+            系统字典-系统字典删除
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicEdit">
              <summary>
-            系统字典-修改
+            系统字典-系统字典修改
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicView">
              <summary>
-            系统字典-查看
+            系统字典-系统字典查看
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingAdd">
              <summary>
-            系统配置-添加
+            系统配置-系统配置添加
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingDel">
              <summary>
-            系统配置-删除
+            系统配置-系统配置删除
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingEdit">
              <summary>
-            系统配置-修改
+            系统配置-系统配置修改
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingView">
              <summary>
-            系统配置-查看
+            系统配置-系统配置查看
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionAdd">
              <summary>
-            功能模块-添加
+            功能模块-功能模块添加
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionDel">
              <summary>
-            功能模块-删除
+            功能模块-功能模块删除
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionEdit">
              <summary>
-            功能模块-修改
+            功能模块-功能模块修改
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView">
              <summary>
-            功能模块-查看
+            功能模块-功能模块查看
              </summary>
         </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_ClearRubbishData">

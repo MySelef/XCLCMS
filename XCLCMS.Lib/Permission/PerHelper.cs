@@ -44,7 +44,6 @@ namespace XCLCMS.Lib.Permission
         /// </summary>
         public static bool HasAnyPermission(long userId, List<XCLCMS.Lib.Permission.Function.FunctionEnum> functionList)
         {
-            return true;
             bool flag = false;
             if (null != functionList && functionList.Count > 0)
             {

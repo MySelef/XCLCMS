@@ -26,11 +26,6 @@ namespace XCLCMS.Data.BLL.Strategy.UserInfo
         {
             var userInfoContext = context as XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext;
 
-            if (null == userInfoContext.UserRoleIDs || userInfoContext.UserRoleIDs.Count == 0)
-            {
-                return;
-            }
-
             XCLCMS.Data.BLL.SysUserRole bll = new XCLCMS.Data.BLL.SysUserRole();
 
             XCLCMS.Data.Model.SysUserRole model = new XCLCMS.Data.Model.SysUserRole();

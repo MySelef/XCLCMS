@@ -25,12 +25,7 @@ namespace XCLCMS.Data.BLL.Strategy.SysDic
         public override void DoWork<T>(T context)
         {
             var sysDicContext = context as XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext;
-
-            if (null == sysDicContext.FunctionIdList || sysDicContext.FunctionIdList.Count == 0)
-            {
-                return;
-            }
-
+            
             XCLCMS.Data.BLL.SysRoleFunction bll = new XCLCMS.Data.BLL.SysRoleFunction();
 
             XCLCMS.Data.Model.SysRoleFunction model = new XCLCMS.Data.Model.SysRoleFunction();

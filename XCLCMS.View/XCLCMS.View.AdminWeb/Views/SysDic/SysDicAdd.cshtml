@@ -56,7 +56,7 @@
                             <tr>
                                 <td class="XCLTitle">所属功能模块：</td>
                                 <td colspan="3">
-                                     <input id="txtFunctionID" name="txtFunctionID" style="width:300px;height:25px;" value="@Model.SysDic.FK_FunctionID"/>
+                                     <input id="txtFunctionID" name="txtFunctionID" style="width:300px;height:25px;" value="@Model.SysDic.FK_FunctionID" multiple/>
                                 </td>
                             </tr>
                         }
@@ -66,7 +66,7 @@
                             <tr>
                                 <td class="XCLTitle">分配角色权限：</td>
                                 <td colspan="3">
-                                     <input id="txtRoleFunction" name="txtRoleFunction" style="width:300px;height:25px;" value="" multiple />
+                                     <input id="txtRoleFunction" name="txtRoleFunction" style="width:300px;height:25px;" xcl-data-value="@(null==Model.RoleFunctionIDList?"":string.Join(",",Model.RoleFunctionIDList.ToArray()))" multiple />
                                 </td>
                             </tr>
                         }

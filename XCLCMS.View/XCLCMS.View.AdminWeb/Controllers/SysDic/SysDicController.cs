@@ -117,8 +117,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             viewModel.SysDic.Sort = XCLNetTools.StringHander.Common.GetInt(fm["txtSort"] ?? "");
             viewModel.SysDic.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.SysDic.Weight = XCLNetTools.StringHander.Common.GetIntNull(fm["txtWeight"] ?? "");
-            viewModel.SysDic.FK_FunctionID = XCLNetTools.StringHander.Common.GetLongNull(fm["selFunctionID"] ?? "");
-            viewModel.RoleFunctionIDList = XCLNetTools.StringHander.FormHelper.GetLongList("ckRoleFunction");
+            viewModel.SysDic.FK_FunctionID = XCLNetTools.StringHander.Common.GetLongNull(fm["txtFunctionID"] ?? "");
+            viewModel.RoleFunctionIDList = XCLNetTools.StringHander.FormHelper.GetLongList("txtRoleFunction");
             return viewModel;
         }
 

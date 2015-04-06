@@ -128,10 +128,6 @@
             _this.Elements.menu_SysDic_delSub.on("click", function () {
                 _this.Clear();
             });
-            //分配功能权限
-            _this.Elements.menu_SysDicSetFunction.on("click", function () {
-                _this.SetFunction();
-            });
         },
         /**
          * 获取已选择的行对象数组
@@ -230,12 +226,6 @@
          */
         Refresh: function () {
             this.TreeObj.treegrid("reload");
-        },
-        /**
-        * 分配功能权限
-        */
-        SetFunction: function () {
-                
         }
     };
 
@@ -273,15 +263,33 @@
         * 创建功能模块的combotree
         */
         CreateFunctionTree: function ($obj) {
+            var _this=this;
             if (!$obj) {
                 return;
             }
+            var isTxtFunctionID = ($obj == _this.Elements.txtFunctionID);
+            var isTxtRoleFunction=($obj==_this.Elements.txtRoleFunction);
+
             $obj.combotree({
                 url: XCLCMSPageGlobalConfig.RootURL + 'SysFunctionCommon/GetAllJsonForEasyUITree',
                 method: 'get',
                 checkbox: true,
-                lines:true
+                lines: true,
+                multiple: (!isTxtFunctionID),//字典对应的功能id只允许选一个
+                onBeforeSelect: function (node) {
+                    //字典对应的功能只能选择一项
+                    if (isTxtFunctionID && node.children) {
+                        art.dialog.tips("只能选择叶子节点！");
+                        $obj.combotree("clear");
+                        return false;
+                    }
+                }
             });
+
+            if (isTxtRoleFunction) {
+                _this.Elements.txtRoleFunction.combotree("setValues",(_this.Elements.txtRoleFunction.attr("xcl-data-value") || "").split(','));
+            }
+
         },
         InitValidator: function () {
             var validator = $("form:first").validate({

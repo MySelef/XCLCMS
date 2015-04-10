@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using XCLCMS.Data.DBUtility;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
 
 namespace XCLCMS.Data.DAL.CommonDAL
 {
@@ -28,35 +30,21 @@ namespace XCLCMS.Data.DAL.CommonDAL
         /// <returns>DataTable</returns>
         public static DataTable GetPageList(string tableName, int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
-            DataTable dt = null;
-            SqlParameter[] parameters = {
-											new SqlParameter("@RecordCount", SqlDbType.Int),//总记录数
-											new SqlParameter("@PageCount", SqlDbType.Int),//总页数
-											new SqlParameter("@PageSize", SqlDbType.Int),//每页最多显示多少条
-											new SqlParameter("@PageCurrent", SqlDbType.Int),	//当前页码  1为第一页
-											new SqlParameter("@tbname", SqlDbType.NVarChar),//表名
-											new SqlParameter("@FieldShow", SqlDbType.NVarChar),
-											new SqlParameter("@Where", SqlDbType.NVarChar),
-											new SqlParameter("@FieldOrder", SqlDbType.NVarChar),
-                                            new SqlParameter("@FieldKey", SqlDbType.NVarChar)
-											};
-            parameters[0].Direction = ParameterDirection.Output;
-            parameters[1].Direction = ParameterDirection.Output;
-            parameters[2].Value = pageSize;
-            parameters[3].Value = pageIndex;//存储过程中1为第一页。
-            parameters[4].Value = tableName;
-            parameters[5].Value = fieldName;
-            parameters[6].Value = strWhere;
-            parameters[7].Value = fieldOrder;
-            parameters[8].Value = fieldKey;
-            DataSet ds = DbHelperSQL.RunProcedure("sp_Pager", parameters, "ds");
-            int.TryParse(parameters[0].Value.ToString(), out recordCount);
+            Database db =new XCLCMS.Data.DAL.BaseDAL().CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_Pager");
+            db.AddOutParameter(dbCommand, "RecordCount", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "PageCount", DbType.Int32, 4);
 
-            if (null != ds && ds.Tables.Count > 0)
-            {
-                dt = ds.Tables[0];
-            }
-            return dt;
+            db.AddInParameter(dbCommand, "PageSize", DbType.Int32, pageSize);
+            db.AddInParameter(dbCommand, "PageCurrent", DbType.Int32, pageIndex);
+            db.AddInParameter(dbCommand, "tbname", DbType.String, tableName);
+            db.AddInParameter(dbCommand, "FieldShow", DbType.String, fieldName);
+            db.AddInParameter(dbCommand, "Where", DbType.String, strWhere);
+            db.AddInParameter(dbCommand, "FieldOrder", DbType.String, fieldOrder);
+            db.AddInParameter(dbCommand, "FieldKey", DbType.String, fieldKey);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+            int.TryParse(Convert.ToString(dbCommand.Parameters["@RecordCount"].Value), out recordCount);
+            return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
 
         /// <summary>
@@ -64,32 +52,30 @@ namespace XCLCMS.Data.DAL.CommonDAL
         /// </summary>
         public static void ClearRubbishData()
         {
-            SqlParameter[] parameters = { };
-            DbHelperSQL.RunProcedure("sp_ClearRubbishData", parameters, "ds");
+            Database db = new XCLCMS.Data.DAL.BaseDAL().CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_ClearRubbishData");
+            db.ExecuteNonQuery(dbCommand);
         }
 
         /// <summary>
         /// 从存储过程参数中获取存储过程的执行结果
         /// </summary>
         /// <param name="parameters">存储过程参数</param>
-        public static XCLCMS.Data.DAL.Entity.ProcedureResultModel GetProcedureResult(SqlParameter[] parameters)
+        public static XCLCMS.Data.DAL.Entity.ProcedureResultModel GetProcedureResult(DbParameterCollection parameters)
         {
             XCLCMS.Data.DAL.Entity.ProcedureResultModel model = new Entity.ProcedureResultModel();
             model.IsSuccess = true;
 
-            if (null != parameters && parameters.Length > 0)
+            if (null != parameters && parameters.Count > 0)
             {
-                var lst = parameters.ToList();
-                var paramsModel = lst.Where(k => string.Equals(k.ParameterName, "@ResultCode", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-                if (null != paramsModel)
+                if (parameters.Contains("@ResultCode"))
                 {
-                    model.ResultCode = Int32.Parse(Convert.ToString(paramsModel.Value));
+                    model.ResultCode = Int32.Parse(Convert.ToString(parameters["@ResultCode"].Value));
                     model.IsSuccess = (model.ResultCode == 1);
                 }
-                paramsModel = lst.Where(k => string.Equals(k.ParameterName, "@ResultMessage", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-                if (null != paramsModel)
+                if (parameters.Contains("@ResultMessage"))
                 {
-                    model.ResultMessage =Convert.ToString(paramsModel.Value);
+                    model.ResultMessage = Convert.ToString(parameters["@ResultMessage"].Value);
                 }
             }
 

@@ -16,10 +16,12 @@ namespace XCLCMS.Data.Model
         private string _subtitle;
         private string _authorname;
         private string _frominfo;
-        private string _articletype;
+        private string _articlecontenttype;
         private string _contents;
         private string _summary;
-        private string _mainimage;
+        private string _mainimage1;
+        private string _mainimage2;
+        private string _mainimage3;
         private int _viewcount;
         private string _iscancomment;
         private int _commentcount;
@@ -29,6 +31,17 @@ namespace XCLCMS.Data.Model
         private int _hotcount;
         private string _urlopentype;
         private string _articlestate;
+        private string _verifystate;
+        private string _isrecommend;
+        private string _isessence;
+        private string _istop;
+        private DateTime? _topbegintime;
+        private DateTime? _topendtime;
+        private string _keywords;
+        private string _tags;
+        private string _comments;
+        private string _linkurl;
+        private DateTime? _publishtime;
         private string _recordstate;
         private DateTime _createtime;
         private long _createrid;
@@ -85,12 +98,12 @@ namespace XCLCMS.Data.Model
             get { return _frominfo; }
         }
         /// <summary>
-        /// 文章类型(ArticleTypeEnum)
+        /// 内容类型(ArticleContentTypeEnum)
         /// </summary>
-        public string ArticleType
+        public string ArticleContentType
         {
-            set { _articletype = value; }
-            get { return _articletype; }
+            set { _articlecontenttype = value; }
+            get { return _articlecontenttype; }
         }
         /// <summary>
         /// 内容正文
@@ -109,12 +122,28 @@ namespace XCLCMS.Data.Model
             get { return _summary; }
         }
         /// <summary>
-        /// 主图片地址
+        /// 主图片1地址
         /// </summary>
-        public string MainImage
+        public string MainImage1
         {
-            set { _mainimage = value; }
-            get { return _mainimage; }
+            set { _mainimage1 = value; }
+            get { return _mainimage1; }
+        }
+        /// <summary>
+        /// 主图片2地址
+        /// </summary>
+        public string MainImage2
+        {
+            set { _mainimage2 = value; }
+            get { return _mainimage2; }
+        }
+        /// <summary>
+        /// 主图片3地址
+        /// </summary>
+        public string MainImage3
+        {
+            set { _mainimage3 = value; }
+            get { return _mainimage3; }
         }
         /// <summary>
         /// 浏览数
@@ -187,6 +216,94 @@ namespace XCLCMS.Data.Model
         {
             set { _articlestate = value; }
             get { return _articlestate; }
+        }
+        /// <summary>
+        /// 审核状态
+        /// </summary>
+        public string VerifyState
+        {
+            set { _verifystate = value; }
+            get { return _verifystate; }
+        }
+        /// <summary>
+        /// 是否推荐
+        /// </summary>
+        public string IsRecommend
+        {
+            set { _isrecommend = value; }
+            get { return _isrecommend; }
+        }
+        /// <summary>
+        /// 是否为精华
+        /// </summary>
+        public string IsEssence
+        {
+            set { _isessence = value; }
+            get { return _isessence; }
+        }
+        /// <summary>
+        /// 是否置顶
+        /// </summary>
+        public string IsTop
+        {
+            set { _istop = value; }
+            get { return _istop; }
+        }
+        /// <summary>
+        /// 置顶开始时间
+        /// </summary>
+        public DateTime? TopBeginTime
+        {
+            set { _topbegintime = value; }
+            get { return _topbegintime; }
+        }
+        /// <summary>
+        /// 置顶结束时间
+        /// </summary>
+        public DateTime? TopEndTime
+        {
+            set { _topendtime = value; }
+            get { return _topendtime; }
+        }
+        /// <summary>
+        /// 关键字(逗号分隔)
+        /// </summary>
+        public string KeyWords
+        {
+            set { _keywords = value; }
+            get { return _keywords; }
+        }
+        /// <summary>
+        /// 标签(逗号分隔)
+        /// </summary>
+        public string Tags
+        {
+            set { _tags = value; }
+            get { return _tags; }
+        }
+        /// <summary>
+        /// 点评
+        /// </summary>
+        public string Comments
+        {
+            set { _comments = value; }
+            get { return _comments; }
+        }
+        /// <summary>
+        /// 链接地址(标题仅为链接时)
+        /// </summary>
+        public string LinkUrl
+        {
+            set { _linkurl = value; }
+            get { return _linkurl; }
+        }
+        /// <summary>
+        /// 发布时间
+        /// </summary>
+        public DateTime? PublishTime
+        {
+            set { _publishtime = value; }
+            get { return _publishtime; }
         }
         /// <summary>
         /// 记录状态(RecordStateEnum)

@@ -3,13 +3,16 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using System.Collections.Generic;
-using XCLCMS.Data.DBUtility;//Please add references
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
+
 namespace XCLCMS.Data.DAL
 {
     /// <summary>
     /// 数据访问类:SysDic
     /// </summary>
-    public partial class SysDic
+    public partial class SysDic:BaseDAL
     {
         public SysDic()
         { }
@@ -20,12 +23,10 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public XCLCMS.Data.Model.SysDic GetModel(long SysDicID)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysDicID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = SysDicID;
-
-            XCLCMS.Data.Model.SysDic model = new XCLCMS.Data.Model.SysDic();
-            DataSet ds = DbHelperSQL.Query("select * from SysDic where SysDicID=@SysDicID", parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from SysDic where SysDicID=@SysDicID");
+            db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, SysDicID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return DataRowToModel(ds.Tables[0].Rows[0]);
@@ -129,7 +130,9 @@ namespace XCLCMS.Data.DAL
             {
                 strSql.Append(" where " + strWhere);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            return db.ExecuteDataSet(dbCommand);
         }
 
         #endregion  Method
@@ -140,8 +143,9 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public DataTable GetLayerListBySysDicID(long sysDicID)
         {
-            string str = string.Format("select * from fun_SysDic_GetLayerListByID({0})", sysDicID);
-            DataSet ds = DbHelperSQL.Query(str);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(string.Format("select * from fun_SysDic_GetLayerListByID({0})", sysDicID));
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             DataTable dt = null;
             if (null != ds && ds.Tables.Count > 0)
             {
@@ -155,12 +159,10 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool IsExistCode(string code)
         {
-            string strSql = " select top 1 1 from SysDic where Code=@Code";
-            SqlParameter[] parameters = { 
-                                        new SqlParameter("@Code", SqlDbType.VarChar, 50)
-                                        };
-            parameters[0].Value = code;
-            return DbHelperSQL.Exists(strSql, parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from SysDic where Code=@Code");
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
+            return db.ExecuteScalar(dbCommand) != null;
         }
 
         /// <summary>
@@ -168,18 +170,16 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool DelChild(XCLCMS.Data.Model.SysDic model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysDicID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50)};
-            parameters[0].Value = model.SysDicID;
-            parameters[1].Value = model.UpdateTime;
-            parameters[2].Value = model.UpdaterID;
-            parameters[3].Value = model.UpdaterName;
             string strSql = string.Format("update SysDic set RecordState='{0}',UpdateTime=@UpdateTime,UpdaterID=@UpdaterID,UpdaterName=@UpdaterName where ParentID=@SysDicID and RecordState='{1}' and DicType<>'{2}'", 
                                     XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString(), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(),XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.S.ToString());
-            return DbHelperSQL.ExecuteSql(strSql,parameters)>0;
+
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, model.SysDicID);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
+            return db.ExecuteNonQuery(dbCommand) > 0;
         }
 
         /// <summary>
@@ -189,28 +189,24 @@ namespace XCLCMS.Data.DAL
         public DataTable GetChildListByCode(XCLCMS.Data.Model.SysDic model)
         {
             StringBuilder strSql =new StringBuilder();
-            SqlParameter param = null;
-            List<SqlParameter> ps = new List<SqlParameter>();
-
             strSql.Append(@"SELECT
                                         b.*
                                         FROM dbo.SysDic AS a
                                         INNER JOIN dbo.SysDic AS b ON a.Code=@Code AND a.SysDicID=b.ParentID
                                         where 1=1 
                                         ");
-            param = new SqlParameter("@Code", SqlDbType.VarChar, 50);
-            param.Value = model.Code;
-            ps.Add(param);
+
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, model.Code);
 
             if (!string.IsNullOrEmpty(model.RecordState))
             {
-                strSql.Append(" and b.RecordState=@RecordState");
-                param = new SqlParameter("@RecordState", SqlDbType.Char, 1);
-                param.Value = model.RecordState;
-                ps.Add(param);
+                dbCommand.CommandText += " and b.RecordState=@RecordState";
+                db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             }
-            
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), ps.ToArray());
+
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
 
@@ -221,27 +217,23 @@ namespace XCLCMS.Data.DAL
         public DataTable GetChildListByID(XCLCMS.Data.Model.SysDic model)
         {
             StringBuilder strSql = new StringBuilder();
-            SqlParameter param = null;
-            List<SqlParameter> ps = new List<SqlParameter>();
-
             strSql.Append(@"SELECT
                                         a.*
                                         FROM dbo.SysDic AS a
                                         where ParentID=@ParentID
                                         ");
-            param = new SqlParameter("@ParentID", SqlDbType.BigInt, 8);
-            param.Value = model.SysDicID;
-            ps.Add(param);
+
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.SysDicID);
 
             if (!string.IsNullOrEmpty(model.RecordState))
             {
-                strSql.Append(" and RecordState=@RecordState");
-                param = new SqlParameter("@RecordState", SqlDbType.Char, 1);
-                param.Value = model.RecordState;
-                ps.Add(param);
+                dbCommand.CommandText+=" and RecordState=@RecordState";
+                db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             }
 
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), ps.ToArray());
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
 
@@ -250,53 +242,31 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Add(XCLCMS.Data.Model.SysDic model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysDicID", SqlDbType.BigInt,8),
-					new SqlParameter("@Code", SqlDbType.VarChar,50),
-					new SqlParameter("@DicType", SqlDbType.Char,1),
-					new SqlParameter("@ParentID", SqlDbType.BigInt,8),
-					new SqlParameter("@DicName", SqlDbType.VarChar,200),
-					new SqlParameter("@DicValue", SqlDbType.VarChar,1000),
-					new SqlParameter("@Sort", SqlDbType.Int,4),
-					new SqlParameter("@Weight", SqlDbType.Int,4),
-					new SqlParameter("@Remark", SqlDbType.VarChar,1000),
-                    new SqlParameter("@FK_FunctionID", SqlDbType.BigInt,8),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_SysDic_ADD");
+            db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, model.SysDicID);
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, model.Code);
+            db.AddInParameter(dbCommand, "DicType", DbType.AnsiString, model.DicType);
+            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.ParentID);
+            db.AddInParameter(dbCommand, "DicName", DbType.AnsiString, model.DicName);
+            db.AddInParameter(dbCommand, "DicValue", DbType.AnsiString, model.DicValue);
+            db.AddInParameter(dbCommand, "Sort", DbType.Int32, model.Sort);
+            db.AddInParameter(dbCommand, "Weight", DbType.Int32, model.Weight);
+            db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
+            db.AddInParameter(dbCommand, "FK_FunctionID", DbType.Int64, model.FK_FunctionID);
+            db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
+            db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
+            db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
+            db.AddInParameter(dbCommand, "CreaterName", DbType.String, model.CreaterName);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
-                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
-                                        
-                                        };
-            parameters[0].Value = model.SysDicID;
-            parameters[1].Value = model.Code;
-            parameters[2].Value = model.DicType;
-            parameters[3].Value = model.ParentID;
-            parameters[4].Value = model.DicName;
-            parameters[5].Value = model.DicValue;
-            parameters[6].Value = model.Sort;
-            parameters[7].Value = model.Weight;
-            parameters[8].Value = model.Remark;
-            parameters[9].Value = model.FK_FunctionID;
-            parameters[10].Value = model.RecordState;
-            parameters[11].Value = model.CreateTime;
-            parameters[12].Value = model.CreaterID;
-            parameters[13].Value = model.CreaterName;
-            parameters[14].Value = model.UpdateTime;
-            parameters[15].Value = model.UpdaterID;
-            parameters[16].Value = model.UpdaterName;
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
 
-            parameters[17].Direction = ParameterDirection.Output;
-            parameters[18].Direction = ParameterDirection.Output;
-
-            DbHelperSQL.RunProcedure("sp_SysDic_ADD", parameters, "ds");
-
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;
@@ -312,52 +282,31 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Update(XCLCMS.Data.Model.SysDic model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysDicID", SqlDbType.BigInt,8),
-					new SqlParameter("@Code", SqlDbType.VarChar,50),
-					new SqlParameter("@DicType", SqlDbType.Char,1),
-					new SqlParameter("@ParentID", SqlDbType.BigInt,8),
-					new SqlParameter("@DicName", SqlDbType.VarChar,200),
-					new SqlParameter("@DicValue", SqlDbType.VarChar,1000),
-					new SqlParameter("@Sort", SqlDbType.Int,4),
-					new SqlParameter("@Weight", SqlDbType.Int,4),
-					new SqlParameter("@Remark", SqlDbType.VarChar,1000),
-                    new SqlParameter("@FK_FunctionID", SqlDbType.BigInt,8),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_SysDic_Update");
+            db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, model.SysDicID);
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, model.Code);
+            db.AddInParameter(dbCommand, "DicType", DbType.AnsiString, model.DicType);
+            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.ParentID);
+            db.AddInParameter(dbCommand, "DicName", DbType.AnsiString, model.DicName);
+            db.AddInParameter(dbCommand, "DicValue", DbType.AnsiString, model.DicValue);
+            db.AddInParameter(dbCommand, "Sort", DbType.Int32, model.Sort);
+            db.AddInParameter(dbCommand, "Weight", DbType.Int32, model.Weight);
+            db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
+            db.AddInParameter(dbCommand, "FK_FunctionID", DbType.Int64, model.FK_FunctionID);
+            db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
+            db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
+            db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
+            db.AddInParameter(dbCommand, "CreaterName", DbType.String, model.CreaterName);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
-                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
-                                        };
-            parameters[0].Value = model.SysDicID;
-            parameters[1].Value = model.Code;
-            parameters[2].Value = model.DicType;
-            parameters[3].Value = model.ParentID;
-            parameters[4].Value = model.DicName;
-            parameters[5].Value = model.DicValue;
-            parameters[6].Value = model.Sort;
-            parameters[7].Value = model.Weight;
-            parameters[8].Value = model.Remark;
-            parameters[9].Value = model.FK_FunctionID;
-            parameters[10].Value = model.RecordState;
-            parameters[11].Value = model.CreateTime;
-            parameters[12].Value = model.CreaterID;
-            parameters[13].Value = model.CreaterName;
-            parameters[14].Value = model.UpdateTime;
-            parameters[15].Value = model.UpdaterID;
-            parameters[16].Value = model.UpdaterName;
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
 
-            parameters[17].Direction = ParameterDirection.Output;
-            parameters[18].Direction = ParameterDirection.Output;
-
-            DbHelperSQL.RunProcedure("sp_SysDic_Update", parameters, "ds");
-
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;

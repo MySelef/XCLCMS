@@ -2,13 +2,16 @@
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using XCLCMS.Data.DBUtility;//Please add references
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
+
 namespace XCLCMS.Data.DAL.View
 {
     /// <summary>
     /// 数据访问类:v_SysDic_Roles
     /// </summary>
-    public partial class v_SysDic_Roles
+    public partial class v_SysDic_Roles:BaseDAL
     {
         public v_SysDic_Roles()
         { }
@@ -22,12 +25,11 @@ namespace XCLCMS.Data.DAL.View
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select  top 1 * from v_SysDic_Roles ");
             strSql.Append(" where SysDicID=@SysDicID ");
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysDicID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = SysDicID;
-
             XCLCMS.Data.Model.View.v_SysDic_Roles model = new XCLCMS.Data.Model.View.v_SysDic_Roles();
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, SysDicID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return DataRowToModel(ds.Tables[0].Rows[0]);
@@ -139,7 +141,9 @@ namespace XCLCMS.Data.DAL.View
             {
                 strSql.Append(" where " + strWhere);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            return db.ExecuteDataSet(dbCommand);
         }
 
         #endregion  Method
@@ -153,11 +157,10 @@ namespace XCLCMS.Data.DAL.View
                                         a.*
                                         FROM dbo.v_SysDic_Roles AS a
                                         INNER JOIN dbo.SysUserRole AS b ON b.FK_UserInfoID=@FK_UserInfoID AND b.RecordState='N' AND a.SysDicID=b.FK_SysRoleID";
-            SqlParameter[] parameters = { 
-                                        new SqlParameter("@FK_UserInfoID", SqlDbType.BigInt)
-                                        };
-            parameters[0].Value = userId;
-            DataSet ds = DbHelperSQL.Query(strSql, parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "FK_UserInfoID", DbType.Int64, userId);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
         #endregion  MethodEx

@@ -3,13 +3,16 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using System.Collections.Generic;
-using XCLCMS.Data.DBUtility;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
+
 namespace XCLCMS.Data.DAL
 {
     /// <summary>
     /// 数据访问类:SysLog
     /// </summary>
-    public partial class SysLog
+    public partial class SysLog:BaseDAL
     {
         public SysLog()
         { }
@@ -84,7 +87,9 @@ namespace XCLCMS.Data.DAL
             {
                 strSql.Append(" where " + strWhere);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            return db.ExecuteDataSet(dbCommand);
         }
 
         #endregion  Method
@@ -105,25 +110,24 @@ namespace XCLCMS.Data.DAL
         /// <param name="endTime">结束时间</param>
         public void ClearListByDateTime(DateTime? startTime,DateTime? endTime)
         {
-            List<SqlParameter> psList = new List<SqlParameter>();
-            SqlParameter sp = null;
             StringBuilder strSql = new StringBuilder();
             strSql.Append(" DELETE FROM dbo.SysLog WHERE 1=1 ");
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+
             if (null != startTime)
             {
-                strSql.Append(" and CreateTime>=@StartTime ");
-                sp = new SqlParameter("@StartTime", SqlDbType.DateTime);
-                sp.Value = (DateTime)startTime;
-                psList.Add(sp);
+                dbCommand.CommandText+=" and CreateTime>=@StartTime ";
+                db.AddInParameter(dbCommand, "StartTime", DbType.DateTime, (DateTime)startTime);
             }
+
             if (null != endTime)
             {
-                strSql.Append(" and CreateTime<=@EndTime ");
-                sp = new SqlParameter("@EndTime", SqlDbType.DateTime);
-                sp.Value = (DateTime)endTime;
-                psList.Add(sp);
+                dbCommand.CommandText += " and CreateTime<=@EndTime ";
+                db.AddInParameter(dbCommand, "EndTime", DbType.DateTime, (DateTime)endTime);
             }
-            DbHelperSQL.ExecuteSql(strSql.ToString(), psList.ToArray());
+
+            db.ExecuteNonQuery(dbCommand);
 
         }
         #endregion  MethodEx

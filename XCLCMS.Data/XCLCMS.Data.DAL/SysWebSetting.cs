@@ -3,13 +3,16 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using System.Collections.Generic;
-using XCLCMS.Data.DBUtility;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
+
 namespace XCLCMS.Data.DAL
 {
     /// <summary>
     /// 数据访问类:SysWebSetting
     /// </summary>
-    public partial class SysWebSetting
+    public partial class SysWebSetting:BaseDAL
     {
         public SysWebSetting()
         { }
@@ -21,40 +24,25 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Add(XCLCMS.Data.Model.SysWebSetting model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysWebSettingID", SqlDbType.BigInt,8),
-					new SqlParameter("@KeyName", SqlDbType.VarChar,100),
-					new SqlParameter("@KeyValue", SqlDbType.VarChar,2000),
-					new SqlParameter("@Remark", SqlDbType.VarChar,1000),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
-                                        
-                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
-                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)                             
-                                        };
-            parameters[0].Value = model.SysWebSettingID;
-            parameters[1].Value = model.KeyName;
-            parameters[2].Value = model.KeyValue;
-            parameters[3].Value = model.Remark;
-            parameters[4].Value = model.RecordState;
-            parameters[5].Value = model.CreateTime;
-            parameters[6].Value = model.CreaterID;
-            parameters[7].Value = model.CreaterName;
-            parameters[8].Value = model.UpdateTime;
-            parameters[9].Value = model.UpdaterID;
-            parameters[10].Value = model.UpdaterName;
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_SysWebSetting_ADD");
+            db.AddInParameter(dbCommand, "SysWebSettingID", DbType.Int64, model.SysWebSettingID);
+            db.AddInParameter(dbCommand, "KeyName", DbType.AnsiString, model.KeyName);
+            db.AddInParameter(dbCommand, "KeyValue", DbType.AnsiString, model.KeyValue);
+            db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
+            db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
+            db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
+            db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
+            db.AddInParameter(dbCommand, "CreaterName", DbType.String, model.CreaterName);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-            parameters[11].Direction = ParameterDirection.Output;
-            parameters[12].Direction = ParameterDirection.Output;
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
 
-            DbHelperSQL.RunProcedure("sp_SysWebSetting_ADD", parameters, "ds");
-
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;
@@ -70,40 +58,25 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Update(XCLCMS.Data.Model.SysWebSetting model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysWebSettingID", SqlDbType.BigInt,8),
-					new SqlParameter("@KeyName", SqlDbType.VarChar,100),
-					new SqlParameter("@KeyValue", SqlDbType.VarChar,2000),
-					new SqlParameter("@Remark", SqlDbType.VarChar,1000),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
-                                        
-                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
-                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)                                        
-                                        };
-            parameters[0].Value = model.SysWebSettingID;
-            parameters[1].Value = model.KeyName;
-            parameters[2].Value = model.KeyValue;
-            parameters[3].Value = model.Remark;
-            parameters[4].Value = model.RecordState;
-            parameters[5].Value = model.CreateTime;
-            parameters[6].Value = model.CreaterID;
-            parameters[7].Value = model.CreaterName;
-            parameters[8].Value = model.UpdateTime;
-            parameters[9].Value = model.UpdaterID;
-            parameters[10].Value = model.UpdaterName;
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_SysWebSetting_Update");
+            db.AddInParameter(dbCommand, "SysWebSettingID", DbType.Int64, model.SysWebSettingID);
+            db.AddInParameter(dbCommand, "KeyName", DbType.AnsiString, model.KeyName);
+            db.AddInParameter(dbCommand, "KeyValue", DbType.AnsiString, model.KeyValue);
+            db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
+            db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
+            db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
+            db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
+            db.AddInParameter(dbCommand, "CreaterName", DbType.String, model.CreaterName);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-            parameters[11].Direction = ParameterDirection.Output;
-            parameters[12].Direction = ParameterDirection.Output;
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
 
-            DbHelperSQL.RunProcedure("sp_SysWebSetting_Update", parameters, "ds");
-
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;
@@ -119,12 +92,10 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public XCLCMS.Data.Model.SysWebSetting GetModel(long SysWebSettingID)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysWebSettingID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = SysWebSettingID;
-
-            XCLCMS.Data.Model.SysWebSetting model = new XCLCMS.Data.Model.SysWebSetting();
-            DataSet ds = DbHelperSQL.Query("select * from SysWebSetting where SysWebSettingID=@SysWebSettingID", parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from SysWebSetting where SysWebSettingID=@SysWebSettingID");
+            db.AddInParameter(dbCommand, "SysWebSettingID", DbType.Int64, SysWebSettingID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return DataRowToModel(ds.Tables[0].Rows[0]);
@@ -134,7 +105,6 @@ namespace XCLCMS.Data.DAL
                 return null;
             }
         }
-
 
         /// <summary>
         /// 得到一个对象实体
@@ -204,7 +174,9 @@ namespace XCLCMS.Data.DAL
             {
                 strSql.Append(" where " + strWhere);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            return db.ExecuteDataSet(dbCommand);
         }
 
         #endregion  Method
@@ -222,12 +194,10 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool IsExistKeyName(string keyName)
         {
-            string strSql = " select top 1 1 from SysWebSetting where KeyName=@KeyName";
-            SqlParameter[] parameters = { 
-                                        new SqlParameter("@KeyName", SqlDbType.VarChar, 100)
-                                        };
-            parameters[0].Value = keyName;
-            return DbHelperSQL.Exists(strSql, parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(" select top 1 1 from SysWebSetting where KeyName=@KeyName");
+            db.AddInParameter(dbCommand, "KeyName", DbType.AnsiString, keyName);
+            return db.ExecuteScalar(dbCommand) != null;
         }
         #endregion  MethodEx
     }

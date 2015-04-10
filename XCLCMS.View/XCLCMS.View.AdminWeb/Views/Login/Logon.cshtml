@@ -3,7 +3,9 @@
 <head>
     @Html.Partial("~/Views/MasterView/Header.cshtml")
     @Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
-            "login.css"
+            "login.css",
+            "config.js",
+            "require.js"            
        }))
 </head>
 <body>

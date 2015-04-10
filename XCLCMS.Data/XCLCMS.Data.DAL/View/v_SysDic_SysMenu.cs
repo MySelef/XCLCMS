@@ -2,14 +2,16 @@
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using XCLCMS.Data.DBUtility;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
 
 namespace XCLCMS.Data.DAL.View
 {
     /// <summary>
     /// 数据访问类:v_SysDic_SysMenu
     /// </summary>
-    public partial class v_SysDic_SysMenu
+    public partial class v_SysDic_SysMenu:BaseDAL
     {
         public v_SysDic_SysMenu()
         { }
@@ -20,12 +22,14 @@ namespace XCLCMS.Data.DAL.View
         /// </summary>
         public XCLCMS.Data.Model.View.v_SysDic_SysMenu GetModel(long SysDicID)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysDicID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = SysDicID;
-
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select  top 1 * from v_SysDic_SysMenu ");
+            strSql.Append(" where SysDicID=@SysDicID ");
             XCLCMS.Data.Model.View.v_SysDic_SysMenu model = new XCLCMS.Data.Model.View.v_SysDic_SysMenu();
-            DataSet ds = DbHelperSQL.RunProcedure("v_SysDic_SysMenu_GetModel", parameters, "ds");
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, SysDicID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return DataRowToModel(ds.Tables[0].Rows[0]);
@@ -137,7 +141,9 @@ namespace XCLCMS.Data.DAL.View
             {
                 strSql.Append(" where " + strWhere);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            return db.ExecuteDataSet(dbCommand);
         }
 
 

@@ -2,14 +2,17 @@
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using XCLCMS.Data.DBUtility;
-using System.Collections.Generic;//Please add references
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
+using System.Collections.Generic;
+
 namespace XCLCMS.Data.DAL.View
 {
     /// <summary>
     /// 数据访问类:v_SysFunction
     /// </summary>
-    public partial class v_SysFunction
+    public partial class v_SysFunction:BaseDAL
     {
         public v_SysFunction()
         { }
@@ -23,12 +26,11 @@ namespace XCLCMS.Data.DAL.View
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select  top 1 * from v_SysFunction ");
             strSql.Append(" where SysFunctionID=@SysFunctionID ");
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysFunctionID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = SysFunctionID;
-
             XCLCMS.Data.Model.View.v_SysFunction model = new XCLCMS.Data.Model.View.v_SysFunction();
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "SysFunctionID", DbType.Int64, SysFunctionID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return DataRowToModel(ds.Tables[0].Rows[0]);
@@ -121,7 +123,9 @@ namespace XCLCMS.Data.DAL.View
             {
                 strSql.Append(" where " + strWhere);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            return db.ExecuteDataSet(dbCommand);
         }
 
         #endregion  Method
@@ -140,12 +144,12 @@ namespace XCLCMS.Data.DAL.View
         /// </summary>
         public DataTable GetList(long parentID)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@ParentID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = parentID;
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select * from v_SysFunction where ParentID=@ParentID");
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, parentID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
         #endregion  MethodEx

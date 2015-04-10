@@ -35,6 +35,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\XCLCMS.Document\Libs\EnterpriseLibrary\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\..\XCLCMS.Document\Libs\EnterpriseLibrary\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article.cs" />
+    <Compile Include="BaseDAL.cs" />
     <Compile Include="CommonDAL\CommonDALHelper.cs" />
     <Compile Include="Entity\ProcedureResultModel.cs" />
     <Compile Include="GenerateID.cs" />
@@ -69,10 +77,6 @@
     <ProjectReference Include="..\XCLCMS.Data.CommonHelper\XCLCMS.Data.CommonHelper.csproj">
       <Project>{4f53bbd2-fcdc-403d-9546-281cda981cf8}</Project>
       <Name>XCLCMS.Data.CommonHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XCLCMS.Data.DBUtility\XCLCMS.Data.DBUtility.csproj">
-      <Project>{a118b361-aabf-4e51-8e3f-365a6bb25cb5}</Project>
-      <Name>XCLCMS.Data.DBUtility</Name>
     </ProjectReference>
     <ProjectReference Include="..\XCLCMS.Data.Model\XCLCMS.Data.Model.csproj">
       <Project>{1c3a4834-de9b-4b4f-8378-084f83c58e90}</Project>

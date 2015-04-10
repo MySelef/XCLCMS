@@ -3,13 +3,16 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using System.Collections.Generic;
-using XCLCMS.Data.DBUtility;//Please add references
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
+
 namespace XCLCMS.Data.DAL
 {
     /// <summary>
     /// 数据访问类:SysFunction
     /// </summary>
-    public partial class SysFunction
+    public partial class SysFunction:BaseDAL
     {
         public SysFunction()
         { }
@@ -21,42 +24,26 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Add(XCLCMS.Data.Model.SysFunction model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysFunctionID", SqlDbType.BigInt,8),
-					new SqlParameter("@ParentID", SqlDbType.BigInt,8),
-					new SqlParameter("@FunctionName", SqlDbType.VarChar,100),
-					new SqlParameter("@Code", SqlDbType.VarChar,50),
-					new SqlParameter("@Remark", SqlDbType.NVarChar,500),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
-                                        
-                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
-                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
-                                        };
-            parameters[0].Value = model.SysFunctionID;
-            parameters[1].Value = model.ParentID;
-            parameters[2].Value = model.FunctionName;
-            parameters[3].Value = model.Code;
-            parameters[4].Value = model.Remark;
-            parameters[5].Value = model.RecordState;
-            parameters[6].Value = model.CreateTime;
-            parameters[7].Value = model.CreaterID;
-            parameters[8].Value = model.CreaterName;
-            parameters[9].Value = model.UpdateTime;
-            parameters[10].Value = model.UpdaterID;
-            parameters[11].Value = model.UpdaterName;
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_SysFunction_ADD");
+            db.AddInParameter(dbCommand, "SysFunctionID", DbType.Int64, model.SysFunctionID);
+            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.ParentID);
+            db.AddInParameter(dbCommand, "FunctionName", DbType.AnsiString, model.FunctionName);
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, model.Code);
+            db.AddInParameter(dbCommand, "Remark", DbType.String, model.Remark);
+            db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
+            db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
+            db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
+            db.AddInParameter(dbCommand, "CreaterName", DbType.String, model.CreaterName);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-            parameters[12].Direction = ParameterDirection.Output;
-            parameters[13].Direction = ParameterDirection.Output;
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
 
-            DbHelperSQL.RunProcedure("sp_SysFunction_ADD", parameters, "ds");
-
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;
@@ -72,42 +59,26 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Update(XCLCMS.Data.Model.SysFunction model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysFunctionID", SqlDbType.BigInt,8),
-					new SqlParameter("@ParentID", SqlDbType.BigInt,8),
-					new SqlParameter("@FunctionName", SqlDbType.VarChar,100),
-					new SqlParameter("@Code", SqlDbType.VarChar,50),
-					new SqlParameter("@Remark", SqlDbType.NVarChar,500),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
-                                        
-                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
-                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
-                                        };
-            parameters[0].Value = model.SysFunctionID;
-            parameters[1].Value = model.ParentID;
-            parameters[2].Value = model.FunctionName;
-            parameters[3].Value = model.Code;
-            parameters[4].Value = model.Remark;
-            parameters[5].Value = model.RecordState;
-            parameters[6].Value = model.CreateTime;
-            parameters[7].Value = model.CreaterID;
-            parameters[8].Value = model.CreaterName;
-            parameters[9].Value = model.UpdateTime;
-            parameters[10].Value = model.UpdaterID;
-            parameters[11].Value = model.UpdaterName;
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_SysFunction_Update");
+            db.AddInParameter(dbCommand, "SysFunctionID", DbType.Int64, model.SysFunctionID);
+            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.ParentID);
+            db.AddInParameter(dbCommand, "FunctionName", DbType.AnsiString, model.FunctionName);
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, model.Code);
+            db.AddInParameter(dbCommand, "Remark", DbType.String, model.Remark);
+            db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
+            db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
+            db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
+            db.AddInParameter(dbCommand, "CreaterName", DbType.String, model.CreaterName);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-            parameters[12].Direction = ParameterDirection.Output;
-            parameters[13].Direction = ParameterDirection.Output;
-
-            DbHelperSQL.RunProcedure("sp_SysFunction_Update", parameters, "ds");
-
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
+            
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;
@@ -123,12 +94,11 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public XCLCMS.Data.Model.SysFunction GetModel(long SysFunctionID)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysFunctionID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = SysFunctionID;
-
             XCLCMS.Data.Model.SysFunction model = new XCLCMS.Data.Model.SysFunction();
-            DataSet ds = DbHelperSQL.Query("select * from SysFunction where SysFunctionID=@SysFunctionID", parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from SysFunction where SysFunctionID=@SysFunctionID");
+            db.AddInParameter(dbCommand, "SysFunctionID", DbType.Int64, SysFunctionID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return DataRowToModel(ds.Tables[0].Rows[0]);
@@ -214,7 +184,9 @@ namespace XCLCMS.Data.DAL
             {
                 strSql.Append(" where " + strWhere);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            return db.ExecuteDataSet(dbCommand);
         }
 
         #endregion  Method
@@ -224,12 +196,10 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool IsExistCode(string code)
         {
-            string strSql = " select top 1 1 from SysFunction where Code=@Code";
-            SqlParameter[] parameters = { 
-                                        new SqlParameter("@Code", SqlDbType.VarChar, 50)
-                                        };
-            parameters[0].Value = code;
-            return DbHelperSQL.Exists(strSql, parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from SysFunction where Code=@Code");
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
+            return db.ExecuteScalar(dbCommand) != null;
         }
 
         /// <summary>
@@ -237,18 +207,13 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool CheckUserHasAnyFunction(long userId, List<long> functionList)
         {
-            SqlParameter[] parameters = { 
-                                        new SqlParameter("@IsPass", SqlDbType.TinyInt),
-                                        new SqlParameter("@UserInfoID",SqlDbType.BigInt),
-                                        new SqlParameter("@FunctionListXML",SqlDbType.Xml)
-                                        };
-            parameters[0].Direction=ParameterDirection.Output;
-            parameters[1].Value=userId;
-            parameters[2].Value=XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(functionList);
-
-            DbHelperSQL.RunProcedure("sp_CheckUserHasAnyFunction", parameters, "ds");
-
-            return XCLNetTools.StringHander.Common.GetInt(parameters[0].Value) == 1;
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_CheckUserHasAnyFunction");
+            db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, userId);
+            db.AddInParameter(dbCommand, "FunctionListXML", DbType.Xml, XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(functionList));
+            db.AddOutParameter(dbCommand, "IsPass", DbType.Byte, 1);
+            db.ExecuteNonQuery(dbCommand);
+            return XCLNetTools.StringHander.Common.GetInt(dbCommand.Parameters["@IsPass"].Value) == 1;
         }
 
         /// <summary>
@@ -265,11 +230,10 @@ namespace XCLCMS.Data.DAL
                                     FROM dbo.SysFunction AS a
                                     INNER JOIN Info1 AS b ON a.SysFunctionID=b.FK_SysFunctionID AND a.RecordState='N'
                                     ";
-            SqlParameter[] parameters = { 
-                                        new SqlParameter("@SysRoleID", SqlDbType.BigInt)
-                                        };
-            parameters[0].Value = sysRoleID;
-            DataSet ds = DbHelperSQL.Query(strSql, parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "SysRoleID", DbType.Int64, sysRoleID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
 
@@ -279,7 +243,9 @@ namespace XCLCMS.Data.DAL
         public DataTable GetLayerListBySysFunctionID(long sysFunctionID)
         {
             string str = string.Format("select * from fun_SysFunction_GetLayerListByID({0})", sysFunctionID);
-            DataSet ds = DbHelperSQL.Query(str);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(str.ToString());
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             DataTable dt = null;
             if (null != ds && ds.Tables.Count > 0)
             {
@@ -293,18 +259,16 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool DelChild(XCLCMS.Data.Model.SysFunction model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysFunctionID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50)};
-            parameters[0].Value = model.SysFunctionID;
-            parameters[1].Value = model.UpdateTime;
-            parameters[2].Value = model.UpdaterID;
-            parameters[3].Value = model.UpdaterName;
             string strSql = string.Format("update SysFunction set RecordState='{0}',UpdateTime=@UpdateTime,UpdaterID=@UpdaterID,UpdaterName=@UpdaterName where ParentID=@SysFunctionID and RecordState='{1}' and ParentID>0",
                                     XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString(), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString());
-            return DbHelperSQL.ExecuteSql(strSql, parameters) > 0;
+
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "SysFunctionID", DbType.Int64, model.SysFunctionID);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
+            return db.ExecuteNonQuery(dbCommand) > 0;
         }
 
         /// <summary>
@@ -313,19 +277,15 @@ namespace XCLCMS.Data.DAL
         public DataTable GetChildListByID(long sysFunctionID)
         {
             StringBuilder strSql = new StringBuilder();
-            SqlParameter param = null;
-            List<SqlParameter> ps = new List<SqlParameter>();
-
             strSql.Append(@"SELECT
                                         a.*
                                         FROM dbo.SysFunction AS a
                                         where ParentID=@ParentID and RecordState='N'
                                         ");
-            param = new SqlParameter("@ParentID", SqlDbType.BigInt, 8);
-            param.Value = sysFunctionID;
-            ps.Add(param);
-
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), ps.ToArray());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, sysFunctionID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
         #endregion  MethodEx

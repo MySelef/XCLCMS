@@ -3,13 +3,16 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using System.Collections.Generic;
-using XCLCMS.Data.DBUtility;//Please add references
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
+
 namespace XCLCMS.Data.DAL
 {
     /// <summary>
     /// 数据访问类:SysUserRole
     /// </summary>
-    public partial class SysUserRole
+    public partial class SysUserRole:BaseDAL
     {
         public SysUserRole()
         { }
@@ -76,7 +79,9 @@ namespace XCLCMS.Data.DAL
             {
                 strSql.Append(" where " + strWhere);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            return db.ExecuteDataSet(dbCommand);
         }
 
         #endregion  Method
@@ -96,37 +101,24 @@ namespace XCLCMS.Data.DAL
                     };
                 }
             }
-            
-            SqlParameter[] parameters = {
-					new SqlParameter("@FK_UserInfoID", SqlDbType.BigInt,8),
-					new SqlParameter("@FK_SysRoleIDXML", SqlDbType.Xml),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
-                                        
-					new SqlParameter("@ResultCode", SqlDbType.Int,4),
-					new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
-                   };
-            parameters[0].Value = model.FK_UserInfoID;
-            parameters[1].Value = XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(roleIdList);
-            parameters[2].Value = model.RecordState;
-            parameters[3].Value = model.CreateTime;
-            parameters[4].Value = model.CreaterID;
-            parameters[5].Value = model.CreaterName;
-            parameters[6].Value = model.UpdateTime;
-            parameters[7].Value = model.UpdaterID;
-            parameters[8].Value = model.UpdaterName;
 
-            parameters[9].Direction = ParameterDirection.Output;
-            parameters[10].Direction = ParameterDirection.Output;
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_SysUserRole_ADD");
+            db.AddInParameter(dbCommand, "FK_UserInfoID", DbType.Int64, model.FK_UserInfoID);
+            db.AddInParameter(dbCommand, "FK_SysRoleIDXML", DbType.Xml, XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(roleIdList));
+            db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
+            db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
+            db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
+            db.AddInParameter(dbCommand, "CreaterName", DbType.String, model.CreaterName);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-            DbHelperSQL.RunProcedure("sp_SysUserRole_ADD", parameters, "ds");
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
 
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;

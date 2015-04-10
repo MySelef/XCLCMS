@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCLCMS.Data.DAL", "XCLCMS.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCLCMS.Data.Model", "XCLCMS.Data.Model\XCLCMS.Data.Model.csproj", "{1C3A4834-DE9B-4B4F-8378-084F83C58E90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCLCMS.Data.DBUtility", "XCLCMS.Data.DBUtility\XCLCMS.Data.DBUtility.csproj", "{A118B361-AABF-4E51-8E3F-365A6BB25CB5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,10 +31,6 @@ Global
 		{1C3A4834-DE9B-4B4F-8378-084F83C58E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C3A4834-DE9B-4B4F-8378-084F83C58E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C3A4834-DE9B-4B4F-8378-084F83C58E90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A118B361-AABF-4E51-8E3F-365A6BB25CB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A118B361-AABF-4E51-8E3F-365A6BB25CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A118B361-AABF-4E51-8E3F-365A6BB25CB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A118B361-AABF-4E51-8E3F-365A6BB25CB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

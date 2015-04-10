@@ -2,11 +2,13 @@
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using XCLCMS.Data.DBUtility;//Please add references
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
 
 namespace XCLCMS.Data.DAL.View
 {
-    public class v_SysDic
+    public class v_SysDic:BaseDAL
     {
         public v_SysDic()
         { }
@@ -18,16 +20,14 @@ namespace XCLCMS.Data.DAL.View
         /// </summary>
         public XCLCMS.Data.Model.View.v_SysDic GetModel(long SysDicID)
         {
-
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select  top 1 * from v_SysDic ");
             strSql.Append(" where SysDicID=@SysDicID ");
-            SqlParameter[] parameters = {
-					new SqlParameter("@SysDicID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = SysDicID;
-
             XCLCMS.Data.Model.View.v_SysDic model = new XCLCMS.Data.Model.View.v_SysDic();
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, SysDicID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return DataRowToModel(ds.Tables[0].Rows[0]);
@@ -139,7 +139,9 @@ namespace XCLCMS.Data.DAL.View
             {
                 strSql.Append(" where " + strWhere);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            return db.ExecuteDataSet(dbCommand);
         }
 
         #endregion  BasicMethod
@@ -149,12 +151,10 @@ namespace XCLCMS.Data.DAL.View
         /// </summary>
         public DataTable GetList(long parentID)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@ParentID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = parentID;
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * from v_SysDic where ParentID=@ParentID");
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from v_SysDic where ParentID=@ParentID");
+            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, parentID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
 
@@ -163,11 +163,10 @@ namespace XCLCMS.Data.DAL.View
         /// </summary>
         public DataTable GetAllUnderListByCode(string code)
         {
-            string strSql = @"select * from fun_SysDic_GetAllUnderListByCode(@Code)";
-            SqlParameter[] parameters = {
-					new SqlParameter("@Code", SqlDbType.VarChar,50)			};
-            parameters[0].Value = code;
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from fun_SysDic_GetAllUnderListByCode(@Code)");
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
         #endregion  ExtensionMethod

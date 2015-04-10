@@ -3,13 +3,16 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using System.Collections.Generic;
-using XCLCMS.Data.DBUtility;//Please add references
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
+
 namespace XCLCMS.Data.DAL
 {
     /// <summary>
     /// 数据访问类:UserInfo
     /// </summary>
-    public partial class UserInfo
+    public partial class UserInfo:BaseDAL
     {
         public UserInfo()
         { }
@@ -20,12 +23,10 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public XCLCMS.Data.Model.UserInfo GetModel(long UserInfoID)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@UserInfoID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = UserInfoID;
-
-            XCLCMS.Data.Model.UserInfo model = new XCLCMS.Data.Model.UserInfo();
-            DataSet ds = DbHelperSQL.Query("select * from UserInfo where UserInfoID=@UserInfoID", parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from UserInfo where UserInfoID=@UserInfoID");
+            db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, UserInfoID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return DataRowToModel(ds.Tables[0].Rows[0]);
@@ -162,7 +163,9 @@ namespace XCLCMS.Data.DAL
             {
                 strSql.Append(" where " + strWhere);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            return db.ExecuteDataSet(dbCommand);
         }
 
         #endregion  Method
@@ -181,12 +184,10 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool IsExistUserName(string userName)
         {
-            string strSql = " select top 1 1 from UserInfo where UserName=@UserName";
-            SqlParameter[] parameters = { 
-                                        new SqlParameter("@UserName", SqlDbType.VarChar, 50)
-                                        };
-            parameters[0].Value = userName;
-            return DbHelperSQL.Exists(strSql, parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from UserInfo where UserName=@UserName");
+            db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, userName);
+            return db.ExecuteScalar(dbCommand) != null;
         }
 
         /// <summary>
@@ -195,14 +196,11 @@ namespace XCLCMS.Data.DAL
         public XCLCMS.Data.Model.UserInfo GetModel(string userName, string pwd)
         {
             XCLCMS.Data.Model.UserInfo model = null;
-            string strSql = " select top 1 * from UserInfo where UserName=@UserName and Pwd=@Pwd";
-            SqlParameter[] parameters = { 
-                                        new SqlParameter("@UserName", SqlDbType.VarChar, 50),
-                                        new SqlParameter("@Pwd", SqlDbType.VarChar, 50)
-                                        };
-            parameters[0].Value = userName;
-            parameters[1].Value = pwd;
-            DataSet ds= DbHelperSQL.Query(strSql, parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 * from UserInfo where UserName=@UserName and Pwd=@Pwd");
+            db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, userName);
+            db.AddInParameter(dbCommand, "Pwd", DbType.AnsiString, pwd);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             if (null != ds && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count>0)
             {
                 model = this.DataRowToModel(ds.Tables[0].Rows[0]);
@@ -215,68 +213,39 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Add(XCLCMS.Data.Model.UserInfo model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@UserInfoID", SqlDbType.BigInt,8),
-					new SqlParameter("@UserName", SqlDbType.VarChar,50),
-					new SqlParameter("@RealName", SqlDbType.NVarChar,50),
-					new SqlParameter("@NickName", SqlDbType.NVarChar,50),
-					new SqlParameter("@Pwd", SqlDbType.VarChar,50),
-					new SqlParameter("@Age", SqlDbType.Int,4),
-					new SqlParameter("@SexType", SqlDbType.Char,1),
-					new SqlParameter("@Birthday", SqlDbType.DateTime),
-					new SqlParameter("@Tel", SqlDbType.VarChar,50),
-					new SqlParameter("@QQ", SqlDbType.VarChar,50),
-					new SqlParameter("@Email", SqlDbType.VarChar,100),
-					new SqlParameter("@OtherContact", SqlDbType.NVarChar,500),
-					new SqlParameter("@AccessType", SqlDbType.VarChar,50),
-					new SqlParameter("@AccessToken", SqlDbType.VarChar,100),
-					new SqlParameter("@UserState", SqlDbType.Char,1),
-					new SqlParameter("@Remark", SqlDbType.NVarChar,1000),
-					new SqlParameter("@RoleName", SqlDbType.NVarChar,100),
-					new SqlParameter("@RoleMaxWeight", SqlDbType.Int,4),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_UserInfo_ADD");
+            db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, model.UserInfoID);
+            db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, model.UserName);
+            db.AddInParameter(dbCommand, "RealName", DbType.String, model.RealName);
+            db.AddInParameter(dbCommand, "NickName", DbType.String, model.NickName);
+            db.AddInParameter(dbCommand, "Pwd", DbType.AnsiString, model.Pwd);
+            db.AddInParameter(dbCommand, "Age", DbType.Int32, model.Age);
+            db.AddInParameter(dbCommand, "SexType", DbType.AnsiString, model.SexType);
+            db.AddInParameter(dbCommand, "Birthday", DbType.DateTime, model.Birthday);
+            db.AddInParameter(dbCommand, "Tel", DbType.AnsiString, model.Tel);
+            db.AddInParameter(dbCommand, "QQ", DbType.AnsiString, model.QQ);
+            db.AddInParameter(dbCommand, "Email", DbType.AnsiString, model.Email);
+            db.AddInParameter(dbCommand, "OtherContact", DbType.String, model.OtherContact);
+            db.AddInParameter(dbCommand, "AccessType", DbType.AnsiString, model.AccessType);
+            db.AddInParameter(dbCommand, "AccessToken", DbType.AnsiString, model.AccessToken);
+            db.AddInParameter(dbCommand, "UserState", DbType.AnsiString, model.UserState);
+            db.AddInParameter(dbCommand, "Remark", DbType.String, model.Remark);
+            db.AddInParameter(dbCommand, "RoleName", DbType.String, model.RoleName);
+            db.AddInParameter(dbCommand, "RoleMaxWeight", DbType.Int32, model.RoleMaxWeight);
+            db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
+            db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
+            db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
+            db.AddInParameter(dbCommand, "CreaterName", DbType.String, model.CreaterName);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
-                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
-                                        };
-            parameters[0].Value = model.UserInfoID;
-            parameters[1].Value = model.UserName;
-            parameters[2].Value = model.RealName;
-            parameters[3].Value = model.NickName;
-            parameters[4].Value = model.Pwd;
-            parameters[5].Value = model.Age;
-            parameters[6].Value = model.SexType;
-            parameters[7].Value = model.Birthday;
-            parameters[8].Value = model.Tel;
-            parameters[9].Value = model.QQ;
-            parameters[10].Value = model.Email;
-            parameters[11].Value = model.OtherContact;
-            parameters[12].Value = model.AccessType;
-            parameters[13].Value = model.AccessToken;
-            parameters[14].Value = model.UserState;
-            parameters[15].Value = model.Remark;
-            parameters[16].Value = model.RoleName;
-            parameters[17].Value = model.RoleMaxWeight;
-            parameters[18].Value = model.RecordState;
-            parameters[19].Value = model.CreateTime;
-            parameters[20].Value = model.CreaterID;
-            parameters[21].Value = model.CreaterName;
-            parameters[22].Value = model.UpdateTime;
-            parameters[23].Value = model.UpdaterID;
-            parameters[24].Value = model.UpdaterName;
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
 
-            parameters[25].Direction = ParameterDirection.Output;
-            parameters[26].Direction = ParameterDirection.Output;
-
-            DbHelperSQL.RunProcedure("sp_UserInfo_ADD", parameters, "ds");
-
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;
@@ -292,68 +261,39 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Update(XCLCMS.Data.Model.UserInfo model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@UserInfoID", SqlDbType.BigInt,8),
-					new SqlParameter("@UserName", SqlDbType.VarChar,50),
-					new SqlParameter("@RealName", SqlDbType.NVarChar,50),
-					new SqlParameter("@NickName", SqlDbType.NVarChar,50),
-					new SqlParameter("@Pwd", SqlDbType.VarChar,50),
-					new SqlParameter("@Age", SqlDbType.Int,4),
-					new SqlParameter("@SexType", SqlDbType.Char,1),
-					new SqlParameter("@Birthday", SqlDbType.DateTime),
-					new SqlParameter("@Tel", SqlDbType.VarChar,50),
-					new SqlParameter("@QQ", SqlDbType.VarChar,50),
-					new SqlParameter("@Email", SqlDbType.VarChar,100),
-					new SqlParameter("@OtherContact", SqlDbType.NVarChar,500),
-					new SqlParameter("@AccessType", SqlDbType.VarChar,50),
-					new SqlParameter("@AccessToken", SqlDbType.VarChar,100),
-					new SqlParameter("@UserState", SqlDbType.Char,1),
-					new SqlParameter("@Remark", SqlDbType.NVarChar,1000),
-					new SqlParameter("@RoleName", SqlDbType.NVarChar,100),
-					new SqlParameter("@RoleMaxWeight", SqlDbType.Int,4),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50),
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_UserInfo_Update");
+            db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, model.UserInfoID);
+            db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, model.UserName);
+            db.AddInParameter(dbCommand, "RealName", DbType.String, model.RealName);
+            db.AddInParameter(dbCommand, "NickName", DbType.String, model.NickName);
+            db.AddInParameter(dbCommand, "Pwd", DbType.AnsiString, model.Pwd);
+            db.AddInParameter(dbCommand, "Age", DbType.Int32, model.Age);
+            db.AddInParameter(dbCommand, "SexType", DbType.AnsiString, model.SexType);
+            db.AddInParameter(dbCommand, "Birthday", DbType.DateTime, model.Birthday);
+            db.AddInParameter(dbCommand, "Tel", DbType.AnsiString, model.Tel);
+            db.AddInParameter(dbCommand, "QQ", DbType.AnsiString, model.QQ);
+            db.AddInParameter(dbCommand, "Email", DbType.AnsiString, model.Email);
+            db.AddInParameter(dbCommand, "OtherContact", DbType.String, model.OtherContact);
+            db.AddInParameter(dbCommand, "AccessType", DbType.AnsiString, model.AccessType);
+            db.AddInParameter(dbCommand, "AccessToken", DbType.AnsiString, model.AccessToken);
+            db.AddInParameter(dbCommand, "UserState", DbType.AnsiString, model.UserState);
+            db.AddInParameter(dbCommand, "Remark", DbType.String, model.Remark);
+            db.AddInParameter(dbCommand, "RoleName", DbType.String, model.RoleName);
+            db.AddInParameter(dbCommand, "RoleMaxWeight", DbType.Int32, model.RoleMaxWeight);
+            db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
+            db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
+            db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
+            db.AddInParameter(dbCommand, "CreaterName", DbType.String, model.CreaterName);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-                    new SqlParameter("@ResultCode", SqlDbType.Int,4),
-                    new SqlParameter("@ResultMessage", SqlDbType.NVarChar,1000)
-                                        };
-            parameters[0].Value = model.UserInfoID;
-            parameters[1].Value = model.UserName;
-            parameters[2].Value = model.RealName;
-            parameters[3].Value = model.NickName;
-            parameters[4].Value = model.Pwd;
-            parameters[5].Value = model.Age;
-            parameters[6].Value = model.SexType;
-            parameters[7].Value = model.Birthday;
-            parameters[8].Value = model.Tel;
-            parameters[9].Value = model.QQ;
-            parameters[10].Value = model.Email;
-            parameters[11].Value = model.OtherContact;
-            parameters[12].Value = model.AccessType;
-            parameters[13].Value = model.AccessToken;
-            parameters[14].Value = model.UserState;
-            parameters[15].Value = model.Remark;
-            parameters[16].Value = model.RoleName;
-            parameters[17].Value = model.RoleMaxWeight;
-            parameters[18].Value = model.RecordState;
-            parameters[19].Value = model.CreateTime;
-            parameters[20].Value = model.CreaterID;
-            parameters[21].Value = model.CreaterName;
-            parameters[22].Value = model.UpdateTime;
-            parameters[23].Value = model.UpdaterID;
-            parameters[24].Value = model.UpdaterName;
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
 
-            parameters[25].Direction = ParameterDirection.Output;
-            parameters[26].Direction = ParameterDirection.Output;
-
-            DbHelperSQL.RunProcedure("sp_UserInfo_Update", parameters, "ds");
-
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;

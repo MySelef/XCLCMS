@@ -2,14 +2,17 @@
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using XCLCMS.Data.DBUtility;
-using System.Collections.Generic;//Please add references
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data.Common;
+using System.Collections.Generic;
+
 namespace XCLCMS.Data.DAL
 {
     /// <summary>
     /// 数据访问类:Article
     /// </summary>
-    public partial class Article
+    public partial class Article:BaseDAL
     {
         public Article()
         { }
@@ -20,63 +23,53 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Add(XCLCMS.Data.Model.Article model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@ArticleID", SqlDbType.BigInt,8),
-					new SqlParameter("@Code", SqlDbType.VarChar,50),
-					new SqlParameter("@Title", SqlDbType.NVarChar,200),
-					new SqlParameter("@SubTitle", SqlDbType.NVarChar,200),
-					new SqlParameter("@AuthorName", SqlDbType.NVarChar,50),
-					new SqlParameter("@FromInfo", SqlDbType.NVarChar,500),
-					new SqlParameter("@ArticleType", SqlDbType.Char,3),
-					new SqlParameter("@Contents", SqlDbType.NVarChar,-1),
-					new SqlParameter("@Summary", SqlDbType.NVarChar,500),
-					new SqlParameter("@MainImage", SqlDbType.VarChar,500),
-					new SqlParameter("@ViewCount", SqlDbType.Int,4),
-					new SqlParameter("@IsCanComment", SqlDbType.Char,1),
-					new SqlParameter("@CommentCount", SqlDbType.Int,4),
-					new SqlParameter("@GoodCount", SqlDbType.Int,4),
-					new SqlParameter("@MiddleCount", SqlDbType.Int,4),
-					new SqlParameter("@BadCount", SqlDbType.Int,4),
-					new SqlParameter("@HotCount", SqlDbType.Int,4),
-					new SqlParameter("@URLOpenType", SqlDbType.Char,3),
-					new SqlParameter("@ArticleState", SqlDbType.Char,3),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50)};
-            parameters[0].Value = model.ArticleID;
-            parameters[1].Value = model.Code;
-            parameters[2].Value = model.Title;
-            parameters[3].Value = model.SubTitle;
-            parameters[4].Value = model.AuthorName;
-            parameters[5].Value = model.FromInfo;
-            parameters[6].Value = model.ArticleType;
-            parameters[7].Value = model.Contents;
-            parameters[8].Value = model.Summary;
-            parameters[9].Value = model.MainImage;
-            parameters[10].Value = model.ViewCount;
-            parameters[11].Value = model.IsCanComment;
-            parameters[12].Value = model.CommentCount;
-            parameters[13].Value = model.GoodCount;
-            parameters[14].Value = model.MiddleCount;
-            parameters[15].Value = model.BadCount;
-            parameters[16].Value = model.HotCount;
-            parameters[17].Value = model.URLOpenType;
-            parameters[18].Value = model.ArticleState;
-            parameters[19].Value = model.RecordState;
-            parameters[20].Value = model.CreateTime;
-            parameters[21].Value = model.CreaterID;
-            parameters[22].Value = model.CreaterName;
-            parameters[23].Value = model.UpdateTime;
-            parameters[24].Value = model.UpdaterID;
-            parameters[25].Value = model.UpdaterName;
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_Article_ADD");
+            db.AddInParameter(dbCommand, "ArticleID", DbType.Int64, model.ArticleID);
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, model.Code);
+            db.AddInParameter(dbCommand, "Title", DbType.String, model.Title);
+            db.AddInParameter(dbCommand, "SubTitle", DbType.String, model.SubTitle);
+            db.AddInParameter(dbCommand, "AuthorName", DbType.String, model.AuthorName);
+            db.AddInParameter(dbCommand, "FromInfo", DbType.String, model.FromInfo);
+            db.AddInParameter(dbCommand, "ArticleContentType", DbType.AnsiString, model.ArticleContentType);
+            db.AddInParameter(dbCommand, "Contents", DbType.String, model.Contents);
+            db.AddInParameter(dbCommand, "Summary", DbType.String, model.Summary);
+            db.AddInParameter(dbCommand, "MainImage1", DbType.AnsiString, model.MainImage1);
+            db.AddInParameter(dbCommand, "MainImage2", DbType.AnsiString, model.MainImage2);
+            db.AddInParameter(dbCommand, "MainImage3", DbType.AnsiString, model.MainImage3);
+            db.AddInParameter(dbCommand, "ViewCount", DbType.Int32, model.ViewCount);
+            db.AddInParameter(dbCommand, "IsCanComment", DbType.AnsiString, model.IsCanComment);
+            db.AddInParameter(dbCommand, "CommentCount", DbType.Int32, model.CommentCount);
+            db.AddInParameter(dbCommand, "GoodCount", DbType.Int32, model.GoodCount);
+            db.AddInParameter(dbCommand, "MiddleCount", DbType.Int32, model.MiddleCount);
+            db.AddInParameter(dbCommand, "BadCount", DbType.Int32, model.BadCount);
+            db.AddInParameter(dbCommand, "HotCount", DbType.Int32, model.HotCount);
+            db.AddInParameter(dbCommand, "URLOpenType", DbType.AnsiString, model.URLOpenType);
+            db.AddInParameter(dbCommand, "ArticleState", DbType.AnsiString, model.ArticleState);
+            db.AddInParameter(dbCommand, "VerifyState", DbType.AnsiString, model.VerifyState);
+            db.AddInParameter(dbCommand, "IsRecommend", DbType.AnsiString, model.IsRecommend);
+            db.AddInParameter(dbCommand, "IsEssence", DbType.AnsiString, model.IsEssence);
+            db.AddInParameter(dbCommand, "IsTop", DbType.AnsiString, model.IsTop);
+            db.AddInParameter(dbCommand, "TopBeginTime", DbType.DateTime, model.TopBeginTime);
+            db.AddInParameter(dbCommand, "TopEndTime", DbType.DateTime, model.TopEndTime);
+            db.AddInParameter(dbCommand, "KeyWords", DbType.String, model.KeyWords);
+            db.AddInParameter(dbCommand, "Tags", DbType.String, model.Tags);
+            db.AddInParameter(dbCommand, "Comments", DbType.String, model.Comments);
+            db.AddInParameter(dbCommand, "LinkUrl", DbType.AnsiString, model.LinkUrl);
+            db.AddInParameter(dbCommand, "PublishTime", DbType.DateTime, model.PublishTime);
+            db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
+            db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
+            db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
+            db.AddInParameter(dbCommand, "CreaterName", DbType.String, model.CreaterName);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-            DbHelperSQL.RunProcedure("sp_Article_ADD", parameters, "ds");
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
 
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;
@@ -92,63 +85,53 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Update(XCLCMS.Data.Model.Article model)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@ArticleID", SqlDbType.BigInt,8),
-					new SqlParameter("@Code", SqlDbType.VarChar,50),
-					new SqlParameter("@Title", SqlDbType.NVarChar,200),
-					new SqlParameter("@SubTitle", SqlDbType.NVarChar,200),
-					new SqlParameter("@AuthorName", SqlDbType.NVarChar,50),
-					new SqlParameter("@FromInfo", SqlDbType.NVarChar,500),
-					new SqlParameter("@ArticleType", SqlDbType.Char,3),
-					new SqlParameter("@Contents", SqlDbType.NVarChar,-1),
-					new SqlParameter("@Summary", SqlDbType.NVarChar,500),
-					new SqlParameter("@MainImage", SqlDbType.VarChar,500),
-					new SqlParameter("@ViewCount", SqlDbType.Int,4),
-					new SqlParameter("@IsCanComment", SqlDbType.Char,1),
-					new SqlParameter("@CommentCount", SqlDbType.Int,4),
-					new SqlParameter("@GoodCount", SqlDbType.Int,4),
-					new SqlParameter("@MiddleCount", SqlDbType.Int,4),
-					new SqlParameter("@BadCount", SqlDbType.Int,4),
-					new SqlParameter("@HotCount", SqlDbType.Int,4),
-					new SqlParameter("@URLOpenType", SqlDbType.Char,3),
-					new SqlParameter("@ArticleState", SqlDbType.Char,3),
-					new SqlParameter("@RecordState", SqlDbType.Char,1),
-					new SqlParameter("@CreateTime", SqlDbType.DateTime),
-					new SqlParameter("@CreaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@CreaterName", SqlDbType.NVarChar,50),
-					new SqlParameter("@UpdateTime", SqlDbType.DateTime),
-					new SqlParameter("@UpdaterID", SqlDbType.BigInt,8),
-					new SqlParameter("@UpdaterName", SqlDbType.NVarChar,50)};
-            parameters[0].Value = model.ArticleID;
-            parameters[1].Value = model.Code;
-            parameters[2].Value = model.Title;
-            parameters[3].Value = model.SubTitle;
-            parameters[4].Value = model.AuthorName;
-            parameters[5].Value = model.FromInfo;
-            parameters[6].Value = model.ArticleType;
-            parameters[7].Value = model.Contents;
-            parameters[8].Value = model.Summary;
-            parameters[9].Value = model.MainImage;
-            parameters[10].Value = model.ViewCount;
-            parameters[11].Value = model.IsCanComment;
-            parameters[12].Value = model.CommentCount;
-            parameters[13].Value = model.GoodCount;
-            parameters[14].Value = model.MiddleCount;
-            parameters[15].Value = model.BadCount;
-            parameters[16].Value = model.HotCount;
-            parameters[17].Value = model.URLOpenType;
-            parameters[18].Value = model.ArticleState;
-            parameters[19].Value = model.RecordState;
-            parameters[20].Value = model.CreateTime;
-            parameters[21].Value = model.CreaterID;
-            parameters[22].Value = model.CreaterName;
-            parameters[23].Value = model.UpdateTime;
-            parameters[24].Value = model.UpdaterID;
-            parameters[25].Value = model.UpdaterName;
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_Article_Update");
+            db.AddInParameter(dbCommand, "ArticleID", DbType.Int64, model.ArticleID);
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, model.Code);
+            db.AddInParameter(dbCommand, "Title", DbType.String, model.Title);
+            db.AddInParameter(dbCommand, "SubTitle", DbType.String, model.SubTitle);
+            db.AddInParameter(dbCommand, "AuthorName", DbType.String, model.AuthorName);
+            db.AddInParameter(dbCommand, "FromInfo", DbType.String, model.FromInfo);
+            db.AddInParameter(dbCommand, "ArticleContentType", DbType.AnsiString, model.ArticleContentType);
+            db.AddInParameter(dbCommand, "Contents", DbType.String, model.Contents);
+            db.AddInParameter(dbCommand, "Summary", DbType.String, model.Summary);
+            db.AddInParameter(dbCommand, "MainImage1", DbType.AnsiString, model.MainImage1);
+            db.AddInParameter(dbCommand, "MainImage2", DbType.AnsiString, model.MainImage2);
+            db.AddInParameter(dbCommand, "MainImage3", DbType.AnsiString, model.MainImage3);
+            db.AddInParameter(dbCommand, "ViewCount", DbType.Int32, model.ViewCount);
+            db.AddInParameter(dbCommand, "IsCanComment", DbType.AnsiString, model.IsCanComment);
+            db.AddInParameter(dbCommand, "CommentCount", DbType.Int32, model.CommentCount);
+            db.AddInParameter(dbCommand, "GoodCount", DbType.Int32, model.GoodCount);
+            db.AddInParameter(dbCommand, "MiddleCount", DbType.Int32, model.MiddleCount);
+            db.AddInParameter(dbCommand, "BadCount", DbType.Int32, model.BadCount);
+            db.AddInParameter(dbCommand, "HotCount", DbType.Int32, model.HotCount);
+            db.AddInParameter(dbCommand, "URLOpenType", DbType.AnsiString, model.URLOpenType);
+            db.AddInParameter(dbCommand, "ArticleState", DbType.AnsiString, model.ArticleState);
+            db.AddInParameter(dbCommand, "VerifyState", DbType.AnsiString, model.VerifyState);
+            db.AddInParameter(dbCommand, "IsRecommend", DbType.AnsiString, model.IsRecommend);
+            db.AddInParameter(dbCommand, "IsEssence", DbType.AnsiString, model.IsEssence);
+            db.AddInParameter(dbCommand, "IsTop", DbType.AnsiString, model.IsTop);
+            db.AddInParameter(dbCommand, "TopBeginTime", DbType.DateTime, model.TopBeginTime);
+            db.AddInParameter(dbCommand, "TopEndTime", DbType.DateTime, model.TopEndTime);
+            db.AddInParameter(dbCommand, "KeyWords", DbType.String, model.KeyWords);
+            db.AddInParameter(dbCommand, "Tags", DbType.String, model.Tags);
+            db.AddInParameter(dbCommand, "Comments", DbType.String, model.Comments);
+            db.AddInParameter(dbCommand, "LinkUrl", DbType.AnsiString, model.LinkUrl);
+            db.AddInParameter(dbCommand, "PublishTime", DbType.DateTime, model.PublishTime);
+            db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
+            db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
+            db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
+            db.AddInParameter(dbCommand, "CreaterName", DbType.String, model.CreaterName);
+            db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
+            db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
+            db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-            DbHelperSQL.RunProcedure("sp_Article_Update", parameters, "ds");
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
 
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(parameters);
+            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;
@@ -164,12 +147,11 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public XCLCMS.Data.Model.Article GetModel(long ArticleID)
         {
-            SqlParameter[] parameters = {
-					new SqlParameter("@ArticleID", SqlDbType.BigInt,8)			};
-            parameters[0].Value = ArticleID;
-
             XCLCMS.Data.Model.Article model = new XCLCMS.Data.Model.Article();
-            DataSet ds = DbHelperSQL.Query("select * from Article where ArticleID=@ArticleID", parameters);
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from Article where ArticleID=@ArticleID");
+            db.AddInParameter(dbCommand, "ArticleID", DbType.Int64, ArticleID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return DataRowToModel(ds.Tables[0].Rows[0]);
@@ -213,9 +195,9 @@ namespace XCLCMS.Data.DAL
                 {
                     model.FromInfo = row["FromInfo"].ToString();
                 }
-                if (row["ArticleType"] != null)
+                if (row["ArticleContentType"] != null)
                 {
-                    model.ArticleType = row["ArticleType"].ToString();
+                    model.ArticleContentType = row["ArticleContentType"].ToString();
                 }
                 if (row["Contents"] != null)
                 {
@@ -225,9 +207,17 @@ namespace XCLCMS.Data.DAL
                 {
                     model.Summary = row["Summary"].ToString();
                 }
-                if (row["MainImage"] != null)
+                if (row["MainImage1"] != null)
                 {
-                    model.MainImage = row["MainImage"].ToString();
+                    model.MainImage1 = row["MainImage1"].ToString();
+                }
+                if (row["MainImage2"] != null)
+                {
+                    model.MainImage2 = row["MainImage2"].ToString();
+                }
+                if (row["MainImage3"] != null)
+                {
+                    model.MainImage3 = row["MainImage3"].ToString();
                 }
                 if (row["ViewCount"] != null && row["ViewCount"].ToString() != "")
                 {
@@ -264,6 +254,50 @@ namespace XCLCMS.Data.DAL
                 if (row["ArticleState"] != null)
                 {
                     model.ArticleState = row["ArticleState"].ToString();
+                }
+                if (row["VerifyState"] != null)
+                {
+                    model.VerifyState = row["VerifyState"].ToString();
+                }
+                if (row["IsRecommend"] != null)
+                {
+                    model.IsRecommend = row["IsRecommend"].ToString();
+                }
+                if (row["IsEssence"] != null)
+                {
+                    model.IsEssence = row["IsEssence"].ToString();
+                }
+                if (row["IsTop"] != null)
+                {
+                    model.IsTop = row["IsTop"].ToString();
+                }
+                if (row["TopBeginTime"] != null && row["TopBeginTime"].ToString() != "")
+                {
+                    model.TopBeginTime = DateTime.Parse(row["TopBeginTime"].ToString());
+                }
+                if (row["TopEndTime"] != null && row["TopEndTime"].ToString() != "")
+                {
+                    model.TopEndTime = DateTime.Parse(row["TopEndTime"].ToString());
+                }
+                if (row["KeyWords"] != null)
+                {
+                    model.KeyWords = row["KeyWords"].ToString();
+                }
+                if (row["Tags"] != null)
+                {
+                    model.Tags = row["Tags"].ToString();
+                }
+                if (row["Comments"] != null)
+                {
+                    model.Comments = row["Comments"].ToString();
+                }
+                if (row["LinkUrl"] != null)
+                {
+                    model.LinkUrl = row["LinkUrl"].ToString();
+                }
+                if (row["PublishTime"] != null && row["PublishTime"].ToString() != "")
+                {
+                    model.PublishTime = DateTime.Parse(row["PublishTime"].ToString());
                 }
                 if (row["RecordState"] != null)
                 {
@@ -309,7 +343,9 @@ namespace XCLCMS.Data.DAL
             {
                 strSql.Append(" where " + strWhere);
             }
-            return DbHelperSQL.Query(strSql.ToString());
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            return db.ExecuteDataSet(dbCommand);
         }
 
         #endregion  Method

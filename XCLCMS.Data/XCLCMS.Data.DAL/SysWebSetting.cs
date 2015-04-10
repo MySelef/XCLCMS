@@ -42,7 +42,7 @@ namespace XCLCMS.Data.DAL
             db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
             db.ExecuteNonQuery(dbCommand);
 
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
+            var result = XCLCMS.Data.DAL.Common.Common.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;
@@ -76,7 +76,7 @@ namespace XCLCMS.Data.DAL
             db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
             db.ExecuteNonQuery(dbCommand);
 
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
+            var result = XCLCMS.Data.DAL.Common.Common.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;
@@ -186,7 +186,7 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public List<XCLCMS.Data.Model.SysWebSetting> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
-            DataTable dt = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetPageList("SysWebSetting", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
+            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("SysWebSetting", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
             return XCLNetTools.Generic.ListHelper<XCLCMS.Data.Model.SysWebSetting>.DataTableToList(dt) as List<XCLCMS.Data.Model.SysWebSetting>;
         }
         /// <summary>

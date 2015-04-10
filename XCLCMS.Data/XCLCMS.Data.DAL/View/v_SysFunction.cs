@@ -135,7 +135,7 @@ namespace XCLCMS.Data.DAL.View
         /// </summary>
         public List<XCLCMS.Data.Model.View.v_SysFunction> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
-            DataTable dt = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetPageList("v_SysFunction", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
+            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("v_SysFunction", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
             return XCLNetTools.Generic.ListHelper<XCLCMS.Data.Model.View.v_SysFunction>.DataTableToList(dt) as List<XCLCMS.Data.Model.View.v_SysFunction>;
         }
 

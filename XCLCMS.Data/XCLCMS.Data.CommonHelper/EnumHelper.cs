@@ -7,40 +7,13 @@ using System.Threading.Tasks;
 
 namespace XCLCMS.Data.CommonHelper
 {
+    /// <summary>
+    /// 枚举帮助类
+    /// </summary>
     public class EnumHelper
     {
         /// <summary>
-        /// 将枚举转为options
-        /// <param name="t">枚举type</param>
-        /// <param name="options">选项</param>
-        /// </summary>
-        public static string GetOptions(Type t, XCLCMS.Data.CommonHelper.Model.SetOption options = null)
-        {
-            StringBuilder str = new StringBuilder();
-            if (null != options && options.IsNeedPleaseSelect)
-            {
-                str.Append("<option value=''>--请选择--</option>");
-            }
-            var lst = XCLNetTools.Enum.EnumHelper.GetEnumFieldModelList(t);
-            if (null != lst && lst.Count > 0)
-            {
-                lst.ForEach(m =>
-                {
-                    if (null != options)
-                    {
-                        str.AppendFormat("<option value='{0}' {2}>{1}</option>", m.Text, m.Description, string.Equals(options.DefaultValue, m.Text, StringComparison.OrdinalIgnoreCase) ? " selected='selected' " : "");
-                    }
-                    else
-                    {
-                        str.AppendFormat("<option value='{0}'>{1}</option>", m.Text, m.Description);
-                    }
-                });
-            }
-            return str.ToString();
-        }
-
-        /// <summary>
-        /// 将所有枚举以json形式显示
+        /// 将(XCLCMS.Data.CommonHelper.EnumType)类中的所有枚举以json形式显示
         /// 如：{"Enum1":{"N":"正常","D":"已删除"},"Enum2":{"S":"系统","U":"用户"}}
         /// </summary>
         public static readonly string GetAllEnumJson = new Func<string>(() => {

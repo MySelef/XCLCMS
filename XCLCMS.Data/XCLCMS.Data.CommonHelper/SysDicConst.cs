@@ -20,10 +20,6 @@ namespace XCLCMS.Data.CommonHelper
         /// </summary>
         public static readonly string SysMenu = "SysMenu";
         /// <summary>
-        /// 权限功能模块
-        /// </summary>
-        public static readonly string SysFunModules = "SysFunModules";
-        /// <summary>
         /// 角色组织架构
         /// </summary>
         public static readonly string SysRoles = "SysRoles";

@@ -57,7 +57,7 @@
   <ItemGroup>
     <Compile Include="Article.cs" />
     <Compile Include="BaseDAL.cs" />
-    <Compile Include="CommonDAL\CommonDALHelper.cs" />
+    <Compile Include="Common\Common.cs" />
     <Compile Include="Entity\ProcedureResultModel.cs" />
     <Compile Include="GenerateID.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

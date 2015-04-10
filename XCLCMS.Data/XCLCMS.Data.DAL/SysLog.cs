@@ -99,7 +99,7 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public List<XCLCMS.Data.Model.SysLog> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
-            DataTable dt = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetPageList("SysLog", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
+            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("SysLog", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
             return XCLNetTools.Generic.ListHelper<XCLCMS.Data.Model.SysLog>.DataTableToList(dt) as List<XCLCMS.Data.Model.SysLog>;
         }
 

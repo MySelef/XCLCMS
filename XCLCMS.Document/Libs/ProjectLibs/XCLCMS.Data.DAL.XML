@@ -49,12 +49,12 @@
             分页数据列表
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.DAL.CommonDAL.CommonDALHelper">
+        <member name="T:XCLCMS.Data.DAL.Common.Common">
             <summary>
             DAL层公共方法
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetPageList(System.String,System.Int32,System.Int32,System.Int32@,System.String,System.String,System.String,System.String)">
+        <member name="M:XCLCMS.Data.DAL.Common.Common.GetPageList(System.String,System.Int32,System.Int32,System.Int32@,System.String,System.String,System.String,System.String)">
              <summary>
              分页(可按非主键排序)
              </summary>
@@ -68,12 +68,12 @@
             <param name="fieldOrder">排序字段，可加DESC/ASC</param>
              <returns>DataTable</returns>
         </member>
-        <member name="M:XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.ClearRubbishData">
+        <member name="M:XCLCMS.Data.DAL.Common.Common.ClearRubbishData">
             <summary>
             垃圾数据清理
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(System.Data.Common.DbParameterCollection)">
+        <member name="M:XCLCMS.Data.DAL.Common.Common.GetProcedureResult(System.Data.Common.DbParameterCollection)">
             <summary>
             从存储过程参数中获取存储过程的执行结果
             </summary>

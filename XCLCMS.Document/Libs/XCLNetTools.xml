@@ -107,6 +107,33 @@
             将list绑定到控件上
             </summary>
         </member>
+        <member name="T:XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity">
+            <summary>
+            生成select的option时的选项
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity.IsNeedPleaseSelect">
+            <summary>
+            是否需要生成"请选择"的option
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity.DefaultValue">
+            <summary>
+            默认选中的项
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Control.HtmlControl.Lib">
+            <summary>
+            原生html控件操作类
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Control.HtmlControl.Lib.GetOptions(System.Type,XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity)">
+            <summary>
+            将枚举转为options
+            <param name="t">枚举type</param>
+            <param name="options">选项</param>
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Control.MxGraph.MxGraphHelper">
             <summary>
             MxGraph操作类

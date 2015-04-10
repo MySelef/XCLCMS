@@ -56,7 +56,7 @@
                     <td class="XCLTitle"><span class="XCLRedBolder">*</span>性别：</td>
                     <td>
                         <select id="selSexType" name="selSexType">
-                            @Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum), new XCLCMS.Data.CommonHelper.Model.SetOption() { 
+                            @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
                                 DefaultValue=Model.UserInfo.SexType
                             }))
                         </select>
@@ -98,7 +98,7 @@
                     <td class="XCLTitle"><span class="XCLRedBolder">*</span>用户状态：</td>
                     <td>
                         <select id="selUserState" name="selUserState">
-                            @Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserStateEnum), new XCLCMS.Data.CommonHelper.Model.SetOption() { 
+                            @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserStateEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
                                 DefaultValue=Model.UserInfo.UserState
                             }))
                         </select>                        

@@ -50,7 +50,7 @@ namespace XCLCMS.Data.DAL
             db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
             db.ExecuteNonQuery(dbCommand);
 
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
+            var result = XCLCMS.Data.DAL.Common.Common.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return true;

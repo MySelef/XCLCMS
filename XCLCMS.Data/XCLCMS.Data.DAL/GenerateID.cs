@@ -35,7 +35,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "IDType", DbType.AnsiString, IDType);
             db.AddInParameter(dbCommand, "Remark", DbType.String, remark);
             db.ExecuteNonQuery(dbCommand);
-            var result = XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.GetProcedureResult(dbCommand.Parameters);
+            var result = XCLCMS.Data.DAL.Common.Common.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
                 return XCLNetTools.StringHander.Common.GetLong(dbCommand.Parameters["@IDCode"].Value);

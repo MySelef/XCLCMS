@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace XCLCMS.Data.BLL.Common
 {
+    /// <summary>
+    /// BLL层公共操作类
+    /// </summary>
     public class Common
     {
         /// <summary>
@@ -21,7 +24,7 @@ namespace XCLCMS.Data.BLL.Common
         /// </summary>
         public static void ClearRubbishData()
         {
-            XCLCMS.Data.DAL.CommonDAL.CommonDALHelper.ClearRubbishData();
+            XCLCMS.Data.DAL.Common.Common.ClearRubbishData();
         }
     }
 }

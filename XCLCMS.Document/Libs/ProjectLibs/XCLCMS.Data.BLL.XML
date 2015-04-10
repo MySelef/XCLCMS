@@ -49,6 +49,11 @@
             分页列表
             </summary>
         </member>
+        <member name="T:XCLCMS.Data.BLL.Common.Common">
+            <summary>
+            BLL层公共操作类
+            </summary>
+        </member>
         <member name="M:XCLCMS.Data.BLL.Common.Common.GenerateID(XCLCMS.Data.CommonHelper.EnumType.IDTypeEnum,System.String)">
             <summary>
             生成ID号

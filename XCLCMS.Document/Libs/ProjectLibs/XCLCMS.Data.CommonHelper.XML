@@ -4,16 +4,14 @@
         <name>XCLCMS.Data.CommonHelper</name>
     </assembly>
     <members>
-        <member name="M:XCLCMS.Data.CommonHelper.EnumHelper.GetOptions(System.Type,XCLCMS.Data.CommonHelper.Model.SetOption)">
+        <member name="T:XCLCMS.Data.CommonHelper.EnumHelper">
             <summary>
-            将枚举转为options
-            <param name="t">枚举type</param>
-            <param name="options">选项</param>
+            枚举帮助类
             </summary>
         </member>
         <member name="F:XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson">
             <summary>
-            将所有枚举以json形式显示
+            将(XCLCMS.Data.CommonHelper.EnumType)类中的所有枚举以json形式显示
             如：{"Enum1":{"N":"正常","D":"已删除"},"Enum2":{"S":"系统","U":"用户"}}
             </summary>
         </member>
@@ -320,21 +318,6 @@
             系统功能 SysFunction
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.CommonHelper.Model.SetOption">
-            <summary>
-            将枚举生成option时的选项
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.CommonHelper.Model.SetOption.IsNeedPleaseSelect">
-            <summary>
-            是否需要生成"请选择"的option
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.CommonHelper.Model.SetOption.DefaultValue">
-            <summary>
-            默认选中的项
-            </summary>
-        </member>
         <member name="T:XCLCMS.Data.CommonHelper.SysDicConst">
             <summary>
             字典库常量code值
@@ -348,11 +331,6 @@
         <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysMenu">
             <summary>
             系统菜单
-            </summary>
-        </member>
-        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysFunModules">
-            <summary>
-            权限功能模块
             </summary>
         </member>
         <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysRoles">

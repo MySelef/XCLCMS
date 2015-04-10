@@ -48,10 +48,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="EnumType.cs" />
-    <Compile Include="Model\SetOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysDicConst.cs" />
   </ItemGroup>

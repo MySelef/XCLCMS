@@ -7,14 +7,13 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
-using System.Data.Common;
 
-namespace XCLCMS.Data.DAL.CommonDAL
+namespace XCLCMS.Data.DAL.Common
 {
     /// <summary>
     /// DAL层公共方法
     /// </summary>
-    public class CommonDALHelper
+    public class Common
     {
         /// <summary>
         /// 分页(可按非主键排序)

@@ -194,6 +194,7 @@
     <Content Include="Views\Article\ArticleAdd.cshtml" />
     <Content Include="Views\Common\Upload.cshtml" />
     <Content Include="Views\Common\ShowImg.cshtml" />
+    <Content Include="Config\ConnectionStrings.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

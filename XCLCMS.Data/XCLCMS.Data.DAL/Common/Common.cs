@@ -29,7 +29,7 @@ namespace XCLCMS.Data.DAL.Common
         /// <returns>DataTable</returns>
         public static DataTable GetPageList(string tableName, int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
-            Database db =new XCLCMS.Data.DAL.BaseDAL().CreateDatabase();
+            Database db = new XCLCMS.Data.Common.BaseDAL().CreateDatabase();
             DbCommand dbCommand = db.GetStoredProcCommand("sp_Pager");
             db.AddOutParameter(dbCommand, "RecordCount", DbType.Int32, 4);
             db.AddOutParameter(dbCommand, "PageCount", DbType.Int32, 4);
@@ -51,7 +51,7 @@ namespace XCLCMS.Data.DAL.Common
         /// </summary>
         public static void ClearRubbishData()
         {
-            Database db = new XCLCMS.Data.DAL.BaseDAL().CreateDatabase();
+            Database db = new XCLCMS.Data.Common.BaseDAL().CreateDatabase();
             DbCommand dbCommand = db.GetStoredProcCommand("sp_ClearRubbishData");
             db.ExecuteNonQuery(dbCommand);
         }

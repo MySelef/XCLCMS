@@ -8,7 +8,7 @@ using System.Data.Common;
 
 namespace XCLCMS.Data.DAL.View
 {
-    public class v_SysDic:BaseDAL
+    public class v_SysDic:XCLCMS.Data.Common.BaseDAL
     {
         public v_SysDic()
         { }

@@ -9,12 +9,12 @@
             数据访问类:Article
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.DAL.BaseDAL">
+        <member name="T:XCLCMS.Data.Common.BaseDAL">
             <summary>
             DAL基类
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.BaseDAL.CreateDatabase">
+        <member name="M:XCLCMS.Data.Common.BaseDAL.CreateDatabase">
             <summary>
             创建数据库连接
             </summary>

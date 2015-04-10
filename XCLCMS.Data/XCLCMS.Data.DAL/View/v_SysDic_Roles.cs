@@ -11,7 +11,7 @@ namespace XCLCMS.Data.DAL.View
     /// <summary>
     /// 数据访问类:v_SysDic_Roles
     /// </summary>
-    public partial class v_SysDic_Roles:BaseDAL
+    public partial class v_SysDic_Roles : XCLCMS.Data.Common.BaseDAL
     {
         public v_SysDic_Roles()
         { }

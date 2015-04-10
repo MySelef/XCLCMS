@@ -12,7 +12,7 @@ namespace XCLCMS.Data.DAL
     /// <summary>
     /// 数据访问类:SysRoleFunction
     /// </summary>
-    public partial class SysRoleFunction:BaseDAL
+    public partial class SysRoleFunction : XCLCMS.Data.Common.BaseDAL
     {
         public SysRoleFunction()
         { }

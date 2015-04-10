@@ -12,7 +12,7 @@ namespace XCLCMS.Data.DAL
     /// <summary>
     /// 数据访问类:SysDic
     /// </summary>
-    public partial class SysDic:BaseDAL
+    public partial class SysDic : XCLCMS.Data.Common.BaseDAL
     {
         public SysDic()
         { }

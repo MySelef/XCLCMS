@@ -12,7 +12,7 @@ namespace XCLCMS.Data.DAL
     /// <summary>
     /// 数据访问类:SysLog
     /// </summary>
-    public partial class SysLog:BaseDAL
+    public partial class SysLog : XCLCMS.Data.Common.BaseDAL
     {
         public SysLog()
         { }

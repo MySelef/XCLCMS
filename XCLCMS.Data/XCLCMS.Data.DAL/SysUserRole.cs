@@ -12,7 +12,7 @@ namespace XCLCMS.Data.DAL
     /// <summary>
     /// 数据访问类:SysUserRole
     /// </summary>
-    public partial class SysUserRole:BaseDAL
+    public partial class SysUserRole : XCLCMS.Data.Common.BaseDAL
     {
         public SysUserRole()
         { }

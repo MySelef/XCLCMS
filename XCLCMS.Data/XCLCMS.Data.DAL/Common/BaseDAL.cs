@@ -7,7 +7,7 @@ using Microsoft.Practices.EnterpriseLibrary.Data;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
 
-namespace XCLCMS.Data.DAL
+namespace XCLCMS.Data.Common
 {
     /// <summary>
     /// DAL基类
@@ -19,8 +19,7 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public Database CreateDatabase()
         {
-            DatabaseProviderFactory factory = new DatabaseProviderFactory();
-            return factory.Create("ConnectionString");
+            return new DatabaseProviderFactory().Create("ConnectionString");
         }
     }
 }

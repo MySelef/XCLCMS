@@ -7,7 +7,7 @@ using Microsoft.Practices.EnterpriseLibrary.Data;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
 
-namespace XCLCMS.Data.Common
+namespace XCLCMS.Data.DAL.Common
 {
     /// <summary>
     /// DAL基类

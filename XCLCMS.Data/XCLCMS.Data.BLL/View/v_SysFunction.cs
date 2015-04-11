@@ -72,14 +72,6 @@ namespace XCLCMS.Data.BLL.View
         #endregion  BasicMethod
         #region  ExtensionMethod
         /// <summary>
-        /// 分页数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.View.v_SysFunction> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
-        {
-            return dal.GetPageList(pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
-        }
-
-        /// <summary>
         /// 根据parentID返回列表
         /// </summary>
         public List<XCLCMS.Data.Model.View.v_SysFunction> GetList(long parentID)

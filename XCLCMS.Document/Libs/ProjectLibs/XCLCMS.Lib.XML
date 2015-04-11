@@ -277,6 +277,11 @@
             所有功能枚举（数据来源于存储过程proc_Sys_GetFunctionEnumList）
             </summary>
         </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SetUserRole">
+             <summary>
+            用户管理-用户角色分配
+             </summary>
+        </member>
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserAdd">
              <summary>
             用户基本信息-用户基本信息添加
@@ -375,6 +380,26 @@
         <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_ClearCache">
              <summary>
             其它-缓存清理
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleView">
+             <summary>
+            角色信息-角色信息查看
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleAdd">
+             <summary>
+            角色信息-角色信息添加
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleEdit">
+             <summary>
+            角色信息-角色信息修改
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleDel">
+             <summary>
+            角色信息-角色信息删除
              </summary>
         </member>
         <member name="T:XCLCMS.Lib.Permission.PerHelper">

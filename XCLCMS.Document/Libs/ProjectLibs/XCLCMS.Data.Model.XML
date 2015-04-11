@@ -204,6 +204,66 @@
             更新人名
             </summary>
         </member>
+        <member name="T:XCLCMS.Data.Model.Custom.SysDicSimple">
+            <summary>
+            字典库简版实体
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.SysDicSimple.SysDicID">
+            <summary>
+            字典ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.SysDicSimple.ParentID">
+            <summary>
+            父ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.SysDicSimple.DicName">
+            <summary>
+            字典名
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.Model.Custom.SysFunctionSimple">
+            <summary>
+            功能模块简版实体
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.SysFunctionSimple.SysFunctionID">
+            <summary>
+            功能ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.SysFunctionSimple.ParentID">
+            <summary>
+            父ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.SysFunctionSimple.FunctionName">
+            <summary>
+            功能名
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.Model.Custom.SysRoleSimple">
+            <summary>
+            角色简版实体
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.SysRoleSimple.SysRoleID">
+            <summary>
+            角色ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.SysRoleSimple.ParentID">
+            <summary>
+            父ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.SysRoleSimple.RoleName">
+            <summary>
+            角色名
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.Model.GenerateID">
             <summary>
             ID生成表
@@ -241,12 +301,12 @@
         </member>
         <member name="P:XCLCMS.Data.Model.SysDic.SysDicID">
             <summary>
-            
+            SysDicID
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysDic.Code">
             <summary>
-            唯一标识
+            字典标识
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysDic.DicType">
@@ -272,11 +332,6 @@
         <member name="P:XCLCMS.Data.Model.SysDic.Sort">
             <summary>
             排序号
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.SysDic.Weight">
-            <summary>
-            权重
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysDic.Remark">
@@ -447,6 +502,81 @@
         <member name="P:XCLCMS.Data.Model.SysLog.CreateTime">
             <summary>
             创建时间
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.Model.SysRole">
+            <summary>
+            角色表
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.SysRoleID">
+            <summary>
+            SysRoleID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.ParentID">
+            <summary>
+            父ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.RoleName">
+            <summary>
+            角色名
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.Code">
+            <summary>
+            角色标识
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.Sort">
+            <summary>
+            排序号
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.Weight">
+            <summary>
+            权重
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.RecordState">
+            <summary>
+            记录状态(RecordStateEnum)
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.CreaterID">
+            <summary>
+            创建者ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.CreaterName">
+            <summary>
+            创建者名
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.UpdateTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.UpdaterID">
+            <summary>
+            更新人ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.SysRole.UpdaterName">
+            <summary>
+            更新人名
             </summary>
         </member>
         <member name="T:XCLCMS.Data.Model.SysRoleFunction">
@@ -779,11 +909,6 @@
             
             </summary>
         </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic.Weight">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.Remark">
             <summary>
             
@@ -839,106 +964,6 @@
             
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.Model.View.v_SysDic_Roles">
-            <summary>
-            v_SysDic_Roles:实体类(属性说明自动提取数据库字段的描述信息)
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.SysDicID">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.Code">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.DicType">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.ParentID">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.DicName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.DicValue">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.Sort">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.Weight">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.Remark">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.FK_FunctionID">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.RecordState">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.CreateTime">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.CreaterID">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.CreaterName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.UpdateTime">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.UpdaterID">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.UpdaterName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.NodeLevel">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_Roles.IsLeaf">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:XCLCMS.Data.Model.View.v_SysDic_SysMenu">
             <summary>
             v_SysDic_SysMenu:实体类(属性说明自动提取数据库字段的描述信息)
@@ -975,11 +1000,6 @@
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.Sort">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.Weight">
             <summary>
             
             </summary>
@@ -1110,6 +1130,91 @@
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.IsLeaf">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.Model.View.v_SysRole">
+            <summary>
+            v_SysRole:实体类(属性说明自动提取数据库字段的描述信息)
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.SysRoleID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.ParentID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.RoleName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.Code">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.Sort">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.Weight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.Remark">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.RecordState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.CreateTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.CreaterID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.CreaterName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.UpdateTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.UpdaterID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.UpdaterName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.NodeLevel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.View.v_SysRole.IsLeaf">
             <summary>
             
             </summary>

@@ -12,7 +12,7 @@ namespace XCLCMS.Data.DAL
     /// <summary>
     /// 数据访问类:UserInfo
     /// </summary>
-    public partial class UserInfo : XCLCMS.Data.Common.BaseDAL
+    public partial class UserInfo : XCLCMS.Data.DAL.Common.BaseDAL
     {
         public UserInfo()
         { }

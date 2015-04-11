@@ -15,9 +15,9 @@ namespace XCLCMS.Lib.Permission
         /// <summary>
         /// 获取角色列表
         /// </summary>
-        public static List<XCLCMS.Data.Model.View.v_SysDic_Roles> GetRoleList()
+        public static List<XCLCMS.Data.Model.SysRole> GetRoleList()
         {
-            return new XCLCMS.Data.BLL.View.v_SysDic_Roles().GetModelList("");
+            return new XCLCMS.Data.BLL.SysRole().GetModelList("");
         }
 
         /// <summary>
@@ -31,9 +31,9 @@ namespace XCLCMS.Lib.Permission
         /// <summary>
         /// 获取指定用户的角色
         /// </summary>
-        public static List<XCLCMS.Data.Model.View.v_SysDic_Roles> GetRoleByUserID(long userId)
+        public static List<XCLCMS.Data.Model.SysRole> GetRoleByUserID(long userId)
         {
-            return new XCLCMS.Data.BLL.View.v_SysDic_Roles().GetListByUserID(userId);
+            return new XCLCMS.Data.BLL.SysRole().GetListByUserID(userId);
         }
 
         #endregion

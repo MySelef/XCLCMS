@@ -11,7 +11,7 @@ namespace XCLCMS.Data.DAL
     /// <summary>
     /// 数据访问类:GenerateID
     /// </summary>
-    public partial class GenerateID : XCLCMS.Data.Common.BaseDAL
+    public partial class GenerateID : XCLCMS.Data.DAL.Common.BaseDAL
     {
         public GenerateID()
         { }

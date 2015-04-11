@@ -34,11 +34,6 @@ namespace XCLCMS.View.AdminViewModel.SysDic
         /// 记录种类（便于不同类别，展示不同的处理逻辑）
         /// </summary>
         public SysDicCategoryEnum SysDicCategory{get;set;}
-
-        /// <summary>
-        /// 角色的功能ID
-        /// </summary>
-        public List<long> RoleFunctionIDList { get; set; }
     }
 
     /// <summary>
@@ -50,10 +45,6 @@ namespace XCLCMS.View.AdminViewModel.SysDic
         /// 未知
         /// </summary>
         None,
-        /// <summary>
-        /// 角色相关
-        /// </summary>
-        Role,
         /// <summary>
         /// 系统菜单
         /// </summary>

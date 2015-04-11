@@ -1,44 +1,55 @@
 ﻿using System;
-namespace XCLCMS.Data.Model.View
+namespace XCLCMS.Data.Model
 {
     /// <summary>
-    /// v_SysDic_Roles:实体类(属性说明自动提取数据库字段的描述信息)
+    /// 角色表
     /// </summary>
     [Serializable]
-    public partial class v_SysDic_Roles
+    public partial class SysRole
     {
-        public v_SysDic_Roles()
+        public SysRole()
         { }
         #region Model
-        private long? _sysdicid;
+        private long _sysroleid;
+        private long _parentid;
+        private string _rolename;
         private string _code;
-        private string _dictype;
-        private long? _parentid;
-        private string _dicname;
-        private string _dicvalue;
-        private int? _sort;
+        private int _sort;
         private int? _weight;
         private string _remark;
-        private long? _fk_functionid;
         private string _recordstate;
-        private DateTime? _createtime;
-        private long? _createrid;
+        private DateTime _createtime;
+        private long _createrid;
         private string _creatername;
-        private DateTime? _updatetime;
-        private long? _updaterid;
+        private DateTime _updatetime;
+        private long _updaterid;
         private string _updatername;
-        private int? _nodelevel;
-        private int? _isleaf;
         /// <summary>
-        /// 
+        /// SysRoleID
         /// </summary>
-        public long? SysDicID
+        public long SysRoleID
         {
-            set { _sysdicid = value; }
-            get { return _sysdicid; }
+            set { _sysroleid = value; }
+            get { return _sysroleid; }
         }
         /// <summary>
-        /// 
+        /// 父ID
+        /// </summary>
+        public long ParentID
+        {
+            set { _parentid = value; }
+            get { return _parentid; }
+        }
+        /// <summary>
+        /// 角色名
+        /// </summary>
+        public string RoleName
+        {
+            set { _rolename = value; }
+            get { return _rolename; }
+        }
+        /// <summary>
+        /// 角色标识
         /// </summary>
         public string Code
         {
@@ -46,47 +57,15 @@ namespace XCLCMS.Data.Model.View
             get { return _code; }
         }
         /// <summary>
-        /// 
+        /// 排序号
         /// </summary>
-        public string DicType
-        {
-            set { _dictype = value; }
-            get { return _dictype; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public long? ParentID
-        {
-            set { _parentid = value; }
-            get { return _parentid; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string DicName
-        {
-            set { _dicname = value; }
-            get { return _dicname; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string DicValue
-        {
-            set { _dicvalue = value; }
-            get { return _dicvalue; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int? Sort
+        public int Sort
         {
             set { _sort = value; }
             get { return _sort; }
         }
         /// <summary>
-        /// 
+        /// 权重
         /// </summary>
         public int? Weight
         {
@@ -94,7 +73,7 @@ namespace XCLCMS.Data.Model.View
             get { return _weight; }
         }
         /// <summary>
-        /// 
+        /// 备注
         /// </summary>
         public string Remark
         {
@@ -102,15 +81,7 @@ namespace XCLCMS.Data.Model.View
             get { return _remark; }
         }
         /// <summary>
-        /// 
-        /// </summary>
-        public long? FK_FunctionID
-        {
-            set { _fk_functionid = value; }
-            get { return _fk_functionid; }
-        }
-        /// <summary>
-        /// 
+        /// 记录状态(RecordStateEnum)
         /// </summary>
         public string RecordState
         {
@@ -118,23 +89,23 @@ namespace XCLCMS.Data.Model.View
             get { return _recordstate; }
         }
         /// <summary>
-        /// 
+        /// 创建时间
         /// </summary>
-        public DateTime? CreateTime
+        public DateTime CreateTime
         {
             set { _createtime = value; }
             get { return _createtime; }
         }
         /// <summary>
-        /// 
+        /// 创建者ID
         /// </summary>
-        public long? CreaterID
+        public long CreaterID
         {
             set { _createrid = value; }
             get { return _createrid; }
         }
         /// <summary>
-        /// 
+        /// 创建者名
         /// </summary>
         public string CreaterName
         {
@@ -142,44 +113,28 @@ namespace XCLCMS.Data.Model.View
             get { return _creatername; }
         }
         /// <summary>
-        /// 
+        /// 更新时间
         /// </summary>
-        public DateTime? UpdateTime
+        public DateTime UpdateTime
         {
             set { _updatetime = value; }
             get { return _updatetime; }
         }
         /// <summary>
-        /// 
+        /// 更新人ID
         /// </summary>
-        public long? UpdaterID
+        public long UpdaterID
         {
             set { _updaterid = value; }
             get { return _updaterid; }
         }
         /// <summary>
-        /// 
+        /// 更新人名
         /// </summary>
         public string UpdaterName
         {
             set { _updatername = value; }
             get { return _updatername; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int? NodeLevel
-        {
-            set { _nodelevel = value; }
-            get { return _nodelevel; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int? IsLeaf
-        {
-            set { _isleaf = value; }
-            get { return _isleaf; }
         }
         #endregion Model
 

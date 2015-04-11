@@ -117,40 +117,26 @@
             </table>
         </div>
 
-        <div class="XCLAccordionHeader">2、角色权限信息：</div>
-        <div class="XCLAccordionBody">
-            <table class="XCLTableEdit">
-                <tr>
-                    <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>角色配置：</td>
-                    <td style="width: 25%">
-                        @if (null != Model.AllRoleList && Model.AllRoleList.Count > 0)
-                        {
-                            for (int i = 0; i < Model.AllRoleList.Count; i++)
-                            {
-                                var m = Model.AllRoleList[i];
-                                bool isChecked=false;
-                                if(null!=Model.UserRoleIDs && Model.UserRoleIDs.Count>0)
-                                {
-                                    if(Model.UserRoleIDs.Exists(k=>k==m.SysDicID))
-                                    {
-                                        isChecked=true;
-                                    }
-                                }
+        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SetUserRole))
+        {
+            <div class="XCLAccordionHeader">2、角色权限信息：</div>
+            <div class="XCLAccordionBody">
+                <table class="XCLTableEdit">
+                    <tr>
+                        <td class="XCLTitle" style="width: 10%">分配用户角色：</td>
+                        <td style="width: 25%">
+                            <input id="txtUserRoleIDs" name="txtUserRoleIDs" style="width:300px;height:25px;" xcl-data-value="@(null == Model.UserRoleIDs ? "" : string.Join(",", Model.UserRoleIDs.ToArray()))" multiple />
+                        </td>
+                        <td style="width: 10%"></td>
+                        <td style="width: 25%"></td>
+                        <td style="width: 10%"></td>
+                        <td style="width: 25%"></td>
+                    </tr>
+                </table>
+            </div>
+        }
 
-                                bool isDisabled = ((XCLCMS.Lib.Model.CommonModel)ViewBag.CommonModel).CurrentUserModel.RoleMaxWeight < m.Weight ? true :false;
-                                
-                                <input type="checkbox" name="ckRoles" id="ckRoles@(i)" value="@m.SysDicID" XCLValidShowErrorID="err_ckRoles"  @Html.Raw(isChecked?" checked='checked' ":"")  @Html.Raw(isDisabled ? " onclick='return false;' " : "")  /><label for="ckRoles@(i)"  @Html.Raw(isDisabled ? " class='XCLGray' " : "")  >@m.DicName</label>
-                            }
-                        }
-                        <span id="err_ckRoles"></span>
-                    </td>
-                    <td style="width: 10%"></td>
-                    <td style="width: 25%"></td>
-                    <td style="width: 10%"></td>
-                    <td style="width: 25%"></td>
-                </tr>
-            </table>
-        </div>
+
         <div class="XCLHandBar">
             <a href="@XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
             @switch ((XCLCMS.Lib.Common.Comm.HandleType)ViewBag.CurrentHandleType)
@@ -160,7 +146,8 @@
                     break;
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
-                    if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserDel)){
+                    if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserDel))
+                    {
                         <a id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删 除</a>
                     }
                     break;

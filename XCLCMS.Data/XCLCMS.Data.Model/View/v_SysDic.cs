@@ -17,7 +17,6 @@ namespace XCLCMS.Data.Model.View
         private string _dicname;
         private string _dicvalue;
         private int? _sort;
-        private int? _weight;
         private string _remark;
         private long? _fk_functionid;
         private string _recordstate;
@@ -84,14 +83,6 @@ namespace XCLCMS.Data.Model.View
         {
             set { _sort = value; }
             get { return _sort; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int? Weight
-        {
-            set { _weight = value; }
-            get { return _weight; }
         }
         /// <summary>
         /// 

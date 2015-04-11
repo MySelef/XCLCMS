@@ -9,12 +9,12 @@
             数据访问类:Article
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.Common.BaseDAL">
+        <member name="T:XCLCMS.Data.DAL.Common.BaseDAL">
             <summary>
             DAL基类
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.Common.BaseDAL.CreateDatabase">
+        <member name="M:XCLCMS.Data.DAL.Common.BaseDAL.CreateDatabase">
             <summary>
             创建数据库连接
             </summary>
@@ -255,6 +255,61 @@
             <param name="startTime">开始时间</param>
             <param name="endTime">结束时间</param>
         </member>
+        <member name="T:XCLCMS.Data.DAL.SysRole">
+            <summary>
+            数据访问类:SysRole
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysRole.Add(XCLCMS.Data.Model.SysRole)">
+            <summary>
+             增加一条数据
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysRole.Update(XCLCMS.Data.Model.SysRole)">
+            <summary>
+             更新一条数据
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysRole.GetModel(System.Int64)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysRole.DataRowToModel(System.Data.DataRow)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysRole.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysRole.GetListByUserID(System.Int64)">
+            <summary>
+            获取指定userid的角色
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysRole.IsExistCode(System.String)">
+            <summary>
+            判断角色标识是否存在
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysRole.GetLayerListBySysRoleID(System.Int64)">
+            <summary>
+            获取指定SysRoleID所属的层级list
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysRole.DelChild(XCLCMS.Data.Model.SysRole)">
+            <summary>
+            删除指定SysRoleID下面的子节点
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.SysRole.GetChildListByID(System.Int64)">
+            <summary>
+            根据SysRoleID查询其子项
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.DAL.SysRoleFunction">
             <summary>
             数据访问类:SysRoleFunction
@@ -397,31 +452,6 @@
             递归获取指定code下的所有列表
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.DAL.View.v_SysDic_Roles">
-            <summary>
-            数据访问类:v_SysDic_Roles
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.DAL.View.v_SysDic_Roles.GetModel(System.Int64)">
-            <summary>
-            得到一个对象实体
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.DAL.View.v_SysDic_Roles.DataRowToModel(System.Data.DataRow)">
-            <summary>
-            得到一个对象实体
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.DAL.View.v_SysDic_Roles.GetList(System.String)">
-            <summary>
-            获得数据列表
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.DAL.View.v_SysDic_Roles.GetListByUserID(System.Int64)">
-            <summary>
-            获取指定userid的角色
-            </summary>
-        </member>
         <member name="T:XCLCMS.Data.DAL.View.v_SysDic_SysMenu">
             <summary>
             数据访问类:v_SysDic_SysMenu
@@ -462,12 +492,32 @@
             获得数据列表
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.View.v_SysFunction.GetPageList(System.Int32,System.Int32,System.Int32@,System.String,System.String,System.String,System.String)">
+        <member name="M:XCLCMS.Data.DAL.View.v_SysFunction.GetList(System.Int64)">
             <summary>
-            分页数据列表
+            根据parentID返回列表
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.View.v_SysFunction.GetList(System.Int64)">
+        <member name="T:XCLCMS.Data.DAL.View.v_SysRole">
+            <summary>
+            数据访问类:v_SysRole
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.View.v_SysRole.GetModel(System.Int64)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.View.v_SysRole.DataRowToModel(System.Data.DataRow)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.View.v_SysRole.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.View.v_SysRole.GetList(System.Int64)">
             <summary>
             根据parentID返回列表
             </summary>

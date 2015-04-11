@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XCLCMS.Data.BLL.Strategy.SysDic
+namespace XCLCMS.Data.BLL.Strategy.SysRole
 {
     /// <summary>
-    /// 保存字典库基本信息
+    /// 保存角色基本信息
     /// </summary>
-    public class SysDic:BaseStrategy
+    public class SysRole:BaseStrategy
     {
         /// <summary>
         /// 构造函数
         /// </summary>
-        public SysDic()
+        public SysRole()
         {
-            this.Name = "保存字典库基本信息";
+            this.Name = "保存角色基本信息";
         }
 
         /// <summary>
@@ -24,25 +24,25 @@ namespace XCLCMS.Data.BLL.Strategy.SysDic
         /// </summary>
         public override void DoWork<T>(T context)
         {
-            var sysDicContext = context as XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext;
+            var sysRoleContext = context as XCLCMS.Data.BLL.Strategy.SysRole.SysRoleContext;
 
-            if (null == sysDicContext.SysDic)
+            if (null == sysRoleContext.SysRole)
             {
                 return;
             }
 
             bool flag = false;
-            XCLCMS.Data.BLL.SysDic bll = new BLL.SysDic();
+            XCLCMS.Data.BLL.SysRole bll = new BLL.SysRole();
 
             try
             {
-                switch (sysDicContext.HandleType)
+                switch (sysRoleContext.HandleType)
                 {
                     case StrategyLib.HandleType.ADD:
-                        flag = bll.Add(sysDicContext.SysDic);
+                        flag = bll.Add(sysRoleContext.SysRole);
                         break;
                     case StrategyLib.HandleType.UPDATE:
-                        flag = bll.Update(sysDicContext.SysDic);
+                        flag = bll.Update(sysRoleContext.SysRole);
                         break;
                 }
             }
@@ -59,7 +59,7 @@ namespace XCLCMS.Data.BLL.Strategy.SysDic
             else
             {
                 this.Result = StrategyLib.ResultEnum.FAIL;
-                this.ResultMessage =string.Format("保存字典库基本信息失败！{0}",this.ResultMessage);
+                this.ResultMessage =string.Format("保存角色基本信息失败！{0}",this.ResultMessage);
             }
         }
     }

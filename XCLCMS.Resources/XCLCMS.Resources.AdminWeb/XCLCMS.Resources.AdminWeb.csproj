@@ -87,6 +87,7 @@
     <Content Include="Resources\Js\App\Lib\SysDic.js" />
     <Content Include="Resources\Js\App\Lib\SysFunction.js" />
     <Content Include="Resources\Js\App\Lib\SysLog.js" />
+    <Content Include="Resources\Js\App\Lib\SysRole.js" />
     <Content Include="Resources\Js\App\Lib\SysWebSetting.js" />
     <Content Include="Resources\Js\App\Lib\Uploader.js" />
     <Content Include="Resources\Js\App\Lib\UserInfo.js" />

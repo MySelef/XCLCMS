@@ -74,8 +74,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM viewModel = new AdminViewModel.UserInfo.UserInfoAddVM();
             viewModel.UserInfo = new XCLCMS.Data.Model.UserInfo();
 
-            viewModel.AllRoleList = XCLCMS.Lib.Permission.PerHelper.GetRoleList();
-
             switch (base.CurrentHandleType)
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
@@ -87,10 +85,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     viewModel.UserInfo = userInfoBLL.GetModel(userInfoId);
                     viewModel.FormAction = Url.Action("UpdateSubmit", "UserInfo");
-                    var roleList = XCLCMS.Lib.Permission.PerHelper.GetRoleByUserID(viewModel.UserInfo.UserInfoID);
-                    if (null != roleList && roleList.Count > 0)
+                    var userHadRole = XCLCMS.Lib.Permission.PerHelper.GetRoleByUserID(viewModel.UserInfo.UserInfoID);
+                    if (null != userHadRole && userHadRole.Count > 0)
                     {
-                        viewModel.UserRoleIDs = roleList.Select(k => (long)k.SysDicID).ToList();
+                        viewModel.UserRoleIDs = userHadRole.Select(k => k.SysRoleID).ToList();
                     }
                     break;
             }
@@ -119,11 +117,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             viewModel.UserInfo.Tel = (fm["txtTel"] ?? "").Trim();
             viewModel.UserInfo.UserName = (fm["txtUserName"] ?? "").Trim();
             viewModel.UserInfo.UserState = (fm["selUserState"] ?? "").Trim();
-            string roles = fm["ckRoles"] ?? "";
-            if (!string.IsNullOrEmpty(roles))
-            {
-                viewModel.UserRoleIDs = XCLNetTools.StringHander.Common.GetLongArrayByStringArray(roles.Split(',')).ToList();
-            }
+            viewModel.UserRoleIDs = XCLNetTools.StringHander.FormHelper.GetLongList("txtUserRoleIDs");
             return viewModel;
         }
 
@@ -169,9 +163,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             userInfoContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.ADD;
 
             XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
-                new XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo(),
-                new XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo()
+                new XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo()
             });
+            if (XCLCMS.Lib.Permission.PerHelper.HasPermission(base.CurrentUserModel.UserInfoID, Lib.Permission.Function.FunctionEnum.SysFun_SetUserRole))
+            {
+                strategy.StrategyList.Add(new XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo());
+            }
             strategy.Execute<XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext>(userInfoContext);
 
             if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
@@ -230,9 +227,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             userInfoContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.UPDATE;
 
             XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
-                new XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo(),
-                new XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo()
+                new XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo()
             });
+            if (XCLCMS.Lib.Permission.PerHelper.HasPermission(base.CurrentUserModel.UserInfoID, Lib.Permission.Function.FunctionEnum.SysFun_SetUserRole))
+            {
+                strategy.StrategyList.Add(new XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo());
+            }
             strategy.Execute<XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext>(userInfoContext);
 
             if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)

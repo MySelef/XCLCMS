@@ -12,7 +12,7 @@ namespace XCLCMS.Data.DAL
     /// <summary>
     /// 数据访问类:SysDic
     /// </summary>
-    public partial class SysDic : XCLCMS.Data.Common.BaseDAL
+    public partial class SysDic : XCLCMS.Data.DAL.Common.BaseDAL
     {
         public SysDic()
         { }
@@ -74,10 +74,6 @@ namespace XCLCMS.Data.DAL
                 {
                     model.Sort = int.Parse(row["Sort"].ToString());
                 }
-                if (row["Weight"] != null && row["Weight"].ToString() != "")
-                {
-                    model.Weight = int.Parse(row["Weight"].ToString());
-                }
                 if (row["Remark"] != null)
                 {
                     model.Remark = row["Remark"].ToString();
@@ -124,7 +120,7 @@ namespace XCLCMS.Data.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select SysDicID,Code,DicType,ParentID,DicName,DicValue,Sort,Weight,Remark,FK_FunctionID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
+            strSql.Append("select SysDicID,Code,DicType,ParentID,DicName,DicValue,Sort,Remark,FK_FunctionID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
             strSql.Append(" FROM SysDic ");
             if (strWhere.Trim() != "")
             {
@@ -251,7 +247,6 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "DicName", DbType.AnsiString, model.DicName);
             db.AddInParameter(dbCommand, "DicValue", DbType.AnsiString, model.DicValue);
             db.AddInParameter(dbCommand, "Sort", DbType.Int32, model.Sort);
-            db.AddInParameter(dbCommand, "Weight", DbType.Int32, model.Weight);
             db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
             db.AddInParameter(dbCommand, "FK_FunctionID", DbType.Int64, model.FK_FunctionID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
@@ -291,7 +286,6 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "DicName", DbType.AnsiString, model.DicName);
             db.AddInParameter(dbCommand, "DicValue", DbType.AnsiString, model.DicValue);
             db.AddInParameter(dbCommand, "Sort", DbType.Int32, model.Sort);
-            db.AddInParameter(dbCommand, "Weight", DbType.Int32, model.Weight);
             db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
             db.AddInParameter(dbCommand, "FK_FunctionID", DbType.Int64, model.FK_FunctionID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);

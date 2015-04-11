@@ -8,7 +8,7 @@ using System.Data.Common;
 
 namespace XCLCMS.Data.DAL.View
 {
-    public class v_SysDic:XCLCMS.Data.Common.BaseDAL
+    public class v_SysDic : XCLCMS.Data.DAL.Common.BaseDAL
     {
         public v_SysDic()
         { }
@@ -75,10 +75,6 @@ namespace XCLCMS.Data.DAL.View
                 {
                     model.Sort = int.Parse(row["Sort"].ToString());
                 }
-                if (row["Weight"] != null && row["Weight"].ToString() != "")
-                {
-                    model.Weight = int.Parse(row["Weight"].ToString());
-                }
                 if (row["Remark"] != null)
                 {
                     model.Remark = row["Remark"].ToString();
@@ -133,7 +129,7 @@ namespace XCLCMS.Data.DAL.View
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select SysDicID,Code,DicType,ParentID,DicName,DicValue,Sort,Weight,Remark,FK_FunctionID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName,NodeLevel,IsLeaf ");
+            strSql.Append("select SysDicID,Code,DicType,ParentID,DicName,DicValue,Sort,Remark,FK_FunctionID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName,NodeLevel,IsLeaf ");
             strSql.Append(" FROM v_SysDic ");
             if (strWhere.Trim() != "")
             {

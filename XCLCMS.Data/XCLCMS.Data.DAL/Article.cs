@@ -12,7 +12,7 @@ namespace XCLCMS.Data.DAL
     /// <summary>
     /// 数据访问类:Article
     /// </summary>
-    public partial class Article : XCLCMS.Data.Common.BaseDAL
+    public partial class Article : XCLCMS.Data.DAL.Common.BaseDAL
     {
         public Article()
         { }

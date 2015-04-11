@@ -53,23 +53,24 @@
     <Compile Include="Strategy\BaseStrategy.cs" />
     <Compile Include="Strategy\ExecuteStrategy.cs" />
     <Compile Include="Strategy\StrategyLib.cs" />
-    <Compile Include="Strategy\SysDic\SysDic.cs" />
-    <Compile Include="Strategy\SysDic\SysDicContext.cs" />
-    <Compile Include="Strategy\SysDic\SysRoleFunction.cs" />
+    <Compile Include="Strategy\SysRole\SysRole.cs" />
+    <Compile Include="Strategy\SysRole\SysRoleContext.cs" />
+    <Compile Include="Strategy\SysRole\SysRoleFunction.cs" />
     <Compile Include="Strategy\UserInfo\UserInfo.cs" />
     <Compile Include="Strategy\UserInfo\RoleInfo.cs" />
     <Compile Include="Strategy\UserInfo\UserInfoContext.cs" />
     <Compile Include="SysDic.cs" />
     <Compile Include="SysFunction.cs" />
     <Compile Include="SysLog.cs" />
+    <Compile Include="SysRole.cs" />
     <Compile Include="SysRoleFunction.cs" />
     <Compile Include="SysUserRole.cs" />
     <Compile Include="SysWebSetting.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="View\v_SysDic.cs" />
-    <Compile Include="View\v_SysDic_Roles.cs" />
     <Compile Include="View\v_SysDic_SysMenu.cs" />
     <Compile Include="View\v_SysFunction.cs" />
+    <Compile Include="View\v_SysRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XCLCMS.Data.CommonHelper\XCLCMS.Data.CommonHelper.csproj">

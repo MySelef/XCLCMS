@@ -12,7 +12,7 @@ namespace XCLCMS.Data.DAL.View
     /// <summary>
     /// 数据访问类:v_SysFunction
     /// </summary>
-    public partial class v_SysFunction : XCLCMS.Data.Common.BaseDAL
+    public partial class v_SysFunction : XCLCMS.Data.DAL.Common.BaseDAL
     {
         public v_SysFunction()
         { }
@@ -130,15 +130,6 @@ namespace XCLCMS.Data.DAL.View
 
         #endregion  Method
         #region  MethodEx
-        /// <summary>
-        /// 分页数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.View.v_SysFunction> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
-        {
-            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("v_SysFunction", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
-            return XCLNetTools.Generic.ListHelper<XCLCMS.Data.Model.View.v_SysFunction>.DataTableToList(dt) as List<XCLCMS.Data.Model.View.v_SysFunction>;
-        }
-
         /// <summary>
         /// 根据parentID返回列表
         /// </summary>

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XCLCMS.Data.BLL.Strategy.SysDic
+namespace XCLCMS.Data.BLL.Strategy.SysRole
 {
     /// <summary>
-    /// 保存字典库中的角色功能信息
+    /// 保存角色功能信息
     /// </summary>
     public class SysRoleFunction:BaseStrategy
     {
@@ -16,7 +16,7 @@ namespace XCLCMS.Data.BLL.Strategy.SysDic
         /// </summary>
         public SysRoleFunction()
         {
-            this.Name = "保存字典库中的角色功能信息";
+            this.Name = "保存角色功能信息";
         }
 
         /// <summary>
@@ -24,24 +24,24 @@ namespace XCLCMS.Data.BLL.Strategy.SysDic
         /// </summary>
         public override void DoWork<T>(T context)
         {
-            var sysDicContext = context as XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext;
+            var sysRoleContext = context as XCLCMS.Data.BLL.Strategy.SysRole.SysRoleContext;
             
             XCLCMS.Data.BLL.SysRoleFunction bll = new XCLCMS.Data.BLL.SysRoleFunction();
 
             XCLCMS.Data.Model.SysRoleFunction model = new XCLCMS.Data.Model.SysRoleFunction();
-            model.CreaterID = sysDicContext.CurrentUserInfo.UserInfoID;
-            model.CreaterName = sysDicContext.CurrentUserInfo.UserName;
+            model.CreaterID = sysRoleContext.CurrentUserInfo.UserInfoID;
+            model.CreaterName = sysRoleContext.CurrentUserInfo.UserName;
             model.CreateTime = DateTime.Now;
             model.UpdaterID = model.CreaterID;
             model.UpdaterName = model.CreaterName;
             model.UpdateTime = model.CreateTime;
-            model.FK_SysRoleID = sysDicContext.SysDic.SysDicID;
+            model.FK_SysRoleID = sysRoleContext.SysRole.SysRoleID;
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
 
             bool flag = false;
             try
             {
-                flag=bll.Add(model, sysDicContext.FunctionIdList);
+                flag = bll.Add(model, sysRoleContext.FunctionIdList);
             }
             catch (Exception ex)
             {
@@ -56,7 +56,7 @@ namespace XCLCMS.Data.BLL.Strategy.SysDic
             else
             {
                 this.Result = StrategyLib.ResultEnum.FAIL;
-                this.ResultMessage =string.Format("保存字典库中的角色功能信息失败！{0}",this.ResultMessage);
+                this.ResultMessage = string.Format("保存角色功能信息失败！{0}", this.ResultMessage);
             }
         }
     }

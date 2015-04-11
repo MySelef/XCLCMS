@@ -12,7 +12,7 @@ namespace XCLCMS.Data.DAL
     /// <summary>
     /// 数据访问类:SysWebSetting
     /// </summary>
-    public partial class SysWebSetting : XCLCMS.Data.Common.BaseDAL
+    public partial class SysWebSetting : XCLCMS.Data.DAL.Common.BaseDAL
     {
         public SysWebSetting()
         { }

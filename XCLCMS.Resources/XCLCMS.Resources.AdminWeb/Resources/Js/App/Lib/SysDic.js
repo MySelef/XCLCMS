@@ -21,8 +21,6 @@
             menu_SysDic_del: null,
             //tree右键菜单_清空子节点
             menu_SysDic_delSub: null,
-            //tree右键菜单_分配功能权限
-            menu_SysDicSetFunction:null,
             Init: function () {
                 this.menu_SysDic = $("#menu_SysDic");
                 this.menu_SysDic_refresh = $("#menu_SysDic_refresh");
@@ -30,7 +28,6 @@
                 this.menu_SysDic_edit = $("#menu_SysDic_edit");
                 this.menu_SysDic_del = $("#menu_SysDic_del");
                 this.menu_SysDic_delSub = $("#menu_SysDic_delSub");
-                this.menu_SysDicSetFunction = $("#menu_SysDicSetFunction");
             }
         },
 
@@ -66,8 +63,7 @@
                     { field: 'ParentID', title: '父ID', width: '5%' },
                     { field: 'NodeLevel', title: '层级', width: '2%' },
                     { field: 'DicName', title: '字典名', width: '25%' },
-                    { field: 'DicValue', title: '字典值', width: '5%' },
-                    { field: 'Weight', title: '权重', width: '2%' },
+                    { field: 'DicValue', title: '字典值', width: '7%' },
                     { field: 'Code', title: '唯一标识', width: '10%' },
                     { field: 'DicType', title: '字典类型', formatter: easyUI.EnumToDescription, width: '5%' },
                     { field: 'Sort', title: '排序号', width: '5%' },
@@ -241,11 +237,8 @@
         Elements: {
             //字典所属功能输入框对象
             txtFunctionID: null,
-            //字典所属功能输入框对象
-            txtRoleFunction: null,
             Init: function () {
                 this.txtFunctionID = $("#txtFunctionID");
-                this.txtRoleFunction = $("#txtRoleFunction");
             }
         },
         /**
@@ -257,7 +250,6 @@
             _this.InitValidator();
 
             _this.CreateFunctionTree(_this.Elements.txtFunctionID);
-            _this.CreateFunctionTree(_this.Elements.txtRoleFunction);
         },
         /**
         * 创建功能模块的combotree
@@ -268,7 +260,6 @@
                 return;
             }
             var isTxtFunctionID = ($obj == _this.Elements.txtFunctionID);
-            var isTxtRoleFunction=($obj==_this.Elements.txtRoleFunction);
 
             $obj.combotree({
                 url: XCLCMSPageGlobalConfig.RootURL + 'SysFunctionCommon/GetAllJsonForEasyUITree',
@@ -285,11 +276,6 @@
                     }
                 }
             });
-
-            if (isTxtRoleFunction) {
-                _this.Elements.txtRoleFunction.combotree("setValues",(_this.Elements.txtRoleFunction.attr("xcl-data-value") || "").split(','));
-            }
-
         },
         InitValidator: function () {
             var validator = $("form:first").validate({

@@ -1,29 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using XCLCMS.Data.Model;
 
 namespace XCLCMS.Data.BLL.View
 {
     /// <summary>
-    /// v_SysDic_Roles
+    /// v_SysRole
     /// </summary>
-    public partial class v_SysDic_Roles
+    public partial class v_SysRole
     {
-        private readonly XCLCMS.Data.DAL.View.v_SysDic_Roles dal = new XCLCMS.Data.DAL.View.v_SysDic_Roles();
-        public v_SysDic_Roles()
+        private readonly XCLCMS.Data.DAL.View.v_SysRole dal = new XCLCMS.Data.DAL.View.v_SysRole();
+        public v_SysRole()
         { }
         #region  BasicMethod
-
-        /// <summary>
+         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public XCLCMS.Data.Model.View.v_SysDic_Roles GetModel(long SysDicID)
+        public XCLCMS.Data.Model.View.v_SysRole GetModel(long SysRoleID)
         {
 
-            return dal.GetModel(SysDicID);
+            return dal.GetModel(SysRoleID);
         }
 
         /// <summary>
@@ -33,10 +30,11 @@ namespace XCLCMS.Data.BLL.View
         {
             return dal.GetList(strWhere);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<XCLCMS.Data.Model.View.v_SysDic_Roles> GetModelList(string strWhere)
+        public List<XCLCMS.Data.Model.View.v_SysRole> GetModelList(string strWhere)
         {
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
@@ -44,13 +42,13 @@ namespace XCLCMS.Data.BLL.View
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<XCLCMS.Data.Model.View.v_SysDic_Roles> DataTableToList(DataTable dt)
+        public List<XCLCMS.Data.Model.View.v_SysRole> DataTableToList(DataTable dt)
         {
-            List<XCLCMS.Data.Model.View.v_SysDic_Roles> modelList = new List<XCLCMS.Data.Model.View.v_SysDic_Roles>();
+            List<XCLCMS.Data.Model.View.v_SysRole> modelList = new List<XCLCMS.Data.Model.View.v_SysRole>();
             int rowsCount = dt.Rows.Count;
             if (rowsCount > 0)
             {
-                XCLCMS.Data.Model.View.v_SysDic_Roles model;
+                XCLCMS.Data.Model.View.v_SysRole model;
                 for (int n = 0; n < rowsCount; n++)
                 {
                     model = dal.DataRowToModel(dt.Rows[n]);
@@ -63,23 +61,15 @@ namespace XCLCMS.Data.BLL.View
             return modelList;
         }
 
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public DataSet GetAllList()
-        {
-            return GetList("");
-        }
-
         #endregion  BasicMethod
         #region  ExtensionMethod
-         /// <summary>
-        /// 获取指定userid的角色
+        /// <summary>
+        /// 根据parentID返回列表
         /// </summary>
-        public List<XCLCMS.Data.Model.View.v_SysDic_Roles> GetListByUserID(long userId)
+        public List<XCLCMS.Data.Model.View.v_SysRole> GetList(long parentID)
         {
-            List<XCLCMS.Data.Model.View.v_SysDic_Roles> lst = null;
-            DataTable dt = dal.GetListByUserID(userId);
+            List<XCLCMS.Data.Model.View.v_SysRole> lst = null;
+            DataTable dt = dal.GetList(parentID);
             if (null != dt && dt.Rows.Count > 0)
             {
                 lst = DataTableToList(dt);

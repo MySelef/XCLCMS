@@ -64,14 +64,15 @@
     <Compile Include="SysDic.cs" />
     <Compile Include="SysFunction.cs" />
     <Compile Include="SysLog.cs" />
+    <Compile Include="SysRole.cs" />
     <Compile Include="SysRoleFunction.cs" />
     <Compile Include="SysUserRole.cs" />
     <Compile Include="SysWebSetting.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="View\v_SysDic.cs" />
-    <Compile Include="View\v_SysDic_Roles.cs" />
     <Compile Include="View\v_SysDic_SysMenu.cs" />
     <Compile Include="View\v_SysFunction.cs" />
+    <Compile Include="View\v_SysRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XCLCMS.Data.CommonHelper\XCLCMS.Data.CommonHelper.csproj">

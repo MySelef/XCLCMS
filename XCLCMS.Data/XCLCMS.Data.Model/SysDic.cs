@@ -17,7 +17,6 @@ namespace XCLCMS.Data.Model
         private string _dicname;
         private string _dicvalue;
         private int _sort;
-        private int? _weight;
         private string _remark;
         private long? _fk_functionid;
         private string _recordstate;
@@ -28,7 +27,7 @@ namespace XCLCMS.Data.Model
         private long _updaterid;
         private string _updatername;
         /// <summary>
-        /// 
+        /// SysDicID
         /// </summary>
         public long SysDicID
         {
@@ -36,7 +35,7 @@ namespace XCLCMS.Data.Model
             get { return _sysdicid; }
         }
         /// <summary>
-        /// 唯一标识
+        /// 字典标识
         /// </summary>
         public string Code
         {
@@ -82,14 +81,6 @@ namespace XCLCMS.Data.Model
         {
             set { _sort = value; }
             get { return _sort; }
-        }
-        /// <summary>
-        /// 权重
-        /// </summary>
-        public int? Weight
-        {
-            set { _weight = value; }
-            get { return _weight; }
         }
         /// <summary>
         /// 备注

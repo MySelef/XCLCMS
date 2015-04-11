@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XCLCMS.Data.BLL.Strategy.SysDic
+namespace XCLCMS.Data.BLL.Strategy.SysRole
 {
     /// <summary>
-    /// 字典库上下文
+    /// 角色上下文
     /// </summary>
-    public class SysDicContext:BaseContext
+    public class SysRoleContext : BaseContext
     {
         /// <summary>
-        /// 字典库信息
+        /// 角色信息
         /// </summary>
-        public XCLCMS.Data.Model.SysDic SysDic { get; set; }
+        public XCLCMS.Data.Model.SysRole SysRole { get; set; }
 
         /// <summary>
         /// 角色所对应的功能id列表

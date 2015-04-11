@@ -354,12 +354,12 @@ namespace XCLCMS.Data.CommonHelper
             /// 系统功能 SysFunction
             /// </summary>
             [Description("系统功能")]
-            FUN
-            ///// <summary>
-            ///// 其它 Other
-            ///// </summary>
-            //[Description("其它")]
-            //OTH
+            FUN,
+            /// <summary>
+            /// 角色 Role
+            /// </summary>
+            [Description("角色")]
+            RLE
         }
         #endregion
 

@@ -22,7 +22,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
                 new XCLNetSearch.SearchFieldInfo("标题","Title|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("作者","AuthorName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("来源","FromInfo|string|text",""),
-                new XCLNetSearch.SearchFieldInfo("文章类型","ArticleType|string|text",""),
+                new XCLNetSearch.SearchFieldInfo("文章类型","ArticleContentType|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("浏览数","ViewCount|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("评论数","CommentCount|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("热度","HotCount|number|text",""),

@@ -156,6 +156,8 @@
     <Compile Include="Controllers\SysFunction\SysFunctionCommonController.cs" />
     <Compile Include="Controllers\SysFunction\SysFunctionController.cs" />
     <Compile Include="Controllers\SysLog\SysLogController.cs" />
+    <Compile Include="Controllers\SysRole\SysRoleCommonController.cs" />
+    <Compile Include="Controllers\SysRole\SysRoleController.cs" />
     <Compile Include="Controllers\SysWebSetting\SysWebSettingCommonController.cs" />
     <Compile Include="Controllers\SysWebSetting\SysWebSettingController.cs" />
     <Compile Include="Controllers\UserInfo\UserInfoCommonController.cs" />
@@ -197,6 +199,8 @@
     <Content Include="Config\ConnectionStrings.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\SysRole\SysRoleList.cshtml" />
+    <Content Include="Views\SysRole\SysRoleAdd.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -80,13 +80,46 @@
      * 用户信息添加与修改页
      */
     app.UserAdd = {
+        /**
+        * 输入元素
+        */
+        Elements: {
+            //用户所属于的角色输入框对象
+            txtUserRoleIDs: null,
+            Init: function () {
+                this.txtUserRoleIDs = $("#txtUserRoleIDs");
+            }
+        },
         Init: function () {
             var _this = this;
+            _this.Elements.Init();
             _this.InitValidator();
+
+            _this.CreateSysRoleTree(_this.Elements.txtUserRoleIDs);
 
             $("#btnDel").on("click", function () {
                 return _this.Del();
             });
+        },
+        /**
+        * 创建选择角色的combotree
+        */
+        CreateSysRoleTree: function ($obj) {
+            var _this = this;
+            if (!$obj) {
+                return;
+            }
+
+            $obj.combotree({
+                url: XCLCMSPageGlobalConfig.RootURL + 'SysRoleCommon/GetAllJsonForEasyUITree',
+                method: 'get',
+                checkbox: true,
+                onlyLeafCheck:true,
+                lines: true,
+                multiple: true
+            });
+
+            _this.Elements.txtUserRoleIDs.combotree("setValues", (_this.Elements.txtUserRoleIDs.attr("xcl-data-value") || "").split(','));
         },
         /**
          * 表单验证初始化
@@ -109,8 +142,7 @@
                     txtEmail: "email",
                     txtPwd1: { equalTo: "#txtPwd" },
                     selUserState: { required: true },
-                    selSexType: { required: true },
-                    ckRoles: { required: true }
+                    selSexType: { required: true }
                 }
             });
             common.BindLinkButtonEvent("click", $("#btnSave"), function () {

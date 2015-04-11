@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Text;
-using System.Data.SqlClient;
+using System.Collections.Generic;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
@@ -9,26 +9,26 @@ using System.Data.Common;
 namespace XCLCMS.Data.DAL.View
 {
     /// <summary>
-    /// 数据访问类:v_SysDic_Roles
+    /// 数据访问类:v_SysRole
     /// </summary>
-    public partial class v_SysDic_Roles : XCLCMS.Data.Common.BaseDAL
+    public partial class v_SysRole:XCLCMS.Data.DAL.Common.BaseDAL
     {
-        public v_SysDic_Roles()
+        public v_SysRole()
         { }
         #region  Method
 
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public XCLCMS.Data.Model.View.v_SysDic_Roles GetModel(long SysDicID)
+        public XCLCMS.Data.Model.View.v_SysRole GetModel(long SysRoleID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 * from v_SysDic_Roles ");
-            strSql.Append(" where SysDicID=@SysDicID ");
-            XCLCMS.Data.Model.View.v_SysDic_Roles model = new XCLCMS.Data.Model.View.v_SysDic_Roles();
+            strSql.Append("select  top 1 * from v_SysRole ");
+            strSql.Append(" where SysRoleID=@SysRoleID ");
+            XCLCMS.Data.Model.View.v_SysRole model = new XCLCMS.Data.Model.View.v_SysRole();
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
-            db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, SysDicID);
+            db.AddInParameter(dbCommand, "SysRoleID", DbType.Int64, SysRoleID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -44,34 +44,26 @@ namespace XCLCMS.Data.DAL.View
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public XCLCMS.Data.Model.View.v_SysDic_Roles DataRowToModel(DataRow row)
+        public XCLCMS.Data.Model.View.v_SysRole DataRowToModel(DataRow row)
         {
-            XCLCMS.Data.Model.View.v_SysDic_Roles model = new XCLCMS.Data.Model.View.v_SysDic_Roles();
+            XCLCMS.Data.Model.View.v_SysRole model = new XCLCMS.Data.Model.View.v_SysRole();
             if (row != null)
             {
-                if (row["SysDicID"] != null && row["SysDicID"].ToString() != "")
+                if (row["SysRoleID"] != null && row["SysRoleID"].ToString() != "")
                 {
-                    model.SysDicID = long.Parse(row["SysDicID"].ToString());
-                }
-                if (row["Code"] != null)
-                {
-                    model.Code = row["Code"].ToString();
-                }
-                if (row["DicType"] != null)
-                {
-                    model.DicType = row["DicType"].ToString();
+                    model.SysRoleID = long.Parse(row["SysRoleID"].ToString());
                 }
                 if (row["ParentID"] != null && row["ParentID"].ToString() != "")
                 {
                     model.ParentID = long.Parse(row["ParentID"].ToString());
                 }
-                if (row["DicName"] != null)
+                if (row["RoleName"] != null)
                 {
-                    model.DicName = row["DicName"].ToString();
+                    model.RoleName = row["RoleName"].ToString();
                 }
-                if (row["DicValue"] != null)
+                if (row["Code"] != null)
                 {
-                    model.DicValue = row["DicValue"].ToString();
+                    model.Code = row["Code"].ToString();
                 }
                 if (row["Sort"] != null && row["Sort"].ToString() != "")
                 {
@@ -84,10 +76,6 @@ namespace XCLCMS.Data.DAL.View
                 if (row["Remark"] != null)
                 {
                     model.Remark = row["Remark"].ToString();
-                }
-                if (row["FK_FunctionID"] != null && row["FK_FunctionID"].ToString() != "")
-                {
-                    model.FK_FunctionID = long.Parse(row["FK_FunctionID"].ToString());
                 }
                 if (row["RecordState"] != null)
                 {
@@ -135,31 +123,28 @@ namespace XCLCMS.Data.DAL.View
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select SysDicID,Code,DicType,ParentID,DicName,DicValue,Sort,Weight,Remark,FK_FunctionID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName,NodeLevel,IsLeaf ");
-            strSql.Append(" FROM v_SysDic_Roles ");
+            strSql.Append("select SysRoleID,ParentID,RoleName,Code,Sort,Weight,Remark,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName,NodeLevel,IsLeaf ");
+            strSql.Append(" FROM v_SysRole ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
             }
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
-            return db.ExecuteDataSet(dbCommand);
+            return db.ExecuteDataSet(CommandType.Text, strSql.ToString());
         }
-
         #endregion  Method
+
         #region  MethodEx
         /// <summary>
-        /// 获取指定userid的角色
+        /// 根据parentID返回列表
         /// </summary>
-        public DataTable GetListByUserID(long userId)
+        public DataTable GetList(long parentID)
         {
-            string strSql = @"SELECT
-                                        a.*
-                                        FROM dbo.v_SysDic_Roles AS a
-                                        INNER JOIN dbo.SysUserRole AS b ON b.FK_UserInfoID=@FK_UserInfoID AND b.RecordState='N' AND a.SysDicID=b.FK_SysRoleID";
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select * from v_SysRole where ParentID=@ParentID order by Weight asc");
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
-            db.AddInParameter(dbCommand, "FK_UserInfoID", DbType.Int64, userId);
+            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, parentID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }

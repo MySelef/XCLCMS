@@ -17,6 +17,12 @@ namespace XCLCMS.Lib.Permission
         /// </summary>
         public enum FunctionEnum
         {
+
+            /// <summary>
+            ///用户管理-用户角色分配
+            /// </summary>
+            [Description("用户管理-用户角色分配")]
+            SysFun_SetUserRole = 400165,
             /// <summary>
             ///用户基本信息-用户基本信息添加
             /// </summary>
@@ -117,6 +123,27 @@ namespace XCLCMS.Lib.Permission
             /// </summary>
             [Description("其它-缓存清理")]
             SysFun_Set_ClearCache = 400159,
+            /// <summary>
+            ///角色信息-角色信息查看
+            /// </summary>
+            [Description("角色信息-角色信息查看")]
+            SysFun_SysRoleView = 400161,
+            /// <summary>
+            ///角色信息-角色信息添加
+            /// </summary>
+            [Description("角色信息-角色信息添加")]
+            SysFun_SysRoleAdd = 400162,
+            /// <summary>
+            ///角色信息-角色信息修改
+            /// </summary>
+            [Description("角色信息-角色信息修改")]
+            SysFun_SysRoleEdit = 400163,
+            /// <summary>
+            ///角色信息-角色信息删除
+            /// </summary>
+            [Description("角色信息-角色信息删除")]
+            SysFun_SysRoleDel = 400164,
+
 
         }
     }

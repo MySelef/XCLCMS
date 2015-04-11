@@ -67,6 +67,7 @@
     <Compile Include="SysDic\SysDicAddVM.cs" />
     <Compile Include="SysFunction\SysFunctionAddVM.cs" />
     <Compile Include="SysLog\SysLogListVM.cs" />
+    <Compile Include="SysRole\SysRoleAddVM.cs" />
     <Compile Include="SysWebSetting\SysWebSettingAddVM.cs" />
     <Compile Include="SysWebSetting\SysWebSettingListVM.cs" />
     <Compile Include="UserControl\XCLPagerVM.cs" />

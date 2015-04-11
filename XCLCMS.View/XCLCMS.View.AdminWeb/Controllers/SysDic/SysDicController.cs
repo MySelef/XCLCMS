@@ -44,19 +44,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             XCLCMS.Data.BLL.SysFunction functionBLL=new Data.BLL.SysFunction();
             XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM viewModel = new AdminViewModel.SysDic.SysDicAddVM();
 
-            //判断当前字典是否属于【角色】
-            if (viewModel.SysDicCategory == AdminViewModel.SysDic.SysDicCategoryEnum.None)
-            {
-                var roles = XCLCMS.Lib.Permission.PerHelper.GetRoleList();
-                if (null != roles && roles.Count > 0)
-                {
-                    if (roles.Exists(k => k.SysDicID == sysDicId || (k.ParentID==sysDicId && base.CurrentHandleType==Lib.Common.Comm.HandleType.ADD)))
-                    {
-                        viewModel.SysDicCategory = AdminViewModel.SysDic.SysDicCategoryEnum.Role;
-                    }
-                }
-            }
-
             //判断当前字典是否属于【系统菜单】
             if (viewModel.SysDicCategory == AdminViewModel.SysDic.SysDicCategoryEnum.None)
             {
@@ -84,14 +71,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                     viewModel.SysDicID = sysDicId;
                     viewModel.SysDic = bll.GetModel(sysDicId);
                     viewModel.ParentID = viewModel.SysDic.ParentID;
-                    if (viewModel.SysDicCategory == AdminViewModel.SysDic.SysDicCategoryEnum.Role)
-                    {
-                        var roleHadFunctions = functionBLL.GetListByRoleID(sysDicId);
-                        if (null != roleHadFunctions && roleHadFunctions.Count > 0)
-                        {
-                            viewModel.RoleFunctionIDList = roleHadFunctions.Select(m => m.SysFunctionID).ToList();
-                        }                    
-                    }
                     viewModel.FormAction = Url.Action("UpdateSubmit", "SysDic");
                     break;
             }
@@ -116,9 +95,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             viewModel.SysDic.DicValue = (fm["txtDicValue"] ?? "").Trim();
             viewModel.SysDic.Sort = XCLNetTools.StringHander.Common.GetInt(fm["txtSort"] ?? "");
             viewModel.SysDic.Remark = (fm["txtRemark"] ?? "").Trim();
-            viewModel.SysDic.Weight = XCLNetTools.StringHander.Common.GetIntNull(fm["txtWeight"] ?? "");
             viewModel.SysDic.FK_FunctionID = XCLNetTools.StringHander.Common.GetLongNull(fm["txtFunctionID"] ?? "");
-            viewModel.RoleFunctionIDList = XCLNetTools.StringHander.FormHelper.GetLongList("txtRoleFunction");
             return viewModel;
         }
 
@@ -147,32 +124,18 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             sysDicModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
             sysDicModel.Sort = viewModel.SysDic.Sort;
             sysDicModel.Remark = viewModel.SysDic.Remark;
-            sysDicModel.Weight = viewModel.SysDic.Weight;
             sysDicModel.FK_FunctionID = viewModel.SysDic.FK_FunctionID;
             sysDicModel.SysDicID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.DIC);
 
-            XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext sysDicContext = new Data.BLL.Strategy.SysDic.SysDicContext();
-            sysDicContext.CurrentUserInfo = base.CurrentUserModel;
-            sysDicContext.FunctionIdList = viewModel.RoleFunctionIDList;
-            sysDicContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.ADD;
-            sysDicContext.SysDic = sysDicModel;
-
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
-                new XCLCMS.Data.BLL.Strategy.SysDic.SysDic(),
-                new XCLCMS.Data.BLL.Strategy.SysDic.SysRoleFunction()
-            });
-            strategy.Execute<XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext>(sysDicContext);
-
-            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
+            if (sysDicBLL.Add(sysDicModel))
             {
                 msgModel.Message = "添加成功！";
                 msgModel.IsSuccess = true;
             }
             else
             {
-                msgModel.Message = strategy.ResultMessage;
+                msgModel.Message = "添加失败！";
                 msgModel.IsSuccess = false;
-                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "添加字典库失败", strategy.ResultMessage);
             }
 
             return Json(msgModel);
@@ -197,32 +160,17 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             sysDicModel.DicValue = viewModel.SysDic.DicValue;
             sysDicModel.Sort = viewModel.SysDic.Sort;
             sysDicModel.Remark = viewModel.SysDic.Remark;
-            sysDicModel.Weight = viewModel.SysDic.Weight;
             sysDicModel.FK_FunctionID = viewModel.SysDic.FK_FunctionID;
 
-
-            XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext sysDicContext = new Data.BLL.Strategy.SysDic.SysDicContext();
-            sysDicContext.CurrentUserInfo = base.CurrentUserModel;
-            sysDicContext.FunctionIdList = viewModel.RoleFunctionIDList;
-            sysDicContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.UPDATE;
-            sysDicContext.SysDic = sysDicModel;
-
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
-                new XCLCMS.Data.BLL.Strategy.SysDic.SysDic(),
-                new XCLCMS.Data.BLL.Strategy.SysDic.SysRoleFunction()
-            });
-            strategy.Execute<XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext>(sysDicContext);
-
-            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
+            if (sysDicBLL.Update(sysDicModel))
             {
                 msgModel.Message = "修改成功！";
                 msgModel.IsSuccess = true;
             }
             else
             {
-                msgModel.Message = strategy.ResultMessage;
+                msgModel.Message = "修改失败！";
                 msgModel.IsSuccess = false;
-                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "修改字典库失败", strategy.ResultMessage);
             }
 
             return Json(msgModel);

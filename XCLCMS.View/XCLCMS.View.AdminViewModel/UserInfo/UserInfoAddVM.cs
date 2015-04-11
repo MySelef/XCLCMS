@@ -25,10 +25,5 @@ namespace XCLCMS.View.AdminViewModel.UserInfo
         /// 角色id list
         /// </summary>
         public List<long> UserRoleIDs { get; set; }
-
-        /// <summary>
-        /// 角色列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.View.v_SysDic_Roles> AllRoleList { get; set; }
     }
 }

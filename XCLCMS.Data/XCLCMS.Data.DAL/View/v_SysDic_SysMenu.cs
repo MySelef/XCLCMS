@@ -11,7 +11,7 @@ namespace XCLCMS.Data.DAL.View
     /// <summary>
     /// 数据访问类:v_SysDic_SysMenu
     /// </summary>
-    public partial class v_SysDic_SysMenu : XCLCMS.Data.Common.BaseDAL
+    public partial class v_SysDic_SysMenu : XCLCMS.Data.DAL.Common.BaseDAL
     {
         public v_SysDic_SysMenu()
         { }
@@ -77,10 +77,6 @@ namespace XCLCMS.Data.DAL.View
                 {
                     model.Sort = int.Parse(row["Sort"].ToString());
                 }
-                if (row["Weight"] != null && row["Weight"].ToString() != "")
-                {
-                    model.Weight = int.Parse(row["Weight"].ToString());
-                }
                 if (row["Remark"] != null)
                 {
                     model.Remark = row["Remark"].ToString();
@@ -135,8 +131,7 @@ namespace XCLCMS.Data.DAL.View
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select SysDicID,Code,DicType,ParentID,DicName,DicValue,Sort,Weight,Remark,FK_FunctionID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName,NodeLevel,IsLeaf ");
-            strSql.Append(" FROM v_SysDic_SysMenu ");
+            strSql.Append("select * FROM v_SysDic_SysMenu ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

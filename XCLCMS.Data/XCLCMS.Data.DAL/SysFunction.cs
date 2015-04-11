@@ -12,7 +12,7 @@ namespace XCLCMS.Data.DAL
     /// <summary>
     /// 数据访问类:SysFunction
     /// </summary>
-    public partial class SysFunction : XCLCMS.Data.Common.BaseDAL
+    public partial class SysFunction : XCLCMS.Data.DAL.Common.BaseDAL
     {
         public SysFunction()
         { }

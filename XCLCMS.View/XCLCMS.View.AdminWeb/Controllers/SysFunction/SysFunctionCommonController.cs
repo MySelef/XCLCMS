@@ -14,7 +14,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
         /// <summary>
         /// 判断功能标识是否已经存在
         /// </summary>
-        public ActionResult IsExistCode()
+        public JsonResult IsExistCode()
         {
             string code = XCLNetTools.StringHander.FormHelper.GetString("Code").Trim();
             long sysFunctionID = XCLNetTools.StringHander.FormHelper.GetLong("SysFunctionID");
@@ -52,7 +52,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
         /// <summary>
         /// 判断功能名，在同一级别中是否存在
         /// </summary>
-        public ActionResult IsExistFunctionNameInSameLevel()
+        public JsonResult IsExistFunctionNameInSameLevel()
         {
             string functionName = XCLNetTools.StringHander.FormHelper.GetString("functionName").Trim();
             long parentID = XCLNetTools.StringHander.FormHelper.GetLong("parentID");

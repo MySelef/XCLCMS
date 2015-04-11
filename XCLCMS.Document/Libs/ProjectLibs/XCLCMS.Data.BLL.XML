@@ -201,47 +201,47 @@
             其它
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.BLL.Strategy.SysDic.SysDic">
+        <member name="T:XCLCMS.Data.BLL.Strategy.SysRole.SysRole">
             <summary>
-            保存字典库基本信息
+            保存角色基本信息
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.Strategy.SysDic.SysDic.#ctor">
+        <member name="M:XCLCMS.Data.BLL.Strategy.SysRole.SysRole.#ctor">
             <summary>
             构造函数
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.Strategy.SysDic.SysDic.DoWork``1(``0)">
+        <member name="M:XCLCMS.Data.BLL.Strategy.SysRole.SysRole.DoWork``1(``0)">
             <summary>
             执行策略
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext">
+        <member name="T:XCLCMS.Data.BLL.Strategy.SysRole.SysRoleContext">
             <summary>
-            字典库上下文
+            角色上下文
             </summary>
         </member>
-        <member name="P:XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext.SysDic">
+        <member name="P:XCLCMS.Data.BLL.Strategy.SysRole.SysRoleContext.SysRole">
             <summary>
-            字典库信息
+            角色信息
             </summary>
         </member>
-        <member name="P:XCLCMS.Data.BLL.Strategy.SysDic.SysDicContext.FunctionIdList">
+        <member name="P:XCLCMS.Data.BLL.Strategy.SysRole.SysRoleContext.FunctionIdList">
             <summary>
             角色所对应的功能id列表
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.BLL.Strategy.SysDic.SysRoleFunction">
+        <member name="T:XCLCMS.Data.BLL.Strategy.SysRole.SysRoleFunction">
             <summary>
-            保存字典库中的角色功能信息
+            保存角色功能信息
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.Strategy.SysDic.SysRoleFunction.#ctor">
+        <member name="M:XCLCMS.Data.BLL.Strategy.SysRole.SysRoleFunction.#ctor">
             <summary>
             构造函数
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.Strategy.SysDic.SysRoleFunction.DoWork``1(``0)">
+        <member name="M:XCLCMS.Data.BLL.Strategy.SysRole.SysRoleFunction.DoWork``1(``0)">
             <summary>
             执行策略
             </summary>
@@ -473,6 +473,67 @@
             <param name="startTime">开始时间</param>
             <param name="endTime">结束时间</param>
         </member>
+        <member name="T:XCLCMS.Data.BLL.SysRole">
+            <summary>
+            角色表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysRole.Add(XCLCMS.Data.Model.SysRole)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysRole.Update(XCLCMS.Data.Model.SysRole)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysRole.GetModel(System.Int64)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysRole.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysRole.GetModelList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysRole.DataTableToList(System.Data.DataTable)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysRole.GetListByUserID(System.Int64)">
+            <summary>
+            获取指定userid的角色
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysRole.IsExistCode(System.String)">
+            <summary>
+            判断功能标识是否存在
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysRole.GetLayerListBySysRoleID(System.Int64)">
+            <summary>
+            获取当前SysRoleID所属的层级list
+            如:根目录/子目录/文件
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysRole.DelChild(XCLCMS.Data.Model.SysRole)">
+            <summary>
+            删除指定SysRoleId下面的子节点
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysRole.GetChildListByID(System.Int64)">
+            <summary>
+            根据SysRoleID查询其子项
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.BLL.SysRoleFunction">
             <summary>
             角色功能关系表
@@ -653,41 +714,6 @@
             递归获取指定code下的所有列表
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.BLL.View.v_SysDic_Roles">
-            <summary>
-            v_SysDic_Roles
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.BLL.View.v_SysDic_Roles.GetModel(System.Int64)">
-            <summary>
-            得到一个对象实体
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.BLL.View.v_SysDic_Roles.GetList(System.String)">
-            <summary>
-            获得数据列表
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.BLL.View.v_SysDic_Roles.GetModelList(System.String)">
-            <summary>
-            获得数据列表
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.BLL.View.v_SysDic_Roles.DataTableToList(System.Data.DataTable)">
-            <summary>
-            获得数据列表
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.BLL.View.v_SysDic_Roles.GetAllList">
-            <summary>
-            获得数据列表
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.BLL.View.v_SysDic_Roles.GetListByUserID(System.Int64)">
-            <summary>
-            获取指定userid的角色
-            </summary>
-        </member>
         <member name="T:XCLCMS.Data.BLL.View.v_SysDic_SysMenu">
             <summary>
             v_SysDic_SysMenu
@@ -748,12 +774,37 @@
             获得数据列表
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.View.v_SysFunction.GetPageList(System.Int32,System.Int32,System.Int32@,System.String,System.String,System.String,System.String)">
+        <member name="M:XCLCMS.Data.BLL.View.v_SysFunction.GetList(System.Int64)">
             <summary>
-            分页数据列表
+            根据parentID返回列表
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.View.v_SysFunction.GetList(System.Int64)">
+        <member name="T:XCLCMS.Data.BLL.View.v_SysRole">
+            <summary>
+            v_SysRole
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.View.v_SysRole.GetModel(System.Int64)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.View.v_SysRole.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.View.v_SysRole.GetModelList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.View.v_SysRole.DataTableToList(System.Data.DataTable)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.View.v_SysRole.GetList(System.Int64)">
             <summary>
             根据parentID返回列表
             </summary>

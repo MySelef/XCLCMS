@@ -318,6 +318,11 @@
             系统功能 SysFunction
             </summary>
         </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.IDTypeEnum.RLE">
+            <summary>
+            角色 Role
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.CommonHelper.SysDicConst">
             <summary>
             字典库常量code值
@@ -331,11 +336,6 @@
         <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysMenu">
             <summary>
             系统菜单
-            </summary>
-        </member>
-        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysRoles">
-            <summary>
-            角色组织架构
             </summary>
         </member>
     </members>

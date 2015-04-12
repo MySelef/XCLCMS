@@ -1,4 +1,4 @@
-﻿define(function () {
+﻿define(["kindeditorCN"], function () {
     /**
     * 文章
     */

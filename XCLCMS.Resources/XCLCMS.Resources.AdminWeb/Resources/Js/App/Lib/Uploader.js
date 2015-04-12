@@ -1,4 +1,4 @@
-﻿define(function () {
+﻿define(["pluploadCN"],function () {
     //文件上传
     var app = {};
     app.Add = {

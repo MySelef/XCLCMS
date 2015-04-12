@@ -1,4 +1,4 @@
-﻿define(function () {
+﻿define(["readmore"],function () {
     /*
     * 系统日志
     */

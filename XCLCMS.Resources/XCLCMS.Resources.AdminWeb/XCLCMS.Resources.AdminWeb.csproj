@@ -84,6 +84,7 @@
     <Content Include="Resources\Js\App\Lib\Home.js" />
     <Content Include="Resources\Js\App\Lib\Login.js" />
     <Content Include="Resources\Js\App\Lib\MainMaster.js" />
+    <Content Include="Resources\Js\App\Lib\Merchant.js" />
     <Content Include="Resources\Js\App\Lib\SysDic.js" />
     <Content Include="Resources\Js\App\Lib\SysFunction.js" />
     <Content Include="Resources\Js\App\Lib\SysLog.js" />

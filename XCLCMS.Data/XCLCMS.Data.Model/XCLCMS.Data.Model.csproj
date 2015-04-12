@@ -49,6 +49,7 @@
     <Compile Include="Custom\SysFunctionSimple.cs" />
     <Compile Include="Custom\SysRoleSimple.cs" />
     <Compile Include="GenerateID.cs" />
+    <Compile Include="Merchant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysDic.cs" />
     <Compile Include="SysFunction.cs" />

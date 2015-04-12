@@ -151,6 +151,7 @@
     <Compile Include="Controllers\Common\UploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
+    <Compile Include="Controllers\Merchant\MerchantController.cs" />
     <Compile Include="Controllers\SysDic\SysDicCommonController.cs" />
     <Compile Include="Controllers\SysDic\SysDicController.cs" />
     <Compile Include="Controllers\SysFunction\SysFunctionCommonController.cs" />
@@ -201,6 +202,8 @@
     </Content>
     <Content Include="Views\SysRole\SysRoleList.cshtml" />
     <Content Include="Views\SysRole\SysRoleAdd.cshtml" />
+    <Content Include="Views\Merchant\MerchantList.cshtml" />
+    <Content Include="Views\Merchant\MerchantAdd.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

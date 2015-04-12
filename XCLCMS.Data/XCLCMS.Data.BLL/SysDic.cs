@@ -115,12 +115,11 @@ namespace XCLCMS.Data.BLL
 
         /// <summary>
         /// 根据code查询其子项
-        /// （条件：Code、RecordState）
         /// </summary>
-        public List<XCLCMS.Data.Model.SysDic> GetChildListByCode(XCLCMS.Data.Model.SysDic model)
+        public List<XCLCMS.Data.Model.SysDic> GetChildListByCode(string code)
         {
             List<XCLCMS.Data.Model.SysDic> lst = null;
-            DataTable dt = dal.GetChildListByCode(model);
+            DataTable dt = dal.GetChildListByCode(code);
             if (null != dt && dt.Rows.Count > 0)
             {
                 lst = this.DataTableToList(dt);
@@ -130,12 +129,11 @@ namespace XCLCMS.Data.BLL
 
          /// <summary>
         /// 根据SysDicID查询其子项
-        /// （条件：SysDicID、RecordState）
         /// </summary>
-        public List<XCLCMS.Data.Model.SysDic> GetChildListByID(XCLCMS.Data.Model.SysDic model)
+        public List<XCLCMS.Data.Model.SysDic> GetChildListByID(long sysDicID)
         {
             List<XCLCMS.Data.Model.SysDic> lst = null;
-            DataTable dt = dal.GetChildListByID(model);
+            DataTable dt = dal.GetChildListByID(sysDicID);
             if (null != dt && dt.Rows.Count > 0)
             {
                 lst = this.DataTableToList(dt);
@@ -164,11 +162,7 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.SysDic> GetSysMenuList()
         {
-            return this.GetChildListByCode(new Data.Model.SysDic()
-            {
-                Code = XCLCMS.Data.CommonHelper.SysDicConst.SysMenu,
-                RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()
-            });
+            return this.GetChildListByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.SysMenu.ToString());
         }
         #endregion  ExtensionMethod
     }

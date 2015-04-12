@@ -69,6 +69,11 @@
             页面操作类型HandleType的参数值
             </summary>
         </member>
+        <member name="T:XCLCMS.Lib.Common.Comm">
+            <summary>
+            公共操作
+            </summary>
+        </member>
         <member name="F:XCLCMS.Lib.Common.Comm.SettingCacheName">
             <summary>
             站点配置信息缓存
@@ -402,6 +407,26 @@
             角色信息-角色信息删除
              </summary>
         </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAdd">
+             <summary>
+            商户管理-商户信息添加
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantEdit">
+             <summary>
+            商户管理-商户信息修改
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantDel">
+             <summary>
+            商户管理-商户信息删除
+             </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView">
+             <summary>
+            商户管理-商户信息查看
+             </summary>
+        </member>
         <member name="T:XCLCMS.Lib.Permission.PerHelper">
             <summary>
             权限帮助类
@@ -447,7 +472,7 @@
             model形式的配置
             </summary>
         </member>
-        <member name="T:XCLCMS.Lib.SysWebSetting.SettingModel">
+        <member name="T:XCLCMS.Lib.Entity.SettingModel">
             <summary>
             站点配置model
             </summary>

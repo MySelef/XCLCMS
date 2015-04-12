@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XCLCMS.View.AdminViewModel.UserInfo
+namespace XCLCMS.View.AdminViewModel.Merchant
 {
-    public class UserInfoListVM
+    public class MerchantListVM
     {
         /// <summary>
         /// 查询控件
@@ -19,9 +19,8 @@ namespace XCLCMS.View.AdminViewModel.UserInfo
         public XCLCMS.View.AdminViewModel.UserControl.XCLPagerVM PagerModel { get; set; }
 
         /// <summary>
-        /// 用户信息列表
+        /// 商户信息列表
         /// </summary>
-        public List<XCLCMS.Data.Model.UserInfo> UserInfoList { get; set; }
-
+        public List<XCLCMS.Data.Model.Merchant> MerchantList { get; set; }
     }
 }

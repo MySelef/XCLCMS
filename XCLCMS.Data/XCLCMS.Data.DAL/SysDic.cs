@@ -180,27 +180,20 @@ namespace XCLCMS.Data.DAL
 
         /// <summary>
         /// 根据code查询其子项
-        /// （条件：Code、RecordState）
         /// </summary>
-        public DataTable GetChildListByCode(XCLCMS.Data.Model.SysDic model)
+        public DataTable GetChildListByCode(string code)
         {
             StringBuilder strSql =new StringBuilder();
             strSql.Append(@"SELECT
                                         b.*
                                         FROM dbo.SysDic AS a
                                         INNER JOIN dbo.SysDic AS b ON a.Code=@Code AND a.SysDicID=b.ParentID
-                                        where 1=1 
+                                        where b.RecordState='N'
                                         ");
 
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
-            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, model.Code);
-
-            if (!string.IsNullOrEmpty(model.RecordState))
-            {
-                dbCommand.CommandText += " and b.RecordState=@RecordState";
-                db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
-            }
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
 
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
@@ -208,26 +201,19 @@ namespace XCLCMS.Data.DAL
 
         /// <summary>
         /// 根据SysDicID查询其子项
-        /// （条件：SysDicID、RecordState）
         /// </summary>
-        public DataTable GetChildListByID(XCLCMS.Data.Model.SysDic model)
+        public DataTable GetChildListByID(long sysDicID)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT
                                         a.*
                                         FROM dbo.SysDic AS a
-                                        where ParentID=@ParentID
+                                        where ParentID=@ParentID and RecordState='N'
                                         ");
 
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
-            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.SysDicID);
-
-            if (!string.IsNullOrEmpty(model.RecordState))
-            {
-                dbCommand.CommandText+=" and RecordState=@RecordState";
-                db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
-            }
+            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, sysDicID);
 
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;

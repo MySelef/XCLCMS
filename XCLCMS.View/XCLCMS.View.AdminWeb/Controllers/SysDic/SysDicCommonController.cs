@@ -78,11 +78,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                 }
             }
 
-            List<XCLCMS.Data.Model.SysDic> lst = bll.GetChildListByID(new XCLCMS.Data.Model.SysDic()
-            {
-                SysDicID = parentID,
-                RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()
-            });
+            List<XCLCMS.Data.Model.SysDic> lst = bll.GetChildListByID(parentID);
             if (null != lst && lst.Count > 0)
             {
                 if (lst.Exists(k => string.Equals(k.DicName, sysDicName, StringComparison.OrdinalIgnoreCase)))

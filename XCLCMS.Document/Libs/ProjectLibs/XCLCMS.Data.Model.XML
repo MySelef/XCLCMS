@@ -294,6 +294,136 @@
             备注
             </summary>
         </member>
+        <member name="T:XCLCMS.Data.Model.Merchant">
+            <summary>
+            商户表
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.MerchantID">
+            <summary>
+            商户ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.MerchantName">
+            <summary>
+            商户名
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.MerchantType">
+            <summary>
+            商户类型(参见字典库)
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.Domain">
+            <summary>
+            绑定的域名
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.LogoURL">
+            <summary>
+            logo图片地址
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.ContactName">
+            <summary>
+            联系人
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.Tel">
+            <summary>
+            手机
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.Landline">
+            <summary>
+            固话
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.Email">
+            <summary>
+            电子邮件
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.QQ">
+            <summary>
+            qq
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.PassType">
+            <summary>
+            证件类型（参见字典库）
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.PassNumber">
+            <summary>
+            证件号
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.OtherContact">
+            <summary>
+            其它联系信息
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.MerchantRemark">
+            <summary>
+            商户备注信息
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.RegisterTime">
+            <summary>
+            注册时间
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.MerchantState">
+            <summary>
+            商户状态(MerchantStateEnum)
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.RecordState">
+            <summary>
+            记录状态(RecordStateEnum)
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.CreaterID">
+            <summary>
+            创建者ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.CreaterName">
+            <summary>
+            创建者名
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.UpdateTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.UpdaterID">
+            <summary>
+            更新人ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Merchant.UpdaterName">
+            <summary>
+            更新人名
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.Model.SysDic">
             <summary>
             系统字典表
@@ -746,12 +876,17 @@
         </member>
         <member name="P:XCLCMS.Data.Model.UserInfo.UserInfoID">
             <summary>
-            
+            UserInfoID
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.UserInfo.UserName">
             <summary>
             用户名
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.UserInfo.FK_MerchantID">
+            <summary>
+            所属商户号
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.UserInfo.RealName">

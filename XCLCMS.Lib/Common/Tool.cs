@@ -21,10 +21,7 @@ namespace XCLCMS.Lib.Common
             {
                 str.Append("<option value=''>--请选择--</option>");
             }
-            var lst = new XCLCMS.Data.BLL.SysDic().GetChildListByCode(new Data.Model.SysDic() { 
-                Code=code,
-                RecordState=XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()
-            });
+            var lst = new XCLCMS.Data.BLL.SysDic().GetChildListByCode(code);
             if (null != lst && lst.Count > 0)
             {
                 lst.ForEach(m =>

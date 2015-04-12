@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XCLCMS.Lib.SysWebSetting
+namespace XCLCMS.Lib.Entity
 {
     /// <summary>
     /// 站点配置model

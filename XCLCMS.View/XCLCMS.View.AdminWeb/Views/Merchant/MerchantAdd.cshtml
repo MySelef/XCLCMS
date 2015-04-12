@@ -1,0 +1,139 @@
+﻿@{
+    Layout = "~/Views/MasterView/Main.cshtml";
+}
+@model XCLCMS.View.AdminViewModel.Merchant.MerchantAddVM
+
+<form id="mainForm" action="@Model.FormAction">
+    <input type="hidden" id="MerchantID" name="MerchantID" value="@Model.Merchant.MerchantID" />
+
+    <div class="XCLAccordion" style="border-top: none;">
+        <div class="XCLAccordionHeader">1、基本信息：</div>
+        <div class="XCLAccordionBody">
+            <table class="XCLTableEdit">
+                <tr>
+                    <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>商户名：</td>
+                    <td style="width: 25%">
+                        <input type="text" id="txtMerchantName" name="txtMerchantName" value="@Model.Merchant.MerchantName" />
+                    </td>
+                    <td class="XCLTitle" style="width: 10%">商户类型：</td>
+                    <td style="width: 25%">
+                        <select>
+
+                        </select>
+                    </td>
+                    <td class="XCLTitle" style="width: 10%">域名：</td>
+                    <td style="width: 25%">
+                        <input type="text" id="txtDomain" name="txtDomain" value="@Model.Merchant.Domain" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle">联系人：</td>
+                    <td>
+                        <input type="text" id="txtContactName" name="txtContactName" value="@Model.Merchant.ContactName" />
+                    </td>
+                    <td class="XCLTitle">手机：</td>
+                    <td>
+                        <input type="text" id="txtTel" name="txtTel" value="@Model.Merchant.Tel" />
+                    </td>
+                    <td class="XCLTitle">固话：</td>
+                    <td>
+                        <input type="text" id="txtLandline" name="txtLandline" value="@Model.Merchant.Landline" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">电子邮件：</td>
+                    <td>
+                        <input type="text" id="txtEmail" name="txtEmail" value="@Model.Merchant.Email" />
+                    </td>
+                    <td class="XCLTitle">QQ：</td>
+                    <td>
+                        <input type="text" id="txtQQ" name="txtQQ" value="@Model.Merchant.QQ" />
+                    </td>
+                    <td class="XCLTitle" rowspan="2">证件信息：</td>
+                    <td>
+                        证件类型：<select></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">地址：</td>
+                    <td>
+                        <input type="text" id="txtAddress" name="txtAddress" value="@Model.Merchant.Address" />
+                    </td>
+                    <td class="XCLTitle">其它联系信息：</td>
+                    <td>
+                        <input type="text" id="txtOtherContact" name="txtOtherContact" value="@Model.Merchant.OtherContact" />
+                    </td>
+                    <td>
+                        证件号：<input type="text" id="txtPassNumber" name="txtPassNumber" value="@Model.Merchant.PassNumber" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">商户备注信息：</td>
+                    <td><input type="text" id="txtMerchantRemark" name="txtMerchantRemark" value="@Model.Merchant.MerchantRemark" /></td>
+                    <td class="XCLTitle">注册时间：</td>
+                    <td>
+                        <input type="text" id="txtRegisterTime" name="txtRegisterTime" value="@string.Format("{0:yyyy-MM-dd}",Model.Merchant.RegisterTime)" />
+                    </td>
+                    <td class="XCLTitle">商户状态：</td>
+                    <td>
+                        <input type="text" id="txtMerchantState" name="txtMerchantState" value="@Model.Merchant.MerchantState" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">备注：</td>
+                    <td>
+                        <input type="text" id="txtRemark" name="txtRemark" value="@Model.Merchant.Remark" />
+                    </td>
+                    <td class="XCLTitle">记录状态：</td>
+                    <td>
+                        @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                        {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString())
+                        }
+                        else {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.Merchant.RecordState.ToString())
+                        }
+                    </td>
+                    <td class="XCLTitle"></td>
+                    <td></td>
+                </tr>
+
+            </table>
+        </div>
+
+
+        <div class="XCLHandBar">
+            <a href="@XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+            @switch ((XCLCMS.Lib.Common.Comm.HandleType)ViewBag.CurrentHandleType)
+            {
+                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存商户</a>
+                    break;
+                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
+                    if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantDel))
+                    {
+                        <a id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删 除</a>
+                    }
+                    break;
+            }
+        </div>
+    </div>
+</form>
+
+<div class="XCLPanel" style="margin-top: 5px;">
+    <div class="XCLPanelHeader XCLBolder">
+        操作说明：
+    </div>
+    <div class="XCLPanelBody">
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(["Lib/Merchant"], function (merchant) {
+        $(function () {
+            merchant.MerchantAdd.Init();
+        });
+    });
+</script>

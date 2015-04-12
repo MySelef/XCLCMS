@@ -110,6 +110,41 @@
             </summary>
             <param name="IDType">类型</param>
         </member>
+        <member name="T:XCLCMS.Data.DAL.Merchant">
+            <summary>
+            数据访问类:Merchant
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.Merchant.Add(XCLCMS.Data.Model.Merchant)">
+            <summary>
+             增加一条数据
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.Merchant.Update(XCLCMS.Data.Model.Merchant)">
+            <summary>
+             更新一条数据
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.Merchant.GetModel(System.Int64)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.Merchant.DataRowToModel(System.Data.DataRow)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.Merchant.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.Merchant.GetPageList(System.Int32,System.Int32,System.Int32@,System.String,System.String,System.String,System.String)">
+            <summary>
+            分页数据列表
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.DAL.SysDic">
             <summary>
             数据访问类:SysDic
@@ -145,16 +180,14 @@
             删除指定sysDicID下面的子节点
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.SysDic.GetChildListByCode(XCLCMS.Data.Model.SysDic)">
+        <member name="M:XCLCMS.Data.DAL.SysDic.GetChildListByCode(System.String)">
             <summary>
             根据code查询其子项
-            （条件：Code、RecordState）
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.DAL.SysDic.GetChildListByID(XCLCMS.Data.Model.SysDic)">
+        <member name="M:XCLCMS.Data.DAL.SysDic.GetChildListByID(System.Int64)">
             <summary>
             根据SysDicID查询其子项
-            （条件：SysDicID、RecordState）
             </summary>
         </member>
         <member name="M:XCLCMS.Data.DAL.SysDic.Add(XCLCMS.Data.Model.SysDic)">

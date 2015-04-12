@@ -17,7 +17,6 @@ namespace XCLCMS.Lib.Permission
         /// </summary>
         public enum FunctionEnum
         {
-
             /// <summary>
             ///用户管理-用户角色分配
             /// </summary>
@@ -143,6 +142,26 @@ namespace XCLCMS.Lib.Permission
             /// </summary>
             [Description("角色信息-角色信息删除")]
             SysFun_SysRoleDel = 400164,
+            /// <summary>
+            ///商户管理-商户信息添加
+            /// </summary>
+            [Description("商户管理-商户信息添加")]
+            SysFun_UserAdmin_MerchantAdd = 400167,
+            /// <summary>
+            ///商户管理-商户信息修改
+            /// </summary>
+            [Description("商户管理-商户信息修改")]
+            SysFun_UserAdmin_MerchantEdit = 400168,
+            /// <summary>
+            ///商户管理-商户信息删除
+            /// </summary>
+            [Description("商户管理-商户信息删除")]
+            SysFun_UserAdmin_MerchantDel = 400169,
+            /// <summary>
+            ///商户管理-商户信息查看
+            /// </summary>
+            [Description("商户管理-商户信息查看")]
+            SysFun_UserAdmin_MerchantView = 400170,
 
 
         }

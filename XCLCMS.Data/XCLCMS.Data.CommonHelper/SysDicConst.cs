@@ -12,12 +12,26 @@ namespace XCLCMS.Data.CommonHelper
     public class SysDicConst
     {
         /// <summary>
-        /// 根节点
+        /// 字典库唯一标识常量枚举
         /// </summary>
-        public static readonly string Root = "Root";
-        /// <summary>
-        /// 系统菜单
-        /// </summary>
-        public static readonly string SysMenu = "SysMenu";
+        public enum SysDicCodeEnum
+        {
+            /// <summary>
+            /// 根节点
+            /// </summary>
+            Root,
+            /// <summary>
+            /// 系统菜单
+            /// </summary>
+            SysMenu,
+            /// <summary>
+            /// 商户类型
+            /// </summary>
+            MerchantType,
+            /// <summary>
+            /// 证件类型
+            /// </summary>
+            PassType
+        }
     }
 }

@@ -54,6 +54,10 @@ namespace XCLCMS.Data.DAL
                 {
                     model.UserName = row["UserName"].ToString();
                 }
+                if (row["FK_MerchantID"] != null && row["FK_MerchantID"].ToString() != "")
+                {
+                    model.FK_MerchantID = long.Parse(row["FK_MerchantID"].ToString());
+                }
                 if (row["RealName"] != null)
                 {
                     model.RealName = row["RealName"].ToString();
@@ -157,8 +161,7 @@ namespace XCLCMS.Data.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select UserInfoID,UserName,RealName,NickName,Pwd,Age,SexType,Birthday,Tel,QQ,Email,OtherContact,AccessType,AccessToken,UserState,Remark,RoleName,RoleMaxWeight,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
-            strSql.Append(" FROM UserInfo ");
+            strSql.Append("select * FROM UserInfo ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -217,6 +220,7 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("sp_UserInfo_ADD");
             db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, model.UserInfoID);
             db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, model.UserName);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
             db.AddInParameter(dbCommand, "RealName", DbType.String, model.RealName);
             db.AddInParameter(dbCommand, "NickName", DbType.String, model.NickName);
             db.AddInParameter(dbCommand, "Pwd", DbType.AnsiString, model.Pwd);
@@ -265,6 +269,7 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("sp_UserInfo_Update");
             db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, model.UserInfoID);
             db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, model.UserName);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
             db.AddInParameter(dbCommand, "RealName", DbType.String, model.RealName);
             db.AddInParameter(dbCommand, "NickName", DbType.String, model.NickName);
             db.AddInParameter(dbCommand, "Pwd", DbType.AnsiString, model.Pwd);

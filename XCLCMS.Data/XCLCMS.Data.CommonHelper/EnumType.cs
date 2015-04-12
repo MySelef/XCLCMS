@@ -329,6 +329,25 @@ namespace XCLCMS.Data.CommonHelper
         }
         #endregion
 
+        #region 商户
+        /// <summary>
+        /// 商户状态
+        /// </summary>
+        public enum MerchantStateEnum
+        {
+            /// <summary>
+            /// 有效 Yes
+            /// </summary>
+            [Description("有效")]
+            Y,
+            /// <summary>
+            /// 无效 No
+            /// </summary>
+            [Description("无效")]
+            N
+        }
+        #endregion
+
         #region ID生成
         /// <summary>
         /// ID生成类型
@@ -359,7 +378,12 @@ namespace XCLCMS.Data.CommonHelper
             /// 角色 Role
             /// </summary>
             [Description("角色")]
-            RLE
+            RLE,
+            /// <summary>
+            /// 商户 Merchant
+            /// </summary>
+            [Description("商户")]
+            MER
         }
         #endregion
 

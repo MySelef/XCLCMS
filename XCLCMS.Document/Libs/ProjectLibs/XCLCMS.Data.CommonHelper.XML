@@ -293,6 +293,21 @@
             纯代码 Code
             </summary>
         </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum">
+            <summary>
+            商户状态
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum.Y">
+            <summary>
+            有效 Yes
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum.N">
+            <summary>
+            无效 No
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.CommonHelper.EnumType.IDTypeEnum">
             <summary>
             ID生成类型
@@ -323,19 +338,39 @@
             角色 Role
             </summary>
         </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.IDTypeEnum.MER">
+            <summary>
+            商户 Merchant
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.CommonHelper.SysDicConst">
             <summary>
             字典库常量code值
             </summary>
         </member>
-        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.Root">
+        <member name="T:XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum">
+            <summary>
+            字典库唯一标识常量枚举
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.Root">
             <summary>
             根节点
             </summary>
         </member>
-        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysMenu">
+        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.SysMenu">
             <summary>
             系统菜单
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.MerchantType">
+            <summary>
+            商户类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.PassType">
+            <summary>
+            证件类型
             </summary>
         </member>
     </members>

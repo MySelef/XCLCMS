@@ -2,33 +2,32 @@
 namespace XCLCMS.Data.Model
 {
     /// <summary>
-    /// 用户信息表
+    /// 商户表
     /// </summary>
     [Serializable]
-    public partial class UserInfo
+    public partial class Merchant
     {
-        public UserInfo()
+        public Merchant()
         { }
         #region Model
-        private long _userinfoid;
-        private string _username;
-        private long _fk_merchantid;
-        private string _realname;
-        private string _nickname;
-        private string _pwd;
-        private int _age;
-        private string _sextype;
-        private DateTime? _birthday;
+        private long _merchantid;
+        private string _merchantname;
+        private string _merchanttype;
+        private string _domain;
+        private string _logourl;
+        private string _contactname;
         private string _tel;
-        private string _qq;
+        private string _landline;
         private string _email;
+        private string _qq;
+        private string _passtype;
+        private string _passnumber;
+        private string _address;
         private string _othercontact;
-        private string _accesstype;
-        private string _accesstoken;
-        private string _userstate;
+        private string _merchantremark;
+        private DateTime? _registertime;
+        private string _merchantstate;
         private string _remark;
-        private string _rolename;
-        private int? _rolemaxweight;
         private string _recordstate;
         private DateTime _createtime;
         private long _createrid;
@@ -37,79 +36,55 @@ namespace XCLCMS.Data.Model
         private long _updaterid;
         private string _updatername;
         /// <summary>
-        /// UserInfoID
+        /// 商户ID
         /// </summary>
-        public long UserInfoID
+        public long MerchantID
         {
-            set { _userinfoid = value; }
-            get { return _userinfoid; }
+            set { _merchantid = value; }
+            get { return _merchantid; }
         }
         /// <summary>
-        /// 用户名
+        /// 商户名
         /// </summary>
-        public string UserName
+        public string MerchantName
         {
-            set { _username = value; }
-            get { return _username; }
+            set { _merchantname = value; }
+            get { return _merchantname; }
         }
         /// <summary>
-        /// 所属商户号
+        /// 商户类型(参见字典库)
         /// </summary>
-        public long FK_MerchantID
+        public string MerchantType
         {
-            set { _fk_merchantid = value; }
-            get { return _fk_merchantid; }
+            set { _merchanttype = value; }
+            get { return _merchanttype; }
         }
         /// <summary>
-        /// 真实姓名
+        /// 绑定的域名
         /// </summary>
-        public string RealName
+        public string Domain
         {
-            set { _realname = value; }
-            get { return _realname; }
+            set { _domain = value; }
+            get { return _domain; }
         }
         /// <summary>
-        /// 昵称
+        /// logo图片地址
         /// </summary>
-        public string NickName
+        public string LogoURL
         {
-            set { _nickname = value; }
-            get { return _nickname; }
+            set { _logourl = value; }
+            get { return _logourl; }
         }
         /// <summary>
-        /// 密码
+        /// 联系人
         /// </summary>
-        public string Pwd
+        public string ContactName
         {
-            set { _pwd = value; }
-            get { return _pwd; }
+            set { _contactname = value; }
+            get { return _contactname; }
         }
         /// <summary>
-        /// 年龄
-        /// </summary>
-        public int Age
-        {
-            set { _age = value; }
-            get { return _age; }
-        }
-        /// <summary>
-        /// 性别(UserSexTypeEnum)
-        /// </summary>
-        public string SexType
-        {
-            set { _sextype = value; }
-            get { return _sextype; }
-        }
-        /// <summary>
-        /// 出生日期
-        /// </summary>
-        public DateTime? Birthday
-        {
-            set { _birthday = value; }
-            get { return _birthday; }
-        }
-        /// <summary>
-        /// 手机号
+        /// 手机
         /// </summary>
         public string Tel
         {
@@ -117,12 +92,12 @@ namespace XCLCMS.Data.Model
             get { return _tel; }
         }
         /// <summary>
-        /// QQ
+        /// 固话
         /// </summary>
-        public string QQ
+        public string Landline
         {
-            set { _qq = value; }
-            get { return _qq; }
+            set { _landline = value; }
+            get { return _landline; }
         }
         /// <summary>
         /// 电子邮件
@@ -133,7 +108,39 @@ namespace XCLCMS.Data.Model
             get { return _email; }
         }
         /// <summary>
-        /// 其实联系方式
+        /// qq
+        /// </summary>
+        public string QQ
+        {
+            set { _qq = value; }
+            get { return _qq; }
+        }
+        /// <summary>
+        /// 证件类型（参见字典库）
+        /// </summary>
+        public string PassType
+        {
+            set { _passtype = value; }
+            get { return _passtype; }
+        }
+        /// <summary>
+        /// 证件号
+        /// </summary>
+        public string PassNumber
+        {
+            set { _passnumber = value; }
+            get { return _passnumber; }
+        }
+        /// <summary>
+        /// 地址
+        /// </summary>
+        public string Address
+        {
+            set { _address = value; }
+            get { return _address; }
+        }
+        /// <summary>
+        /// 其它联系信息
         /// </summary>
         public string OtherContact
         {
@@ -141,28 +148,28 @@ namespace XCLCMS.Data.Model
             get { return _othercontact; }
         }
         /// <summary>
-        /// 访问方式
+        /// 商户备注信息
         /// </summary>
-        public string AccessType
+        public string MerchantRemark
         {
-            set { _accesstype = value; }
-            get { return _accesstype; }
+            set { _merchantremark = value; }
+            get { return _merchantremark; }
         }
         /// <summary>
-        /// 访问token
+        /// 注册时间
         /// </summary>
-        public string AccessToken
+        public DateTime? RegisterTime
         {
-            set { _accesstoken = value; }
-            get { return _accesstoken; }
+            set { _registertime = value; }
+            get { return _registertime; }
         }
         /// <summary>
-        /// 用户状态(UserStateEnum)
+        /// 商户状态(MerchantStateEnum)
         /// </summary>
-        public string UserState
+        public string MerchantState
         {
-            set { _userstate = value; }
-            get { return _userstate; }
+            set { _merchantstate = value; }
+            get { return _merchantstate; }
         }
         /// <summary>
         /// 备注
@@ -171,22 +178,6 @@ namespace XCLCMS.Data.Model
         {
             set { _remark = value; }
             get { return _remark; }
-        }
-        /// <summary>
-        /// 角色名(逗号分隔)
-        /// </summary>
-        public string RoleName
-        {
-            set { _rolename = value; }
-            get { return _rolename; }
-        }
-        /// <summary>
-        /// 角色最大权重
-        /// </summary>
-        public int? RoleMaxWeight
-        {
-            set { _rolemaxweight = value; }
-            get { return _rolemaxweight; }
         }
         /// <summary>
         /// 记录状态(RecordStateEnum)

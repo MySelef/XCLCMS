@@ -56,10 +56,7 @@
                     <div title="@m.DicName" xcl-sysdicid="@m.SysDicID" xcl-sysdiccode="@m.Code" style="padding:10px" data-options="@(m.SysDicID==mainViewModel.CurrentParentMenuID?"selected:true":"")">
                         <div>
                             @{
-                                    var childMenu = bll.GetChildListByID(new XCLCMS.Data.Model.SysDic() { 
-                                        SysDicID=m.SysDicID,
-                                        RecordState=XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()
-                                    });
+                                    var childMenu = bll.GetChildListByID(m.SysDicID);
                                     if(null!=childMenu && childMenu.Count>0)
                                     {
                                         childMenu=childMenu.Where(ch=>ch.FK_FunctionID==null || XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,(XCLCMS.Lib.Permission.Function.FunctionEnum)ch.FK_FunctionID)).ToList();

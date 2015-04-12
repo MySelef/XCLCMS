@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace XCLCMS.Lib.Common
 {
+    /// <summary>
+    /// 公共操作
+    /// </summary>
     public class Comm
     {
         #region 页面操作

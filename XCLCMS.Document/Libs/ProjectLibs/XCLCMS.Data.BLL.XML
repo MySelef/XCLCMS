@@ -115,6 +115,11 @@
             分页列表
             </summary>
         </member>
+        <member name="M:XCLCMS.Data.BLL.Merchant.GetMerchantTypeDic">
+            <summary>
+            获取商户类型
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.BLL.Strategy.BaseContext">
             <summary>
             上下文基类
@@ -400,6 +405,11 @@
         <member name="M:XCLCMS.Data.BLL.SysDic.GetSysMenuList">
             <summary>
             获取后台系统菜单
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysDic.GetPassTypeDic">
+            <summary>
+            获取证件类型
             </summary>
         </member>
         <member name="T:XCLCMS.Data.BLL.SysFunction">

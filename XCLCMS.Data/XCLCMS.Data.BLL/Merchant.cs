@@ -86,6 +86,25 @@ namespace XCLCMS.Data.BLL
         {
             return dal.GetPageList(pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
         }
+
+        /// <summary>
+        /// 获取商户类型
+        /// </summary>
+        public Dictionary<string, string> GetMerchantTypeDic()
+        {
+            Dictionary<string, string> merchantTypeDic = null;
+            XCLCMS.Data.BLL.SysDic dicBLL = new XCLCMS.Data.BLL.SysDic();
+            var merchantTypeList = dicBLL.GetChildListByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.MerchantType.ToString());
+            if (null != merchantTypeList && merchantTypeList.Count > 0)
+            {
+                merchantTypeDic = new Dictionary<string, string>();
+                merchantTypeList.ForEach(k =>
+                {
+                    merchantTypeDic.Add(k.DicName, k.DicValue);
+                });
+            }
+            return merchantTypeDic;
+        }
         #endregion  ExtensionMethod
     }
 }

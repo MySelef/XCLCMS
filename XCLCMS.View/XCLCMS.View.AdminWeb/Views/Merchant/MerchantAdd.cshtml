@@ -17,8 +17,8 @@
                     </td>
                     <td class="XCLTitle" style="width: 10%">商户类型：</td>
                     <td style="width: 25%">
-                        <select>
-
+                        <select id="selMerchantType" name="selMerchantType">
+                            @Html.Raw(Model.MerchantTypeOptions)
                         </select>
                     </td>
                     <td class="XCLTitle" style="width: 10%">域名：</td>
@@ -52,7 +52,10 @@
                     </td>
                     <td class="XCLTitle" rowspan="2">证件信息：</td>
                     <td>
-                        证件类型：<select></select>
+                        证件类型：
+                        <select id="selPassType" name="selPassType">
+                            @Html.Raw(Model.PassTypeOptions)
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -60,30 +63,32 @@
                     <td>
                         <input type="text" id="txtAddress" name="txtAddress" value="@Model.Merchant.Address" />
                     </td>
-                    <td class="XCLTitle">其它联系信息：</td>
+                    <td class="XCLTitle">注册时间：</td>
                     <td>
-                        <input type="text" id="txtOtherContact" name="txtOtherContact" value="@Model.Merchant.OtherContact" />
+                        <input type="text" id="txtRegisterTime" name="txtRegisterTime" value="@string.Format("{0:yyyy-MM-dd}",Model.Merchant.RegisterTime)" />
                     </td>
                     <td>
                         证件号：<input type="text" id="txtPassNumber" name="txtPassNumber" value="@Model.Merchant.PassNumber" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="XCLTitle">商户备注信息：</td>
-                    <td><input type="text" id="txtMerchantRemark" name="txtMerchantRemark" value="@Model.Merchant.MerchantRemark" /></td>
-                    <td class="XCLTitle">注册时间：</td>
+                    <td class="XCLTitle">其它联系信息：</td>
                     <td>
-                        <input type="text" id="txtRegisterTime" name="txtRegisterTime" value="@string.Format("{0:yyyy-MM-dd}",Model.Merchant.RegisterTime)" />
+                        <textarea id="txtOtherContact" name="txtOtherContact" value="@Model.Merchant.OtherContact"></textarea>
+                    </td>
+                    <td class="XCLTitle">商户备注信息：</td>
+                    <td>
+                        <textarea id="txtMerchantRemark" name="txtMerchantRemark" value="@Model.Merchant.MerchantRemark"></textarea>
                     </td>
                     <td class="XCLTitle">商户状态：</td>
                     <td>
-                        <input type="text" id="txtMerchantState" name="txtMerchantState" value="@Model.Merchant.MerchantState" />
+                        <select id="selMerchantState" name="selMerchantState">@Html.Raw(Model.MerchantStateOptions)</select>
                     </td>
                 </tr>
                 <tr>
                     <td class="XCLTitle">备注：</td>
                     <td>
-                        <input type="text" id="txtRemark" name="txtRemark" value="@Model.Merchant.Remark" />
+                        <textarea id="txtRemark" name="txtRemark" value="@Model.Merchant.Remark"></textarea>
                     </td>
                     <td class="XCLTitle">记录状态：</td>
                     <td>

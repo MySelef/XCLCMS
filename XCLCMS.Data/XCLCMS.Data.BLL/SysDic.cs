@@ -164,6 +164,24 @@ namespace XCLCMS.Data.BLL
         {
             return this.GetChildListByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.SysMenu.ToString());
         }
+
+        /// <summary>
+        /// 获取证件类型
+        /// </summary>
+        public Dictionary<string, string> GetPassTypeDic()
+        {
+            Dictionary<string, string> passTypeDic = null;
+            var passTypeList = this.GetChildListByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.PassType.ToString());
+            if (null != passTypeList && passTypeList.Count > 0)
+            {
+                passTypeDic = new Dictionary<string, string>();
+                passTypeList.ForEach(k =>
+                {
+                    passTypeDic.Add(k.DicName, k.DicValue);
+                });
+            }
+            return passTypeDic;
+        }
         #endregion  ExtensionMethod
     }
 }

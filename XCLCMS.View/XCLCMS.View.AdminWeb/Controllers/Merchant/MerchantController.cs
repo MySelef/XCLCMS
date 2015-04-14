@@ -74,18 +74,41 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         {
             long merchantId = XCLNetTools.StringHander.FormHelper.GetLong("merchantId");
 
+            XCLCMS.Data.BLL.SysDic dicBLL=new Data.BLL.SysDic();
             XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
             XCLCMS.View.AdminViewModel.Merchant.MerchantAddVM viewModel = new AdminViewModel.Merchant.MerchantAddVM();
             viewModel.Merchant = new XCLCMS.Data.Model.Merchant();
+
+            var merchantTypeDic = merchantBLL.GetMerchantTypeDic();
+            var passTypeDic = dicBLL.GetPassTypeDic();
 
             switch (base.CurrentHandleType)
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
                     viewModel.Merchant = new Data.Model.Merchant();
+                    viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                        IsNeedPleaseSelect=true
+                    });
+                    viewModel.PassTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(passTypeDic, new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                        IsNeedPleaseSelect=true
+                    });
+                    viewModel.MerchantStateOptions=XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum));
                     viewModel.FormAction = Url.Action("AddSubmit", "Merchant");
                     break;
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     viewModel.Merchant = merchantBLL.GetModel(merchantId);
+                    viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                        DefaultValue=viewModel.Merchant.MerchantType,
+                        IsNeedPleaseSelect=true
+                    });
+                    viewModel.PassTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(passTypeDic, new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity()
+                    {
+                        DefaultValue=viewModel.Merchant.PassType,
+                        IsNeedPleaseSelect = true
+                    });
+                    viewModel.MerchantStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                        DefaultValue=viewModel.Merchant.MerchantState
+                    });
                     viewModel.FormAction = Url.Action("UpdateSubmit", "Merchant");
                     break;
             }
@@ -101,23 +124,22 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             XCLCMS.View.AdminViewModel.Merchant.MerchantAddVM viewModel = new AdminViewModel.Merchant.MerchantAddVM();
             viewModel.Merchant = new Data.Model.Merchant();
             viewModel.Merchant.Address = (fm["txtAddress"] ?? "").Trim();
-            viewModel.Merchant.ContactName = "";
-            viewModel.Merchant.Domain = "";
-            viewModel.Merchant.Email = "";
-            viewModel.Merchant.Landline = "";
-            viewModel.Merchant.LogoURL = "";
-            viewModel.Merchant.MerchantName = "";
-            viewModel.Merchant.MerchantRemark = "";
-            viewModel.Merchant.MerchantState = "";
-            viewModel.Merchant.MerchantType = "";
-            viewModel.Merchant.OtherContact = "";
-            viewModel.Merchant.PassNumber = "";
-            viewModel.Merchant.PassType = "";
-            viewModel.Merchant.QQ = "";
-            viewModel.Merchant.RecordState = "";
-            viewModel.Merchant.RegisterTime = null;
-            viewModel.Merchant.Remark = "";
-            viewModel.Merchant.Tel = "";
+            viewModel.Merchant.ContactName = (fm["txtContactName"] ?? "").Trim();
+            viewModel.Merchant.Domain = (fm["txtDomain"] ?? "").Trim();
+            viewModel.Merchant.Email = (fm["txtEmail"] ?? "").Trim();
+            viewModel.Merchant.Landline = (fm["txtLandline"] ?? "").Trim();
+            viewModel.Merchant.LogoURL = (fm["txtLogoURL"] ?? "").Trim();
+            viewModel.Merchant.MerchantName = (fm["txtMerchantName"] ?? "").Trim();
+            viewModel.Merchant.MerchantRemark = (fm["txtMerchantRemark"] ?? "").Trim();
+            viewModel.Merchant.MerchantState = (fm["selMerchantState"] ?? "").Trim();
+            viewModel.Merchant.MerchantType = (fm["selMerchantType"] ?? "").Trim();
+            viewModel.Merchant.OtherContact = (fm["txtOtherContact"] ?? "").Trim();
+            viewModel.Merchant.PassNumber = (fm["txtPassNumber"] ?? "").Trim();
+            viewModel.Merchant.PassType = (fm["selPassType"] ?? "").Trim();
+            viewModel.Merchant.QQ = (fm["txtQQ"] ?? "").Trim();
+            viewModel.Merchant.RegisterTime = XCLNetTools.StringHander.Common.GetDateTimeNullable((fm["txtRegisterTime"] ?? "").Trim());
+            viewModel.Merchant.Remark = (fm["txtRemark"] ?? "").Trim();
+            viewModel.Merchant.Tel = (fm["txtTel"] ?? "").Trim();
             return viewModel;
         }
 

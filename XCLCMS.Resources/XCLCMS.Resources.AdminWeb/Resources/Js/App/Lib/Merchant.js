@@ -87,6 +87,10 @@
             $("#btnDel").on("click", function () {
                 return _this.Del();
             });
+            $("#txtRegisterTime").on("click", function () {
+                WdatePicker({ dateFmt: 'yyyy-MM-dd' });
+                return false;
+            });
         },
         /**
          * 表单验证初始化

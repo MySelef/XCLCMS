@@ -40,15 +40,15 @@ namespace XCLCMS.Lib.SysWebSetting
         /// <summary>
         /// model形式的配置
         /// </summary>
-        public static XCLCMS.Lib.Entity.SettingModel SettingModel
+        public static XCLCMS.Lib.Model.SettingModel SettingModel
         {
             get
             {
-                XCLCMS.Lib.Entity.SettingModel model = null;
+                XCLCMS.Lib.Model.SettingModel model = null;
                 if (XCLNetTools.Cache.CacheClass.Exists(Lib.Common.Comm.SettingCacheName))
                 {
                     //先从缓存读取
-                    model = XCLNetTools.Cache.CacheClass.GetCache(Lib.Common.Comm.SettingCacheName) as XCLCMS.Lib.Entity.SettingModel;
+                    model = XCLNetTools.Cache.CacheClass.GetCache(Lib.Common.Comm.SettingCacheName) as XCLCMS.Lib.Model.SettingModel;
                 }
                 if (null == model)
                 {
@@ -56,7 +56,7 @@ namespace XCLCMS.Lib.SysWebSetting
                     var all = Setting.AllSettings;
                     if (null != all && all.Count > 0)
                     {
-                        model = new XCLCMS.Lib.Entity.SettingModel();
+                        model = new XCLCMS.Lib.Model.SettingModel();
                         var props = model.GetType().GetProperties();
                         if (null != props && props.Length > 0)
                         {

@@ -472,7 +472,7 @@
             model形式的配置
             </summary>
         </member>
-        <member name="T:XCLCMS.Lib.Entity.SettingModel">
+        <member name="T:XCLCMS.Lib.Model.SettingModel">
             <summary>
             站点配置model
             </summary>

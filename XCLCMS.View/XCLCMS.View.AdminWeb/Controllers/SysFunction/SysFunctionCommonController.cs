@@ -96,7 +96,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
         /// </summary>
         public string GetAllJsonForEasyUITree()
         {
-            List<XCLNetTools.EasyUI.Model.Tree.TreeItem> tree = new List<XCLNetTools.EasyUI.Model.Tree.TreeItem>();
+            List<XCLNetTools.EasyUI.Model.TreeItem> tree = new List<XCLNetTools.EasyUI.Model.TreeItem>();
             XCLCMS.Data.BLL.View.v_SysFunction bll = new Data.BLL.View.v_SysFunction();
             var allData = bll.GetModelList("");
             if (null != allData && allData.Count > 0)
@@ -104,21 +104,21 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
                 var root = allData.Where(k => k.ParentID == 0).FirstOrDefault();//根节点
                 if (null != root)
                 {
-                    tree.Add(new XCLNetTools.EasyUI.Model.Tree.TreeItem() { 
+                    tree.Add(new XCLNetTools.EasyUI.Model.TreeItem() { 
                         ID=root.SysFunctionID.ToString(),
                         State=root.IsLeaf==1?"open":"closed",
                         Text=root.FunctionName
                     });
 
-                    Action<XCLNetTools.EasyUI.Model.Tree.TreeItem> getChildAction = null;
-                    getChildAction = new Action<XCLNetTools.EasyUI.Model.Tree.TreeItem>((parentModel) =>
+                    Action<XCLNetTools.EasyUI.Model.TreeItem> getChildAction = null;
+                    getChildAction = new Action<XCLNetTools.EasyUI.Model.TreeItem>((parentModel) =>
                     {
                         var childs = allData.Where(k => k.ParentID ==Convert.ToInt64(parentModel.ID)).ToList();
                         if (null != childs && childs.Count > 0)
                         {
-                            parentModel.Children = new List<XCLNetTools.EasyUI.Model.Tree.TreeItem>();
+                            parentModel.Children = new List<XCLNetTools.EasyUI.Model.TreeItem>();
                             childs.ForEach(m => {
-                                var treeItem = new XCLNetTools.EasyUI.Model.Tree.TreeItem() {
+                                var treeItem = new XCLNetTools.EasyUI.Model.TreeItem() {
                                     ID = m.SysFunctionID.ToString(),
                                     State =m.IsLeaf==1?"open":"closed",
                                     Text = m.FunctionName

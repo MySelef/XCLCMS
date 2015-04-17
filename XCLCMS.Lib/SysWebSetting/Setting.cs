@@ -14,19 +14,19 @@ namespace XCLCMS.Lib.SysWebSetting
         /// <summary>
         /// 所有配置
         /// </summary>
-        private static List<XCLNetTools.PublicClass.KeyValue> AllSettings
+        private static List<XCLNetTools.Entity.KeyValue> AllSettings
         {
             get
             {
-                List<XCLNetTools.PublicClass.KeyValue> lst = null;
+                List<XCLNetTools.Entity.KeyValue> lst = null;
                 XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
                 var settingList = bll.GetModelList(string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()));
                 if (null != settingList && settingList.Count > 0)
                 {
-                    lst = new List<XCLNetTools.PublicClass.KeyValue>();
+                    lst = new List<XCLNetTools.Entity.KeyValue>();
                     settingList.ForEach(m =>
                     {
-                        lst.Add(new XCLNetTools.PublicClass.KeyValue()
+                        lst.Add(new XCLNetTools.Entity.KeyValue()
                         {
                             Key = m.KeyName,
                             Value = m.KeyValue
@@ -61,7 +61,7 @@ namespace XCLCMS.Lib.SysWebSetting
                         if (null != props && props.Length > 0)
                         {
                             string propsName = string.Empty;
-                            XCLNetTools.PublicClass.KeyValue tempKeyModel = null;
+                            XCLNetTools.Entity.KeyValue tempKeyModel = null;
                             for (int i = 0; i < props.Length; i++)
                             {
                                 propsName = props[i].Name;

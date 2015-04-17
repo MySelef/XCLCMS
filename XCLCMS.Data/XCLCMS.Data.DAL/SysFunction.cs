@@ -210,7 +210,7 @@ namespace XCLCMS.Data.DAL
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetStoredProcCommand("sp_CheckUserHasAnyFunction");
             db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, userId);
-            db.AddInParameter(dbCommand, "FunctionListXML", DbType.Xml, XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(functionList));
+            db.AddInParameter(dbCommand, "FunctionListXML", DbType.Xml, XCLNetTools.Serialize.XML.Serializer<List<long>>(functionList));
             db.AddOutParameter(dbCommand, "IsPass", DbType.Byte, 1);
             db.ExecuteNonQuery(dbCommand);
             return XCLNetTools.StringHander.Common.GetInt(dbCommand.Parameters["@IsPass"].Value) == 1;

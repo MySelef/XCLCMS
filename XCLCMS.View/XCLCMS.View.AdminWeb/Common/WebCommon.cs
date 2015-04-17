@@ -13,11 +13,11 @@ namespace XCLCMS.View.AdminWeb.Common
     public class WebCommon
     {
         #region 静态资源相关
-        private static XCLNetTools.PublicClass.StaticResourceConfig _staticResourceConfig = null;
+        private static XCLNetTools.Entity.StaticResourceConfig _staticResourceConfig = null;
         /// <summary>
         /// 静态资源
         /// </summary>
-        public static XCLNetTools.PublicClass.StaticResourceConfig StaticResourceConfig
+        public static XCLNetTools.Entity.StaticResourceConfig StaticResourceConfig
         {
             get 
             {

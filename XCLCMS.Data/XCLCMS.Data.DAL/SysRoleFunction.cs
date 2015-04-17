@@ -37,7 +37,7 @@ namespace XCLCMS.Data.DAL
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetStoredProcCommand("sp_SysRoleFunction_ADD");
             db.AddInParameter(dbCommand, "FK_SysRoleID", DbType.Int64, model.FK_SysRoleID);
-            db.AddInParameter(dbCommand, "FK_SysFunctionIDXML", DbType.Xml, XCLNetTools.XML.SerializeHelper.Serializer<List<long>>(functionIdList));
+            db.AddInParameter(dbCommand, "FK_SysFunctionIDXML", DbType.Xml, XCLNetTools.Serialize.XML.Serializer<List<long>>(functionIdList));
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);

@@ -1,129 +1,82 @@
 /**
- * 欢迎使用本程序，您可以任意修改、复制、分享本程序所有代码，只需要保留本注释即可，谢谢！
+ * ******************************************************************************************
+ * 1：基本信息：
+ * 开源协议：https://raw.githubusercontent.com/xucongli1989/XCLJsTool/master/LICENSE
  * 项目地址：https://github.com/xucongli1989/XCLJsTool
- * By:XCL @ 2014.11 in Shanghai China
- * 使用说明：
+ * 贡献者：xucongli1989（https://github.com/xucongli1989）
+ * 电子邮件：80213876@qq.com
+ * Create By: XCL @ 2014.11 in Shanghai. China
+ ********************************************************************************************
+ * 2：使用说明：
  * 本程序部分功能依赖于jquery插件，本项目中使用的是jquery-1.11.1
+ * 当前版本：v1.1
+ * 更新时间：2015-04-01
  */
 
-(function (window) {
+(function (window){
     "use strict";
 
-    //页面加载时的全局变量
-    var _xj = window.xj,
-    _XCLJsTool = window.XCLJsTool,
-    doc = window.document,
-    $ = window.jQuery;
-
-    var lib = {
-        /**
-         * 版本信息
-         */
-        Version: "V1.0,By:XCL @ 2014.11 in Shanghai China,project url:https://github.com/xucongli1989/XCLJsTool",
-        /**
-         * 公共model
-         */
-        Models: {},
-        /**
-         * 公共方法
-         */
-        Common: {},
-        /**
-         * Dom操作
-         */
-        Dom: {},
-        /**
-         * 正则相关
-         */
-        Regex: {},
-        /**
-         * 字符串操作相关
-         */
-        String: {},
-        /**
-         * Cookie操作相关
-         */
-        Cookie: {},
-        /**
-         * Http操作相关
-         */
-        Http: {},
-        /**
-         * Ajax操作相关
-         */
-        Ajax: {},
-        /**
-         * 数据处理操作相关
-         */
-        Data: {},
-        /**
-         * 日期时间处理相关
-         */
-        Date: {},
-        /**
-         * 事件相关
-         */
-        Events: {},
-        /**
-         * 浏览器相关
-         */
-        Browser: {},
-        /**
-         * 移动端相关
-         */
-        Mobile: {},
-        /**
-         * 数学计算相关
-         */
-        Math: {},
-        /**
-         * 随机数相关
-         */
-        Random: {},
-        /**
-         * 数组相关
-         */
-        Array: {},
-        /**
-         * Url处理相关
-         */
-        URL: {},
-        /**
-         * JSON处理相关
-         */
-        Json: {}
-    };
+    /**
+     * XCLJsTool的局部变量
+     */
+    var lib = {};
 
     /**
-     * 释放全局变量"xj/XCLJsTool"的控制权
-     * @param {bool} deep ,若为true，则也释放全局变量"XCLJsTool"的控制权；若为false，则仅释放全局变量"xj"的控制权
-     * @returns {object} 原始类的变量
+     * 版本信息
      */
-    lib.noConflict = function (deep) {
-        if (window.xj === lib) {
-            window.xj = _xj;
+    lib.Version = "V1.1,By:XCL @ 2014.11 in Shanghai China,project url:https://github.com/xucongli1989/XCLJsTool";
+
+    
+    //页面加载时的全局变量
+    var _XJ = window.XJ, _XCLJsTool=window.XCLJsTool, doc = window.document, jq = null;
+    var isRequirejs=(typeof define==="function" && define.amd);
+    var userAgent=navigator.userAgent;
+    var appVersion=navigator.appVersion;
+
+    if (isRequirejs) {
+        require(["jquery"],function(jquery){
+            jq = jquery;
+            return;
+        });
+    }else{
+        jq=window.jQuery;
+    }
+
+
+   /**
+    * 释放全局变量"XJ/XCLJsTool"的控制权
+    * @param {bool} deep ,若为true，则也释放全局变量"XCLJsTool"的控制权；若为false，则仅释放全局变量"XJ"的控制权
+    * @returns {object} 原始类的变量
+    */
+    lib.noConflict=function(deep){
+       if (window.XJ === lib) {
+           window.XJ = _XJ;
         }
-        if (deep && window.XCLJsTool === lib) {
-            window.XCLJsTool = _XCLJsTool;
+        if(deep && window.XCLJsTool===lib){
+                window.XCLJsTool=_XCLJsTool;
         }
         return lib;
     };
 
-
-    lib.Models = {
+    /**
+     * 公共model
+     */
+    lib.Models={
         /**
          * key value 模型
          * @param {string} key
          * @param {object} value
          */
-        Dictionary: function (key, value) {
-            this.key = key;
-            this.value = value;
+        Dictionary:function(key,value){
+            this.key=key;
+            this.value=value;
         }
     };
+    
 
-
-
+    /**
+     * 公共方法
+     */    
     lib.Common = {
         /**
          * 向document输出字符串
@@ -137,8 +90,8 @@
          * @param {type} namespace 名称，如"A.B.C"
          * @returns {object}
          */
-        CreateNamespace: function (namespace) {
-            var obj = this, tokens = namespace.split("."), token;
+        CreateNamespace:function(namespace){
+            var obj = window, tokens = namespace.split("."), token;
             while (tokens.length > 0) {
                 token = tokens.shift();
                 if (typeof obj[token] === "undefined") {
@@ -149,21 +102,24 @@
             return obj;
         }
     };
-
+    
+    /**
+     * Dom操作
+     */    
     lib.Dom = {
         /**
          * 根据id，获取或设置指定元素的value
          * @param {string} id 元素的id值
          * @value {string} value 要设置的value值（可选）
          */
-        Val: function (id, value) {
+        Val: function (id,value) {
             var obj = doc.getElementById(id);
-            if (arguments.length === 1) {
+            if(arguments.length===1){
                 if (obj) {
                     return obj.value;
                 }
                 return null;
-            } else if (arguments.length === 2) {
+            }else if(arguments.length===2){
                 if (obj) {
                     obj.value = val;
                 }
@@ -171,29 +127,55 @@
         },
         /**
          * 根据指定value，选中select对象中option
-         * @param {object} $selectObj
-         * @param {string} val
+         * @param {element object or element's id string} selectObj html元素对象或元素的id
+         * @param {string or array} val 要选中的值或值数组
          */
-        SelectOption: function ($selectObj, val) {
-            $selectObj.find("option[value='" + val + "']").prop({ "selected": true });
+        SelectOption: function (selectObj, val) {
+            var obj = null, valArr = [];
+            if (lib.Data.IsString(selectObj)) {
+                obj = doc.getElementById(selectObj);
+            } else {
+                obj = selectObj;
+            }
+            if (lib.Data.IsArray(val)) {
+                valArr = val;
+            } else {
+                valArr.push(val);
+            }
+            if (!obj || !obj.options || !valArr) {
+                return false;
+            }
+            var ops = obj.options;
+            for (var i = 0; i < ops.length; i++) {
+                if (lib.Array.InArray(ops[i].value,valArr)>-1) {
+                    ops[i].selected = true;
+                }
+            }
         },
         /**
-         * 向form追加hidden，key为name和id
-         * @param {object} $container 被追加的容器（默认为form对象）
+         * 向指定容器中追加hidden，key为name和id
          * @param {jsonArray} data json数组，如[{key:key1,value:value1},{key:key2,value:value2}]
+         * @param {object} containerObj 被追加的容器（默认为form对象）
          */
-        AddHiddens: function ($container, data) {
-            $container = $container || $("form");
-            if (data && data.length > 0) {
-                var html = "";
-                for (var i = 0; i < data.length; i++) {
-                    html += (lib.String.Format("<input type='hidden' name='{0}' id='{0}' value='{1}' />", data[i].key, data[i].value));
+        AddHiddens:function(data,containerObj){
+            containerObj=containerObj || doc.getElementsByTagName("form")[0];
+            if(data && data.length>0){
+                var html="";
+                for(var i=0;i<data.length;i++){
+                    html+=(lib.String.Format("<input type='hidden' name='{0}' id='{0}' value='{1}' />",data[i].key,data[i].value));
                 }
-                $container.append(html);
+                var div=doc.createElement("div");
+                div.style.display="none";
+                div.innerHTML=html;
+                containerObj.appendChild(div);
             }
         }
     };
-
+    
+    /**
+     * 正则相关
+     */    
+    lib.Regex={};
     /**
      * 正则常量
      */
@@ -262,52 +244,52 @@
          * 负浮点数
          * @type RegExp
          */
-        NegativeFloat: /^(-(((0-9)+.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*.[0-9]+)|([0-9]*[1-9][0-9]*)))$/,
+        NegativeFloat:/^(-(((0-9)+.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*.[0-9]+)|([0-9]*[1-9][0-9]*)))$/,
         /**
          * 英文字母
          * @type RegExp
          */
-        English: /^[A-Za-z]+$/,
+        English:/^[A-Za-z]+$/,
         /**
          * 英文大写字母
          * @type RegExp
          */
-        EnglishUpper: /^[A-Z]+$/,
+        EnglishUpper:/^[A-Z]+$/,
         /**
          * 英文小写字母
          * @type RegExp
          */
-        EnglishLower: /^[a-z]+$/,
+        EnglishLower:/^[a-z]+$/,
         /**
          * 英文字母+数字组合
          * @type RegExp
          */
-        EnglishOrNumber: /^[A-Za-z0-9]+$/,
+        EnglishOrNumber:/^[A-Za-z0-9]+$/,
         /**
          * 英文字母+数字+下划线组合
          * @type RegExp
          */
-        EnglishOrNumberOrUnderline: /^w+$/,
+        EnglishOrNumberOrUnderline:/^w+$/,
         /**
          * html
          * @type RegExp
          */
-        Html: /<(.*)>.*<\/\1>|<(.*) \/>/,
+        Html:/<(.*)>.*<\/\1>|<(.*) \/>/,
         /**
          * 国内电话号码
          * @type RegExp
          */
-        ChinaTel: /\d{3}-\d{8}|\d{4}-\d{7}/,
+        ChinaTel:/\d{3}-\d{8}|\d{4}-\d{7}/,
         /**
          * 国内邮编
          * @type RegExp
          */
-        ChinaPostCode: /[1-9]\d{5}(?!\d)/,
+        ChinaPostCode:/[1-9]\d{5}(?!\d)/,
         /**
          * 国内身份证号
          * @type RegExp
          */
-        ChinaIDCard: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+        ChinaIDCard:/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
     };
     /**
      * 正则验证
@@ -323,7 +305,11 @@
             return regex.test(str);
         }
     };
-
+    
+    
+    /**
+     * 字符串操作相关
+     */    
     lib.String = {
         /**
          * 去左右空格
@@ -371,58 +357,62 @@
          * @param {Boolean} isIgnoreCase 是否忽略大小写
          * @returns {Boolean}
          */
-        Contains: function (sourceStr, str, isIgnoreCase) {
-            if (sourceStr) {
-                if (isIgnoreCase) {
-                    sourceStr = sourceStr.toUpperCase();
-                    str = str.toUpperCase();
+        Contains:function(sourceStr, str,isIgnoreCase){
+            if(sourceStr){
+                if(isIgnoreCase){
+                    sourceStr=sourceStr.toUpperCase();
+                    str=str.toUpperCase();
                 }
-                return sourceStr.indexOf(str) >= 0;
-            } else {
+                return sourceStr.indexOf(str)>=0;
+            }else{
                 return false;
             }
         },
         /**
          * StringBuilder
          */
-        Builder: function () {
-            this._arr = [];
+        Builder:function(){
+            this._arr=[];
         }
     };
     /**
      * 追加字符
      */
-    lib.String.Builder.prototype.Append = function (str) {
+    lib.String.Builder.prototype.Append=function(str){
         this._arr.push(str);
     };
     /**
      * 带格式追加字符
      */
-    lib.String.Builder.prototype.AppendFormat = function () {
-        this._arr.push(lib.String.Format.apply(null, arguments));
+    lib.String.Builder.prototype.AppendFormat=function(){
+        this._arr.push(lib.String.Format.apply(null,arguments));
     };
     /**
      * 返回StringBuilder的字符串
      * @returns {string}
      */
-    lib.String.Builder.prototype.ToString = function () {
+    lib.String.Builder.prototype.ToString=function(){
         return this._arr.join("");
     };
     /**
      * 清除StringBuilder
      */
-    lib.String.Builder.prototype.Clear = function () {
-        this._arr = [];
+    lib.String.Builder.prototype.Clear=function(){
+        this._arr=[];
     };
     /**
      * 返回StringBuilder的字符串的长度
      * @returns {int}
      */
-    lib.String.Builder.prototype.Length = function () {
+    lib.String.Builder.prototype.Length=function(){
         return this.ToString().length;
     };
+    
 
 
+    /**
+     * Cookie操作相关
+     */    
     lib.Cookie = {
         /**
          * 根据cookie名，获取cookie
@@ -465,6 +455,9 @@
         }
     };
 
+    /**
+     * Http操作相关
+     */    
     lib.Http = {
         /**
          * 获取HttpRequest对象
@@ -501,6 +494,9 @@
         }
     };
 
+    /**
+     * Ajax操作相关
+     */    
     lib.Ajax = {
         /**
          * 获取同步请求的数据
@@ -509,8 +505,8 @@
          */
         GetSyncData: function (ajaxOption) {
             var result = "";
-            ajaxOption.async = false;
-            ajaxOption.success = function (data) {
+            ajaxOption.async=false;
+            ajaxOption.success=function(data){
                 result = data;
             };
             $.ajax(ajaxOption);
@@ -518,6 +514,9 @@
         }
     };
 
+    /**
+     * 数据处理操作相关
+     */    
     lib.Data = {
         /**
          * 将值转为int型，若失败，则返回0
@@ -583,7 +582,7 @@
          * @returns {Boolean}
          */
         IsNumber: function (val) {
-            return (typeof (val) === 'number' || typeof (val) === 'string') && val !== '' && !isNaN(val);
+            return (typeof(val) === 'number' || typeof(val) === 'string') && val !== '' && !isNaN(val);
         },
         /**
          * 判断指定值是否为一个对象
@@ -615,14 +614,14 @@
          * @returns {Boolean}
          */
         IsNullOrEmpty: function (val) {
-            return null === val || val === "";
+            return null===val || val==="";
         },
         /**
          * 判断指定值为null，或为空字符串，或为空白字符串
          * @param {string} val
          * @returns {Boolean}
          */
-        IsNullOrWhiteSpace: function (val) {
+        IsNullOrWhiteSpace:function (val){
             return this.IsNullOrEmpty(lib.String.Trim(val));
         },
         /**
@@ -631,7 +630,7 @@
          * @returns {obj|Boolean}
          */
         IsElement: function (val) {
-            return typeof HTMLElement === "object" ? o instanceof HTMLElement : o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName === "string";
+             return typeof HTMLElement === "object" ? o instanceof HTMLElement :  o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string";
         },
         /**
          * 判断指定值是否为function
@@ -679,7 +678,7 @@
          * @returns {Boolean}
          */
         IsNull: function (val) {
-            return val === null;
+            return val===null;
         },
         /**
          * 判断指定值是否为undefined
@@ -687,26 +686,29 @@
          * @returns {Boolean}
          */
         IsUndefined: function (val) {
-            return val === undefined || typeof (val) === "undefined";
+            return val===undefined || typeof(val)==="undefined";
         },
         /**
          * 指定值是否全部为大写
          * @param {string} val
          * @returns {Boolean}
          */
-        IsUpper: function (val) {
-            return val.toUpperCase() === val;
+        IsUpper:function (val){
+            return val.toUpperCase()===val;
         },
         /**
          * 指定值是否全部为小写
          * @param {string} val
          * @returns {Boolean}
          */
-        IsLower: function (val) {
-            return val.toLowerCase() === val;
+        IsLower:function(val){
+            return val.toLowerCase()===val;
         }
     };
 
+    /**
+     * 日期时间处理相关
+     */    
     lib.Date = {
         /**
          * 是否为int（私有）
@@ -749,6 +751,7 @@
         LZ: function (x) { return (x < 0 || x > 9 ? "" : "0") + x },
         /**
          * 格式化date
+         * 参考于：Matt Kruse's Blog （Date Functions: http://javascripttoolbox.com/lib/date/）
          * @param {Date} date
          * @param {string} format
          * @returns {String}
@@ -816,7 +819,7 @@
          * @returns {Number}
          */
         GetDateFromFormat: function (val, format) {
-            var _this = this;
+            var _this=this;
             val = val + "";
             format = format + "";
             var iVal = 0;
@@ -996,13 +999,14 @@
          * @param {string} format
          * @returns {Date}
          */
-        ParseDate: function (date, format) {
-            var result = null;
+        ParseDate: function (date, format) { 
+            var result=null;
             if (format) {
-                result = this.GetDateFromFormat(date, format);
+                result= this.GetDateFromFormat(date, format);
             }
-            else {
-                var timestamp = Date.parse(date), minutesOffset = 0, match;
+            else
+            {
+                var timestamp =Date.parse(date), minutesOffset = 0, match;
                 if (isNaN(timestamp) && (match = /^(\d{4}|[+\-]\d{6})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{3,}))?)?(?:(Z)|([+\-])(\d{2})(?::?(\d{2}))?))?/.exec(date))) {
                     if (match[8] !== 'Z') {
                         minutesOffset = +match[10] * 60 + (+match[11]);
@@ -1017,17 +1021,20 @@
                     timestamp = Date.UTC(+match[1], +match[2] - 1, +match[3], +match[4], +match[5] + minutesOffset, +match[6], +match[7].substr(0, 3));
                 }
 
-                result = timestamp;
+                result= timestamp;
             }
             return result ? new Date(result) : null;
         }
     };
-
-    lib.Events = {
+    
+    /**
+     * 事件相关
+     */    
+    lib.Events={
         /**
          * 阻止事件，默认类名（私有）
          */
-        _stopEventClassName: "XCLJsToolStopEvent",
+        _stopEventClassName:"XCLJsToolStopEvent",
         /**
          * 阻止指定事件
          * @param {object} $obj 被操作的元素
@@ -1035,122 +1042,130 @@
          * @param {string} className 绑定阻止事件时给元素$obj添加的类名，默认为"XCLJsToolStopEvent"
          * @returns {Boolean}
          */
-        StopEvent: function ($obj, eventName, className) {
-            var _this = this;
-            eventName = eventName || "click";
-            className = className || _this._stopEventClassName;
+        StopEvent:function($obj,eventName,className){
+            var _this=this;
+            eventName=eventName || "click";
+            className=className || _this._stopEventClassName;
             $obj.addClass(className);
-            $(doc).on(eventName, "." + className, function () {
+            $(doc).on(eventName,"."+className,function(){
                 return false;
             })
-            return false;
+            return  false;
         },
         /**
          * 移除阻止的事件
          * @param {object} $obj 被操作的元素
          * @param {string} className 移除的类名
          */
-        RemoveStopEvent: function ($obj, className) {
-            var _this = this;
-            className = className || _this._stopEventClassName;
+        RemoveStopEvent:function($obj,className){
+            var _this=this;
+            className=className || _this._stopEventClassName;
             $obj.removeClass(className);
         }
     };
 
-
-    lib.Browser = {
+    /**
+     * 浏览器相关
+     */
+    lib.Browser={
         /**
          * 判断是否为IE
          * @param {int} version（6，7，8，9） 当指定此参数时，返回判断指定的IE版本结果，否则，则返回是否为IE
          * @returns {bool}
          */
-        IsIE: function (version) {
-            var ie = (!-[1, ]);
-            if (!version) {
+        IsIE:function(version){
+            var ie=(!-[1,]);
+            if(!version){
                 return ie;
             }
-            var result = false;
-            switch (version) {
+            var result=false;
+            switch(version){
                 case 6:
-                    result = /msie 6/i.test(navigator.userAgent);
+                    result=/msie 6/i.test(userAgent);
                     break;
                 case 7:
-                    result = /msie 7/i.test(navigator.userAgent);
+                    result=/msie 7/i.test(userAgent);
                     break;
                 case 8:
-                    result = /msie 8/i.test(navigator.userAgent);
+                    result=/msie 8/i.test(userAgent);
                     break;
                 case 9:
-                    result = ie && navigator.appVersion.match(/9./i) == "9.";
+                    result=ie && appVersion.match(/9./i)=="9.";
                     break;
             }
             return result;
         },
-
+        
         /**
          * 判断是否为Firefox
          */
-        IsFirefox: function () {
-            return navigator.userAgent.indexOf("Firefox") >= 0;
+        IsFirefox:function(){
+            return userAgent.indexOf("Firefox")>=0;
         },
-
+        
         /**
          * 判断是否为Chrome
          */
-        IsChrome: function () {
-            return navigator.userAgent.indexOf("Chrome") >= 0;
+        IsChrome:function(){
+            return userAgent.indexOf("Chrome") >=0 ;
         }
     };
 
-    lib.Mobile = {
+    /**
+     * 移动端相关
+     */
+    lib.Mobile={
         /**
          * 判断是否为Android
          */
-        IsAndroid: function () {
-            return navigator.userAgent.match(/Android/i);
+        IsAndroid:function(){
+            return userAgent.match(/Android/i);
         },
         /**
          * 判断是否为BlackBerry
-         */
-        IsBlackBerry: function () {
-            return navigator.userAgent.match(/BlackBerry/i);
+         */        
+        IsBlackBerry: function() {
+            return userAgent.match(/BlackBerry/i);
         },
         /**
          * 判断是否为IOS
-         */
-        IsIOS: function () {
-            return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+         */        
+        IsIOS: function() {
+            return userAgent.match(/iPhone|iPad|iPod/i);
         },
         /**
          * 判断是否为Opera
-         */
-        IsOpera: function () {
-            return navigator.userAgent.match(/Opera Mini/i);
+         */        
+        IsOpera: function() {
+            return userAgent.match(/Opera Mini/i);
         },
         /**
          * 判断是否为IEMobile
-         */
-        IsIEMobile: function () {
-            return navigator.userAgent.match(/IEMobile/i);
+         */        
+        IsIEMobile: function() {
+            return userAgent.match(/IEMobile/i);
         },
         /**
          * 判断是否为移动端
-         */
-        IsMobile: function () {
+         */        
+        IsMobile: function() {
             return (this.IsAndroid() || this.IsBlackBerry() || this.IsIOS() || this.IsOpera() || this.IsWindows());
         }
     };
-
-    lib.Math = {
+    
+    /**
+     * 数学计算相关
+     */    
+    lib.Math={
         /**
          * 返回指定值中的最小值
          * @param {array} val 可以为一个数组，也可以为多个参数
          * @returns {Number}
          */
-        Min: function (val) {
-            if (lib.Data.IsArray(val)) {
-                return Math.min.apply(null, val);
-            } else {
+        Min:function(val){
+            if(lib.Data.IsArray(val)){
+                return Math.min.apply(null,val);
+            }else{
                 return Math.min(arguments);
             }
         },
@@ -1158,47 +1173,53 @@
          * 返回指定值中的最大值
          * @param {array} val 可以为一个数组，也可以为多个参数
          * @returns {Number}
-         */
-        Max: function (val) {
-            if (lib.Data.IsArray(val)) {
-                return Math.max.apply(null, val);
-            } else {
+         */        
+        Max:function(val){
+            if(lib.Data.IsArray(val)){
+                return Math.max.apply(null,val);
+            }else{
                 return Math.max(arguments);
             }
         }
     };
-
-    lib.Random = {
+    
+    /**
+     * 随机数相关
+     */    
+    lib.Random={
         /**
          * 生成指定范围内的随机数
          * @param {Number} min 最小值
          * @param {Number} max 最大值
          * @returns {Number}
          */
-        Range: function (min, max) {
-            return Math.random() * (max - min) + min;
+        Range:function(min,max){
+            return Math.random()*(max-min)+min;
         },
         /**
          * 生成guid（此guid可能会重复，如果是关键的地方，请勿使用）
          * @returns {String} 所生成的guid
          */
-        Guid: function () {
-            var S4 = function () {
-                return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        Guid:function(){
+            var S4=function() {
+                return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
             };
             var guid = (S4() + S4() + "-" + S4() + S4() + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
-            return guid;
+            return guid;  
         }
     };
-
-    lib.Array = {
+    
+    /**
+     * 数组相关
+     */    
+    lib.Array={
         /**
          * 合并多个数组为一个数组
          * @param {array} args 要合并的数组参数，如：arr1,arr2,arr3...
          * @returns {Array} 合并后的结果数组
          */
-        Concat: function (args) {
-            return [].concat.apply([], arguments);
+        Concat:function(args){
+            return [].concat.apply([],arguments);
         },
         /**
          * 将一个或多个数组合并为一个字符串
@@ -1206,20 +1227,42 @@
          * @param {array} args 要合并的数组参数(arr1,arr2,arr3...)
          * @returns {string} 合并后的字符串
          */
-        Join: function (separator, args) {
-            var source = [];
-            if (arguments.length > 2) {
-                for (var i = 1; i < arguments.length; i++) {
-                    source = source.concat(arguments[i]);
+        Join:function(separator,args){
+            var source=[];
+            if(arguments.length>2){
+                for(var i=1;i<arguments.length;i++){
+                    source=source.concat(arguments[i]);
                 }
-            } else {
-                source = arguments[1];
+            }else{
+                source=arguments[1];
             }
             return source.join(separator);
+        },
+        /**
+        * 判断指定val是否在数组array中
+        * @param {object} val 需要判断的值
+        * @param {Array} array 所在的数组
+        * @param {number} idx 从数组array的idx处开始判断，若未指定，则从整个数组array中判断
+        * @returns {number} val在array中的位置，若不在，则返回-1
+        */
+        InArray: function (val, array, idx) {
+            if (!array) return -1;
+            var arrLen = array.length;
+            idx = idx || 0;
+            idx = (idx < 0 || idx > array.length - 1) ? 0 : idx;
+            for (; idx < arrLen; idx++) {
+                if (array[idx] === val) {
+                    return idx;
+                }
+            }
+            return -1;
         }
     };
-
-    lib.URL = {
+    
+    /**
+     * Url处理相关
+     */    
+    lib.URL={
         /**
          * 向URL中添加新的参数
          * @param {string} url
@@ -1227,11 +1270,11 @@
          * @returns {String}
          */
         AddParam: function (url, params) {
-            var query = "";
-            if (params) {
-                query = $.param(params);
+            var query="";
+            if(params){
+                query=lib.Json.ToParams(params);
             }
-            if (query === "") {
+            if(query===""){
                 return url;
             }
             if (url.indexOf('?') > -1) {
@@ -1254,19 +1297,19 @@
             for (var i = 0; i < strUrl.length; i++) {
                 var curStr = strUrl[i].split('=');
                 if (curStr.length === 2) {
-                    var k = curStr[0];
-                    var v = curStr[1];
-                    if (lib.Json.HasKey(m, k)) {
+                    var k=curStr[0];
+                    var v=curStr[1];
+                    if(lib.Json.HasKey(m,k)){
                         //如果key已经存在，则该key值为数组类型，将值放入数组即可
-                        if (lib.Data.IsArray(m[k])) {
+                        if(lib.Data.IsArray(m[k])){
                             m[k].push(v);
-                        } else {
-                            var arr = [];
-                            arr.push(m[k], v);
-                            m[k] = arr;
+                        }else{
+                            var arr=[];
+                            arr.push(m[k],v);
+                            m[k]=arr;
                         }
-                    } else {
-                        m[k] = v;
+                    }else{
+                        m[k]=v;
                     }
                 }
             }
@@ -1274,6 +1317,9 @@
         }
     };
 
+    /**
+     * JSON处理相关
+     */
     lib.Json = {
         /**
          * 是否包含名key
@@ -1281,14 +1327,14 @@
          * @param {string} keyName
          * @returns {bool}
          */
-        HasKey: function (json, keyName) {
-            var r = false;
-            if (json) {
-                if (keyName in json) {
-                    r = true;
-                }
-            }
-            return r;
+        HasKey: function (json,keyName) {
+           var r=false;
+           if(json){
+               if(keyName in json){
+                   r=true;
+               }
+           }
+           return r;
         },
         /**
          * 是否包含值value
@@ -1296,20 +1342,47 @@
          * @param {string} keyValue
          * @returns {bool}
          */
-        HasValue: function (json, keyValue) {
-            var r = false;
-            if (json) {
-                for (var k in json) {
-                    if (json[k] === keyValue) {
-                        r = true;
+        HasValue: function (json,keyValue) {
+           var r=false;
+           if(json){
+               for(var k in json){
+                   if(json[k]===keyValue){
+                        r=true;
                         break;
-                    }
+                   }
+               }
+           }
+           return r;
+        },
+        /**
+         * json对象转成param形式的字符串，如{a:1,b:2,c:[3,4,5]}=>"a=1&b=2&c=3&c=4&c=5"
+         * @param {json} json 待转换的数据源
+         * @returns {string}
+         */
+        ToParams:function(json){
+            if(!json) return "";
+            var arr=[],temp="";
+            for(var m in json){
+                temp="";
+                if(lib.Data.IsArray(json[m])){
+                    temp=json[m].join("&"+m+"=");
+                }else{
+                    temp=json[m];
                 }
+                arr.push(m+"="+temp);
             }
-            return r;
+            return arr.join("&");
         }
     };
+    
+    if (isRequirejs) {
+        define("XCLJsTool", [], function () {
+            return lib;
+        });
+    }
 
-    window.XCLJsTool = window.xj = lib;
+    window.XCLJsTool = window.XJ = lib;
+    
+    return lib;
 
 })(window);

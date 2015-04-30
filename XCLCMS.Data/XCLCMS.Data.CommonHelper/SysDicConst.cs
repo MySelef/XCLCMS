@@ -31,7 +31,11 @@ namespace XCLCMS.Data.CommonHelper
             /// <summary>
             /// 证件类型
             /// </summary>
-            PassType
+            PassType,
+            /// <summary>
+            /// 文章类型
+            /// </summary>
+            ArticleType
         }
     }
 }

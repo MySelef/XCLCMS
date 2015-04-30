@@ -93,6 +93,14 @@ namespace XCLCMS.Data.BLL
         {
             return dal.GetPageList(pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
         }
+
+        /// <summary>
+        /// 获取文章类型
+        /// </summary>
+        public Dictionary<string, string> GetArticleTypeDic()
+        {
+            return new XCLCMS.Data.BLL.SysDic().GetDictionaryByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.ArticleType.ToString());
+        }
         #endregion  ExtensionMethod
     }
 }

@@ -63,10 +63,25 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             XCLCMS.Data.BLL.Article bll = new Data.BLL.Article();
             XCLCMS.View.AdminViewModel.Article.ArticleAddVM viewModel = new AdminViewModel.Article.ArticleAddVM();
 
+            var articleTypeDic = bll.GetArticleTypeDic();
+
             switch (base.CurrentHandleType)
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
                     viewModel.Article = new Data.Model.Article();
+                    viewModel.ArticleTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(articleTypeDic, new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                        IsNeedPleaseSelect=true
+                    });
+                    viewModel.ArticleStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                        IsNeedPleaseSelect=true
+                    });
+                    viewModel.ArticleContentTypeOptions=XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum),new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity(){
+                        IsNeedPleaseSelect=true
+                    });
+                    viewModel.URLOpenTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                        IsNeedPleaseSelect=true
+                    });
+                    viewModel.Article.IsCanComment = XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "Article");
                     break;
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:

@@ -34,25 +34,31 @@
                     </td>
                     <td class="XCLTitle">内容类型：</td>
                     <td>
-                        <select id="selArticleContentType" name="selArticleContentType"></select>
+                        <select id="selArticleContentType" name="selArticleContentType">
+                            @Html.Raw(Model.ArticleContentTypeOptions)
+                        </select>
                     </td>
                     <td class="XCLTitle">打开方式：</td>
                     <td>
-                        <select id="selURLOpenType" name="selURLOpenType"></select>
+                        <select id="selURLOpenType" name="selURLOpenType">
+                            @Html.Raw(Model.URLOpenTypeOptions)
+                        </select>
                     </td>
                 </tr>
                 <tr>
                     <td class="XCLTitle">分类：</td>
                     <td>
-                        <select id="selArticleType" name="selArticleType"></select>
+                        <select id="selArticleType" name="selArticleType">
+                            @Html.Raw(Model.ArticleTypeOptions)
+                        </select>
                     </td>
                     <td class="XCLTitle">关键字：</td>
                     <td>
-                        <input type="text" id="txtKeyWords" name="txtKeyWords" value="" />
+                        <input type="text" id="txtKeyWords" name="txtKeyWords" value="@Model.Article.KeyWords" />
                     </td>
                     <td class="XCLTitle">Tags：</td>
                     <td>
-                        <input type="text" id="txtTags" name="txtTags" value="" />
+                        <input type="text" id="txtTags" name="txtTags" value="@Model.Article.Tags" />
                     </td>
                 </tr>
                 <tr>
@@ -81,11 +87,11 @@
                     </td>
                     <td class="XCLTitle">发布时间：</td>
                     <td>
-                        <input type="text" id="txtPublishTime" name="txtPublishTime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'}); return false;" />
+                        <input type="text" id="txtPublishTime" name="txtPublishTime" value="@string.Format("{0:yyyy-MM-dd HH:mm}",Model.Article.PublishTime)" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'}); return false;" />
                     </td>
                     <td class="XCLTitle">唯一标识：</td>
                     <td>
-                        <input type="text" id="txtCode" name="txtCode" value="" />
+                        <input type="text" id="txtCode" name="txtCode" value="@Model.Article.Code" />
                     </td>
                 </tr>
                 <tr>
@@ -97,11 +103,10 @@
                 <tr>
                     <td class="XCLTitle">属性：</td>
                     <td colspan="5">
-                        <input type="checkbox" id="ckIsCanComment" name="ckIsCanComment" /><label for="ckIsCanComment">可以评论</label>
-                        <input type="checkbox" id="ckIsNeedVerify" name="ckIsNeedVerify" /><label for="ckIsNeedVerify">需要审核</label>
-                        <input type="checkbox" id="ckIsRecommend" name="ckIsRecommend" /><label for="ckIsRecommend">推荐</label>
-                        <input type="checkbox" id="ckIsEssence" name="ckIsEssence" /><label for="ckIsEssence">精华</label>
-                        <input type="checkbox" id="ckIsTop" name="ckIsTop" /><label for="ckIsTop">置顶</label>（<input type="text" id="txtBeginTop" name="txtBeginTop" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />~<input type="text" id="txtEndTop" name="txtEndTop" onclick="    WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />）
+                        <input type="checkbox" id="ckIsCanComment" name="ckIsCanComment" @Html.Raw(Model.Article.IsCanComment=="Y" ? " checked='checked' " : "") value="@XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString()" /><label for="ckIsCanComment">可以评论</label>
+                        <input type="checkbox" id="ckIsRecommend" name="ckIsRecommend"  @Html.Raw(Model.Article.IsRecommend=="Y" ? " checked='checked' " : "") value="@XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString()" /><label for="ckIsRecommend">推荐</label>
+                        <input type="checkbox" id="ckIsEssence" name="ckIsEssence"  @Html.Raw(Model.Article.IsEssence=="Y" ? " checked='checked' " : "") value="@XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString()" /><label for="ckIsEssence">精华</label>
+                        <input type="checkbox" id="ckIsTop" name="ckIsTop"  @Html.Raw(Model.Article.IsTop=="Y" ? " checked='checked' " : "") value="@XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString()" /><label for="ckIsTop">置顶</label>（<input type="text" id="txtBeginTop" name="txtBeginTop" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />~<input type="text" id="txtEndTop" name="txtEndTop" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />）
                     </td>
                 </tr>
                 <tr>
@@ -132,7 +137,7 @@
                 <tr>
                     <td class="XCLTitle">点评：</td>
                     <td colspan="5">
-                        <textarea id="txtComments" name="txtComments"></textarea>
+                        <textarea id="txtComments" name="txtComments">@Model.Article.Comments</textarea>
                     </td>
                 </tr>
                 <tr>
@@ -143,6 +148,9 @@
                 </tr>
 
                 <tr>
+                    <td class="XCLTitle" rowspan="3">
+                        评价点赞信息：
+                    </td>
                     <td class="XCLTitle">浏览数：</td>
                     <td>
                         <input type="text" id="txtViewCount" name="txtViewCount" value="@Model.Article.ViewCount"   class="easyui-numberbox"  style="height:25px;"/>
@@ -151,8 +159,11 @@
                     <td>
                         <input type="text" id="txtHotCount" name="txtHotCount" value="@Model.Article.HotCount"   class="easyui-numberbox"  style="height:25px;"/>
                     </td>
-                    <td class="XCLTitle"></td>
-                    <td></td>
+                    <td rowspan="3" align="center">
+                        <a class="easyui-linkbutton">我不想填写，让系统随机生成！</a>
+                        <br /><br />
+                        <span class="XCLNote">注：建议在添加新文章时，使用此功能！</span>
+                    </td>
                 </tr>
 
                 <tr>
@@ -164,16 +175,24 @@
                     <td>
                         <input type="text" id="txtMiddleCount" name="txtMiddleCount" value="@Model.Article.MiddleCount"   class="easyui-numberbox"  style="height:25px;"/>
                     </td>
+                </tr>
+
+                <tr>
                     <td class="XCLTitle">差评数：</td>
                     <td>
                         <input type="text" id="txtBadCount" name="txtBadCount" value="@Model.Article.BadCount"   class="easyui-numberbox"  style="height:25px;"/>
                     </td>
+                    <td class="XCLTitle"></td>
+                    <td></td>
                 </tr>
+
 
                 <tr>
                     <td class="XCLTitle">文章状态：</td>
                     <td>
-                        <select id="selArticleState" name="selArticleState"></select>
+                        <select id="selArticleState" name="selArticleState">
+                            @Html.Raw(Model.ArticleStateOptions)
+                        </select>
                     </td>
                     <td class="XCLTitle">记录状态：</td>
                     <td>

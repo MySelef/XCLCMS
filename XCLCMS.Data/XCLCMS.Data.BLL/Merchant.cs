@@ -92,18 +92,7 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public Dictionary<string, string> GetMerchantTypeDic()
         {
-            Dictionary<string, string> merchantTypeDic = null;
-            XCLCMS.Data.BLL.SysDic dicBLL = new XCLCMS.Data.BLL.SysDic();
-            var merchantTypeList = dicBLL.GetChildListByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.MerchantType.ToString());
-            if (null != merchantTypeList && merchantTypeList.Count > 0)
-            {
-                merchantTypeDic = new Dictionary<string, string>();
-                merchantTypeList.ForEach(k =>
-                {
-                    merchantTypeDic.Add(k.DicName, k.DicValue);
-                });
-            }
-            return merchantTypeDic;
+            return new XCLCMS.Data.BLL.SysDic().GetDictionaryByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.MerchantType.ToString());
         }
         #endregion  ExtensionMethod
     }

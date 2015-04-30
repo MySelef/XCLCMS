@@ -166,21 +166,29 @@ namespace XCLCMS.Data.BLL
         }
 
         /// <summary>
+        /// 根据字典库code返回该 code子项dictionary
+        /// </summary>
+        public Dictionary<string, string> GetDictionaryByCode(string code)
+        {
+            Dictionary<string, string> result = null;
+            var lst = this.GetChildListByCode(code);
+            if (null != lst && lst.Count > 0)
+            {
+                result = new Dictionary<string, string>();
+                lst.ForEach(k =>
+                {
+                    result.Add(k.DicName, k.DicValue);
+                });
+            }
+            return result;
+        }
+
+        /// <summary>
         /// 获取证件类型
         /// </summary>
         public Dictionary<string, string> GetPassTypeDic()
         {
-            Dictionary<string, string> passTypeDic = null;
-            var passTypeList = this.GetChildListByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.PassType.ToString());
-            if (null != passTypeList && passTypeList.Count > 0)
-            {
-                passTypeDic = new Dictionary<string, string>();
-                passTypeList.ForEach(k =>
-                {
-                    passTypeDic.Add(k.DicName, k.DicValue);
-                });
-            }
-            return passTypeDic;
+            return this.GetDictionaryByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.PassType.ToString());
         }
         #endregion  ExtensionMethod
     }

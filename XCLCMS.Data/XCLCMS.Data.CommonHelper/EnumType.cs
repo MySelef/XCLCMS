@@ -77,7 +77,7 @@ namespace XCLCMS.Data.CommonHelper
             /// <summary>
             /// 默认 None
             /// </summary>
-            [Description("NON")]
+            [Description("默认")]
             NON,
             /// <summary>
             /// 新窗口 _blank

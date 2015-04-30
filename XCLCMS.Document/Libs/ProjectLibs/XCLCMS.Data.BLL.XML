@@ -49,6 +49,11 @@
             分页列表
             </summary>
         </member>
+        <member name="M:XCLCMS.Data.BLL.Article.GetArticleTypeDic">
+            <summary>
+            获取文章类型
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.BLL.Common.Common">
             <summary>
             BLL层公共操作类
@@ -405,6 +410,11 @@
         <member name="M:XCLCMS.Data.BLL.SysDic.GetSysMenuList">
             <summary>
             获取后台系统菜单
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.SysDic.GetDictionaryByCode(System.String)">
+            <summary>
+            根据字典库code返回该 code子项dictionary
             </summary>
         </member>
         <member name="M:XCLCMS.Data.BLL.SysDic.GetPassTypeDic">

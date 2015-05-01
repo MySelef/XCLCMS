@@ -153,6 +153,45 @@ namespace XCLCMS.Data.CommonHelper
             [Description("跳转链接")]
             URL
         }
+
+        /// <summary>
+        /// 文章来源枚举
+        /// </summary>
+        public enum ArticleFromInfoEnum
+        { 
+            /// <summary>
+            /// 原创
+            /// </summary>
+            [Description("原创")]
+            原创,
+            /// <summary>
+            /// 网络
+            /// </summary>
+            [Description("网络")]
+            网络,
+            /// <summary>
+            /// 未知
+            /// </summary>
+            [Description("未知")]
+            未知
+        }
+
+        /// <summary>
+        /// 文章作者枚举
+        /// </summary>
+        public enum ArticleAuthorNameEnum
+        {
+            /// <summary>
+            /// 管理员
+            /// </summary>
+            [Description("管理员")]
+            管理员,
+            /// <summary>
+            /// 佚名
+            /// </summary>
+            [Description("佚名")]
+            佚名
+        }
         #endregion
 
         #region 附件

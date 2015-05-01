@@ -113,13 +113,19 @@
                         </div>
                         <div>
                             <fieldset>
+                                <legend class="XCLGray">当前预览图属性：</legend>
+                                <div>
+                                    宽高：{{PreviewWidth}}*{{PreviewHeight}}，预览比例（与原图比较）：{{PreviewRatio}}
+                                </div>
+                            </fieldset>
+                            <fieldset>
                                 <legend class="XCLGray">原图属性：</legend>
                                 <div>
                                     宽高：{{Width}}*{{Height}}，大小：{{Size}}，文件名：{{Name}}
                                 </div>
                             </fieldset>
                             <fieldset>
-                                <legend class="XCLGray">裁剪属性：</legend>
+                                <legend class="XCLGray">裁剪后的属性：</legend>
                                 <div id="divImgCropInfo"></div>
                             </fieldset>
                             <fieldset>

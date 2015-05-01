@@ -270,7 +270,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.Merchant> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
             DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("Merchant", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
-            return XCLNetTools.Generic.ListHelper<XCLCMS.Data.Model.Merchant>.DataTableToList(dt) as List<XCLCMS.Data.Model.Merchant>;
+            return XCLNetTools.Generic.ListHelper.DataTableToList < XCLCMS.Data.Model.Merchant>(dt) as List<XCLCMS.Data.Model.Merchant>;
         }
         #endregion
     }

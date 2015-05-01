@@ -37,5 +37,15 @@ namespace XCLCMS.View.AdminViewModel.Article
         /// 文章链接打开方式select的option
         /// </summary>
         public string URLOpenTypeOptions { get; set; }
+
+        /// <summary>
+        /// 文章来源select的option
+        /// </summary>
+        public string FromInfoOptions { get; set; }
+
+        /// <summary>
+        /// 文章作者select的options
+        /// </summary>
+        public string AuthorNameOptions { get; set; }
     }
 }

@@ -20,11 +20,15 @@
                     </td>
                     <td class="XCLTitle" style="width: 10%">作者：</td>
                     <td style="width: 25%">
-                        <input type="text" id="txtAuthorName" name="txtAuthorName" value="@Model.Article.AuthorName" />
+                        <select id="selAuthorName" name="selAuthorName" class="easyui-combobox"  style="height:25px;width:200px;">
+                            @Html.Raw(Model.AuthorNameOptions)
+                        </select>
                     </td>
                     <td class="XCLTitle" style="width: 10%">来源：</td>
                     <td style="width: 25%">
-                        <input type="text" id="txtFromInfo" name="txtFromInfo" value="@Model.Article.FromInfo" />
+                        <select id="selFromInfo" name="selFromInfo" class="easyui-combobox"  style="height:25px;width:200px;" >
+                            @Html.Raw(Model.FromInfoOptions)
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -34,7 +38,7 @@
                     </td>
                     <td class="XCLTitle">内容类型：</td>
                     <td>
-                        <select id="selArticleContentType" name="selArticleContentType" class="easyui-combobox" style="height:25px;width:200px;" multiple>
+                        <select id="selArticleContentType" name="selArticleContentType" class="easyui-combobox" data-options="editable:false" style="height:25px;width:200px;" multiple>
                             @Html.Raw(Model.ArticleContentTypeOptions)
                         </select>
                     </td>
@@ -59,6 +63,8 @@
                     <td class="XCLTitle">Tags：</td>
                     <td>
                         <input type="text" id="txtTags" name="txtTags" value="@Model.Article.Tags" />
+                        <p></p>
+                        <span class="XCLNote">注：多个请用英文逗号（;）隔开！</span>
                     </td>
                 </tr>
                 <tr>

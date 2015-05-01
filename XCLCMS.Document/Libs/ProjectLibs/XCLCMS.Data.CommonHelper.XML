@@ -148,6 +148,41 @@
             跳转链接 URL
             </summary>
         </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.ArticleFromInfoEnum">
+            <summary>
+            文章来源枚举
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleFromInfoEnum.原创">
+            <summary>
+            原创
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleFromInfoEnum.网络">
+            <summary>
+            网络
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleFromInfoEnum.未知">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.CommonHelper.EnumType.ArticleAuthorNameEnum">
+            <summary>
+            文章作者枚举
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleAuthorNameEnum.管理员">
+            <summary>
+            管理员
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleAuthorNameEnum.佚名">
+            <summary>
+            佚名
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.CommonHelper.EnumType.AttachmentViewTypeEnum">
             <summary>
             附件浏览方式

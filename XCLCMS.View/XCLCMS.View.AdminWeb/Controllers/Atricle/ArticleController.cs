@@ -81,6 +81,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
                     viewModel.URLOpenTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
                         IsNeedPleaseSelect=true
                     });
+                    viewModel.FromInfoOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleFromInfoEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                        IsNeedPleaseSelect=false
+                    });
+                    viewModel.AuthorNameOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleAuthorNameEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                        IsNeedPleaseSelect=false
+                    });
                     viewModel.Article.IsCanComment = XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "Article");
                     break;

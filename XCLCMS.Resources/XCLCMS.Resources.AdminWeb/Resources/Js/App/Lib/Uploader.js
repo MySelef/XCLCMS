@@ -32,14 +32,17 @@
             this.Size = "";
             this.Format = "";
             this.Name = "";
-            this.Width = 0;
-            this.Height = 0;
+            this.Width = 0;//原图宽度
+            this.Height = 0;//原图高度
+            this.PreviewWidth = 0;//裁剪界面中操作的图片的宽度
+            this.PreviewHeight = 0;//裁剪界面中操作的图片的高度
+            this.PreviewRatio = 0;//当前操作的预览图与原图的比例，因为裁剪的操作是在预览的小图片上面进行的，最终提交上传的时候，是要对原图进行操作，而不是该小图片。
             this.X1 = 0;
             this.Y1 = 0;
             this.X2 = 0;
             this.Y2 = 0;
-            this.CropWidth = 0;
-            this.CropHeight = 0;
+            this.CropWidth = 0;//裁剪后最终图片的宽度
+            this.CropHeight = 0;//裁剪后最终图片的高度
         },
         Init: function () {
             var _this = this;
@@ -69,6 +72,9 @@
                             imgObj.onload = function () {
                                 imgObj.downsize(400, 400);
                                 model.BigPath = imgObj.getAsDataURL();
+                                model.PreviewWidth = imgObj.width;
+                                model.PreviewHeight = imgObj.height;
+                                model.PreviewRatio = model.PreviewWidth / model.Width;
                                 preloader.destroy();
                                 preloader = null;
                             };
@@ -80,7 +86,7 @@
                     lst.push(model);
                 });
                 $("#ItemsUL").append(template('fileItemTemp', { FileModelList: lst }));
-                _this._fileModelList = XCLJsTool.Array.Concat(_this._fileModelList, lst);
+                _this._fileModelList = XJ.Array.Concat(_this._fileModelList, lst);
             });
             //修改文件
             $("body").on("click", "a[rel='fileEdit']", function () {
@@ -90,12 +96,12 @@
                 $("#divEditFile .easyui-linkbutton").linkbutton();
                 //图片裁剪
                 var getCropImgXYInfo = function (img) {
-                    model.X1 = img.x;
-                    model.X2 = img.x2;
-                    model.Y1 = img.y;
-                    model.Y2 = img.y2;
-                    model.CropWidth = img.w;
-                    model.CropHeight = img.h;
+                    model.X1 =parseInt(img.x/model.PreviewRatio);
+                    model.X2 = parseInt(img.x2 / model.PreviewRatio);
+                    model.Y1 = parseInt(img.y / model.PreviewRatio);
+                    model.Y2 = parseInt(img.y2 / model.PreviewRatio);
+                    model.CropWidth = parseInt(img.w / model.PreviewRatio);
+                    model.CropHeight = parseInt(img.h / model.PreviewRatio);
                     $("#divImgCropInfo").html("X1：" + model.X1 + "，Y1：" + model.Y1 + "，X2：" + model.X2 + "，Y2：" + model.Y2 + "。宽高：" + model.CropWidth + "*" + model.CropHeight);
                 };
                 $("img#ImgToEdit").Jcrop({

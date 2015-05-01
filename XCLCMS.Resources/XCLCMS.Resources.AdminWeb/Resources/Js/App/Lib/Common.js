@@ -78,7 +78,7 @@
          * 自动生成code
          */
         CreateAutoCode: function () {
-            var data = XCLJsTool.Ajax.GetSyncData({
+            var data = XJ.Ajax.GetSyncData({
                 url: XCLCMSPageGlobalConfig.RootURL + "Common/CreateAutoCode",
                 type: "JSON",
                 data: { v: Math.random() }

@@ -43,7 +43,7 @@
                     UserInfoID: ids[0]
                 }
 
-                var url = XCLJsTool.URL.AddParam($btn.attr("href"), query);
+                var url = XJ.URL.AddParam($btn.attr("href"), query);
                 $btn.attr("href", url);
                 return true;
             } else {

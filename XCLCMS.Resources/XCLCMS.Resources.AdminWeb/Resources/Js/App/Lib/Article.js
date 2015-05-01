@@ -16,11 +16,13 @@
         Elements: {
             divContentNote: null,//内容字数统计
             btnRandomCount: null,//随机生成点赞数的按钮
-            selArticleType:null,//文章分类
+            selArticleType: null,//文章分类
+            selArticleContentType:null,//文章内容类型
             Init: function () {
                 this.divContentNote = $("#divContentNote");
                 this.btnRandomCount = $("#btnRandomCount");
                 this.selArticleType = $("#selArticleType");
+                this.selArticleContentType = $("#selArticleContentType");
             }
         },
         /**

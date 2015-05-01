@@ -2168,6 +2168,11 @@
             description特性
             </summary>
         </member>
+        <member name="T:XCLNetTools.Enum.EnumHelper">
+            <summary>
+            枚举帮助类
+            </summary>
+        </member>
         <member name="M:XCLNetTools.Enum.EnumHelper.GetEnumFieldModelList(System.Type)">
             <summary>
             将枚举转为List(包含自定义属性description)
@@ -2262,31 +2267,31 @@
             生成验证码图片
             </summary>
         </member>
-        <member name="T:XCLNetTools.Generic.ListHelper`1">
+        <member name="T:XCLNetTools.Generic.ListHelper">
             <summary>
             List操作类
             </summary>
         </member>
-        <member name="M:XCLNetTools.Generic.ListHelper`1.SplitListByStep(System.Int32,System.Collections.Generic.List{`0})">
+        <member name="M:XCLNetTools.Generic.ListHelper.SplitListByStep``1(System.Int32,System.Collections.Generic.List{``0})">
             <summary>
             根据步长，将一个总List拆分为多个子List
             </summary>
             <param name="step">每个子list最多的项数</param>
             <param name="lst">主list</param>
         </member>
-        <member name="M:XCLNetTools.Generic.ListHelper`1.GetStringByList(System.Collections.Generic.List{`0},System.String)">
+        <member name="M:XCLNetTools.Generic.ListHelper.GetStringByList``1(System.Collections.Generic.List{``0},System.String)">
             <summary>
             将list中的项拼接字符串
             </summary>
             <param name="lst">要操作的list</param>
             <param name="splitChar">分隔符</param>
         </member>
-        <member name="M:XCLNetTools.Generic.ListHelper`1.ToDataTable(System.Collections.Generic.IList{`0})">
+        <member name="M:XCLNetTools.Generic.ListHelper.ToDataTable``1(System.Collections.Generic.IList{``0})">
             <summary>
             将List转换成DataTable
             </summary>
         </member>
-        <member name="M:XCLNetTools.Generic.ListHelper`1.DataTableToList(System.Data.DataTable)">
+        <member name="M:XCLNetTools.Generic.ListHelper.DataTableToList``1(System.Data.DataTable)">
             <summary>
             将dataTable转为list
             </summary>
@@ -3422,11 +3427,6 @@
             文件的压缩与解压缩
             </summary>
         </member>
-        <member name="M:XCLNetTools.FileHandler.ZipHelper.#ctor">
-            <summary>
-            构造函数
-            </summary>
-        </member>
         <member name="M:XCLNetTools.FileHandler.ZipHelper.ToZipFile(System.String,System.String,System.Int32,System.Int32)">
             <summary>
             压缩单个文件
@@ -3609,6 +3609,11 @@
             <param name="page">当前页面指针，一般为this</param>
             <param name="msg">提示信息</param>
             <param name="url">跳转的目标URL</param>
+        </member>
+        <member name="T:XCLNetTools.Mail.MyEmail">
+            <summary>
+            邮件处理
+            </summary>
         </member>
         <member name="M:XCLNetTools.Mail.MyEmail.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
             <summary>
@@ -3858,14 +3863,29 @@
             JSON序列化相关
             </summary>
         </member>
-        <member name="M:XCLNetTools.Serialize.JSON.Serialize(System.Object)">
+        <member name="M:XCLNetTools.Serialize.JSON.Serialize(System.Object,XCLNetTools.Serialize.JSON.JsonProviderEnum)">
             <summary>
             将对象序列化为json
             </summary>
         </member>
-        <member name="M:XCLNetTools.Serialize.JSON.DeSerialize``1(System.String)">
+        <member name="M:XCLNetTools.Serialize.JSON.DeSerialize``1(System.String,XCLNetTools.Serialize.JSON.JsonProviderEnum)">
             <summary>
             将json反序列化为一个对象
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Serialize.JSON.JsonProviderEnum">
+            <summary>
+            提供者枚举
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Serialize.JSON.JsonProviderEnum.SystemWeb">
+            <summary>
+            指定为：System.Web.Script.Serialization
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Serialize.JSON.JsonProviderEnum.Newtonsoft">
+            <summary>
+            指定为：Newtonsoft.Json.JsonConvert
             </summary>
         </member>
         <member name="T:XCLNetTools.Serialize.Lib">
@@ -5024,11 +5044,6 @@
         <member name="T:XCLNetTools.XML.XMLHelper">
             <summary>
             XMLHelper XML文档操作管理器
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.XML.XMLHelper.#ctor">
-            <summary>
-            构造函数
             </summary>
         </member>
         <member name="M:XCLNetTools.XML.XMLHelper.GetXmlNodeByXpath(System.String,System.String)">

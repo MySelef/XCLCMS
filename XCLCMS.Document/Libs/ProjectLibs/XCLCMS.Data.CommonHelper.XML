@@ -128,24 +128,24 @@
             文章内容类型
             </summary>
         </member>
-        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum.NOR">
+        <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum.WOR">
             <summary>
-            普通文章 Normal
+            纯文字 Word
             </summary>
         </member>
         <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum.IMG">
             <summary>
-            图片浏览 Image
+            图集 Image
             </summary>
         </member>
         <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum.VID">
             <summary>
-            视频观看 Video
+            视频 Video
             </summary>
         </member>
         <member name="F:XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum.URL">
             <summary>
-            仅跳转链接 URL
+            跳转链接 URL
             </summary>
         </member>
         <member name="T:XCLCMS.Data.CommonHelper.EnumType.AttachmentViewTypeEnum">

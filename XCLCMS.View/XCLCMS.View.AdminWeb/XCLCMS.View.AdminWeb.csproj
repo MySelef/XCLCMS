@@ -144,6 +144,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\PageGlobalConfig.cs" />
     <Compile Include="Common\WebCommon.cs" />
+    <Compile Include="Controllers\Atricle\ArticleCommonController.cs" />
     <Compile Include="Controllers\Atricle\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Common\CommonController.cs" />

@@ -134,7 +134,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
                 
                 }
             }
-            return Newtonsoft.Json.JsonConvert.SerializeObject(tree);
+            return XCLNetTools.Serialize.JSON.Serialize(tree,XCLNetTools.Serialize.JSON.JsonProviderEnum.Newtonsoft);
         }
     }
 }

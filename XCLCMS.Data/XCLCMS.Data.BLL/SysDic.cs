@@ -190,6 +190,14 @@ namespace XCLCMS.Data.BLL
         {
             return this.GetDictionaryByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.PassType.ToString());
         }
+
+        /// <summary>
+        /// 根据code查询model
+        /// </summary>
+        public XCLCMS.Data.Model.SysDic GetModelByCode(string code)
+        {
+            return dal.GetModelByCode(code);
+        }
         #endregion  ExtensionMethod
     }
 }

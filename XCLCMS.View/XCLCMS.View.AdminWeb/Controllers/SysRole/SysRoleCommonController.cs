@@ -92,7 +92,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
         }
 
         /// <summary>
-        /// 获取easyui tree格式的所有功能json
+        /// 获取easyui tree格式的所有角色json
         /// </summary>
         public string GetAllJsonForEasyUITree()
         {
@@ -138,7 +138,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
 
                 }
             }
-            return Newtonsoft.Json.JsonConvert.SerializeObject(tree);
+            return XCLNetTools.Serialize.JSON.Serialize(tree, XCLNetTools.Serialize.JSON.JsonProviderEnum.Newtonsoft);
         }
     }
 }

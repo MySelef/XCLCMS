@@ -200,6 +200,11 @@
              更新一条数据
             </summary>
         </member>
+        <member name="M:XCLCMS.Data.DAL.SysDic.GetModelByCode(System.String)">
+            <summary>
+            根据code查询model
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.DAL.SysFunction">
             <summary>
             数据访问类:SysFunction
@@ -482,7 +487,7 @@
         </member>
         <member name="M:XCLCMS.Data.DAL.View.v_SysDic.GetAllUnderListByCode(System.String)">
             <summary>
-            递归获取指定code下的所有列表
+            递归获取指定code下的所有列表（不包含该code的记录）
             </summary>
         </member>
         <member name="T:XCLCMS.Data.DAL.View.v_SysDic_SysMenu">

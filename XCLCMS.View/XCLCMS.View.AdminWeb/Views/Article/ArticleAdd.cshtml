@@ -34,7 +34,7 @@
                     </td>
                     <td class="XCLTitle">内容类型：</td>
                     <td>
-                        <select id="selArticleContentType" name="selArticleContentType">
+                        <select id="selArticleContentType" name="selArticleContentType" class="easyui-combobox" style="height:25px;width:200px;" multiple>
                             @Html.Raw(Model.ArticleContentTypeOptions)
                         </select>
                     </td>
@@ -48,7 +48,7 @@
                 <tr>
                     <td class="XCLTitle">分类：</td>
                     <td>
-                        <select id="selArticleType" name="selArticleType">
+                        <select id="selArticleType" name="selArticleType" style="width:200px;height:25px;" multiple>
                             @Html.Raw(Model.ArticleTypeOptions)
                         </select>
                     </td>
@@ -160,7 +160,7 @@
                         <input type="text" id="txtHotCount" name="txtHotCount" value="@Model.Article.HotCount"   class="easyui-numberbox"  style="height:25px;"/>
                     </td>
                     <td rowspan="3" align="center">
-                        <a class="easyui-linkbutton">我不想填写，让系统随机生成！</a>
+                        <a class="easyui-linkbutton" id="btnRandomCount">我不想填写，让系统随机生成！</a>
                         <br /><br />
                         <span class="XCLNote">注：建议在添加新文章时，使用此功能！</span>
                     </td>

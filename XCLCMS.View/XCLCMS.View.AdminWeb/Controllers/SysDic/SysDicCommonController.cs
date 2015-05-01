@@ -90,5 +90,68 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
 
             return Json(msgModel, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 返回指定code下面的所有节点的easyui tree形式的json
+        /// 注：返回的结果中，不包含code所在的节点
+        /// </summary>
+        public string GetEasyUITreeByCode()
+        {
+            string code = XCLNetTools.StringHander.FormHelper.GetString("code");
+            if (string.IsNullOrEmpty(code))
+            {
+                return string.Empty;
+            }
+
+            List<XCLNetTools.EasyUI.Model.TreeItem> tree = new List<XCLNetTools.EasyUI.Model.TreeItem>();
+            XCLCMS.Data.BLL.View.v_SysDic bll = new Data.BLL.View.v_SysDic();
+            XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
+            var rootModel = sysDicBLL.GetModelByCode(code);
+            if (null == rootModel)
+            {
+                return string.Empty;
+            }
+
+            var allData = bll.GetAllUnderListByCode(code);
+            var rootLayer = allData.Where(k => k.ParentID == rootModel.SysDicID).ToList();
+            if (null != rootLayer && rootLayer.Count > 0)
+            {
+                for (int idx = 0; idx < rootLayer.Count; idx++)
+                {
+                    var current = rootLayer[idx];
+
+                    tree.Add(new XCLNetTools.EasyUI.Model.TreeItem()
+                    {
+                        ID = current.SysDicID.ToString(),
+                        Text = current.DicName
+                    });
+
+                    Action<XCLNetTools.EasyUI.Model.TreeItem> getChildAction = null;
+                    getChildAction = new Action<XCLNetTools.EasyUI.Model.TreeItem>((parentModel) =>
+                    {
+                        var childs = allData.Where(k => k.ParentID == Convert.ToInt64(parentModel.ID)).ToList();
+                        if (null != childs && childs.Count > 0)
+                        {
+                            parentModel.Children = new List<XCLNetTools.EasyUI.Model.TreeItem>();
+                            childs.ForEach(m =>
+                            {
+                                var treeItem = new XCLNetTools.EasyUI.Model.TreeItem()
+                                {
+                                    ID = m.SysDicID.ToString(),
+                                    State = m.IsLeaf == 1 ? "open" : "closed",
+                                    Text = m.DicName
+                                };
+                                getChildAction(treeItem);
+                                parentModel.Children.Add(treeItem);
+                            });
+                        }
+                    });
+
+                    getChildAction(tree.Find(k=>k.ID==current.SysDicID.ToString()));
+
+                }
+            }
+            return XCLNetTools.Serialize.JSON.Serialize(tree, XCLNetTools.Serialize.JSON.JsonProviderEnum.Newtonsoft);
+        }
     }
 }

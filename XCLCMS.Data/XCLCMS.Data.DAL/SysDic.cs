@@ -296,6 +296,32 @@ namespace XCLCMS.Data.DAL
                 throw new Exception(result.ResultMessage);
             }
         }
+
+        /// <summary>
+        /// 根据code查询model
+        /// </summary>
+        public XCLCMS.Data.Model.SysDic GetModelByCode(string code)
+        {
+            XCLCMS.Data.Model.SysDic model = null;
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(@"SELECT
+                                        top 1
+                                        a.*
+                                        FROM dbo.SysDic AS a
+                                        where a.RecordState='N' and a.Code=@Code
+                                        ");
+
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+            DataTable dt= null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
+            if (null != dt && dt.Rows.Count > 0)
+            {
+                model = this.DataRowToModel(dt.Rows[0]);
+            }
+            return model;
+        }
         #endregion  MethodEx
     }
 }

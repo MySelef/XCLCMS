@@ -133,24 +133,24 @@ namespace XCLCMS.Data.CommonHelper
         public enum ArticleContentTypeEnum
         {
             /// <summary>
-            /// 普通文章 Normal
+            /// 纯文字 Word
             /// </summary>
-            [Description("普通文章")]
-            NOR,
+            [Description("纯文字")]
+            WOR,
             /// <summary>
-            /// 图片浏览 Image
+            /// 图集 Image
             /// </summary>
-            [Description("图片浏览")]
+            [Description("图集")]
             IMG,
             /// <summary>
-            /// 视频观看 Video
+            /// 视频 Video
             /// </summary>
-            [Description("视频观看")]
+            [Description("视频")]
             VID,
             /// <summary>
-            /// 仅跳转链接 URL
+            /// 跳转链接 URL
             /// </summary>
-            [Description("仅跳转链接")]
+            [Description("跳转链接")]
             URL
         }
         #endregion

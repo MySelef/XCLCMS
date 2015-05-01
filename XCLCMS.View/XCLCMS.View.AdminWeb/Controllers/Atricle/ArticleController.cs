@@ -76,7 +76,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
                         IsNeedPleaseSelect=true
                     });
                     viewModel.ArticleContentTypeOptions=XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum),new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity(){
-                        IsNeedPleaseSelect=true
+                        IsNeedPleaseSelect=false
                     });
                     viewModel.URLOpenTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
                         IsNeedPleaseSelect=true

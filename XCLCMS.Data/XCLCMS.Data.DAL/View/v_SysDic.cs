@@ -155,7 +155,7 @@ namespace XCLCMS.Data.DAL.View
         }
 
         /// <summary>
-        /// 递归获取指定code下的所有列表
+        /// 递归获取指定code下的所有列表（不包含该code的记录）
         /// </summary>
         public DataTable GetAllUnderListByCode(string code)
         {

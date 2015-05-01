@@ -422,6 +422,11 @@
             获取证件类型
             </summary>
         </member>
+        <member name="M:XCLCMS.Data.BLL.SysDic.GetModelByCode(System.String)">
+            <summary>
+            根据code查询model
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.BLL.SysFunction">
             <summary>
             系统功能表

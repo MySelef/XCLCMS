@@ -26,23 +26,23 @@
          */
         FileModel: function () {
             this.Path = "";//原路径
-            this.SmallPath = "";//较小尺寸（文件为图片时180*180）
-            this.BigPath = "";//较大尺寸（文件为图片时400*400）
-            this.Id = "";
-            this.Size = "";
-            this.Format = "";
-            this.Name = "";
-            this.Width = 0;//原图宽度
-            this.Height = 0;//原图高度
-            this.PreviewWidth = 0;//裁剪界面中操作的图片的宽度
-            this.PreviewHeight = 0;//裁剪界面中操作的图片的高度
-            this.PreviewRatio = 0;//当前操作的预览图与原图的比例，因为裁剪的操作是在预览的小图片上面进行的，最终提交上传的时候，是要对原图进行操作，而不是该小图片。
-            this.X1 = 0;
-            this.Y1 = 0;
-            this.X2 = 0;
-            this.Y2 = 0;
-            this.CropWidth = 0;//裁剪后最终图片的宽度
-            this.CropHeight = 0;//裁剪后最终图片的高度
+            this.ImgSmallPath = "";//较小尺寸（文件为图片时180*180）
+            this.ImgBigPath = "";//较大尺寸（文件为图片时400*400）
+            this.Id = "";//选择文件时，自动分配的id
+            this.Size = "";//文件大小
+            this.Format = "";//文件格式
+            this.Name = "";//文件名
+            this.ImgWidth = 0;//原图宽度
+            this.ImgHeight = 0;//原图高度
+            this.ImgPreviewWidth = 0;//裁剪界面中操作的图片的宽度
+            this.ImgPreviewHeight = 0;//裁剪界面中操作的图片的高度
+            this.ImgPreviewRatio = 0;//当前操作的预览图与原图的比例，因为裁剪的操作是在预览的小图片上面进行的，最终提交上传的时候，是要对原图进行操作，而不是该小图片。
+            this.ImgX1 = 0;//裁剪后的坐标x1
+            this.ImgY1 = 0;//裁剪后的坐标y1
+            this.ImgX2 = 0;//裁剪后的坐标x2
+            this.ImgY2 = 0;//裁剪后的坐标y2
+            this.ImgCropWidth = 0;//裁剪后最终图片的宽度
+            this.ImgCropHeight = 0;//裁剪后最终图片的高度
         },
         Init: function () {
             var _this = this;
@@ -61,26 +61,26 @@
                     model.Size = plupload.formatSize(file.size);
                     _this.PreviewImage({
                         file: file, callback: function (preloader) {
-                            model.Width = preloader.width;
-                            model.Height = preloader.height;
+                            model.ImgWidth = preloader.width;
+                            model.ImgHeight = preloader.height;
                             model.Path = preloader.getAsDataURL();
 
                             preloader.downsize(180, 180);//预览图片的最大宽高，自动等比。
-                            model.SmallPath = preloader.getAsDataURL();
+                            model.ImgSmallPath = preloader.getAsDataURL();
 
                             var imgObj = new mOxie.Image();
                             imgObj.onload = function () {
                                 imgObj.downsize(400, 400);
-                                model.BigPath = imgObj.getAsDataURL();
-                                model.PreviewWidth = imgObj.width;
-                                model.PreviewHeight = imgObj.height;
-                                model.PreviewRatio = model.PreviewWidth / model.Width;
+                                model.ImgBigPath = imgObj.getAsDataURL();
+                                model.ImgPreviewWidth = imgObj.width;
+                                model.ImgPreviewHeight = imgObj.height;
+                                model.ImgPreviewRatio = model.ImgPreviewWidth / model.ImgWidth;
                                 preloader.destroy();
                                 preloader = null;
                             };
                             imgObj.load(file.getSource());
 
-                            $("img#" + file.id).attr({ src: model.SmallPath });
+                            $("img#" + file.id).attr({ src: model.ImgSmallPath });
                         }
                     });
                     lst.push(model);
@@ -90,20 +90,32 @@
             });
             //修改文件
             $("body").on("click", "a[rel='fileEdit']", function () {
+                //打开编辑的选项卡
+                var tabFileUpload = $("#tabFileUpload");
+                if (tabFileUpload.tabs('exists', '修改图片')) {
+                    tabFileUpload.tabs('close', '修改图片');
+                }
+                tabFileUpload.tabs('add', {
+                    title: '修改图片',
+                    content: '<div id="divEditFile"></div><div id="divShowImg" style="display:none;"></div>',
+                    closable: true
+                });
+
                 var id = $(this).attr("xcl-Id");
                 var model = _this._getModelById(id);
                 $("#divEditFile").html(template('divEditFileTemp', model));
                 $("#divEditFile .easyui-linkbutton").linkbutton();
                 //图片裁剪
                 var getCropImgXYInfo = function (img) {
-                    model.X1 =parseInt(img.x/model.PreviewRatio);
-                    model.X2 = parseInt(img.x2 / model.PreviewRatio);
-                    model.Y1 = parseInt(img.y / model.PreviewRatio);
-                    model.Y2 = parseInt(img.y2 / model.PreviewRatio);
-                    model.CropWidth = parseInt(img.w / model.PreviewRatio);
-                    model.CropHeight = parseInt(img.h / model.PreviewRatio);
-                    $("#divImgCropInfo").html("X1：" + model.X1 + "，Y1：" + model.Y1 + "，X2：" + model.X2 + "，Y2：" + model.Y2 + "。宽高：" + model.CropWidth + "*" + model.CropHeight);
+                    model.ImgX1 = parseInt(img.x / model.ImgPreviewRatio);
+                    model.ImgX2 = parseInt(img.x2 / model.ImgPreviewRatio);
+                    model.ImgY1 = parseInt(img.y / model.ImgPreviewRatio);
+                    model.ImgY2 = parseInt(img.y2 / model.ImgPreviewRatio);
+                    model.ImgCropWidth = parseInt(img.w / model.ImgPreviewRatio);
+                    model.ImgCropHeight = parseInt(img.h / model.ImgPreviewRatio);
+                    $("#divImgCropInfo").html("X1：" + model.ImgX1 + "，Y1：" + model.ImgY1 + "，X2：" + model.ImgX2 + "，Y2：" + model.ImgY2 + "。宽高：" + model.ImgCropWidth + "*" + model.ImgCropHeight);
                 };
+                getCropImgXYInfo({ x: 0, y: 0, x2: 0, y2: 0, w: 0, h: 0 });
                 $("img#ImgToEdit").Jcrop({
                     onSelect: getCropImgXYInfo,
                     onChange: getCropImgXYInfo,

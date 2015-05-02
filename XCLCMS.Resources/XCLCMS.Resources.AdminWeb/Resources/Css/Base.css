@@ -9,6 +9,7 @@ input[type='text'],input[type='password']
     font-size:14px;
     font-family:"Microsoft YaHei",Sans-Serif;
     color:#006363;
+    margin:3px;
 }
 select
 {
@@ -16,6 +17,7 @@ select
     font-size:14px;
     font-family:"Microsoft YaHei",Sans-Serif;
     color:#006363;
+    margin:3px;
 }
 textarea
 {
@@ -24,6 +26,7 @@ textarea
     width:90%;
     height:80px;
     color:#006363;
+    margin:3px;
 }
 a
 {
@@ -147,6 +150,14 @@ a:hover
     text-align:right;
     font-weight:bolder;
     font-size:14px;
+}
+.XCLTableEdit .XCLTableHeader {
+    font-size:14px;
+    font-weight:bolder;
+    text-align:center;
+    background:#496da6;
+    color:#fff;
+    white-space:nowrap;  
 }
 
 

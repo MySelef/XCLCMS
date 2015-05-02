@@ -53,8 +53,11 @@
 </style>
 
     }
-    <div class="easyui-layout" data-options="fit:true">
-        <div data-options="region:'west'" title="已选文件" style="width:50%;padding:5px" class="XCLUploadFile">
+
+
+<div id="tabFileUpload" class="easyui-tabs" data-options="fit:true">  
+    <div title="选择文件">  
+        <div style="padding:5px" class="XCLUploadFile">
             <div class="XCLNote">您当前已添加3个文件，最多可以添加{0}个{0}的文件。</div>
             <div class="UploadItemDiv">
                 <ul id="ItemsUL"></ul>
@@ -69,20 +72,16 @@
                     <a href="javascript:void(0);" id="btnUploadFile" class="easyui-linkbutton " data-options="iconCls:'icon-ok'">开始上传</a>
                 </div>
             </div>
-        </div>
-        <div data-options="region:'center'" title="编辑">
-            <div id="divEditFile"></div>
-        </div>
+        </div>  
     </div>
-
-    <div id="divShowImg" style="display:none;"></div>
+</div>  
 
 <!--文件选择模板-->
 <script type="text/html" id="fileItemTemp">
     {{each FileModelList as m i}}
         <li>
             <div class="itemContent">
-                <img{{}} src="{{m.SmallPath}}" id="{{m.Id}}"/>
+                <img{{}} src="{{m.ImgSmallPath}}" id="{{m.Id}}"/>
             </div>
             <div class="itemDescription">
                 大小：{{m.Size}}，格式：{{m.Format}}<br />
@@ -101,86 +100,84 @@
 <script type="text/html" id="divEditFileTemp">
     <table class="XCLTableEdit">
         <tr>
-            <td colspan="2" align="center" style="vertical-align:top;">
+            <td align="center" style="vertical-align:top;">
                 <fieldset>
                     <legend class="XCLGray">原图：</legend>
                     <div>
                         <div>
-                            <img src="{{BigPath}}" id="ImgToEdit" />
+                            <img src="{{ImgBigPath}}" id="ImgToEdit" />
                         </div>
                         <div style="padding:5px;">
                             <a href="javascript:void(0);" class="easyui-linkbutton" id="btnShowSource">查看原图</a>
                         </div>
-                        <div>
-                            <fieldset>
-                                <legend class="XCLGray">当前预览图属性：</legend>
-                                <div>
-                                    宽高：{{PreviewWidth}}*{{PreviewHeight}}，预览比例（与原图比较）：{{PreviewRatio}}
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="XCLGray">原图属性：</legend>
-                                <div>
-                                    宽高：{{Width}}*{{Height}}，大小：{{Size}}，文件名：{{Name}}
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="XCLGray">裁剪后的属性：</legend>
-                                <div id="divImgCropInfo"></div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="XCLGray">生成参数设置：</legend>
-                                <div>
-                                    <table class="XCLTableEdit">
-                                        <tr>
-                                            <td class="XCLTitle" width="20%">文件名：</td>
-                                            <td width="30%">
-                                                <input type="text" value="{{Name}}"/>
-                                            </td>
-                                            <td width="20%"></td>
-                                            <td width="30%"></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </div>
-                    <div class="XCLHandBar">
-                            <a id="btnCreateView" class="easyui-linkbutton" data-options="iconCls:'icon-save'">生成预览图片</a>
                     </div>
                 </fieldset>
             </td>
-            <td colspan="2" align="center" style="vertical-align:top;">
-                <fieldset>
-                    <legend class="XCLGray">最终预览：</legend>
-                    <div id="divToUseFile"></div>
-                </fieldset>
+            <td style="vertical-align:top;">
+                <div>
+                    <fieldset>
+                        <legend class="XCLGray">当前预览图属性：</legend>
+                        <div>
+                            宽高：{{ImgPreviewWidth}}*{{ImgPreviewHeight}}，预览比例（与原图比较）：{{ImgPreviewRatio}}
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend class="XCLGray">原图属性：</legend>
+                        <div>
+                            宽高：{{ImgWidth}}*{{ImgHeight}}，大小：{{Size}}，文件名：{{Name}}
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend class="XCLGray">裁剪后的属性：</legend>
+                        <div id="divImgCropInfo"></div>
+                    </fieldset>
+                    <fieldset>
+                        <legend class="XCLGray">文件信息：</legend>
+                        <div>
+                            <table class="XCLTableEdit">
+                                <tr>
+                                    <td class="XCLTitle" width="20%">文件名：</td>
+                                    <td width="30%">
+                                        <input type="text" value="{{Name}}"/>
+                                    </td>
+                                    <td width="20%"></td>
+                                    <td width="30%"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend class="XCLGray">缩略图设置（在裁剪后的图片的基础上，再生成缩略图）：</legend>
+                        <div>
+                            <table class="XCLTableEdit">
+                                <tr class="XCLTableHeader">
+                                    <td width="60%">指定宽高</td>
+                                    <td width="20%">是否等比缩放</td>
+                                    <td width="20%">操作</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        宽：<input type="text" value="" style="width:50px;"/>px，
+                                        高：<input type="text" value="" style="width:50px;"/>px
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" />等比
+                                    </td>
+                                    <td align="center">
+                                        <a href="">添加</a>
+                                        <a href="">删除</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="XCLHandBar">
+                    <a id="btnSaveEdit" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
+            </div>
             </td>
         </tr>
     </table>
-</script>
-
-<!--处理后的图片模板-->
-<script  id="divToUseFileTemp" type="text/html">
-    <div>
-        <div>
-            <img src="" id="ImgToUse" />
-        </div>
-        <div style="padding:5px;">
-            <a href="javascript:void(0);" class="easyui-linkbutton" id="btnShowUse">查看原图</a>
-        </div>
-        <div>
-            <fieldset>
-                <legend class="XCLGray">基本属性：</legend>
-                <div>
-                    宽高：100*200，文件名：
-                </div>
-            </fieldset>
-        </div>
-    </div>
-    <div class="XCLHandBar">
-            <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">确认</a>
-    </div>
 </script>
 
 <!--新窗口查看图片模板-->

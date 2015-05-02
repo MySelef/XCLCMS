@@ -46,6 +46,7 @@
         },
         Init: function () {
             var _this = this;
+
             //初始化上传
             var uploader = new plupload.Uploader({
                 browse_button: 'btnAddFile',
@@ -104,7 +105,8 @@
                 var id = $(this).attr("xcl-Id");
                 var model = _this._getModelById(id);
                 $("#divEditFile").html(template('divEditFileTemp', model));
-                $("#divEditFile .easyui-linkbutton").linkbutton();
+                $.DynamicCon();//动态增删行
+                $("#divEditFile .easyui-linkbutton").linkbutton();//初始化linkbutton
                 //图片裁剪
                 var getCropImgXYInfo = function (img) {
                     model.ImgX1 = parseInt(img.x / model.ImgPreviewRatio);

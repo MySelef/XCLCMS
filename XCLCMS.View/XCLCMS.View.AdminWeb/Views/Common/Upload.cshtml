@@ -24,7 +24,7 @@
         }
         .XCLUploadFile .UploadItemDiv li
         {
-            width:200px;
+            width:230px;
             text-align:center;
             list-style:none;
             list-style-position:inside;
@@ -149,26 +149,52 @@
                     <fieldset>
                         <legend class="XCLGray">缩略图设置（在裁剪后的图片的基础上，再生成缩略图）：</legend>
                         <div>
-                            <table class="XCLTableEdit">
-                                <tr class="XCLTableHeader">
-                                    <td width="60%">指定宽高</td>
-                                    <td width="20%">是否等比缩放</td>
-                                    <td width="20%">操作</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        宽：<input type="text" value="" style="width:50px;"/>px，
-                                        高：<input type="text" value="" style="width:50px;"/>px
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" />等比
-                                    </td>
-                                    <td align="center">
-                                        <a href="">添加</a>
-                                        <a href="">删除</a>
-                                    </td>
-                                </tr>
+                            <div class="dynamicCon">
+                                <table class="XCLTableEdit">
+                                    <tr class="XCLTableHeader">
+                                        <td width="50%">指定宽高</td>
+                                        <td width="20%">是否等比缩放</td>
+                                        <td width="10%">是否为主图</td>
+                                        <td width="20%">操作</td>
+                                    </tr>
+                                    <tr class="temp">
+                                        <td>
+                                            宽：<input type="text" value="" style="width:50px;"/>px，
+                                            高：<input type="text" value="" style="width:50px;"/>px
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" />
+                                        </td>
+                                        <td>
+                                            <input type="radio" />
+                                        </td>
+                                        <td align="center">
+                                            <a href="javascript:void(0);" class="addBtn">添加</a>
+                                            <a href="javascript:void(0);" class="delBtn">删除</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="items">
+                                        <td>
+                                            宽：<input type="text" value="" style="width:50px;"/>px，
+                                            高：<input type="text" value="" style="width:50px;"/>px
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" />
+                                        </td>
+                                        <td>
+                                            <input type="radio" />
+                                        </td>
+                                        <td align="center">
+                                            <a href="javascript:void(0);" class="addBtn">添加</a>
+                                            <a href="javascript:void(0);" class="delBtn">删除</a>
+                                        </td>
+                                    </tr>
                             </table>
+                            </div>
+                            <div>
+                                <br />
+                                注：若不操作裁剪，则主图为原图；若操作裁剪，则主图为裁剪后的图片；若在缩略图设置中选择了主图选项，则该图即作为主图！
+                            </div>
                         </div>
                     </fieldset>
                 </div>

@@ -89,8 +89,9 @@
                 $("#ItemsUL").append(template('fileItemTemp', { FileModelList: lst }));
                 _this._fileModelList = XJ.Array.Concat(_this._fileModelList, lst);
             });
+
             //修改文件
-            $("body").on("click", "a[rel='fileEdit']", function () {
+            var fileEditFunction = function () {
                 //打开编辑的选项卡
                 var tabFileUpload = $("#tabFileUpload");
                 if (tabFileUpload.tabs('exists', '修改图片')) {
@@ -105,8 +106,34 @@
                 var id = $(this).attr("xcl-Id");
                 var model = _this._getModelById(id);
                 $("#divEditFile").html(template('divEditFileTemp', model));
-                $.DynamicCon();//动态增删行
-                $("#divEditFile .easyui-linkbutton").linkbutton();//初始化linkbutton
+                $.parser.parse();//重新渲染组件
+
+                //缩略图的宽高只能输入数字
+                $("input[id^='txtThumbWidth'],input[id^='txtThumbHeight']").numberbox();
+                var thumbLines = function () {
+                    var $con = $(this).closest("tr");
+                    var $w = $con.find("input[id^='txtThumbWidth']"), $h = $con.find("input[id^='txtThumbHeight']");
+                    var wVal = $w.numberbox('getValue'), hVal = $h.numberbox('getValue');
+                    if (wVal) {
+                        $h.numberbox('setValue', (wVal * model.ImgCropHeight) / model.ImgCropWidth);
+                    } else if (hVal) {
+                        $w.numberbox('setValue', (hVal * model.ImgCropWidth) / model.ImgCropHeight);
+                    }
+                };
+                $("body").on("click", ".btnEqualRatio", function () {
+                    thumbLines.call(this);
+                    return false;
+                });
+
+
+
+                //动态增删行
+                $.DynamicCon({
+                    afterAddOrDel: function () {
+                        $.parser.parse();
+                    }
+                });
+
                 //图片裁剪
                 var getCropImgXYInfo = function (img) {
                     model.ImgX1 = parseInt(img.x / model.ImgPreviewRatio);
@@ -117,12 +144,13 @@
                     model.ImgCropHeight = parseInt(img.h / model.ImgPreviewRatio);
                     $("#divImgCropInfo").html("X1：" + model.ImgX1 + "，Y1：" + model.ImgY1 + "，X2：" + model.ImgX2 + "，Y2：" + model.ImgY2 + "。宽高：" + model.ImgCropWidth + "*" + model.ImgCropHeight);
                 };
-                getCropImgXYInfo({ x: 0, y: 0, x2: 0, y2: 0, w: 0, h: 0 });
+                var defaultCropImgInfo = { x: 0, y: 0, x2: model.ImgPreviewWidth, y2: model.ImgPreviewHeight, w: model.ImgPreviewWidth, h: model.ImgPreviewHeight };
+                getCropImgXYInfo(defaultCropImgInfo);
                 $("img#ImgToEdit").Jcrop({
                     onSelect: getCropImgXYInfo,
                     onChange: getCropImgXYInfo,
                     onRelease: function () {
-                        getCropImgXYInfo({x:0,y:0,x2:0,y2:0,w:0,h:0});
+                        getCropImgXYInfo(defaultCropImgInfo);
                     }
                 });
                 //查看原图
@@ -130,6 +158,11 @@
                     $("#divShowImg").html(template('divShowImgTemp', { ImgSrc: model.Path })).find("form").submit();
                     return false;
                 });
+            };
+
+            //事件绑定
+            $("body").on("click", "a[rel='fileEdit']", function () {
+                fileEditFunction.call(this);
                 return false;
             });
         },

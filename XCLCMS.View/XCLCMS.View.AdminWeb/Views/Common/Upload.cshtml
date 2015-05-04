@@ -158,17 +158,26 @@
                                         <td width="10%">是否为主图</td>
                                         <td width="20%">操作</td>
                                     </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td align="center">
+                                            <a href="javascript:void(0);" class="btnEqualRatioAll">调整所有</a>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
                                     <tr class="temp">
                                         <td align="center" class="dynamicCon-Index"></td>
                                         <td>
-                                            宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex"  value="" style="width:50px;height:25px"/>px，
-                                            高：<input type="text" id="txtThumbHeight" name="txtThumbHeight"  class="dynamicCon-autoCreateIdIndex"   value="" style="width:50px;height:25px"/>px
+                                            宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex"  value="" style="width:50px;"/>px，
+                                            高：<input type="text" id="txtThumbHeight" name="txtThumbHeight"  class="dynamicCon-autoCreateIdIndex"   value="" style="width:50px;"/>px
                                         </td>
                                         <td align="center">
-                                            <a class="btnEqualRatio easyui-linkbutton">调整</a>
+                                            <a href="javascript:void(0);" class="btnEqualRatio">调整</a>
                                         </td>
                                         <td align="center">
-                                            <input type="radio" />
+                                            <input type="checkbox" name="ckIsMain" />
                                         </td>
                                         <td align="center">
                                             <a href="javascript:void(0);" class="addBtn">添加</a>
@@ -178,14 +187,14 @@
                                     <tr class="items">
                                         <td align="center" class="dynamicCon-Index"></td>
                                         <td>
-                                            宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex"  value="" style="width:50px;height:25px"/>px，
-                                            高：<input type="text" id="txtThumbHeight" name="txtThumbHeight"  class="dynamicCon-autoCreateIdIndex"   value="" style="width:50px;height:25px"/>px
+                                            宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex"  value="" style="width:50px;"/>px，
+                                            高：<input type="text" id="txtThumbHeight" name="txtThumbHeight"  class="dynamicCon-autoCreateIdIndex"   value="" style="width:50px;"/>px
                                         </td>
                                         <td align="center">
-                                            <a class="btnEqualRatio easyui-linkbutton">调整</a>
+                                            <a href="javascript:void(0);" class="btnEqualRatio">调整</a>
                                         </td>
                                         <td align="center">
-                                            <input type="radio" />
+                                            <input type="checkbox" name="ckIsMain" />
                                         </td>
                                         <td align="center">
                                             <a href="javascript:void(0);" class="addBtn">添加</a>
@@ -202,7 +211,7 @@
                     </fieldset>
                 </div>
                 <div class="XCLHandBar">
-                    <a id="btnSaveEdit" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
+                    <a id="btnSaveEdit" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存设置</a>
             </div>
             </td>
         </tr>

@@ -43,6 +43,15 @@
             this.ImgY2 = 0;//裁剪后的坐标y2
             this.ImgCropWidth = 0;//裁剪后最终图片的宽度
             this.ImgCropHeight = 0;//裁剪后最终图片的高度
+            this.ThumbImgSettings = [];//要生成的缩略图选项设置
+        },
+        /**
+        * 缩略图设置model
+        */
+        ThumbImgSettingModel: function () {
+            this.Width = 0;//宽度
+            this.Height = 0;//高度
+            this.IsMain = false;//是否为主图
         },
         Init: function () {
             var _this = this;
@@ -92,47 +101,53 @@
 
             //修改文件
             var fileEditFunction = function () {
-                //打开编辑的选项卡
-                var tabFileUpload = $("#tabFileUpload");
-                if (tabFileUpload.tabs('exists', '修改图片')) {
-                    tabFileUpload.tabs('close', '修改图片');
-                }
-                tabFileUpload.tabs('add', {
-                    title: '修改图片',
-                    content: '<div id="divEditFile"></div><div id="divShowImg" style="display:none;"></div>',
-                    closable: true
-                });
-
                 var id = $(this).attr("xcl-Id");
                 var model = _this._getModelById(id);
-                $("#divEditFile").html(template('divEditFileTemp', model));
-                $.parser.parse();//重新渲染组件
 
-                //缩略图的宽高只能输入数字
-                $("input[id^='txtThumbWidth'],input[id^='txtThumbHeight']").numberbox();
+                //打开编辑的选项卡
+                var tabTitle = "文件设置";
+                var tabFileUpload = $("#tabFileUpload");
+                if (tabFileUpload.tabs('exists', tabTitle)) {
+                    tabFileUpload.tabs('close', tabTitle);
+                }
+                tabFileUpload.tabs('add', {
+                    title: tabTitle,
+                    content: '<div id="divEditFile"></div><div id="divShowImg" style="display:none;"></div>',
+                    closable: true,
+                    onOpen: function () {
+                        $("#divEditFile").html(template('divEditFileTemp', model));
+                        $.parser.parse();//重新渲染组件
+                    }
+                });
+
+
+                //生成缩略图设置
                 var thumbLines = function () {
                     var $con = $(this).closest("tr");
                     var $w = $con.find("input[id^='txtThumbWidth']"), $h = $con.find("input[id^='txtThumbHeight']");
-                    var wVal = $w.numberbox('getValue'), hVal = $h.numberbox('getValue');
+                    var wVal = XJ.Data.GetInt($.trim($w.val())), hVal = XJ.Data.GetInt($.trim($h.val()));
+                    $w.val(wVal);
+                    $h.val(hVal);
                     if (wVal) {
-                        $h.numberbox('setValue', (wVal * model.ImgCropHeight) / model.ImgCropWidth);
+                        $h.val(XJ.Data.GetInt((wVal * model.ImgCropHeight) / model.ImgCropWidth));
                     } else if (hVal) {
-                        $w.numberbox('setValue', (hVal * model.ImgCropWidth) / model.ImgCropHeight);
+                        $w.val(XJ.Data.GetInt((hVal * model.ImgCropWidth) / model.ImgCropHeight));
                     }
                 };
-                $("body").on("click", ".btnEqualRatio", function () {
+                $("body").off("click", ".btnEqualRatio").on("click", ".btnEqualRatio", function () {
+                    //调整指定行
                     thumbLines.call(this);
                     return false;
                 });
-
-
+                $("body").off("click", ".btnEqualRatioAll").on("click", ".btnEqualRatioAll", function () {
+                    //调整所有行
+                    $(".btnEqualRatio").each(function () {
+                        thumbLines.call(this);
+                    });
+                });
 
                 //动态增删行
-                $.DynamicCon({
-                    afterAddOrDel: function () {
-                        $.parser.parse();
-                    }
-                });
+                $.DynamicCon();
 
                 //图片裁剪
                 var getCropImgXYInfo = function (img) {
@@ -156,6 +171,20 @@
                 //查看原图
                 $(document).off("click", "#btnShowSource").on("click", "#btnShowSource", function () {
                     $("#divShowImg").html(template('divShowImgTemp', { ImgSrc: model.Path })).find("form").submit();
+                    return false;
+                });
+                //保存设置
+                $(document).off("click", "#btnSaveEdit").on("click", "#btnSaveEdit", function () {
+                    model.ThumbImgSettings = [];
+                    var $con = $(".dynamicCon"), $w = $con.find("input[name='txtThumbWidth']"), $h = $con.find("input[name='txtThumbHeight']"), $isMain = $con.find("input[name='ckIsMain']");
+                    $w.each(function (idx, n) {
+                        var obj = new _this.ThumbImgSettingModel();
+                        obj.Width =XJ.Data.GetInt($.trim(n.value));
+                        obj.Height = XJ.Data.GetInt($.trim($h[idx].value));
+                        obj.IsMain = $isMain[idx].checked;
+                        model.ThumbImgSettings.push(obj);
+                    });
+                    tabFileUpload.tabs('close', tabTitle);
                     return false;
                 });
             };

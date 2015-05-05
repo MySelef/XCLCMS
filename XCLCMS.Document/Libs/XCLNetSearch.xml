@@ -4,52 +4,6 @@
         <name>XCLNetSearch</name>
     </assembly>
     <members>
-        <member name="M:XCLNetSearch.CommonState.GetLeftBracket(XCLNetSearch.CommonState.LeftBracket)">
-            <summary>
-            获取实际左括号
-            </summary>
-            <param name="m"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetSearch.CommonState.GetRightBracket(XCLNetSearch.CommonState.RightBracket)">
-            <summary>
-            获取实际右括号
-            </summary>
-            <param name="m"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetSearch.CommonState.GetLogic(XCLNetSearch.CommonState.logic)">
-            <summary>
-            获取实际逻辑
-            </summary>
-            <param name="m"></param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetSearch.CommonState.GetSymbol(XCLNetSearch.CommonState.Symbol)">
-            <summary>
-            根据符号枚举返回实际符号
-            </summary>
-        </member>
-        <member name="T:XCLNetSearch.CommonState.LeftBracket">
-            <summary>
-            左括号
-            </summary>
-        </member>
-        <member name="T:XCLNetSearch.CommonState.RightBracket">
-            <summary>
-            右括号
-            </summary>
-        </member>
-        <member name="T:XCLNetSearch.CommonState.logic">
-            <summary>
-            逻辑
-            </summary>
-        </member>
-        <member name="T:XCLNetSearch.CommonState.Symbol">
-            <summary>
-            符号enum
-            </summary>
-        </member>
         <member name="T:XCLNetSearch.Common">
             <summary>
             查询控件helper
@@ -140,6 +94,52 @@
             查询的时间格式
             </summary>
         </member>
+        <member name="M:XCLNetSearch.CommonState.GetLeftBracket(XCLNetSearch.CommonState.LeftBracket)">
+            <summary>
+            获取实际左括号
+            </summary>
+            <param name="m"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetSearch.CommonState.GetRightBracket(XCLNetSearch.CommonState.RightBracket)">
+            <summary>
+            获取实际右括号
+            </summary>
+            <param name="m"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetSearch.CommonState.GetLogic(XCLNetSearch.CommonState.logic)">
+            <summary>
+            获取实际逻辑
+            </summary>
+            <param name="m"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetSearch.CommonState.GetSymbol(XCLNetSearch.CommonState.Symbol)">
+            <summary>
+            根据符号枚举返回实际符号
+            </summary>
+        </member>
+        <member name="T:XCLNetSearch.CommonState.LeftBracket">
+            <summary>
+            左括号
+            </summary>
+        </member>
+        <member name="T:XCLNetSearch.CommonState.RightBracket">
+            <summary>
+            右括号
+            </summary>
+        </member>
+        <member name="T:XCLNetSearch.CommonState.logic">
+            <summary>
+            逻辑
+            </summary>
+        </member>
+        <member name="T:XCLNetSearch.CommonState.Symbol">
+            <summary>
+            符号enum
+            </summary>
+        </member>
         <member name="M:XCLNetSearch.EnumObj.IsExistEnumValue(System.Int32,System.Type)">
             <summary>
             判断数字是否属于该枚举
@@ -153,43 +153,6 @@
         <member name="P:XCLNetSearch.EnumObj.Value">
             <summary>
             值
-            </summary>
-        </member>
-        <member name="T:XCLNetSearch.SearchFieldInfo">
-            <summary>
-            字段类
-            </summary>
-        </member>
-        <member name="M:XCLNetSearch.SearchFieldInfo.#ctor(System.String,System.String,System.String,System.String[])">
-            <summary>
-            搜索控件字段的构造函数
-            </summary>
-            <param name="Text">字段显示的名字</param>
-            <param name="Value">字段对应的值的格式字符串，如：“A|B|C”【A：数据库中对应的真实字段名、B：此字段的类型，值为"dateTime、number、ntext、string"(ntext主要是为了去掉Like)】、C：输入区控件的类型:select为下拉框，text为文本框</param>
-            <param name="FieldChangedHtml">字段发生change事件时，输入区的option（用于输入区为select的情况）</param>
-            <param name="DateFmt">时间字段的格式（如:yyyy-MM-dd）</param>
-        </member>
-        <member name="P:XCLNetSearch.SearchFieldInfo.Text">
-            <summary>
-            字段显示的名字
-            </summary>
-        </member>
-        <member name="P:XCLNetSearch.SearchFieldInfo.Value">
-            <summary>
-            字段对应的值的格式字符串，如：“A|B|C”
-            A：数据库中对应的真实字段名
-            B：此字段的类型，值为"dateTime、number、ntext、string"(ntext主要是为了去掉Like)
-            C：输入区控件的类型:select为下拉框，text为文本框
-            </summary>
-        </member>
-        <member name="P:XCLNetSearch.SearchFieldInfo.FieldChangedHtml">
-            <summary>
-            字段发生change事件时，输入区的option（用于输入区为select的情况）
-            </summary>
-        </member>
-        <member name="P:XCLNetSearch.SearchFieldInfo.DateFmt">
-            <summary>
-            字段为时间时，指定时间的格式
             </summary>
         </member>
         <member name="T:XCLNetSearch.Search">
@@ -283,6 +246,43 @@
         <member name="P:XCLNetSearch.Search.LogicName">
             <summary>
             逻辑符
+            </summary>
+        </member>
+        <member name="T:XCLNetSearch.SearchFieldInfo">
+            <summary>
+            字段类
+            </summary>
+        </member>
+        <member name="M:XCLNetSearch.SearchFieldInfo.#ctor(System.String,System.String,System.String,System.String[])">
+            <summary>
+            搜索控件字段的构造函数
+            </summary>
+            <param name="Text">字段显示的名字</param>
+            <param name="Value">字段对应的值的格式字符串，如：“A|B|C”【A：数据库中对应的真实字段名、B：此字段的类型，值为"dateTime、number、ntext、string"(ntext主要是为了去掉Like)】、C：输入区控件的类型:select为下拉框，text为文本框</param>
+            <param name="FieldChangedHtml">字段发生change事件时，输入区的option（用于输入区为select的情况）</param>
+            <param name="DateFmt">时间字段的格式（如:yyyy-MM-dd）</param>
+        </member>
+        <member name="P:XCLNetSearch.SearchFieldInfo.Text">
+            <summary>
+            字段显示的名字
+            </summary>
+        </member>
+        <member name="P:XCLNetSearch.SearchFieldInfo.Value">
+            <summary>
+            字段对应的值的格式字符串，如：“A|B|C”
+            A：数据库中对应的真实字段名
+            B：此字段的类型，值为"dateTime、number、ntext、string"(ntext主要是为了去掉Like)
+            C：输入区控件的类型:select为下拉框，text为文本框
+            </summary>
+        </member>
+        <member name="P:XCLNetSearch.SearchFieldInfo.FieldChangedHtml">
+            <summary>
+            字段发生change事件时，输入区的option（用于输入区为select的情况）
+            </summary>
+        </member>
+        <member name="P:XCLNetSearch.SearchFieldInfo.DateFmt">
+            <summary>
+            字段为时间时，指定时间的格式
             </summary>
         </member>
     </members>

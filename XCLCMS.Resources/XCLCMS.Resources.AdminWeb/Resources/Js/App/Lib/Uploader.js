@@ -25,6 +25,7 @@
          * model
          */
         FileModel: function () {
+            this.IsImage = false;//是否为图片
             this.Path = "";//原路径
             this.ImgSmallPath = "";//较小尺寸（文件为图片时180*180）
             this.ImgBigPath = "";//较大尺寸（文件为图片时400*400）
@@ -69,6 +70,7 @@
                     model.Id = file.id;
                     model.Name = file.name;
                     model.Size = plupload.formatSize(file.size);
+                    model.IsImage = XJ.ContentType.IsImage(file.type);
                     _this.PreviewImage({
                         file: file, callback: function (preloader) {
                             model.ImgWidth = preloader.width;
@@ -99,6 +101,8 @@
                 _this._fileModelList = XJ.Array.Concat(_this._fileModelList, lst);
             });
 
+            var tabFileUpload = $("#tabFileUpload");
+
             //修改文件
             var fileEditFunction = function () {
                 var id = $(this).attr("xcl-Id");
@@ -106,16 +110,15 @@
 
                 //打开编辑的选项卡
                 var tabTitle = "文件设置";
-                var tabFileUpload = $("#tabFileUpload");
+                
                 if (tabFileUpload.tabs('exists', tabTitle)) {
                     tabFileUpload.tabs('close', tabTitle);
                 }
                 tabFileUpload.tabs('add', {
                     title: tabTitle,
-                    content: '<div id="divEditFile"></div><div id="divShowImg" style="display:none;"></div>',
+                    content: template('divEditFileTemp', model),
                     closable: true,
                     onOpen: function () {
-                        $("#divEditFile").html(template('divEditFileTemp', model));
                         $.parser.parse();//重新渲染组件
                     }
                 });
@@ -189,9 +192,29 @@
                 });
             };
 
+            //文件详情
+            var fileDetailFunction = function () {
+                var id = $(this).attr("xcl-Id");
+                var model = _this._getModelById(id);
+
+                //打开编辑的选项卡
+                var tabTitle = "文件详情";
+                if (tabFileUpload.tabs('exists', tabTitle)) {
+                    tabFileUpload.tabs('close', tabTitle);
+                }
+                tabFileUpload.tabs('add', {
+                    title: tabTitle,
+                    content: template('divFileDetailTemp', model),
+                    closable: true
+                });
+            };
+
             //事件绑定
             $("body").on("click", "a[rel='fileEdit']", function () {
                 fileEditFunction.call(this);
+                return false;
+            }).on("click", "a[rel='fileDetail']", function () {
+                fileDetailFunction.call(this);
                 return false;
             });
         },
@@ -199,8 +222,8 @@
          * 图片预览
          */
         PreviewImage: function (options) {
-            if (!options.file || !/image\//.test(options.file.type)) return; //确保文件是图片
-            if (options.file.type == 'image/gif') {//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
+            if (!options.file || !XJ.ContentType.IsImage(options.file.type)) return; //确保文件是图片
+            if (XJ.ContentType.IsGif(options.file.type)) {//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
                 var fr = new mOxie.FileReader();
                 fr.onload = function () {
                     options.callback(fr.result);

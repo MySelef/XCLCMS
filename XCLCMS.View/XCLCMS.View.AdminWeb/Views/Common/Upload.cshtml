@@ -81,7 +81,11 @@
     {{each FileModelList as m i}}
         <li>
             <div class="itemContent">
-                <img{{}} src="{{m.ImgSmallPath}}" id="{{m.Id}}"/>
+                {{if m.IsImage}}
+                    <img{{}} src="{{m.ImgSmallPath}}" id="{{m.Id}}"/>
+                {{else}}
+                    <img{{}} src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Images/document.png" id="{{m.Id}}"/>
+                {{/if}}
             </div>
             <div class="itemDescription">
                 大小：{{m.Size}}，格式：{{m.Format}}<br />
@@ -89,6 +93,7 @@
             </div>
             <div class="itemBottom">
                 <input type="checkbox" />
+                <a href="javascript:void(0);" rel="fileDetail" xcl-Id="{{m.Id}}">详情</a>
                 <a href="javascript:void(0);" rel="fileEdit" xcl-Id="{{m.Id}}">编辑</a>
                 <a href="javascript:void(0);" rel="fileDel">删除</a>
             </div>
@@ -98,7 +103,8 @@
     
 <!--图片编辑模板-->
 <script type="text/html" id="divEditFileTemp">
-    <table class="XCLTableEdit">
+    <div id="divEditFile">
+        <table class="XCLTableEdit">
         <tr>
             <td align="center" style="vertical-align:top;">
                 <fieldset>
@@ -214,6 +220,22 @@
                     <a id="btnSaveEdit" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存设置</a>
             </div>
             </td>
+        </tr>
+    </table>
+    </div>
+    <div id="divShowImg" style="display:none;"></div>
+</script>
+
+<!--文件详情查看模板-->
+<script type="text/html" id="divFileDetailTemp">
+    <table class="XCLTableEdit">
+        <tr>
+            <td class="XCLTitle">文件名：</td>
+            <td>{{Name}}</td>
+            <td class="XCLTitle">大小：</td>
+            <td>{{Size}}</td>
+            <td class="XCLTitle">格式：</td>
+            <td>{{Format}}</td>
         </tr>
     </table>
 </script>

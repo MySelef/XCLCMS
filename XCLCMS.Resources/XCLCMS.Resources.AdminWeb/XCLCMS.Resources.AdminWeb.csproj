@@ -59,6 +59,7 @@
   <ItemGroup>
     <Content Include="Resources\Css\Base.css" />
     <Content Include="Resources\Css\Login.css" />
+    <Content Include="Resources\Images\document.png" />
     <Content Include="Resources\Images\false.gif" />
     <Content Include="Resources\Images\Hydrangeas.jpg" />
     <Content Include="Resources\Images\login-bg.gif" />

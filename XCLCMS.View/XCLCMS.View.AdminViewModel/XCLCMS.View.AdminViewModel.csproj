@@ -72,9 +72,11 @@
     <Compile Include="SysRole\SysRoleAddVM.cs" />
     <Compile Include="SysWebSetting\SysWebSettingAddVM.cs" />
     <Compile Include="SysWebSetting\SysWebSettingListVM.cs" />
-    <Compile Include="UserControl\XCLPagerVM.cs" />
     <Compile Include="UserInfo\UserInfoAddVM.cs" />
     <Compile Include="UserInfo\UserInfoListVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UserControl\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -39,12 +39,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysLog
 
             XCLCMS.Data.BLL.SysLog bll = new Data.BLL.SysLog();
             viewModel.SysLogList = bll.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[SysLogID]", "[CreateTime] desc");
-            viewModel.PagerModel = new AdminViewModel.UserControl.XCLPagerVM()
-            {
-                RecordCount = base.RecordCount,
-                PageIndex = base.PageIndex,
-                PageSize = base.PageSize
-            };
+            viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
 
             viewModel.ClearLogDateTypeList = XCLNetTools.Enum.EnumHelper.GetEnumFieldModelList(typeof(XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum));
 

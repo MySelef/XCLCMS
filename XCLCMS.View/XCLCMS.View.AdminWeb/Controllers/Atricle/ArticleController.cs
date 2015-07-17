@@ -43,12 +43,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
 
             XCLCMS.Data.BLL.Article bll = new Data.BLL.Article();
             viewModel.ArticleList = bll.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[ArticleID]", "[ArticleID] desc");
-            viewModel.PagerModel = new AdminViewModel.UserControl.XCLPagerVM()
-            {
-                RecordCount = base.RecordCount,
-                PageIndex = base.PageIndex,
-                PageSize = base.PageSize
-            };
+            viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
             return View("~/Views/Article/ArticleList.cshtml",viewModel);
         }
 

@@ -48,10 +48,7 @@ namespace XCLCMS.Lib.Filters
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             base.HandleUnauthorizedRequest(filterContext);
-            var response = filterContext.HttpContext.Response;
-            response.Clear();
-            response.Redirect(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_LoginURL);
-            response.End();
+            filterContext.Result = new RedirectResult(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_LoginURL);
         }
 
         /// <summary>

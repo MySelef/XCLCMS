@@ -40,7 +40,7 @@
                         $btnLogin.html("登录").removeClass("submitting");
                         if (data.IsSuccess) {
                             art.dialog.tips("登录成功，正在跳转中......", 500000);
-                            location.href = XCLCMSPageGlobalConfig.RootURL + "Home/Index";
+                            location.href = XCLCMSPageGlobalConfig.RootURL + "Default/Index";
                         } else {
                             art.dialog({
                                 time: 1,

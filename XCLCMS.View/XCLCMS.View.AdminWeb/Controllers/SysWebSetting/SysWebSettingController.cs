@@ -41,12 +41,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
 
             XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
             viewModel.SysWebSettingList = bll.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[SysWebSettingID]", "[KeyName] asc");
-            viewModel.PagerModel = new AdminViewModel.UserControl.XCLPagerVM()
-            {
-                RecordCount = base.RecordCount,
-                PageIndex = base.PageIndex,
-                PageSize = base.PageSize
-            };
+            viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
             return View("~/Views/SysWebSetting/SysWebSettingList.cshtml",viewModel);
         }
 

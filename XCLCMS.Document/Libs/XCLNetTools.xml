@@ -2118,6 +2118,61 @@
             <param name="md5Str">md5密文</param>
             <param name="key">key</param>
         </member>
+        <member name="T:XCLNetTools.Entity.PagerInfo">
+            <summary>
+            分页信息model
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Entity.PagerInfo.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            分页信息 构造函数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.PageIndex">
+            <summary>
+            当前页码（第一页为1），默认为1
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.PageSize">
+            <summary>
+            每页最多显示的记录数，默认为10
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.RecordCount">
+            <summary>
+            当前记录总数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.PageCount">
+            <summary>
+            当前总页数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.CurrentPageRecordCount">
+            <summary>
+            当前页的实际记录条数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.StartIndex">
+            <summary>
+            当前页的第一条记录的序号
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.EndIndex">
+            <summary>
+            当前页的最后一条记录的序号
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.ControllerName">
+            <summary>
+            controller
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.ActionName">
+            <summary>
+            action
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Enum.CommonEnum">
             <summary>
             常用枚举常量

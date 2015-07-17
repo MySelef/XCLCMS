@@ -51,12 +51,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
 
             XCLCMS.Data.BLL.UserInfo uBLL = new Data.BLL.UserInfo();
             viewModel.UserInfoList = uBLL.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[UserInfoID]", "[UserInfoID] desc");
-            viewModel.PagerModel = new AdminViewModel.UserControl.XCLPagerVM()
-            {
-                RecordCount = base.RecordCount,
-                PageIndex = base.PageIndex,
-                PageSize = base.PageSize
-            };
+            viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
 
             return View("~/Views/UserInfo/UserInfoList.cshtml", viewModel);
         }

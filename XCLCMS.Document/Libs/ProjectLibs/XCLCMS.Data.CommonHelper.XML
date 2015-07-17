@@ -4,6 +4,16 @@
         <name>XCLCMS.Data.CommonHelper</name>
     </assembly>
     <members>
+        <member name="T:XCLCMS.Data.CommonHelper.Converter">
+            <summary>
+            数据转换
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.CommonHelper.Converter.ConvertToIDTable(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            将list long 转为datatable（列名为ID）
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.CommonHelper.EnumHelper">
             <summary>
             枚举帮助类

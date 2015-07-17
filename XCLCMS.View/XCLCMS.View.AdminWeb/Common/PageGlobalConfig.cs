@@ -50,15 +50,5 @@ namespace XCLCMS.View.AdminWeb.Common
         /// 枚举json
         /// </summary>
         public string EnumConfig { get; set; }
-
-        /// <summary>
-        /// 当前父菜单id
-        /// </summary>
-        public long CurrentParentMenuID { get; set; }
-
-        /// <summary>
-        /// 当前菜单id
-        /// </summary>
-        public long CurrentMenuID { get; set; }
     }
 }

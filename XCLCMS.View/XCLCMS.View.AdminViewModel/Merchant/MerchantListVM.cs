@@ -16,7 +16,7 @@ namespace XCLCMS.View.AdminViewModel.Merchant
         /// <summary>
         /// 分页控件
         /// </summary>
-        public XCLCMS.View.AdminViewModel.UserControl.XCLPagerVM PagerModel { get; set; }
+        public XCLNetTools.Entity.PagerInfo PagerModel { get; set; }
 
         /// <summary>
         /// 商户信息列表

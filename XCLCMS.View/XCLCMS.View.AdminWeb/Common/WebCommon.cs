@@ -40,45 +40,6 @@ namespace XCLCMS.View.AdminWeb.Common
         }
         #endregion
 
-        #region 菜单导航
-        /// <summary>
-        /// 菜单导航id所在的url参数名
-        /// </summary>
-        public static readonly string MenuIDsParamName = "sysMID";
-        /// <summary>
-        /// 菜单导航id所在的url参数值
-        /// </summary>
-        public static string MenuIDsParamValue
-        {
-            get
-            {
-                return XCLNetTools.StringHander.FormHelper.GetString(MenuIDsParamName);
-            }
-        }
-        /// <summary>
-        /// url附加的信息
-        /// </summary>
-        public static string UrlAdditiveParams
-        {
-            get
-            {
-                return string.Format("{0}={1}", MenuIDsParamName, MenuIDsParamValue);
-            }
-        }
-        /// <summary>
-        /// form表单附加的hidden参数信息
-        /// </summary>
-        public static string FormAdditiveParams
-        {
-            get
-            {
-                StringBuilder str = new StringBuilder();
-                str.AppendFormat(@"<input type=""hidden"" name=""{0}"" value=""{1}""/>", MenuIDsParamName, MenuIDsParamValue);
-                return str.ToString();
-            }
-        }
-        #endregion
-
         #region 路径相关
         /// <summary>
         /// 网站根路径

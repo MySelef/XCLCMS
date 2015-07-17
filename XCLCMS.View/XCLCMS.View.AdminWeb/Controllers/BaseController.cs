@@ -29,8 +29,6 @@ namespace XCLCMS.View.AdminWeb.Controllers
             {
                 mainViewModel.MenuList = allMenuList.Where(k =>k.FK_FunctionID==null || XCLCMS.Lib.Permission.PerHelper.HasPermission(base.UserID, (XCLCMS.Lib.Permission.Function.FunctionEnum)k.FK_FunctionID)).ToList();
             }
-            mainViewModel.CurrentMenuModel = sysDicBLL.GetModel(XCLNetTools.StringHander.FormHelper.GetLong(XCLCMS.View.AdminWeb.Common.WebCommon.MenuIDsParamName));
-            ViewBag.Title = mainViewModel.PagePath;
             ViewBag.MainViewModel = mainViewModel;
 
             //页面全局配置信息
@@ -43,8 +41,6 @@ namespace XCLCMS.View.AdminWeb.Controllers
             pageConfig.XCLJsonMessageName = XCLNetTools.Message.Log.JsonMessageName;
             pageConfig.ResourceVersion = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
             pageConfig.EnumConfig = string.Empty;
-            pageConfig.CurrentMenuID = mainViewModel.CurrentMenuID;
-            pageConfig.CurrentParentMenuID = mainViewModel.CurrentParentMenuID;
             ViewBag.PageGlobalConfigJSON = new JavaScriptSerializer().Serialize(pageConfig);
         }
         #endregion

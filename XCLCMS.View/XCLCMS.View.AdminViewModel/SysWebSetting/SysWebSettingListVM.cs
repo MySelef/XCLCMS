@@ -13,7 +13,7 @@ namespace XCLCMS.View.AdminViewModel.SysWebSetting
     {
         public XCLNetSearch.Search Search { get; set; }
 
-        public XCLCMS.View.AdminViewModel.UserControl.XCLPagerVM PagerModel { get; set; }
+        public XCLNetTools.Entity.PagerInfo PagerModel { get; set; }
 
         public List<XCLCMS.Data.Model.SysWebSetting> SysWebSettingList { get; set; }
     }

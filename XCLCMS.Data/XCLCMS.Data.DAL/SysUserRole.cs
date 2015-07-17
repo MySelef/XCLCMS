@@ -105,7 +105,6 @@ namespace XCLCMS.Data.DAL
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetStoredProcCommand("sp_SysUserRole_ADD");
             db.AddInParameter(dbCommand, "FK_UserInfoID", DbType.Int64, model.FK_UserInfoID);
-            db.AddInParameter(dbCommand, "FK_SysRoleIDXML", DbType.Xml, XCLNetTools.Serialize.XML.Serializer<List<long>>(roleIdList));
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
@@ -113,6 +112,11 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
             db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
             db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
+
+            dbCommand.Parameters.Add(new SqlParameter("FK_SysRoleIDTable", SqlDbType.Structured) { 
+                Direction=ParameterDirection.Input,
+                Value = XCLCMS.Data.CommonHelper.Converter.ConvertToIDTable(roleIdList)
+            });
 
             db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
             db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);

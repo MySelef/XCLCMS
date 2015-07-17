@@ -2,8 +2,10 @@
     //主模板js
     var app = {
         Init: function () {
-            var $DivMenuTabs=$("#DivMenuTabs");
+            var $DivMenuTabs = $("#DivMenuTabs");
+            var $menuItems = $DivMenuTabs.find("[xcl-remark]");
             var tabs = $DivMenuTabs.tabs('tabs');
+            var href = location.href;
             //选项卡处理
             for (var i = 0; i < tabs.length; i++) {
                 //鼠标划过，选中选项卡
@@ -15,18 +17,36 @@
                     tabs[i].panel('options').tab.hide();
                 }
             }
-            //鼠标移出菜单时，回到当前选中的菜单
-            if (XCLCMSPageGlobalConfig.CurrentParentMenuID > 0 && XCLCMSPageGlobalConfig.CurrentMenuID > 0) {
-                var m1 = XCLCMSPageGlobalConfig.CurrentParentMenuID;
-                var m2 = XCLCMSPageGlobalConfig.CurrentMenuID;
-                var $m2=$DivMenuTabs.find("a[xcl-sysdicid='"+m2+"']");
-                $DivMenuTabs.on("mouseleave",function(){
-                    if(!($m2.is(":visible"))){
-                        var index=$m2.closest(".panel").index();
-                        $DivMenuTabs.tabs('select', index);
+
+            $menuItems.each(function () {
+                var remarkVal = $(this).attr("xcl-remark") || "";
+                if (!remarkVal) return true;
+                var obj = {};//
+                try{obj=$.parseJSON(remarkVal);}catch(e){};
+                //选中当前菜单
+                if (obj.MatchRegex) {
+                    var reg = new RegExp(obj.MatchRegex, "ig");
+                    if (reg.test(href)) {
+                        $(this).addClass("XCLRedBolder");
+                        //选中当前菜单的父菜单
+                        if (obj.ParentNode) {
+                            var $parentNode = $DivMenuTabs.find("[xcl-sysdiccode='" + obj.ParentNode + "']");
+                            var title=$parentNode.attr("xcl-tabTitle");
+                            $DivMenuTabs.tabs('select', title);
+                            $("#divPagePath").html("XCLCMS->"+title+"->"+$(this).text());
+                        }
                     }
-                });
-            };
+                }
+            });
+
+            //鼠标移出菜单时，回到当前选中的菜单
+            $DivMenuTabs.on("mouseleave", function () {
+                var $currentItem = $(this).find(".XCLRedBolder");
+                if (!($currentItem.is(":visible"))) {
+                    var index = $currentItem.closest(".panel").index();
+                    $DivMenuTabs.tabs('select', index);
+                }
+            });
 
         },
         /**

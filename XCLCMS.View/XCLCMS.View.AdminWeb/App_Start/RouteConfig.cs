@@ -13,7 +13,6 @@ namespace XCLCMS.View.AdminWeb
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-
             //简化登录首页界面的url
             routes.MapRoute(
                 name: "LoginShortURL",
@@ -21,14 +20,12 @@ namespace XCLCMS.View.AdminWeb
                 defaults: new { controller = "Login", action = "Logon" }
             );
 
-            //默认，请放在最下面，避免优先匹配
+            //必须显示指定controller/action
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new {id = UrlParameter.Optional }
             );
-
-
         }
     }
 }

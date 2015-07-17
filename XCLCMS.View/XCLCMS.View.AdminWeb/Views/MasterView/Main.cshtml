@@ -53,7 +53,7 @@
                 {
                     foreach (var m in mainViewModel.MenuList)
                     {
-                    <div title="@m.DicName" xcl-sysdicid="@m.SysDicID" xcl-sysdiccode="@m.Code" style="padding:10px" data-options="@(m.SysDicID==mainViewModel.CurrentParentMenuID?"selected:true":"")">
+                    <div title="@m.DicName" xcl-sysdiccode="@m.Code" xcl-tabTitle="@m.DicName" style="padding:10px">
                         <div>
                             @{
                                     var childMenu = bll.GetChildListByID(m.SysDicID);
@@ -68,11 +68,7 @@
                                             {
                                                 linkUrl = "javascript:void(0);";
                                             }
-                                            else
-                                            {
-                                                linkUrl = XCLNetTools.StringHander.UrlOper.AddParam(linkUrl, XCLCMS.View.AdminWeb.Common.WebCommon.MenuIDsParamName, string.Format("{0}", child.SysDicID));
-                                            }
-                                            <a href="@linkUrl" class="easyui-linkbutton @(mainViewModel.CurrentMenuID==child.SysDicID?"XCLRedBolder":"")" style="width:auto;padding-left:10px;padding-right:10px;" xcl-sysdicid="@child.SysDicID" xcl-sysdiccode="@child.Code">@child.DicName</a>
+                                            <a href="@linkUrl" class="easyui-linkbutton" style="width:auto;padding-left:10px;padding-right:10px;" xcl-sysdiccode="@child.Code" xcl-remark="@Html.Raw(child.Remark)">@child.DicName</a>
                                         }
                                     }
                                 }
@@ -84,14 +80,12 @@
         </div>
 
 
-        @if (null!=mainViewModel && !string.IsNullOrEmpty(mainViewModel.PagePath))
-        { 
-            <div class="XCLPanel" style="border-top:none;">
-                <div class="XCLPanelHeader XCLBolder">
-                    首页->@Html.Raw(mainViewModel.PagePath)
-                </div>
+
+        <div class="XCLPanel" style="border-top:none;">
+            <div class="XCLPanelHeader XCLBolder">
+                <div id="divPagePath"></div>
             </div>
-        }
+        </div>
 
         @RenderBody()
 
@@ -108,7 +102,6 @@
         require(["Lib/MainMaster"], function (mainMaster) {
             $(function () {
                 mainMaster.Init();
-                mainMaster.AppendToForm('@Html.Raw(XCLCMS.View.AdminWeb.Common.WebCommon.FormAdditiveParams)');
             });
         });
     </script>

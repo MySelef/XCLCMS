@@ -55,12 +55,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
             XCLCMS.Data.BLL.Merchant uBLL = new Data.BLL.Merchant();
             viewModel.MerchantList = uBLL.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[MerchantID]", "[MerchantID] desc");
-            viewModel.PagerModel = new AdminViewModel.UserControl.XCLPagerVM()
-            {
-                RecordCount = base.RecordCount,
-                PageIndex = base.PageIndex,
-                PageSize = base.PageSize
-            };
+            viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
 
             return View("~/Views/Merchant/MerchantList.cshtml", viewModel);
         }

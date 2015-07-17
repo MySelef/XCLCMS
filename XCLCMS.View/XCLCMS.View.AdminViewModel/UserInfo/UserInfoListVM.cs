@@ -16,7 +16,7 @@ namespace XCLCMS.View.AdminViewModel.UserInfo
         /// <summary>
         /// 分页控件
         /// </summary>
-        public XCLCMS.View.AdminViewModel.UserControl.XCLPagerVM PagerModel { get; set; }
+        public XCLNetTools.Entity.PagerInfo PagerModel { get; set; }
 
         /// <summary>
         /// 用户信息列表

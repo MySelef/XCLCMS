@@ -13,7 +13,7 @@ namespace XCLCMS.View.AdminViewModel.Article
     {
         public XCLNetSearch.Search Search { get; set; }
 
-        public XCLCMS.View.AdminViewModel.UserControl.XCLPagerVM PagerModel { get; set; }
+        public XCLNetTools.Entity.PagerInfo PagerModel { get; set; }
 
         public List<XCLCMS.Data.Model.Article> ArticleList { get; set; }
     }

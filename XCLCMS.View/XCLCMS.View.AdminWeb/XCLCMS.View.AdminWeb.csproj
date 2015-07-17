@@ -150,7 +150,7 @@
     <Compile Include="Controllers\Common\CommonController.cs" />
     <Compile Include="Controllers\Common\OtherController.cs" />
     <Compile Include="Controllers\Common\UploadController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Home\DefaultController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Merchant\MerchantController.cs" />
     <Compile Include="Controllers\SysDic\SysDicCommonController.cs" />
@@ -178,8 +178,9 @@
     <Content Include="Views\MasterView\Footer.cshtml" />
     <Content Include="Views\MasterView\Header.cshtml" />
     <Content Include="Views\MasterView\Main.cshtml" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\UserInfo\UserInfoList.cshtml" />
     <Content Include="Views\UserControl\XCLPager.cshtml" />
     <Content Include="Views\UserInfo\UserInfoAdd.cshtml" />
@@ -205,6 +206,7 @@
     <Content Include="Views\SysRole\SysRoleAdd.cshtml" />
     <Content Include="Views\Merchant\MerchantList.cshtml" />
     <Content Include="Views\Merchant\MerchantAdd.cshtml" />
+    <Content Include="Views\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -246,6 +248,8 @@
           <DevelopmentServerPort>16187</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/AdminWeb</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost/AdminWeb</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

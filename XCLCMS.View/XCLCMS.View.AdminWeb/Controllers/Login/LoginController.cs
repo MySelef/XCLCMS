@@ -22,7 +22,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
         {
             if (XCLCMS.Lib.Login.LoginHelper.IsLogOn)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Default");
             }
             return View("~/Views/Login/Logon.cshtml");
         }

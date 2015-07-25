@@ -27,5 +27,7 @@ namespace XCLCMS.Lib.Model
         public string Admin_LoginURL { get; set; }
         public string Admin_ResourceRootURL { get; set; }
         public string Admin_ResourceVersion { get; set; }
+        public string Admin_UploaderFilePath { get; set; }
+        public string Admin_UploaderTempPath { get; set; }
     }
 }

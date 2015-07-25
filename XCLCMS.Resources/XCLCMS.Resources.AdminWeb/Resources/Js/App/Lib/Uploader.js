@@ -66,7 +66,10 @@
                 browse_button: 'btnAddFile',
                 url: XCLCMSPageGlobalConfig.RootURL + 'Upload/UploadSubmit',
                 multipart_params: { FileSettings: _this._fileModelList },
-                file_data_name:"FileInfo"
+                file_data_name: "FileInfo",
+                filters: {
+                    prevent_duplicates:true
+                }
             });
             _this._uploader.init();
             //文件被添加进来的事件
@@ -110,6 +113,14 @@
             //文件上传中的事件
             _this._uploader.bind("UploadProgress", function (up,file) {
 
+            });
+            //所有文件上传完成后事件
+            _this._uploader.bind("UploadComplete", function (up, files) {
+                art.dialog.tips("所有文件已上传完毕！");
+            });
+            //上传错误时事件
+            _this._uploader.bind("Error", function (uploader, errObject) {
+                art.dialog.tips("上传出错了！");
             });
 
             var tabFileUpload = $("#tabFileUpload");

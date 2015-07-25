@@ -220,7 +220,10 @@
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Uploader\Files\" />
+    <Folder Include="Uploader\Temp\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XCLCMS.View.AdminViewModel\XCLCMS.View.AdminViewModel.csproj">
       <Project>{864d8e33-a9b4-40b1-9e38-5341fcec5936}</Project>

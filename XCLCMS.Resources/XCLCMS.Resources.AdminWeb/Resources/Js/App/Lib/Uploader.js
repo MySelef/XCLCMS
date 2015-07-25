@@ -22,6 +22,10 @@
             return result;
         },
         /**
+        * 上传对象
+        */
+        _uploader:null,
+        /**
          * model
          */
         FileModel: function () {
@@ -58,12 +62,15 @@
             var _this = this;
 
             //初始化上传
-            var uploader = new plupload.Uploader({
+            _this._uploader= new plupload.Uploader({
                 browse_button: 'btnAddFile',
-                url: 'upload.php'
+                url: XCLCMSPageGlobalConfig.RootURL + 'Upload/UploadSubmit',
+                multipart_params: { FileSettings: _this._fileModelList },
+                file_data_name:"FileInfo"
             });
-            uploader.init();
-            uploader.bind('FilesAdded', function (up, files) {
+            _this._uploader.init();
+            //文件被添加进来的事件
+            _this._uploader.bind('FilesAdded', function (up, files) {
                 var lst = [];
                 plupload.each(files, function (file) {
                     var model = new _this.FileModel();
@@ -99,6 +106,10 @@
                 });
                 $("#ItemsUL").append(template('fileItemTemp', { FileModelList: lst }));
                 _this._fileModelList = XJ.Array.Concat(_this._fileModelList, lst);
+            });
+            //文件上传中的事件
+            _this._uploader.bind("UploadProgress", function (up,file) {
+
             });
 
             var tabFileUpload = $("#tabFileUpload");
@@ -216,6 +227,9 @@
             }).on("click", "a[rel='fileDetail']", function () {
                 fileDetailFunction.call(this);
                 return false;
+            }).on("click", "#btnUploadFile", function () {
+                _this.StartUpload();
+                return false;
             });
         },
         /**
@@ -239,6 +253,14 @@
                     preloader = null;
                 };
                 preloader.load(options.file.getSource());
+            }
+        },
+        /**
+        * 开始上传文件
+        */
+        StartUpload: function () {
+            if (this._uploader) {
+                this._uploader.start();
             }
         }
     };

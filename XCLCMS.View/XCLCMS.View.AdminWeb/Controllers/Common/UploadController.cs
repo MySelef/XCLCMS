@@ -18,5 +18,20 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
         {
             return View("~/Views/Common/Upload.cshtml");
         }
+
+        /// <summary>
+        /// 上传文件
+        /// </summary>
+        [HttpPost]
+        public JsonResult UploadSubmit(FormCollection fm)
+        {
+            var fileInfo = fm["FileInfo"];
+
+
+
+            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
+
+            return Json(msgModel);
+        }
     }
 }

@@ -185,6 +185,7 @@
     <Content Include="Resources\Js\jquery.metadata.js" />
     <Content Include="Resources\Js\Jquery\jquery-1.11.2.js" />
     <Content Include="Resources\Js\Jquery\jquery.color.js" />
+    <Content Include="Resources\Js\json2.js" />
     <Content Include="Resources\Js\kindeditor\kindeditor-all.js" />
     <Content Include="Resources\Js\kindeditor\lang\ar.js" />
     <Content Include="Resources\Js\kindeditor\lang\en.js" />

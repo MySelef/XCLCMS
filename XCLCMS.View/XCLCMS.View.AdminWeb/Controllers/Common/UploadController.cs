@@ -33,6 +33,18 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
             XCLNetTools.FileHandler.FileDirectory.MakeDirectory(Server.MapPath(directoryPath));
             file.SaveAs(Server.MapPath(path));
 
+            string fileSetting = fm["FileSetting"] ?? "";
+            XCLCMS.View.Model.Uploader.FileSetting settingModel = null;
+            List<XCLCMS.View.Model.Uploader.FileSetting> settingList = null;
+            if (!string.IsNullOrEmpty(fileSetting))
+            {
+                settingList = XCLNetTools.Serialize.JSON.DeSerialize<List<XCLCMS.View.Model.Uploader.FileSetting>>(fileSetting);
+                if (null != settingList && settingList.Count > 0)
+                {
+                    settingModel = settingList[0];
+                }
+            }
+
 
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             return Json(msgModel);

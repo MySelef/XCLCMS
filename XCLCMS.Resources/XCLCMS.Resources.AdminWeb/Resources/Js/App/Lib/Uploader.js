@@ -65,7 +65,6 @@
             _this._uploader= new plupload.Uploader({
                 browse_button: 'btnAddFile',
                 url: XCLCMSPageGlobalConfig.RootURL + 'Upload/UploadSubmit',
-                multipart_params: { FileSettings: _this._fileModelList },
                 file_data_name: "FileInfo",
                 filters: {
                     prevent_duplicates:true
@@ -109,6 +108,10 @@
                 });
                 $("#ItemsUL").append(template('fileItemTemp', { FileModelList: lst }));
                 _this._fileModelList = XJ.Array.Concat(_this._fileModelList, lst);
+            });
+            //文件上传前事件
+            _this._uploader.bind("BeforeUpload", function (up) {
+                up.settings.multipart_params = { FileSetting: JSON.stringify(_this._fileModelList) };
             });
             //文件上传中的事件
             _this._uploader.bind("UploadProgress", function (up,file) {

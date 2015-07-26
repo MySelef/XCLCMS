@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCLCMS.View.AdminViewModel", "XCLCMS.View.AdminViewModel\XCLCMS.View.AdminViewModel.csproj", "{864D8E33-A9B4-40B1-9E38-5341FCEC5936}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCLCMS.View.AdminWeb", "XCLCMS.View.AdminWeb\XCLCMS.View.AdminWeb.csproj", "{39BF7B2C-DC4D-47FE-81E7-F0E87408C82B}"

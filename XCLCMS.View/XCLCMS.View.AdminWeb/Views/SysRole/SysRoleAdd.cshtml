@@ -11,7 +11,7 @@
 
     <div class="XCLPanel">
         <div class="XCLPanelHeader XCLBolder">
-            @if (null != Model.PathList && Model.PathList.Count > 0)
+            @if (Model.PathList.IsNotNullOrEmpty())
             {
                 System.Text.StringBuilder str = new System.Text.StringBuilder();
                 str.Append(string.Join("-&gt;", Model.PathList.Select(k => k.RoleName).ToArray()));

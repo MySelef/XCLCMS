@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Text;
 using System.ComponentModel;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Common
 {
@@ -22,7 +23,7 @@ namespace XCLCMS.View.AdminWeb.Common
             get 
             {
                 var newStaticResourceConfig = _staticResourceConfig.DeepClone();
-                if (null != newStaticResourceConfig.StaticResourceList && newStaticResourceConfig.StaticResourceList.Count > 0)
+                if (newStaticResourceConfig.StaticResourceList.IsNotNullOrEmpty())
                 {
                     newStaticResourceConfig.StaticResourceList.ForEach(k =>
                     {

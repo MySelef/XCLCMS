@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Controllers
 {
@@ -25,7 +26,7 @@ namespace XCLCMS.View.AdminWeb.Controllers
             XCLCMS.View.AdminViewModel.Main.MainVM mainViewModel = new XCLCMS.View.AdminViewModel.Main.MainVM();
             XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
             var allMenuList = sysDicBLL.GetSysMenuList();
-            if (null != allMenuList && allMenuList.Count > 0)
+            if (allMenuList.IsNotNullOrEmpty())
             {
                 mainViewModel.MenuList = allMenuList.Where(k =>k.FK_FunctionID==null || XCLCMS.Lib.Permission.PerHelper.HasPermission(base.UserID, (XCLCMS.Lib.Permission.Function.FunctionEnum)k.FK_FunctionID)).ToList();
             }

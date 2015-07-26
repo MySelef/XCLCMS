@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
 {
@@ -81,7 +82,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
                     viewModel.UserInfo = userInfoBLL.GetModel(userInfoId);
                     viewModel.FormAction = Url.Action("UpdateSubmit", "UserInfo");
                     var userHadRole = XCLCMS.Lib.Permission.PerHelper.GetRoleByUserID(viewModel.UserInfo.UserInfoID);
-                    if (null != userHadRole && userHadRole.Count > 0)
+                    if (userHadRole.IsNotNullOrEmpty())
                     {
                         viewModel.UserRoleIDs = userHadRole.Select(k => k.SysRoleID).ToList();
                     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
 {
@@ -79,7 +80,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
             }
 
             List<XCLCMS.Data.Model.SysFunction> lst = bll.GetChildListByID(parentID);
-            if (null != lst && lst.Count > 0)
+            if (lst.IsNotNullOrEmpty())
             {
                 if (lst.Exists(k => string.Equals(k.FunctionName, functionName, StringComparison.OrdinalIgnoreCase)))
                 {
@@ -99,7 +100,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
             List<XCLNetTools.EasyUI.Model.TreeItem> tree = new List<XCLNetTools.EasyUI.Model.TreeItem>();
             XCLCMS.Data.BLL.View.v_SysFunction bll = new Data.BLL.View.v_SysFunction();
             var allData = bll.GetModelList("");
-            if (null != allData && allData.Count > 0)
+            if (allData.IsNotNullOrEmpty())
             {
                 var root = allData.Where(k => k.ParentID == 0).FirstOrDefault();//根节点
                 if (null != root)
@@ -114,7 +115,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
                     getChildAction = new Action<XCLNetTools.EasyUI.Model.TreeItem>((parentModel) =>
                     {
                         var childs = allData.Where(k => k.ParentID ==Convert.ToInt64(parentModel.ID)).ToList();
-                        if (null != childs && childs.Count > 0)
+                        if (childs.IsNotNullOrEmpty())
                         {
                             parentModel.Children = new List<XCLNetTools.EasyUI.Model.TreeItem>();
                             childs.ForEach(m => {

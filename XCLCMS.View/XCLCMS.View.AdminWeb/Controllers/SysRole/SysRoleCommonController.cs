@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysRole
 {
@@ -79,7 +80,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             }
 
             List<XCLCMS.Data.Model.SysRole> lst = bll.GetChildListByID(parentID);
-            if (null != lst && lst.Count > 0)
+            if (lst.IsNotNullOrEmpty())
             {
                 if (lst.Exists(k => string.Equals(k.RoleName, roleName, StringComparison.OrdinalIgnoreCase)))
                 {
@@ -99,7 +100,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             List<XCLNetTools.EasyUI.Model.TreeItem> tree = new List<XCLNetTools.EasyUI.Model.TreeItem>();
             XCLCMS.Data.BLL.View.v_SysRole bll = new Data.BLL.View.v_SysRole();
             var allData = bll.GetModelList("");
-            if (null != allData && allData.Count > 0)
+            if (allData.IsNotNullOrEmpty())
             {
                 var root = allData.Where(k => k.ParentID == 0).FirstOrDefault();//根节点
                 if (null != root)
@@ -115,7 +116,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
                     getChildAction = new Action<XCLNetTools.EasyUI.Model.TreeItem>((parentModel) =>
                     {
                         var childs = allData.Where(k => k.ParentID == Convert.ToInt64(parentModel.ID)).ToList();
-                        if (null != childs && childs.Count > 0)
+                        if (childs.IsNotNullOrEmpty())
                         {
                             childs = childs.OrderBy(k => k.Weight).ToList();
                             parentModel.Children = new List<XCLNetTools.EasyUI.Model.TreeItem>();

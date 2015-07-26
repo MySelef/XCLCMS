@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysRole
 {
@@ -42,7 +43,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
                     viewModel.ParentID = viewModel.SysRole.ParentID;
                     viewModel.SysRoleID = viewModel.SysRole.SysRoleID;
                     var roleHadFunctions = functionBLL.GetListByRoleID(sysRoleID);
-                    if (null != roleHadFunctions && roleHadFunctions.Count > 0)
+                    if (roleHadFunctions.IsNotNullOrEmpty())
                     {
                         viewModel.RoleFunctionIDList = roleHadFunctions.Select(m => m.SysFunctionID).ToList();
                     }      

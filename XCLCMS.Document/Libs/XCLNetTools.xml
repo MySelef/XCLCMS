@@ -2322,6 +2322,21 @@
             生成验证码图片
             </summary>
         </member>
+        <member name="T:XCLNetTools.Generic.Extension">
+            <summary>
+            泛型扩展方法
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Generic.Extension.IsNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            判断IEnumerable是否为空
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Generic.Extension.IsNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            判断IEnumerable是否有值
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Generic.ListHelper">
             <summary>
             List操作类

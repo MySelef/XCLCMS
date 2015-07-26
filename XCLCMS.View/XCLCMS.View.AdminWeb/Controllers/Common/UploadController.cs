@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Common
 {
@@ -39,7 +40,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
             if (!string.IsNullOrEmpty(fileSetting))
             {
                 settingList = XCLNetTools.Serialize.JSON.DeSerialize<List<XCLCMS.View.Model.Uploader.FileSetting>>(fileSetting);
-                if (null != settingList && settingList.Count > 0)
+                if (settingList.IsNotNullOrEmpty())
                 {
                     settingModel = settingList[0];
                 }

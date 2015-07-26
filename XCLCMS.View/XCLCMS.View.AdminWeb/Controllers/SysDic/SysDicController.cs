@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysDic
 {
@@ -48,7 +49,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             if (viewModel.SysDicCategory == AdminViewModel.SysDic.SysDicCategoryEnum.None)
             {
                 var menus = new XCLCMS.Data.BLL.View.v_SysDic_SysMenu().GetModelList("");
-                if (null != menus && menus.Count > 0)
+                if (menus.IsNotNullOrEmpty())
                 {
                     if (menus.Exists(k => k.SysDicID == sysDicId || (k.ParentID==sysDicId && base.CurrentHandleType==Lib.Common.Comm.HandleType.ADD)))
                     {

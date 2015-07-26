@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysDic
 {
@@ -79,7 +80,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             }
 
             List<XCLCMS.Data.Model.SysDic> lst = bll.GetChildListByID(parentID);
-            if (null != lst && lst.Count > 0)
+            if (lst.IsNotNullOrEmpty())
             {
                 if (lst.Exists(k => string.Equals(k.DicName, sysDicName, StringComparison.OrdinalIgnoreCase)))
                 {
@@ -114,7 +115,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
 
             var allData = bll.GetAllUnderListByCode(code);
             var rootLayer = allData.Where(k => k.ParentID == rootModel.SysDicID).ToList();
-            if (null != rootLayer && rootLayer.Count > 0)
+            if (rootLayer.IsNotNullOrEmpty())
             {
                 for (int idx = 0; idx < rootLayer.Count; idx++)
                 {
@@ -130,7 +131,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                     getChildAction = new Action<XCLNetTools.EasyUI.Model.TreeItem>((parentModel) =>
                     {
                         var childs = allData.Where(k => k.ParentID == Convert.ToInt64(parentModel.ID)).ToList();
-                        if (null != childs && childs.Count > 0)
+                        if (childs.IsNotNullOrEmpty())
                         {
                             parentModel.Children = new List<XCLNetTools.EasyUI.Model.TreeItem>();
                             childs.ForEach(m =>

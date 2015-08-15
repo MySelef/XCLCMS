@@ -208,8 +208,6 @@
                 
             });
 
-            });
-
             var tabFileUpload = $("#tabFileUpload");
 
             //修改文件

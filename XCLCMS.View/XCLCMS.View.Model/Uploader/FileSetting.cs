@@ -63,7 +63,7 @@ namespace XCLCMS.View.Model.Uploader
         /// <summary>
         /// 当前操作的预览图与原图的比例，因为裁剪的操作是在预览的小图片上面进行的，最终提交上传的时候，是要对原图进行操作，而不是该小图片。
         /// </summary>
-        public int ImgPreviewRatio { get; set; }
+        public decimal ImgPreviewRatio { get; set; }
         /// <summary>
         /// 裁剪后的坐标x1
         /// </summary>
@@ -92,5 +92,9 @@ namespace XCLCMS.View.Model.Uploader
         /// 要生成的缩略图选项设置
         /// </summary>
         public List<ThumbImgSetting> ThumbImgSettings { get; set; }
+        /// <summary>
+        /// 是否已上传
+        /// </summary>
+        public bool IsUploaded { get; set; }
     }
 }

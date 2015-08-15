@@ -44,7 +44,11 @@
         /**
         * 上传对象
         */
-        _uploader:null,
+        _uploader: null,
+        /**
+        * 上传进度条对象
+        */
+        _fileUploaderProgress: $("#fileUploaderProgress"),
         /**
          * model
          */
@@ -69,6 +73,7 @@
             this.ImgCropWidth = 0;//裁剪后最终图片的宽度
             this.ImgCropHeight = 0;//裁剪后最终图片的高度
             this.ThumbImgSettings = [];//要生成的缩略图选项设置
+            this.IsUploaded = false;//是否已完成上传
         },
         /**
         * 缩略图设置model
@@ -139,23 +144,38 @@
             });
             //文件上传前事件
             _this._uploader.bind("BeforeUpload", function (up) {
-                up.settings.multipart_params = { FileSetting: JSON.stringify(_this._fileModelList) };
+                var fileuplist = $.map(_this._fileModelList, function (n) {
+                    //去掉不使用的image-data数据，避免post到服务器
+                    n.ImgSmallPath = "";
+                    n.ImgBigPath = "";
+                    n.Path = "";
+                    return n;
+                });
+                up.settings.multipart_params = { FileSetting: JSON.stringify(fileuplist) };
             });
             //文件上传中的事件
-            _this._uploader.bind("UploadProgress", function (up,file) {
-
+            _this._uploader.bind("UploadProgress", function (up, file) {
+                _this._fileUploaderProgress.progressbar("setValue", up.total.percent);
             });
             //所有文件上传完成后事件
             _this._uploader.bind("UploadComplete", function (up, files) {
-                art.dialog.tips("所有文件已上传完毕！");
+                if (files.length > 0) {
+                    art.dialog("所有文件已上传完毕！");
+                } else {
+                    art.dialog("当前没有待上传的文件！");
+                }
             });
             //上传错误时事件
             _this._uploader.bind("Error", function (uploader, errObject) {
-                art.dialog.tips("上传出错了！");
+                
             });
             //文件队列变化时事件
             _this._uploader.bind("QueueChanged", function (up) {
                 
+            });
+            //上传完成事件
+            _this._uploader.bind("FileUploaded", function (uploader, file, responseObject) {
+
             });
 
             var tabFileUpload = $("#tabFileUpload");

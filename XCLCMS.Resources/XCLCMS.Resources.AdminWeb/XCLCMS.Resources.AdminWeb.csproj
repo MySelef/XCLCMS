@@ -77,7 +77,6 @@
     <Content Include="Resources\Images\login_12.gif" />
     <Content Include="Resources\Images\sky-background.png" />
     <Content Include="Resources\Images\sky-shine.jpg" />
-    <Content Include="Resources\Js\AjaxFileUpload\ajaxfileupload.js" />
     <Content Include="Resources\Js\App\config.js" />
     <Content Include="Resources\Js\App\Lib\Article.js" />
     <Content Include="Resources\Js\App\Lib\Common.js" />

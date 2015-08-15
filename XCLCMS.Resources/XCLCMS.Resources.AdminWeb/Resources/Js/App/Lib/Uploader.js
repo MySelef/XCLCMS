@@ -22,6 +22,26 @@
             return result;
         },
         /**
+         * 根据文件id，删除该文件的json model信息
+         */
+        _removeModelById: function (id) {
+            if (this._fileModelList) {
+                this._fileModelList = $.map(this._fileModelList, function (n) {
+                    return n.Id == id ? null : n;
+                });
+            }
+        },
+        /**
+        * 文件添加至队列后或移除队列后要执行的方法
+        */
+        _afterQueueChanged: function () {
+            var _this = this;
+            //更新文件note提示信息
+            $("#fileNote").html(template("fileNoteTemp", {
+                FileCount: _this._fileModelList.length
+            }));
+        },
+        /**
         * 上传对象
         */
         _uploader:null,
@@ -68,9 +88,12 @@
                 file_data_name: "FileInfo",
                 filters: {
                     prevent_duplicates:true
-                }
+                },
+                flash_swf_url: XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/plupload/Moxie.swf",
+                silverlight_xap_url: XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/plupload/Moxie.xap",
             });
             _this._uploader.init();
+
             //文件被添加进来的事件
             _this._uploader.bind('FilesAdded', function (up, files) {
                 var lst = [];
@@ -108,6 +131,11 @@
                 });
                 $("#ItemsUL").append(template('fileItemTemp', { FileModelList: lst }));
                 _this._fileModelList = XJ.Array.Concat(_this._fileModelList, lst);
+                _this._afterQueueChanged();
+            });
+            //文件被移出队列的事件
+            _this._uploader.bind("FilesRemoved", function (up, files) {
+                _this._afterQueueChanged();
             });
             //文件上传前事件
             _this._uploader.bind("BeforeUpload", function (up) {
@@ -124,6 +152,10 @@
             //上传错误时事件
             _this._uploader.bind("Error", function (uploader, errObject) {
                 art.dialog.tips("上传出错了！");
+            });
+            //文件队列变化时事件
+            _this._uploader.bind("QueueChanged", function (up) {
+                
             });
 
             var tabFileUpload = $("#tabFileUpload");
@@ -234,6 +266,17 @@
                 });
             };
 
+            //删除文件
+            var fileDelFunction = function () {
+                var id = $(this).attr("xcl-Id");
+                _this._uploader.removeFile(id);
+                _this._removeModelById(id);
+                $("#" + id).closest("li").hide("normal", function () {
+                    $(this).remove();
+                });
+                _this._afterQueueChanged();
+            };
+
             //事件绑定
             $("body").on("click", "a[rel='fileEdit']", function () {
                 fileEditFunction.call(this);
@@ -241,10 +284,14 @@
             }).on("click", "a[rel='fileDetail']", function () {
                 fileDetailFunction.call(this);
                 return false;
+            }).on("click", "a[rel='fileDel']", function () {
+                fileDelFunction.call(this);
+                return false;
             }).on("click", "#btnUploadFile", function () {
                 _this.StartUpload();
                 return false;
             });
+            _this._afterQueueChanged();
         },
         /**
          * 图片预览

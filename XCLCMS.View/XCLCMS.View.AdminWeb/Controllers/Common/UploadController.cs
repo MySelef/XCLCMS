@@ -46,6 +46,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
                 }
             }
 
+            System.Threading.Thread.Sleep(2000);
 
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             return Json(msgModel);

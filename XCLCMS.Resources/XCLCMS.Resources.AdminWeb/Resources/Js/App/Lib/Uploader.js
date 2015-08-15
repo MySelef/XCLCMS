@@ -42,6 +42,14 @@
             }));
         },
         /**
+        * 禁止编辑和删除的功能
+        */
+        _removeFileEditFunction: function () {
+            $("a[rel='fileEdit'],a[rel='fileDel']").hide("slow", function () {
+                $(this).remove();
+            });
+        },
+        /**
         * 上传对象
         */
         _uploader: null,
@@ -49,6 +57,24 @@
         * 上传进度条对象
         */
         _fileUploaderProgress: $("#fileUploaderProgress"),
+        /**
+        *改变上传按钮的相关状态（可用、不可用）
+        */
+        _changeUploadButton: function (enable) {
+            if (enable) {
+                this._uploader.disableBrowse(false);
+                $("#btnAddFile,#btnUploadFile").linkbutton("enable");
+            } else {
+                this._uploader.disableBrowse(true);
+                $("#btnAddFile,#btnUploadFile").linkbutton("disable");
+            }
+        },
+        /**
+        * 改变清空按钮的状态（可用、不可用）
+        */
+        _changeClearButtonState: function (enable) {
+            $("#btnClear").linkbutton(enable?"enable":"disable");
+        },
         /**
          * model
          */
@@ -87,12 +113,12 @@
             var _this = this;
 
             //初始化上传
-            _this._uploader= new plupload.Uploader({
+            _this._uploader = new plupload.Uploader({
                 browse_button: 'btnAddFile',
                 url: XCLCMSPageGlobalConfig.RootURL + 'Upload/UploadSubmit',
                 file_data_name: "FileInfo",
                 filters: {
-                    prevent_duplicates:true
+                    prevent_duplicates: true
                 },
                 flash_swf_url: XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/plupload/Moxie.swf",
                 silverlight_xap_url: XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/plupload/Moxie.xap",
@@ -152,6 +178,9 @@
                     return n;
                 });
                 up.settings.multipart_params = { FileSetting: JSON.stringify(fileuplist) };
+                _this._removeFileEditFunction();
+                _this._changeUploadButton(false);
+                _this._changeClearButtonState(false);
             });
             //文件上传中的事件
             _this._uploader.bind("UploadProgress", function (up, file) {
@@ -164,6 +193,7 @@
                 } else {
                     art.dialog("当前没有待上传的文件！");
                 }
+                _this._changeClearButtonState(true);
             });
             //上传错误时事件
             _this._uploader.bind("Error", function (uploader, errObject) {
@@ -175,6 +205,8 @@
             });
             //上传完成事件
             _this._uploader.bind("FileUploaded", function (uploader, file, responseObject) {
+                
+            });
 
             });
 
@@ -297,6 +329,16 @@
                 _this._afterQueueChanged();
             };
 
+            //清空重来
+            var clearFunction = function () {
+                _this._fileUploaderProgress.progressbar("setValue", 0);
+                _this._fileModelList = [];
+                _this._changeUploadButton(true);
+                $(".UploadItemDiv #ItemsUL").html("");
+                _this._uploader.splice(0, _this._uploader.files.length);
+                _this._uploader.refresh();
+            };
+
             //事件绑定
             $("body").on("click", "a[rel='fileEdit']", function () {
                 fileEditFunction.call(this);
@@ -307,8 +349,13 @@
             }).on("click", "a[rel='fileDel']", function () {
                 fileDelFunction.call(this);
                 return false;
-            }).on("click", "#btnUploadFile", function () {
+            });
+            $("#btnUploadFile").on("click", function () {
                 _this.StartUpload();
+                return false;
+            });
+            $("#btnClear").on("click", function () {
+                clearFunction.call(this);
                 return false;
             });
             _this._afterQueueChanged();

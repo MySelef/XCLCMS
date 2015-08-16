@@ -92,6 +92,12 @@
             this.ImgPreviewWidth = 0;//裁剪界面中操作的图片的宽度
             this.ImgPreviewHeight = 0;//裁剪界面中操作的图片的高度
             this.ImgPreviewRatio = 0;//当前操作的预览图与原图的比例，因为裁剪的操作是在预览的小图片上面进行的，最终提交上传的时候，是要对原图进行操作，而不是该小图片。
+            this.X1 = 0;//编辑预览时的坐标x1
+            this.Y1 = 0;//编辑预览时的坐标y1
+            this.X2 = 0;//编辑预览时的坐标x2
+            this.Y2 = 0;//编辑预览时的坐标y2
+            this.W = 0;//编辑预览时，所选的预览图的宽度
+            this.H = 0;//编辑预览时，所选的预览图的高度
             this.ImgX1 = 0;//裁剪后的坐标x1
             this.ImgY1 = 0;//裁剪后的坐标y1
             this.ImgX2 = 0;//裁剪后的坐标x2
@@ -99,7 +105,6 @@
             this.ImgCropWidth = 0;//裁剪后最终图片的宽度
             this.ImgCropHeight = 0;//裁剪后最终图片的高度
             this.ThumbImgSettings = [];//要生成的缩略图选项设置
-            this.IsUploaded = false;//是否已完成上传
         },
         /**
         * 缩略图设置model
@@ -214,6 +219,10 @@
             var fileEditFunction = function () {
                 var id = $(this).attr("xcl-Id");
                 var model = _this._getModelById(id);
+                if (null == model.ThumbImgSettings || model.ThumbImgSettings.length == 0) {
+                    model.ThumbImgSettings = [];
+                    model.ThumbImgSettings.push(new _this.ThumbImgSettingModel());
+                }
 
                 //打开编辑的选项卡
                 var tabTitle = "文件设置";
@@ -229,7 +238,6 @@
                         $.parser.parse();//重新渲染组件
                     }
                 });
-
 
                 //生成缩略图设置
                 var thumbLines = function () {
@@ -261,6 +269,12 @@
 
                 //图片裁剪
                 var getCropImgXYInfo = function (img) {
+                    model.X1 = img.x;
+                    model.X2 = img.x2;
+                    model.Y1 = img.y;
+                    model.Y2 = img.y2;
+                    model.W = img.w;
+                    model.H = img.h;
                     model.ImgX1 = parseInt(img.x / model.ImgPreviewRatio);
                     model.ImgX2 = parseInt(img.x2 / model.ImgPreviewRatio);
                     model.ImgY1 = parseInt(img.y / model.ImgPreviewRatio);
@@ -269,13 +283,24 @@
                     model.ImgCropHeight = parseInt(img.h / model.ImgPreviewRatio);
                     $("#divImgCropInfo").html("X1：" + model.ImgX1 + "，Y1：" + model.ImgY1 + "，X2：" + model.ImgX2 + "，Y2：" + model.ImgY2 + "。宽高：" + model.ImgCropWidth + "*" + model.ImgCropHeight);
                 };
-                var defaultCropImgInfo = { x: 0, y: 0, x2: model.ImgPreviewWidth, y2: model.ImgPreviewHeight, w: model.ImgPreviewWidth, h: model.ImgPreviewHeight };
+                var defaultCropImgInfo =null;
+                if (model.X1 + model.X2 + model.Y1 + model.Y2 == 0) {
+                    //如果没有已选的坐标信息，则默认为整个图坐标
+                    defaultCropImgInfo={ x: 0, y: 0, x2: model.ImgPreviewWidth, y2: model.ImgPreviewHeight, w: model.ImgPreviewWidth, h: model.ImgPreviewHeight };
+                } else {
+                    //如果已有选择过的坐标信息，则默认为该选择的坐标信息
+                    defaultCropImgInfo={ x: model.X1, y: model.Y1, x2: model.X2, y2: model.Y2, w: model.W, h: model.H };
+                }
                 getCropImgXYInfo(defaultCropImgInfo);
                 $("img#ImgToEdit").Jcrop({
                     onSelect: getCropImgXYInfo,
                     onChange: getCropImgXYInfo,
                     onRelease: function () {
                         getCropImgXYInfo(defaultCropImgInfo);
+                    }
+                }, function () {
+                    if (model.X1 + model.X2 + model.Y1 + model.Y2 > 0) {
+                        this.setSelect([model.X1, model.Y1, model.X2, model.Y2]);
                     }
                 });
                 //查看原图

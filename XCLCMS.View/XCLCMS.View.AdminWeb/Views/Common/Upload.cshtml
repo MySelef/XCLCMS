@@ -206,23 +206,25 @@
                                             <a href="javascript:void(0);" class="delBtn">删除</a>
                                         </td>
                                     </tr>
+                                    {{each ThumbImgSettings as m i}}
                                     <tr class="items">
                                         <td align="center" class="dynamicCon-Index"></td>
                                         <td>
-                                            宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex"  value="" style="width:50px;"/>px，
-                                            高：<input type="text" id="txtThumbHeight" name="txtThumbHeight"  class="dynamicCon-autoCreateIdIndex"   value="" style="width:50px;"/>px
+                                            宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex"  value="{{m.Width}}" style="width:50px;"/>px，
+                                            高：<input type="text" id="txtThumbHeight" name="txtThumbHeight"  class="dynamicCon-autoCreateIdIndex"   value="{{m.Height}}" style="width:50px;"/>px
                                         </td>
                                         <td align="center">
                                             <a href="javascript:void(0);" class="btnEqualRatio">调整</a>
                                         </td>
                                         <td align="center">
-                                            <input type="checkbox" name="ckIsMain" />
+                                            <input type="checkbox" name="ckIsMain" {{if m.IsMain}} checked="checked" {{/if}} />
                                         </td>
                                         <td align="center">
                                             <a href="javascript:void(0);" class="addBtn">添加</a>
                                             <a href="javascript:void(0);" class="delBtn">删除</a>
                                         </td>
                                     </tr>
+                                    {{/each}}
                             </table>
                             </div>
                             <div>

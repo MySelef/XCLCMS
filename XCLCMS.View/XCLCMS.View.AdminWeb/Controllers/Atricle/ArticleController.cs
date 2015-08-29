@@ -64,22 +64,22 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
                     viewModel.Article = new Data.Model.Article();
-                    viewModel.ArticleTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(articleTypeDic, new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                    viewModel.ArticleTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(articleTypeDic, new XCLNetTools.Entity.SetOptionEntity() { 
                         IsNeedPleaseSelect=true
                     });
-                    viewModel.ArticleStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                    viewModel.ArticleStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum), new XCLNetTools.Entity.SetOptionEntity() { 
                         IsNeedPleaseSelect=true
                     });
-                    viewModel.ArticleContentTypeOptions=XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum),new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity(){
+                    viewModel.ArticleContentTypeOptions=XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum),new XCLNetTools.Entity.SetOptionEntity(){
                         IsNeedPleaseSelect=false
                     });
-                    viewModel.URLOpenTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                    viewModel.URLOpenTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum), new XCLNetTools.Entity.SetOptionEntity() { 
                         IsNeedPleaseSelect=true
                     });
-                    viewModel.FromInfoOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleFromInfoEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                    viewModel.FromInfoOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleFromInfoEnum), new XCLNetTools.Entity.SetOptionEntity() { 
                         IsNeedPleaseSelect=false
                     });
-                    viewModel.AuthorNameOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleAuthorNameEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                    viewModel.AuthorNameOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleAuthorNameEnum), new XCLNetTools.Entity.SetOptionEntity() { 
                         IsNeedPleaseSelect=false
                     });
                     viewModel.Article.IsCanComment = XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString();

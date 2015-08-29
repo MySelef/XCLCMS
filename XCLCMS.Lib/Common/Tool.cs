@@ -14,7 +14,7 @@ namespace XCLCMS.Lib.Common
         /// <summary>
         /// 将指定code的SysDic的子项转为options
         /// </summary>
-        public static string GetSysDicOptionsByCode(string code, XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity options = null)
+        public static string GetSysDicOptionsByCode(string code, XCLNetTools.Entity.SetOptionEntity options = null)
         {
             StringBuilder str = new StringBuilder();
             if (null != options && options.IsNeedPleaseSelect)

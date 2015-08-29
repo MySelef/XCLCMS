@@ -81,10 +81,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
                     viewModel.Merchant = new Data.Model.Merchant();
-                    viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                    viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Entity.SetOptionEntity() { 
                         IsNeedPleaseSelect=true
                     });
-                    viewModel.PassTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(passTypeDic, new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                    viewModel.PassTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(passTypeDic, new XCLNetTools.Entity.SetOptionEntity() { 
                         IsNeedPleaseSelect=true
                     });
                     viewModel.MerchantStateOptions=XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum));
@@ -92,16 +92,16 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                     break;
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     viewModel.Merchant = merchantBLL.GetModel(merchantId);
-                    viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                    viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Entity.SetOptionEntity() { 
                         DefaultValue=viewModel.Merchant.MerchantType,
                         IsNeedPleaseSelect=true
                     });
-                    viewModel.PassTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(passTypeDic, new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity()
+                    viewModel.PassTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(passTypeDic, new XCLNetTools.Entity.SetOptionEntity()
                     {
                         DefaultValue=viewModel.Merchant.PassType,
                         IsNeedPleaseSelect = true
                     });
-                    viewModel.MerchantStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity() { 
+                    viewModel.MerchantStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum), new XCLNetTools.Entity.SetOptionEntity() { 
                         DefaultValue=viewModel.Merchant.MerchantState
                     });
                     viewModel.FormAction = Url.Action("UpdateSubmit", "Merchant");

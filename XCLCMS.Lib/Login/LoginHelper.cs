@@ -51,7 +51,7 @@ namespace XCLCMS.Lib.Login
             {
                 //退出
                 case LoginType.OFF:
-                    XCLNetTools.StringHander.Common.DelCookies(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName);
+                    XCLNetTools.Http.CookieHelper.DelCookies(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName);
                     context.Session.Remove(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName);
                     break;
                 //登录
@@ -60,7 +60,7 @@ namespace XCLCMS.Lib.Login
                     loginInfo.UserName = userInfo.UserName;
                     loginInfo.Pwd = userInfo.Pwd;
                     string loginStr = XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringDES(loginInfo.ToString());
-                    XCLNetTools.StringHander.Common.SetCookies(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName, loginStr, 30);
+                    XCLNetTools.Http.CookieHelper.SetCookies(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName, loginStr, 30);
                     context.Session[XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName] = loginStr;
                     break;
             }
@@ -75,7 +75,7 @@ namespace XCLCMS.Lib.Login
             string loginString = HttpContext.Current.Session[XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName] as string;
             if (string.IsNullOrEmpty(loginString))
             {
-                loginString = XCLNetTools.StringHander.Common.GetCookies(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName);
+                loginString = XCLNetTools.Http.CookieHelper.GetCookies(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName);
             }
             if (string.IsNullOrEmpty(loginString))
             {

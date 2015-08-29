@@ -50,12 +50,12 @@
             移除全部缓存
             </summary>
         </member>
-        <member name="T:XCLNetTools.Control.Control">
+        <member name="T:XCLNetTools.Control.ServerControl.Lib">
             <summary>
             服务器控件操作相关
             </summary>
         </member>
-        <member name="M:XCLNetTools.Control.Control.RepDataBind``1(System.Web.UI.WebControls.Repeater,System.Collections.Generic.List{``0},System.Boolean,System.String[])">
+        <member name="M:XCLNetTools.Control.ServerControl.Lib.RepDataBind``1(System.Web.UI.WebControls.Repeater,System.Collections.Generic.List{``0},System.Boolean,System.String[])">
             <summary>
             Repeater绑定数据
             </summary>
@@ -64,7 +64,7 @@
             <param name="isShowNoDataMsg">true:没有数据时，显示“暂无数据”</param>
             <param name="noDataMsg">没有数据时非默认提示</param>
         </member>
-        <member name="M:XCLNetTools.Control.Control.RepDataBind(System.Web.UI.WebControls.Repeater,System.Data.DataTable,System.Boolean,System.String[])">
+        <member name="M:XCLNetTools.Control.ServerControl.Lib.RepDataBind(System.Web.UI.WebControls.Repeater,System.Data.DataTable,System.Boolean,System.String[])">
             <summary>
             Repeater绑定数据
             </summary>
@@ -73,7 +73,7 @@
             <param name="isShowNoDataMsg">true:没有数据时，显示“暂无数据”</param>
             <param name="noDataMsg">没有数据时非默认提示</param>
         </member>
-        <member name="M:XCLNetTools.Control.Control.BindDDL(System.Web.UI.WebControls.DropDownList,System.Data.DataSet,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:XCLNetTools.Control.ServerControl.Lib.BindDDL(System.Web.UI.WebControls.DropDownList,System.Data.DataSet,System.String,System.String,System.String,System.Boolean)">
             <summary>
             绑定DDL，value为初始选中值
             </summary>
@@ -84,7 +84,7 @@
             <param name="value">默认选中项的值</param>
             <param name="flag">true:有"--全部--" false:无</param>
         </member>
-        <member name="M:XCLNetTools.Control.Control.BindCheckBoxList(System.Web.UI.WebControls.CheckBoxList,System.Data.DataSet,System.String,System.String,System.String)">
+        <member name="M:XCLNetTools.Control.ServerControl.Lib.BindCheckBoxList(System.Web.UI.WebControls.CheckBoxList,System.Data.DataSet,System.String,System.String,System.String)">
             <summary>
             绑定CheckBoxList，value为初始选中值
             </summary>
@@ -94,30 +94,30 @@
             <param name="valueField">值字段</param>
             <param name="value">以,隔开的字符串，默认选中值</param>
         </member>
-        <member name="M:XCLNetTools.Control.Control.BindEnum(System.Web.UI.WebControls.WebControl,System.Collections.Generic.List{XCLNetTools.Enum.EnumObj},System.String)">
+        <member name="M:XCLNetTools.Control.ServerControl.Lib.BindEnum(System.Web.UI.WebControls.WebControl,System.Collections.Generic.List{XCLNetTools.Entity.TextValue},System.String)">
             <summary>
             绑定枚举（此方法已过期，请使用BindLst）
             </summary>
             <param name="c">控件</param>
-            <param name="lst">EnumObj list</param>
+            <param name="lst">XCLNetTools.Entity.TextValue list</param>
             <param name="defaultValue">默认选中值</param>
         </member>
-        <member name="M:XCLNetTools.Control.Control.BindLst``1(System.Web.UI.WebControls.WebControl,System.Collections.Generic.List{``0},System.String,System.String,System.String,System.Boolean)">
+        <member name="M:XCLNetTools.Control.ServerControl.Lib.BindLst``1(System.Web.UI.WebControls.WebControl,System.Collections.Generic.List{``0},System.String,System.String,System.String,System.Boolean)">
             <summary>
             将list绑定到控件上
             </summary>
         </member>
-        <member name="T:XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity">
+        <member name="T:XCLNetTools.Entity.SetOptionEntity">
             <summary>
             生成select的option时的选项
             </summary>
         </member>
-        <member name="P:XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity.IsNeedPleaseSelect">
+        <member name="P:XCLNetTools.Entity.SetOptionEntity.IsNeedPleaseSelect">
             <summary>
             是否需要生成"请选择"的option
             </summary>
         </member>
-        <member name="P:XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity.DefaultValue">
+        <member name="P:XCLNetTools.Entity.SetOptionEntity.DefaultValue">
             <summary>
             默认选中的项
             </summary>
@@ -127,101 +127,86 @@
             原生html控件操作类
             </summary>
         </member>
-        <member name="M:XCLNetTools.Control.HtmlControl.Lib.GetOptions(System.Type,XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity)">
+        <member name="M:XCLNetTools.Control.HtmlControl.Lib.GetOptions(System.Type,XCLNetTools.Entity.SetOptionEntity)">
             <summary>
             将枚举转为select的options
             <param name="t">枚举type</param>
             <param name="options">选项</param>
             </summary>
         </member>
-        <member name="M:XCLNetTools.Control.HtmlControl.Lib.GetOptions(System.Collections.Generic.Dictionary{System.String,System.String},XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity)">
+        <member name="M:XCLNetTools.Control.HtmlControl.Lib.GetOptions(System.Collections.Generic.Dictionary{System.String,System.String},XCLNetTools.Entity.SetOptionEntity)">
             <summary>
             将Dictionary转为select 的options
             </summary>
             <param name="dataSource">数据源</param>
             <param name="options">选项</param>
         </member>
-        <member name="T:XCLNetTools.Control.MxGraph.MxGraphHelper">
+        <member name="T:XCLNetTools.Control.MxGraph.Lib">
             <summary>
             MxGraph操作类
             </summary>
         </member>
-        <member name="M:XCLNetTools.Control.MxGraph.MxGraphHelper.GetImage(System.String)">
+        <member name="M:XCLNetTools.Control.MxGraph.Lib.GetImage(System.String)">
             <summary>
             根据view形式的xml生成图片
             </summary>
             <param name="xml">view形式的xml</param>
             <returns>image对象</returns>
         </member>
-        <member name="M:XCLNetTools.Control.MxGraph.MxGraphHelper.ExportImage(System.String,System.String)">
+        <member name="M:XCLNetTools.Control.MxGraph.Lib.ExportImage(System.String,System.String)">
             <summary>
             导出mxGraph为图片
             </summary>
             <param name="xml">mxGraph的model的view形式的xml</param>
             <param name="filename">导出后的文件名（包含扩展名）</param>
         </member>
-        <member name="T:XCLNetTools.Control.Pagination.AspNetPager.AspNetPagerClass">
+        <member name="T:XCLNetTools.Control.Pagination.AspNetPagerInfo">
             <summary>
             AspNetPager分页
+            分页控件来源：http://www.webdiyer.com/aspnetpager/
             </summary>
         </member>
-        <member name="T:XCLNetTools.Control.Pagination.PaginationBase">
-            <summary>
-            分页基类
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Control.Pagination.PaginationBase.#ctor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Control.Pagination.PaginationBase.#ctor(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            构造函数
-            </summary>
-            <param name="recordCount">记录总数</param>
-            <param name="pageSize">每页最多显示的数量</param>
-            <param name="pageIndex">当前为第几页</param>
-        </member>
-        <member name="P:XCLNetTools.Control.Pagination.PaginationBase.RecordCount">
-            <summary>
-            记录总数
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Control.Pagination.PaginationBase.PageSize">
-            <summary>
-            每页最多显示的数量
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Control.Pagination.PaginationBase.PageIndex">
-            <summary>
-            当前为第几页
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Control.Pagination.IPaginations.IPagination">
+        <member name="T:XCLNetTools.Control.Pagination.BasePagination`1">
             <summary>
             分页接口
             </summary>
         </member>
-        <member name="M:XCLNetTools.Control.Pagination.IPaginations.IPagination.InitPager">
+        <member name="M:XCLNetTools.Control.Pagination.BasePagination`1.#ctor(`0,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="pager">分页控件对象</param>
+            <param name="pageIndex">当前页码</param>
+            <param name="pageSize">每页最多显示的记录数</param>
+            <param name="recordCount">记录总数</param>
+        </member>
+        <member name="M:XCLNetTools.Control.Pagination.BasePagination`1.InitPager">
             <summary>
             分页初始化
             </summary>
         </member>
-        <member name="M:XCLNetTools.Control.Pagination.AspNetPager.AspNetPagerClass.#ctor(Wuqi.Webdiyer.AspNetPager)">
+        <member name="P:XCLNetTools.Control.Pagination.BasePagination`1.Pager">
+            <summary>
+            当前分页控件
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Control.Pagination.BasePagination`1.PagerInfo">
+            <summary>
+            分页信息
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Control.Pagination.AspNetPagerInfo.#ctor(Wuqi.Webdiyer.AspNetPager,System.Int32,System.Int32,System.Int32)">
             <summary>
             构造函数
             </summary>
-            <param name="pager">当前分页控件</param>
+            <param name="pager">分页控件对象</param>
+            <param name="pageIndex">当前页码</param>
+            <param name="pageSize">每页最多显示的记录数</param>
+            <param name="recordCount">记录总数</param>
         </member>
-        <member name="M:XCLNetTools.Control.Pagination.AspNetPager.AspNetPagerClass.InitPager">
+        <member name="M:XCLNetTools.Control.Pagination.AspNetPagerInfo.InitPager">
             <summary>
             分页控件初始化
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Control.Pagination.AspNetPager.AspNetPagerClass.Pager">
-            <summary>
-            当前分页控件
             </summary>
         </member>
         <member name="T:XCLNetTools.DataBase.Access.AccessHelper">
@@ -2183,6 +2168,16 @@
             是否
             </summary>
         </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.是否.是">
+            <summary>
+            是
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.是否.否">
+            <summary>
+            否
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Enum.CommonEnum.StaticResourceTypeEnum">
             <summary>
             静态资源类型
@@ -2243,19 +2238,14 @@
             根据枚举text,获取枚举description
             </summary>
         </member>
-        <member name="T:XCLNetTools.Enum.EnumObj">
-            <summary>
-            枚举操作类
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Enum.EnumObj.GetList(System.Type)">
+        <member name="M:XCLNetTools.Enum.EnumHelper.GetList(System.Type)">
             <summary>
             将枚举转为list的形式
             </summary>
             <param name="type">枚举的typeof</param>
             <returns>枚举的list形式</returns>
         </member>
-        <member name="M:XCLNetTools.Enum.EnumObj.IsExistEnumValue(System.Int32,System.Type)">
+        <member name="M:XCLNetTools.Enum.EnumHelper.IsExistEnumValue(System.Int32,System.Type)">
             <summary>
             判断数字是否属于该枚举
             <param name="v">枚举的value，就是数字</param>
@@ -2263,23 +2253,13 @@
             <returns>true:v属于该枚举，反之则不属于</returns>
             </summary>
         </member>
-        <member name="M:XCLNetTools.Enum.EnumObj.GetValueByText(System.Collections.Generic.List{XCLNetTools.Enum.EnumObj},System.String)">
+        <member name="M:XCLNetTools.Enum.EnumHelper.GetValueByText(System.Collections.Generic.List{XCLNetTools.Entity.TextValue},System.String)">
             <summary>
             根据名获取值（若未找到，则返回-1）
             </summary>
             <param name="lst">枚举的list形式</param>
             <param name="text">枚举项的名称</param>
             <returns>该枚举的值</returns>
-        </member>
-        <member name="P:XCLNetTools.Enum.EnumObj.Text">
-            <summary>
-            文本
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Enum.EnumObj.Value">
-            <summary>
-            值
-            </summary>
         </member>
         <member name="T:XCLNetTools.FileHandler.ImgLib">
             <summary>
@@ -2383,33 +2363,58 @@
             <param name="dt"></param>
             <returns></returns>
         </member>
-        <member name="T:XCLNetTools.Http.HttpCookieHelper">
+        <member name="T:XCLNetTools.Http.CookieHelper">
             <summary>
             Cookie操作帮助类
             </summary>
         </member>
-        <member name="M:XCLNetTools.Http.HttpCookieHelper.GetCookieList(System.String)">
+        <member name="M:XCLNetTools.Http.CookieHelper.GetCookieList(System.String)">
             <summary>
             根据字符生成Cookie列表
             </summary>
-            <param name="cookie">Cookie字符串</param>
-            <returns></returns>
+            <param name="cookie">Cookie集合的字符串形式</param>
+            <returns>key value实体</returns>
         </member>
-        <member name="M:XCLNetTools.Http.HttpCookieHelper.GetCookieValue(System.String,System.String)">
+        <member name="M:XCLNetTools.Http.CookieHelper.GetCookieValue(System.String,System.String)">
             <summary>
-            根据Key值得到Cookie值,Key不区分大小写
+            根据key值得到Cookie值
             </summary>
-            <param name="Key">key</param>
-            <param name="cookie">字符串Cookie</param>
-            <returns></returns>
+            <param name="key">key</param>
+            <param name="cookie">Cookie集合的字符串形式</param>
+            <returns>key的值</returns>
         </member>
-        <member name="M:XCLNetTools.Http.HttpCookieHelper.CookieFormat(System.String,System.String)">
+        <member name="M:XCLNetTools.Http.CookieHelper.CookieFormat(System.String,System.String)">
             <summary>
             格式化Cookie为标准格式
             </summary>
             <param name="key">Key值</param>
             <param name="value">Value值</param>
             <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.Http.CookieHelper.SetCookies(System.String,System.String,System.Int32)">
+            <summary>
+            设置cookies
+            </summary>
+            <param name="mainName">主键</param>
+            <param name="mainValue">值</param>
+            <param name="days">天数</param>
+            <returns>是否设置成功</returns>
+        </member>
+        <member name="M:XCLNetTools.Http.CookieHelper.GetCookies(System.String)">
+            <summary>
+            获取cookies
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Http.CookieHelper.GetCookiesCollection(System.String)">
+            <summary>
+            获取cookies集合
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Http.CookieHelper.DelCookies(System.String)">
+            <summary>
+            删除Cookies
+            </summary>
+            <returns>是否删除成功</returns>
         </member>
         <member name="T:XCLNetTools.Http.HttpHelper">
             <summary>
@@ -2954,6 +2959,8 @@
             <summary>
             删除文件
             </summary>
+            <param name="filePath">文件路径</param>
+            <returns>若为true，则删除成功</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.ComFile.CopyFile(System.String,System.String)">
             <summary>
@@ -3046,7 +3053,6 @@
             <summary>
             获取文件名
             </summary>
-            <param name="isWithExt">是否包含扩展名</param>
         </member>
         <member name="M:XCLNetTools.FileHandler.ComFile.GetRandomFileName(System.String)">
              <summary>
@@ -3070,28 +3076,28 @@
             <summary>
             判断目录是否存在
             </summary>
-            <param name="DirectoryName">目录路径</param>
+            <param name="directoryName">目录路径</param>
             <returns>true：存在，false：不存在</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.MakeDirectory(System.String)">
             <summary>
             建立目录
             </summary>
-            <param name="DirectoryName">目录名</param>
+            <param name="directoryName">目录名</param>
             <returns>返回boolean,true:目录建立成功, false:目录建立失败</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.RMDIR(System.String)">
             <summary>
             删除指定的目录
             </summary>
-            <param name="DirectoryName">目录名</param>
+            <param name="directoryName">目录名</param>
             <returns>true：删除成功，false：删除失败</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.DelTree(System.String)">
             <summary>
             删除目录并删除其下的子目录及其文件
             </summary>
-            <param name="DirectoryName">目录名</param>
+            <param name="directoryName">目录名</param>
             <returns>true:删除成功,false:删除失败</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.ClearDirectory(System.String)">
@@ -3103,35 +3109,36 @@
             <summary>
             建立一个文件
             </summary>
-            <param name="FilePathName">目录名</param>
+            <param name="filePathName">目录名</param>
             <returns>true:建立成功,false:建立失败</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.AppendText(System.String,System.String)">
             <summary>
             在文件里追加内容
             </summary>
-            <param name="FilePathName">文件名</param>
-            <param name="WriteWord">追加内容</param>
+            <param name="filePathName">文件名</param>
+            <param name="writeWord">追加内容</param>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.AppendText(System.String,System.String,System.Text.Encoding)">
             <summary>
             在文件里追加内容
             </summary>
-            <param name="FilePathName">文件名</param>
-            <param name="WriteWord">追加内容</param>
+            <param name="filePathName">文件名</param>
+            <param name="writeWord">追加内容</param>
+            <param name="encode">编码</param>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.ReadFileData(System.String)">
             <summary>
             读取文件里内容
             </summary>
-            <param name="FilePathName">文件名</param>
+            <param name="filePathName">文件名</param>
             <returns>文件内容</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.FileDelete(System.String)">
             <summary>
             删除文件
             </summary>
-            <param name="AbsoluteFilePath">文件绝对地址</param>
+            <param name="absoluteFilePath">文件绝对地址</param>
             <returns>true:删除文件成功,false:删除文件失败</returns>
         </member>
         <member name="T:XCLNetTools.FileHandler.UploadEventArgs">
@@ -3350,21 +3357,26 @@
             INI文件读写类。
             </summary>
         </member>
+        <member name="M:XCLNetTools.FileHandler.INIFile.#ctor(System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="iniPath">文件路径</param>
+        </member>
         <member name="M:XCLNetTools.FileHandler.INIFile.IniWriteValue(System.String,System.String,System.String)">
             <summary>
             写INI文件
             </summary>
-            <param name="Section"></param>
-            <param name="Key"></param>
-            <param name="Value"></param>
         </member>
         <member name="M:XCLNetTools.FileHandler.INIFile.IniReadValue(System.String,System.String)">
             <summary>
             读取INI文件
             </summary>
-            <param name="Section"></param>
-            <param name="Key"></param>
-            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.INIFile.IniReadValues(System.String,System.String)">
+            <summary>
+            读ini
+            </summary>
         </member>
         <member name="M:XCLNetTools.FileHandler.INIFile.ClearAllSection">
             <summary>
@@ -3373,139 +3385,13 @@
         </member>
         <member name="M:XCLNetTools.FileHandler.INIFile.ClearSection(System.String)">
             <summary>
-            删除ini文件下personal段落下的所有键
+            删除ini文件下section段落下的所有键
             </summary>
-            <param name="Section"></param>
         </member>
-        <member name="T:XCLNetTools.FileHandler.Upload">
+        <member name="P:XCLNetTools.FileHandler.INIFile.Path">
             <summary>
-            文件上传类
+            文件路径
             </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.Upload.#ctor">
-            <summary>
-            初始文件上传类(默认)
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.Upload.UploadFileGo(System.String,System.Web.UI.WebControls.FileUpload)">
-            <summary>
-            上传本地文件到服务器
-            </summary>
-            <param name="strSaveDir">在服务器端保存的物理路径。</param>
-            <param name="FileUploadCtrlID">上传的文件对象，这里使用的是FileUpload控件，</param>
-            <param>第二个参数如果是HTMl Input(File)控件可改为：HtmlInputFile HtmCtrlObjUploadFile</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.Upload.GetRandomStr">
-            <summary>
-            返回GUID
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.Upload.GetSaveDirectory(System.String)">
-            <summary>
-            获取上传文件存放目录
-            </summary>
-            <param name="DirectoryPath">存放文件的物理路径。</param>
-            <returns>返回存放文件的目录。</returns>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.Upload.UploadInfo">
-            <summary>
-            文件上传的返回信息
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.Upload.UploadState">
-            <summary>
-            文件上传的返回状态，成功true，失败false
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.Upload.FileType">
-            <summary>
-            允许上传文件的类型,* 默认代表可任意类型,或自定义类型，如 "jpg|gif|bmp"
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.Upload.FileSize">
-            <summary>
-            上传文件的大小，单位K
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.Upload.MaxFileSize">
-            <summary>
-            上传文件大小的最大长度，单位K
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.Upload.NewFileName">
-            <summary>
-            上传后的文件名
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.FileHandler.UploadImg">
-             <summary>
-             图片上传类
-            by:xucongli  @2012
-            http://blog.csdn.net/luoyeyu1989
-             </summary>
-        </member>
-        <member name="F:XCLNetTools.FileHandler.UploadImg._MSG">
-            <summary>
-            信息
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.FileHandler.UploadImg._tprefix">
-            <summary>
-            缩略图前缀
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.FileHandler.UploadImg._limitwidth">
-            <summary>
-            原图最大宽度
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.FileHandler.UploadImg._limitheight">
-            <summary>
-            原图最大高度
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.FileHandler.UploadImg._twidth">
-            <summary>
-            缩略图最大宽度
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.FileHandler.UploadImg._theight">
-            <summary>
-            缩略图最大高度
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.FileHandler.UploadImg._size">
-            <summary>
-            文件大小
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.FileHandler.UploadImg._israte">
-            <summary>
-            是否成比例
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.FileHandler.UploadImg._iscreate">
-            <summary>
-            是否生成缩略图
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.FileHandler.UploadImg._path">
-            <summary>
-            存放图片的文件夹名称
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.FileHandler.UploadImg._OFileName">
-            <summary>
-            原图名称
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.UploadImg.UpLoadIMG(System.Web.UI.WebControls.FileUpload)">
-            <summary>
-            图片上传(默认:"等比压缩,限定上传尺寸2048*1536,缩略图尺寸100*100,限定上传大小1MB,存放在根目录upload中")
-            </summary>
-            <param name="UploadFile">文件上传控件</param>
-            <returns>返回是否成功保存图片</returns>
         </member>
         <member name="T:XCLNetTools.FileHandler.ZipHelper">
             <summary>
@@ -3569,13 +3455,11 @@
             <summary>
             输出JS代码
             </summary>
-            <param name="js"></param>
         </member>
         <member name="M:XCLNetTools.Javascript.Jscript.Alert(System.String)">
             <summary>
             弹出Javascript小窗口
             </summary>
-            <param name="js">窗口信息</param>
         </member>
         <member name="M:XCLNetTools.Javascript.Jscript.AlertAndRedirect(System.String,System.String)">
             <summary>
@@ -3588,7 +3472,6 @@
             <summary>
             回到历史页面
             </summary>
-            <param name="value">-1/1</param>
         </member>
         <member name="M:XCLNetTools.Javascript.Jscript.CloseWindow">
             <summary>
@@ -3617,19 +3500,13 @@
         </member>
         <member name="M:XCLNetTools.Javascript.Jscript.OpenWebFormSize(System.String)">
             <summary>
-            打开指定大小的新窗体
+            打开指定url
             </summary>
-            <param name="url">地址</param>
-            <param name="width">宽</param>
-            <param name="heigth">高</param>
-            <param name="top">头位置</param>
-            <param name="left">左位置</param>
         </member>
         <member name="M:XCLNetTools.Javascript.Jscript.JavascriptLocationHref(System.String)">
             <summary>
             转向Url制定的页面
             </summary>
-            <param name="url">连接地址</param>
         </member>
         <member name="M:XCLNetTools.Javascript.Jscript.ShowModalDialogWindow(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
@@ -3684,8 +3561,6 @@
             <summary>
             控件点击 消息确认提示框
             </summary>
-            <param name="page">当前页面指针，一般为this</param>
-            <param name="msg">提示信息</param>
         </member>
         <member name="M:XCLNetTools.Javascript.Jscript.ShowAndRedirect(System.Web.UI.Page,System.String,System.String)">
             <summary>
@@ -3790,16 +3665,6 @@
         <member name="P:XCLNetTools.Mail.MailSetting.Password">
             <summary>
             发件人密码
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.ObjectLib.ObjectHelper">
-            <summary>
-            对象操作
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.ObjectLib.ObjectHelper.DeepClone``1(``0)">
-            <summary>
-            对象深度clone（被clone对象必须可以序列化）
             </summary>
         </member>
         <member name="T:XCLNetTools.Entity.KeyValue">
@@ -3985,6 +3850,11 @@
             <param name="pBytes">字节流</param>
             <returns>T</returns>
         </member>
+        <member name="M:XCLNetTools.Serialize.Lib.DeepClone``1(``0)">
+            <summary>
+            对象深度clone（被clone对象必须可以序列化）
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Serialize.XML">
             <summary>
             xml序列化相关
@@ -4042,31 +3912,6 @@
             <summary>
             删除所有HTML标记
             </summary>
-        </member>
-        <member name="M:XCLNetTools.StringHander.Common.SetCookies(System.String,System.String,System.Int32)">
-            <summary>
-            设置cookies
-            </summary>
-            <param name="mainName">主键</param>
-            <param name="mainValue">值</param>
-            <param name="days">天数</param>
-            <returns>是否设置成功</returns>
-        </member>
-        <member name="M:XCLNetTools.StringHander.Common.GetCookies(System.String)">
-            <summary>
-            获取cookies
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.StringHander.Common.GetCookiesCollection(System.String)">
-            <summary>
-            获取cookies集合
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.StringHander.Common.DelCookies(System.String)">
-            <summary>
-            删除Cookies
-            </summary>
-            <returns>是否删除成功</returns>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetString(System.String,System.String)">
             <summary>

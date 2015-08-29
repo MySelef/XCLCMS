@@ -129,7 +129,7 @@
             公共工具类
             </summary>
         </member>
-        <member name="M:XCLCMS.Lib.Common.Tool.GetSysDicOptionsByCode(System.String,XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity)">
+        <member name="M:XCLCMS.Lib.Common.Tool.GetSysDicOptionsByCode(System.String,XCLNetTools.Entity.SetOptionEntity)">
             <summary>
             将指定code的SysDic的子项转为options
             </summary>

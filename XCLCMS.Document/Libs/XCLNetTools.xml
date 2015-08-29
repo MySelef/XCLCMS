@@ -2337,6 +2337,21 @@
             判断IEnumerable是否有值
             </summary>
         </member>
+        <member name="M:XCLNetTools.Generic.Extension.ToJson``1(``0)">
+            <summary>
+            将T转为json字符串
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Generic.Extension.IsNull``1(``0)">
+            <summary>
+            判断T是否为null
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Generic.Extension.IsNotNull``1(``0)">
+            <summary>
+            判断T不为null
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Generic.ListHelper">
             <summary>
             List操作类
@@ -4007,23 +4022,21 @@
         </member>
         <member name="M:XCLNetTools.StringHander.Common.ExchangeNote(System.String)">
             <summary>
-            防止HTML代碼注入
+            防止HTML代码注入
+            替换尖括号为html实体
             </summary>
-            <param name="NoteContent"></param>
-            <returns></returns>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.No_SqlHack(System.String)">
             <summary>
             防止SQL注入
             </summary>
-            <param name="inputStr">輸入的sql語句</param>
-            <returns>過濾後的語句</returns>
+            <param name="inputStr">输入的sql语句</param>
+            <returns>过滤后的语句</returns>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.NoSqlAndHtml(System.String)">
             <summary>
             过滤HTML 和SQL
             </summary>
-            <param name="str"></param>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.NoHTML(System.String)">
             <summary>
@@ -4042,23 +4055,18 @@
         <member name="M:XCLNetTools.StringHander.Common.GetCookies(System.String)">
             <summary>
             获取cookies
-            .net 和JavaScript url加密不一样，解密一样
             </summary>
-            <param name="mainName">主键</param>
-            <returns>value值</returns>
         </member>
-        <member name="M:XCLNetTools.StringHander.Common.GetCookies2(System.String)">
-             <summary>
-            
-             </summary>
-             <param name="mainName"></param>
-             <returns></returns>
+        <member name="M:XCLNetTools.StringHander.Common.GetCookiesCollection(System.String)">
+            <summary>
+            获取cookies集合
+            </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.DelCookies(System.String)">
             <summary>
             删除Cookies
             </summary>
-            <param name="mainName"></param>
+            <returns>是否删除成功</returns>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetString(System.String,System.String)">
             <summary>
@@ -4258,13 +4266,13 @@
             </summary>
             <returns>颜色编码，如：1941A5</returns>
         </member>
-        <member name="M:XCLNetTools.StringHander.Common.GetFileSize(System.Decimal,System.Int32)">
+        <member name="M:XCLNetTools.StringHander.Common.GetSizeStringByKB(System.Decimal,System.Int32)">
             <summary>
-            返回文件大小KB,MB,GB,TB形式的表示
+            返回文件大小KB,MB,GB,TB,PB形式的表示
             </summary>
             <param name="size">kb</param>
             <param name="count">保留几位小数</param>
-            <returns></returns>
+            <returns>如：5.5GB</returns>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.ResponseClearWrite(System.String)">
             <summary>

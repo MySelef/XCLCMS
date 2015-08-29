@@ -2,62 +2,6 @@
     Layout = "~/Views/MasterView/Simple.cshtml";
 }
 
-@section CustomHeader
-{
-    
-    <style type="text/css">
-        .XCLUploadFile .trTitle
-        {
-            font-size:15px;
-            font-weight:bolder;
-            text-align:center;
-        }
-        .XCLUploadFile .UploadItemDiv
-        {
-            height:500px;
-            overflow:auto;
-            border:solid 1px #ccc;
-        }
-        .XCLUploadFile .UploadItemDiv ul
-        {
-            
-        }
-        .XCLUploadFile .UploadItemDiv li
-        {
-            width:230px;
-            text-align:center;
-            list-style:none;
-            list-style-position:inside;
-            float:left;
-            border:solid 1px #ccc;
-            margin:5px;
-            padding:3px;
-        }
-        .XCLUploadFile .UploadItemDiv li:hover {
-            background:#e0ecff;
-        }
-        .XCLUploadFile .UploadItemDiv .itemContent
-        {
-            height:180px;
-            line-height:180px;
-        }
-        .XCLUploadFile .UploadItemDiv .itemDescription
-        {
-            height:40px;
-            border-top:solid 1px #ccc;
-            overflow:hidden;
-        }
-        .XCLUploadFile .UploadItemDiv .itemBottom
-        {
-            height:20px;
-            text-align:center;
-            border-top:solid 2px #ccc;
-        }
-</style>
-
-    }
-
-
 <div id="tabFileUpload" class="easyui-tabs" data-options="fit:true">  
     <div title="选择文件">  
         <div style="padding:5px" class="XCLUploadFile">
@@ -67,10 +11,7 @@
             </div>
             <div class="easyui-progressbar" id="fileUploaderProgress" data-options="value:0,text:'文件上传进度：{value}%'" style="width:100%;"></div>
             <div style="padding:10px;">
-                <div style="text-align:left;width:20%;float:left;">
-                    <input type="checkbox" />全选
-                </div>
-                <div style="text-align:right;width:80%;float:left;">
+                <div style="text-align:right;">
                     <a href="javascript:void(0);" id="btnClear" class="easyui-linkbutton " data-options="iconCls:'icon-clear'" style="width:100px;">清空</a>
                     <a href="javascript:void(0);" id="btnAddFile" class="easyui-linkbutton " data-options="iconCls:'icon-add'" style="width:100px;">添加文件</a>
                     <a href="javascript:void(0);" id="btnUploadFile" class="easyui-linkbutton " data-options="iconCls:'icon-ok'" style="width:100px;">开始上传</a>
@@ -101,7 +42,6 @@
                 文件名：{{m.Name}}
             </div>
             <div class="itemBottom">
-                <input type="checkbox" />
                 <a href="javascript:void(0);" rel="fileDetail" xcl-Id="{{m.Id}}">详情</a>
                 <a href="javascript:void(0);" rel="fileEdit" xcl-Id="{{m.Id}}">编辑</a>
                 <a href="javascript:void(0);" rel="fileDel" xcl-Id="{{m.Id}}">删除</a>

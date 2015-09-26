@@ -194,9 +194,17 @@
             //所有文件上传完成后事件
             _this._uploader.bind("UploadComplete", function (up, files) {
                 if (files.length > 0) {
-                    art.dialog("所有文件已上传完毕！");
+                    art.dialog({
+                        icon: "succeed",
+                        content: "所有文件已上传完毕！",
+                        ok:true
+                    });
                 } else {
-                    art.dialog("当前没有待上传的文件！");
+                    art.dialog({
+                        icon: "face-smile",
+                        content: "当前没有待上传的文件！",
+                        ok:true
+                    });
                 }
                 _this._changeClearButtonState(true);
             });

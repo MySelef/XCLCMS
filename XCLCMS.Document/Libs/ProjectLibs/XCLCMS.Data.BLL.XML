@@ -145,11 +145,6 @@
             策略基类
             </summary>
         </member>
-        <member name="M:XCLCMS.Data.BLL.Strategy.BaseStrategy.DoWork``1(``0)">
-            <summary>
-            执行当前策略
-            </summary>
-        </member>
         <member name="P:XCLCMS.Data.BLL.Strategy.BaseStrategy.Name">
             <summary>
             当前策略名
@@ -170,6 +165,11 @@
             当前策略执行结果消息
             </summary>
         </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.BaseStrategy.DoWork``1(``0)">
+            <summary>
+            执行当前策略
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.BLL.Strategy.ExecuteStrategy">
             <summary>
             执行策略链
@@ -180,11 +180,6 @@
             构造函数
             </summary>
             <param name="strategyList">当前待执行的策略链list</param>
-        </member>
-        <member name="M:XCLCMS.Data.BLL.Strategy.ExecuteStrategy.Execute``1(``0)">
-            <summary>
-            执行策略链
-            </summary>
         </member>
         <member name="P:XCLCMS.Data.BLL.Strategy.ExecuteStrategy.Result">
             <summary>
@@ -199,6 +194,11 @@
         <member name="P:XCLCMS.Data.BLL.Strategy.ExecuteStrategy.StrategyList">
             <summary>
             当前待执行的策略链
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.BLL.Strategy.ExecuteStrategy.Execute``1(``0)">
+            <summary>
+            执行策略链
             </summary>
         </member>
         <member name="T:XCLCMS.Data.BLL.Strategy.StrategyLib">

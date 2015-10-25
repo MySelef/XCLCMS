@@ -9,14 +9,24 @@
             后台基类
             </summary>
         </member>
-        <member name="T:XCLCMS.Lib.Base.IBaseController">
+        <member name="P:XCLCMS.Lib.Base.AdminBaseController.CurrentUserModel">
             <summary>
-            基类接口
+            当前登录的用户实体
             </summary>
         </member>
-        <member name="P:XCLCMS.Lib.Base.IBaseController.CurrentUserModel">
+        <member name="P:XCLCMS.Lib.Base.AdminBaseController.UserID">
             <summary>
-            当前所登录的用户model
+            当前已登录用户的ID
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Base.AdminBaseController.CurrentHandleType">
+            <summary>
+            当前页面操作类型
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Base.AdminBaseController.CurrentHandleTypeValue">
+            <summary>
+            页面操作类型HandleType的参数值
             </summary>
         </member>
         <member name="M:XCLCMS.Lib.Base.AdminBaseController.AddSubmit(System.Web.Mvc.FormCollection)">
@@ -49,44 +59,19 @@
             拦截action
             </summary>
         </member>
-        <member name="P:XCLCMS.Lib.Base.AdminBaseController.CurrentUserModel">
+        <member name="T:XCLCMS.Lib.Base.IBaseController">
             <summary>
-            当前登录的用户实体
+            基类接口
             </summary>
         </member>
-        <member name="P:XCLCMS.Lib.Base.AdminBaseController.UserID">
+        <member name="P:XCLCMS.Lib.Base.IBaseController.CurrentUserModel">
             <summary>
-            当前已登录用户的ID
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Lib.Base.AdminBaseController.CurrentHandleType">
-            <summary>
-            当前页面操作类型
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Lib.Base.AdminBaseController.CurrentHandleTypeValue">
-            <summary>
-            页面操作类型HandleType的参数值
+            当前所登录的用户model
             </summary>
         </member>
         <member name="T:XCLCMS.Lib.Common.Comm">
             <summary>
             公共操作
-            </summary>
-        </member>
-        <member name="F:XCLCMS.Lib.Common.Comm.SettingCacheName">
-            <summary>
-            站点配置信息缓存
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Lib.Common.Comm.ClearCache">
-            <summary>
-            缓存清理
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Lib.Common.Comm.XCLJsonResult(System.Object,System.Web.Mvc.JsonRequestBehavior)">
-            <summary>
-            重写json
             </summary>
         </member>
         <member name="T:XCLCMS.Lib.Common.Comm.HandleType">
@@ -124,6 +109,21 @@
             其它
             </summary>
         </member>
+        <member name="F:XCLCMS.Lib.Common.Comm.SettingCacheName">
+            <summary>
+            站点配置信息缓存
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Common.Comm.ClearCache">
+            <summary>
+            缓存清理
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Common.Comm.XCLJsonResult(System.Object,System.Web.Mvc.JsonRequestBehavior)">
+            <summary>
+            重写json
+            </summary>
+        </member>
         <member name="T:XCLCMS.Lib.Common.Tool">
             <summary>
             公共工具类
@@ -159,6 +159,16 @@
             des 解密
             </summary>
         </member>
+        <member name="T:XCLCMS.Lib.Filters.ExceptionFilter">
+            <summary>
+            异常处理
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Filters.ExceptionFilter.OnException(System.Web.Mvc.ExceptionContext)">
+            <summary>
+            异常
+            </summary>
+        </member>
         <member name="T:XCLCMS.Lib.Filters.FunctionFilter">
             <summary>
             功能Filter
@@ -172,6 +182,11 @@
         <member name="T:XCLCMS.Lib.Filters.PermissionFilter">
             <summary>
             权限拦截
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Filters.PermissionFilter.IsMustLogin">
+            <summary>
+            是否必须验证登录
             </summary>
         </member>
         <member name="M:XCLCMS.Lib.Filters.PermissionFilter.AuthorizeCore(System.Web.HttpContextBase)">
@@ -189,14 +204,29 @@
             功能权限验证
             </summary>
         </member>
-        <member name="P:XCLCMS.Lib.Filters.PermissionFilter.IsMustLogin">
-            <summary>
-            是否必须验证登录
-            </summary>
-        </member>
         <member name="T:XCLCMS.Lib.Login.LoginHelper">
             <summary>
             登录相关
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Login.LoginHelper.LoginType">
+            <summary>
+            登录类型
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Login.LoginHelper.LoginType.ON">
+            <summary>
+            登录
+            </summary>
+        </member>
+        <member name="F:XCLCMS.Lib.Login.LoginHelper.LoginType.OFF">
+            <summary>
+            退出
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Lib.Login.LoginHelper.IsLogOn">
+            <summary>
+            是否已登录
             </summary>
         </member>
         <member name="M:XCLCMS.Lib.Login.LoginHelper.SetLogInfo(XCLCMS.Lib.Login.LoginHelper.LoginType,XCLCMS.Data.Model.UserInfo)">
@@ -217,34 +247,9 @@
             <param name="str">如：admin^21232F297A57A5A743894A0E4A801FC3</param>
             <returns></returns>
         </member>
-        <member name="P:XCLCMS.Lib.Login.LoginHelper.IsLogOn">
-            <summary>
-            是否已登录
-            </summary>
-        </member>
-        <member name="T:XCLCMS.Lib.Login.LoginHelper.LoginType">
-            <summary>
-            登录类型
-            </summary>
-        </member>
-        <member name="F:XCLCMS.Lib.Login.LoginHelper.LoginType.ON">
-            <summary>
-            登录
-            </summary>
-        </member>
-        <member name="F:XCLCMS.Lib.Login.LoginHelper.LoginType.OFF">
-            <summary>
-            退出
-            </summary>
-        </member>
         <member name="T:XCLCMS.Lib.Login.UserLoginInfoModel">
             <summary>
             用户登录时，存放在cookie中的登录信息
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Lib.Login.UserLoginInfoModel.ToString">
-            <summary>
-            tostring
             </summary>
         </member>
         <member name="P:XCLCMS.Lib.Login.UserLoginInfoModel.UserName">
@@ -255,6 +260,11 @@
         <member name="P:XCLCMS.Lib.Login.UserLoginInfoModel.Pwd">
             <summary>
             密码 （已加密）
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Lib.Login.UserLoginInfoModel.ToString">
+            <summary>
+            tostring
             </summary>
         </member>
         <member name="T:XCLCMS.Lib.Model.CommonModel">
@@ -270,6 +280,11 @@
         <member name="P:XCLCMS.Lib.Model.CommonModel.IsLogOn">
             <summary>
             是否已登录
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Lib.Model.SettingModel">
+            <summary>
+            站点配置model
             </summary>
         </member>
         <member name="T:XCLCMS.Lib.Permission.Function">
@@ -470,11 +485,6 @@
         <member name="P:XCLCMS.Lib.SysWebSetting.Setting.SettingModel">
             <summary>
             model形式的配置
-            </summary>
-        </member>
-        <member name="T:XCLCMS.Lib.Model.SettingModel">
-            <summary>
-            站点配置model
             </summary>
         </member>
     </members>

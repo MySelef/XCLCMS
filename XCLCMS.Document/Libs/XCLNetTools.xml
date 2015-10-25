@@ -107,21 +107,6 @@
             将list绑定到控件上
             </summary>
         </member>
-        <member name="T:XCLNetTools.Entity.SetOptionEntity">
-            <summary>
-            生成select的option时的选项
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.SetOptionEntity.IsNeedPleaseSelect">
-            <summary>
-            是否需要生成"请选择"的option
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.SetOptionEntity.DefaultValue">
-            <summary>
-            默认选中的项
-            </summary>
-        </member>
         <member name="T:XCLNetTools.Control.HtmlControl.Lib">
             <summary>
             原生html控件操作类
@@ -166,6 +151,20 @@
             分页控件来源：http://www.webdiyer.com/aspnetpager/
             </summary>
         </member>
+        <member name="M:XCLNetTools.Control.Pagination.AspNetPagerInfo.#ctor(Wuqi.Webdiyer.AspNetPager,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="pager">分页控件对象</param>
+            <param name="pageIndex">当前页码</param>
+            <param name="pageSize">每页最多显示的记录数</param>
+            <param name="recordCount">记录总数</param>
+        </member>
+        <member name="M:XCLNetTools.Control.Pagination.AspNetPagerInfo.InitPager">
+            <summary>
+            分页控件初始化
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Control.Pagination.BasePagination`1">
             <summary>
             分页接口
@@ -180,11 +179,6 @@
             <param name="pageSize">每页最多显示的记录数</param>
             <param name="recordCount">记录总数</param>
         </member>
-        <member name="M:XCLNetTools.Control.Pagination.BasePagination`1.InitPager">
-            <summary>
-            分页初始化
-            </summary>
-        </member>
         <member name="P:XCLNetTools.Control.Pagination.BasePagination`1.Pager">
             <summary>
             当前分页控件
@@ -195,18 +189,214 @@
             分页信息
             </summary>
         </member>
-        <member name="M:XCLNetTools.Control.Pagination.AspNetPagerInfo.#ctor(Wuqi.Webdiyer.AspNetPager,System.Int32,System.Int32,System.Int32)">
+        <member name="M:XCLNetTools.Control.Pagination.BasePagination`1.InitPager">
             <summary>
-            构造函数
+            分页初始化
             </summary>
-            <param name="pager">分页控件对象</param>
-            <param name="pageIndex">当前页码</param>
-            <param name="pageSize">每页最多显示的记录数</param>
-            <param name="recordCount">记录总数</param>
         </member>
-        <member name="M:XCLNetTools.Control.Pagination.AspNetPagerInfo.InitPager">
+        <member name="T:XCLNetTools.Entity.BookmarkEntity">
             <summary>
-            分页控件初始化
+            浏览器书签实体
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.ParentId">
+            <summary>
+            父id
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.IsFolder">
+            <summary>
+            是否为文件夹
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.Name">
+            <summary>
+            书签名称
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.IcoURL">
+            <summary>
+            ico图标地址
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.Url">
+            <summary>
+            书签链接
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.SetOptionEntity">
+            <summary>
+            生成select的option时的选项
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.SetOptionEntity.IsNeedPleaseSelect">
+            <summary>
+            是否需要生成"请选择"的option
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.SetOptionEntity.DefaultValue">
+            <summary>
+            默认选中的项
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.PagerInfo">
+            <summary>
+            分页信息model
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Entity.PagerInfo.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            分页信息 构造函数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.PageIndex">
+            <summary>
+            当前页码（第一页为1），默认为1
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.PageSize">
+            <summary>
+            每页最多显示的记录数，默认为10
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.RecordCount">
+            <summary>
+            当前记录总数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.PageCount">
+            <summary>
+            当前总页数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.CurrentPageRecordCount">
+            <summary>
+            当前页的实际记录条数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.StartIndex">
+            <summary>
+            当前页的第一条记录的序号
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.EndIndex">
+            <summary>
+            当前页的最后一条记录的序号
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.ControllerName">
+            <summary>
+            controller
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.ActionName">
+            <summary>
+            action
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.KeyValue">
+            <summary>
+            键值类
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.KeyValue.Key">
+            <summary>
+            键
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.KeyValue.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.StaticResourceConfig">
+            <summary>
+            静态文件配置
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResourceConfig.StaticResourceList">
+            <summary>
+            静态文件列表
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Entity.StaticResourceConfig.DeepClone">
+            <summary>
+            深度克隆
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.StaticResource">
+            <summary>
+            静态资源model
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResource.Type">
+            <summary>
+            静态文件类型
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResource.Name">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResource.Src">
+            <summary>
+            路径
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResource.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResource.Attr">
+            <summary>
+            自定义属性
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Entity.StaticResource.ToString">
+            <summary>
+            转字符串
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.SubTime">
+            <summary>
+            时间差的类
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.SubTime.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.SubTime.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.SubTime.SumTime">
+            <summary>
+            时间差（小时）
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.TextValue">
+            <summary>
+            键值类
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.TextValue.Text">
+            <summary>
+            键
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.TextValue.Value">
+            <summary>
+            值
             </summary>
         </member>
         <member name="T:XCLNetTools.DataBase.Access.AccessHelper">
@@ -363,7 +553,7 @@
             <param name="commandParameters">SqlParameter参数数组</param>
             <returns>返回命令影响的行数</returns>
         </member>
-        <!-- 对于成员“M:XCLNetTools.DataBase.MSSQL.SqlHelper.ExecuteNonQuery(System.String,System.String,System.Object[])”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "M:XCLNetTools.DataBase.MSSQL.SqlHelper.ExecuteNonQuery(System.String,System.String,System.Object[])" -->
         <member name="M:XCLNetTools.DataBase.MSSQL.SqlHelper.ExecuteNonQuery(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String)">
             <summary>
             执行指定数据库连接对象的命令
@@ -405,7 +595,7 @@
             <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
             <returns>返回影响的行数</returns>
         </member>
-        <!-- 对于成员“M:XCLNetTools.DataBase.MSSQL.SqlHelper.ExecuteNonQuery(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String)”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "M:XCLNetTools.DataBase.MSSQL.SqlHelper.ExecuteNonQuery(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String)" -->
         <member name="M:XCLNetTools.DataBase.MSSQL.SqlHelper.ExecuteNonQuery(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
             <summary>
             执行带事务的SqlCommand(指定参数).
@@ -556,6 +746,17 @@
             <param name="spName">存储过程名</param>
             <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
             <returns>返回一个包含结果集的DataSet</returns>
+        </member>
+        <member name="T:XCLNetTools.DataBase.MSSQL.SqlHelper.SqlConnectionOwnership">
+            <summary>
+            枚举,标识数据库连接是由SqlHelper提供还是由调用者提供
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.DataBase.MSSQL.SqlHelper.SqlConnectionOwnership.Internal">
+            <summary>由SqlHelper提供连接</summary>
+        </member>
+        <member name="F:XCLNetTools.DataBase.MSSQL.SqlHelper.SqlConnectionOwnership.External">
+            <summary>由调用者提供连接</summary>
         </member>
         <member name="M:XCLNetTools.DataBase.MSSQL.SqlHelper.ExecuteReader(System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[],XCLNetTools.DataBase.MSSQL.SqlHelper.SqlConnectionOwnership)">
             <summary>
@@ -1231,17 +1432,6 @@
             <param name="dataRow">使用DataRow作为参数值</param>
             <returns>返回XmlReader结果集对象.</returns>
         </member>
-        <member name="T:XCLNetTools.DataBase.MSSQL.SqlHelper.SqlConnectionOwnership">
-            <summary>
-            枚举,标识数据库连接是由SqlHelper提供还是由调用者提供
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.DataBase.MSSQL.SqlHelper.SqlConnectionOwnership.Internal">
-            <summary>由SqlHelper提供连接</summary>
-        </member>
-        <member name="F:XCLNetTools.DataBase.MSSQL.SqlHelper.SqlConnectionOwnership.External">
-            <summary>由调用者提供连接</summary>
-        </member>
         <member name="T:XCLNetTools.DataBase.MSSQL.SqlHelperParameterCache">
             <summary>
             SqlHelperParameterCache提供缓存存储过程参数,并能够在运行时从存储过程中探索参数.
@@ -1371,6 +1561,26 @@
         <member name="T:XCLNetTools.DataHandler.ExcelHelper">
             <summary>
             旧版的excel操作（基于excel.dll），建议不要使用此类（用aspose.cells）
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.DataHandler.ExcelHelper.SheetPrefixName">
+            <summary>
+            WorkSheet前缀名，比如：前缀名为“页”，那么WorkSheet名称依次为“页-1，页-2...”
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.DataHandler.ExcelHelper.WorkSheetCount">
+            <summary>
+            WorkSheet数量
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.DataHandler.ExcelHelper.TempletFilePath">
+            <summary>
+            Excel模板文件路径
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.DataHandler.ExcelHelper.OutputFilePath">
+            <summary>
+            输出Excel文件路径
             </summary>
         </member>
         <member name="M:XCLNetTools.DataHandler.ExcelHelper.#ctor(System.String,System.String)">
@@ -1830,26 +2040,6 @@
             结束Excel进程
             </summary>
         </member>
-        <member name="P:XCLNetTools.DataHandler.ExcelHelper.SheetPrefixName">
-            <summary>
-            WorkSheet前缀名，比如：前缀名为“页”，那么WorkSheet名称依次为“页-1，页-2...”
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.DataHandler.ExcelHelper.WorkSheetCount">
-            <summary>
-            WorkSheet数量
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.DataHandler.ExcelHelper.TempletFilePath">
-            <summary>
-            Excel模板文件路径
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.DataHandler.ExcelHelper.OutputFilePath">
-            <summary>
-            输出Excel文件路径
-            </summary>
-        </member>
         <member name="T:XCLNetTools.DataHandler.ExcelToData">
             <summary>
             excel读取类
@@ -2103,59 +2293,164 @@
             <param name="md5Str">md5密文</param>
             <param name="key">key</param>
         </member>
-        <member name="T:XCLNetTools.Entity.PagerInfo">
+        <member name="T:XCLNetTools.Encrypt.AESEncrypt">
             <summary>
-            分页信息model
+            AES加密解密类
             </summary>
         </member>
-        <member name="M:XCLNetTools.Entity.PagerInfo.#ctor(System.Int32,System.Int32,System.Int32)">
+        <member name="P:XCLNetTools.Encrypt.AESEncrypt.ContainKey">
             <summary>
-            分页信息 构造函数
+            True：密文中包含密钥
+            False：密文中不包含密钥
             </summary>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.PageIndex">
+        <member name="M:XCLNetTools.Encrypt.AESEncrypt.Encrypt(System.String,System.String)">
             <summary>
-            当前页码（第一页为1），默认为1
+            指定密钥对明文进行AES加密
+            </summary>
+            <param name="s_crypto">明文</param>
+            <param name="s_key">加密密钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.AESEncrypt.Encrypt(System.String)">
+            <summary>
+            动态生成密钥，并对明文进行AES加密
+            </summary>
+            <param name="s_crypto">明文</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.AESEncrypt.Decrypt(System.String)">
+            <summary>
+            从密文中解析出密钥，并对密文进行解密
+            </summary>
+            <param name="s_encrypted">密文</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.AESEncrypt.Decrypt(System.String,System.String)">
+            <summary>
+            指定密钥，并对密文进行解密
+            </summary>
+            <param name="s_encrypted">密文</param>
+            <param name="s_key">密钥</param>
+            <returns></returns>
+        </member>
+        <member name="T:XCLNetTools.Encrypt.DESEncrypt">
+            <summary>
+            DES加密/解密类。
             </summary>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.PageSize">
+        <member name="M:XCLNetTools.Encrypt.DESEncrypt.Encrypt(System.String,System.String)">
             <summary>
-            每页最多显示的记录数，默认为10
+            加密数据
             </summary>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.RecordCount">
+        <member name="M:XCLNetTools.Encrypt.DESEncrypt.Decrypt(System.String,System.String)">
             <summary>
-            当前记录总数
+            解密数据
             </summary>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.PageCount">
+        <member name="T:XCLNetTools.Encrypt.HashEncode">
             <summary>
-            当前总页数
+            得到随机安全码（哈希加密）。
             </summary>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.CurrentPageRecordCount">
+        <member name="M:XCLNetTools.Encrypt.HashEncode.GetSecurity">
             <summary>
-            当前页的实际记录条数
+            得到随机哈希加密字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.HashEncode.GetRandomValue">
+            <summary>
+            得到一个随机数值
             </summary>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.StartIndex">
+        <member name="M:XCLNetTools.Encrypt.HashEncode.HashEncoding(System.String)">
             <summary>
-            当前页的第一条记录的序号
+            哈希加密一个字符串
             </summary>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.EndIndex">
+        <member name="T:XCLNetTools.Encrypt.RSACryption">
             <summary>
-            当前页的最后一条记录的序号
+            RSA加密解密及RSA签名和验证
             </summary>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.ControllerName">
+        <member name="M:XCLNetTools.Encrypt.RSACryption.RSAKey(System.String@,System.String@)">
             <summary>
-            controller
+            RSA 的密钥产生 产生私钥 和公钥
             </summary>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.ActionName">
+        <member name="M:XCLNetTools.Encrypt.RSACryption.RSAEncrypt(System.String,System.String)">
+            		    RSA 方式加密
+            		    说明KEY必须是XML的行式,返回的是字符串
+            		    在有一点需要说明！！该加密方式有 长度 限制的！！
             <summary>
-            action
+            RSA的加密函数 string
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.RSAEncrypt(System.String,System.Byte[])">
+            <summary>
+            RSA的加密函数 byte[]
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.RSADecrypt(System.String,System.String)">
+            <summary>
+            RSA的解密函数  string
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.RSADecrypt(System.String,System.Byte[])">
+            <summary>
+            RSA的解密函数  byte
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.GetHash(System.String,System.Byte[]@)">
+            <summary>
+            获取Hash描述表
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.GetHash(System.String,System.String@)">
+            <summary>
+            获取Hash描述表
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.GetHash(System.IO.FileStream,System.Byte[]@)">
+            <summary>
+            获取Hash描述表
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.GetHash(System.IO.FileStream,System.String@)">
+            <summary>
+            获取Hash描述表
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.SignatureFormatter(System.String,System.Byte[],System.Byte[]@)">
+            <summary>
+            RSA签名
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.SignatureFormatter(System.String,System.Byte[],System.String@)">
+            <summary>
+            RSA签名
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.SignatureFormatter(System.String,System.String,System.Byte[]@)">
+            <summary>
+            RSA签名
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.SignatureFormatter(System.String,System.String,System.String@)">
+            <summary>
+            RSA签名
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.SignatureDeformatter(System.String,System.Byte[],System.Byte[])">
+            <summary>
+            RSA 签名验证
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Encrypt.RSACryption.SignatureDeformatter(System.String,System.String,System.Byte[])">
+            <summary>
+            RSA 签名验证
             </summary>
         </member>
         <member name="T:XCLNetTools.Enum.CommonEnum">
@@ -2261,6 +2556,26 @@
             <param name="text">枚举项的名称</param>
             <returns>该枚举的值</returns>
         </member>
+        <member name="M:XCLNetTools.Enum.EnumHelper.GetBitORValue``1(System.Collections.Generic.List{``0})">
+            <summary>
+            将多个枚举项进行（按位或）操作，返回int型，若失败，则返回null
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Enum.EnumHelper.GetEnumListByBitValue``1(System.Int32)">
+            <summary>
+            根据多个枚举项（按位或）之后的int值，返回枚举list
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.FileHandler.Bookmark">
+            <summary>
+            浏览器书签文件操作类
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.Bookmark.GetBookmark(System.String)">
+            <summary>
+            根据浏览器书签文件地址，返回list
+            </summary>
+        </member>
         <member name="T:XCLNetTools.FileHandler.ImgLib">
             <summary>
             图片相关
@@ -2301,6 +2616,502 @@
             <summary>
             生成验证码图片
             </summary>
+        </member>
+        <member name="T:XCLNetTools.FileHandler.ComFile">
+             <summary>
+            文件操作公共类
+             </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.DeleteFile(System.String)">
+            <summary>
+            删除文件
+            </summary>
+            <param name="filePath">文件路径</param>
+            <returns>若为true，则删除成功</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.CopyFile(System.String,System.String)">
+            <summary>
+            复制文件(若已存在目标文件则覆盖)，若目标目录不存在，则自动创建
+            </summary>
+            <param name="srcPath">源文件</param>
+            <param name="dstPath">目标文件</param>
+            <returns>复制成功返回TRUE,复制失败返回FALSE.</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.CopyFile(System.String,System.String,System.Boolean)">
+            <summary>
+            复制文件，若目标目录不存在，则自动创建
+            </summary>
+            <param name="srcPath">源文件</param>
+            <param name="dstPath">目标文件</param>
+            <param name="overwrite">是否覆盖目标文件</param>
+            <returns>复制成功返回TRUE,复制失败返回FALSE</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.GetFolderFiles(System.String)">
+            <summary>
+            取得文件夹中的文件列表
+            </summary>
+            <param name="path">文件夹路径</param>
+            <returns>字符串数组(存储了一个或多个文件名)</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.GetFolderFilesByRecursion(System.String)">
+            <summary>
+            递归获取指定文件夹下的所有文件路径
+            </summary>
+            <param name="rootPath">起始文件夹路径</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.GetFolderFilesByRecursion(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            递归获取指定文件夹下的所有文件路径
+            </summary>
+            <param name="rootPath">起始文件夹路径</param>
+            <param name="lst">文件路径存放的list</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.DownLoadFile(System.String,System.String)">
+            <summary>
+            文件下载
+            </summary>
+            <param name="path">文件链接（物理路径）</param>
+            <param name="realName">要显示下载时的文件名</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.GetSaveDirectory(System.String)">
+            <summary>
+            返回目录路径，若该目录不存在，则创建该目录
+            </summary>
+            <param name="directoryPath">存放文件的物理路径。</param>
+            <returns>返回存放文件的目录。</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.GetFileFolderPath(System.String)">
+            <summary>
+            获取文件所在的文件夹【不带'\'】
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.GetFileSize(System.String)">
+            <summary>
+            返回文件大小(字节)
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.IsBinaryFile(System.String)">
+            <summary>
+            判断文件是否是二进制文件
+            </summary>
+            <param name="filePath">文件路径</param>
+            <returns>返回True为二进制文件，否则是文本文件</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.IsTextFile(System.String)">
+            <summary>
+            判断文件是否是文本文件
+            </summary>
+            <param name="filePath">文件路径</param>
+            <returns>返回True为文本文件，否则是二进制文件</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.MapPath(System.String)">
+            <summary>
+            取得文件物理路径
+            </summary>
+            <param name="path">文件路径(如果为绝对路径，则直接返回，否则，转为绝对路径)</param>
+            <returns>文件物理路径</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.GetFileName(System.String)">
+            <summary>
+            获取文件名（包含扩展名）
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.GetFileName(System.String,System.Boolean)">
+            <summary>
+            获取文件名
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.GetRandomFileName(System.String)">
+             <summary>
+            给上传的文件随机命名
+             </summary>
+             <param name="filename">文件名</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.GetExtName(System.String)">
+            <summary>
+            取得文件扩展名(不包含小圆点)【小写】
+            </summary>
+            <param name="fileName">文件完整路径或文件名</param>
+            <returns>文件扩展名(不包含小圆点)</returns>
+        </member>
+        <member name="T:XCLNetTools.FileHandler.FileDirectory">
+            <summary>
+            ÎÄ¼þÄ¿Â¼²Ù×÷Àà
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.DirectoryExists(System.String)">
+            <summary>
+            ÅÐ¶ÏÄ¿Â¼ÊÇ·ñ´æÔÚ
+            </summary>
+            <param name="directoryName">Ä¿Â¼Â·¾¶</param>
+            <returns>true£º´æÔÚ£¬false£º²»´æÔÚ</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.MakeDirectory(System.String)">
+            <summary>
+            ½¨Á¢Ä¿Â¼
+            </summary>
+            <param name="directoryName">Ä¿Â¼Ãû</param>
+            <returns>·µ»Øboolean,true:Ä¿Â¼½¨Á¢³É¹¦, false:Ä¿Â¼½¨Á¢Ê§°Ü</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.RMDIR(System.String)">
+            <summary>
+            É¾³ýÖ¸¶¨µÄÄ¿Â¼
+            </summary>
+            <param name="directoryName">Ä¿Â¼Ãû</param>
+            <returns>true£ºÉ¾³ý³É¹¦£¬false£ºÉ¾³ýÊ§°Ü</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.DelTree(System.String)">
+            <summary>
+            É¾³ýÄ¿Â¼²¢É¾³ýÆäÏÂµÄ×ÓÄ¿Â¼¼°ÆäÎÄ¼þ
+            </summary>
+            <param name="directoryName">Ä¿Â¼Ãû</param>
+            <returns>true:É¾³ý³É¹¦,false:É¾³ýÊ§°Ü</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.ClearDirectory(System.String)">
+            <summary>
+            Çå¿ÕÖ¸¶¨Ä¿Â¼
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.CreateTextFile(System.String)">
+            <summary>
+            ½¨Á¢Ò»¸öÎÄ¼þ
+            </summary>
+            <param name="filePathName">Ä¿Â¼Ãû</param>
+            <returns>true:½¨Á¢³É¹¦,false:½¨Á¢Ê§°Ü</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.AppendText(System.String,System.String)">
+            <summary>
+            ÔÚÎÄ¼þÀï×·¼ÓÄÚÈÝ
+            </summary>
+            <param name="filePathName">ÎÄ¼þÃû</param>
+            <param name="writeWord">×·¼ÓÄÚÈÝ</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.AppendText(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            ÔÚÎÄ¼þÀï×·¼ÓÄÚÈÝ
+            </summary>
+            <param name="filePathName">ÎÄ¼þÃû</param>
+            <param name="writeWord">×·¼ÓÄÚÈÝ</param>
+            <param name="encode">±àÂë</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.ReadFileData(System.String)">
+            <summary>
+            ¶ÁÈ¡ÎÄ¼þÀïÄÚÈÝ
+            </summary>
+            <param name="filePathName">ÎÄ¼þÃû</param>
+            <returns>ÎÄ¼þÄÚÈÝ</returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.FileDelete(System.String)">
+            <summary>
+            É¾³ýÎÄ¼þ
+            </summary>
+            <param name="absoluteFilePath">ÎÄ¼þ¾ø¶ÔµØÖ·</param>
+            <returns>true:É¾³ýÎÄ¼þ³É¹¦,false:É¾³ýÎÄ¼þÊ§°Ü</returns>
+        </member>
+        <member name="T:XCLNetTools.FileHandler.UploadEventArgs">
+            <summary>
+            上传数据参数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.UploadEventArgs.BytesSent">
+            <summary>
+            已发送的字节数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.UploadEventArgs.TotalBytes">
+            <summary>
+            总字节数
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.FileHandler.DownloadEventArgs">
+            <summary>
+            下载数据参数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.DownloadEventArgs.BytesReceived">
+            <summary>
+            已接收的字节数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.DownloadEventArgs.TotalBytes">
+            <summary>
+            总字节数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.DownloadEventArgs.ReceivedData">
+            <summary>
+            当前缓冲区接收的数据
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.FileHandler.WebClient">
+            <summary>
+            WebClient
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.#ctor">
+            <summary>
+            创建WebClient的实例
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.WebClient.BufferSize">
+            <summary>
+            设置发送和接收的数据缓冲大小
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.WebClient.ResponseHeaders">
+            <summary>
+            获取响应头集合
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.WebClient.RequestHeaders">
+            <summary>
+            获取请求头集合
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.WebClient.Proxy">
+            <summary>
+            获取或设置代理
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.WebClient.Encoding">
+            <summary>
+            获取或设置请求与响应的文本编码方式
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.WebClient.RespHtml">
+            <summary>
+            获取或设置响应的html代码
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.WebClient.CookieContainer">
+            <summary>
+            获取或设置与请求关联的Cookie容器
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.GetHtml(System.String)">
+            <summary>
+             获取网页源代码
+            </summary>
+            <param name="url">网址</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.DownloadFile(System.String,System.String)">
+            <summary>
+            下载文件
+            </summary>
+            <param name="url">文件URL地址</param>
+            <param name="filename">文件保存完整路径</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.GetData(System.String)">
+            <summary>
+            从指定URL下载数据
+            </summary>
+            <param name="url">网址</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.Post(System.String,System.String)">
+            <summary>
+            向指定URL发送文本数据
+            </summary>
+            <param name="url">网址</param>
+            <param name="postData">urlencode编码的文本数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.Post(System.String,System.Byte[])">
+            <summary>
+            向指定URL发送字节数据
+            </summary>
+            <param name="url">网址</param>
+            <param name="postData">发送的字节数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.Post(System.String,XCLNetTools.FileHandler.MultipartForm)">
+            <summary>
+            向指定网址发送mulitpart编码的数据
+            </summary>
+            <param name="url">网址</param>
+            <param name="mulitpartForm">mulitpart form data</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.GetData(System.Net.HttpWebRequest)">
+            <summary>
+            读取请求返回的数据
+            </summary>
+            <param name="request">请求对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.PostData(System.Net.HttpWebRequest,System.Byte[])">
+            <summary>
+            发送请求数据
+            </summary>
+            <param name="request">请求对象</param>
+            <param name="postData">请求发送的字节数组</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.CreateRequest(System.String,System.String)">
+            <summary>
+            创建HTTP请求
+            </summary>
+            <param name="url">URL地址</param>
+            <returns></returns>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.SaveCookiesToDisk">
+            <summary>
+            将Cookie保存到磁盘
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.WebClient.LoadCookiesFromDisk">
+            <summary>
+            从磁盘加载Cookie
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.FileHandler.MultipartForm">
+            <summary>
+            对文件和文本数据进行Multipart形式的编码
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.MultipartForm.FormData">
+            <summary>
+            获取编码后的字节数组
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.MultipartForm.ContentType">
+            <summary>
+            获取此编码内容的类型
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.MultipartForm.StringEncoding">
+            <summary>
+            获取或设置对字符串采用的编码类型
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.MultipartForm.#ctor">
+            <summary>
+            实例化
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.MultipartForm.AddFlie(System.String,System.String)">
+            <summary>
+            添加一个文件
+            </summary>
+            <param name="name">文件域名称</param>
+            <param name="filename">文件的完整路径</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.MultipartForm.AddFlie(System.String,System.String,System.Byte[],System.Int32)">
+            <summary>
+            添加一个文件
+            </summary>
+            <param name="name">文件域名称</param>
+            <param name="filename">文件名</param>
+            <param name="fileData">文件二进制数据</param>
+            <param name="dataLength">二进制数据大小</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.MultipartForm.AddString(System.String,System.String)">
+            <summary>
+            添加字符串
+            </summary>
+            <param name="name">文本域名称</param>
+            <param name="value">文本值</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.MultipartForm.GetContentType(System.String)">
+            <summary>
+            从注册表获取文件类型
+            </summary>
+            <param name="filename">包含扩展名的文件名</param>
+            <returns>如：application/stream</returns>
+        </member>
+        <member name="T:XCLNetTools.FileHandler.INIFile">
+            <summary>
+            INI文件读写类。
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.INIFile.#ctor(System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="iniPath">文件路径</param>
+        </member>
+        <member name="P:XCLNetTools.FileHandler.INIFile.Path">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.INIFile.IniWriteValue(System.String,System.String,System.String)">
+            <summary>
+            写INI文件
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.INIFile.IniReadValue(System.String,System.String)">
+            <summary>
+            读取INI文件
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.INIFile.IniReadValues(System.String,System.String)">
+            <summary>
+            读ini
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.INIFile.ClearAllSection">
+            <summary>
+            删除ini文件下所有段落
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.INIFile.ClearSection(System.String)">
+            <summary>
+            删除ini文件下section段落下的所有键
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.FileHandler.ZipHelper">
+            <summary>
+            文件的压缩与解压缩
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ZipHelper.ToZipFile(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            压缩单个文件
+            </summary>
+            <param name="fileToZip">要压缩的文件</param>
+            <param name="zipedFile">压缩后的文件</param>
+            <param name="compressionLevel">压缩等级</param>
+            <param name="blockSize">每次写入大小</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ZipHelper.ToZipFile(System.String,System.String)">
+            <summary>
+            压缩单个文件
+            </summary>
+            <param name="fileToZip">要进行压缩的文件名</param>
+            <param name="zipedFile">压缩后生成的压缩文件名</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ZipHelper.ZipFileDirectory(System.String,System.String)">
+            <summary>
+            压缩多层目录
+            </summary>
+            <param name="strDirectory">The directory.</param>
+            <param name="zipedFile">The ziped file.</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ZipHelper.ZipSetp(System.String,ICSharpCode.SharpZipLib.Zip.ZipOutputStream,System.String)">
+            <summary>
+            递归遍历目录
+            </summary>
+            <param name="strDirectory">The directory.</param>
+            <param name="s">The ZipOutputStream Object.</param>
+            <param name="parentPath">The parent path.</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ZipHelper.UnZip(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            解压缩一个 zip 文件。
+            </summary>
+            <param name="zipedFile">The ziped file.</param>
+            <param name="strDirectory">The STR directory.</param>
+            <param name="password">zip 文件的密码。</param>
+            <param name="overWrite">是否覆盖已存在的文件。</param>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.ZipHelper.CompressFile(System.String[],System.String,System.String[])">
+            <summary>
+            压缩多个文件
+            </summary>
+            <param name="files">要压缩的文件物理路径数组</param>
+            <param name="zipedFile">创建的zip文件路径</param>
+            <param name="fileNames">自定义待压缩的文件名</param>
         </member>
         <member name="T:XCLNetTools.Generic.Extension">
             <summary>
@@ -2605,7 +3416,11 @@
             header对象
             </summary>
         </member>
-        <!-- 对于成员“P:XCLNetTools.Http.HttpItem.ProtocolVersion”忽略有格式错误的 XML 注释 -->
+        <member name="P:XCLNetTools.Http.HttpItem.ProtocolVersion">
+            <summary>
+            获取或设置用于请求的 HTTP 版本。返回结果:用于请求的 HTTP 版本。默认为 System.Net.HttpVersion.Version11。
+            </summary>
+        </member>
         <member name="P:XCLNetTools.Http.HttpItem.Expect100Continue">
             <summary>
              获取或设置一个 System.Boolean 值，该值确定是否使用 100-Continue 行为。如果 POST 请求需要 100-Continue 响应，则为 true；否则为 false。默认值为 true。
@@ -2696,6 +3511,22 @@
             传文件，Postdata必须设置为文件的绝对路径，必须设置Encoding的值
             </summary>
         </member>
+        <member name="T:XCLNetTools.MVC.JsonResultFormat">
+            <summary>
+            带时间格式的jsonResult
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.MVC.JsonResultFormat.DateFormat">
+            <summary>
+            格式化时间，如"yyyy-MM-dd HH:mm:ss"
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.MVC.JsonResultFormat.ExecuteResult(System.Web.Mvc.ControllerContext)">
+            <summary>
+            重写执行视图
+            </summary>
+            <param name="context">上下文</param>
+        </member>
         <member name="T:XCLNetTools.Serialize.LitJson">
             <summary>
             LitJson帮助类
@@ -2744,6 +3575,73 @@
             <param name="value">要转换的值</param>
             </summary>
         </member>
+        <member name="T:XCLNetTools.Serialize.JSON">
+            <summary>
+            JSON序列化相关
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Serialize.JSON.JsonProviderEnum">
+            <summary>
+            提供者枚举
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Serialize.JSON.JsonProviderEnum.SystemWeb">
+            <summary>
+            指定为：System.Web.Script.Serialization
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Serialize.JSON.JsonProviderEnum.Newtonsoft">
+            <summary>
+            指定为：Newtonsoft.Json.JsonConvert
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Serialize.JSON.Serialize(System.Object,XCLNetTools.Serialize.JSON.JsonProviderEnum)">
+            <summary>
+            将对象序列化为json
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Serialize.JSON.DeSerialize``1(System.String,XCLNetTools.Serialize.JSON.JsonProviderEnum)">
+            <summary>
+            将json反序列化为一个对象
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Serialize.Lib">
+            <summary>
+            其它对象序列化相关
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Serialize.Lib.DeserializeObject``1(System.Byte[])">
+            <summary>
+            把字节反序列化成相应的对象
+            </summary>
+            <param name="pBytes">字节流</param>
+            <returns>T</returns>
+        </member>
+        <member name="M:XCLNetTools.Serialize.Lib.DeepClone``1(``0)">
+            <summary>
+            对象深度clone（被clone对象必须可以序列化）
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Serialize.XML">
+            <summary>
+            xml序列化相关
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Serialize.XML.Deserialize``1(System.String)">
+            <summary>
+            反序列化
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Serialize.XML.DeserializeFromXMLFile``1(System.String)">
+            <summary>
+            从xml文件中反序列化
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Serialize.XML.Serializer``1(``0)">
+            <summary>
+            序列化
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Language.CN">
             <summary>
             中文处理
@@ -2782,26 +3680,6 @@
         <member name="M:XCLNetTools.Language.CN.ConvertFirstSpell(System.String)">
             <summary>
             获取第一个汉字的拼音
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Message.Error.BaseException">
-            <summary>
-            自定义Exception类
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Message.Error.BaseException.#ctor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Message.Error.BaseException.#ctor(System.String)">
-            <summary>
-            构造函数，参考Exception的构造函数
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Message.Error.BaseException.#ctor(System.String,System.Exception)">
-            <summary>
-            构造函数，参考Exception的构造函数
             </summary>
         </member>
         <member name="T:XCLNetTools.Message.Error.ErrorHttpModule">
@@ -2950,502 +3828,6 @@
             MessageModel
             </summary>
         </member>
-        <member name="T:XCLNetTools.FileHandler.ComFile">
-             <summary>
-            文件操作公共类
-             </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.DeleteFile(System.String)">
-            <summary>
-            删除文件
-            </summary>
-            <param name="filePath">文件路径</param>
-            <returns>若为true，则删除成功</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.CopyFile(System.String,System.String)">
-            <summary>
-            复制文件(若已存在目标文件则覆盖)，若目标目录不存在，则自动创建
-            </summary>
-            <param name="srcPath">源文件</param>
-            <param name="dstPath">目标文件</param>
-            <returns>复制成功返回TRUE,复制失败返回FALSE.</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.CopyFile(System.String,System.String,System.Boolean)">
-            <summary>
-            复制文件，若目标目录不存在，则自动创建
-            </summary>
-            <param name="srcPath">源文件</param>
-            <param name="dstPath">目标文件</param>
-            <param name="overwrite">是否覆盖目标文件</param>
-            <returns>复制成功返回TRUE,复制失败返回FALSE</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.GetFolderFiles(System.String)">
-            <summary>
-            取得文件夹中的文件列表
-            </summary>
-            <param name="path">文件夹路径</param>
-            <returns>字符串数组(存储了一个或多个文件名)</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.GetFolderFilesByRecursion(System.String)">
-            <summary>
-            递归获取指定文件夹下的所有文件路径
-            </summary>
-            <param name="rootPath">起始文件夹路径</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.GetFolderFilesByRecursion(System.String,System.Collections.Generic.List{System.String})">
-            <summary>
-            递归获取指定文件夹下的所有文件路径
-            </summary>
-            <param name="rootPath">起始文件夹路径</param>
-            <param name="lst">文件路径存放的list</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.DownLoadFile(System.String,System.String)">
-            <summary>
-            文件下载
-            </summary>
-            <param name="path">文件链接（物理路径）</param>
-            <param name="realName">要显示下载时的文件名</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.GetSaveDirectory(System.String)">
-            <summary>
-            返回目录路径，若该目录不存在，则创建该目录
-            </summary>
-            <param name="directoryPath">存放文件的物理路径。</param>
-            <returns>返回存放文件的目录。</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.GetFileFolderPath(System.String)">
-            <summary>
-            获取文件所在的文件夹【不带'\'】
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.GetFileSize(System.String)">
-            <summary>
-            返回文件大小(字节)
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.IsBinaryFile(System.String)">
-            <summary>
-            判断文件是否是二进制文件
-            </summary>
-            <param name="filePath">文件路径</param>
-            <returns>返回True为二进制文件，否则是文本文件</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.IsTextFile(System.String)">
-            <summary>
-            判断文件是否是文本文件
-            </summary>
-            <param name="filePath">文件路径</param>
-            <returns>返回True为文本文件，否则是二进制文件</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.MapPath(System.String)">
-            <summary>
-            取得文件物理路径
-            </summary>
-            <param name="path">文件路径(如果为绝对路径，则直接返回，否则，转为绝对路径)</param>
-            <returns>文件物理路径</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.GetFileName(System.String)">
-            <summary>
-            获取文件名（包含扩展名）
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.GetFileName(System.String,System.Boolean)">
-            <summary>
-            获取文件名
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.GetRandomFileName(System.String)">
-             <summary>
-            给上传的文件随机命名
-             </summary>
-             <param name="filename">文件名</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.GetExtName(System.String)">
-            <summary>
-            取得文件扩展名(不包含小圆点)【小写】
-            </summary>
-            <param name="fileName">文件完整路径或文件名</param>
-            <returns>文件扩展名(不包含小圆点)</returns>
-        </member>
-        <member name="T:XCLNetTools.FileHandler.FileDirectory">
-            <summary>
-            文件目录操作类
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.FileDirectory.DirectoryExists(System.String)">
-            <summary>
-            判断目录是否存在
-            </summary>
-            <param name="directoryName">目录路径</param>
-            <returns>true：存在，false：不存在</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.FileDirectory.MakeDirectory(System.String)">
-            <summary>
-            建立目录
-            </summary>
-            <param name="directoryName">目录名</param>
-            <returns>返回boolean,true:目录建立成功, false:目录建立失败</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.FileDirectory.RMDIR(System.String)">
-            <summary>
-            删除指定的目录
-            </summary>
-            <param name="directoryName">目录名</param>
-            <returns>true：删除成功，false：删除失败</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.FileDirectory.DelTree(System.String)">
-            <summary>
-            删除目录并删除其下的子目录及其文件
-            </summary>
-            <param name="directoryName">目录名</param>
-            <returns>true:删除成功,false:删除失败</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.FileDirectory.ClearDirectory(System.String)">
-            <summary>
-            清空指定目录
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.FileDirectory.CreateTextFile(System.String)">
-            <summary>
-            建立一个文件
-            </summary>
-            <param name="filePathName">目录名</param>
-            <returns>true:建立成功,false:建立失败</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.FileDirectory.AppendText(System.String,System.String)">
-            <summary>
-            在文件里追加内容
-            </summary>
-            <param name="filePathName">文件名</param>
-            <param name="writeWord">追加内容</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.FileDirectory.AppendText(System.String,System.String,System.Text.Encoding)">
-            <summary>
-            在文件里追加内容
-            </summary>
-            <param name="filePathName">文件名</param>
-            <param name="writeWord">追加内容</param>
-            <param name="encode">编码</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.FileDirectory.ReadFileData(System.String)">
-            <summary>
-            读取文件里内容
-            </summary>
-            <param name="filePathName">文件名</param>
-            <returns>文件内容</returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.FileDirectory.FileDelete(System.String)">
-            <summary>
-            删除文件
-            </summary>
-            <param name="absoluteFilePath">文件绝对地址</param>
-            <returns>true:删除文件成功,false:删除文件失败</returns>
-        </member>
-        <member name="T:XCLNetTools.FileHandler.UploadEventArgs">
-            <summary>
-            上传数据参数
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.UploadEventArgs.BytesSent">
-            <summary>
-            已发送的字节数
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.UploadEventArgs.TotalBytes">
-            <summary>
-            总字节数
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.FileHandler.DownloadEventArgs">
-            <summary>
-            下载数据参数
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.DownloadEventArgs.BytesReceived">
-            <summary>
-            已接收的字节数
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.DownloadEventArgs.TotalBytes">
-            <summary>
-            总字节数
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.DownloadEventArgs.ReceivedData">
-            <summary>
-            当前缓冲区接收的数据
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.FileHandler.WebClient">
-            <summary>
-            WebClient
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.#ctor">
-            <summary>
-            创建WebClient的实例
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.GetHtml(System.String)">
-            <summary>
-             获取网页源代码
-            </summary>
-            <param name="url">网址</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.DownloadFile(System.String,System.String)">
-            <summary>
-            下载文件
-            </summary>
-            <param name="url">文件URL地址</param>
-            <param name="filename">文件保存完整路径</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.GetData(System.String)">
-            <summary>
-            从指定URL下载数据
-            </summary>
-            <param name="url">网址</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.Post(System.String,System.String)">
-            <summary>
-            向指定URL发送文本数据
-            </summary>
-            <param name="url">网址</param>
-            <param name="postData">urlencode编码的文本数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.Post(System.String,System.Byte[])">
-            <summary>
-            向指定URL发送字节数据
-            </summary>
-            <param name="url">网址</param>
-            <param name="postData">发送的字节数组</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.Post(System.String,XCLNetTools.FileHandler.MultipartForm)">
-            <summary>
-            向指定网址发送mulitpart编码的数据
-            </summary>
-            <param name="url">网址</param>
-            <param name="mulitpartForm">mulitpart form data</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.GetData(System.Net.HttpWebRequest)">
-            <summary>
-            读取请求返回的数据
-            </summary>
-            <param name="request">请求对象</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.PostData(System.Net.HttpWebRequest,System.Byte[])">
-            <summary>
-            发送请求数据
-            </summary>
-            <param name="request">请求对象</param>
-            <param name="postData">请求发送的字节数组</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.CreateRequest(System.String,System.String)">
-            <summary>
-            创建HTTP请求
-            </summary>
-            <param name="url">URL地址</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.SaveCookiesToDisk">
-            <summary>
-            将Cookie保存到磁盘
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.WebClient.LoadCookiesFromDisk">
-            <summary>
-            从磁盘加载Cookie
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.WebClient.BufferSize">
-            <summary>
-            设置发送和接收的数据缓冲大小
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.WebClient.ResponseHeaders">
-            <summary>
-            获取响应头集合
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.WebClient.RequestHeaders">
-            <summary>
-            获取请求头集合
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.WebClient.Proxy">
-            <summary>
-            获取或设置代理
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.WebClient.Encoding">
-            <summary>
-            获取或设置请求与响应的文本编码方式
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.WebClient.RespHtml">
-            <summary>
-            获取或设置响应的html代码
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.WebClient.CookieContainer">
-            <summary>
-            获取或设置与请求关联的Cookie容器
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.FileHandler.MultipartForm">
-            <summary>
-            对文件和文本数据进行Multipart形式的编码
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.MultipartForm.#ctor">
-            <summary>
-            实例化
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.MultipartForm.AddFlie(System.String,System.String)">
-            <summary>
-            添加一个文件
-            </summary>
-            <param name="name">文件域名称</param>
-            <param name="filename">文件的完整路径</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.MultipartForm.AddFlie(System.String,System.String,System.Byte[],System.Int32)">
-            <summary>
-            添加一个文件
-            </summary>
-            <param name="name">文件域名称</param>
-            <param name="filename">文件名</param>
-            <param name="fileData">文件二进制数据</param>
-            <param name="dataLength">二进制数据大小</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.MultipartForm.AddString(System.String,System.String)">
-            <summary>
-            添加字符串
-            </summary>
-            <param name="name">文本域名称</param>
-            <param name="value">文本值</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.MultipartForm.GetContentType(System.String)">
-            <summary>
-            从注册表获取文件类型
-            </summary>
-            <param name="filename">包含扩展名的文件名</param>
-            <returns>如：application/stream</returns>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.MultipartForm.FormData">
-            <summary>
-            获取编码后的字节数组
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.MultipartForm.ContentType">
-            <summary>
-            获取此编码内容的类型
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.MultipartForm.StringEncoding">
-            <summary>
-            获取或设置对字符串采用的编码类型
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.FileHandler.INIFile">
-            <summary>
-            INI文件读写类。
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.INIFile.#ctor(System.String)">
-            <summary>
-            构造函数
-            </summary>
-            <param name="iniPath">文件路径</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.INIFile.IniWriteValue(System.String,System.String,System.String)">
-            <summary>
-            写INI文件
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.INIFile.IniReadValue(System.String,System.String)">
-            <summary>
-            读取INI文件
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.INIFile.IniReadValues(System.String,System.String)">
-            <summary>
-            读ini
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.INIFile.ClearAllSection">
-            <summary>
-            删除ini文件下所有段落
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.INIFile.ClearSection(System.String)">
-            <summary>
-            删除ini文件下section段落下的所有键
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.FileHandler.INIFile.Path">
-            <summary>
-            文件路径
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.FileHandler.ZipHelper">
-            <summary>
-            文件的压缩与解压缩
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ZipHelper.ToZipFile(System.String,System.String,System.Int32,System.Int32)">
-            <summary>
-            压缩单个文件
-            </summary>
-            <param name="fileToZip">要压缩的文件</param>
-            <param name="zipedFile">压缩后的文件</param>
-            <param name="compressionLevel">压缩等级</param>
-            <param name="blockSize">每次写入大小</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ZipHelper.ToZipFile(System.String,System.String)">
-            <summary>
-            压缩单个文件
-            </summary>
-            <param name="fileToZip">要进行压缩的文件名</param>
-            <param name="zipedFile">压缩后生成的压缩文件名</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ZipHelper.ZipFileDirectory(System.String,System.String)">
-            <summary>
-            压缩多层目录
-            </summary>
-            <param name="strDirectory">The directory.</param>
-            <param name="zipedFile">The ziped file.</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ZipHelper.ZipSetp(System.String,ICSharpCode.SharpZipLib.Zip.ZipOutputStream,System.String)">
-            <summary>
-            递归遍历目录
-            </summary>
-            <param name="strDirectory">The directory.</param>
-            <param name="s">The ZipOutputStream Object.</param>
-            <param name="parentPath">The parent path.</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ZipHelper.UnZip(System.String,System.String,System.String,System.Boolean)">
-            <summary>
-            解压缩一个 zip 文件。
-            </summary>
-            <param name="zipedFile">The ziped file.</param>
-            <param name="strDirectory">The STR directory.</param>
-            <param name="password">zip 文件的密码。</param>
-            <param name="overWrite">是否覆盖已存在的文件。</param>
-        </member>
-        <member name="M:XCLNetTools.FileHandler.ZipHelper.CompressFile(System.String[],System.String,System.String[])">
-            <summary>
-            压缩多个文件
-            </summary>
-            <param name="files">要压缩的文件物理路径数组</param>
-            <param name="zipedFile">创建的zip文件路径</param>
-            <param name="fileNames">自定义待压缩的文件名</param>
-        </member>
         <member name="T:XCLNetTools.Javascript.Jscript">
             <summary>
              一些常用的Js调用
@@ -3570,311 +3952,6 @@
             <param name="msg">提示信息</param>
             <param name="url">跳转的目标URL</param>
         </member>
-        <member name="T:XCLNetTools.Mail.MyEmail">
-            <summary>
-            邮件处理
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Mail.MyEmail.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
-            <summary>
-            构造函数
-            </summary>
-            <param name="server">发件箱的邮件服务器地址</param>
-            <param name="toMail">收件人地址（可以是多个收件人，程序中是以“;"进行区分的）</param>
-            <param name="fromMail">发件人地址</param>
-            <param name="subject">邮件标题</param>
-            <param name="emailBody">邮件内容（可以以html格式进行设计）</param>
-            <param name="displayName">发送后显示发送人邮件地址的别名</param>
-            <param name="username">发件箱的用户名（即@符号前面的字符串，例如：hello@163.com，用户名为：hello）</param>
-            <param name="password">发件人邮箱密码</param>
-            <param name="port">发送邮件所用的端口号（htmp协议默认为25）</param>
-            <param name="sslEnable">true表示对邮件内容进行socket层加密传输，false表示不加密</param>
-            <param name="pwdCheckEnable">true表示对发件人邮箱进行密码验证，false表示不对发件人邮箱进行密码验证</param>
-        </member>
-        <member name="M:XCLNetTools.Mail.MyEmail.AddAttachments(System.String)">
-            <summary>
-            添加附件
-            </summary>
-            <param name="attachmentsPath">附件的路径集合，以分号分隔</param>
-        </member>
-        <member name="M:XCLNetTools.Mail.MyEmail.Send">
-            <summary>
-            邮件的发送
-            </summary>
-            <returns>true:发送成功</returns>
-        </member>
-        <member name="M:XCLNetTools.Mail.MyEmail.SendMail(System.String,System.String,System.String,System.String)">
-            <summary>
-            发送邮件
-            </summary>
-            <param name="to">收件人地址</param>
-            <param name="title">标题</param>
-            <param name="body">内容</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.Mail.MyEmail.UpdateMailConfig(XCLNetTools.Mail.MailSetting)">
-            <summary>
-            更新邮件配置
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Mail.MyEmail.GetMailXmlPath">
-            <summary>
-            邮件配置文件的路径
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Mail.MyEmail.GetMailSetting">
-            <summary>
-            获取邮件配置
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Mail.MailSetting">
-            <summary>
-            邮件配置参数实体
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Mail.MailSetting.IsEnable">
-            <summary>
-            是否启用邮件
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Mail.MailSetting.SmtpPort">
-            <summary>
-            端口
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Mail.MailSetting.Server">
-            <summary>
-            邮件服务器地址
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Mail.MailSetting.Authentication">
-            <summary>
-            是否验证发件人用户名和密码
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Mail.MailSetting.From">
-            <summary>
-            发件人地址
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Mail.MailSetting.ShowName">
-            <summary>
-            发件人地址的别名
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Mail.MailSetting.Password">
-            <summary>
-            发件人密码
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Entity.KeyValue">
-            <summary>
-            键值类
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.KeyValue.Key">
-            <summary>
-            键
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.KeyValue.Value">
-            <summary>
-            值
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Entity.StaticResourceConfig">
-            <summary>
-            静态文件配置
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Entity.StaticResourceConfig.DeepClone">
-            <summary>
-            深度克隆
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResourceConfig.StaticResourceList">
-            <summary>
-            静态文件列表
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Entity.StaticResource">
-            <summary>
-            静态资源model
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Entity.StaticResource.ToString">
-            <summary>
-            转字符串
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResource.Type">
-            <summary>
-            静态文件类型
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResource.Name">
-            <summary>
-            文件名
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResource.Src">
-            <summary>
-            路径
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResource.Version">
-            <summary>
-            版本号
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResource.Attr">
-            <summary>
-            自定义属性
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Entity.SubTime">
-            <summary>
-            时间差的类
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.SubTime.StartTime">
-            <summary>
-            开始时间
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.SubTime.EndTime">
-            <summary>
-            结束时间
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.SubTime.SumTime">
-            <summary>
-            时间差（小时）
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Entity.TextValue">
-            <summary>
-            键值类
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.TextValue.Text">
-            <summary>
-            键
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.TextValue.Value">
-            <summary>
-            值
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Encrypt.AESEncrypt">
-            <summary>
-            AES加密解密类
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.AESEncrypt.Encrypt(System.String,System.String)">
-            <summary>
-            指定密钥对明文进行AES加密
-            </summary>
-            <param name="s_crypto">明文</param>
-            <param name="s_key">加密密钥</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.AESEncrypt.Encrypt(System.String)">
-            <summary>
-            动态生成密钥，并对明文进行AES加密
-            </summary>
-            <param name="s_crypto">明文</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.AESEncrypt.Decrypt(System.String)">
-            <summary>
-            从密文中解析出密钥，并对密文进行解密
-            </summary>
-            <param name="s_encrypted">密文</param>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.AESEncrypt.Decrypt(System.String,System.String)">
-            <summary>
-            指定密钥，并对密文进行解密
-            </summary>
-            <param name="s_encrypted">密文</param>
-            <param name="s_key">密钥</param>
-            <returns></returns>
-        </member>
-        <member name="P:XCLNetTools.Encrypt.AESEncrypt.ContainKey">
-            <summary>
-            True：密文中包含密钥
-            False：密文中不包含密钥
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Serialize.JSON">
-            <summary>
-            JSON序列化相关
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Serialize.JSON.Serialize(System.Object,XCLNetTools.Serialize.JSON.JsonProviderEnum)">
-            <summary>
-            将对象序列化为json
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Serialize.JSON.DeSerialize``1(System.String,XCLNetTools.Serialize.JSON.JsonProviderEnum)">
-            <summary>
-            将json反序列化为一个对象
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Serialize.JSON.JsonProviderEnum">
-            <summary>
-            提供者枚举
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.Serialize.JSON.JsonProviderEnum.SystemWeb">
-            <summary>
-            指定为：System.Web.Script.Serialization
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.Serialize.JSON.JsonProviderEnum.Newtonsoft">
-            <summary>
-            指定为：Newtonsoft.Json.JsonConvert
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Serialize.Lib">
-            <summary>
-            其它对象序列化相关
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Serialize.Lib.DeserializeObject``1(System.Byte[])">
-            <summary>
-            把字节反序列化成相应的对象
-            </summary>
-            <param name="pBytes">字节流</param>
-            <returns>T</returns>
-        </member>
-        <member name="M:XCLNetTools.Serialize.Lib.DeepClone``1(``0)">
-            <summary>
-            对象深度clone（被clone对象必须可以序列化）
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Serialize.XML">
-            <summary>
-            xml序列化相关
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Serialize.XML.Deserialize``1(System.String)">
-            <summary>
-            反序列化
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Serialize.XML.DeserializeFromXMLFile``1(System.String)">
-            <summary>
-            从xml文件中反序列化
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Serialize.XML.Serializer``1(``0)">
-            <summary>
-            序列化
-            </summary>
-        </member>
         <member name="T:XCLNetTools.StringHander.Common">
              <summary>
             公用类
@@ -3923,6 +4000,11 @@
             若object为null或Empty，则返回指定的defaultValue.
             </summary>
         </member>
+        <member name="M:XCLNetTools.StringHander.Common.GetString``1(``0,System.String)">
+            <summary>
+            若value为null或Empty，则返回指定的defaultValue.
+            </summary>
+        </member>
         <member name="M:XCLNetTools.StringHander.Common.GetStringArrayByIntArray(System.Int32[])">
             <summary>
             将int数组转为string数组
@@ -3930,22 +4012,32 @@
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetInt(System.String,System.Int32)">
             <summary>
-            将字符串转化为整数若值不是数字返回defaultValue
+            将字符串转化为int,若转换失败则返回defaultValue
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetInt(System.Object,System.Int32)">
             <summary>
-            将object转化为整数 若值不是数字返回defaultValue
+            将object转化为int,若转换失败则返回defaultValue
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.StringHander.Common.GetInt``1(``0,System.Int32)">
+            <summary>
+            将key转化为int,若转换失败则返回defaultValue
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetInt(System.String)">
             <summary>
-            将字符串转化为整数 若值不是数字返回0
+            将字符串转化为int,若转换失败则返回0
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetInt(System.Object)">
             <summary>
-            将object转化为整数 若值不是数字返回0
+            将object转化为int,若转换失败则返回0
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.StringHander.Common.GetInt``1(``0)">
+            <summary>
+            将key转化为int,若转换失败则返回0
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetIntByDecimal(System.String)">
@@ -3955,12 +4047,12 @@
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetIntNull(System.String,System.Nullable{System.Int32})">
             <summary>
-            将字符串转化为Int可空类型，若不是数字指定的defaultValue
+            将字符串转化为Int?，若转换失败，则返回defaultValue
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetIntNull(System.String)">
             <summary>
-            将字符串转化为Int可空类型，若不是数字返回null的Int?.
+            将字符串转化为Int?，若转换失败，则返回null.
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetIntNullArrayByStringArray(System.String[])">
@@ -3980,37 +4072,47 @@
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetLong(System.String,System.Int64)">
             <summary>
-            将字符串转化为整数若值不是数字返回defaultValue
+            将字符串转化为long,若失败则返回defaultValue
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.StringHander.Common.GetLong``1(``0,System.Int64)">
+            <summary>
+            将key转化为long,若失败则返回defaultValue
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetLong(System.Object,System.Int64)">
             <summary>
-            将object转化为整数 若值不是数字返回defaultValue
+            将object转化为long,若失败则返回defaultValue
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetLong(System.String)">
             <summary>
-            将字符串转化为整数 若值不是数字返回0
+            将字符串转化为long,若失败则返回0
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetLong(System.Object)">
             <summary>
-            将object转化为整数 若值不是数字返回0
+            将object转化为long,若失败则返回0
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.StringHander.Common.GetLong``1(``0)">
+            <summary>
+            将key转化为long,若转换失败则返回0
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetLongByDecimal(System.String)">
             <summary>
-            把decimal类型的字符串转为整数，四舍五入
+            把decimal类型的字符串转为long，四舍五入
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetLongNull(System.String,System.Nullable{System.Int64})">
             <summary>
-            将字符串转化为Long可空类型，若不是数字指定的defaultValue
+            将字符串转化为Long可空类型，若失败则返回defaultValue
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetLongNull(System.String)">
             <summary>
-            将字符串转化为Long可空类型，若不是数字返回null的Long?.
+            将字符串转化为Long可空类型，若失败则返回null.
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetLongNullArrayByStringArray(System.String[])">
@@ -4030,7 +4132,17 @@
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetBool(System.Object)">
             <summary>
-            返回bool
+            将key转为bool，若失败，则返回false
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.StringHander.Common.GetBool``1(``0)">
+            <summary>
+            将key转为bool，若失败，则返回false
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.StringHander.Common.GetBoolFromTF(System.String)">
+            <summary>
+            将字符T/F转为bool，如果为'T'，则true; 否则为false
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetDateTimeNullable(System.String)">
@@ -4064,22 +4176,22 @@
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetDecimal(System.String,System.Decimal)">
             <summary>
-             将字符串转化为浮点数 若值不是浮点数返回defaultValue
+             将字符串转化为decimal 若失败则返回defaultValue
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetDecimal(System.Object,System.Decimal)">
             <summary>
-             将object转化为浮点数 若值不是浮点数返回defaultValue
+             将object转化为decimal 若失败则返回defaultValue
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetDecimal(System.String)">
             <summary>
-             将字符串转化为浮点数 若值不是浮点数返回0
+             将字符串转化为decimal 若失败则返回0
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetDecimal(System.Object)">
             <summary>
-             将object转化为浮点数 若值不是浮点数返回0
+             将object转化为decimal 若失败则返回0
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetDecimal(System.Object,System.Nullable{System.Decimal})">
@@ -4089,7 +4201,7 @@
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetDecimalNull(System.String)">
             <summary>
-            转换为可空类型，转换失败则返回null
+            转换为可空类型decimal?，转换失败则返回null
             </summary>
         </member>
         <member name="M:XCLNetTools.StringHander.Common.GetDecimalNull(System.String,System.Nullable{System.Decimal})">
@@ -4206,6 +4318,18 @@
             <param name="str">待处理字符串</param>
             <param name="cutStr">要删除的字符串</param>
         </member>
+        <member name="P:XCLNetTools.StringHander.Common.RootURL">
+            <summary>
+            网站根路径，如:"/"
+            注：末尾带'/'
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.StringHander.Common.RootUri">
+            <summary>
+            网站根Uri，如:"http://www.xcl.com:2156/ or http://www.xcl.com:2156/VirtualWeb/"
+            注：末尾带'/'
+            </summary>
+        </member>
         <member name="M:XCLNetTools.StringHander.Common.GetColIndex(System.Data.DataTable,System.Int32,System.String)">
             <summary>
             根据dt和指定行号和列名，返回该列的列号.若找不到该列，则返回-1
@@ -4223,18 +4347,6 @@
         <member name="M:XCLNetTools.StringHander.Common.IsAjax">
             <summary>
             判断当前请求是否为ajax请求
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.StringHander.Common.RootURL">
-            <summary>
-            网站根路径，如:"/"
-            注：末尾带'/'
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.StringHander.Common.RootUri">
-            <summary>
-            网站根Uri，如:"http://www.xcl.com:2156/ or http://www.xcl.com:2156/VirtualWeb/"
-            注：末尾带'/'
             </summary>
         </member>
         <member name="T:XCLNetTools.StringHander.DateHelper">
@@ -4314,6 +4426,31 @@
             <param name="drf">决定返回值形式的枚举</param>
             <returns>一个代表年月日的int数组，具体数组长度与枚举参数drf有关</returns>
         </member>
+        <member name="T:XCLNetTools.StringHander.DateHelper.diffResultFormat">
+            <summary>
+            关于返回值形式的枚举
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.diffResultFormat.yymm">
+            <summary>
+            年数和月数
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.diffResultFormat.yy">
+            <summary>
+            年数
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.diffResultFormat.mm">
+            <summary>
+            月数
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.diffResultFormat.dd">
+            <summary>
+            天数
+            </summary>
+        </member>
         <member name="M:XCLNetTools.StringHander.DateHelper.GetTimeSub(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String)">
             <summary>
             返回指定时间段内不包括某一时间段的时间差（以小时为单位）
@@ -4369,6 +4506,81 @@
             <param name="dt"></param>
             <returns></returns>
         </member>
+        <member name="T:XCLNetTools.StringHander.DateHelper.Weeks">
+            <summary>
+            周枚举
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.Weeks.周一">
+            <summary>
+            周一
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.Weeks.周二">
+            <summary>
+            周二
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.Weeks.周三">
+            <summary>
+            周三
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.Weeks.周四">
+            <summary>
+            周四
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.Weeks.周五">
+            <summary>
+            周五
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.Weeks.周六">
+            <summary>
+            周六
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.Weeks.周日">
+            <summary>
+            周日
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum">
+            <summary>
+            以前的时间类别
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.SevenDay">
+            <summary>
+            七天前
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.OneMonth">
+            <summary>
+            一个月前
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.ThreeMonth">
+            <summary>
+            三个月前
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.HalfYear">
+            <summary>
+            半年前
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.OneYear">
+            <summary>
+            一年前
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.All">
+            <summary>
+            全部
+            </summary>
+        </member>
         <member name="M:XCLNetTools.StringHander.DateHelper.GetBeforeDateTypeDateTime(XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum)">
             <summary>
             获取BeforeDateTypeEnum所对应的时间
@@ -4413,84 +4625,9 @@
             获取日期区间
             </summary>
         </member>
-        <member name="T:XCLNetTools.StringHander.DateHelper.diffResultFormat">
+        <member name="M:XCLNetTools.StringHander.DateHelper.ConvertJsonDateToDateTime(System.String)">
             <summary>
-            关于返回值形式的枚举
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.StringHander.DateHelper.diffResultFormat.yymm">
-            <summary>
-            年数和月数
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.StringHander.DateHelper.diffResultFormat.yy">
-            <summary>
-            年数
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.StringHander.DateHelper.diffResultFormat.mm">
-            <summary>
-            月数
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.StringHander.DateHelper.diffResultFormat.dd">
-            <summary>
-            天数
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.StringHander.DateHelper.Weeks">
-            <summary>
-            周枚举
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum">
-            <summary>
-            以前的时间类别
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.SevenDay">
-            <summary>
-            七天前
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.OneMonth">
-            <summary>
-            一个月前
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.ThreeMonth">
-            <summary>
-            三个月前
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.HalfYear">
-            <summary>
-            半年前
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.OneYear">
-            <summary>
-            一年前
-            </summary>
-        </member>
-        <member name="F:XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.All">
-            <summary>
-            全部
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Encrypt.DESEncrypt">
-            <summary>
-            DES加密/解密类。
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.DESEncrypt.Encrypt(System.String,System.String)">
-            <summary>
-            加密数据
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.DESEncrypt.Decrypt(System.String,System.String)">
-            <summary>
-            解密数据
+            将Json序列化的时间由/Date(1294499956278)/转为DateTime? .
             </summary>
         </member>
         <member name="T:XCLNetTools.StringHander.FormHelper">
@@ -4595,27 +4732,6 @@
         <member name="M:XCLNetTools.StringHander.FormHelper.CreateHiddenHtml(System.String,System.String)">
             <summary>
             返回hidden
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Encrypt.HashEncode">
-            <summary>
-            得到随机安全码（哈希加密）。
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.HashEncode.GetSecurity">
-            <summary>
-            得到随机哈希加密字符串
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.HashEncode.GetRandomValue">
-            <summary>
-            得到一个随机数值
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.HashEncode.HashEncoding(System.String)">
-            <summary>
-            哈希加密一个字符串
             </summary>
         </member>
         <member name="T:XCLNetTools.StringHander.PageValid">
@@ -4750,76 +4866,6 @@
             <param name="num">金额</param>
             <returns>返回大写形式</returns>
         </member>
-        <member name="T:XCLNetTools.Encrypt.RSACryption">
-            <summary>
-            RSA加密解密及RSA签名和验证
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.RSAKey(System.String@,System.String@)">
-            <summary>
-            RSA 的密钥产生 产生私钥 和公钥
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.RSAEncrypt(System.String,System.String)">
-            <summary>
-            RSA的加密函数 string
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.RSAEncrypt(System.String,System.Byte[])">
-            <summary>
-            RSA的加密函数 byte[]
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.RSADecrypt(System.String,System.String)">
-            <summary>
-            RSA的解密函数  string
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.RSADecrypt(System.String,System.Byte[])">
-            <summary>
-            RSA的解密函数  byte
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.GetHash(System.String,System.Byte[]@)">
-            <summary>
-            获取Hash描述表
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.GetHash(System.String,System.String@)">
-            <summary>
-            获取Hash描述表
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.GetHash(System.IO.FileStream,System.Byte[]@)">
-            <summary>
-            获取Hash描述表
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.GetHash(System.IO.FileStream,System.String@)">
-            <summary>
-            获取Hash描述表
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.SignatureFormatter(System.String,System.Byte[],System.Byte[]@)">
-            <summary>
-            RSA签名
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.SignatureFormatter(System.String,System.Byte[],System.String@)">
-            <summary>
-            RSA签名
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.SignatureFormatter(System.String,System.String,System.Byte[]@)">
-            <summary>
-            RSA签名
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Encrypt.RSACryption.SignatureFormatter(System.String,System.String,System.String@)">
-            <summary>
-            RSA签名
-            </summary>
-        </member>
         <member name="T:XCLNetTools.StringHander.UrlOper">
             <summary>
             URL的操作类
@@ -4892,6 +4938,11 @@
             取得置文件路径和名称
             </summary>
         </member>
+        <member name="P:XCLNetTools.XML.ConfigClass.LoadConfigDocument">
+            <summary>
+            读入配置文件
+            </summary>
+        </member>
         <member name="M:XCLNetTools.XML.ConfigClass.GetConfigurationSecion(System.String)">
             <summary>
             返回配置节
@@ -4944,8 +4995,8 @@
             <param name="key">KEY名</param>
             <returns>返回整数</returns>
         </member>
-        <!-- 对于成员“M:XCLNetTools.XML.ConfigClass.SetConfigKeyValue(System.String,System.String,System.String)”忽略有格式错误的 XML 注释 -->
-        <!-- 对于成员“M:XCLNetTools.XML.ConfigClass.SetConfigKeyValue(System.String,System.String)”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "M:XCLNetTools.XML.ConfigClass.SetConfigKeyValue(System.String,System.String,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:XCLNetTools.XML.ConfigClass.SetConfigKeyValue(System.String,System.String)" -->
         <member name="M:XCLNetTools.XML.ConfigClass.RemoveSectionKey(System.String,System.String)">
             <summary>
             删除配置文件节点
@@ -4958,11 +5009,6 @@
             删除默认节点
             </summary>
             <param name="key"></param>
-        </member>
-        <member name="P:XCLNetTools.XML.ConfigClass.LoadConfigDocument">
-            <summary>
-            读入配置文件
-            </summary>
         </member>
         <member name="T:XCLNetTools.XML.XMLHelper">
             <summary>
@@ -5065,6 +5111,111 @@
         <member name="M:XCLNetTools.XML.XMLHelper.UpdateXMLNodeInnerText(System.String,System.String,System.String)">
             <summary>
             更新指定xpath节点的innerText
+            </summary>
+        </member>
+        <member name="T:JsonMsg">
+            <summary>
+            json消息信息
+            </summary>
+        </member>
+        <member name="M:JsonMsg.#ctor">
+            <summary>
+            构造函数，初始化head和body
+            </summary>
+        </member>
+        <member name="P:JsonMsg.Head">
+            <summary>
+            head
+            </summary>
+        </member>
+        <member name="P:JsonMsg.Body">
+            <summary>
+            body
+            </summary>
+        </member>
+        <member name="T:JsonMsgHead">
+            <summary>
+            json消息头信息
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.Title">
+            <summary>
+            提示标题
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.Date">
+            <summary>
+            消息提示时间
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.Message">
+            <summary>
+            消息提示内容
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.MessageMore">
+            <summary>
+            消息详细信息
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.Url">
+            <summary>
+            消息发生页地址
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.FromUrl">
+            <summary>
+            消息页来源地址(reffer)
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.IsSuccess">
+            <summary>
+            是否成功与失败的标识
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.IsRefresh">
+            <summary>
+            是否需要刷新
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.Remark">
+            <summary>
+            备注信息
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.IsRedirect">
+            <summary>
+            是否需要跳转
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.RedirectURL">
+            <summary>
+            要跳转的url
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.IsAjax">
+            <summary>
+            当前请求是否为ajax请求
+            </summary>
+        </member>
+        <member name="P:JsonMsgHead.ErrorCode">
+            <summary>
+            错误码
+            </summary>
+        </member>
+        <member name="T:JsonMsgBody">
+            <summary>
+            json消息正文信息
+            </summary>
+        </member>
+        <member name="P:JsonMsgBody.Data">
+            <summary>
+            主数据
+            </summary>
+        </member>
+        <member name="P:JsonMsgBody.ExtendData">
+            <summary>
+            扩展数据
             </summary>
         </member>
     </members>

@@ -43,7 +43,7 @@
                             <td class="XCLTitle"><span class="XCLRedBolder">*</span>字典类型：</td>
                             <td>
                                 <select id="selDicType" name="selDicType">
-                                    @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum), new XCLNetTools.Control.HtmlControl.Entity.SetOptionEntity()
+                                    @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum), new XCLNetTools.Entity.SetOptionEntity()
                                {
                                    DefaultValue = Model.SysDic.DicType
                                }))

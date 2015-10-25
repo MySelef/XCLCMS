@@ -26,6 +26,13 @@ namespace XCLCMS.View.AdminWeb
                 url: "{controller}/{action}/{id}",
                 defaults: new {id = UrlParameter.Optional }
             );
+
+            //带默认值的路由
+            routes.MapRoute(
+                name: "RouteWithDefault",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller= "Default", action="Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

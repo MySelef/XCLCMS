@@ -9,16 +9,6 @@
             数据访问类:Article
             </summary>
         </member>
-        <member name="T:XCLCMS.Data.DAL.Common.BaseDAL">
-            <summary>
-            DAL基类
-            </summary>
-        </member>
-        <member name="M:XCLCMS.Data.DAL.Common.BaseDAL.CreateDatabase">
-            <summary>
-            创建数据库连接
-            </summary>
-        </member>
         <member name="M:XCLCMS.Data.DAL.Article.Add(XCLCMS.Data.Model.Article)">
             <summary>
              增加一条数据
@@ -47,6 +37,16 @@
         <member name="M:XCLCMS.Data.DAL.Article.GetPageList(System.Int32,System.Int32,System.Int32@,System.String,System.String,System.String,System.String)">
             <summary>
             分页数据列表
+            </summary>
+        </member>
+        <member name="T:XCLCMS.Data.DAL.Common.BaseDAL">
+            <summary>
+            DAL基类
+            </summary>
+        </member>
+        <member name="M:XCLCMS.Data.DAL.Common.BaseDAL.CreateDatabase">
+            <summary>
+            创建数据库连接
             </summary>
         </member>
         <member name="T:XCLCMS.Data.DAL.Common.Common">

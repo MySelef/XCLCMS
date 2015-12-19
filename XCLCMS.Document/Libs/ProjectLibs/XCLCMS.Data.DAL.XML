@@ -79,26 +79,6 @@
             </summary>
             <param name="parameters">存储过程参数</param>
         </member>
-        <member name="T:XCLCMS.Data.DAL.Entity.ProcedureResultModel">
-            <summary>
-            存储过程执行结果model
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.DAL.Entity.ProcedureResultModel.IsSuccess">
-            <summary>
-            是否成功
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.DAL.Entity.ProcedureResultModel.ResultCode">
-            <summary>
-            执行结果状态（1：成功，其它为失败）
-            </summary>
-        </member>
-        <member name="P:XCLCMS.Data.DAL.Entity.ProcedureResultModel.ResultMessage">
-            <summary>
-            执行结果返回的消息
-            </summary>
-        </member>
         <member name="T:XCLCMS.Data.DAL.GenerateID">
             <summary>
             数据访问类:GenerateID

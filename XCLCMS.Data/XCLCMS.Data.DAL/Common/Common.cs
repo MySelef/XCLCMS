@@ -55,9 +55,9 @@ namespace XCLCMS.Data.DAL.Common
         /// 从存储过程参数中获取存储过程的执行结果
         /// </summary>
         /// <param name="parameters">存储过程参数</param>
-        public static XCLCMS.Data.DAL.Entity.ProcedureResultModel GetProcedureResult(DbParameterCollection parameters)
+        public static XCLCMS.Data.Model.Custom.ProcedureResultModel GetProcedureResult(DbParameterCollection parameters)
         {
-            XCLCMS.Data.DAL.Entity.ProcedureResultModel model = new Entity.ProcedureResultModel();
+            XCLCMS.Data.Model.Custom.ProcedureResultModel model = new XCLCMS.Data.Model.Custom.ProcedureResultModel();
             model.IsSuccess = true;
 
             if (null != parameters && parameters.Count > 0)

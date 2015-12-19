@@ -58,7 +58,6 @@
     <Compile Include="Article.cs" />
     <Compile Include="Common\BaseDAL.cs" />
     <Compile Include="Common\Common.cs" />
-    <Compile Include="Entity\ProcedureResultModel.cs" />
     <Compile Include="GenerateID.cs" />
     <Compile Include="Merchant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

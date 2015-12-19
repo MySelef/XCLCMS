@@ -1,4 +1,4 @@
-﻿<title>@(string.IsNullOrEmpty(ViewBag.Title)?XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaTitle:string.Format("{0}——{1}",XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaTitle,ViewBag.Title))</title>
+﻿<title>@(string.IsNullOrEmpty(ViewBag.Title) ? XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaTitle : string.Format("{0}——{1}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaTitle, ViewBag.Title))</title>
 <meta name="keywords" content="@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaKeyWords" />
 <meta name="description" content="@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaDescription" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,21 +7,25 @@
 
 <script type="text/javascript">
     //全局配置
-    @if(null==ViewBag.PageGlobalConfigJSON){
+    @if (null == ViewBag.PageGlobalConfigJSON) {
         @:var XCLCMSPageGlobalConfig={
-            @:RootURL:"@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)",
-            @:ResourceURL: "@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)"
-        @:};
-    }
+                    @:RootURL:"@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)",
+                    @:ResourceURL: "@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)"
+                @:};
+        }
     else
     {
         @:var XCLCMSPageGlobalConfig =@(Html.Raw(ViewBag.PageGlobalConfigJSON));
-        @:XCLCMSPageGlobalConfig.EnumConfig=@(Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson));
-    }
+            @:XCLCMSPageGlobalConfig.EnumConfig=@(Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson));
+        }
 </script>
 
-@Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
+@{
+    List<string> resourceList = new List<string>();
+    resourceList.AddRange(new List<string>()
+    {
         "icon",
+        "json2.js",
         "jquery",
         "easyui_ico.css",
         "easyui.css",
@@ -40,12 +44,14 @@
         "table.js",
         "GoAjax.js",
         "dynamicCon.js",
-        "XCLJsTool.js",
+        "XJsTool.js",
 
         "kindeditor.css",
 
         "plupload_queue.css",
-        "Jcrop.css",
+        "Jcrop.css"
 
-        "json2.js"
-   }))
+    });
+}
+
+@Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig, resourceList))

@@ -1,4 +1,4 @@
-﻿namespace XCLCMS.Data.DAL.Entity
+﻿namespace XCLCMS.Data.Model.Custom
 {
     /// <summary>
     /// 存储过程执行结果model

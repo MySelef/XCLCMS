@@ -204,6 +204,26 @@
             更新人名
             </summary>
         </member>
+        <member name="T:XCLCMS.Data.Model.Custom.ProcedureResultModel">
+            <summary>
+            存储过程执行结果model
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.ProcedureResultModel.IsSuccess">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.ProcedureResultModel.ResultCode">
+            <summary>
+            执行结果状态（1：成功，其它为失败）
+            </summary>
+        </member>
+        <member name="P:XCLCMS.Data.Model.Custom.ProcedureResultModel.ResultMessage">
+            <summary>
+            执行结果返回的消息
+            </summary>
+        </member>
         <member name="T:XCLCMS.Data.Model.Custom.SysDicSimple">
             <summary>
             字典库简版实体

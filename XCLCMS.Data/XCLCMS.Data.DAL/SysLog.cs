@@ -1,11 +1,9 @@
-﻿using System;
-using System.Data;
-using System.Text;
-using System.Data.SqlClient;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Collections.Generic;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data;
 using System.Data.Common;
+using System.Text;
 
 namespace XCLCMS.Data.DAL
 {
@@ -16,8 +14,8 @@ namespace XCLCMS.Data.DAL
     {
         public SysLog()
         { }
-        #region  Method
 
+        #region Method
 
         /// <summary>
         /// 得到一个对象实体
@@ -92,15 +90,17 @@ namespace XCLCMS.Data.DAL
             return db.ExecuteDataSet(dbCommand);
         }
 
-        #endregion  Method
-        #region  MethodEx
+        #endregion Method
+
+        #region MethodEx
+
         /// <summary>
         /// 分页数据列表
         /// </summary>
         public List<XCLCMS.Data.Model.SysLog> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
             DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("SysLog", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
-            return XCLNetTools.Generic.ListHelper.DataTableToList < XCLCMS.Data.Model.SysLog>(dt) as List<XCLCMS.Data.Model.SysLog>;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysLog>(dt) as List<XCLCMS.Data.Model.SysLog>;
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         /// <param name="startTime">开始时间</param>
         /// <param name="endTime">结束时间</param>
-        public void ClearListByDateTime(DateTime? startTime,DateTime? endTime)
+        public void ClearListByDateTime(DateTime? startTime, DateTime? endTime)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(" DELETE FROM dbo.SysLog WHERE 1=1 ");
@@ -117,7 +117,7 @@ namespace XCLCMS.Data.DAL
 
             if (null != startTime)
             {
-                dbCommand.CommandText+=" and CreateTime>=@StartTime ";
+                dbCommand.CommandText += " and CreateTime>=@StartTime ";
                 db.AddInParameter(dbCommand, "StartTime", DbType.DateTime, (DateTime)startTime);
             }
 
@@ -128,9 +128,8 @@ namespace XCLCMS.Data.DAL
             }
 
             db.ExecuteNonQuery(dbCommand);
-
         }
-        #endregion  MethodEx
+
+        #endregion MethodEx
     }
 }
-

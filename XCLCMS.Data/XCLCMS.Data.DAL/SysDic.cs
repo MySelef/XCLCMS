@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Data;
-using System.Text;
-using System.Data.SqlClient;
-using System.Collections.Generic;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
+using System.Text;
 
 namespace XCLCMS.Data.DAL
 {
@@ -16,7 +13,8 @@ namespace XCLCMS.Data.DAL
     {
         public SysDic()
         { }
-        #region  Method
+
+        #region Method
 
         /// <summary>
         /// 得到一个对象实体
@@ -36,7 +34,6 @@ namespace XCLCMS.Data.DAL
                 return null;
             }
         }
-
 
         /// <summary>
         /// 得到一个对象实体
@@ -131,8 +128,9 @@ namespace XCLCMS.Data.DAL
             return db.ExecuteDataSet(dbCommand);
         }
 
-        #endregion  Method
-        #region  MethodEx
+        #endregion Method
+
+        #region MethodEx
 
         /// <summary>
         /// 获取指定sysDicID所属的层级list
@@ -166,8 +164,8 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool DelChild(XCLCMS.Data.Model.SysDic model)
         {
-            string strSql = string.Format("update SysDic set RecordState='{0}',UpdateTime=@UpdateTime,UpdaterID=@UpdaterID,UpdaterName=@UpdaterName where ParentID=@SysDicID and RecordState='{1}' and DicType<>'{2}'", 
-                                    XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString(), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(),XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.S.ToString());
+            string strSql = string.Format("update SysDic set RecordState='{0}',UpdateTime=@UpdateTime,UpdaterID=@UpdaterID,UpdaterName=@UpdaterName where ParentID=@SysDicID and RecordState='{1}' and DicType<>'{2}'",
+                                    XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString(), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(), XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.S.ToString());
 
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
@@ -183,7 +181,7 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public DataTable GetChildListByCode(string code)
         {
-            StringBuilder strSql =new StringBuilder();
+            StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT
                                         b.*
                                         FROM dbo.SysDic AS a
@@ -219,7 +217,7 @@ namespace XCLCMS.Data.DAL
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
 
-         /// <summary>
+        /// <summary>
         ///  增加一条数据
         /// </summary>
         public bool Add(XCLCMS.Data.Model.SysDic model)
@@ -315,14 +313,14 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            DataTable dt= null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
+            DataTable dt = null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
             if (null != dt && dt.Rows.Count > 0)
             {
                 model = this.DataRowToModel(dt.Rows[0]);
             }
             return model;
         }
-        #endregion  MethodEx
+
+        #endregion MethodEx
     }
 }
-

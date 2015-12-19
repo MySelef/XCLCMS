@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XCLCMS.Data.DAL.Entity
+﻿namespace XCLCMS.Data.DAL.Entity
 {
     /// <summary>
     /// 存储过程执行结果model

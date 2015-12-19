@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
@@ -14,14 +12,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
         /// <summary>
         /// 配置列表
         /// </summary>
-        [XCLCMS.Lib.Filters.FunctionFilter(Function=XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingView)]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingView)]
         public ActionResult Index()
         {
             XCLCMS.View.AdminViewModel.SysWebSetting.SysWebSettingListVM viewModel = new AdminViewModel.SysWebSetting.SysWebSettingListVM();
 
             #region 初始化查询条件
+
             viewModel.Search = new XCLNetSearch.Search();
-            viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() { 
+            viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("配置ID","SysWebSettingID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("名称","KeyName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("值","KeyValue|string|text",""),
@@ -37,12 +36,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             {
                 strWhere = string.Format("{0} and ({1})", strWhere, strSearch);
             }
-            #endregion
+
+            #endregion 初始化查询条件
 
             XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
             viewModel.SysWebSettingList = bll.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[SysWebSettingID]", "[KeyName] asc");
             viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
-            return View("~/Views/SysWebSetting/SysWebSettingList.cshtml",viewModel);
+            return View("~/Views/SysWebSetting/SysWebSettingList.cshtml", viewModel);
         }
 
         /// <summary>
@@ -63,6 +63,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
                     viewModel.SysWebSetting = new Data.Model.SysWebSetting();
                     viewModel.FormAction = Url.Action("AddSubmit", "SysWebSetting");
                     break;
+
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     viewModel.SysWebSetting = bll.GetModel(sysWebSettingID);
                     viewModel.FormAction = Url.Action("UpdateSubmit", "SysWebSetting");

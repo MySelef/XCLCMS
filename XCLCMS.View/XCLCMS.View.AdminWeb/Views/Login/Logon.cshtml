@@ -5,7 +5,7 @@
     @Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
             "login.css",
             "config.js",
-            "require.js"            
+            "require.js"
        }))
 </head>
 <body>
@@ -35,14 +35,14 @@
                                     <td align="right" width="25%">用户名：
                                     </td>
                                     <td width="75%">
-                                        <input type="text" id="txtUserName" name="txtUserName" style="width:140px;"/>
+                                        <input type="text" id="txtUserName" name="txtUserName" style="width:140px;" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="right">密码：
                                     </td>
                                     <td>
-                                        <input type="password" id="txtPwd" name="txtPwd" style="width:140px;"/>
+                                        <input type="password" id="txtPwd" name="txtPwd" style="width:140px;" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -52,7 +52,7 @@
                                         <span>
                                             <img src="@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)Login/GenerateValidCode" alt="单击进行更换图片！" title="单击进行更换图片！" onclick="this.src='@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)Login/GenerateValidCode'+'?'+Math.random();return false;" style="width:66px;height:29px;" />
                                         </span>
-                                        <input type="text" id="txtValidCode" name="txtValidCode" style="width:70px;"/>
+                                        <input type="text" id="txtValidCode" name="txtValidCode" style="width:70px;" />
                                     </td>
                                 </tr>
                                 <tr>

@@ -2,8 +2,8 @@
     Layout = "~/Views/MasterView/Simple.cshtml";
 }
 
-<div id="tabFileUpload" class="easyui-tabs" data-options="fit:true">  
-    <div title="选择文件">  
+<div id="tabFileUpload" class="easyui-tabs" data-options="fit:true">
+    <div title="选择文件">
         <div style="padding:5px" class="XCLUploadFile">
             <div class="XCLNote" id="fileNote"></div>
             <div class="UploadItemDiv">
@@ -17,9 +17,9 @@
                     <a href="javascript:void(0);" id="btnUploadFile" class="easyui-linkbutton " data-options="iconCls:'icon-ok'" style="width:100px;">开始上传</a>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
-</div>  
+</div>
 
 <!--提示模板-->
 <script type="text/html" id="fileNoteTemp">
@@ -32,9 +32,9 @@
         <li>
             <div class="itemContent">
                 {{if m.IsImage}}
-                    <img{{}} src="{{m.ImgSmallPath}}" id="{{m.Id}}"/>
+                    <img{{}} src="{{m.ImgSmallPath}}" id="{{m.Id}}" />
                 {{else}}
-                    <img{{}} src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Images/document.png" id="{{m.Id}}"/>
+                    <img{{}} src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Images/document.png" id="{{m.Id}}" />
                 {{/if}}
             </div>
             <div class="itemDescription">
@@ -49,7 +49,7 @@
         </li>
     {{/each}}
 </script>
-    
+
 <!--图片编辑模板-->
 <script type="text/html" id="divEditFileTemp">
     <div id="divEditFile">
@@ -98,7 +98,7 @@
                                 <tr>
                                     <td class="XCLTitle" width="20%">文件名：</td>
                                     <td width="30%">
-                                        <input type="text" value="{{Name}}"/>
+                                        <input type="text" value="{{Name}}" />
                                     </td>
                                     <td width="20%"></td>
                                     <td width="30%"></td>
@@ -132,8 +132,8 @@
                                     <tr class="temp">
                                         <td align="center" class="dynamicCon-Index"></td>
                                         <td>
-                                            宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex"  value="" style="width:50px;"/>px，
-                                            高：<input type="text" id="txtThumbHeight" name="txtThumbHeight"  class="dynamicCon-autoCreateIdIndex"   value="" style="width:50px;"/>px
+                                            宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex"  value="" style="width:50px;" />px，
+                                            高：<input type="text" id="txtThumbHeight" name="txtThumbHeight"  class="dynamicCon-autoCreateIdIndex"   value="" style="width:50px;" />px
                                         </td>
                                         <td align="center">
                                             <a href="javascript:void(0);" class="btnEqualRatio">调整</a>
@@ -150,8 +150,8 @@
                                     <tr class="items">
                                         <td align="center" class="dynamicCon-Index"></td>
                                         <td>
-                                            宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex"  value="{{m.Width}}" style="width:50px;"/>px，
-                                            高：<input type="text" id="txtThumbHeight" name="txtThumbHeight"  class="dynamicCon-autoCreateIdIndex"   value="{{m.Height}}" style="width:50px;"/>px
+                                            宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex"  value="{{m.Width}}" style="width:50px;" />px，
+                                            高：<input type="text" id="txtThumbHeight" name="txtThumbHeight"  class="dynamicCon-autoCreateIdIndex"   value="{{m.Height}}" style="width:50px;" />px
                                         </td>
                                         <td align="center">
                                             <a href="javascript:void(0);" class="btnEqualRatio">调整</a>
@@ -205,7 +205,6 @@
         <input type="hidden" name="ImgSrc" value="{{ImgSrc}}" />
     </form>
 </script>
-
 
 <script type="text/javascript">
     require(["Lib/Uploader"], function (uploader) {

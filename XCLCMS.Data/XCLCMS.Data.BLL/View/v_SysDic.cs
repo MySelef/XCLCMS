@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XCLCMS.Data.BLL.View
 {
-    public  class v_SysDic
+    public class v_SysDic
     {
         private readonly XCLCMS.Data.DAL.View.v_SysDic dal = new XCLCMS.Data.DAL.View.v_SysDic();
+
         public v_SysDic()
         { }
-        #region  BasicMethod
+
+        #region BasicMethod
 
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
         public XCLCMS.Data.Model.View.v_SysDic GetModel(long SysDicID)
         {
-
             return dal.GetModel(SysDicID);
         }
 
@@ -30,6 +27,7 @@ namespace XCLCMS.Data.BLL.View
         {
             return dal.GetList(strWhere);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -38,6 +36,7 @@ namespace XCLCMS.Data.BLL.View
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -68,8 +67,10 @@ namespace XCLCMS.Data.BLL.View
             return GetList("");
         }
 
-        #endregion  BasicMethod
-        #region  ExtensionMethod
+        #endregion BasicMethod
+
+        #region ExtensionMethod
+
         /// <summary>
         /// 根据parentID返回列表
         /// </summary>
@@ -84,7 +85,7 @@ namespace XCLCMS.Data.BLL.View
             return lst;
         }
 
-         /// <summary>
+        /// <summary>
         /// 递归获取指定code下的所有列表
         /// </summary>
         public List<XCLCMS.Data.Model.View.v_SysDic> GetAllUnderListByCode(string code)
@@ -97,6 +98,7 @@ namespace XCLCMS.Data.BLL.View
             }
             return lst;
         }
-        #endregion  ExtensionMethod
+
+        #endregion ExtensionMethod
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Collections.Generic;
-using XCLCMS.Data.Model;
+﻿using System.Collections.Generic;
 
 namespace XCLCMS.Data.BLL
 {
@@ -11,20 +8,20 @@ namespace XCLCMS.Data.BLL
     public partial class SysRoleFunction
     {
         private readonly XCLCMS.Data.DAL.SysRoleFunction dal = new XCLCMS.Data.DAL.SysRoleFunction();
+
         public SysRoleFunction()
         { }
-        #region  BasicMethod
-         /// <summary>
+
+        #region BasicMethod
+
+        /// <summary>
         /// 增加一条数据
         /// </summary>
         public bool Add(XCLCMS.Data.Model.SysRoleFunction model, List<long> functionIdList = null)
         {
             return dal.Add(model, functionIdList);
         }
-        #endregion  BasicMethod
-        #region  ExtensionMethod
 
-        #endregion  ExtensionMethod
+        #endregion BasicMethod
     }
 }
-

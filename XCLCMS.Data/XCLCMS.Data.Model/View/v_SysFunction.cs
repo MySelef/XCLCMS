@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace XCLCMS.Data.Model.View
 {
     /// <summary>
@@ -9,7 +10,9 @@ namespace XCLCMS.Data.Model.View
     {
         public v_SysFunction()
         { }
+
         #region Model
+
         private long? _sysfunctionid;
         private long? _parentid;
         private string _functionname;
@@ -24,120 +27,133 @@ namespace XCLCMS.Data.Model.View
         private string _updatername;
         private int? _nodelevel;
         private int _isleaf;
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public long? SysFunctionID
         {
             set { _sysfunctionid = value; }
             get { return _sysfunctionid; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public long? ParentID
         {
             set { _parentid = value; }
             get { return _parentid; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string FunctionName
         {
             set { _functionname = value; }
             get { return _functionname; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string Code
         {
             set { _code = value; }
             get { return _code; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string Remark
         {
             set { _remark = value; }
             get { return _remark; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string RecordState
         {
             set { _recordstate = value; }
             get { return _recordstate; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public DateTime? CreateTime
         {
             set { _createtime = value; }
             get { return _createtime; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public long? CreaterID
         {
             set { _createrid = value; }
             get { return _createrid; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string CreaterName
         {
             set { _creatername = value; }
             get { return _creatername; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public DateTime? UpdateTime
         {
             set { _updatetime = value; }
             get { return _updatetime; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public long? UpdaterID
         {
             set { _updaterid = value; }
             get { return _updaterid; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string UpdaterName
         {
             set { _updatername = value; }
             get { return _updatername; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public int? NodeLevel
         {
             set { _nodelevel = value; }
             get { return _nodelevel; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public int IsLeaf
         {
             set { _isleaf = value; }
             get { return _isleaf; }
         }
-        #endregion Model
 
+        #endregion Model
     }
 }
-

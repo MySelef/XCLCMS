@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XCLCMS.Lib.Model
+﻿namespace XCLCMS.Lib.Model
 {
     /// <summary>
     /// 站点配置model
@@ -22,7 +16,6 @@ namespace XCLCMS.Lib.Model
         public string Common_UserLoginFlagName { get; set; }
         public string Common_WebName { get; set; }
         public string Common_WebURL { get; set; }
-
 
         public string Admin_LoginURL { get; set; }
         public string Admin_ResourceRootURL { get; set; }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XCLCMS.Lib.Encrypt
+﻿namespace XCLCMS.Lib.Encrypt
 {
     /// <summary>
     /// 加密解密相关
@@ -34,6 +28,7 @@ namespace XCLCMS.Lib.Encrypt
         {
             return XCLNetTools.Encrypt.DESEncrypt.Encrypt(str, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_DESKey);
         }
+
         /// <summary>
         /// des 解密
         /// </summary>

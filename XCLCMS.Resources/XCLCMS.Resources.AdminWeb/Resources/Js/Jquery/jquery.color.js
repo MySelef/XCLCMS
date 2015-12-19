@@ -182,7 +182,6 @@
 				spaceName = parser.space || "rgba",
 				cache = spaces[ spaceName ].cache;
 
-
 			if ( values ) {
 				parsed = inst[ spaceName ]( values );
 
@@ -198,7 +197,6 @@
 
 		// Found a stringParser that handled it
 		if ( rgba.length !== 0 ) {
-
 			// if this came from a parsed string, force "transparent" when alpha is 0
 			// chrome, (and maybe others) return "transparent" as rgba(0,0,0,0)
 			if ( Math.max.apply( Math, rgba ) === 0 ) {
@@ -261,7 +259,6 @@
 
 							// if the cache doesn't exist, and we know how to convert
 							if ( !inst[ cache ] && space.to ) {
-
 								// if the value was null, we don't need to copy it
 								// if the key was alpha, we don't need to copy it either
 								if ( red[ key ] == null || key === "alpha") {
@@ -400,7 +397,6 @@
 			}
 
 			return "#" + jQuery.map( rgba, function( v, i ) {
-
 				// default to 0 when nulls exist
 				v = ( v || 0 ).toString( 16 );
 				return v.length === 1 ? "0" + v : v;
@@ -484,7 +480,6 @@
 		];
 	};
 
-
 	each( spaces, function( spaceName, space ) {
 		var props = space.props,
 			cache = space.cache,
@@ -493,7 +488,6 @@
 
 		// makes rgba() and hsla()
 		color.fn[ spaceName ] = function( value ) {
-
 			// generate a cache for this space if it doesn't exist
 			if ( to && !this[ cache ] ) {
 				this[ cache ] = to( this._rgba );

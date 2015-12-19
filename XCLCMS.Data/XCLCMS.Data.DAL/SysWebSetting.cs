@@ -1,11 +1,9 @@
-﻿using System;
-using System.Data;
-using System.Text;
-using System.Data.SqlClient;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Collections.Generic;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data;
 using System.Data.Common;
+using System.Text;
 
 namespace XCLCMS.Data.DAL
 {
@@ -16,8 +14,8 @@ namespace XCLCMS.Data.DAL
     {
         public SysWebSetting()
         { }
-        #region  Method
 
+        #region Method
 
         /// <summary>
         ///  增加一条数据
@@ -179,16 +177,19 @@ namespace XCLCMS.Data.DAL
             return db.ExecuteDataSet(dbCommand);
         }
 
-        #endregion  Method
-        #region  MethodEx
+        #endregion Method
+
+        #region MethodEx
+
         /// <summary>
         /// 分页数据列表
         /// </summary>
         public List<XCLCMS.Data.Model.SysWebSetting> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
             DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("SysWebSetting", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
-            return XCLNetTools.Generic.ListHelper.DataTableToList < XCLCMS.Data.Model.SysWebSetting>(dt) as List<XCLCMS.Data.Model.SysWebSetting>;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysWebSetting>(dt) as List<XCLCMS.Data.Model.SysWebSetting>;
         }
+
         /// <summary>
         /// 判断指定配置名是否存在
         /// </summary>
@@ -199,7 +200,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "KeyName", DbType.AnsiString, keyName);
             return db.ExecuteScalar(dbCommand) != null;
         }
-        #endregion  MethodEx
+
+        #endregion MethodEx
     }
 }
-

@@ -9,7 +9,6 @@
          * @returns {undefined}
          */
         Init: function () {
-
         }
     };
     return app;

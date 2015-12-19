@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Collections.Generic;
-using XCLCMS.Data.Model;
+
 namespace XCLCMS.Data.BLL
 {
     /// <summary>
@@ -10,9 +9,11 @@ namespace XCLCMS.Data.BLL
     public partial class Article
     {
         private readonly XCLCMS.Data.DAL.Article dal = new XCLCMS.Data.DAL.Article();
+
         public Article()
         { }
-        #region  BasicMethod
+
+        #region BasicMethod
 
         /// <summary>
         /// 增加一条数据
@@ -35,7 +36,6 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public XCLCMS.Data.Model.Article GetModel(long ArticleID)
         {
-
             return dal.GetModel(ArticleID);
         }
 
@@ -46,6 +46,7 @@ namespace XCLCMS.Data.BLL
         {
             return dal.GetList(strWhere);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -54,6 +55,7 @@ namespace XCLCMS.Data.BLL
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -84,8 +86,10 @@ namespace XCLCMS.Data.BLL
             return GetList("");
         }
 
-        #endregion  BasicMethod
-        #region  ExtensionMethod
+        #endregion BasicMethod
+
+        #region ExtensionMethod
+
         /// <summary>
         /// 分页列表
         /// </summary>
@@ -101,7 +105,7 @@ namespace XCLCMS.Data.BLL
         {
             return new XCLCMS.Data.BLL.SysDic().GetDictionaryByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.ArticleType.ToString());
         }
-        #endregion  ExtensionMethod
+
+        #endregion ExtensionMethod
     }
 }
-

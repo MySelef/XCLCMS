@@ -5,7 +5,6 @@
     var app = {};
     app.ArticleList = {
         Init: function () {
-
         }
     };
 
@@ -17,7 +16,7 @@
             divContentNote: null,//内容字数统计
             btnRandomCount: null,//随机生成点赞数的按钮
             selArticleType: null,//文章分类
-            selArticleContentType:null,//文章内容类型
+            selArticleContentType: null,//文章内容类型
             Init: function () {
                 this.divContentNote = $("#divContentNote");
                 this.btnRandomCount = $("#btnRandomCount");
@@ -54,7 +53,7 @@
             });
 
             //随机生成点赞数
-            common.BindLinkButtonEvent("click", _this.Elements.btnRandomCount , function () {
+            common.BindLinkButtonEvent("click", _this.Elements.btnRandomCount, function () {
                 var r1 = XJ.Random.Range(100, 800), r2 = XJ.Random.Range(0, 100), r3 = XJ.Random.Range(0, 10);
                 $("#txtGoodCount").numberbox('setValue', r1);
                 $("#txtMiddleCount").numberbox('setValue', r2);
@@ -67,9 +66,8 @@
             _this.Elements.selArticleType.combotree({
                 url: XCLCMSPageGlobalConfig.RootURL + "SysDicCommon/GetEasyUITreeByCode?code=ArticleType",
                 checkbox: true,
-                onlyLeafCheck:true
+                onlyLeafCheck: true
             });
-
         },
         UploadMainImage: function () {
             art.dialog.open(XCLCMSPageGlobalConfig.RootURL + 'Upload/Index', { title: '文件上传', width: 1100, height: 650 });

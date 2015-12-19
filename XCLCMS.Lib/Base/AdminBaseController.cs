@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace XCLCMS.Lib.Base
@@ -14,7 +9,9 @@ namespace XCLCMS.Lib.Base
     public class AdminBaseController : Controller, IBaseController
     {
         #region 当前登录用户相关
+
         private XCLCMS.Data.Model.UserInfo _currentUserModel = null;
+
         /// <summary>
         /// 当前登录的用户实体
         /// </summary>
@@ -40,9 +37,11 @@ namespace XCLCMS.Lib.Base
                 return null != this.CurrentUserModel ? this.CurrentUserModel.UserInfoID : 0;
             }
         }
-        #endregion
+
+        #endregion 当前登录用户相关
 
         #region 页面操作相关
+
         /// <summary>
         /// 当前页面操作类型
         /// </summary>
@@ -73,6 +72,7 @@ namespace XCLCMS.Lib.Base
                 return XCLNetTools.StringHander.FormHelper.GetString("HandleType").ToUpper();
             }
         }
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -82,6 +82,7 @@ namespace XCLCMS.Lib.Base
         {
             return null;
         }
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -90,6 +91,7 @@ namespace XCLCMS.Lib.Base
         {
             return null;
         }
+
         /// <summary>
         /// 更新
         /// </summary>
@@ -99,6 +101,7 @@ namespace XCLCMS.Lib.Base
         {
             return null;
         }
+
         /// <summary>
         /// 导入
         /// </summary>
@@ -108,6 +111,7 @@ namespace XCLCMS.Lib.Base
         {
             return null;
         }
+
         /// <summary>
         /// 导出
         /// </summary>
@@ -116,9 +120,11 @@ namespace XCLCMS.Lib.Base
         {
             return null;
         }
-        #endregion
+
+        #endregion 页面操作相关
 
         #region 拦截器
+
         /// <summary>
         /// 拦截action
         /// </summary>
@@ -129,14 +135,17 @@ namespace XCLCMS.Lib.Base
             ViewBag.CurrentHandleType = this.CurrentHandleType;
             ViewBag.UserID = this.UserID;
 
-            XCLCMS.Lib.Model.CommonModel commonModel =new XCLCMS.Lib.Model.CommonModel();
+            XCLCMS.Lib.Model.CommonModel commonModel = new XCLCMS.Lib.Model.CommonModel();
             commonModel.CurrentUserModel = this.CurrentUserModel;
             ViewBag.CommonModel = commonModel;
         }
-        #endregion
+
+        #endregion 拦截器
 
         #region 分页相关
+
         private int _pageSize = 10;
+
         public int PageSize
         {
             get
@@ -158,6 +167,7 @@ namespace XCLCMS.Lib.Base
         }
 
         public int RecordCount = 0;
-        #endregion
+
+        #endregion 分页相关
     }
 }

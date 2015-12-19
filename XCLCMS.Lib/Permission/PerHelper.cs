@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XCLCMS.Lib.Permission
 {
@@ -12,6 +9,7 @@ namespace XCLCMS.Lib.Permission
     public class PerHelper
     {
         #region 角色相关
+
         /// <summary>
         /// 获取角色列表
         /// </summary>
@@ -36,9 +34,10 @@ namespace XCLCMS.Lib.Permission
             return new XCLCMS.Data.BLL.SysRole().GetListByUserID(userId);
         }
 
-        #endregion
+        #endregion 角色相关
 
         #region 权限功能相关
+
         /// <summary>
         /// 判断指定用户是否至少拥有权限组中的某个权限
         /// </summary>
@@ -58,10 +57,11 @@ namespace XCLCMS.Lib.Permission
         /// </summary>
         public static bool HasPermission(long userId, XCLCMS.Lib.Permission.Function.FunctionEnum funEm)
         {
-            return PerHelper.HasAnyPermission(userId, new List<Function.FunctionEnum>() { 
+            return PerHelper.HasAnyPermission(userId, new List<Function.FunctionEnum>() {
                 funEm
             });
         }
-        #endregion
+
+        #endregion 权限功能相关
     }
 }

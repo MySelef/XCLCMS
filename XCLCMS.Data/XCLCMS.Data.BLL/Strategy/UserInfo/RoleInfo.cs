@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XCLCMS.Data.BLL.Strategy.UserInfo
 {
@@ -41,15 +37,14 @@ namespace XCLCMS.Data.BLL.Strategy.UserInfo
             bool flag = false;
 
             try
-            { 
-                flag=bll.Add(model, userInfoContext.UserRoleIDs);
+            {
+                flag = bll.Add(model, userInfoContext.UserRoleIDs);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 flag = false;
                 this.ResultMessage += string.Format("异常信息：{0}", ex.Message);
             }
-            
 
             if (flag)
             {
@@ -58,7 +53,7 @@ namespace XCLCMS.Data.BLL.Strategy.UserInfo
             else
             {
                 this.Result = StrategyLib.ResultEnum.FAIL;
-                this.ResultMessage =string.Format("保存用户角色信息失败！{0}",this.ResultMessage);
+                this.ResultMessage = string.Format("保存用户角色信息失败！{0}", this.ResultMessage);
             }
         }
     }

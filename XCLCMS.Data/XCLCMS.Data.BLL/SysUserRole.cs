@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Collections.Generic;
-using XCLCMS.Data.Model;
+
 namespace XCLCMS.Data.BLL
 {
     /// <summary>
@@ -10,9 +9,11 @@ namespace XCLCMS.Data.BLL
     public partial class SysUserRole
     {
         private readonly XCLCMS.Data.DAL.SysUserRole dal = new XCLCMS.Data.DAL.SysUserRole();
+
         public SysUserRole()
         { }
-        #region  BasicMethod
+
+        #region BasicMethod
 
         /// <summary>
         /// 获得数据列表
@@ -21,6 +22,7 @@ namespace XCLCMS.Data.BLL
         {
             return dal.GetList(strWhere);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -29,6 +31,7 @@ namespace XCLCMS.Data.BLL
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -59,16 +62,18 @@ namespace XCLCMS.Data.BLL
             return GetList("");
         }
 
-        #endregion  BasicMethod
-        #region  ExtensionMethod
+        #endregion BasicMethod
+
+        #region ExtensionMethod
+
         /// <summary>
         /// 增加数据
         /// </summary>
         public bool Add(XCLCMS.Data.Model.SysUserRole model, List<long> roleIdList = null)
         {
-            return dal.Add(model,roleIdList);
+            return dal.Add(model, roleIdList);
         }
-        #endregion  ExtensionMethod
+
+        #endregion ExtensionMethod
     }
 }
-

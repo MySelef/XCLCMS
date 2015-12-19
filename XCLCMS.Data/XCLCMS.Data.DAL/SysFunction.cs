@@ -1,11 +1,10 @@
-﻿using System;
-using System.Data;
-using System.Text;
-using System.Data.SqlClient;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Collections.Generic;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
+using System.Text;
 
 namespace XCLCMS.Data.DAL
 {
@@ -16,8 +15,8 @@ namespace XCLCMS.Data.DAL
     {
         public SysFunction()
         { }
-        #region  Method
 
+        #region Method
 
         /// <summary>
         ///  增加一条数据
@@ -77,7 +76,7 @@ namespace XCLCMS.Data.DAL
             db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
             db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
             db.ExecuteNonQuery(dbCommand);
-            
+
             var result = XCLCMS.Data.DAL.Common.Common.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
@@ -108,9 +107,6 @@ namespace XCLCMS.Data.DAL
                 return null;
             }
         }
-
-
-
 
         /// <summary>
         /// 得到一个对象实体
@@ -189,8 +185,10 @@ namespace XCLCMS.Data.DAL
             return db.ExecuteDataSet(dbCommand);
         }
 
-        #endregion  Method
-        #region  MethodEx
+        #endregion Method
+
+        #region MethodEx
+
         /// <summary>
         /// 判断功能标识是否存在
         /// </summary>
@@ -294,7 +292,7 @@ namespace XCLCMS.Data.DAL
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
-        #endregion  MethodEx
+
+        #endregion MethodEx
     }
 }
-

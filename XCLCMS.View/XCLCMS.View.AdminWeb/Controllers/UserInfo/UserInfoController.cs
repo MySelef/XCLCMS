@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XCLNetTools.Generic;
 
@@ -15,14 +14,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
         /// <summary>
         /// 用户信息列表首页
         /// </summary>
-        [XCLCMS.Lib.Filters.FunctionFilter(Function=XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserView)]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserView)]
         public ActionResult Index()
         {
             XCLCMS.View.AdminViewModel.UserInfo.UserInfoListVM viewModel = new XCLCMS.View.AdminViewModel.UserInfo.UserInfoListVM();
 
             #region 初始化查询条件
+
             viewModel.Search = new XCLNetSearch.Search();
-            viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() { 
+            viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("用户ID","UserInfoID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("用户名","UserName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("真实姓名","RealName|string|text",""),
@@ -48,7 +48,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             {
                 strWhere = string.Format("{0} and ({1})", strWhere, strSearch);
             }
-            #endregion
+
+            #endregion 初始化查询条件
 
             XCLCMS.Data.BLL.UserInfo uBLL = new Data.BLL.UserInfo();
             viewModel.UserInfoList = uBLL.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[UserInfoID]", "[UserInfoID] desc");
@@ -78,6 +79,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
                     viewModel.UserInfo.UserState = XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.N.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "UserInfo");
                     break;
+
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     viewModel.UserInfo = userInfoBLL.GetModel(userInfoId);
                     viewModel.FormAction = Url.Action("UpdateSubmit", "UserInfo");
@@ -89,7 +91,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
                     break;
             }
 
-            return View("~/Views/UserInfo/UserInfoAdd.cshtml",viewModel);
+            return View("~/Views/UserInfo/UserInfoAdd.cshtml", viewModel);
         }
 
         /// <summary>
@@ -121,7 +123,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
         /// 添加用户信息
         /// </summary>
         [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function=XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserAdd)]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserAdd)]
         public override ActionResult AddSubmit(FormCollection fm)
         {
             XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM viewModel = this.GetViewModel(fm);
@@ -158,7 +160,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             userInfoContext.UserRoleIDs = viewModel.UserRoleIDs;
             userInfoContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.ADD;
 
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
+            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
                 new XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo()
             });
             if (XCLCMS.Lib.Permission.PerHelper.HasPermission(base.CurrentUserModel.UserInfoID, Lib.Permission.Function.FunctionEnum.SysFun_SetUserRole))
@@ -222,7 +224,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             userInfoContext.UserRoleIDs = viewModel.UserRoleIDs;
             userInfoContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.UPDATE;
 
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
+            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
                 new XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo()
             });
             if (XCLCMS.Lib.Permission.PerHelper.HasPermission(base.CurrentUserModel.UserInfoID, Lib.Permission.Function.FunctionEnum.SysFun_SetUserRole))
@@ -279,6 +281,5 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             msgModel.Message = "删除成功！";
             return Json(msgModel);
         }
-
     }
 }

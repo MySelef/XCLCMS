@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Collections.Generic;
-using XCLCMS.Data.Model;
 
 namespace XCLCMS.Data.BLL.View
 {
@@ -11,15 +9,17 @@ namespace XCLCMS.Data.BLL.View
     public partial class v_SysRole
     {
         private readonly XCLCMS.Data.DAL.View.v_SysRole dal = new XCLCMS.Data.DAL.View.v_SysRole();
+
         public v_SysRole()
         { }
-        #region  BasicMethod
-         /// <summary>
+
+        #region BasicMethod
+
+        /// <summary>
         /// 得到一个对象实体
         /// </summary>
         public XCLCMS.Data.Model.View.v_SysRole GetModel(long SysRoleID)
         {
-
             return dal.GetModel(SysRoleID);
         }
 
@@ -39,6 +39,7 @@ namespace XCLCMS.Data.BLL.View
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -61,8 +62,10 @@ namespace XCLCMS.Data.BLL.View
             return modelList;
         }
 
-        #endregion  BasicMethod
-        #region  ExtensionMethod
+        #endregion BasicMethod
+
+        #region ExtensionMethod
+
         /// <summary>
         /// 根据parentID返回列表
         /// </summary>
@@ -76,7 +79,7 @@ namespace XCLCMS.Data.BLL.View
             }
             return lst;
         }
-        #endregion  ExtensionMethod
+
+        #endregion ExtensionMethod
     }
 }
-

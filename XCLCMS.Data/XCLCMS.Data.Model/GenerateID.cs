@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace XCLCMS.Data.Model
 {
     /// <summary>
@@ -9,12 +10,15 @@ namespace XCLCMS.Data.Model
     {
         public GenerateID()
         { }
+
         #region Model
+
         private string _idtype;
         private long _idvalue;
         private long? _idcode;
         private DateTime _createtime;
         private string _remark;
+
         /// <summary>
         /// ID类型(IDTypeEnum)
         /// </summary>
@@ -23,6 +27,7 @@ namespace XCLCMS.Data.Model
             set { _idtype = value; }
             get { return _idtype; }
         }
+
         /// <summary>
         /// 生成的ID值
         /// </summary>
@@ -31,6 +36,7 @@ namespace XCLCMS.Data.Model
             set { _idvalue = value; }
             get { return _idvalue; }
         }
+
         /// <summary>
         /// 唯一值
         /// </summary>
@@ -39,6 +45,7 @@ namespace XCLCMS.Data.Model
             set { _idcode = value; }
             get { return _idcode; }
         }
+
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -47,6 +54,7 @@ namespace XCLCMS.Data.Model
             set { _createtime = value; }
             get { return _createtime; }
         }
+
         /// <summary>
         /// 备注
         /// </summary>
@@ -55,8 +63,7 @@ namespace XCLCMS.Data.Model
             set { _remark = value; }
             get { return _remark; }
         }
-        #endregion Model
 
+        #endregion Model
     }
 }
-

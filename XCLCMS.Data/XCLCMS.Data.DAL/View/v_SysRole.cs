@@ -1,21 +1,20 @@
-﻿using System;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Data;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
+using System.Text;
 
 namespace XCLCMS.Data.DAL.View
 {
     /// <summary>
     /// 数据访问类:v_SysRole
     /// </summary>
-    public partial class v_SysRole:XCLCMS.Data.DAL.Common.BaseDAL
+    public partial class v_SysRole : XCLCMS.Data.DAL.Common.BaseDAL
     {
         public v_SysRole()
         { }
-        #region  Method
+
+        #region Method
 
         /// <summary>
         /// 得到一个对象实体
@@ -39,7 +38,6 @@ namespace XCLCMS.Data.DAL.View
                 return null;
             }
         }
-
 
         /// <summary>
         /// 得到一个对象实体
@@ -132,9 +130,11 @@ namespace XCLCMS.Data.DAL.View
             Database db = base.CreateDatabase();
             return db.ExecuteDataSet(CommandType.Text, strSql.ToString());
         }
-        #endregion  Method
 
-        #region  MethodEx
+        #endregion Method
+
+        #region MethodEx
+
         /// <summary>
         /// 根据parentID返回列表
         /// </summary>
@@ -148,7 +148,7 @@ namespace XCLCMS.Data.DAL.View
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
-        #endregion  MethodEx
+
+        #endregion MethodEx
     }
 }
-

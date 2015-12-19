@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XCLCMS.Data.BLL.Strategy.SysRole
 {
     /// <summary>
     /// 保存角色基本信息
     /// </summary>
-    public class SysRole:BaseStrategy
+    public class SysRole : BaseStrategy
     {
         /// <summary>
         /// 构造函数
@@ -41,6 +37,7 @@ namespace XCLCMS.Data.BLL.Strategy.SysRole
                     case StrategyLib.HandleType.ADD:
                         flag = bll.Add(sysRoleContext.SysRole);
                         break;
+
                     case StrategyLib.HandleType.UPDATE:
                         flag = bll.Update(sysRoleContext.SysRole);
                         break;
@@ -59,7 +56,7 @@ namespace XCLCMS.Data.BLL.Strategy.SysRole
             else
             {
                 this.Result = StrategyLib.ResultEnum.FAIL;
-                this.ResultMessage =string.Format("保存角色基本信息失败！{0}",this.ResultMessage);
+                this.ResultMessage = string.Format("保存角色基本信息失败！{0}", this.ResultMessage);
             }
         }
     }

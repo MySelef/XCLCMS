@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XCLNetTools.Generic;
 
@@ -38,6 +37,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
                     viewModel.SysRoleID = -1;
                     viewModel.FormAction = Url.Action("AddSubmit", "SysRole");
                     break;
+
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     viewModel.SysRole = bll.GetModel(sysRoleID);
                     viewModel.ParentID = viewModel.SysRole.ParentID;
@@ -46,7 +46,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
                     if (roleHadFunctions.IsNotNullOrEmpty())
                     {
                         viewModel.RoleFunctionIDList = roleHadFunctions.Select(m => m.SysFunctionID).ToList();
-                    }      
+                    }
                     viewModel.FormAction = Url.Action("UpdateSubmit", "SysRole");
                     break;
             }
@@ -116,7 +116,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             sysRoleContext.FunctionIdList = viewModel.RoleFunctionIDList;
             sysRoleContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.ADD;
 
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
+            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
                 new XCLCMS.Data.BLL.Strategy.SysRole.SysRole(),
                 new XCLCMS.Data.BLL.Strategy.SysRole.SysRoleFunction()
             });
@@ -161,7 +161,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             sysRoleContext.FunctionIdList = viewModel.RoleFunctionIDList;
             sysRoleContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.UPDATE;
 
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() { 
+            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
                 new XCLCMS.Data.BLL.Strategy.SysRole.SysRole(),
                 new XCLCMS.Data.BLL.Strategy.SysRole.SysRoleFunction()
             });

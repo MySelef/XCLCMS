@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
+﻿using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Common
 {
@@ -15,7 +10,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
         /// <summary>
         /// 清理缓存
         /// </summary>
-        [XCLCMS.Lib.Filters.FunctionFilter(Function=XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_ClearCache)]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_ClearCache)]
         public JsonResult ClearCache()
         {
             XCLCMS.Lib.Common.Comm.ClearCache();
@@ -29,7 +24,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
         /// <summary>
         /// 垃圾数据清理
         /// </summary>
-        [XCLCMS.Lib.Filters.FunctionFilter(Function=XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_ClearRubbishData)]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_ClearRubbishData)]
         public JsonResult ClearRubbishData()
         {
             XCLCMS.Data.BLL.Common.Common.ClearRubbishData();
@@ -45,7 +40,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
         public ActionResult ShowImg()
         {
             XCLCMS.View.AdminViewModel.Common.ShowImgVM viewModel = new AdminViewModel.Common.ShowImgVM();
-            viewModel.ImgSrc=XCLNetTools.StringHander.FormHelper.GetString("ImgSrc");
+            viewModel.ImgSrc = XCLNetTools.StringHander.FormHelper.GetString("ImgSrc");
             return View("~/Views/Common/ShowImg.cshtml", viewModel);
         }
     }

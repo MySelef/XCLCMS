@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using XCLNetTools.Generic;
@@ -16,6 +13,7 @@ namespace XCLCMS.View.AdminWeb.Controllers
     public class BaseController : XCLCMS.Lib.Base.AdminBaseController
     {
         #region 拦截器
+
         /// <summary>
         /// 拦截action
         /// </summary>
@@ -29,12 +27,12 @@ namespace XCLCMS.View.AdminWeb.Controllers
             var allMenuList = sysDicBLL.GetSysMenuList();
             if (allMenuList.IsNotNullOrEmpty())
             {
-                mainViewModel.MenuList = allMenuList.Where(k =>k.FK_FunctionID==null || XCLCMS.Lib.Permission.PerHelper.HasPermission(base.UserID, (XCLCMS.Lib.Permission.Function.FunctionEnum)k.FK_FunctionID)).ToList();
+                mainViewModel.MenuList = allMenuList.Where(k => k.FK_FunctionID == null || XCLCMS.Lib.Permission.PerHelper.HasPermission(base.UserID, (XCLCMS.Lib.Permission.Function.FunctionEnum)k.FK_FunctionID)).ToList();
             }
             ViewBag.MainViewModel = mainViewModel;
 
             //页面全局配置信息
-            XCLCMS.View.AdminWeb.Common.PageGlobalConfig pageConfig=new AdminWeb.Common.PageGlobalConfig();
+            XCLCMS.View.AdminWeb.Common.PageGlobalConfig pageConfig = new AdminWeb.Common.PageGlobalConfig();
             pageConfig.IsLogOn = ViewBag.CommonModel.IsLogOn;
             pageConfig.ResourceURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL;
             pageConfig.RootURL = XCLCMS.View.AdminWeb.Common.WebCommon.RootURL;
@@ -45,6 +43,7 @@ namespace XCLCMS.View.AdminWeb.Controllers
             pageConfig.EnumConfig = string.Empty;
             ViewBag.PageGlobalConfigJSON = new JavaScriptSerializer().Serialize(pageConfig);
         }
-        #endregion
+
+        #endregion 拦截器
     }
 }

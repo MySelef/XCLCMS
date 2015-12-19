@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XCLCMS.Lib.SysWebSetting
 {
@@ -33,7 +31,7 @@ namespace XCLCMS.Lib.SysWebSetting
                         });
                     });
                 }
-                return lst;            
+                return lst;
             }
         }
 
@@ -75,7 +73,7 @@ namespace XCLCMS.Lib.SysWebSetting
                         XCLNetTools.Cache.CacheClass.SetCache(Lib.Common.Comm.SettingCacheName, model);
                     }
                 }
-                return model;            
+                return model;
             }
         }
     }

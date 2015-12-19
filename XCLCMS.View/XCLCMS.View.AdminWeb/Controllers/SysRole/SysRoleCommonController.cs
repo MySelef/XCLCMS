@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XCLNetTools.Generic;
 
@@ -136,7 +135,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
 
                     //从根节点开始
                     getChildAction(tree[0]);
-
                 }
             }
             return XCLNetTools.Serialize.JSON.Serialize(tree, XCLNetTools.Serialize.JSON.JsonProviderEnum.Newtonsoft);

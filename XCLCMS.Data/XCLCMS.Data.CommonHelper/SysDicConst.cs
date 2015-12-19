@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XCLCMS.Data.CommonHelper
+﻿namespace XCLCMS.Data.CommonHelper
 {
     /// <summary>
     /// 字典库常量code值
@@ -20,18 +14,22 @@ namespace XCLCMS.Data.CommonHelper
             /// 根节点
             /// </summary>
             Root,
+
             /// <summary>
             /// 系统菜单
             /// </summary>
             SysMenu,
+
             /// <summary>
             /// 商户类型
             /// </summary>
             MerchantType,
+
             /// <summary>
             /// 证件类型
             /// </summary>
             PassType,
+
             /// <summary>
             /// 文章类型
             /// </summary>

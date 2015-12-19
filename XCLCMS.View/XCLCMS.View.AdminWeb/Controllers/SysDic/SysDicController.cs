@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XCLNetTools.Generic;
 
@@ -15,7 +13,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
         /// <summary>
         /// 列表页
         /// </summary>
-        [XCLCMS.Lib.Filters.FunctionFilter(Function=XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicView)]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicView)]
         public ActionResult Index()
         {
             return View("~/Views/SysDic/SysDicList.cshtml");
@@ -42,7 +40,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
         {
             long sysDicId = XCLNetTools.StringHander.FormHelper.GetLong("sysDicId");
             XCLCMS.Data.BLL.SysDic bll = new Data.BLL.SysDic();
-            XCLCMS.Data.BLL.SysFunction functionBLL=new Data.BLL.SysFunction();
+            XCLCMS.Data.BLL.SysFunction functionBLL = new Data.BLL.SysFunction();
             XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM viewModel = new AdminViewModel.SysDic.SysDicAddVM();
 
             //判断当前字典是否属于【系统菜单】
@@ -51,13 +49,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                 var menus = new XCLCMS.Data.BLL.View.v_SysDic_SysMenu().GetModelList("");
                 if (menus.IsNotNullOrEmpty())
                 {
-                    if (menus.Exists(k => k.SysDicID == sysDicId || (k.ParentID==sysDicId && base.CurrentHandleType==Lib.Common.Comm.HandleType.ADD)))
+                    if (menus.Exists(k => k.SysDicID == sysDicId || (k.ParentID == sysDicId && base.CurrentHandleType == Lib.Common.Comm.HandleType.ADD)))
                     {
                         viewModel.SysDicCategory = AdminViewModel.SysDic.SysDicCategoryEnum.SysMenu;
                     }
                 }
             }
-
 
             switch (base.CurrentHandleType)
             {
@@ -68,6 +65,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                     viewModel.SysDicID = -1;
                     viewModel.FormAction = Url.Action("AddSubmit", "SysDic");
                     break;
+
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     viewModel.SysDicID = sysDicId;
                     viewModel.SysDic = bll.GetModel(sysDicId);
@@ -191,7 +189,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                 for (int i = 0; i < sysDicIds.Length; i++)
                 {
                     sysDicModel = sysDicBLL.GetModel(sysDicIds[i]);
-                    if (null != sysDicModel && !string.Equals(sysDicModel.DicType,XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.S.ToString()))
+                    if (null != sysDicModel && !string.Equals(sysDicModel.DicType, XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.S.ToString()))
                     {
                         sysDicModel.UpdaterID = base.CurrentUserModel.UserInfoID;
                         sysDicModel.UpdaterName = base.CurrentUserModel.UserName;
@@ -212,16 +210,16 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
         {
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             XCLCMS.Data.BLL.SysDic bll = new Data.BLL.SysDic();
-            bll.DelChild(new Data.Model.SysDic() { 
-                SysDicID=XCLNetTools.StringHander.FormHelper.GetLong("sysDicID"),
-                UpdaterID=base.CurrentUserModel.UserInfoID,
-                UpdaterName=base.CurrentUserModel.UserName,
-                UpdateTime=DateTime.Now
+            bll.DelChild(new Data.Model.SysDic()
+            {
+                SysDicID = XCLNetTools.StringHander.FormHelper.GetLong("sysDicID"),
+                UpdaterID = base.CurrentUserModel.UserInfoID,
+                UpdaterName = base.CurrentUserModel.UserName,
+                UpdateTime = DateTime.Now
             });
             msgModel.IsSuccess = true;
             msgModel.Message = "子节点清理成功！";
             return Json(msgModel);
         }
-
     }
 }

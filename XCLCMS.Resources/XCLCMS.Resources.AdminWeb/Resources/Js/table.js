@@ -43,7 +43,6 @@
                 }
                 /******表格样式相关结束****/
 
-
                 /******全选相关开始*****/
                 //单击全选时
                 $(options.checkAllClass).click(function () {
@@ -75,7 +74,6 @@
                     funs.GetCheckBoxIDs($ckAll, $ckItem);
                 });
                 /******全选相关结束*****/
-
             });
         }
     });
@@ -114,10 +112,9 @@
                 }else{
                     $ckAll.prop({ "checked": false });
                 }
-                
+
                 funs.GetCheckBoxIDs($ckAll, $ckItem);
             });
-            
         },
         //将列表中的checkbox的value的数组形式存到全选的checkbox的value中
         GetCheckBoxIDs: function (ckAll, ckItem) {

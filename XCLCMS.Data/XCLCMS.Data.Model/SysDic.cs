@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace XCLCMS.Data.Model
 {
     /// <summary>
@@ -9,7 +10,9 @@ namespace XCLCMS.Data.Model
     {
         public SysDic()
         { }
+
         #region Model
+
         private long _sysdicid;
         private string _code;
         private string _dictype;
@@ -26,6 +29,7 @@ namespace XCLCMS.Data.Model
         private DateTime _updatetime;
         private long _updaterid;
         private string _updatername;
+
         /// <summary>
         /// SysDicID
         /// </summary>
@@ -34,6 +38,7 @@ namespace XCLCMS.Data.Model
             set { _sysdicid = value; }
             get { return _sysdicid; }
         }
+
         /// <summary>
         /// 字典标识
         /// </summary>
@@ -42,6 +47,7 @@ namespace XCLCMS.Data.Model
             set { _code = value; }
             get { return _code; }
         }
+
         /// <summary>
         /// 字典类型(DicTypeEnum)
         /// </summary>
@@ -50,6 +56,7 @@ namespace XCLCMS.Data.Model
             set { _dictype = value; }
             get { return _dictype; }
         }
+
         /// <summary>
         /// 父ID
         /// </summary>
@@ -58,6 +65,7 @@ namespace XCLCMS.Data.Model
             set { _parentid = value; }
             get { return _parentid; }
         }
+
         /// <summary>
         /// 键
         /// </summary>
@@ -66,6 +74,7 @@ namespace XCLCMS.Data.Model
             set { _dicname = value; }
             get { return _dicname; }
         }
+
         /// <summary>
         /// 值
         /// </summary>
@@ -74,6 +83,7 @@ namespace XCLCMS.Data.Model
             set { _dicvalue = value; }
             get { return _dicvalue; }
         }
+
         /// <summary>
         /// 排序号
         /// </summary>
@@ -82,6 +92,7 @@ namespace XCLCMS.Data.Model
             set { _sort = value; }
             get { return _sort; }
         }
+
         /// <summary>
         /// 备注
         /// </summary>
@@ -90,6 +101,7 @@ namespace XCLCMS.Data.Model
             set { _remark = value; }
             get { return _remark; }
         }
+
         /// <summary>
         /// 所属功能ID
         /// </summary>
@@ -98,6 +110,7 @@ namespace XCLCMS.Data.Model
             set { _fk_functionid = value; }
             get { return _fk_functionid; }
         }
+
         /// <summary>
         /// 记录状态(RecordStateEnum)
         /// </summary>
@@ -106,6 +119,7 @@ namespace XCLCMS.Data.Model
             set { _recordstate = value; }
             get { return _recordstate; }
         }
+
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -114,6 +128,7 @@ namespace XCLCMS.Data.Model
             set { _createtime = value; }
             get { return _createtime; }
         }
+
         /// <summary>
         /// 创建者ID
         /// </summary>
@@ -122,6 +137,7 @@ namespace XCLCMS.Data.Model
             set { _createrid = value; }
             get { return _createrid; }
         }
+
         /// <summary>
         /// 创建者名
         /// </summary>
@@ -130,6 +146,7 @@ namespace XCLCMS.Data.Model
             set { _creatername = value; }
             get { return _creatername; }
         }
+
         /// <summary>
         /// 更新时间
         /// </summary>
@@ -138,6 +155,7 @@ namespace XCLCMS.Data.Model
             set { _updatetime = value; }
             get { return _updatetime; }
         }
+
         /// <summary>
         /// 更新人ID
         /// </summary>
@@ -146,6 +164,7 @@ namespace XCLCMS.Data.Model
             set { _updaterid = value; }
             get { return _updaterid; }
         }
+
         /// <summary>
         /// 更新人名
         /// </summary>
@@ -154,8 +173,7 @@ namespace XCLCMS.Data.Model
             set { _updatername = value; }
             get { return _updatername; }
         }
-        #endregion Model
 
+        #endregion Model
     }
 }
-

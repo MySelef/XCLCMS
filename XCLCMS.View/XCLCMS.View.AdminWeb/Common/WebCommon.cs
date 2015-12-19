@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Text;
-using System.ComponentModel;
+﻿using System.Web;
 using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Common
@@ -14,13 +9,15 @@ namespace XCLCMS.View.AdminWeb.Common
     public class WebCommon
     {
         #region 静态资源相关
+
         private static XCLNetTools.Entity.StaticResourceConfig _staticResourceConfig = null;
+
         /// <summary>
         /// 静态资源
         /// </summary>
         public static XCLNetTools.Entity.StaticResourceConfig StaticResourceConfig
         {
-            get 
+            get
             {
                 var newStaticResourceConfig = _staticResourceConfig.DeepClone();
                 if (newStaticResourceConfig.StaticResourceList.IsNotNullOrEmpty())
@@ -28,8 +25,8 @@ namespace XCLCMS.View.AdminWeb.Common
                     newStaticResourceConfig.StaticResourceList.ForEach(k =>
                     {
                         k.Version = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
-                        k.Src=k.Src.Replace("{ResourcesRootURL}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL);
-                        k.Attr=k.Attr.Replace("{ResourcesRootURL}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL);
+                        k.Src = k.Src.Replace("{ResourcesRootURL}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL);
+                        k.Attr = k.Attr.Replace("{ResourcesRootURL}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL);
                     });
                 }
                 return newStaticResourceConfig;
@@ -39,9 +36,11 @@ namespace XCLCMS.View.AdminWeb.Common
                 _staticResourceConfig = value;
             }
         }
-        #endregion
+
+        #endregion 静态资源相关
 
         #region 路径相关
+
         /// <summary>
         /// 网站根路径
         /// </summary>
@@ -68,6 +67,7 @@ namespace XCLCMS.View.AdminWeb.Common
                 return url;
             }
         }
-        #endregion
+
+        #endregion 路径相关
     }
 }

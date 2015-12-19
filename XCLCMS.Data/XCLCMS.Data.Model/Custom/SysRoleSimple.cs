@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XCLCMS.Data.Model.Custom
+﻿namespace XCLCMS.Data.Model.Custom
 {
     /// <summary>
     /// 角色简版实体
@@ -19,6 +13,7 @@ namespace XCLCMS.Data.Model.Custom
             get;
             set;
         }
+
         /// <summary>
         /// 父ID
         /// </summary>
@@ -27,6 +22,7 @@ namespace XCLCMS.Data.Model.Custom
             get;
             set;
         }
+
         /// <summary>
         /// 角色名
         /// </summary>

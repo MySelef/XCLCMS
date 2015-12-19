@@ -17,7 +17,7 @@ var require = {
         "jquery.color": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/jquery/jquery.color",
         "jquery.jcrop": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/Jcrop/js/jquery.jcrop",
 
-        "readmore": XCLCMSPageGlobalConfig.ResourceURL+"Resources/Js/readmore"
+        "readmore": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/readmore"
     },
     shim: {
         "kindeditorCN": ["kindeditor-all"],
@@ -27,8 +27,6 @@ var require = {
         "pluploadCN": ["moxie", "jquery.plupload.queue", "plupload", "jquery.color", "jquery.jcrop"]
     }
 };
-
-
 
 //其它配置
 $(function () {

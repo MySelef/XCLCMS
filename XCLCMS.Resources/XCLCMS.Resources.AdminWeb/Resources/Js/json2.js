@@ -8,13 +8,11 @@
 
     See http://www.JSON.org/js.html
 
-
     This code should be minified before deployment.
     See http://javascript.crockford.com/jsmin.html
 
     USE YOUR OWN COPY. IT IS EXTREMELY UNWISE TO LOAD CODE FROM SERVERS YOU DO
     NOT CONTROL.
-
 
     This file creates a global JSON object containing two methods: stringify
     and parse. This file is provides the ES5 JSON capability to ES3 systems.
@@ -50,8 +48,8 @@
                 Date.prototype.toJSON = function (key) {
                     function f(n) {
                         // Format integers to have at least two digits.
-                        return n < 10 
-                            ? '0' + n 
+                        return n < 10
+                            ? '0' + n
                             : n;
                     }
 
@@ -93,17 +91,15 @@
             text = JSON.stringify(['e', {pluribus: 'unum'}]);
             // text is '["e",{"pluribus":"unum"}]'
 
-
             text = JSON.stringify(['e', {pluribus: 'unum'}], null, '\t');
             // text is '[\n\t"e",\n\t{\n\t\t"pluribus": "unum"\n\t}\n]'
 
             text = JSON.stringify([new Date()], function (key, value) {
-                return this[key] instanceof Date 
-                    ? 'Date(' + this[key] + ')' 
+                return this[key] instanceof Date
+                    ? 'Date(' + this[key] + ')'
                     : value;
             });
             // text is '["Date(---current time---)"]'
-
 
         JSON.parse(text, reviver)
             This method parses a JSON text to produce an object or array.
@@ -146,13 +142,12 @@
                 return value;
             });
 
-
     This is a reference implementation. You are free to copy, modify, or
     redistribute.
 */
 
-/*jslint 
-    eval, for, this 
+/*jslint
+    eval, for, this
 */
 
 /*property
@@ -161,7 +156,6 @@
     lastIndex, length, parse, prototype, push, replace, slice, stringify,
     test, toJSON, toString, valueOf
 */
-
 
 // Create a JSON object only if one does not already exist. We create the
 // methods in a closure to avoid creating global variables.
@@ -172,7 +166,7 @@ if (typeof JSON !== 'object') {
 
 (function () {
     'use strict';
-    
+
     var rx_one = /^[\],:{}\s]*$/,
         rx_two = /\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,
         rx_three = /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
@@ -182,19 +176,17 @@ if (typeof JSON !== 'object') {
 
     function f(n) {
         // Format integers to have at least two digits.
-        return n < 10 
-            ? '0' + n 
+        return n < 10
+            ? '0' + n
             : n;
     }
-    
+
     function this_value() {
         return this.valueOf();
     }
 
     if (typeof Date.prototype.toJSON !== 'function') {
-
         Date.prototype.toJSON = function () {
-
             return isFinite(this.valueOf())
                 ? this.getUTCFullYear() + '-' +
                         f(this.getUTCMonth() + 1) + '-' +
@@ -215,28 +207,24 @@ if (typeof JSON !== 'object') {
         meta,
         rep;
 
-
     function quote(string) {
-
 // If the string contains no control characters, no quote characters, and no
 // backslash characters, then we can safely slap some quotes around it.
 // Otherwise we must also replace the offending characters with safe escape
 // sequences.
 
         rx_escapable.lastIndex = 0;
-        return rx_escapable.test(string) 
+        return rx_escapable.test(string)
             ? '"' + string.replace(rx_escapable, function (a) {
                 var c = meta[a];
                 return typeof c === 'string'
                     ? c
                     : '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
-            }) + '"' 
+            }) + '"'
             : '"' + string + '"';
     }
 
-
     function str(key, holder) {
-
 // Produce a string from holder[key].
 
         var i,          // The loop counter.
@@ -271,8 +259,8 @@ if (typeof JSON !== 'object') {
 
 // JSON numbers must be finite. Encode non-finite numbers as null.
 
-            return isFinite(value) 
-                ? String(value) 
+            return isFinite(value)
+                ? String(value)
                 : 'null';
 
         case 'boolean':
@@ -304,7 +292,6 @@ if (typeof JSON !== 'object') {
 // Is the value an array?
 
             if (Object.prototype.toString.apply(value) === '[object Array]') {
-
 // The value is an array. Stringify every element. Use null as a placeholder
 // for non-JSON values.
 
@@ -335,15 +322,14 @@ if (typeof JSON !== 'object') {
                         v = str(k, value);
                         if (v) {
                             partial.push(quote(k) + (
-                                gap 
-                                    ? ': ' 
+                                gap
+                                    ? ': '
                                     : ':'
                             ) + v);
                         }
                     }
                 }
             } else {
-
 // Otherwise, iterate through all of the keys in the object.
 
                 for (k in value) {
@@ -351,8 +337,8 @@ if (typeof JSON !== 'object') {
                         v = str(k, value);
                         if (v) {
                             partial.push(quote(k) + (
-                                gap 
-                                    ? ': ' 
+                                gap
+                                    ? ': '
                                     : ':'
                             ) + v);
                         }
@@ -386,7 +372,6 @@ if (typeof JSON !== 'object') {
             '\\': '\\\\'
         };
         JSON.stringify = function (value, replacer, space) {
-
 // The stringify method takes a value and an optional replacer, and an optional
 // space parameter, and returns a JSON text. The replacer can be a function
 // that can replace values, or an array of strings that will select the keys.
@@ -406,7 +391,6 @@ if (typeof JSON !== 'object') {
                 }
 
 // If the space parameter is a string, it will be used as the indent string.
-
             } else if (typeof space === 'string') {
                 indent = space;
             }
@@ -428,19 +412,16 @@ if (typeof JSON !== 'object') {
         };
     }
 
-
 // If the JSON object does not yet have a parse method, give it one.
 
     if (typeof JSON.parse !== 'function') {
         JSON.parse = function (text, reviver) {
-
 // The parse method takes a text and an optional reviver function, and returns
 // a JavaScript value if the text is a valid JSON text.
 
             var j;
 
             function walk(holder, key) {
-
 // The walk method is used to recursively walk the resulting structure so
 // that modifications can be made.
 
@@ -459,7 +440,6 @@ if (typeof JSON !== 'object') {
                 }
                 return reviver.call(holder, key, value);
             }
-
 
 // Parsing happens in four stages. In the first stage, we replace certain
 // Unicode characters with escape sequences. JavaScript handles many characters
@@ -495,7 +475,6 @@ if (typeof JSON !== 'object') {
                         .replace(rx_four, '')
                 )
             ) {
-
 // In the third stage we use the eval function to compile the text into a
 // JavaScript structure. The '{' operator is subject to a syntactic ambiguity
 // in JavaScript: it can begin a block or an object literal. We wrap the text

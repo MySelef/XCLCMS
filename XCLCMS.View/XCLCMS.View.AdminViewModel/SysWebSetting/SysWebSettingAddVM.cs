@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XCLCMS.View.AdminViewModel.SysWebSetting
+﻿namespace XCLCMS.View.AdminViewModel.SysWebSetting
 {
     /// <summary>
     /// 配置添加或修改页 viewmodel

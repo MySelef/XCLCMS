@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
@@ -48,6 +45,5 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             }
             return Json(msgModel, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

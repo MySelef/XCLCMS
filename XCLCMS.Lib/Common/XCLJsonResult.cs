@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Newtonsoft.Json;
+using System;
 using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace XCLCMS.Lib.Common
 {
-    public class XCLJsonResult:JsonResult
+    public class XCLJsonResult : JsonResult
     {
         public override void ExecuteResult(ControllerContext context)
         {
@@ -35,8 +32,9 @@ namespace XCLCMS.Lib.Common
             }
             if (this.Data != null)
             {
-                response.Write(JsonConvert.SerializeObject(this.Data, Newtonsoft.Json.Formatting.None, new JsonSerializerSettings() { 
-                    DateFormatString="yyyy-MM-dd HH:mm:ss"
+                response.Write(JsonConvert.SerializeObject(this.Data, Newtonsoft.Json.Formatting.None, new JsonSerializerSettings()
+                {
+                    DateFormatString = "yyyy-MM-dd HH:mm:ss"
                 }));
             }
         }

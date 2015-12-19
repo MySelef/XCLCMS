@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Collections.Generic;
-using XCLCMS.Data.Model;
-namespace XCLCMS.Data.BLL
+﻿namespace XCLCMS.Data.BLL
 {
     /// <summary>
     /// ID生成表
@@ -10,12 +6,13 @@ namespace XCLCMS.Data.BLL
     public partial class GenerateID
     {
         private readonly XCLCMS.Data.DAL.GenerateID dal = new XCLCMS.Data.DAL.GenerateID();
+
         public GenerateID()
         { }
-        #region  BasicMethod
 
-        #endregion  BasicMethod
-        #region  ExtensionMethod
+
+        #region ExtensionMethod
+
         /// <summary>
         /// 生成主键
         /// </summary>
@@ -24,7 +21,7 @@ namespace XCLCMS.Data.BLL
         {
             return dal.GetGenerateID(IDType, remark);
         }
-        #endregion  ExtensionMethod
+
+        #endregion ExtensionMethod
     }
 }
-

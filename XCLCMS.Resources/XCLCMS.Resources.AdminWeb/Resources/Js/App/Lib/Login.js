@@ -1,4 +1,4 @@
-﻿define(["Lib/Common"],function (common) {
+﻿define(["Lib/Common"], function (common) {
     /**
     * 后台登录
     */
@@ -65,7 +65,6 @@
                     login();
                 }
             });
-
         },
         Reset: function () {
             $("form")[0].reset();

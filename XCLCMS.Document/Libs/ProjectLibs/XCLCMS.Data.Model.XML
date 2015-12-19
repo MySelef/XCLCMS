@@ -10,9 +10,9 @@
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.Article.ArticleID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.Article.Code">
             <summary>
@@ -515,14 +515,14 @@
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysFunction.SysFunctionID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysFunction.ParentID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysFunction.FunctionName">
             <summary>
@@ -530,9 +530,9 @@
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysFunction.Code">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysFunction.Remark">
             <summary>
@@ -580,9 +580,9 @@
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysLog.SysLogID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysLog.LogLevel">
             <summary>
@@ -815,9 +815,9 @@
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysWebSetting.SysWebSettingID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.SysWebSetting.KeyName">
             <summary>
@@ -1010,94 +1010,94 @@
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.SysDicID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.Code">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.DicType">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.ParentID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.DicName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.DicValue">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.Sort">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.Remark">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.FK_FunctionID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.RecordState">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.CreateTime">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.CreaterID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.CreaterName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.UpdateTime">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.UpdaterID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.UpdaterName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.NodeLevel">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic.IsLeaf">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="T:XCLCMS.Data.Model.View.v_SysDic_SysMenu">
             <summary>
@@ -1105,94 +1105,94 @@
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.SysDicID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.Code">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.DicType">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.ParentID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.DicName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.DicValue">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.Sort">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.Remark">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.FK_FunctionID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.RecordState">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.CreateTime">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.CreaterID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.CreaterName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.UpdateTime">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.UpdaterID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.UpdaterName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.NodeLevel">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysDic_SysMenu.IsLeaf">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="T:XCLCMS.Data.Model.View.v_SysFunction">
             <summary>
@@ -1200,74 +1200,74 @@
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.SysFunctionID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.ParentID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.FunctionName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.Code">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.Remark">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.RecordState">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.CreateTime">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.CreaterID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.CreaterName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.UpdateTime">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.UpdaterID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.UpdaterName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.NodeLevel">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysFunction.IsLeaf">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="T:XCLCMS.Data.Model.View.v_SysRole">
             <summary>
@@ -1275,84 +1275,84 @@
             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.SysRoleID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.ParentID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.RoleName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.Code">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.Sort">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.Weight">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.Remark">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.RecordState">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.CreateTime">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.CreaterID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.CreaterName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.UpdateTime">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.UpdaterID">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.UpdaterName">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.NodeLevel">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="P:XCLCMS.Data.Model.View.v_SysRole.IsLeaf">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
     </members>
 </doc>

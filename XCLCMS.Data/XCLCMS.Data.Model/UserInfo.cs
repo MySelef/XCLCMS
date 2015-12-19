@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace XCLCMS.Data.Model
 {
     /// <summary>
@@ -9,7 +10,9 @@ namespace XCLCMS.Data.Model
     {
         public UserInfo()
         { }
+
         #region Model
+
         private long _userinfoid;
         private string _username;
         private long _fk_merchantid;
@@ -36,6 +39,7 @@ namespace XCLCMS.Data.Model
         private DateTime _updatetime;
         private long _updaterid;
         private string _updatername;
+
         /// <summary>
         /// UserInfoID
         /// </summary>
@@ -44,6 +48,7 @@ namespace XCLCMS.Data.Model
             set { _userinfoid = value; }
             get { return _userinfoid; }
         }
+
         /// <summary>
         /// 用户名
         /// </summary>
@@ -52,6 +57,7 @@ namespace XCLCMS.Data.Model
             set { _username = value; }
             get { return _username; }
         }
+
         /// <summary>
         /// 所属商户号
         /// </summary>
@@ -60,6 +66,7 @@ namespace XCLCMS.Data.Model
             set { _fk_merchantid = value; }
             get { return _fk_merchantid; }
         }
+
         /// <summary>
         /// 真实姓名
         /// </summary>
@@ -68,6 +75,7 @@ namespace XCLCMS.Data.Model
             set { _realname = value; }
             get { return _realname; }
         }
+
         /// <summary>
         /// 昵称
         /// </summary>
@@ -76,6 +84,7 @@ namespace XCLCMS.Data.Model
             set { _nickname = value; }
             get { return _nickname; }
         }
+
         /// <summary>
         /// 密码
         /// </summary>
@@ -84,6 +93,7 @@ namespace XCLCMS.Data.Model
             set { _pwd = value; }
             get { return _pwd; }
         }
+
         /// <summary>
         /// 年龄
         /// </summary>
@@ -92,6 +102,7 @@ namespace XCLCMS.Data.Model
             set { _age = value; }
             get { return _age; }
         }
+
         /// <summary>
         /// 性别(UserSexTypeEnum)
         /// </summary>
@@ -100,6 +111,7 @@ namespace XCLCMS.Data.Model
             set { _sextype = value; }
             get { return _sextype; }
         }
+
         /// <summary>
         /// 出生日期
         /// </summary>
@@ -108,6 +120,7 @@ namespace XCLCMS.Data.Model
             set { _birthday = value; }
             get { return _birthday; }
         }
+
         /// <summary>
         /// 手机号
         /// </summary>
@@ -116,6 +129,7 @@ namespace XCLCMS.Data.Model
             set { _tel = value; }
             get { return _tel; }
         }
+
         /// <summary>
         /// QQ
         /// </summary>
@@ -124,6 +138,7 @@ namespace XCLCMS.Data.Model
             set { _qq = value; }
             get { return _qq; }
         }
+
         /// <summary>
         /// 电子邮件
         /// </summary>
@@ -132,6 +147,7 @@ namespace XCLCMS.Data.Model
             set { _email = value; }
             get { return _email; }
         }
+
         /// <summary>
         /// 其实联系方式
         /// </summary>
@@ -140,6 +156,7 @@ namespace XCLCMS.Data.Model
             set { _othercontact = value; }
             get { return _othercontact; }
         }
+
         /// <summary>
         /// 访问方式
         /// </summary>
@@ -148,6 +165,7 @@ namespace XCLCMS.Data.Model
             set { _accesstype = value; }
             get { return _accesstype; }
         }
+
         /// <summary>
         /// 访问token
         /// </summary>
@@ -156,6 +174,7 @@ namespace XCLCMS.Data.Model
             set { _accesstoken = value; }
             get { return _accesstoken; }
         }
+
         /// <summary>
         /// 用户状态(UserStateEnum)
         /// </summary>
@@ -164,6 +183,7 @@ namespace XCLCMS.Data.Model
             set { _userstate = value; }
             get { return _userstate; }
         }
+
         /// <summary>
         /// 备注
         /// </summary>
@@ -172,6 +192,7 @@ namespace XCLCMS.Data.Model
             set { _remark = value; }
             get { return _remark; }
         }
+
         /// <summary>
         /// 角色名(逗号分隔)
         /// </summary>
@@ -180,6 +201,7 @@ namespace XCLCMS.Data.Model
             set { _rolename = value; }
             get { return _rolename; }
         }
+
         /// <summary>
         /// 角色最大权重
         /// </summary>
@@ -188,6 +210,7 @@ namespace XCLCMS.Data.Model
             set { _rolemaxweight = value; }
             get { return _rolemaxweight; }
         }
+
         /// <summary>
         /// 记录状态(RecordStateEnum)
         /// </summary>
@@ -196,6 +219,7 @@ namespace XCLCMS.Data.Model
             set { _recordstate = value; }
             get { return _recordstate; }
         }
+
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -204,6 +228,7 @@ namespace XCLCMS.Data.Model
             set { _createtime = value; }
             get { return _createtime; }
         }
+
         /// <summary>
         /// 创建者ID
         /// </summary>
@@ -212,6 +237,7 @@ namespace XCLCMS.Data.Model
             set { _createrid = value; }
             get { return _createrid; }
         }
+
         /// <summary>
         /// 创建者名
         /// </summary>
@@ -220,6 +246,7 @@ namespace XCLCMS.Data.Model
             set { _creatername = value; }
             get { return _creatername; }
         }
+
         /// <summary>
         /// 更新时间
         /// </summary>
@@ -228,6 +255,7 @@ namespace XCLCMS.Data.Model
             set { _updatetime = value; }
             get { return _updatetime; }
         }
+
         /// <summary>
         /// 更新人ID
         /// </summary>
@@ -236,6 +264,7 @@ namespace XCLCMS.Data.Model
             set { _updaterid = value; }
             get { return _updaterid; }
         }
+
         /// <summary>
         /// 更新人名
         /// </summary>
@@ -244,8 +273,7 @@ namespace XCLCMS.Data.Model
             set { _updatername = value; }
             get { return _updatername; }
         }
-        #endregion Model
 
+        #endregion Model
     }
 }
-

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Data;
-using System.Text;
-using System.Data.SqlClient;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Collections.Generic;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
+using System.Text;
 
 namespace XCLCMS.Data.DAL
 {
@@ -16,8 +15,8 @@ namespace XCLCMS.Data.DAL
     {
         public SysUserRole()
         { }
-        #region  Method
 
+        #region Method
 
         /// <summary>
         /// 得到一个对象实体
@@ -84,19 +83,21 @@ namespace XCLCMS.Data.DAL
             return db.ExecuteDataSet(dbCommand);
         }
 
-        #endregion  Method
-        #region  MethodEx
+        #endregion Method
+
+        #region MethodEx
+
         /// <summary>
         ///  增加一条数据
         ///  注：如果roleIdList为空，则添加model.FK_SysRoleID，否则，则添加roleIdList
         /// </summary>
-        public bool Add(XCLCMS.Data.Model.SysUserRole model,List<long> roleIdList=null)
+        public bool Add(XCLCMS.Data.Model.SysUserRole model, List<long> roleIdList = null)
         {
             if (null == roleIdList || roleIdList.Count == 0)
             {
                 if (model.FK_SysRoleID > 0)
                 {
-                    roleIdList = new List<long>() { 
+                    roleIdList = new List<long>() {
                         model.FK_SysRoleID
                     };
                 }
@@ -113,8 +114,9 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
             db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-            dbCommand.Parameters.Add(new SqlParameter("FK_SysRoleIDTable", SqlDbType.Structured) { 
-                Direction=ParameterDirection.Input,
+            dbCommand.Parameters.Add(new SqlParameter("FK_SysRoleIDTable", SqlDbType.Structured)
+            {
+                Direction = ParameterDirection.Input,
                 Value = XCLCMS.Data.CommonHelper.Converter.ConvertToIDTable(roleIdList)
             });
 
@@ -132,7 +134,7 @@ namespace XCLCMS.Data.DAL
                 throw new Exception(result.ResultMessage);
             }
         }
-        #endregion  MethodEx
+
+        #endregion MethodEx
     }
 }
-

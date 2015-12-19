@@ -3,8 +3,6 @@
 }
 @model XCLCMS.View.AdminViewModel.SysRole.SysRoleAddVM
 
-
-
 <form id="mainForm" action="@Model.FormAction">
     <input type="hidden" name="SysRoleID" id="SysRoleID" value="@Model.SysRoleID" />
     <input type="hidden" name="ParentID" id="ParentID" value="@Model.ParentID" />
@@ -42,7 +40,7 @@
                         <tr>
                             <td class="XCLTitle">权重：</td>
                             <td>
-                                <input type="text" class="easyui-numberbox"  id="txtWeight" name="txtWeight" value="@Model.SysRole.Weight"  style="height:25px;"/>
+                                <input type="text" class="easyui-numberbox"  id="txtWeight" name="txtWeight" value="@Model.SysRole.Weight"  style="height:25px;" />
                             </td>
                         </tr>
                         <tr>
@@ -86,7 +84,6 @@
             </div>
         </div>
     </div>
-
 </form>
 
 <div class="XCLPanel" style="margin-top: 5px;">

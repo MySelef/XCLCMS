@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -54,8 +53,10 @@ namespace XCLCMS.Lib.Filters
                 msgModel.IsRedirect = true;
                 msgModel.RedirectURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_LoginURL;
                 msgModel.Message = "登录信息验证失败，请重新登录！";
-                filterContext.Result = new JsonResult() { 
-                    Data=msgModel,JsonRequestBehavior=JsonRequestBehavior.AllowGet
+                filterContext.Result = new JsonResult()
+                {
+                    Data = msgModel,
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
                 };
             }
             else
@@ -80,7 +81,7 @@ namespace XCLCMS.Lib.Filters
             object[] attrs = filterContext.ActionDescriptor.GetCustomAttributes(typeof(XCLCMS.Lib.Filters.FunctionFilter), true);
             if (null != attrs && attrs.Length > 0)
             {
-                var funList=attrs.Select(k => ((XCLCMS.Lib.Filters.FunctionFilter)(k)).Function).ToList();
+                var funList = attrs.Select(k => ((XCLCMS.Lib.Filters.FunctionFilter)(k)).Function).ToList();
                 isPass = XCLCMS.Lib.Permission.PerHelper.HasAnyPermission(this.UserInfo.UserInfoID, funList);
                 if (!isPass)
                 {

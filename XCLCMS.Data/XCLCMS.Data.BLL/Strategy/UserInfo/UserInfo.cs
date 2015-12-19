@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XCLCMS.Data.BLL.Strategy.UserInfo
 {
@@ -41,6 +37,7 @@ namespace XCLCMS.Data.BLL.Strategy.UserInfo
                     case StrategyLib.HandleType.ADD:
                         flag = bll.Add(userInfoContext.UserInfo);
                         break;
+
                     case StrategyLib.HandleType.UPDATE:
                         flag = bll.Update(userInfoContext.UserInfo);
                         break;
@@ -49,7 +46,7 @@ namespace XCLCMS.Data.BLL.Strategy.UserInfo
             catch (Exception ex)
             {
                 flag = false;
-                this.ResultMessage += string.Format("异常信息：{0}",ex.Message);
+                this.ResultMessage += string.Format("异常信息：{0}", ex.Message);
             }
 
             if (flag)
@@ -59,7 +56,7 @@ namespace XCLCMS.Data.BLL.Strategy.UserInfo
             else
             {
                 this.Result = StrategyLib.ResultEnum.FAIL;
-                this.ResultMessage = string.Format("保存用户基础信息失败！{0}",this.ResultMessage);
+                this.ResultMessage = string.Format("保存用户基础信息失败！{0}", this.ResultMessage);
             }
         }
     }

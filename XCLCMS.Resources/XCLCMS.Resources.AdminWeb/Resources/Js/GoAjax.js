@@ -16,13 +16,13 @@
             isLockBtn: true, //为true则disabled对象obj
             isRefreshSelf: false, // 为true刷新当前页面页不是父页面
             successFunction: null, //请求成功后执行的函数
-            afterSuccessFunction:null,//执行默认的成功函数后要执行的内容
+            afterSuccessFunction: null,//执行默认的成功函数后要执行的内容
             isAlertShowMsg: false, //true:以alert的方式弹出消息，点确定或关闭执行刷新或其它函数。false:以tips弹出消息
             beforeSendMsg: "" //请求前要提示的信息
         },
         Init: function (options) {
             var _this = this;
-            var existObj=(null!=options.obj);//obj对象是否存在，便于后续的代码中不要对obj对象进行操作
+            var existObj = (null != options.obj);//obj对象是否存在，便于后续的代码中不要对obj对象进行操作
 
             if (!existObj) {
                 options.isLockBtn = false;
@@ -38,8 +38,7 @@
 
             var oldValue = "";
 
-            if (existObj)
-            {
+            if (existObj) {
                 oldValue = $(options.obj).linkbutton("options").text;//按钮的原始文字
                 oldValue = (oldValue == "") ? "保 存" : oldValue;
             }
@@ -80,7 +79,7 @@
 
                     if (null != options.successFunction) {
                         options.successFunction(data);
-                        if(null!=options.afterSuccessFunction){
+                        if (null != options.afterSuccessFunction) {
                             options.afterSuccessFunction(data);
                         }
                         return;
@@ -99,7 +98,7 @@
                             }
                             art.dialog({
                                 icon: dialogIcon,
-                                content:"<div style='max-width:500px;'>"+ data.Message+"</div>",
+                                content: "<div style='max-width:500px;'>" + data.Message + "</div>",
                                 cancelVal: '知道了',
                                 cancel: function () {
                                     funs.Refresh(options, data);
@@ -111,7 +110,7 @@
                             funs.Refresh(options, data);
                         }
                     }
-                    if(null!=options.afterSuccessFunction){
+                    if (null != options.afterSuccessFunction) {
                         options.afterSuccessFunction(data);
                     }
                 },
@@ -125,7 +124,7 @@
         //设置linkbutton按钮状态
         SetBtnEnable: function (btnObj, text, enable) {
             if (enable) {
-                $(btnObj).prop({"disabled":false});
+                $(btnObj).prop({ "disabled": false });
                 $(btnObj).linkbutton({
                     text: text,
                     disabled: false

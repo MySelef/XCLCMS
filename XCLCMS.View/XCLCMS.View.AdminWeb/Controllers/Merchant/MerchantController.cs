@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Merchant
@@ -20,8 +18,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             XCLCMS.View.AdminViewModel.Merchant.MerchantListVM viewModel = new XCLCMS.View.AdminViewModel.Merchant.MerchantListVM();
 
             #region 初始化查询条件
+
             viewModel.Search = new XCLNetSearch.Search();
-            viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() { 
+            viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("商户ID","MerchantID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("商户名","MerchantName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("商户类型","MerchantTypeID|number|text",""),
@@ -38,7 +37,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                 new XCLNetSearch.SearchFieldInfo("商户备注","MerchantRemark|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("注册时间","RegisterTime|dateTime|text",""),
                 new XCLNetSearch.SearchFieldInfo("商户状态","MerchantState|string|select",XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum))),
-                
+
                 new XCLNetSearch.SearchFieldInfo("备注","Remark|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("创建时间","CreateTime|dateTime|text",""),
                 new XCLNetSearch.SearchFieldInfo("创建者名","CreaterName|string|text",""),
@@ -51,7 +50,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             {
                 strWhere = string.Format("{0} and ({1})", strWhere, strSearch);
             }
-            #endregion
+
+            #endregion 初始化查询条件
 
             XCLCMS.Data.BLL.Merchant uBLL = new Data.BLL.Merchant();
             viewModel.MerchantList = uBLL.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[MerchantID]", "[MerchantID] desc");
@@ -69,7 +69,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         {
             long merchantId = XCLNetTools.StringHander.FormHelper.GetLong("merchantId");
 
-            XCLCMS.Data.BLL.SysDic dicBLL=new Data.BLL.SysDic();
+            XCLCMS.Data.BLL.SysDic dicBLL = new Data.BLL.SysDic();
             XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
             XCLCMS.View.AdminViewModel.Merchant.MerchantAddVM viewModel = new AdminViewModel.Merchant.MerchantAddVM();
             viewModel.Merchant = new XCLCMS.Data.Model.Merchant();
@@ -81,28 +81,33 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
                     viewModel.Merchant = new Data.Model.Merchant();
-                    viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Entity.SetOptionEntity() { 
-                        IsNeedPleaseSelect=true
-                    });
-                    viewModel.PassTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(passTypeDic, new XCLNetTools.Entity.SetOptionEntity() { 
-                        IsNeedPleaseSelect=true
-                    });
-                    viewModel.MerchantStateOptions=XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum));
-                    viewModel.FormAction = Url.Action("AddSubmit", "Merchant");
-                    break;
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
-                    viewModel.Merchant = merchantBLL.GetModel(merchantId);
-                    viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Entity.SetOptionEntity() { 
-                        DefaultValue=viewModel.Merchant.MerchantType,
-                        IsNeedPleaseSelect=true
+                    viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        IsNeedPleaseSelect = true
                     });
                     viewModel.PassTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(passTypeDic, new XCLNetTools.Entity.SetOptionEntity()
                     {
-                        DefaultValue=viewModel.Merchant.PassType,
                         IsNeedPleaseSelect = true
                     });
-                    viewModel.MerchantStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum), new XCLNetTools.Entity.SetOptionEntity() { 
-                        DefaultValue=viewModel.Merchant.MerchantState
+                    viewModel.MerchantStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum));
+                    viewModel.FormAction = Url.Action("AddSubmit", "Merchant");
+                    break;
+
+                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                    viewModel.Merchant = merchantBLL.GetModel(merchantId);
+                    viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        DefaultValue = viewModel.Merchant.MerchantType,
+                        IsNeedPleaseSelect = true
+                    });
+                    viewModel.PassTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(passTypeDic, new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        DefaultValue = viewModel.Merchant.PassType,
+                        IsNeedPleaseSelect = true
+                    });
+                    viewModel.MerchantStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum), new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        DefaultValue = viewModel.Merchant.MerchantState
                     });
                     viewModel.FormAction = Url.Action("UpdateSubmit", "Merchant");
                     break;

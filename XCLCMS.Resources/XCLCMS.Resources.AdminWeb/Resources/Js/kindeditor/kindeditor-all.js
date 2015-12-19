@@ -6794,7 +6794,6 @@ KindEditor.plugin('filemanager', function(K) {
 		reloadPage('', orderTypeBox.val(), viewType == 'VIEW' ? createView : createList);
 		return dialog;
 	}
-
 });
 /*******************************************************************************
 * KindEditor - WYSIWYG HTML Editor for Internet
@@ -7843,9 +7842,7 @@ KindEditor.plugin('media', function(K) {
 * @licence http://www.kindsoft.net/license.php
 *******************************************************************************/
 
-
 (function(K) {
-
 function KSWFUpload(options) {
 	this.init(options);
 }
@@ -8028,7 +8025,6 @@ K.extend(KSWFUpload, {
 K.swfupload = function(element, options) {
 	return new KSWFUpload(element, options);
 };
-
 })(KindEditor);
 
 KindEditor.plugin('multiimage', function(K) {
@@ -8129,7 +8125,6 @@ KindEditor.plugin('multiimage', function(K) {
 	});
 });
 
-
 /**
  * SWFUpload: http://www.swfupload.org, http://swfupload.googlecode.com
  *
@@ -8143,13 +8138,11 @@ KindEditor.plugin('multiimage', function(K) {
  *
  */
 
-
 /* ******************* */
 /* Constructor & Init  */
 /* ******************* */
 
 (function() {
-
 window.SWFUpload = function (settings) {
 	this.initSWFUpload(settings);
 };
@@ -8161,7 +8154,6 @@ SWFUpload.prototype.initSWFUpload = function (settings) {
 		this.eventQueue = [];
 		this.movieName = "KindEditor_SWFUpload_" + SWFUpload.movieCount++;
 		this.movieElement = null;
-
 
 		// Setup global control tracking
 		SWFUpload.instances[this.movieName] = this;
@@ -8239,9 +8231,7 @@ SWFUpload.completeURL = function(url) {
 	}
 
 	return /*currentURL +*/ path + url;
-
 };
-
 
 /* ******************** */
 /* Instance Members  */
@@ -8354,7 +8344,6 @@ SWFUpload.prototype.loadFlash = function () {
 	if (window[this.movieName] == undefined) {
 		window[this.movieName] = this.getMovieElement();
 	}
-
 };
 
 // Private: getFlashHTML generates the object tag needed to embed the flash in to the document
@@ -8451,7 +8440,6 @@ SWFUpload.prototype.destroy = function () {
 		// Make sure Flash is done before we try to remove it
 		this.cancelUpload(null, false);
 
-
 		// Remove the SWFUpload DOM nodes
 		var movieElement = null;
 		movieElement = this.getMovieElement();
@@ -8485,13 +8473,11 @@ SWFUpload.prototype.destroy = function () {
 		this.eventQueue = null;
 		this.movieName = null;
 
-
 		return true;
 	} catch (ex2) {
 		return false;
 	}
 };
-
 
 // Public: displayDebugInfo prints out settings and configuration
 // information about this SWFUpload instance.
@@ -8570,8 +8556,6 @@ SWFUpload.prototype.getSetting = function (name) {
     return "";
 };
 
-
-
 // Private: callFlash handles function calls made to the Flash element.
 // Calls are made with a setTimeout for some functions to work around
 // bugs in the ExternalInterface library.
@@ -8619,7 +8603,6 @@ SWFUpload.prototype.selectFile = function () {
 SWFUpload.prototype.selectFiles = function () {
 	this.callFlash("SelectFiles");
 };
-
 
 // Public: startUpload starts uploading the first file in the queue unless
 // the optional parameter 'fileID' specifies the ID
@@ -8866,7 +8849,6 @@ SWFUpload.prototype.queueEvent = function (handlerName, argumentArray) {
 		setTimeout(function () {
 			self.executeNextEvent();
 		}, 0);
-
 	} else if (this.settings[handlerName] !== null) {
 		throw "Event handler " + handlerName + " is unknown or is not a function";
 	}
@@ -8951,7 +8933,6 @@ SWFUpload.prototype.cleanUp = function (movieElement) {
 			}
 		}
 	} catch (ex1) {
-
 	}
 
 	// Fix Flashes own cleanup code so if the SWFMovie was removed from the page
@@ -8962,25 +8943,20 @@ SWFUpload.prototype.cleanUp = function (movieElement) {
 				instance[name] = null;
 			}
 		} catch (flashEx) {
-
 		}
 	};
-
 };
-
 
 /* This is a chance to do something before the browse window opens */
 SWFUpload.prototype.fileDialogStart = function () {
 	this.queueEvent("file_dialog_start_handler");
 };
 
-
 /* Called when a file is successfully added to the queue. */
 SWFUpload.prototype.fileQueued = function (file) {
 	file = this.unescapeFilePostParams(file);
 	this.queueEvent("file_queued_handler", file);
 };
-
 
 /* Handle errors that occur when an attempt to queue a file fails. */
 SWFUpload.prototype.fileQueueError = function (file, errorCode, message) {
@@ -9019,8 +8995,6 @@ SWFUpload.prototype.returnUploadStart = function (file) {
 	this.callFlash("ReturnUploadStart", [returnValue]);
 };
 
-
-
 SWFUpload.prototype.uploadProgress = function (file, bytesComplete, bytesTotal) {
 	file = this.unescapeFilePostParams(file);
 	this.queueEvent("upload_progress_handler", [file, bytesComplete, bytesTotal]);
@@ -9046,7 +9020,6 @@ SWFUpload.prototype.uploadComplete = function (file) {
 SWFUpload.prototype.debug = function (message) {
 	this.queueEvent("debug_handler", message);
 };
-
 
 /* **********************************
 	Debug Console
@@ -9115,7 +9088,6 @@ SWFUpload.Console.writeLine = function (message) {
 		alert("Exception: " + ex.name + " Message: " + ex.message);
 	}
 };
-
 })();
 
 (function() {
@@ -9216,7 +9188,6 @@ if (typeof(SWFUpload) === "function") {
 		}
 	};
 }
-
 })();
 /*******************************************************************************
 * KindEditor - WYSIWYG HTML Editor for Internet

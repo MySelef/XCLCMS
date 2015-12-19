@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace XCLCMS.Data.BLL.Strategy
 {
@@ -61,7 +57,7 @@ namespace XCLCMS.Data.BLL.Strategy
                     if (m.Result == StrategyLib.ResultEnum.FAIL)
                     {
                         this.Result = StrategyLib.ResultEnum.FAIL;
-                        this.ResultMessage = string.Format("第【{0}】个策略【{1}】执行失败，详情：{2}！",i+1,m.Name,m.ResultMessage);
+                        this.ResultMessage = string.Format("第【{0}】个策略【{1}】执行失败，详情：{2}！", i + 1, m.Name, m.ResultMessage);
                         break;
                     }
                 }

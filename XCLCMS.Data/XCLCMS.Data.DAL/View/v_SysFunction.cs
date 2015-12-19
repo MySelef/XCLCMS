@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Data;
-using System.Text;
-using System.Data.SqlClient;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
-using System.Collections.Generic;
+using System.Text;
 
 namespace XCLCMS.Data.DAL.View
 {
@@ -16,9 +13,10 @@ namespace XCLCMS.Data.DAL.View
     {
         public v_SysFunction()
         { }
-        #region  Method
 
-         /// <summary>
+        #region Method
+
+        /// <summary>
         /// 得到一个对象实体
         /// </summary>
         public XCLCMS.Data.Model.View.v_SysFunction GetModel(long SysFunctionID)
@@ -40,8 +38,6 @@ namespace XCLCMS.Data.DAL.View
                 return null;
             }
         }
-
-
 
         /// <summary>
         /// 得到一个对象实体
@@ -128,8 +124,10 @@ namespace XCLCMS.Data.DAL.View
             return db.ExecuteDataSet(dbCommand);
         }
 
-        #endregion  Method
-        #region  MethodEx
+        #endregion Method
+
+        #region MethodEx
+
         /// <summary>
         /// 根据parentID返回列表
         /// </summary>
@@ -143,7 +141,7 @@ namespace XCLCMS.Data.DAL.View
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
-        #endregion  MethodEx
+
+        #endregion MethodEx
     }
 }
-

@@ -3,8 +3,6 @@
 }
 @model XCLCMS.View.AdminViewModel.Article.ArticleAddVM
 
-
-
 <form id="mainForm" action="@Model.FormAction">
     <input type="hidden" id="ArticleID" name="ArticleID" value="@Model.Article.ArticleID" />
 
@@ -26,7 +24,7 @@
                     </td>
                     <td class="XCLTitle" style="width: 10%">来源：</td>
                     <td style="width: 25%">
-                        <select id="selFromInfo" name="selFromInfo" class="easyui-combobox"  style="height:25px;width:200px;" >
+                        <select id="selFromInfo" name="selFromInfo" class="easyui-combobox"  style="height:25px;width:200px;">
                             @Html.Raw(Model.FromInfoOptions)
                         </select>
                     </td>
@@ -88,8 +86,6 @@
                                 </td>
                             </tr>
                         </table>
-
-
                     </td>
                     <td class="XCLTitle">发布时间：</td>
                     <td>
@@ -103,7 +99,6 @@
                 <tr>
                     <td class="XCLTitle">图集：</td>
                     <td colspan="5">
-                 
                     </td>
                 </tr>
                 <tr>
@@ -159,11 +154,11 @@
                     </td>
                     <td class="XCLTitle">浏览数：</td>
                     <td>
-                        <input type="text" id="txtViewCount" name="txtViewCount" value="@Model.Article.ViewCount"   class="easyui-numberbox"  style="height:25px;"/>
+                        <input type="text" id="txtViewCount" name="txtViewCount" value="@Model.Article.ViewCount"   class="easyui-numberbox"  style="height:25px;" />
                     </td>
                     <td class="XCLTitle">热度：</td>
                     <td>
-                        <input type="text" id="txtHotCount" name="txtHotCount" value="@Model.Article.HotCount"   class="easyui-numberbox"  style="height:25px;"/>
+                        <input type="text" id="txtHotCount" name="txtHotCount" value="@Model.Article.HotCount"   class="easyui-numberbox"  style="height:25px;" />
                     </td>
                     <td rowspan="3" align="center">
                         <a class="easyui-linkbutton" id="btnRandomCount">我不想填写，让系统随机生成！</a>
@@ -175,23 +170,22 @@
                 <tr>
                     <td class="XCLTitle">好评数：</td>
                     <td>
-                        <input type="text" id="txtGoodCount" name="txtGoodCount" value="@Model.Article.GoodCount"  class="easyui-numberbox"  style="height:25px;"/>
+                        <input type="text" id="txtGoodCount" name="txtGoodCount" value="@Model.Article.GoodCount"  class="easyui-numberbox"  style="height:25px;" />
                     </td>
                     <td class="XCLTitle">中评数：</td>
                     <td>
-                        <input type="text" id="txtMiddleCount" name="txtMiddleCount" value="@Model.Article.MiddleCount"   class="easyui-numberbox"  style="height:25px;"/>
+                        <input type="text" id="txtMiddleCount" name="txtMiddleCount" value="@Model.Article.MiddleCount"   class="easyui-numberbox"  style="height:25px;" />
                     </td>
                 </tr>
 
                 <tr>
                     <td class="XCLTitle">差评数：</td>
                     <td>
-                        <input type="text" id="txtBadCount" name="txtBadCount" value="@Model.Article.BadCount"   class="easyui-numberbox"  style="height:25px;"/>
+                        <input type="text" id="txtBadCount" name="txtBadCount" value="@Model.Article.BadCount"   class="easyui-numberbox"  style="height:25px;" />
                     </td>
                     <td class="XCLTitle"></td>
                     <td></td>
                 </tr>
-
 
                 <tr>
                     <td class="XCLTitle">文章状态：</td>
@@ -226,7 +220,7 @@
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
                     if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingDel))
-                    { 
+                    {
                         <a id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删 除</a>
                     }
                     break;

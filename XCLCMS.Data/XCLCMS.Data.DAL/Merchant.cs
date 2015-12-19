@@ -1,21 +1,21 @@
-﻿using System;
-using System.Data;
-using System.Text;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Collections.Generic;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data;
 using System.Data.Common;
+using System.Text;
 
 namespace XCLCMS.Data.DAL
 {
     /// <summary>
     /// 数据访问类:Merchant
     /// </summary>
-    public partial class Merchant:XCLCMS.Data.DAL.Common.BaseDAL
+    public partial class Merchant : XCLCMS.Data.DAL.Common.BaseDAL
     {
         public Merchant()
         { }
-        #region  Method
+
+        #region Method
 
         /// <summary>
         ///  增加一条数据
@@ -131,8 +131,6 @@ namespace XCLCMS.Data.DAL
                 return null;
             }
         }
-
-
 
         /// <summary>
         /// 得到一个对象实体
@@ -261,18 +259,19 @@ namespace XCLCMS.Data.DAL
             return db.ExecuteDataSet(CommandType.Text, strSql.ToString());
         }
 
-        #endregion  Method
+        #endregion Method
 
         #region MethodEx
+
         /// <summary>
         /// 分页数据列表
         /// </summary>
         public List<XCLCMS.Data.Model.Merchant> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
             DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("Merchant", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
-            return XCLNetTools.Generic.ListHelper.DataTableToList < XCLCMS.Data.Model.Merchant>(dt) as List<XCLCMS.Data.Model.Merchant>;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Merchant>(dt) as List<XCLCMS.Data.Model.Merchant>;
         }
-        #endregion
+
+        #endregion MethodEx
     }
 }
-

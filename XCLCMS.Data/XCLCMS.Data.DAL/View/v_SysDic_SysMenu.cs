@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Data;
-using System.Text;
-using System.Data.SqlClient;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
+using System.Text;
 
 namespace XCLCMS.Data.DAL.View
 {
@@ -15,7 +13,8 @@ namespace XCLCMS.Data.DAL.View
     {
         public v_SysDic_SysMenu()
         { }
-        #region  Method
+
+        #region Method
 
         /// <summary>
         /// 得到一个对象实体
@@ -39,7 +38,6 @@ namespace XCLCMS.Data.DAL.View
                 return null;
             }
         }
-
 
         /// <summary>
         /// 得到一个对象实体
@@ -141,11 +139,6 @@ namespace XCLCMS.Data.DAL.View
             return db.ExecuteDataSet(dbCommand);
         }
 
-
-        #endregion  Method
-        #region  MethodEx
-
-        #endregion  MethodEx
+        #endregion Method
     }
 }
-

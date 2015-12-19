@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XCLCMS.View.Model.Uploader
 {
@@ -15,14 +11,16 @@ namespace XCLCMS.View.Model.Uploader
         /// <summary>
         /// 宽度
         /// </summary>
-        public int Width{get;set;}
+        public int Width { get; set; }
+
         /// <summary>
         /// 高度
         /// </summary>
-        public int Height{get;set;}
+        public int Height { get; set; }
+
         /// <summary>
         /// 是否为主图
         /// </summary>
-        public bool IsMain{get;set;}
+        public bool IsMain { get; set; }
     }
 }

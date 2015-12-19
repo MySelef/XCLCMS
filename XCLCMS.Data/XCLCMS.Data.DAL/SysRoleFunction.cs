@@ -1,11 +1,9 @@
-﻿using System;
-using System.Data;
-using System.Text;
-using System.Data.SqlClient;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Collections.Generic;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace XCLCMS.Data.DAL
 {
@@ -16,19 +14,20 @@ namespace XCLCMS.Data.DAL
     {
         public SysRoleFunction()
         { }
-        #region  Method
+
+        #region Method
 
         /// <summary>
         ///  增加一条数据
         ///  注：如果functionIdList为空，则添加model.FK_SysFunctionID，否则，则添加functionIdList
         /// </summary>
-        public bool Add(XCLCMS.Data.Model.SysRoleFunction model,List<long> functionIdList=null)
+        public bool Add(XCLCMS.Data.Model.SysRoleFunction model, List<long> functionIdList = null)
         {
             if (null == functionIdList || functionIdList.Count == 0)
             {
                 if (model.FK_SysFunctionID > 0)
                 {
-                    functionIdList = new List<long>() { 
+                    functionIdList = new List<long>() {
                         model.FK_SysFunctionID
                     };
                 }
@@ -66,10 +65,6 @@ namespace XCLCMS.Data.DAL
             }
         }
 
-        #endregion  Method
-        #region  MethodEx
-
-        #endregion  MethodEx
+        #endregion Method
     }
 }
-

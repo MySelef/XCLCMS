@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace XCLCMS.View.AdminViewModel.SysDic
 {
@@ -33,18 +29,19 @@ namespace XCLCMS.View.AdminViewModel.SysDic
         /// <summary>
         /// 记录种类（便于不同类别，展示不同的处理逻辑）
         /// </summary>
-        public SysDicCategoryEnum SysDicCategory{get;set;}
+        public SysDicCategoryEnum SysDicCategory { get; set; }
     }
 
     /// <summary>
     /// 字典记录的种类
     /// </summary>
     public enum SysDicCategoryEnum
-    { 
+    {
         /// <summary>
         /// 未知
         /// </summary>
         None,
+
         /// <summary>
         /// 系统菜单
         /// </summary>

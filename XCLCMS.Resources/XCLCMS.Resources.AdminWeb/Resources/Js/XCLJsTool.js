@@ -28,7 +28,6 @@
      */
     lib.Version = "V1.1.1,By:XCL @ 2014.11 in Shanghai China,project url:https://github.com/xucongli1989/XCLJsTool";
 
-
     //页面加载时的全局变量
     var _XJ = window.XJ, _XCLJsTool = window.XCLJsTool, doc = window.document, jq = null;
     var isRequirejs = (typeof define === "function" && define.amd);
@@ -82,7 +81,6 @@
             this.value = value;
         }
     };
-
 
     /**
      * 公共方法
@@ -302,7 +300,6 @@
         ChinaIDCard: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
     };
 
-
     /**
      * 字符串操作相关
      */
@@ -412,8 +409,6 @@
     lib.String.Builder.prototype.Length = function () {
         return this.ToString().length;
     };
-
-
 
     /**
      * Cookie操作相关
@@ -1415,8 +1410,6 @@
         }
     };
 
-
-
     if (isRequirejs) {
         define("XCLJsTool", [], function () {
             return lib;
@@ -1426,5 +1419,4 @@
     window.XCLJsTool = window.XJ = lib;
 
     return lib;
-
 })(window);

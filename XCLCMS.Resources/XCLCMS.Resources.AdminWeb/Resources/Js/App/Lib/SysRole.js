@@ -1,7 +1,6 @@
 ﻿define(["Lib/Common", "Lib/EasyUI"], function (common, easyUI) {
     var app = {};
     app.SysRoleList = {
-
         /**
          * 界面元素
          */
@@ -74,7 +73,7 @@
                     _this.Elements.menu_SysRole_delSub.show();
 
                     if (row.ParentID == 0) {
-                        //根节点隐藏部分菜单 
+                        //根节点隐藏部分菜单
                         _this.Elements.menu_SysRole_del.hide();
                         _this.Elements.menu_SysRole_edit.hide();
                     }
@@ -112,7 +111,6 @@
             _this.Elements.menu_SysRole_delSub.on("click", function () {
                 _this.Clear();
             });
-
         },
         /**
          * 获取已选择的行对象数组
@@ -214,11 +212,6 @@
             this.TreeObj.treegrid("reload");
         }
     };
-
-
-
-
-
 
     app.SysRoleAdd = {
         /**

@@ -1,4 +1,4 @@
-﻿define(["pluploadCN"],function () {
+﻿define(["pluploadCN"], function () {
     //文件上传
     var app = {};
     app.Add = {
@@ -73,7 +73,7 @@
         * 改变清空按钮的状态（可用、不可用）
         */
         _changeClearButtonState: function (enable) {
-            $("#btnClear").linkbutton(enable?"enable":"disable");
+            $("#btnClear").linkbutton(enable ? "enable" : "disable");
         },
         /**
          * model
@@ -197,28 +197,25 @@
                     art.dialog({
                         icon: "succeed",
                         content: "所有文件已上传完毕！",
-                        ok:true
+                        ok: true
                     });
                 } else {
                     art.dialog({
                         icon: "face-smile",
                         content: "当前没有待上传的文件！",
-                        ok:true
+                        ok: true
                     });
                 }
                 _this._changeClearButtonState(true);
             });
             //上传错误时事件
             _this._uploader.bind("Error", function (uploader, errObject) {
-                
             });
             //文件队列变化时事件
             _this._uploader.bind("QueueChanged", function (up) {
-                
             });
             //上传完成事件
             _this._uploader.bind("FileUploaded", function (uploader, file, responseObject) {
-                
             });
 
             var tabFileUpload = $("#tabFileUpload");
@@ -234,7 +231,7 @@
 
                 //打开编辑的选项卡
                 var tabTitle = "文件设置";
-                
+
                 if (tabFileUpload.tabs('exists', tabTitle)) {
                     tabFileUpload.tabs('close', tabTitle);
                 }
@@ -291,13 +288,13 @@
                     model.ImgCropHeight = parseInt(img.h / model.ImgPreviewRatio);
                     $("#divImgCropInfo").html("X1：" + model.ImgX1 + "，Y1：" + model.ImgY1 + "，X2：" + model.ImgX2 + "，Y2：" + model.ImgY2 + "。宽高：" + model.ImgCropWidth + "*" + model.ImgCropHeight);
                 };
-                var defaultCropImgInfo =null;
+                var defaultCropImgInfo = null;
                 if (model.X1 + model.X2 + model.Y1 + model.Y2 == 0) {
                     //如果没有已选的坐标信息，则默认为整个图坐标
-                    defaultCropImgInfo={ x: 0, y: 0, x2: model.ImgPreviewWidth, y2: model.ImgPreviewHeight, w: model.ImgPreviewWidth, h: model.ImgPreviewHeight };
+                    defaultCropImgInfo = { x: 0, y: 0, x2: model.ImgPreviewWidth, y2: model.ImgPreviewHeight, w: model.ImgPreviewWidth, h: model.ImgPreviewHeight };
                 } else {
                     //如果已有选择过的坐标信息，则默认为该选择的坐标信息
-                    defaultCropImgInfo={ x: model.X1, y: model.Y1, x2: model.X2, y2: model.Y2, w: model.W, h: model.H };
+                    defaultCropImgInfo = { x: model.X1, y: model.Y1, x2: model.X2, y2: model.Y2, w: model.W, h: model.H };
                 }
                 getCropImgXYInfo(defaultCropImgInfo);
                 $("img#ImgToEdit").Jcrop({
@@ -322,7 +319,7 @@
                     var $con = $(".dynamicCon"), $w = $con.find("input[name='txtThumbWidth']"), $h = $con.find("input[name='txtThumbHeight']"), $isMain = $con.find("input[name='ckIsMain']");
                     $w.each(function (idx, n) {
                         var obj = new _this.ThumbImgSettingModel();
-                        obj.Width =XJ.Data.GetInt($.trim(n.value));
+                        obj.Width = XJ.Data.GetInt($.trim(n.value));
                         obj.Height = XJ.Data.GetInt($.trim($h[idx].value));
                         obj.IsMain = $isMain[idx].checked;
                         model.ThumbImgSettings.push(obj);

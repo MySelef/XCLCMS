@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace XCLCMS.View.AdminViewModel.UserInfo
 {
@@ -22,6 +18,5 @@ namespace XCLCMS.View.AdminViewModel.UserInfo
         /// 用户信息列表
         /// </summary>
         public List<XCLCMS.Data.Model.UserInfo> UserInfoList { get; set; }
-
     }
 }

@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Collections.Generic;
-using XCLCMS.Data.Model;
 
 namespace XCLCMS.Data.BLL
 {
@@ -11,9 +9,11 @@ namespace XCLCMS.Data.BLL
     public partial class Merchant
     {
         private readonly XCLCMS.Data.DAL.Merchant dal = new XCLCMS.Data.DAL.Merchant();
+
         public Merchant()
         { }
-        #region  BasicMethod
+
+        #region BasicMethod
 
         /// <summary>
         /// 增加一条数据
@@ -55,6 +55,7 @@ namespace XCLCMS.Data.BLL
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -77,8 +78,10 @@ namespace XCLCMS.Data.BLL
             return modelList;
         }
 
-        #endregion  BasicMethod
-        #region  ExtensionMethod
+        #endregion BasicMethod
+
+        #region ExtensionMethod
+
         /// <summary>
         /// 分页列表
         /// </summary>
@@ -94,7 +97,7 @@ namespace XCLCMS.Data.BLL
         {
             return new XCLCMS.Data.BLL.SysDic().GetDictionaryByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.MerchantType.ToString());
         }
-        #endregion  ExtensionMethod
+
+        #endregion ExtensionMethod
     }
 }
-

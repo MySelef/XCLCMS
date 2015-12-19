@@ -4,7 +4,6 @@
       */
     var app = {};
     app.SysDicList = {
-
         /**
          * 界面元素
          */
@@ -59,7 +58,7 @@
                     return data;
                 },
                 columns: [[
-                    { field: 'SysDicID', title: 'ID',width:'5%' },
+                    { field: 'SysDicID', title: 'ID', width: '5%' },
                     { field: 'ParentID', title: '父ID', width: '5%' },
                     { field: 'NodeLevel', title: '层级', width: '2%' },
                     { field: 'DicName', title: '字典名', width: '25%' },
@@ -82,7 +81,7 @@
                     _this.Elements.menu_SysDic_delSub.show();
 
                     if (row.ParentID == 0) {
-                        //根节点隐藏部分菜单 
+                        //根节点隐藏部分菜单
                         _this.Elements.menu_SysDic_del.hide();
                         _this.Elements.menu_SysDic_edit.hide();
                     }
@@ -225,12 +224,7 @@
         }
     };
 
-
-
-
-
     app.SysDicAdd = {
-
         /**
         * 输入元素
         */
@@ -255,7 +249,7 @@
         * 创建功能模块的combotree
         */
         CreateFunctionTree: function ($obj) {
-            var _this=this;
+            var _this = this;
             if (!$obj) {
                 return;
             }

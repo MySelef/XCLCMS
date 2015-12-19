@@ -47,7 +47,6 @@
                     $DivMenuTabs.tabs('select', index);
                 }
             });
-
         },
         /**
         * 向form标签中追加附加信息

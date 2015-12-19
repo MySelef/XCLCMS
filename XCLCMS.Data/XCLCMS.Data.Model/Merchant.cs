@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace XCLCMS.Data.Model
 {
     /// <summary>
@@ -9,7 +10,9 @@ namespace XCLCMS.Data.Model
     {
         public Merchant()
         { }
+
         #region Model
+
         private long _merchantid;
         private string _merchantname;
         private string _merchanttype;
@@ -35,6 +38,7 @@ namespace XCLCMS.Data.Model
         private DateTime _updatetime;
         private long _updaterid;
         private string _updatername;
+
         /// <summary>
         /// 商户ID
         /// </summary>
@@ -43,6 +47,7 @@ namespace XCLCMS.Data.Model
             set { _merchantid = value; }
             get { return _merchantid; }
         }
+
         /// <summary>
         /// 商户名
         /// </summary>
@@ -51,6 +56,7 @@ namespace XCLCMS.Data.Model
             set { _merchantname = value; }
             get { return _merchantname; }
         }
+
         /// <summary>
         /// 商户类型(参见字典库)
         /// </summary>
@@ -59,6 +65,7 @@ namespace XCLCMS.Data.Model
             set { _merchanttype = value; }
             get { return _merchanttype; }
         }
+
         /// <summary>
         /// 绑定的域名
         /// </summary>
@@ -67,6 +74,7 @@ namespace XCLCMS.Data.Model
             set { _domain = value; }
             get { return _domain; }
         }
+
         /// <summary>
         /// logo图片地址
         /// </summary>
@@ -75,6 +83,7 @@ namespace XCLCMS.Data.Model
             set { _logourl = value; }
             get { return _logourl; }
         }
+
         /// <summary>
         /// 联系人
         /// </summary>
@@ -83,6 +92,7 @@ namespace XCLCMS.Data.Model
             set { _contactname = value; }
             get { return _contactname; }
         }
+
         /// <summary>
         /// 手机
         /// </summary>
@@ -91,6 +101,7 @@ namespace XCLCMS.Data.Model
             set { _tel = value; }
             get { return _tel; }
         }
+
         /// <summary>
         /// 固话
         /// </summary>
@@ -99,6 +110,7 @@ namespace XCLCMS.Data.Model
             set { _landline = value; }
             get { return _landline; }
         }
+
         /// <summary>
         /// 电子邮件
         /// </summary>
@@ -107,6 +119,7 @@ namespace XCLCMS.Data.Model
             set { _email = value; }
             get { return _email; }
         }
+
         /// <summary>
         /// qq
         /// </summary>
@@ -115,6 +128,7 @@ namespace XCLCMS.Data.Model
             set { _qq = value; }
             get { return _qq; }
         }
+
         /// <summary>
         /// 证件类型（参见字典库）
         /// </summary>
@@ -123,6 +137,7 @@ namespace XCLCMS.Data.Model
             set { _passtype = value; }
             get { return _passtype; }
         }
+
         /// <summary>
         /// 证件号
         /// </summary>
@@ -131,6 +146,7 @@ namespace XCLCMS.Data.Model
             set { _passnumber = value; }
             get { return _passnumber; }
         }
+
         /// <summary>
         /// 地址
         /// </summary>
@@ -139,6 +155,7 @@ namespace XCLCMS.Data.Model
             set { _address = value; }
             get { return _address; }
         }
+
         /// <summary>
         /// 其它联系信息
         /// </summary>
@@ -147,6 +164,7 @@ namespace XCLCMS.Data.Model
             set { _othercontact = value; }
             get { return _othercontact; }
         }
+
         /// <summary>
         /// 商户备注信息
         /// </summary>
@@ -155,6 +173,7 @@ namespace XCLCMS.Data.Model
             set { _merchantremark = value; }
             get { return _merchantremark; }
         }
+
         /// <summary>
         /// 注册时间
         /// </summary>
@@ -163,6 +182,7 @@ namespace XCLCMS.Data.Model
             set { _registertime = value; }
             get { return _registertime; }
         }
+
         /// <summary>
         /// 商户状态(MerchantStateEnum)
         /// </summary>
@@ -171,6 +191,7 @@ namespace XCLCMS.Data.Model
             set { _merchantstate = value; }
             get { return _merchantstate; }
         }
+
         /// <summary>
         /// 备注
         /// </summary>
@@ -179,6 +200,7 @@ namespace XCLCMS.Data.Model
             set { _remark = value; }
             get { return _remark; }
         }
+
         /// <summary>
         /// 记录状态(RecordStateEnum)
         /// </summary>
@@ -187,6 +209,7 @@ namespace XCLCMS.Data.Model
             set { _recordstate = value; }
             get { return _recordstate; }
         }
+
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -195,6 +218,7 @@ namespace XCLCMS.Data.Model
             set { _createtime = value; }
             get { return _createtime; }
         }
+
         /// <summary>
         /// 创建者ID
         /// </summary>
@@ -203,6 +227,7 @@ namespace XCLCMS.Data.Model
             set { _createrid = value; }
             get { return _createrid; }
         }
+
         /// <summary>
         /// 创建者名
         /// </summary>
@@ -211,6 +236,7 @@ namespace XCLCMS.Data.Model
             set { _creatername = value; }
             get { return _creatername; }
         }
+
         /// <summary>
         /// 更新时间
         /// </summary>
@@ -219,6 +245,7 @@ namespace XCLCMS.Data.Model
             set { _updatetime = value; }
             get { return _updatetime; }
         }
+
         /// <summary>
         /// 更新人ID
         /// </summary>
@@ -227,6 +254,7 @@ namespace XCLCMS.Data.Model
             set { _updaterid = value; }
             get { return _updaterid; }
         }
+
         /// <summary>
         /// 更新人名
         /// </summary>
@@ -235,8 +263,7 @@ namespace XCLCMS.Data.Model
             set { _updatername = value; }
             get { return _updatername; }
         }
-        #endregion Model
 
+        #endregion Model
     }
 }
-

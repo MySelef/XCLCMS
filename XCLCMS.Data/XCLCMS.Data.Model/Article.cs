@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace XCLCMS.Data.Model
 {
     /// <summary>
@@ -9,7 +10,9 @@ namespace XCLCMS.Data.Model
     {
         public Article()
         { }
+
         #region Model
+
         private long _articleid;
         private string _code;
         private string _title;
@@ -49,14 +52,16 @@ namespace XCLCMS.Data.Model
         private DateTime _updatetime;
         private long _updaterid;
         private string _updatername;
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public long ArticleID
         {
             set { _articleid = value; }
             get { return _articleid; }
         }
+
         /// <summary>
         /// 唯一标识
         /// </summary>
@@ -65,6 +70,7 @@ namespace XCLCMS.Data.Model
             set { _code = value; }
             get { return _code; }
         }
+
         /// <summary>
         /// 标题
         /// </summary>
@@ -73,6 +79,7 @@ namespace XCLCMS.Data.Model
             set { _title = value; }
             get { return _title; }
         }
+
         /// <summary>
         /// 子标题
         /// </summary>
@@ -81,6 +88,7 @@ namespace XCLCMS.Data.Model
             set { _subtitle = value; }
             get { return _subtitle; }
         }
+
         /// <summary>
         /// 所属作者
         /// </summary>
@@ -89,6 +97,7 @@ namespace XCLCMS.Data.Model
             set { _authorname = value; }
             get { return _authorname; }
         }
+
         /// <summary>
         /// 来源
         /// </summary>
@@ -97,6 +106,7 @@ namespace XCLCMS.Data.Model
             set { _frominfo = value; }
             get { return _frominfo; }
         }
+
         /// <summary>
         /// 内容类型(ArticleContentTypeEnum)
         /// </summary>
@@ -105,6 +115,7 @@ namespace XCLCMS.Data.Model
             set { _articlecontenttype = value; }
             get { return _articlecontenttype; }
         }
+
         /// <summary>
         /// 内容正文
         /// </summary>
@@ -113,6 +124,7 @@ namespace XCLCMS.Data.Model
             set { _contents = value; }
             get { return _contents; }
         }
+
         /// <summary>
         /// 概述
         /// </summary>
@@ -121,6 +133,7 @@ namespace XCLCMS.Data.Model
             set { _summary = value; }
             get { return _summary; }
         }
+
         /// <summary>
         /// 主图片1地址
         /// </summary>
@@ -129,6 +142,7 @@ namespace XCLCMS.Data.Model
             set { _mainimage1 = value; }
             get { return _mainimage1; }
         }
+
         /// <summary>
         /// 主图片2地址
         /// </summary>
@@ -137,6 +151,7 @@ namespace XCLCMS.Data.Model
             set { _mainimage2 = value; }
             get { return _mainimage2; }
         }
+
         /// <summary>
         /// 主图片3地址
         /// </summary>
@@ -145,6 +160,7 @@ namespace XCLCMS.Data.Model
             set { _mainimage3 = value; }
             get { return _mainimage3; }
         }
+
         /// <summary>
         /// 浏览数
         /// </summary>
@@ -153,6 +169,7 @@ namespace XCLCMS.Data.Model
             set { _viewcount = value; }
             get { return _viewcount; }
         }
+
         /// <summary>
         /// 是否能够评论(YesNoEnum)
         /// </summary>
@@ -161,6 +178,7 @@ namespace XCLCMS.Data.Model
             set { _iscancomment = value; }
             get { return _iscancomment; }
         }
+
         /// <summary>
         /// 评论数
         /// </summary>
@@ -169,6 +187,7 @@ namespace XCLCMS.Data.Model
             set { _commentcount = value; }
             get { return _commentcount; }
         }
+
         /// <summary>
         /// 点【好】数
         /// </summary>
@@ -177,6 +196,7 @@ namespace XCLCMS.Data.Model
             set { _goodcount = value; }
             get { return _goodcount; }
         }
+
         /// <summary>
         /// 点【中】数
         /// </summary>
@@ -185,6 +205,7 @@ namespace XCLCMS.Data.Model
             set { _middlecount = value; }
             get { return _middlecount; }
         }
+
         /// <summary>
         /// 点【差】数
         /// </summary>
@@ -193,6 +214,7 @@ namespace XCLCMS.Data.Model
             set { _badcount = value; }
             get { return _badcount; }
         }
+
         /// <summary>
         /// 热度
         /// </summary>
@@ -201,6 +223,7 @@ namespace XCLCMS.Data.Model
             set { _hotcount = value; }
             get { return _hotcount; }
         }
+
         /// <summary>
         /// 打开方式(URLOpenTypeEnum)
         /// </summary>
@@ -209,6 +232,7 @@ namespace XCLCMS.Data.Model
             set { _urlopentype = value; }
             get { return _urlopentype; }
         }
+
         /// <summary>
         /// 文章状态(ArticleStateEnum)
         /// </summary>
@@ -217,6 +241,7 @@ namespace XCLCMS.Data.Model
             set { _articlestate = value; }
             get { return _articlestate; }
         }
+
         /// <summary>
         /// 审核状态
         /// </summary>
@@ -225,6 +250,7 @@ namespace XCLCMS.Data.Model
             set { _verifystate = value; }
             get { return _verifystate; }
         }
+
         /// <summary>
         /// 是否推荐
         /// </summary>
@@ -233,6 +259,7 @@ namespace XCLCMS.Data.Model
             set { _isrecommend = value; }
             get { return _isrecommend; }
         }
+
         /// <summary>
         /// 是否为精华
         /// </summary>
@@ -241,6 +268,7 @@ namespace XCLCMS.Data.Model
             set { _isessence = value; }
             get { return _isessence; }
         }
+
         /// <summary>
         /// 是否置顶
         /// </summary>
@@ -249,6 +277,7 @@ namespace XCLCMS.Data.Model
             set { _istop = value; }
             get { return _istop; }
         }
+
         /// <summary>
         /// 置顶开始时间
         /// </summary>
@@ -257,6 +286,7 @@ namespace XCLCMS.Data.Model
             set { _topbegintime = value; }
             get { return _topbegintime; }
         }
+
         /// <summary>
         /// 置顶结束时间
         /// </summary>
@@ -265,6 +295,7 @@ namespace XCLCMS.Data.Model
             set { _topendtime = value; }
             get { return _topendtime; }
         }
+
         /// <summary>
         /// 关键字(逗号分隔)
         /// </summary>
@@ -273,6 +304,7 @@ namespace XCLCMS.Data.Model
             set { _keywords = value; }
             get { return _keywords; }
         }
+
         /// <summary>
         /// 标签(逗号分隔)
         /// </summary>
@@ -281,6 +313,7 @@ namespace XCLCMS.Data.Model
             set { _tags = value; }
             get { return _tags; }
         }
+
         /// <summary>
         /// 点评
         /// </summary>
@@ -289,6 +322,7 @@ namespace XCLCMS.Data.Model
             set { _comments = value; }
             get { return _comments; }
         }
+
         /// <summary>
         /// 链接地址(标题仅为链接时)
         /// </summary>
@@ -297,6 +331,7 @@ namespace XCLCMS.Data.Model
             set { _linkurl = value; }
             get { return _linkurl; }
         }
+
         /// <summary>
         /// 发布时间
         /// </summary>
@@ -305,6 +340,7 @@ namespace XCLCMS.Data.Model
             set { _publishtime = value; }
             get { return _publishtime; }
         }
+
         /// <summary>
         /// 记录状态(RecordStateEnum)
         /// </summary>
@@ -313,6 +349,7 @@ namespace XCLCMS.Data.Model
             set { _recordstate = value; }
             get { return _recordstate; }
         }
+
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -321,6 +358,7 @@ namespace XCLCMS.Data.Model
             set { _createtime = value; }
             get { return _createtime; }
         }
+
         /// <summary>
         /// 创建者ID
         /// </summary>
@@ -329,6 +367,7 @@ namespace XCLCMS.Data.Model
             set { _createrid = value; }
             get { return _createrid; }
         }
+
         /// <summary>
         /// 创建者名
         /// </summary>
@@ -337,6 +376,7 @@ namespace XCLCMS.Data.Model
             set { _creatername = value; }
             get { return _creatername; }
         }
+
         /// <summary>
         /// 更新时间
         /// </summary>
@@ -345,6 +385,7 @@ namespace XCLCMS.Data.Model
             set { _updatetime = value; }
             get { return _updatetime; }
         }
+
         /// <summary>
         /// 更新人ID
         /// </summary>
@@ -353,6 +394,7 @@ namespace XCLCMS.Data.Model
             set { _updaterid = value; }
             get { return _updaterid; }
         }
+
         /// <summary>
         /// 更新人名
         /// </summary>
@@ -361,8 +403,7 @@ namespace XCLCMS.Data.Model
             set { _updatername = value; }
             get { return _updatername; }
         }
-        #endregion Model
 
+        #endregion Model
     }
 }
-

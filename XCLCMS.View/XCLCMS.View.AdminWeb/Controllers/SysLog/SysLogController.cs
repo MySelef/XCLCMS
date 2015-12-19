@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysLog
@@ -14,14 +12,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysLog
         /// <summary>
         /// 日志列表
         /// </summary>
-        [XCLCMS.Lib.Filters.FunctionFilter(Function=XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysLogView)]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysLogView)]
         public ActionResult Index()
         {
             XCLCMS.View.AdminViewModel.SysLog.SysLogListVM viewModel = new AdminViewModel.SysLog.SysLogListVM();
 
             #region 初始化查询条件
+
             viewModel.Search = new XCLNetSearch.Search();
-            viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() { 
+            viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("日志ID","SysLogID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("日志级别","LogLevel|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("日志类别","LogType|string|text",""),
@@ -35,7 +34,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysLog
                 new XCLNetSearch.SearchFieldInfo("创建时间",string.Format("CreateTime|dateTime{0}|text",(int)XCLNetSearch.Common.SearchDateFmt.yyyy_MM_dd_HH_mm_ss),"","yyyy-MM-dd HH:mm:ss")
             };
             string strWhere = viewModel.Search.StrSQL;
-            #endregion
+
+            #endregion 初始化查询条件
 
             XCLCMS.Data.BLL.SysLog bll = new Data.BLL.SysLog();
             viewModel.SysLogList = bll.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[SysLogID]", "[CreateTime] desc");

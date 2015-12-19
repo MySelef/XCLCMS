@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Collections.Generic;
-using XCLCMS.Data.Model;
+
 namespace XCLCMS.Data.BLL
 {
     /// <summary>
@@ -10,19 +9,19 @@ namespace XCLCMS.Data.BLL
     public partial class UserInfo
     {
         private readonly XCLCMS.Data.DAL.UserInfo dal = new XCLCMS.Data.DAL.UserInfo();
+
         public UserInfo()
         { }
-        #region  BasicMethod
+
+        #region BasicMethod
 
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
         public XCLCMS.Data.Model.UserInfo GetModel(long UserInfoID)
         {
-
             return dal.GetModel(UserInfoID);
         }
-
 
         /// <summary>
         /// 获得数据列表
@@ -31,6 +30,7 @@ namespace XCLCMS.Data.BLL
         {
             return dal.GetList(strWhere);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -39,6 +39,7 @@ namespace XCLCMS.Data.BLL
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -69,8 +70,10 @@ namespace XCLCMS.Data.BLL
             return GetList("");
         }
 
-        #endregion  BasicMethod
-        #region  ExtensionMethod
+        #endregion BasicMethod
+
+        #region ExtensionMethod
+
         /// <summary>
         /// 分页列表
         /// </summary>
@@ -78,6 +81,7 @@ namespace XCLCMS.Data.BLL
         {
             return dal.GetPageList(pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
         }
+
         /// <summary>
         /// 判断指定用户名是否存在
         /// </summary>
@@ -85,6 +89,7 @@ namespace XCLCMS.Data.BLL
         {
             return dal.IsExistUserName(userName);
         }
+
         /// <summary>
         /// 根据用户名和密码获取用户实体
         /// </summary>
@@ -93,7 +98,7 @@ namespace XCLCMS.Data.BLL
             return dal.GetModel(userName, pwd);
         }
 
-         /// <summary>
+        /// <summary>
         ///  增加一条数据
         /// </summary>
         public bool Add(XCLCMS.Data.Model.UserInfo model)
@@ -108,7 +113,7 @@ namespace XCLCMS.Data.BLL
         {
             return dal.Update(model);
         }
-        #endregion  ExtensionMethod
+
+        #endregion ExtensionMethod
     }
 }
-

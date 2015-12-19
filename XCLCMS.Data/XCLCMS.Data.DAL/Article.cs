@@ -1,11 +1,9 @@
-﻿using System;
-using System.Data;
-using System.Text;
-using System.Data.SqlClient;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
-using System.Data.Common;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Text;
 
 namespace XCLCMS.Data.DAL
 {
@@ -16,7 +14,8 @@ namespace XCLCMS.Data.DAL
     {
         public Article()
         { }
-        #region  Method
+
+        #region Method
 
         /// <summary>
         ///  增加一条数据
@@ -161,7 +160,6 @@ namespace XCLCMS.Data.DAL
                 return null;
             }
         }
-
 
         /// <summary>
         /// 得到一个对象实体
@@ -348,8 +346,10 @@ namespace XCLCMS.Data.DAL
             return db.ExecuteDataSet(dbCommand);
         }
 
-        #endregion  Method
-        #region  MethodEx
+        #endregion Method
+
+        #region MethodEx
+
         /// <summary>
         /// 分页数据列表
         /// </summary>
@@ -358,7 +358,7 @@ namespace XCLCMS.Data.DAL
             DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("Article", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Article>(dt) as List<XCLCMS.Data.Model.Article>;
         }
-        #endregion  MethodEx
+
+        #endregion MethodEx
     }
 }
-

@@ -37,7 +37,6 @@
         Update: function () {
             var $btn = $("#btnUpdate"), ids = this.GetSelectValue();
             if (ids && ids.length === 1) {
-
                 var query = {
                     handletype: "update",
                     MerchantID: ids[0]

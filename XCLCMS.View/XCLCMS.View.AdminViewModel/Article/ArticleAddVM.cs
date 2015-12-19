@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XCLCMS.View.AdminViewModel.Article
+﻿namespace XCLCMS.View.AdminViewModel.Article
 {
     /// <summary>
     /// 文章添加或修改页的viewmodel

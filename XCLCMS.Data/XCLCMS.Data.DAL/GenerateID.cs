@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Data;
-using System.Text;
-using System.Data.SqlClient;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
 
 namespace XCLCMS.Data.DAL
@@ -15,15 +12,15 @@ namespace XCLCMS.Data.DAL
     {
         public GenerateID()
         { }
-        #region  Method
 
-        #endregion  Method
-        #region  MethodEx
+
+        #region MethodEx
+
         /// <summary>
         /// 生成主键
         /// </summary>
         /// <param name="IDType">类型</param>
-        public long GetGenerateID(string IDType,string remark="")
+        public long GetGenerateID(string IDType, string remark = "")
         {
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetStoredProcCommand("sp_GenerateID");
@@ -45,7 +42,7 @@ namespace XCLCMS.Data.DAL
                 throw new Exception(result.ResultMessage);
             }
         }
-        #endregion  MethodEx
+
+        #endregion MethodEx
     }
 }
-

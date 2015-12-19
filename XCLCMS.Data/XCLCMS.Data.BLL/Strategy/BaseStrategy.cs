@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XCLCMS.Data.BLL.Strategy
+﻿namespace XCLCMS.Data.BLL.Strategy
 {
     /// <summary>
     /// 策略基类
@@ -48,7 +42,6 @@ namespace XCLCMS.Data.BLL.Strategy
         /// </summary>
         public virtual void DoWork<T>(T context)
         {
-
         }
     }
 }

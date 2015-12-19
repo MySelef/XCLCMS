@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Atricle
@@ -16,8 +13,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             XCLCMS.View.AdminViewModel.Article.ArticleListVM viewModel = new AdminViewModel.Article.ArticleListVM();
 
             #region 初始化查询条件
+
             viewModel.Search = new XCLNetSearch.Search();
-            viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() { 
+            viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("文章ID","ArticleID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("标题","Title|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("作者","AuthorName|string|text",""),
@@ -39,12 +37,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             {
                 strWhere = string.Format("{0} and ({1})", strWhere, strSearch);
             }
-            #endregion
+
+            #endregion 初始化查询条件
 
             XCLCMS.Data.BLL.Article bll = new Data.BLL.Article();
             viewModel.ArticleList = bll.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[ArticleID]", "[ArticleID] desc");
             viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
-            return View("~/Views/Article/ArticleList.cshtml",viewModel);
+            return View("~/Views/Article/ArticleList.cshtml", viewModel);
         }
 
         /// <summary>
@@ -64,27 +63,34 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
                     viewModel.Article = new Data.Model.Article();
-                    viewModel.ArticleTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(articleTypeDic, new XCLNetTools.Entity.SetOptionEntity() { 
-                        IsNeedPleaseSelect=true
+                    viewModel.ArticleTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(articleTypeDic, new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        IsNeedPleaseSelect = true
                     });
-                    viewModel.ArticleStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum), new XCLNetTools.Entity.SetOptionEntity() { 
-                        IsNeedPleaseSelect=true
+                    viewModel.ArticleStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum), new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        IsNeedPleaseSelect = true
                     });
-                    viewModel.ArticleContentTypeOptions=XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum),new XCLNetTools.Entity.SetOptionEntity(){
-                        IsNeedPleaseSelect=false
+                    viewModel.ArticleContentTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum), new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        IsNeedPleaseSelect = false
                     });
-                    viewModel.URLOpenTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum), new XCLNetTools.Entity.SetOptionEntity() { 
-                        IsNeedPleaseSelect=true
+                    viewModel.URLOpenTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum), new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        IsNeedPleaseSelect = true
                     });
-                    viewModel.FromInfoOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleFromInfoEnum), new XCLNetTools.Entity.SetOptionEntity() { 
-                        IsNeedPleaseSelect=false
+                    viewModel.FromInfoOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleFromInfoEnum), new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        IsNeedPleaseSelect = false
                     });
-                    viewModel.AuthorNameOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleAuthorNameEnum), new XCLNetTools.Entity.SetOptionEntity() { 
-                        IsNeedPleaseSelect=false
+                    viewModel.AuthorNameOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleAuthorNameEnum), new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        IsNeedPleaseSelect = false
                     });
                     viewModel.Article.IsCanComment = XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "Article");
                     break;
+
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     viewModel.Article = bll.GetModel(articleID);
                     viewModel.FormAction = Url.Action("UpdateSubmit", "Article");

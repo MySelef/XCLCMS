@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Web;
 
 namespace XCLCMS.Lib.Login
 {
@@ -13,6 +8,7 @@ namespace XCLCMS.Lib.Login
     public class LoginHelper
     {
         #region 枚举
+
         /// <summary>
         /// 登录类型
         /// </summary>
@@ -22,14 +18,17 @@ namespace XCLCMS.Lib.Login
             /// 登录
             /// </summary>
             ON,
+
             /// <summary>
             /// 退出
             /// </summary>
             OFF
         }
-        #endregion
+
+        #endregion 枚举
 
         #region 登录相关信息设置
+
         /// <summary>
         /// 是否已登录
         /// </summary>
@@ -82,7 +81,7 @@ namespace XCLCMS.Lib.Login
                 return null;
             }
             loginString = XCLCMS.Lib.Encrypt.EncryptHelper.DecryptStringDES(loginString);
-            var loginModel=XCLCMS.Lib.Login.LoginHelper.GetUserLoginInfo(loginString);
+            var loginModel = XCLCMS.Lib.Login.LoginHelper.GetUserLoginInfo(loginString);
             XCLCMS.Data.BLL.UserInfo bll = new Data.BLL.UserInfo();
             return bll.GetModel(loginModel.UserName, loginModel.Pwd);
         }
@@ -109,6 +108,7 @@ namespace XCLCMS.Lib.Login
             model.Pwd = strSplit[1];
             return model;
         }
-        #endregion
+
+        #endregion 登录相关信息设置
     }
 }

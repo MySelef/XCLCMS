@@ -1,11 +1,9 @@
-﻿using System;
-using System.Data;
-using System.Text;
-using System.Data.SqlClient;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using System;
 using System.Collections.Generic;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+using System.Data;
 using System.Data.Common;
+using System.Text;
 
 namespace XCLCMS.Data.DAL
 {
@@ -16,7 +14,8 @@ namespace XCLCMS.Data.DAL
     {
         public UserInfo()
         { }
-        #region  Method
+
+        #region Method
 
         /// <summary>
         /// 得到一个对象实体
@@ -36,7 +35,6 @@ namespace XCLCMS.Data.DAL
                 return null;
             }
         }
-
 
         /// <summary>
         /// 得到一个对象实体
@@ -154,7 +152,6 @@ namespace XCLCMS.Data.DAL
             return model;
         }
 
-
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -171,15 +168,17 @@ namespace XCLCMS.Data.DAL
             return db.ExecuteDataSet(dbCommand);
         }
 
-        #endregion  Method
-        #region  MethodEx
+        #endregion Method
+
+        #region MethodEx
+
         /// <summary>
         /// 分页数据列表
         /// </summary>
-        public List<XCLCMS.Data.Model.UserInfo>  GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public List<XCLCMS.Data.Model.UserInfo> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
-            DataTable dt= XCLCMS.Data.DAL.Common.Common.GetPageList("UserInfo", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
-            return XCLNetTools.Generic.ListHelper.DataTableToList < XCLCMS.Data.Model.UserInfo>(dt) as List<XCLCMS.Data.Model.UserInfo>;
+            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("UserInfo", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.UserInfo>(dt) as List<XCLCMS.Data.Model.UserInfo>;
         }
 
         /// <summary>
@@ -204,7 +203,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, userName);
             db.AddInParameter(dbCommand, "Pwd", DbType.AnsiString, pwd);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            if (null != ds && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count>0)
+            if (null != ds && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 model = this.DataRowToModel(ds.Tables[0].Rows[0]);
             }
@@ -308,7 +307,7 @@ namespace XCLCMS.Data.DAL
                 throw new Exception(result.ResultMessage);
             }
         }
-        #endregion  MethodEx
+
+        #endregion MethodEx
     }
 }
-

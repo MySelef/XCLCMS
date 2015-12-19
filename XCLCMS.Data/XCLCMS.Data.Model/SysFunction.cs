@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace XCLCMS.Data.Model
 {
     /// <summary>
@@ -9,7 +10,9 @@ namespace XCLCMS.Data.Model
     {
         public SysFunction()
         { }
+
         #region Model
+
         private long _sysfunctionid;
         private long _parentid;
         private string _functionname;
@@ -22,22 +25,25 @@ namespace XCLCMS.Data.Model
         private DateTime _updatetime;
         private long _updaterid;
         private string _updatername;
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public long SysFunctionID
         {
             set { _sysfunctionid = value; }
             get { return _sysfunctionid; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public long ParentID
         {
             set { _parentid = value; }
             get { return _parentid; }
         }
+
         /// <summary>
         /// 功能名
         /// </summary>
@@ -46,14 +52,16 @@ namespace XCLCMS.Data.Model
             set { _functionname = value; }
             get { return _functionname; }
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string Code
         {
             set { _code = value; }
             get { return _code; }
         }
+
         /// <summary>
         /// 备注
         /// </summary>
@@ -62,6 +70,7 @@ namespace XCLCMS.Data.Model
             set { _remark = value; }
             get { return _remark; }
         }
+
         /// <summary>
         /// 记录状态(RecordStateEnum)
         /// </summary>
@@ -70,6 +79,7 @@ namespace XCLCMS.Data.Model
             set { _recordstate = value; }
             get { return _recordstate; }
         }
+
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -78,6 +88,7 @@ namespace XCLCMS.Data.Model
             set { _createtime = value; }
             get { return _createtime; }
         }
+
         /// <summary>
         /// 创建者ID
         /// </summary>
@@ -86,6 +97,7 @@ namespace XCLCMS.Data.Model
             set { _createrid = value; }
             get { return _createrid; }
         }
+
         /// <summary>
         /// 创建者名
         /// </summary>
@@ -94,6 +106,7 @@ namespace XCLCMS.Data.Model
             set { _creatername = value; }
             get { return _creatername; }
         }
+
         /// <summary>
         /// 更新时间
         /// </summary>
@@ -102,6 +115,7 @@ namespace XCLCMS.Data.Model
             set { _updatetime = value; }
             get { return _updatetime; }
         }
+
         /// <summary>
         /// 更新人ID
         /// </summary>
@@ -110,6 +124,7 @@ namespace XCLCMS.Data.Model
             set { _updaterid = value; }
             get { return _updaterid; }
         }
+
         /// <summary>
         /// 更新人名
         /// </summary>
@@ -118,8 +133,7 @@ namespace XCLCMS.Data.Model
             set { _updatername = value; }
             get { return _updatername; }
         }
-        #endregion Model
 
+        #endregion Model
     }
 }
-

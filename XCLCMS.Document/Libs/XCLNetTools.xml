@@ -50,6 +50,16 @@
             移除全部缓存
             </summary>
         </member>
+        <member name="T:XCLNetTools.Common.Consts">
+            <summary>
+            常量
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Common.Consts.HttpSchemeMatch">
+            <summary>
+            http Scheme
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Control.ServerControl.Lib">
             <summary>
             服务器控件操作相关
@@ -194,210 +204,144 @@
             分页初始化
             </summary>
         </member>
-        <member name="T:XCLNetTools.Entity.BookmarkEntity">
+        <member name="T:XCLNetTools.DataBase.SQLite.SQLiteHelper">
             <summary>
-            浏览器书签实体
+            SQLite 公共库
             </summary>
         </member>
-        <member name="P:XCLNetTools.Entity.BookmarkEntity.Id">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteNonQuery(System.String,System.Data.SQLite.SQLiteCommand)">
             <summary>
-            编号
+            执行数据库操作(新增、更新或删除)
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="cmd">SqlCommand对象</param>
+            <returns>所受影响的行数</returns>
         </member>
-        <member name="P:XCLNetTools.Entity.BookmarkEntity.ParentId">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteNonQuery(System.String,System.String,System.Data.CommandType)">
             <summary>
-            父id
+            执行数据库操作(新增、更新或删除)
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="commandText">执行语句或存储过程名</param>
+            <param name="commandType">执行类型</param>
+            <returns>所受影响的行数</returns>
         </member>
-        <member name="P:XCLNetTools.Entity.BookmarkEntity.IsFolder">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteNonQuery(System.String,System.String,System.Data.CommandType,System.Data.SQLite.SQLiteParameter[])">
             <summary>
-            是否为文件夹
+            执行数据库操作(新增、更新或删除)
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="commandText">执行语句或存储过程名</param>
+            <param name="commandType">执行类型</param>
+            <param name="cmdParms">SQL参数对象</param>
+            <returns>所受影响的行数</returns>
         </member>
-        <member name="P:XCLNetTools.Entity.BookmarkEntity.Name">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteScalar(System.String,System.Data.SQLite.SQLiteCommand)">
             <summary>
-            书签名称
+            执行数据库操作(新增、更新或删除)同时返回执行后查询所得的第1行第1列数据
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="cmd">SqlCommand对象</param>
+            <returns>查询所得的第1行第1列数据</returns>
         </member>
-        <member name="P:XCLNetTools.Entity.BookmarkEntity.IcoURL">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteScalar(System.String,System.String,System.Data.CommandType)">
             <summary>
-            ico图标地址
+            执行数据库操作(新增、更新或删除)同时返回执行后查询所得的第1行第1列数据
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="commandText">执行语句或存储过程名</param>
+            <param name="commandType">执行类型</param>
+            <returns>查询所得的第1行第1列数据</returns>
         </member>
-        <member name="P:XCLNetTools.Entity.BookmarkEntity.Url">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteScalar(System.String,System.String,System.Data.CommandType,System.Data.SQLite.SQLiteParameter[])">
             <summary>
-            书签链接
+            执行数据库操作(新增、更新或删除)同时返回执行后查询所得的第1行第1列数据
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="commandText">执行语句或存储过程名</param>
+            <param name="commandType">执行类型</param>
+            <param name="cmdParms">SQL参数对象</param>
+            <returns>查询所得的第1行第1列数据</returns>
         </member>
-        <member name="T:XCLNetTools.Entity.SetOptionEntity">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteReader(System.String,System.Data.SQLite.SQLiteCommand)">
             <summary>
-            生成select的option时的选项
+            执行数据库查询，返回SqlDataReader对象
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="cmd">SqlCommand对象</param>
+            <returns>SqlDataReader对象</returns>
         </member>
-        <member name="P:XCLNetTools.Entity.SetOptionEntity.IsNeedPleaseSelect">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteReader(System.String,System.String,System.Data.CommandType)">
             <summary>
-            是否需要生成"请选择"的option
+            执行数据库查询，返回SqlDataReader对象
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="commandText">执行语句或存储过程名</param>
+            <param name="commandType">执行类型</param>
+            <returns>SqlDataReader对象</returns>
         </member>
-        <member name="P:XCLNetTools.Entity.SetOptionEntity.DefaultValue">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteReader(System.String,System.String,System.Data.CommandType,System.Data.SQLite.SQLiteParameter[])">
             <summary>
-            默认选中的项
+            执行数据库查询，返回SqlDataReader对象
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="commandText">执行语句或存储过程名</param>
+            <param name="commandType">执行类型</param>
+            <param name="cmdParms">SQL参数对象</param>
+            <returns>SqlDataReader对象</returns>
         </member>
-        <member name="T:XCLNetTools.Entity.PagerInfo">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteDataSet(System.String,System.Data.SQLite.SQLiteCommand)">
             <summary>
-            分页信息model
+            执行数据库查询，返回DataSet对象
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="cmd">SqlCommand对象</param>
+            <returns>DataSet对象</returns>
         </member>
-        <member name="M:XCLNetTools.Entity.PagerInfo.#ctor(System.Int32,System.Int32,System.Int32)">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteDataSet(System.String,System.String,System.Data.CommandType)">
             <summary>
-            分页信息 构造函数
+            执行数据库查询，返回DataSet对象
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="commandText">执行语句或存储过程名</param>
+            <param name="commandType">执行类型</param>
+            <returns>DataSet对象</returns>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.PageIndex">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.ExecuteDataSet(System.String,System.String,System.Data.CommandType,System.Data.SQLite.SQLiteParameter[])">
             <summary>
-            当前页码（第一页为1），默认为1
+            执行数据库查询，返回DataSet对象
             </summary>
+            <param name="connectionString">连接字符串</param>
+            <param name="commandText">执行语句或存储过程名</param>
+            <param name="commandType">执行类型</param>
+            <param name="cmdParms">SQL参数对象</param>
+            <returns>DataSet对象</returns>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.PageSize">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.SelectPaging(System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Int32@)">
             <summary>
-            每页最多显示的记录数，默认为10
+            通用分页查询方法
             </summary>
+            <param name="connString">连接字符串</param>
+            <param name="tableName">表名</param>
+            <param name="strColumns">查询字段名</param>
+            <param name="strWhere">where条件</param>
+            <param name="strOrder">排序条件</param>
+            <param name="pageSize">每页数据数量</param>
+            <param name="currentIndex">当前页数</param>
+            <param name="recordOut">数据总量</param>
+            <returns>DataTable数据表</returns>
         </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.RecordCount">
+        <member name="M:XCLNetTools.DataBase.SQLite.SQLiteHelper.PrepareCommand(System.Data.SQLite.SQLiteCommand,System.Data.SQLite.SQLiteConnection,System.Data.SQLite.SQLiteTransaction@,System.Boolean,System.Data.CommandType,System.String,System.Data.SQLite.SQLiteParameter[])">
             <summary>
-            当前记录总数
+            预处理Command对象,数据库链接,事务,需要执行的对象,参数等的初始化
             </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.PageCount">
-            <summary>
-            当前总页数
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.CurrentPageRecordCount">
-            <summary>
-            当前页的实际记录条数
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.StartIndex">
-            <summary>
-            当前页的第一条记录的序号
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.EndIndex">
-            <summary>
-            当前页的最后一条记录的序号
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.ControllerName">
-            <summary>
-            controller
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.PagerInfo.ActionName">
-            <summary>
-            action
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Entity.KeyValue">
-            <summary>
-            键值类
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.KeyValue.Key">
-            <summary>
-            键
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.KeyValue.Value">
-            <summary>
-            值
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Entity.StaticResourceConfig">
-            <summary>
-            静态文件配置
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResourceConfig.StaticResourceList">
-            <summary>
-            静态文件列表
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Entity.StaticResourceConfig.DeepClone">
-            <summary>
-            深度克隆
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Entity.StaticResource">
-            <summary>
-            静态资源model
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResource.Type">
-            <summary>
-            静态文件类型
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResource.Name">
-            <summary>
-            文件名
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResource.Src">
-            <summary>
-            路径
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResource.Version">
-            <summary>
-            版本号
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.StaticResource.Attr">
-            <summary>
-            自定义属性
-            </summary>
-        </member>
-        <member name="M:XCLNetTools.Entity.StaticResource.ToString">
-            <summary>
-            转字符串
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Entity.SubTime">
-            <summary>
-            时间差的类
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.SubTime.StartTime">
-            <summary>
-            开始时间
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.SubTime.EndTime">
-            <summary>
-            结束时间
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.SubTime.SumTime">
-            <summary>
-            时间差（小时）
-            </summary>
-        </member>
-        <member name="T:XCLNetTools.Entity.TextValue">
-            <summary>
-            键值类
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.TextValue.Text">
-            <summary>
-            键
-            </summary>
-        </member>
-        <member name="P:XCLNetTools.Entity.TextValue.Value">
-            <summary>
-            值
-            </summary>
+            <param name="cmd">Command对象</param>
+            <param name="conn">Connection对象</param>
+            <param name="trans">Transcation对象</param>
+            <param name="useTrans">是否使用事务</param>
+            <param name="cmdType">SQL字符串执行类型</param>
+            <param name="cmdText">SQL Text</param>
+            <param name="cmdParms">SQLiteParameters to use in the command</param>
         </member>
         <member name="T:XCLNetTools.DataBase.Access.AccessHelper">
             <summary>
@@ -1532,6 +1476,211 @@
             Redis帮助类
             </summary>
         </member>
+        <member name="T:XCLNetTools.Entity.BookmarkEntity">
+            <summary>
+            浏览器书签实体
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.ParentId">
+            <summary>
+            父id
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.IsFolder">
+            <summary>
+            是否为文件夹
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.Name">
+            <summary>
+            书签名称
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.IcoURL">
+            <summary>
+            ico图标地址
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.BookmarkEntity.Url">
+            <summary>
+            书签链接
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.SetOptionEntity">
+            <summary>
+            生成select的option时的选项
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.SetOptionEntity.IsNeedPleaseSelect">
+            <summary>
+            是否需要生成"请选择"的option
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.SetOptionEntity.DefaultValue">
+            <summary>
+            默认选中的项
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.PagerInfo">
+            <summary>
+            分页信息model
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Entity.PagerInfo.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            分页信息 构造函数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.PageIndex">
+            <summary>
+            当前页码（第一页为1），默认为1
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.PageSize">
+            <summary>
+            每页最多显示的记录数，默认为10
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.RecordCount">
+            <summary>
+            当前记录总数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.PageCount">
+            <summary>
+            当前总页数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.CurrentPageRecordCount">
+            <summary>
+            当前页的实际记录条数
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.StartIndex">
+            <summary>
+            当前页的第一条记录的序号
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.EndIndex">
+            <summary>
+            当前页的最后一条记录的序号
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.ControllerName">
+            <summary>
+            controller
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.PagerInfo.ActionName">
+            <summary>
+            action
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.KeyValue">
+            <summary>
+            键值类
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.KeyValue.Key">
+            <summary>
+            键
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.KeyValue.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.StaticResourceConfig">
+            <summary>
+            静态文件配置
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResourceConfig.StaticResourceList">
+            <summary>
+            静态文件列表
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Entity.StaticResourceConfig.DeepClone">
+            <summary>
+            深度克隆
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.StaticResource">
+            <summary>
+            静态资源model
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResource.Type">
+            <summary>
+            静态文件类型
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResource.Name">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResource.Src">
+            <summary>
+            路径
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResource.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.StaticResource.Attr">
+            <summary>
+            自定义属性
+            </summary>
+        </member>
+        <member name="M:XCLNetTools.Entity.StaticResource.ToString">
+            <summary>
+            转字符串
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.SubTime">
+            <summary>
+            时间差的类
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.SubTime.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.SubTime.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.SubTime.SumTime">
+            <summary>
+            时间差（小时）
+            </summary>
+        </member>
+        <member name="T:XCLNetTools.Entity.TextValue">
+            <summary>
+            键值类
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.TextValue.Text">
+            <summary>
+            键
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.TextValue.Value">
+            <summary>
+            值
+            </summary>
+        </member>
         <member name="T:XCLNetTools.DataHandler.DataToExcel">
             <summary>
             操作EXCEL导出数据报表的类
@@ -2256,6 +2405,15 @@
             为非英文字符串编码
             </summary>
         </member>
+        <member name="M:XCLNetTools.Encode.Hex.GetOrSetBlockFromHex(System.Int32,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            获取或更新16进制中的第几块区域中的值。比如：0xABC中，第一块为C，第二块为B，...
+            </summary>
+            <param name="blockIndex">序号</param>
+            <param name="source">被操作的数据</param>
+            <param name="newBlockValue">新值</param>
+            <returns>如果是获取，则返回获取到的值；如果是更新，则返回新的source值</returns>
+        </member>
         <member name="T:XCLNetTools.Encode.Unicode">
             <summary>
             Unicode相关
@@ -2711,15 +2869,12 @@
             <param name="path">文件路径(如果为绝对路径，则直接返回，否则，转为绝对路径)</param>
             <returns>文件物理路径</returns>
         </member>
-        <member name="M:XCLNetTools.FileHandler.ComFile.GetFileName(System.String)">
-            <summary>
-            获取文件名（包含扩展名）
-            </summary>
-        </member>
         <member name="M:XCLNetTools.FileHandler.ComFile.GetFileName(System.String,System.Boolean)">
             <summary>
             获取文件名
             </summary>
+            <param name="fileName">路径（相对或绝对均可）</param>
+            <param name="isWithExt">是否包含扩展名</param>
         </member>
         <member name="M:XCLNetTools.FileHandler.ComFile.GetRandomFileName(System.String)">
              <summary>
@@ -2738,6 +2893,12 @@
             <summary>
             ÎÄ¼þÄ¿Â¼²Ù×÷Àà
             </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.IsEmpty(System.String)">
+            <summary>
+            ¼ì²âÄ¿Â¼ÊÇ·ñÎª¿ÕÄ¿Â¼
+            </summary>
+            <param name="path">Ä¿Â¼Â·¾¶</param>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.DirectoryExists(System.String)">
             <summary>
@@ -4326,7 +4487,7 @@
         </member>
         <member name="P:XCLNetTools.StringHander.Common.RootUri">
             <summary>
-            网站根Uri，如:"http://www.xcl.com:2156/ or http://www.xcl.com:2156/VirtualWeb/"
+            网站根Uri，如:"//www.xcl.com:2156/ or //www.xcl.com:2156/VirtualWeb/"
             注：末尾带'/'
             </summary>
         </member>

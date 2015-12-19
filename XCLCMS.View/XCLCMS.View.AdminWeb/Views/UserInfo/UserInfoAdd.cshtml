@@ -14,7 +14,7 @@
                     <td class="XCLTitle" style="width: 10%">@Html.Raw(ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD?@"<span class=""XCLRedBolder"">*</span>":"")用户名：</td>
                     <td style="width: 25%">
                         @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
-                        { 
+                        {
                             <input type="text" id="txtUserName" name="txtUserName" value="@Model.UserInfo.UserName" />
                             <br />
                             <div class="XCLNote" style="width:150px;">提交后，将不能修改！</div>
@@ -46,7 +46,6 @@
                             {
                                 @:若不填写，则不会修改原密码！
                             }
-                            
                         </span>
                     </td>
                     <td class="XCLTitle">重复密码：</td>
@@ -56,7 +55,7 @@
                     <td class="XCLTitle"><span class="XCLRedBolder">*</span>性别：</td>
                     <td>
                         <select id="selSexType" name="selSexType">
-                            @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum), new XCLNetTools.Entity.SetOptionEntity() { 
+                            @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum), new XCLNetTools.Entity.SetOptionEntity() {
                                 DefaultValue=Model.UserInfo.SexType
                             }))
                         </select>
@@ -69,7 +68,7 @@
                     </td>
                     <td class="XCLTitle">年龄：</td>
                     <td>
-                        <input type="text" id="txtAge" name="txtAge" class="easyui-numberbox" value="@Model.UserInfo.Age"  style="height:25px;"/>
+                        <input type="text" id="txtAge" name="txtAge" class="easyui-numberbox" value="@Model.UserInfo.Age"  style="height:25px;" />
                     </td>
                     <td class="XCLTitle">手机号：</td>
                     <td>
@@ -98,10 +97,10 @@
                     <td class="XCLTitle"><span class="XCLRedBolder">*</span>用户状态：</td>
                     <td>
                         <select id="selUserState" name="selUserState">
-                            @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserStateEnum), new XCLNetTools.Entity.SetOptionEntity() { 
+                            @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserStateEnum), new XCLNetTools.Entity.SetOptionEntity() {
                                 DefaultValue=Model.UserInfo.UserState
                             }))
-                        </select>                        
+                        </select>
                     </td>
                     <td class="XCLTitle">记录状态：</td>
                     <td>
@@ -135,7 +134,6 @@
                 </table>
             </div>
         }
-
 
         <div class="XCLHandBar">
             <a href="@XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>

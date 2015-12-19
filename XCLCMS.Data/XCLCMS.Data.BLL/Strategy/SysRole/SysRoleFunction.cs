@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XCLCMS.Data.BLL.Strategy.SysRole
 {
     /// <summary>
     /// 保存角色功能信息
     /// </summary>
-    public class SysRoleFunction:BaseStrategy
+    public class SysRoleFunction : BaseStrategy
     {
         /// <summary>
         /// 构造函数
@@ -25,7 +21,7 @@ namespace XCLCMS.Data.BLL.Strategy.SysRole
         public override void DoWork<T>(T context)
         {
             var sysRoleContext = context as XCLCMS.Data.BLL.Strategy.SysRole.SysRoleContext;
-            
+
             XCLCMS.Data.BLL.SysRoleFunction bll = new XCLCMS.Data.BLL.SysRoleFunction();
 
             XCLCMS.Data.Model.SysRoleFunction model = new XCLCMS.Data.Model.SysRoleFunction();

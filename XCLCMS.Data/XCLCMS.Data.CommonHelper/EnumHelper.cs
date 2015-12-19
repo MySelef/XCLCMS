@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace XCLCMS.Data.CommonHelper
 {
@@ -16,7 +14,8 @@ namespace XCLCMS.Data.CommonHelper
         /// 将(XCLCMS.Data.CommonHelper.EnumType)类中的所有枚举以json形式显示
         /// 如：{"Enum1":{"N":"正常","D":"已删除"},"Enum2":{"S":"系统","U":"用户"}}
         /// </summary>
-        public static readonly string GetAllEnumJson = new Func<string>(() => {
+        public static readonly string GetAllEnumJson = new Func<string>(() =>
+        {
             StringBuilder str = new StringBuilder();
             Type t = typeof(XCLCMS.Data.CommonHelper.EnumType);
             var ms = t.GetNestedTypes();

@@ -1,13 +1,12 @@
-﻿define(["Lib/Common","Lib/EasyUI"], function (common,easyUI) {
+﻿define(["Lib/Common", "Lib/EasyUI"], function (common, easyUI) {
     var app = {};
     app.SysFunctionList = {
-
         /**
          * 界面元素
          */
         Elements: {
             //tree右键菜单
-            menu_SysFunction:null,
+            menu_SysFunction: null,
             //tree右键菜单_刷新节点
             menu_SysFunction_refresh: null,
             //tree右键菜单_添加节点
@@ -17,7 +16,7 @@
             //tree右键菜单_删除节点
             menu_SysFunction_del: null,
             //tree右键菜单_清空子节点
-            menu_SysFunction_delSub:null,
+            menu_SysFunction_delSub: null,
             Init: function () {
                 this.menu_SysFunction = $("#menu_SysFunction");
                 this.menu_SysFunction_refresh = $("#menu_SysFunction_refresh");
@@ -58,7 +57,7 @@
                     { field: 'ParentID', title: '父ID', width: '5%' },
                     { field: 'FunctionName', title: '功能名', width: '20%' },
                     { field: 'Code', title: '功能标识', width: '20%' },
-                    { field: 'Remark', title: '备注', width: '10%'},
+                    { field: 'Remark', title: '备注', width: '10%' },
                     { field: 'RecordState', title: '记录状态', formatter: easyUI.EnumToDescription, width: '5%' },
                     { field: 'CreateTime', title: '创建时间', width: '10%' },
                     { field: 'CreaterName', title: '创建者名', width: '5%' },
@@ -72,7 +71,7 @@
                     _this.Elements.menu_SysFunction_delSub.show();
 
                     if (row.ParentID == 0) {
-                        //根节点隐藏部分菜单 
+                        //根节点隐藏部分菜单
                         _this.Elements.menu_SysFunction_del.hide();
                         _this.Elements.menu_SysFunction_edit.hide();
                     }
@@ -110,7 +109,6 @@
             _this.Elements.menu_SysFunction_delSub.on("click", function () {
                 _this.Clear();
             });
-
         },
         /**
          * 获取已选择的行对象数组
@@ -212,11 +210,6 @@
             this.TreeObj.treegrid("reload");
         }
     };
-
-
-
-
-
 
     app.SysFunctionAdd = {
         Init: function () {

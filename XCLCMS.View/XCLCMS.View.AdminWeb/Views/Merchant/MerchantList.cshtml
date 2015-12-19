@@ -5,7 +5,6 @@
 
 <form>
 
-
 <div class="XCLPanel" style="margin-top:5px;">
     <div class="XCLPanelHeader">
         @if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAdd)){
@@ -17,7 +16,7 @@
         }
         @if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantDel))
         {
-            <a href="javascript:void(0);" id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除</a>         
+            <a href="javascript:void(0);" id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除</a>
         }
     </div>
     <div class="XCLPanelBody">
@@ -89,7 +88,7 @@
                     }
                 }
                 else
-                { 
+                {
                     <tr>
                         <td colspan="100" align="center">
                             暂无数据！
@@ -97,14 +96,11 @@
                     </tr>
                 }
             }
-
-        </table>           
+        </table>
 
         @Html.Partial("~/Views/UserControl/XCLPager.cshtml", Model.PagerModel)
-
     </div>
 </div>
-
 </form>
 
 <script type="text/javascript">

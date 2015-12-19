@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
@@ -11,7 +9,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
     /// </summary>
     public class SysFunctionController : BaseController
     {
-        [XCLCMS.Lib.Filters.FunctionFilter(Function=XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView)]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView)]
         public ActionResult Index()
         {
             return View("~/Views/SysFunction/SysFunctionList.cshtml");
@@ -37,6 +35,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
                     viewModel.SysFunctionID = -1;
                     viewModel.FormAction = Url.Action("AddSubmit", "SysFunction");
                     break;
+
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     viewModel.SysFunction = bll.GetModel(sysFunctionID);
                     viewModel.ParentID = viewModel.SysFunction.ParentID;
@@ -73,7 +72,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
             viewModel.ParentID = XCLNetTools.StringHander.Common.GetLong(fm["ParentID"]);
             viewModel.SysFunction.Code = (fm["txtCode"] ?? "").Trim();
             viewModel.SysFunction.FunctionName = (fm["txtFunctionName"] ?? "").Trim();
-            viewModel.SysFunction.Remark= (fm["txtRemark"] ?? "").Trim();
+            viewModel.SysFunction.Remark = (fm["txtRemark"] ?? "").Trim();
             return viewModel;
         }
 

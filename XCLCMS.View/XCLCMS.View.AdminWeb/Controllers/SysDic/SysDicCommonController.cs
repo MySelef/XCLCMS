@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XCLNetTools.Generic;
 
@@ -29,7 +28,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             XCLCMS.Data.Model.SysDic model = null;
             if (sysDicID > 0)
             {
-                model= bll.GetModel(sysDicID);
+                model = bll.GetModel(sysDicID);
                 if (null != model)
                 {
                     if (string.Equals(code, model.Code, StringComparison.OrdinalIgnoreCase))
@@ -148,8 +147,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                         }
                     });
 
-                    getChildAction(tree.Find(k=>k.ID==current.SysDicID.ToString()));
-
+                    getChildAction(tree.Find(k => k.ID == current.SysDicID.ToString()));
                 }
             }
             return XCLNetTools.Serialize.JSON.Serialize(tree, XCLNetTools.Serialize.JSON.JsonProviderEnum.Newtonsoft);

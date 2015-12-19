@@ -18,7 +18,7 @@
         container: ".dynamicCon", //最外层的容器class
         temp: ".temp", //模板层class
         items: ".items", //具体行class
-        minCount: 1, //具体行的最小数量 
+        minCount: 1, //具体行的最小数量
         maxCount: 50, //具体行的最大数量
         addBtn: ".addBtn", //添加按钮class
         delBtn: ".delBtn", //删除按钮class
@@ -75,7 +75,6 @@
                 };
                 updateLineNumber();
 
-
                 //添加行事件 （先移除绑定的事件，主要是避免使用js模板等插件动态生成内容时，重复绑定问题。）
                 $con.off("click", options.addBtn).on("click", options.addBtn, function () {
                     if (!options.beforeAddOrDel.call(this, _this.DynamicCon.HandleTypeEnum.Add)) return false;
@@ -107,7 +106,6 @@
 
                     options.afterAddOrDel.call(this, _this.DynamicCon.HandleTypeEnum.Del);
                 });
-
             });
         }
     });
@@ -128,5 +126,4 @@
     $.DynamicCon.GetOptions = function (container) {
         return _optionsObject[container || defaults.container] || null;
     };
-
 })(jQuery);

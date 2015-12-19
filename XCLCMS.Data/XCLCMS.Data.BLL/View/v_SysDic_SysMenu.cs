@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Collections.Generic;
-using XCLCMS.Data.Model;
+
 namespace XCLCMS.Data.BLL.View
 {
     /// <summary>
@@ -10,15 +9,17 @@ namespace XCLCMS.Data.BLL.View
     public partial class v_SysDic_SysMenu
     {
         private readonly XCLCMS.Data.DAL.View.v_SysDic_SysMenu dal = new XCLCMS.Data.DAL.View.v_SysDic_SysMenu();
+
         public v_SysDic_SysMenu()
         { }
-        #region  BasicMethod
+
+        #region BasicMethod
+
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
         public XCLCMS.Data.Model.View.v_SysDic_SysMenu GetModel(long SysDicID)
         {
-
             return dal.GetModel(SysDicID);
         }
 
@@ -38,6 +39,7 @@ namespace XCLCMS.Data.BLL.View
             DataSet ds = dal.GetList(strWhere);
             return DataTableToList(ds.Tables[0]);
         }
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -68,11 +70,6 @@ namespace XCLCMS.Data.BLL.View
             return GetList("");
         }
 
-
-        #endregion  BasicMethod
-        #region  ExtensionMethod
-
-        #endregion  ExtensionMethod
+        #endregion BasicMethod
     }
 }
-

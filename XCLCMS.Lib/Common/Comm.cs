@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace XCLCMS.Lib.Common
 {
@@ -13,6 +8,7 @@ namespace XCLCMS.Lib.Common
     public class Comm
     {
         #region 页面操作
+
         /// <summary>
         /// 页面操作类型
         /// </summary>
@@ -22,30 +18,37 @@ namespace XCLCMS.Lib.Common
             /// 添加
             /// </summary>
             ADD,
+
             /// <summary>
             /// 删除
             /// </summary>
             DEL,
+
             /// <summary>
             /// 更新
             /// </summary>
             UPDATE,
+
             /// <summary>
             /// 导入
             /// </summary>
             INPUT,
+
             /// <summary>
             /// 导出
             /// </summary>
             OUTPUT,
+
             /// <summary>
             /// 其它
             /// </summary>
             OTHER
         }
-        #endregion
+
+        #endregion 页面操作
 
         #region 缓存相关
+
         /// <summary>
         /// 站点配置信息缓存
         /// </summary>
@@ -58,9 +61,11 @@ namespace XCLCMS.Lib.Common
         {
             XCLNetTools.Cache.CacheClass.Clear(XCLCMS.Lib.Common.Comm.SettingCacheName);
         }
-        #endregion
+
+        #endregion 缓存相关
 
         #region 其它
+
         /// <summary>
         /// 重写json
         /// </summary>
@@ -68,6 +73,7 @@ namespace XCLCMS.Lib.Common
         {
             return new XCLCMS.Lib.Common.XCLJsonResult() { Data = data, JsonRequestBehavior = jsonRequestBehavior };
         }
-        #endregion
+
+        #endregion 其它
     }
 }

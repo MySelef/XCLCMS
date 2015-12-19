@@ -164,7 +164,6 @@
     });
   }
 
-
   Readmore.prototype = {
     init: function() {
       var $this = this;
@@ -285,7 +284,6 @@
     }
   };
 
-
   $.fn.readmore = function(options) {
     var args = arguments,
         selector = this.selector;
@@ -313,6 +311,4 @@
       });
     }
   };
-
 })(jQuery);
-

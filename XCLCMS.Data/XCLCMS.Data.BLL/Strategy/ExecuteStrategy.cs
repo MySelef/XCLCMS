@@ -7,6 +7,10 @@ namespace XCLCMS.Data.BLL.Strategy
     /// </summary>
     public class ExecuteStrategy
     {
+        private ExecuteStrategy()
+        {
+        }
+
         /// <summary>
         /// 构造函数
         /// </summary>

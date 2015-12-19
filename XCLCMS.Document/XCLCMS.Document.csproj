@@ -40,9 +40,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="数据库文档\DB\XCLCMS.bak" />
-    <None Include="Libs\Newtonsoft.Json.6.0.6\Newtonsoft.Json.6.0.6.nupkg" />
-    <None Include="Libs\Newtonsoft.Json.6.0.6\Newtonsoft.Json.6.0.6.nuspec" />
-    <None Include="Libs\Newtonsoft.Json.6.0.6\tools\install.ps1" />
     <None Include="后台登录图片.psd" />
     <None Include="数据库文档\XCLCMS.chm" />
     <None Include="数据库文档\数据库说明.docx" />
@@ -59,23 +56,7 @@
     <Content Include="Libs\HtmlAgilityPack\Net40\HtmlAgilityPack.dll" />
     <Content Include="Libs\HtmlAgilityPack\Net40\HtmlAgilityPack.pdb" />
     <Content Include="Libs\HtmlAgilityPack\Net40\HtmlAgilityPack.XML" />
-    <Content Include="Libs\LitJson.dll" />
-    <Content Include="Libs\log4net.dll" />
     <Content Include="Libs\MvcPager\MvcPager.dll" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net20\Newtonsoft.Json.dll" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net20\Newtonsoft.Json.xml" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net35\Newtonsoft.Json.dll" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net35\Newtonsoft.Json.xml" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net40\Newtonsoft.Json.dll" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net40\Newtonsoft.Json.xml" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.xml" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\netcore45\Newtonsoft.Json.dll" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\netcore45\Newtonsoft.Json.xml" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.xml" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.dll" />
-    <Content Include="Libs\Newtonsoft.Json.6.0.6\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.xml" />
     <Content Include="Libs\ProjectLibs\XCLCMS.Data.BLL.dll" />
     <Content Include="Libs\ProjectLibs\XCLCMS.Data.BLL.XML" />
     <Content Include="Libs\ProjectLibs\XCLCMS.Data.CommonHelper.dll" />

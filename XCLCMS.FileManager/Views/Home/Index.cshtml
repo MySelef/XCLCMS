@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "~/Views/Layout/Main.cshtml";
+}
+<ol class="breadcrumb">
+    <li>当前路径：</li>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+</ol>
+
+<button type="button" class="btn btn-success">刷新列表</button>
+<button type="button" class="btn btn-primary">新建目录</button>
+<button type="button" class="btn btn-danger">删除文件</button>
+
+<hr />
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" />
+            </th>
+            <th>序号</th>
+            <th>文件名</th>
+            <th>大小</th>
+            <th>类型</th>
+            <th>创建时间</th>
+            <th>修改时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                <input type="checkbox" />
+            </th>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>
+                <input type="checkbox" />
+            </th>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>fat</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>
+                <input type="checkbox" />
+            </th>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>twitter</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

@@ -64,6 +64,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="XCLNetTools">
+      <HintPath>..\XCLCMS.Document\Libs\XCLNetTools.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -90,6 +93,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Resources\Js\Angularjs\angular.min.js" />
+    <Content Include="Resources\Js\App.js" />
     <Content Include="Resources\Js\artDialog\artDialog.js" />
     <Content Include="Resources\Js\artDialog\artDialog.source.js" />
     <Content Include="Resources\Js\artDialog\plugins\iframeTools.js" />
@@ -158,6 +163,8 @@
     <Content Include="Resources\Js\plupload\plupload.min.js" />
     <Content Include="Resources\Js\Validate\jquery.validate.js" />
     <Content Include="Resources\Js\Validate\XCLValidatorMethod.js" />
+    <Content Include="Resources\Js\XGoAjax.js" />
+    <Content Include="Resources\Js\XGoAjaxTemplate.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

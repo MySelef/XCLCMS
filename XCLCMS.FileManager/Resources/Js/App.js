@@ -2,13 +2,7 @@
 
     var lib = {};
 
-    lib.Home = {};
-    lib.Home.Init = function () {
-        $.XGoAjax({
-            id:"getFileList",
-            ajax: { url: AppConfig.RootUrl + "Home/GetFileList" }
-        });
-    };
+
 
 
 

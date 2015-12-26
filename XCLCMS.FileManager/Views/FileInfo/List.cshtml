@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "~/Views/Layout/Main.cshtml";
+    ViewBag.NgModule = "ngFileInfo";
+}
+@model XCLCMS.FileManager.Models.FileInfo.ListVM
+
+<div ng-controller="fileInfoList">
+
+    <ol class="breadcrumb">
+        <li>当前路径：</li>
+        <li>@Model.RootFolder</li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Library</a></li>
+        <li class="active">Data</li>
+    </ol>
+
+    <button type="button" class="btn btn-success" ng-click="initList()">刷新列表</button>
+    <button type="button" class="btn btn-primary">新建目录</button>
+    <button type="button" class="btn btn-danger">删除文件</button>
+
+    <hr />
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" ng-click="checkAll()" />
+                </th>
+                <th>ID</th>
+                <th>文件名</th>
+                <th>扩展名</th>
+                <th>大小</th>
+                <th>修改时间</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr ng-repeat="m in data">
+                <th>
+                    <input type="checkbox" value="{{m.ID}}" ng-click="checkItem()" />
+                </th>
+                <th scope="row">{{m.ID}}</th>
+                <td>
+                    <span class="glyphicon glyphicon-folder-open" ng-if="m.IsFolder"></span>
+                    {{m.Name}}
+                </td>
+                <td>{{m.ExtName}}</td>
+                <td>{{m.Size}}</td>
+                <td>{{m.ModifyTime}}</td>
+                <td>{{m.CreateTime}}</td>
+                <td>
+                    <button>修改</button>
+                    <button>删除</button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+
+</div>

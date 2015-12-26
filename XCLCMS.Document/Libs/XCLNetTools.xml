@@ -1511,6 +1511,51 @@
             书签链接
             </summary>
         </member>
+        <member name="T:XCLNetTools.Entity.FileInfoEntity">
+            <summary>
+            文件信息实体
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.FileInfoEntity.ID">
+            <summary>
+            标识ID
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.FileInfoEntity.IsFolder">
+            <summary>
+            是否为文件夹
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.FileInfoEntity.Name">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.FileInfoEntity.ExtName">
+            <summary>
+            扩展名（不含小圆点）
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.FileInfoEntity.Path">
+            <summary>
+            物理路径
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.FileInfoEntity.Size">
+            <summary>
+            大小(byte)
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.FileInfoEntity.ModifyTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.FileInfoEntity.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Entity.SetOptionEntity">
             <summary>
             生成select的option时的选项
@@ -2891,83 +2936,89 @@
         </member>
         <member name="T:XCLNetTools.FileHandler.FileDirectory">
             <summary>
-            ÎÄ¼þÄ¿Â¼²Ù×÷Àà
+            文件目录操作类
             </summary>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.IsEmpty(System.String)">
             <summary>
-            ¼ì²âÄ¿Â¼ÊÇ·ñÎª¿ÕÄ¿Â¼
+            检测目录是否为空目录（既没有文件夹，也没有文件）
             </summary>
-            <param name="path">Ä¿Â¼Â·¾¶</param>
+            <param name="path">目录路径</param>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.DirectoryExists(System.String)">
             <summary>
-            ÅÐ¶ÏÄ¿Â¼ÊÇ·ñ´æÔÚ
+            判断目录是否存在
             </summary>
-            <param name="directoryName">Ä¿Â¼Â·¾¶</param>
-            <returns>true£º´æÔÚ£¬false£º²»´æÔÚ</returns>
+            <param name="directoryName">目录路径</param>
+            <returns>true：存在，false：不存在</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.MakeDirectory(System.String)">
             <summary>
-            ½¨Á¢Ä¿Â¼
+            建立目录
             </summary>
-            <param name="directoryName">Ä¿Â¼Ãû</param>
-            <returns>·µ»Øboolean,true:Ä¿Â¼½¨Á¢³É¹¦, false:Ä¿Â¼½¨Á¢Ê§°Ü</returns>
+            <param name="directoryName">目录名</param>
+            <returns>返回boolean,true:目录建立成功, false:目录建立失败</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.RMDIR(System.String)">
             <summary>
-            É¾³ýÖ¸¶¨µÄÄ¿Â¼
+            删除指定的目录
             </summary>
-            <param name="directoryName">Ä¿Â¼Ãû</param>
-            <returns>true£ºÉ¾³ý³É¹¦£¬false£ºÉ¾³ýÊ§°Ü</returns>
+            <param name="directoryName">目录名</param>
+            <returns>true：删除成功，false：删除失败</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.DelTree(System.String)">
             <summary>
-            É¾³ýÄ¿Â¼²¢É¾³ýÆäÏÂµÄ×ÓÄ¿Â¼¼°ÆäÎÄ¼þ
+            删除目录并删除其下的子目录及其文件
             </summary>
-            <param name="directoryName">Ä¿Â¼Ãû</param>
-            <returns>true:É¾³ý³É¹¦,false:É¾³ýÊ§°Ü</returns>
+            <param name="directoryName">目录名</param>
+            <returns>true:删除成功,false:删除失败</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.ClearDirectory(System.String)">
             <summary>
-            Çå¿ÕÖ¸¶¨Ä¿Â¼
+            清空指定目录
             </summary>
+        </member>
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.GetFileList(System.String)">
+            <summary>
+            获取指定目录下的所有文件及文件夹信息
+            </summary>
+            <param name="dirPath">目录路径</param>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.CreateTextFile(System.String)">
             <summary>
-            ½¨Á¢Ò»¸öÎÄ¼þ
+            建立一个文件
             </summary>
-            <param name="filePathName">Ä¿Â¼Ãû</param>
-            <returns>true:½¨Á¢³É¹¦,false:½¨Á¢Ê§°Ü</returns>
+            <param name="filePathName">目录名</param>
+            <returns>true:建立成功,false:建立失败</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.AppendText(System.String,System.String)">
             <summary>
-            ÔÚÎÄ¼þÀï×·¼ÓÄÚÈÝ
+            在文件里追加内容
             </summary>
-            <param name="filePathName">ÎÄ¼þÃû</param>
-            <param name="writeWord">×·¼ÓÄÚÈÝ</param>
+            <param name="filePathName">文件名</param>
+            <param name="writeWord">追加内容</param>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.AppendText(System.String,System.String,System.Text.Encoding)">
             <summary>
-            ÔÚÎÄ¼þÀï×·¼ÓÄÚÈÝ
+            在文件里追加内容
             </summary>
-            <param name="filePathName">ÎÄ¼þÃû</param>
-            <param name="writeWord">×·¼ÓÄÚÈÝ</param>
-            <param name="encode">±àÂë</param>
+            <param name="filePathName">文件名</param>
+            <param name="writeWord">追加内容</param>
+            <param name="encode">编码</param>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.ReadFileData(System.String)">
             <summary>
-            ¶ÁÈ¡ÎÄ¼þÀïÄÚÈÝ
+            读取文件里内容
             </summary>
-            <param name="filePathName">ÎÄ¼þÃû</param>
-            <returns>ÎÄ¼þÄÚÈÝ</returns>
+            <param name="filePathName">文件名</param>
+            <returns>文件内容</returns>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.FileDelete(System.String)">
             <summary>
-            É¾³ýÎÄ¼þ
+            删除文件
             </summary>
-            <param name="absoluteFilePath">ÎÄ¼þ¾ø¶ÔµØÖ·</param>
-            <returns>true:É¾³ýÎÄ¼þ³É¹¦,false:É¾³ýÎÄ¼þÊ§°Ü</returns>
+            <param name="absoluteFilePath">文件绝对地址</param>
+            <returns>true:删除文件成功,false:删除文件失败</returns>
         </member>
         <member name="T:XCLNetTools.FileHandler.UploadEventArgs">
             <summary>

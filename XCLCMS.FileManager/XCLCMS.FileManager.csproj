@@ -48,6 +48,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\XCLCMS.Document\Libs\EnterpriseLibrary\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\XCLCMS.Document\Libs\EnterpriseLibrary\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -64,6 +71,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="XCLCMS.Lib">
+      <HintPath>..\XCLCMS.Document\Libs\ProjectLibs\XCLCMS.Lib.dll</HintPath>
+    </Reference>
     <Reference Include="XCLNetTools">
       <HintPath>..\XCLCMS.Document\Libs\XCLNetTools.dll</HintPath>
     </Reference>
@@ -137,6 +147,7 @@
     <Content Include="Resources\Js\Jcrop\js\jquery.Jcrop.js" />
     <Content Include="Resources\Js\Jquery\jquery-1.11.2.js" />
     <Content Include="Resources\Js\Jquery\jquery.color.js" />
+    <Content Include="Resources\Js\ng\FileInfoController.js" />
     <Content Include="Resources\Js\plupload\i18n\zh_CN.js" />
     <Content Include="Resources\Js\plupload\jquery.plupload.queue\css\jquery.plupload.queue.css" />
     <Content Include="Resources\Js\plupload\jquery.plupload.queue\img\backgrounds.gif" />
@@ -169,11 +180,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\WebCommon.cs" />
+    <Compile Include="Controllers\FileInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FileInfo\ListVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,11 +199,13 @@
     <Content Include="Resources\Js\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Resources\Js\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Resources\Js\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\FileInfo\List.cshtml" />
     <Content Include="Views\Layout\Header.cshtml" />
     <Content Include="Views\Layout\Footer.cshtml" />
     <Content Include="Views\Layout\Main.cshtml" />
     <Content Include="Views\Upload\Index.cshtml" />
+    <Content Include="Config\AppSettings.config" />
+    <Content Include="Config\ConnectionStrings.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -198,8 +214,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Upload\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

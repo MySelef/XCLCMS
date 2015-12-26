@@ -11,22 +11,7 @@ namespace XCLCMS.FileManager.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public JsonResult GetFileList()
-        {
-            XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
-
-            string[] files=XCLNetTools.FileHandler.ComFile.GetFolderFiles("~/");
-
-
-            string[] directories= System.IO.Directory.EnumerateDirectories(Server.MapPath("~/")).ToArray();
-
-
-            msg.CustomObject = files.Concat(directories);
-
-            return Json(msg, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("List", "FileInfo");
         }
     }
 }

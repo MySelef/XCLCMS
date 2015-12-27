@@ -1536,9 +1536,19 @@
             扩展名（不含小圆点）
             </summary>
         </member>
+        <member name="P:XCLNetTools.Entity.FileInfoEntity.RootPath">
+            <summary>
+            根物理路径
+            </summary>
+        </member>
         <member name="P:XCLNetTools.Entity.FileInfoEntity.Path">
             <summary>
-            物理路径
+            该文件或文件夹的物理路径
+            </summary>
+        </member>
+        <member name="P:XCLNetTools.Entity.FileInfoEntity.RelativePath">
+            <summary>
+            该文件或文件夹相对于RootPath的相对路径
             </summary>
         </member>
         <member name="P:XCLNetTools.Entity.FileInfoEntity.Size">
@@ -2914,6 +2924,17 @@
             <param name="path">文件路径(如果为绝对路径，则直接返回，否则，转为绝对路径)</param>
             <returns>文件物理路径</returns>
         </member>
+        <member name="M:XCLNetTools.FileHandler.ComFile.GetUrlRelativePath(System.String,System.String)">
+            <summary>
+            根据指定文件的物理路径Path，将它转换为相对于RootPath的Url相对路径
+            例如：
+            GetUrlRelativePath("C:\Program Files\Information\","C:\Program Files\Information\A\B\C.txt")=>"A/B/C.txt"
+            GetUrlRelativePath("C:\Program Files\Information\","C:\A\B\C.txt")=>"../../A/B/C.txt"
+            </summary>
+            <param name="rootPath">根物理路径</param>
+            <param name="path">指定要转换的物理路径</param>
+            <returns>path相对于rootPath的url路径</returns>
+        </member>
         <member name="M:XCLNetTools.FileHandler.ComFile.GetFileName(System.String,System.Boolean)">
             <summary>
             获取文件名
@@ -2978,11 +2999,12 @@
             清空指定目录
             </summary>
         </member>
-        <member name="M:XCLNetTools.FileHandler.FileDirectory.GetFileList(System.String)">
+        <member name="M:XCLNetTools.FileHandler.FileDirectory.GetFileList(System.String,System.String)">
             <summary>
             获取指定目录下的所有文件及文件夹信息
             </summary>
-            <param name="dirPath">目录路径</param>
+            <param name="dirPath">要获取信息的目录路径</param>
+            <param name="rootPath">根路径（设置该值后，返回的信息实体中将包含相对于该根路径的相对路径信息）</param>
         </member>
         <member name="M:XCLNetTools.FileHandler.FileDirectory.CreateTextFile(System.String)">
             <summary>
@@ -3730,7 +3752,7 @@
         </member>
         <member name="P:XCLNetTools.MVC.JsonResultFormat.DateFormat">
             <summary>
-            格式化时间，如"yyyy-MM-dd HH:mm:ss"
+            格式化时间，默认值为"yyyy-MM-dd HH:mm:ss"
             </summary>
         </member>
         <member name="M:XCLNetTools.MVC.JsonResultFormat.ExecuteResult(System.Web.Mvc.ControllerContext)">

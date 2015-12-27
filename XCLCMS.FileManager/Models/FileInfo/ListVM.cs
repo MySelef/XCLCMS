@@ -9,8 +9,13 @@ namespace XCLCMS.FileManager.Models.FileInfo
     public class ListVM
     {
         /// <summary>
-        /// 根目录文件夹
+        /// 当前目录
         /// </summary>
-        public string RootFolder { get; set; }
+        public string CurrentDirectory { get; set; }
+
+        /// <summary>
+        /// 目录导航
+        /// </summary>
+        public List<XCLNetTools.Entity.TextValue> DirectoryNavigation { get; set; }
     }
 }

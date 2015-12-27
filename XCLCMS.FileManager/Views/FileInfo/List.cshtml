@@ -4,61 +4,73 @@
 }
 @model XCLCMS.FileManager.Models.FileInfo.ListVM
 
-<div ng-controller="fileInfoList">
+<form>
+    <input type="hidden" name="dir" value="@Model.CurrentDirectory" />
 
-    <ol class="breadcrumb">
-        <li>当前路径：</li>
-        <li>@Model.RootFolder</li>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Library</a></li>
-        <li class="active">Data</li>
-    </ol>
+    <div ng-controller="fileInfoList">
 
-    <button type="button" class="btn btn-success" ng-click="initList()">刷新列表</button>
-    <button type="button" class="btn btn-primary">新建目录</button>
-    <button type="button" class="btn btn-danger">删除文件</button>
+        <ol class="breadcrumb">
+            <li>当前路径：</li>
+            <li><a href="@Url.Action("List","FileInfo")">@XCLCMS.FileManager.Common.WebCommon.RootUploadFolder</a></li>
+            @if (null != Model.DirectoryNavigation && Model.DirectoryNavigation.Count > 0) {
+                foreach (var m in Model.DirectoryNavigation)
+                {
+                    <li><a href="@Url.Action("List","FileInfo")?dir=@m.Value">@m.Text</a></li>
+                }
+            }
+        </ol>
 
-    <hr />
+        <button type="button" class="btn btn-success" ng-click="initList()">刷新列表</button>
+        <button type="button" class="btn btn-primary">新建目录</button>
+        <button type="button" class="btn btn-danger">删除文件</button>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>
-                    <input type="checkbox" ng-click="checkAll()" />
-                </th>
-                <th>ID</th>
-                <th>文件名</th>
-                <th>扩展名</th>
-                <th>大小</th>
-                <th>修改时间</th>
-                <th>创建时间</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
+        <hr />
 
-            <tr ng-repeat="m in data">
-                <th>
-                    <input type="checkbox" value="{{m.ID}}" ng-click="checkItem()" />
-                </th>
-                <th scope="row">{{m.ID}}</th>
-                <td>
-                    <span class="glyphicon glyphicon-folder-open" ng-if="m.IsFolder"></span>
-                    {{m.Name}}
-                </td>
-                <td>{{m.ExtName}}</td>
-                <td>{{m.Size}}</td>
-                <td>{{m.ModifyTime}}</td>
-                <td>{{m.CreateTime}}</td>
-                <td>
-                    <button>修改</button>
-                    <button>删除</button>
-                </td>
-            </tr>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" ng-click="checkAll()" />
+                    </th>
+                    <th>ID</th>
+                    <th>文件名</th>
+                    <th>扩展名</th>
+                    <th>大小</th>
+                    <th>修改时间</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
 
-        </tbody>
-    </table>
+                <tr ng-repeat="m in data">
+                    <th>
+                        <input type="checkbox" value="{{m.ID}}" ng-click="checkItem()" />
+                    </th>
+                    <th scope="row">{{m.ID}}</th>
+                    <td>
+                        <a href="@Url.Action("List","FileInfo")?dir=@Model.CurrentDirectory{{m.Name}}" ng-if="m.IsFolder">
+                            <span class="glyphicon glyphicon-folder-open"></span>
+                            {{m.Name}}
+                        </a>
+
+                        <span ng-if="!m.IsFolder">{{m.Name}}</span>
+
+                    </td>
+                    <td>{{m.ExtName}}</td>
+                    <td>{{m.Size}}</td>
+                    <td>{{m.ModifyTime}}</td>
+                    <td>{{m.CreateTime}}</td>
+                    <td>
+                        <button>修改</button>
+                        <button>删除</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
 
 
 
-</div>
+    </div>
+</form>

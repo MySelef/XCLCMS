@@ -42,7 +42,7 @@
                     MerchantID: ids[0]
                 }
 
-                var url = XJ.URL.AddParam($btn.attr("href"), query);
+                var url = XJ.Url.AddParam($btn.attr("href"), query);
                 $btn.attr("href", url);
                 return true;
             } else {
@@ -61,12 +61,13 @@
             }
 
             art.dialog.confirm("您确定要删除此信息吗？", function () {
-                $.XCLGoAjax({
-                    obj: $("#btnDel")[0],
-                    url: XCLCMSPageGlobalConfig.RootURL + "Merchant/DelSubmit",
-                    data: { MerchantIds: ids.join(',') },
-                    beforeSendMsg: "正在删除中，请稍后...",
-                    isRefreshSelf: true
+                $.XGoAjax({
+                    target: $("#btnDel")[0],
+                    ajax: {
+                        url: XCLCMSPageGlobalConfig.RootURL + "Merchant/DelSubmit",
+                        data: { MerchantIds: ids.join(',') },
+                        type: "POST"
+                    }
                 });
             }, function () {
             });
@@ -117,7 +118,7 @@
                 if (!common.CommonFormValid(validator)) {
                     return false;
                 }
-                $.XCLGoAjax({ obj: $("#btnSave")[0] });
+                $.XGoAjax({ target: $("#btnSave")[0] });
             });
         },
         /**
@@ -126,12 +127,13 @@
         Del: function () {
             var id = $("#MerchantID").val();
             art.dialog.confirm("您确定要删除此信息吗？", function () {
-                $.XCLGoAjax({
-                    obj: $("#btnDel")[0],
-                    url: XCLCMSPageGlobalConfig.RootURL + "Merchant/DelSubmit",
-                    data: { MerchantIds: id },
-                    beforeSendMsg: "正在删除中，请稍后...",
-                    isRefreshSelf: true
+                $.XGoAjax({
+                    target: $("#btnDel")[0],
+                    ajax: {
+                        url: XCLCMSPageGlobalConfig.RootURL + "Merchant/DelSubmit",
+                        data: { MerchantIds: id },
+                        type: "POST"
+                    }
                 });
             });
             return false;

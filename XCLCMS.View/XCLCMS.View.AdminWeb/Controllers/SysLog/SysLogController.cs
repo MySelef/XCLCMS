@@ -41,7 +41,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysLog
             viewModel.SysLogList = bll.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[SysLogID]", "[CreateTime] desc");
             viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
 
-            viewModel.ClearLogDateTypeList = XCLNetTools.Enum.EnumHelper.GetEnumFieldModelList(typeof(XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum));
+            viewModel.ClearLogDateTypeList = XCLNetTools.Enum.EnumHelper.GetEnumFieldModelList(typeof(XCLNetTools.Enum.CommonEnum.BeforeDateTypeEnum));
 
             return View("~/Views/SysLog/SysLogList.cshtml", viewModel);
         }
@@ -53,8 +53,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysLog
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysLogDel)]
         public ActionResult ClearSubmit()
         {
-            XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum dateType = XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum.SevenDay;
-            Enum.TryParse<XCLNetTools.StringHander.DateHelper.BeforeDateTypeEnum>(XCLNetTools.StringHander.FormHelper.GetString("dateType"), out dateType);
+            XCLNetTools.Enum.CommonEnum.BeforeDateTypeEnum dateType = XCLNetTools.Enum.CommonEnum.BeforeDateTypeEnum.SevenDay;
+            Enum.TryParse<XCLNetTools.Enum.CommonEnum.BeforeDateTypeEnum>(XCLNetTools.StringHander.FormHelper.GetString("dateType"), out dateType);
             DateTime endTime = XCLNetTools.StringHander.DateHelper.GetBeforeDateTypeDateTime(dateType);
             XCLCMS.Data.BLL.SysLog bll = new Data.BLL.SysLog();
             bll.ClearListByDateTime(null, endTime);

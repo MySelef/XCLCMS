@@ -109,7 +109,7 @@
                 });
                 if (isAllChecked == 1) {
                     $ckAll.prop({ "checked": true });
-                }else{
+                } else {
                     $ckAll.prop({ "checked": false });
                 }
 

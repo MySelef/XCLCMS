@@ -68,8 +68,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
         {
             XCLCMS.View.AdminViewModel.SysFunction.SysFunctionAddVM viewModel = new AdminViewModel.SysFunction.SysFunctionAddVM();
             viewModel.SysFunction = new Data.Model.SysFunction();
-            viewModel.SysFunctionID = XCLNetTools.StringHander.Common.GetLong(fm["SysFunctionID"]);
-            viewModel.ParentID = XCLNetTools.StringHander.Common.GetLong(fm["ParentID"]);
+            viewModel.SysFunctionID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["SysFunctionID"]);
+            viewModel.ParentID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["ParentID"]);
             viewModel.SysFunction.Code = (fm["txtCode"] ?? "").Trim();
             viewModel.SysFunction.FunctionName = (fm["txtFunctionName"] ?? "").Trim();
             viewModel.SysFunction.Remark = (fm["txtRemark"] ?? "").Trim();
@@ -150,7 +150,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
             XCLCMS.Data.Model.SysFunction model = null;
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             DateTime dtNow = DateTime.Now;
-            long[] ids = XCLNetTools.StringHander.Common.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysFunctionIDs").Split(','));
+            long[] ids = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysFunctionIDs").Split(','));
             for (int i = 0; i < ids.Length; i++)
             {
                 if (ids[i] <= 0) continue;

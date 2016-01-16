@@ -137,7 +137,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             viewModel.Merchant.PassNumber = (fm["txtPassNumber"] ?? "").Trim();
             viewModel.Merchant.PassType = (fm["selPassType"] ?? "").Trim();
             viewModel.Merchant.QQ = (fm["txtQQ"] ?? "").Trim();
-            viewModel.Merchant.RegisterTime = XCLNetTools.StringHander.Common.GetDateTimeNullable((fm["txtRegisterTime"] ?? "").Trim());
+            viewModel.Merchant.RegisterTime = XCLNetTools.Common.DataTypeConvert.ToDateTimeNull((fm["txtRegisterTime"] ?? "").Trim());
             viewModel.Merchant.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.Merchant.Tel = (fm["txtTel"] ?? "").Trim();
             return viewModel;
@@ -256,7 +256,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
             XCLCMS.Data.Model.Merchant merchantModel = null;
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            long[] merchantIds = XCLNetTools.StringHander.Common.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("merchantIds").Split(','));
+            long[] merchantIds = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("merchantIds").Split(','));
             if (null != merchantIds && merchantIds.Length > 0)
             {
                 for (int i = 0; i < merchantIds.Length; i++)

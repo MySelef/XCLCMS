@@ -3,7 +3,7 @@
 }
 @model XCLCMS.View.AdminViewModel.Merchant.MerchantAddVM
 
-<form id="mainForm" action="@Model.FormAction">
+<form id="mainForm" action="@Model.FormAction" method="post">
     <input type="hidden" id="MerchantID" name="MerchantID" value="@Model.Merchant.MerchantID" />
 
     <div class="XCLAccordion" style="border-top: none;">

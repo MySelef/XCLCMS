@@ -75,12 +75,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
         {
             XCLCMS.View.AdminViewModel.SysRole.SysRoleAddVM viewModel = new AdminViewModel.SysRole.SysRoleAddVM();
             viewModel.SysRole = new Data.Model.SysRole();
-            viewModel.SysRoleID = XCLNetTools.StringHander.Common.GetLong(fm["SysRoleID"]);
-            viewModel.ParentID = XCLNetTools.StringHander.Common.GetLong(fm["ParentID"]);
+            viewModel.SysRoleID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["SysRoleID"]);
+            viewModel.ParentID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["ParentID"]);
             viewModel.SysRole.Code = (fm["txtCode"] ?? "").Trim();
             viewModel.SysRole.RoleName = (fm["txtRoleName"] ?? "").Trim();
             viewModel.SysRole.Remark = (fm["txtRemark"] ?? "").Trim();
-            viewModel.SysRole.Weight = XCLNetTools.StringHander.Common.GetIntNull(fm["txtWeight"]);
+            viewModel.SysRole.Weight = XCLNetTools.Common.DataTypeConvert.ToIntNull(fm["txtWeight"]);
             viewModel.RoleFunctionIDList = XCLNetTools.StringHander.FormHelper.GetLongList("txtRoleFunction");
             return viewModel;
         }
@@ -191,7 +191,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             XCLCMS.Data.Model.SysRole model = null;
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             DateTime dtNow = DateTime.Now;
-            long[] ids = XCLNetTools.StringHander.Common.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysRoleIDs").Split(','));
+            long[] ids = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysRoleIDs").Split(','));
             for (int i = 0; i < ids.Length; i++)
             {
                 if (ids[i] <= 0) continue;

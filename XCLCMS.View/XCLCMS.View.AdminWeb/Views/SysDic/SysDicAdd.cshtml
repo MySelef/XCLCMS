@@ -3,7 +3,7 @@
 }
 @model XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM
 
-<form id="mainForm" action="@Model.FormAction">
+<form id="mainForm" action="@Model.FormAction" method="post">
     <input type="hidden" name="SysDicID" id="SysDicID" value="@Model.SysDicID" />
     <input type="hidden" name="ParentID" id="ParentID" value="@Model.ParentID" />
 

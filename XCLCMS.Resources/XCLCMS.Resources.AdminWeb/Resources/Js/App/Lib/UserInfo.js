@@ -42,7 +42,7 @@
                     UserInfoID: ids[0]
                 }
 
-                var url = XJ.URL.AddParam($btn.attr("href"), query);
+                var url = XJ.Url.AddParam($btn.attr("href"), query);
                 $btn.attr("href", url);
                 return true;
             } else {
@@ -61,12 +61,13 @@
             }
 
             art.dialog.confirm("您确定要删除此信息吗？", function () {
-                $.XCLGoAjax({
-                    obj: $("#btnDel")[0],
-                    url: XCLCMSPageGlobalConfig.RootURL + "UserInfo/DelSubmit",
-                    data: { UserInfoIds: ids.join(',') },
-                    beforeSendMsg: "正在删除中，请稍后...",
-                    isRefreshSelf: true
+                $.XGoAjax({
+                    target: $("#btnDel")[0],
+                    ajax: {
+                        url: XCLCMSPageGlobalConfig.RootURL + "UserInfo/DelSubmit",
+                        data: { UserInfoIds: ids.join(',') },
+                        type: "POST"
+                    }
                 });
             }, function () {
             });
@@ -113,7 +114,7 @@
                 url: XCLCMSPageGlobalConfig.RootURL + 'SysRoleCommon/GetAllJsonForEasyUITree',
                 method: 'get',
                 checkbox: true,
-                onlyLeafCheck:true,
+                onlyLeafCheck: true,
                 lines: true,
                 multiple: true
             });
@@ -148,7 +149,7 @@
                 if (!common.CommonFormValid(validator)) {
                     return false;
                 }
-                $.XCLGoAjax({ obj: $("#btnSave")[0] });
+                $.XGoAjax({ target: $("#btnSave")[0] });
             });
         },
         /**
@@ -157,12 +158,13 @@
         Del: function () {
             var id = $("#UserInfoID").val();
             art.dialog.confirm("您确定要删除此信息吗？", function () {
-                $.XCLGoAjax({
-                    obj: $("#btnDel")[0],
-                    url: XCLCMSPageGlobalConfig.RootURL + "UserInfo/DelSubmit",
-                    data: { UserInfoIds: id },
-                    beforeSendMsg: "正在删除中，请稍后...",
-                    isRefreshSelf: true
+                $.XGoAjax({
+                    target: $("#btnDel")[0],
+                    ajax: {
+                        url: XCLCMSPageGlobalConfig.RootURL + "UserInfo/DelSubmit",
+                        data: { UserInfoIds: id },
+                        type: "POST"
+                    }
                 });
             });
             return false;

@@ -10,6 +10,6 @@ namespace XCLCMS.View.AdminViewModel.SysLog
 
         public List<XCLCMS.Data.Model.SysLog> SysLogList { get; set; }
 
-        public List<XCLNetTools.Enum.EnumFieldModel> ClearLogDateTypeList { get; set; }
+        public List<XCLNetTools.Entity.Enum.EnumFieldModel> ClearLogDateTypeList { get; set; }
     }
 }

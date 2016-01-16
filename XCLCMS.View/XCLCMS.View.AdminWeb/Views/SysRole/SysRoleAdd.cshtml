@@ -3,7 +3,7 @@
 }
 @model XCLCMS.View.AdminViewModel.SysRole.SysRoleAddVM
 
-<form id="mainForm" action="@Model.FormAction">
+<form id="mainForm" action="@Model.FormAction" method="post">
     <input type="hidden" name="SysRoleID" id="SysRoleID" value="@Model.SysRoleID" />
     <input type="hidden" name="ParentID" id="ParentID" value="@Model.ParentID" />
 

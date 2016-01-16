@@ -3,7 +3,7 @@
 }
 @model XCLCMS.View.AdminViewModel.SysFunction.SysFunctionAddVM
 
-<form id="mainForm" action="@Model.FormAction">
+<form id="mainForm" action="@Model.FormAction" method="post">
     <input type="hidden" name="SysFunctionID" id="SysFunctionID" value="@Model.SysFunctionID" />
     <input type="hidden" name="ParentID" id="ParentID" value="@Model.ParentID" />
 

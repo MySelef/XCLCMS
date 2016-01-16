@@ -217,7 +217,7 @@ namespace XCLCMS.Data.DAL
             });
 
             db.ExecuteNonQuery(dbCommand);
-            return XCLNetTools.StringHander.Common.GetInt(dbCommand.Parameters["@IsPass"].Value) == 1;
+            return XCLNetTools.Common.DataTypeConvert.ToInt(dbCommand.Parameters["@IsPass"].Value) == 1;
         }
 
         /// <summary>

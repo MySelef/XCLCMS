@@ -1,4 +1,4 @@
-﻿define(["readmore"],function () {
+﻿define(["readmore"], function () {
     /*
     * 系统日志
     */
@@ -14,11 +14,11 @@
         ClearLog: function ($menuItem) {
             var data = $.parseJSON($menuItem.attr("xcl-data"));
             art.dialog.confirm("您确定要清空【" + data.txt + "】的所有日志信息吗？", function () {
-                $.XCLGoAjax({
-                    url: XCLCMSPageGlobalConfig.RootURL + "SysLog/ClearSubmit",
-                    data: { dateType: data.val },
-                    beforeSendMsg: "正在删除中，请稍后...",
-                    isRefreshSelf: true
+                $.XGoAjax({
+                    ajax: {
+                        url: XCLCMSPageGlobalConfig.RootURL + "SysLog/ClearSubmit",
+                        data: { dateType: data.val }, type: "POST"
+                    }
                 });
             });
         }

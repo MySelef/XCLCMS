@@ -36,7 +36,7 @@ $.validator.addMethod("XCLCustomRemote", function (value, element, ajaxOption) {
         dataType: ajaxOption.dataType,
         type: ajaxOption.type,
         data: ajaxOption.data,
-        async:false,
+        async: false,
         success: function (data) {
             result = data;
             $(element).data("XCLCustomMsg", data.Message);
@@ -51,6 +51,6 @@ $.validator.addMethod("XCLCustomRemote", function (value, element, ajaxOption) {
 /**
  * 验证账号格式是否正确（中英文+数字+下划线）
  */
-$.validator.addMethod("AccountNO",function(value,element){
+$.validator.addMethod("AccountNO", function (value, element) {
     return this.optional(element) || /^[\w_]{3,10}$/.test(value);
-},"只能为长度为3-10的英文、数字、下划线组合！");
+}, "只能为长度为3-10的英文、数字、下划线组合！");

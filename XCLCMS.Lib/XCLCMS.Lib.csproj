@@ -90,15 +90,15 @@
     </Reference>
     <Reference Include="XCLCMS.Data.BLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\XCLCMS.Document\Libs\ProjectLibs\XCLCMS.Data.BLL.dll</HintPath>
+      <HintPath>..\XCLCMS.Data\XCLCMS.Data.BLL\bin\Debug\XCLCMS.Data.BLL.dll</HintPath>
     </Reference>
     <Reference Include="XCLCMS.Data.CommonHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\XCLCMS.Document\Libs\ProjectLibs\XCLCMS.Data.CommonHelper.dll</HintPath>
+      <HintPath>..\XCLCMS.Data\XCLCMS.Data.CommonHelper\bin\Debug\XCLCMS.Data.CommonHelper.dll</HintPath>
     </Reference>
     <Reference Include="XCLCMS.Data.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\XCLCMS.Document\Libs\ProjectLibs\XCLCMS.Data.Model.dll</HintPath>
+      <HintPath>..\XCLCMS.Data\XCLCMS.Data.Model\bin\Debug\XCLCMS.Data.Model.dll</HintPath>
     </Reference>
     <Reference Include="XCLNetLogger">
       <HintPath>..\XCLCMS.Document\Libs\XCLNetLogger.dll</HintPath>
@@ -133,8 +133,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /y $(ProjectDir)\bin\Debug\XCLCMS.Lib.dll $(ProjectDir)\..\XCLCMS.Document\Libs\ProjectLibs\
-copy /y $(ProjectDir)\bin\Debug\XCLCMS.Lib.xml $(ProjectDir)\..\XCLCMS.Document\Libs\ProjectLibs\</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

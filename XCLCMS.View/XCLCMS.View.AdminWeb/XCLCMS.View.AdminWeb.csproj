@@ -135,19 +135,15 @@
     </Reference>
     <Reference Include="XCLCMS.Data.BLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\XCLCMS.Document\Libs\ProjectLibs\XCLCMS.Data.BLL.dll</HintPath>
+      <HintPath>..\..\XCLCMS.Data\XCLCMS.Data.BLL\bin\Debug\XCLCMS.Data.BLL.dll</HintPath>
     </Reference>
     <Reference Include="XCLCMS.Data.CommonHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\XCLCMS.Document\Libs\ProjectLibs\XCLCMS.Data.CommonHelper.dll</HintPath>
+      <HintPath>..\..\XCLCMS.Data\XCLCMS.Data.CommonHelper\bin\Debug\XCLCMS.Data.CommonHelper.dll</HintPath>
     </Reference>
     <Reference Include="XCLCMS.Data.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\XCLCMS.Document\Libs\ProjectLibs\XCLCMS.Data.Model.dll</HintPath>
-    </Reference>
-    <Reference Include="XCLCMS.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\XCLCMS.Document\Libs\ProjectLibs\XCLCMS.Lib.dll</HintPath>
+      <HintPath>..\..\XCLCMS.Data\XCLCMS.Data.Model\bin\Debug\XCLCMS.Data.Model.dll</HintPath>
     </Reference>
     <Reference Include="XCLNetLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -244,6 +240,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\XCLCMS.Lib\XCLCMS.Lib.csproj">
+      <Project>{e2aa6c7f-5b46-4a4b-93e4-4ed457587c4e}</Project>
+      <Name>XCLCMS.Lib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XCLCMS.View.AdminViewModel\XCLCMS.View.AdminViewModel.csproj">
       <Project>{864d8e33-a9b4-40b1-9e38-5341fcec5936}</Project>
       <Name>XCLCMS.View.AdminViewModel</Name>

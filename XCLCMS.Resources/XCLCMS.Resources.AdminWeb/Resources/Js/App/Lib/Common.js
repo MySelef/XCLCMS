@@ -78,10 +78,17 @@
          * 自动生成code
          */
         CreateAutoCode: function () {
-            var data = XJ.Ajax.GetSyncData({
-                url: XCLCMSPageGlobalConfig.RootURL + "Common/CreateAutoCode",
-                type: "JSON",
-                data: { v: Math.random() }
+            var data = {};
+            $.XGoAjax({
+                ajax: {
+                    url: XCLCMSPageGlobalConfig.RootURL + "Common/CreateAutoCode",
+                    type: "GET",
+                    data: { v: Math.random() },
+                    async: false
+                },
+                postSuccess: function (ops, d) {
+                    data = d;
+                }
             });
             return data ? data.Message : "";
         },
@@ -89,12 +96,16 @@
         * 缓存清理
         */
         ClearCache: function () {
-            $.XCLGoAjax({
-                obj: $("a[xcl-sysdiccode='ClearCache']")[0],
-                url: XCLCMSPageGlobalConfig.RootURL + "Common/ClearCache",
-                data: { v: Math.random() },
-                beforeSendMsg: "正在清理缓存中，请稍后...",
-                isRefreshSelf: true
+            $.XGoAjax({
+                target: $("a[xcl-sysdiccode='ClearCache']")[0],
+                ajax: {
+                    url: XCLCMSPageGlobalConfig.RootURL + "Common/ClearCache",
+                    data: { v: Math.random() },
+                    type: "POST"
+                },
+                templateOption: {
+                    beforeSendMsg: "正在清理缓存中，请稍后..."
+                }
             });
         },
         /**
@@ -114,11 +125,16 @@
         * 垃圾数据清理
         */
         ClearRubbishData: function () {
-            $.XCLGoAjax({
-                obj: $("a[xcl-sysdiccode='ClearRubbishData']")[0],
-                url: XCLCMSPageGlobalConfig.RootURL + "Common/ClearRubbishData",
-                data: { v: Math.random() },
-                beforeSendMsg: "正在清理垃圾数据，请稍后..."
+            $.XGoAjax({
+                target: $("a[xcl-sysdiccode='ClearRubbishData']")[0],
+                ajax: {
+                    url: XCLCMSPageGlobalConfig.RootURL + "Common/ClearRubbishData",
+                    data: { v: Math.random() },
+                    type: "POST"
+                },
+                templateOption: {
+                    beforeSendMsg: "正在清理垃圾数据，请稍后..."
+                }
             });
         }
     };

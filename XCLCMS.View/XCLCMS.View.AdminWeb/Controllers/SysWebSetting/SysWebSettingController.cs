@@ -160,7 +160,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             XCLCMS.Data.Model.SysWebSetting model = null;
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             DateTime dtNow = DateTime.Now;
-            long[] ids = XCLNetTools.StringHander.Common.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysWebSettingIDs").Split(','));
+            long[] ids = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysWebSettingIDs").Split(','));
             for (int i = 0; i < ids.Length; i++)
             {
                 if (ids[i] <= 0) continue;

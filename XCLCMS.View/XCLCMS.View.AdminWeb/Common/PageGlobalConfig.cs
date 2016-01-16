@@ -39,11 +39,6 @@ namespace XCLCMS.View.AdminWeb.Common
         public string ResourceVersion { get; set; }
 
         /// <summary>
-        /// json提示key
-        /// </summary>
-        public string XCLJsonMessageName { get; set; }
-
-        /// <summary>
         /// 枚举json
         /// </summary>
         public string EnumConfig { get; set; }

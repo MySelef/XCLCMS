@@ -74,9 +74,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="XCLCMS.Lib">
-      <HintPath>..\XCLCMS.Document\Libs\ProjectLibs\XCLCMS.Lib.dll</HintPath>
-    </Reference>
     <Reference Include="XCLNetTools">
       <HintPath>..\XCLCMS.Document\Libs\XCLNetTools.dll</HintPath>
     </Reference>
@@ -219,6 +216,12 @@
   <ItemGroup>
     <Folder Include="Upload\" />
     <Folder Include="Views\Home\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XCLCMS.Lib\XCLCMS.Lib.csproj">
+      <Project>{e2aa6c7f-5b46-4a4b-93e4-4ed457587c4e}</Project>
+      <Name>XCLCMS.Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

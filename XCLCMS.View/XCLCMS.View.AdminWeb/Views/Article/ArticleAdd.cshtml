@@ -3,7 +3,7 @@
 }
 @model XCLCMS.View.AdminViewModel.Article.ArticleAddVM
 
-<form id="mainForm" action="@Model.FormAction">
+<form id="mainForm" action="@Model.FormAction" method="post">
     <input type="hidden" id="ArticleID" name="ArticleID" value="@Model.Article.ArticleID" />
 
     <div class="XCLAccordion" style="border-top: none;">

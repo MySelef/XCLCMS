@@ -103,7 +103,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                 return string.Empty;
             }
 
-            List<XCLNetTools.EasyUI.Model.TreeItem> tree = new List<XCLNetTools.EasyUI.Model.TreeItem>();
+            List<XCLNetTools.Entity.EasyUI.TreeItem> tree = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
             XCLCMS.Data.BLL.View.v_SysDic bll = new Data.BLL.View.v_SysDic();
             XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
             var rootModel = sysDicBLL.GetModelByCode(code);
@@ -120,22 +120,22 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                 {
                     var current = rootLayer[idx];
 
-                    tree.Add(new XCLNetTools.EasyUI.Model.TreeItem()
+                    tree.Add(new XCLNetTools.Entity.EasyUI.TreeItem()
                     {
                         ID = current.SysDicID.ToString(),
                         Text = current.DicName
                     });
 
-                    Action<XCLNetTools.EasyUI.Model.TreeItem> getChildAction = null;
-                    getChildAction = new Action<XCLNetTools.EasyUI.Model.TreeItem>((parentModel) =>
+                    Action<XCLNetTools.Entity.EasyUI.TreeItem> getChildAction = null;
+                    getChildAction = new Action<XCLNetTools.Entity.EasyUI.TreeItem>((parentModel) =>
                     {
                         var childs = allData.Where(k => k.ParentID == Convert.ToInt64(parentModel.ID)).ToList();
                         if (childs.IsNotNullOrEmpty())
                         {
-                            parentModel.Children = new List<XCLNetTools.EasyUI.Model.TreeItem>();
+                            parentModel.Children = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
                             childs.ForEach(m =>
                             {
-                                var treeItem = new XCLNetTools.EasyUI.Model.TreeItem()
+                                var treeItem = new XCLNetTools.Entity.EasyUI.TreeItem()
                                 {
                                     ID = m.SysDicID.ToString(),
                                     State = m.IsLeaf == 1 ? "open" : "closed",

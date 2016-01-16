@@ -36,4 +36,9 @@ $(function () {
         config.opacity = 0.2;
         config.resize = true;
     })(art.dialog.defaults);
+
+    $.XGoAjax.globalSettings({
+        templateName: "artdialog",
+        isExclusive: false
+    });
 });

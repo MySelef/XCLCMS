@@ -35,7 +35,7 @@ namespace XCLCMS.Data.DAL
             var result = XCLCMS.Data.DAL.Common.Common.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)
             {
-                return XCLNetTools.StringHander.Common.GetLong(dbCommand.Parameters["@IDCode"].Value);
+                return XCLNetTools.Common.DataTypeConvert.ToLong(dbCommand.Parameters["@IDCode"].Value);
             }
             else
             {

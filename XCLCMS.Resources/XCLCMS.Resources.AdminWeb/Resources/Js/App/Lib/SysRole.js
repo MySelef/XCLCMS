@@ -170,11 +170,12 @@
             var _this = this;
             var ids = _this.GetSelectedIds();
             art.dialog.confirm("您确定要删除此信息吗？", function () {
-                $.XCLGoAjax({
-                    url: XCLCMSPageGlobalConfig.RootURL + "SysRole/DelSubmit",
-                    data: { SysRoleIDs: ids.join(',') },
-                    beforeSendMsg: "正在删除中，请稍后...",
-                    afterSuccessFunction: function () {
+                $.XGoAjax({
+                    ajax: {
+                        url: XCLCMSPageGlobalConfig.RootURL + "SysRole/DelSubmit",
+                        data: { SysRoleIDs: ids.join(',') }, type: "POST"
+                    },
+                    postSuccess: function () {
                         $.each(ids, function (idx, n) {
                             _this.TreeObj.treegrid("remove", n);
                         });
@@ -189,11 +190,12 @@
             var _this = this;
             var ids = _this.GetSelectedIds();
             art.dialog.confirm("您确定要清空此节点的所有子节点吗？", function () {
-                $.XCLGoAjax({
-                    url: XCLCMSPageGlobalConfig.RootURL + "SysRole/DelChildSubmit",
-                    data: { sysRoleId: ids[0] },
-                    beforeSendMsg: "正在清空中，请稍后...",
-                    afterSuccessFunction: function () {
+                $.XGoAjax({
+                    ajax: {
+                        url: XCLCMSPageGlobalConfig.RootURL + "SysRole/DelChildSubmit",
+                        data: { sysRoleId: ids[0] },
+                        type: "POST"
+                    }, postSuccess: function () {
                         var parent = _this.TreeObj.treegrid("getParent", ids[0]);
                         if (parent) {
                             _this.TreeObj.treegrid("reload", parent.SysRoleID);
@@ -292,7 +294,7 @@
                 if (!common.CommonFormValid(validator)) {
                     return false;
                 }
-                $.XCLGoAjax({ obj: $("#btnSave")[0] });
+                $.XGoAjax({ target: $("#btnSave")[0] });
             });
         }
     };

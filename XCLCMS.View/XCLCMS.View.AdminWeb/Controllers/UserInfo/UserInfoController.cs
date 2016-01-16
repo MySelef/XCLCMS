@@ -101,8 +101,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
         {
             XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM viewModel = new AdminViewModel.UserInfo.UserInfoAddVM();
             viewModel.UserInfo = new Data.Model.UserInfo();
-            viewModel.UserInfo.Age = XCLNetTools.StringHander.Common.GetInt((fm["txtAge"] ?? "").Trim());
-            viewModel.UserInfo.Birthday = XCLNetTools.StringHander.Common.GetDateTimeNullable((fm["txtBirthday"] ?? "").Trim());
+            viewModel.UserInfo.Age = XCLNetTools.Common.DataTypeConvert.ToInt((fm["txtAge"] ?? "").Trim());
+            viewModel.UserInfo.Birthday = XCLNetTools.Common.DataTypeConvert.ToDateTimeNull((fm["txtBirthday"] ?? "").Trim());
             viewModel.UserInfo.Email = (fm["txtEmail"] ?? "").Trim();
             viewModel.UserInfo.NickName = (fm["txtNickName"] ?? "").Trim();
             viewModel.UserInfo.OtherContact = (fm["txtOtherContact"] ?? "").Trim();
@@ -259,7 +259,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
             XCLCMS.Data.Model.UserInfo userInfoModel = null;
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            long[] userInfoIds = XCLNetTools.StringHander.Common.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("UserInfoIds").Split(','));
+            long[] userInfoIds = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("UserInfoIds").Split(','));
             if (null != userInfoIds && userInfoIds.Length > 0)
             {
                 for (int i = 0; i < userInfoIds.Length; i++)

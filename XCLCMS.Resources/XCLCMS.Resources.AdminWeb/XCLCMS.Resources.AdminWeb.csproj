@@ -178,7 +178,6 @@
     <Content Include="Resources\Js\EasyUI\themes\icons\sum.png" />
     <Content Include="Resources\Js\EasyUI\themes\icons\tip.png" />
     <Content Include="Resources\Js\EasyUI\themes\icons\undo.png" />
-    <Content Include="Resources\Js\GoAjax.js" />
     <Content Include="Resources\Js\Jcrop\css\Jcrop.gif" />
     <Content Include="Resources\Js\Jcrop\css\jquery.Jcrop.css" />
     <Content Include="Resources\Js\Jcrop\js\jquery.Jcrop.js" />
@@ -424,6 +423,8 @@
     <Content Include="Resources\Js\WdatePicker\skin\whyGreen\datepicker.css" />
     <Content Include="Resources\Js\WdatePicker\skin\whyGreen\img.gif" />
     <Content Include="Resources\Js\WdatePicker\WdatePicker.js" />
+    <Content Include="Resources\Js\XGoAjax\XGoAjax.js" />
+    <Content Include="Resources\Js\XGoAjax\XGoAjaxTemplate.js" />
     <Content Include="Resources\Js\XJsTool.js" />
     <Content Include="Web.config" />
   </ItemGroup>

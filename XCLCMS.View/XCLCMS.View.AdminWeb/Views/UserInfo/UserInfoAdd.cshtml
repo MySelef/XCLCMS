@@ -3,7 +3,7 @@
 }
 @model XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM
 
-<form id="mainForm" action="@Model.FormAction">
+<form id="mainForm" action="@Model.FormAction" method="post">
     <input type="hidden" id="UserInfoID" name="UserInfoID" value="@Model.UserInfo.UserInfoID" />
 
     <div class="XCLAccordion" style="border-top: none;">

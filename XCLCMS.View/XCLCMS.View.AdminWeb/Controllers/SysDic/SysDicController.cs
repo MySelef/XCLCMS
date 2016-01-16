@@ -86,15 +86,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
         {
             XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM viewModel = new AdminViewModel.SysDic.SysDicAddVM();
             viewModel.SysDic = new Data.Model.SysDic();
-            viewModel.SysDicID = XCLNetTools.StringHander.Common.GetLong(fm["SysDicID"]);
-            viewModel.ParentID = XCLNetTools.StringHander.Common.GetLong(fm["ParentID"]);
+            viewModel.SysDicID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["SysDicID"]);
+            viewModel.ParentID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["ParentID"]);
             viewModel.SysDic.Code = (fm["txtCode"] ?? "").Trim();
             viewModel.SysDic.DicName = (fm["txtDicName"] ?? "").Trim();
             viewModel.SysDic.DicType = (fm["selDicType"] ?? "").Trim();
             viewModel.SysDic.DicValue = (fm["txtDicValue"] ?? "").Trim();
-            viewModel.SysDic.Sort = XCLNetTools.StringHander.Common.GetInt(fm["txtSort"] ?? "");
+            viewModel.SysDic.Sort = XCLNetTools.Common.DataTypeConvert.ToInt(fm["txtSort"] ?? "");
             viewModel.SysDic.Remark = (fm["txtRemark"] ?? "").Trim();
-            viewModel.SysDic.FK_FunctionID = XCLNetTools.StringHander.Common.GetLongNull(fm["txtFunctionID"] ?? "");
+            viewModel.SysDic.FK_FunctionID = XCLNetTools.Common.DataTypeConvert.ToLongNull(fm["txtFunctionID"] ?? "");
             return viewModel;
         }
 
@@ -183,7 +183,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
             XCLCMS.Data.Model.SysDic sysDicModel = null;
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            long[] sysDicIds = XCLNetTools.StringHander.Common.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysDicIds").Split(','));
+            long[] sysDicIds = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysDicIds").Split(','));
             if (null != sysDicIds && sysDicIds.Length > 0)
             {
                 for (int i = 0; i < sysDicIds.Length; i++)

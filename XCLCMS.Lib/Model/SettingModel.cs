@@ -16,8 +16,7 @@
         public string Common_UserLoginFlagName { get; set; }
         public string Common_WebName { get; set; }
         public string Common_WebURL { get; set; }
-
-        public string Admin_LoginURL { get; set; }
+        
         public string Admin_ResourceRootURL { get; set; }
         public string Admin_ResourceVersion { get; set; }
         public string Admin_UploaderFilePath { get; set; }

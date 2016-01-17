@@ -47,11 +47,12 @@ namespace XCLCMS.Lib.Filters
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             base.HandleUnauthorizedRequest(filterContext);
+            string loginUrl = string.Format("{0}go", XCLNetTools.StringHander.Common.RootUri);
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
                 XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
                 msgModel.IsRedirect = true;
-                msgModel.RedirectURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_LoginURL;
+                msgModel.RedirectURL = loginUrl;
                 msgModel.Message = "登录信息验证失败，请重新登录！";
                 filterContext.Result = new JsonResult()
                 {
@@ -61,7 +62,7 @@ namespace XCLCMS.Lib.Filters
             }
             else
             {
-                filterContext.Result = new RedirectResult(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_LoginURL);
+                filterContext.Result = new RedirectResult(loginUrl);
             }
         }
 

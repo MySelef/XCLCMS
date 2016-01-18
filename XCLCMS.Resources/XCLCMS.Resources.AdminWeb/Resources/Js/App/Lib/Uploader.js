@@ -140,7 +140,8 @@
                     model.Size = plupload.formatSize(file.size);
                     model.IsImage = XJ.ContentType.IsImage(file.type);
                     _this.PreviewImage({
-                        file: file, callback: function (preloader) {
+                        file: file,
+                        callback: function (preloader) {
                             model.ImgWidth = preloader.width;
                             model.ImgHeight = preloader.height;
                             model.Path = preloader.getAsDataURL();

@@ -8,6 +8,8 @@ namespace XCLCMS.View.AdminWeb.Common
     /// </summary>
     public class WebCommon
     {
+        private static object obj = null;
+
         #region 静态资源相关
 
         private static XCLNetTools.Entity.StaticResourceConfig _staticResourceConfig = null;
@@ -19,17 +21,20 @@ namespace XCLCMS.View.AdminWeb.Common
         {
             get
             {
-                var newStaticResourceConfig = _staticResourceConfig.DeepClone();
-                if (newStaticResourceConfig.StaticResourceList.IsNotNullOrEmpty())
+                lock (obj)
                 {
-                    newStaticResourceConfig.StaticResourceList.ForEach(k =>
+                    var newStaticResourceConfig = _staticResourceConfig.DeepClone();
+                    if (newStaticResourceConfig.StaticResourceList.IsNotNullOrEmpty())
                     {
-                        k.Version = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
-                        k.Src = k.Src.Replace("{ResourcesRootURL}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL);
-                        k.Attr = k.Attr.Replace("{ResourcesRootURL}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL);
-                    });
+                        newStaticResourceConfig.StaticResourceList.ForEach(k =>
+                        {
+                            k.Version = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
+                            k.Src = k.Src.Replace("{ResourcesRootURL}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL);
+                            k.Attr = k.Attr.Replace("{ResourcesRootURL}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL);
+                        });
+                    }
+                    return newStaticResourceConfig;
                 }
-                return newStaticResourceConfig;
             }
             set
             {
@@ -44,13 +49,7 @@ namespace XCLCMS.View.AdminWeb.Common
         /// <summary>
         /// 网站根路径
         /// </summary>
-        public static string RootURL
-        {
-            get
-            {
-                return XCLNetTools.StringHander.Common.RootUri;
-            }
-        }
+        public static readonly string RootURL = XCLNetTools.StringHander.Common.RootUri;
 
         /// <summary>
         /// 上一步的URL

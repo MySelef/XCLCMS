@@ -71,7 +71,7 @@ namespace XCLCMS.Lib.Common
         /// </summary>
         public static JsonResult XCLJsonResult(object data, JsonRequestBehavior jsonRequestBehavior = JsonRequestBehavior.DenyGet)
         {
-            return new XCLCMS.Lib.Common.XCLJsonResult() { Data = data, JsonRequestBehavior = jsonRequestBehavior };
+            return new XCLNetTools.MVC.JsonResultFormat() { Data = data, JsonRequestBehavior = jsonRequestBehavior };
         }
 
         #endregion 其它

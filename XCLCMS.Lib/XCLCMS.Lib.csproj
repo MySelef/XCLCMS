@@ -113,7 +113,6 @@
     <Compile Include="Base\IBaseController.cs" />
     <Compile Include="Common\Comm.cs" />
     <Compile Include="Common\Tool.cs" />
-    <Compile Include="Common\XCLJsonResult.cs" />
     <Compile Include="Encrypt\EncryptHelper.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\FunctionFilter.cs" />

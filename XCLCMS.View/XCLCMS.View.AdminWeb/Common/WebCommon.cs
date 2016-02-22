@@ -8,7 +8,7 @@ namespace XCLCMS.View.AdminWeb.Common
     /// </summary>
     public class WebCommon
     {
-        private static object obj = null;
+        private static object obj = new object();
 
         #region 静态资源相关
 
@@ -49,7 +49,10 @@ namespace XCLCMS.View.AdminWeb.Common
         /// <summary>
         /// 网站根路径
         /// </summary>
-        public static readonly string RootURL = XCLNetTools.StringHander.Common.RootUri;
+        public static string RootURL
+        {
+            get { return XCLNetTools.StringHander.Common.RootUri; }
+        }
 
         /// <summary>
         /// 上一步的URL

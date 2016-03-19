@@ -88,18 +88,6 @@
       <HintPath>..\XCLCMS.View\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="XCLCMS.Data.BLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\XCLCMS.Data\XCLCMS.Data.BLL\bin\Debug\XCLCMS.Data.BLL.dll</HintPath>
-    </Reference>
-    <Reference Include="XCLCMS.Data.CommonHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\XCLCMS.Data\XCLCMS.Data.CommonHelper\bin\Debug\XCLCMS.Data.CommonHelper.dll</HintPath>
-    </Reference>
-    <Reference Include="XCLCMS.Data.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\XCLCMS.Data\XCLCMS.Data.Model\bin\Debug\XCLCMS.Data.Model.dll</HintPath>
-    </Reference>
     <Reference Include="XCLNetLogger">
       <HintPath>..\XCLCMS.Document\Libs\XCLNetLogger.dll</HintPath>
     </Reference>
@@ -129,6 +117,20 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XCLCMS.Data\XCLCMS.Data.BLL\XCLCMS.Data.BLL.csproj">
+      <Project>{054ca0f2-19e8-4121-ab61-e89bb52c0b7c}</Project>
+      <Name>XCLCMS.Data.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XCLCMS.Data\XCLCMS.Data.CommonHelper\XCLCMS.Data.CommonHelper.csproj">
+      <Project>{4f53bbd2-fcdc-403d-9546-281cda981cf8}</Project>
+      <Name>XCLCMS.Data.CommonHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XCLCMS.Data\XCLCMS.Data.Model\XCLCMS.Data.Model.csproj">
+      <Project>{1c3a4834-de9b-4b4f-8378-084f83c58e90}</Project>
+      <Name>XCLCMS.Data.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

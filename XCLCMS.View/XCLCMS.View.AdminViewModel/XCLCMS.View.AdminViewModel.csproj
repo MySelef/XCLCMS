@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\XCLCMS.View.AdminViewModel.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,14 +42,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="XCLCMS.Data.BLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\XCLCMS.Data\XCLCMS.Data.BLL\bin\Debug\XCLCMS.Data.BLL.dll</HintPath>
-    </Reference>
-    <Reference Include="XCLCMS.Data.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\XCLCMS.Data\XCLCMS.Data.Model\bin\Debug\XCLCMS.Data.Model.dll</HintPath>
-    </Reference>
     <Reference Include="XCLNetSearch, Version=1.0.5495.41174, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\XCLCMS.Document\Libs\XCLNetSearch.dll</HintPath>
@@ -77,6 +70,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UserControl\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\XCLCMS.Data\XCLCMS.Data.Model\XCLCMS.Data.Model.csproj">
+      <Project>{1c3a4834-de9b-4b4f-8378-084f83c58e90}</Project>
+      <Name>XCLCMS.Data.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

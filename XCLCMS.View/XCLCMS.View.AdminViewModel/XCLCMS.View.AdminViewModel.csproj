@@ -54,7 +54,6 @@
   <ItemGroup>
     <Compile Include="Article\ArticleAddVM.cs" />
     <Compile Include="Article\ArticleListVM.cs" />
-    <Compile Include="Common\ShowImgVM.cs" />
     <Compile Include="Main\MainVM.cs" />
     <Compile Include="Merchant\MerchantAddVM.cs" />
     <Compile Include="Merchant\MerchantListVM.cs" />
@@ -69,6 +68,7 @@
     <Compile Include="UserInfo\UserInfoListVM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\" />
     <Folder Include="UserControl\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,290 @@
+﻿html, body {
+    height: 100%;
+    font-family: "Microsoft YaHei",Sans-Serif;
+    width: 100%;
+    margin: 0;
+    padding: 0px;
+    font-size: 13px;
+}
+
+body {
+    width: auto;
+}
+
+input[type='text'], input[type='password'] {
+    height: 22px;
+    font-size: 14px;
+    font-family: "Microsoft YaHei",Sans-Serif;
+    color: #006363;
+    margin: 3px;
+}
+
+select {
+    height: 25px;
+    font-size: 14px;
+    font-family: "Microsoft YaHei",Sans-Serif;
+    color: #006363;
+    margin: 3px;
+}
+
+textarea {
+    font-size: 14px;
+    font-family: "Microsoft YaHei",Sans-Serif;
+    width: 90%;
+    height: 80px;
+    color: #006363;
+    margin: 3px;
+}
+
+a {
+    text-decoration: none;
+    color: #2e50d9;
+}
+
+    a:hover {
+        text-decoration: underline;
+        color: #055b69;
+    }
+
+.XCLRed {
+    color: #f00;
+}
+
+.XCLRedBolder {
+    color: #f00;
+    font-weight: bolder;
+}
+
+.XCLBolder {
+    font-weight: bolder;
+}
+
+.XCLGray {
+    color: #888;
+}
+
+.XCLNoWrap {
+    white-space: nowrap;
+}
+
+.XCLPanel {
+    border: solid 1px #95b8e7;
+}
+
+    .XCLPanel .XCLPanelHeader {
+        background: #e0ecff;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .XCLPanel .XCLPanelBody {
+        padding: 5px 10px 5px 10px;
+        border-top: solid 1px #95b8e7;
+    }
+
+.XCLNote {
+    background: #fdead1;
+    color: #f60;
+    padding: 3px 5px 3px 5px;
+    margin: 3px;
+    border: solid 1px #ffb686;
+}
+
+.XCLAccordion {
+    border: solid 1px #95b8e7;
+}
+
+    .XCLAccordion .XCLAccordionHeader {
+        background: #e0ecff;
+        padding: 5px 10px 5px 10px;
+        font-weight: bolder;
+        font-size: 14px;
+        color: #0e7a9e;
+    }
+
+    .XCLAccordion .XCLAccordionBody {
+        padding: 5px 10px 5px 10px;
+    }
+
+.XCLTableList {
+    border: solid 1px #496da6;
+    width: 100%;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+    .XCLTableList .XCLTableHeader {
+        font-size: 14px;
+        font-weight: bolder;
+        text-align: center;
+        background: #496da6;
+        color: #fff;
+        white-space: nowrap;
+    }
+
+    .XCLTableList td, .XCLTableList th {
+        height: 20px;
+        line-height: 20px;
+        border: solid 1px #ddd;
+        padding: 5px;
+    }
+
+.XCLTableEdit {
+    border: solid 1px #95b8e7;
+    width: 100%;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+    .XCLTableEdit td {
+        border: solid 1px #ddd;
+        padding: 5px;
+    }
+
+    .XCLTableEdit .XCLTitle {
+        text-align: right;
+        font-weight: bolder;
+        font-size: 14px;
+    }
+
+    .XCLTableEdit .XCLTableHeader {
+        font-size: 14px;
+        font-weight: bolder;
+        text-align: center;
+        background: #496da6;
+        color: #fff;
+        white-space: nowrap;
+    }
+
+.XCLValidError {
+    color: #f00;
+}
+
+input.XCLValidError, select.XCLValidError, textarea.XCLValidError {
+    border: solid 1px #f00;
+    padding: 2px;
+    background: #fee8e8;
+}
+
+label.XCLValidError {
+    background: url("../Images/false.gif") no-repeat 0px 0px;
+    padding-left: 18px;
+    margin: 5px;
+}
+
+.XCLPager {
+    height: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+    .XCLPager a {
+        height: 30px;
+        line-height: 30px;
+        background: #496da6;
+        color: #fff;
+        padding: 6px;
+        text-decoration: none;
+    }
+
+        .XCLPager a:hover {
+            background: #e0ecff;
+            color: #496da6;
+        }
+
+    .XCLPager .PagerItemDisabled {
+        background: #e0ecff;
+        color: #888;
+        border: solid 1px #496da6;
+    }
+
+    .XCLPager .XCLPager_CurrentItem {
+        background: #e0ecff;
+        color: #496da6;
+        border: solid 1px #496da6;
+    }
+
+    .XCLPager select {
+        height: 30px;
+        border: solid 1px #496da6;
+    }
+
+    .XCLPager .IndexBox {
+        width: 30px;
+        height: 25px;
+    }
+
+    .XCLPager .JumpButton {
+        width: 45px;
+        height: 30px;
+    }
+
+/*this web only*/
+.XCLHandBar {
+    padding: 10px;
+    text-align: center;
+}
+
+    .XCLHandBar > a, .XCLHandBar > button {
+        width: auto;
+        min-width: 100px;
+        height: 30px;
+        line-height: 30px;
+        margin-left: 10px;
+        margin-right: 10px;
+        font-weight: bolder;
+        color: #f00;
+        padding-top: 5px;
+    }
+
+.XCLUploadFile .trTitle {
+    font-size: 15px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.XCLUploadFile .UploadItemDiv {
+    height: 600px;
+    overflow: auto;
+    border: solid 1px #ccc;
+}
+
+    .XCLUploadFile .UploadItemDiv ul {
+    }
+
+    .XCLUploadFile .UploadItemDiv li {
+        width: 230px;
+        text-align: center;
+        list-style: none;
+        list-style-position: inside;
+        float: left;
+        border: solid 1px #ccc;
+        margin: 5px;
+        padding: 3px;
+    }
+
+        .XCLUploadFile .UploadItemDiv li:hover {
+            background: #e0ecff;
+        }
+
+    .XCLUploadFile .UploadItemDiv .itemContent {
+        height: 180px;
+        line-height: 180px;
+    }
+
+    .XCLUploadFile .UploadItemDiv .itemDescription {
+        height: 40px;
+        border-top: solid 1px #ccc;
+        overflow: hidden;
+    }
+
+    .XCLUploadFile .UploadItemDiv .itemBottom {
+        height: 20px;
+        text-align: center;
+        border-top: solid 2px #ccc;
+    }

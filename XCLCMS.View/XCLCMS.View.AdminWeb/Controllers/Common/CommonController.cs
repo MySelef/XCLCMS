@@ -33,15 +33,5 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
             msgModel.Message = "垃圾数据清理成功！";
             return Json(msgModel, JsonRequestBehavior.AllowGet);
         }
-
-        /// <summary>
-        /// 图片显示
-        /// </summary>
-        public ActionResult ShowImg()
-        {
-            XCLCMS.View.AdminViewModel.Common.ShowImgVM viewModel = new AdminViewModel.Common.ShowImgVM();
-            viewModel.ImgSrc = XCLNetTools.StringHander.FormHelper.GetString("ImgSrc");
-            return View("~/Views/Common/ShowImg.cshtml", viewModel);
-        }
     }
 }

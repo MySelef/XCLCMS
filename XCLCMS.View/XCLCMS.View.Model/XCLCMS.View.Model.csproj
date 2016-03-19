@@ -49,8 +49,6 @@
   <ItemGroup>
     <Compile Include="Helper\ConvertModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Uploader\FileSetting.cs" />
-    <Compile Include="Uploader\ThumbImgSetting.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

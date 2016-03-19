@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Resources\Css\Base.css" />
     <Content Include="Resources\Js\Angularjs\angular.min.js" />
     <Content Include="Resources\Js\App.js" />
     <Content Include="Resources\Js\artDialog\artDialog.js" />
@@ -142,11 +143,66 @@
     <Content Include="Resources\Js\bootstrap\js\bootstrap.js" />
     <Content Include="Resources\Js\bootstrap\js\bootstrap.min.js" />
     <Content Include="Resources\Js\bootstrap\js\npm.js" />
+    <Content Include="Resources\Js\dynamicCon.js" />
+    <Content Include="Resources\Js\EasyUI\jquery.easyui.min.js" />
+    <Content Include="Resources\Js\EasyUI\themes\color.css" />
+    <Content Include="Resources\Js\EasyUI\themes\default\easyui.css" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\accordion_arrows.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\blank.gif" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\calendar_arrows.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\combo_arrow.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\datagrid_icons.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\datebox_arrow.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\layout_arrows.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\linkbutton_bg.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\loading.gif" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\menu_arrows.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\messager_icons.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\pagination_icons.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\panel_tools.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\searchbox_button.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\slider_handle.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\spinner_arrows.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\tabs_icons.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\tree_icons.png" />
+    <Content Include="Resources\Js\EasyUI\themes\default\images\validatebox_warning.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icon.css" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\back.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\blank.gif" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\cancel.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\clear.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\cut.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\edit_add.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\edit_remove.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\filesave.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\filter.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\help.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\large_chart.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\large_clipart.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\large_picture.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\large_shapes.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\large_smartart.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\lock.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\man.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\mini_add.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\mini_edit.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\mini_refresh.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\no.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\ok.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\pencil.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\print.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\redo.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\reload.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\search.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\sum.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\tip.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\undo.png" />
     <Content Include="Resources\Js\Jcrop\css\Jcrop.gif" />
     <Content Include="Resources\Js\Jcrop\css\jquery.Jcrop.css" />
     <Content Include="Resources\Js\Jcrop\js\jquery.Jcrop.js" />
     <Content Include="Resources\Js\Jquery\jquery-1.11.2.js" />
     <Content Include="Resources\Js\Jquery\jquery.color.js" />
+    <Content Include="Resources\Js\json2.js" />
     <Content Include="Resources\Js\ng\FileInfoController.js" />
     <Content Include="Resources\Js\plupload\i18n\zh_CN.js" />
     <Content Include="Resources\Js\plupload\jquery.plupload.queue\css\jquery.plupload.queue.css" />
@@ -176,18 +232,22 @@
     <Content Include="Resources\Js\Validate\XCLValidatorMethod.js" />
     <Content Include="Resources\Js\XGoAjax.js" />
     <Content Include="Resources\Js\XGoAjaxTemplate.js" />
+    <Content Include="Resources\Js\XJsTool.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Common\WebCommon.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\FileInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Common\ShowImgVM.cs" />
     <Compile Include="Models\FileInfo\ListVM.cs" />
+    <Compile Include="Models\Uploader\FileSetting.cs" />
+    <Compile Include="Models\Uploader\ThumbImgSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +266,7 @@
     <Content Include="Views\Upload\Index.cshtml" />
     <Content Include="Config\AppSettings.config" />
     <Content Include="Config\ConnectionStrings.config" />
+    <Content Include="Views\Common\ShowImg.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -214,7 +275,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Upload\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>

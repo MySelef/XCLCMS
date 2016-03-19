@@ -99,5 +99,26 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
 
             return View("~/Views/Article/ArticleAdd.cshtml", viewModel);
         }
+
+        public override ActionResult AddSubmit(FormCollection fm)
+        {
+            XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
+
+            return Json(msg);
+        }
+
+        public override ActionResult DelSubmit(FormCollection fm)
+        {
+            XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
+
+            return Json(msg);
+        }
+
+        public override ActionResult UpdateSubmit(FormCollection fm)
+        {
+            XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
+
+            return Json(msg);
+        }
     }
 }

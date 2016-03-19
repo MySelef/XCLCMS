@@ -11,7 +11,7 @@
 
         <ol class="breadcrumb">
             <li>当前路径：</li>
-            <li><a href="@Url.Action("List","FileInfo")">@XCLCMS.FileManager.Common.WebCommon.RootUploadFolder</a></li>
+            <li><a href="@Url.Action("List","FileInfo")">@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_UploaderFilePath</a></li>
             @if (null != Model.DirectoryNavigation && Model.DirectoryNavigation.Count > 0) {
                 foreach (var m in Model.DirectoryNavigation)
                 {

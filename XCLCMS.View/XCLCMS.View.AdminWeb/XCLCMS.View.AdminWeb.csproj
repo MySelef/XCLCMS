@@ -157,7 +157,6 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Common\CommonController.cs" />
     <Compile Include="Controllers\Common\OtherController.cs" />
-    <Compile Include="Controllers\Common\UploadController.cs" />
     <Compile Include="Controllers\Home\DefaultController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Merchant\MerchantController.cs" />
@@ -205,8 +204,6 @@
     <Content Include="Views\Common\Error.cshtml" />
     <Content Include="Views\Article\ArticleList.cshtml" />
     <Content Include="Views\Article\ArticleAdd.cshtml" />
-    <Content Include="Views\Common\Upload.cshtml" />
-    <Content Include="Views\Common\ShowImg.cshtml" />
     <Content Include="Config\ConnectionStrings.config">
       <SubType>Designer</SubType>
     </Content>

@@ -29,25 +29,26 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>
+                    <th class="text-center">
                         <input type="checkbox" ng-click="checkAll()" />
                     </th>
-                    <th>ID</th>
-                    <th>文件名</th>
-                    <th>扩展名</th>
-                    <th>大小</th>
-                    <th>修改时间</th>
-                    <th>创建时间</th>
-                    <th>操作</th>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">文件名</th>
+                    <th class="text-center">Web路径</th>
+                    <th class="text-center">扩展名</th>
+                    <th class="text-center">大小（MB）</th>
+                    <th class="text-center">修改时间</th>
+                    <th class="text-center">创建时间</th>
+                    <th class="text-center">操作</th>
                 </tr>
             </thead>
             <tbody>
 
                 <tr ng-repeat="m in data">
-                    <th>
+                    <th class="text-center">
                         <input type="checkbox" value="{{m.ID}}" ng-click="checkItem()" />
                     </th>
-                    <th scope="row">{{m.ID}}</th>
+                    <th scope="row" class="text-center">{{m.ID}}</th>
                     <td>
                         <a href="@Url.Action("List","FileInfo")?dir=@Model.CurrentDirectory{{m.Name}}" ng-if="m.IsFolder">
                             <span class="glyphicon glyphicon-folder-open"></span>
@@ -56,12 +57,16 @@
 
                         <span ng-if="!m.IsFolder">{{m.Name}}</span>
 
+                        
                     </td>
-                    <td>{{m.ExtName}}</td>
-                    <td>{{m.Size}}</td>
-                    <td>{{m.ModifyTime}}</td>
-                    <td>{{m.CreateTime}}</td>
                     <td>
+                        <a href="{{m.WebPath}}" target="_blank">{{m.WebPath}}</a>
+                    </td>
+                    <td class="text-center">{{m.ExtName}}</td>
+                    <td class="text-center">{{(m.Size/1024.0/1024.0).toFixed(2)}}</td>
+                    <td class="text-center">{{m.ModifyTime}}</td>
+                    <td class="text-center">{{m.CreateTime}}</td>
+                    <td class="text-center">
                         <button>修改</button>
                         <button>删除</button>
                     </td>

@@ -11,7 +11,7 @@
 
     <style type="text/css">
         body {
-            min-height: 1000px;
+            min-height: 900px;
             padding-top: 70px;
         }
     </style>
@@ -29,16 +29,27 @@
                 <a href="#" class="navbar-brand">XCLCMS文件管理</a>
             </div>
             <div class="navbar-collapse collapse" id="navbar">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="@Url.Action("List","FileInfo")">文件列表</a></li>
-                    <li><a href="@Url.Action("Index","Upload")">上传</a></li>
-                    <li><a href="#about">配置</a></li>
+                <ul class="nav navbar-nav" id="ulMenu">
+                    <li activeReg="/FileInfo/"><a href="@Url.Action("List","FileInfo")">文件列表</a></li>
+                    <li activeReg="/Upload/"><a href="@Url.Action("Index","Upload")">上传</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
     </nav>
-    <div class="container">
+    <div class="container" style="width:100%;">
         @RenderBody()
     </div>
+
+
+    <script type="text/javascript">
+        $(function () {
+            var href = location.href;
+            $("ul#ulMenu li").each(function () {
+                if (new RegExp($(this).attr("activeReg")).test(href)) {
+                    $(this).addClass("active");
+                }
+            });
+        });
+    </script>
 </body>
 </html>

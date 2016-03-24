@@ -11,7 +11,7 @@
 
         <ol class="breadcrumb">
             <li>当前路径：</li>
-            <li><a href="@Url.Action("List","FileInfo")">@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_UploaderFilePath</a></li>
+            <li><a href="@Url.Action("List","FileInfo")">@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath</a></li>
             @if (null != Model.DirectoryNavigation && Model.DirectoryNavigation.Count > 0) {
                 foreach (var m in Model.DirectoryNavigation)
                 {
@@ -30,7 +30,7 @@
             <thead>
                 <tr>
                     <th class="text-center">
-                        <input type="checkbox" ng-click="checkAll()" />
+                        <input type="checkbox"  class="xcheckgroup checkAllCurrent"/>
                     </th>
                     <th class="text-center">ID</th>
                     <th class="text-center">文件名</th>
@@ -46,11 +46,11 @@
 
                 <tr ng-repeat="m in data">
                     <th class="text-center">
-                        <input type="checkbox" value="{{m.ID}}" ng-click="checkItem()" />
+                        <input type="checkbox" value="{{m.ID}}" class="xcheckgroup checkItem" />
                     </th>
                     <th scope="row" class="text-center">{{m.ID}}</th>
                     <td>
-                        <a href="@Url.Action("List","FileInfo")?dir=@Model.CurrentDirectory{{m.Name}}" ng-if="m.IsFolder">
+                        <a href="@Url.Action("List","FileInfo")?dir=@HttpUtility.UrlEncode(Model.CurrentDirectory){{m.Name}}" ng-if="m.IsFolder">
                             <span class="glyphicon glyphicon-folder-open"></span>
                             {{m.Name}}
                         </a>
@@ -79,3 +79,9 @@
 
     </div>
 </form>
+
+<script type="text/javascript">
+    $(function () {
+        app.FileList.Init();
+    });
+</script>

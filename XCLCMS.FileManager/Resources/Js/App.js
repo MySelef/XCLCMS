@@ -420,3 +420,10 @@ app.Add = {
         }
     }
 };
+
+
+app.FileList = {
+    Init: function () {
+        $.XCheck();
+    }
+};

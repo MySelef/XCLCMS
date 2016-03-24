@@ -42,5 +42,10 @@ namespace XCLCMS.View.AdminWeb.Common
         /// 枚举json
         /// </summary>
         public string EnumConfig { get; set; }
+
+        /// <summary>
+        /// 文件管理器文件列表路径
+        /// </summary>
+        public string FileManagerFileListURL { get; set; }
     }
 }

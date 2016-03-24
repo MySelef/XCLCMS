@@ -70,7 +70,7 @@
             });
         },
         UploadMainImage: function () {
-            art.dialog.open(XCLCMSPageGlobalConfig.RootURL + 'Upload/Index', { title: '文件上传', width: 1100, height: 650 });
+            art.dialog.open(XCLCMSPageGlobalConfig.FileManagerFileListURL, { title: '文件管理器', width: 1100, height: 650 });
         }
     };
 

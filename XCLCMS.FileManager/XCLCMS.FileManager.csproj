@@ -230,6 +230,7 @@
     <Content Include="Resources\Js\plupload\plupload.min.js" />
     <Content Include="Resources\Js\Validate\jquery.validate.js" />
     <Content Include="Resources\Js\Validate\XCLValidatorMethod.js" />
+    <Content Include="Resources\Js\XCheck.js" />
     <Content Include="Resources\Js\XGoAjax.js" />
     <Content Include="Resources\Js\XGoAjaxTemplate.js" />
     <Content Include="Resources\Js\XJsTool.js" />

@@ -15,19 +15,4 @@
     };
     $scope.initList();
 
-
-
-    //已选项
-    $scope.checkedInfo = [];
-
-    
-
-
-    $scope.checkAll = function () {
-        
-    };
-
-    $scope.checkItem = function () {
-
-    };
 });

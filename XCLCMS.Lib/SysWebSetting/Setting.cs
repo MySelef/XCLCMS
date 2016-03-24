@@ -60,11 +60,12 @@ namespace XCLCMS.Lib.SysWebSetting
                             for (int i = 0; i < props.Length; i++)
                             {
                                 propsName = props[i].Name;
-                                tempKeyModel = all.Where(k => string.Equals(k.Key, propsName, StringComparison.OrdinalIgnoreCase)).First();
-                                if (null != tempKeyModel)
+                                tempKeyModel = all.Where(k => string.Equals(k.Key, propsName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                                if (null == tempKeyModel)
                                 {
-                                    props[i].SetValue(model, tempKeyModel.Value);
+                                    throw new Exception(string.Format("配置{0}在数据库中不存在！", propsName));
                                 }
+                                props[i].SetValue(model, tempKeyModel.Value);
                             }
                         }
                         XCLNetTools.Cache.CacheClass.SetCache(Lib.Common.Comm.SettingCacheName, model);

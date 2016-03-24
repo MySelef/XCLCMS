@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 
 namespace XCLCMS.FileManager.Controllers
@@ -10,15 +11,15 @@ namespace XCLCMS.FileManager.Controllers
         public ActionResult List()
         {
             Models.FileInfo.ListVM viewModel = this.GetFormViewModel();
-            viewModel.CurrentDirectory = XCLNetTools.StringHander.FormHelper.GetString("dir");
+            viewModel.CurrentDirectory = HttpUtility.UrlDecode(XCLNetTools.StringHander.FormHelper.GetString("dir"));
             if (string.IsNullOrEmpty(viewModel.CurrentDirectory))
             {
-                viewModel.CurrentDirectory = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_UploaderFilePath;
+                viewModel.CurrentDirectory = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath;
             }
             viewModel.CurrentDirectory = viewModel.CurrentDirectory.TrimEnd('/') + '/';
 
             viewModel.DirectoryNavigation = new List<XCLNetTools.Entity.TextValue>();
-            var navArray = viewModel.CurrentDirectory.TrimStart(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_UploaderFilePath.ToCharArray()).Trim('/').Split('/');
+            var navArray = viewModel.CurrentDirectory.TrimStart(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath.ToCharArray()).Trim('/').Split('/');
             StringBuilder link = new StringBuilder();
             for (int i = 0; i < navArray.Length; i++)
             {
@@ -27,7 +28,7 @@ namespace XCLCMS.FileManager.Controllers
                 viewModel.DirectoryNavigation.Add(new XCLNetTools.Entity.TextValue()
                 {
                     Text = s,
-                    Value = string.Format("{0}{1}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_UploaderFilePath, link.ToString())
+                    Value = string.Format("{0}{1}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath, link.ToString())
                 });
             }
 
@@ -37,7 +38,7 @@ namespace XCLCMS.FileManager.Controllers
         private Models.FileInfo.ListVM GetFormViewModel()
         {
             Models.FileInfo.ListVM viewModel = new Models.FileInfo.ListVM();
-            viewModel.CurrentDirectory = XCLNetTools.StringHander.FormHelper.GetString("dir");
+            viewModel.CurrentDirectory = HttpUtility.UrlDecode(XCLNetTools.StringHander.FormHelper.GetString("dir"));
             return viewModel;
         }
 
@@ -47,7 +48,7 @@ namespace XCLCMS.FileManager.Controllers
 
             XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
 
-            msg.CustomObject = XCLNetTools.FileHandler.FileDirectory.GetFileList(viewModel.CurrentDirectory, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_UploaderFilePath, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_UploaderFilePath.Replace("~/", XCLNetTools.StringHander.Common.RootUri));
+            msg.CustomObject = XCLNetTools.FileHandler.FileDirectory.GetFileList(viewModel.CurrentDirectory, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath.Replace("~/", XCLNetTools.StringHander.Common.RootUri));
             msg.IsSuccess = true;
 
             return new XCLNetTools.MVC.JsonResultFormat()

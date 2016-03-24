@@ -34,9 +34,9 @@ namespace XCLCMS.FileManager.Controllers
             string ext = XCLNetTools.FileHandler.ComFile.GetExtName(file.FileName);
             string newFileName = string.Format("{0}.{1}", name, ext);
             //附件主目录
-            string directoryPath = string.Format("{0}/{1}/{2}/", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_UploaderFilePath.TrimEnd('/'), dtNow.Year, dtNow.Month);
+            string directoryPath = string.Format("{0}/{1}/{2}/", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath.TrimEnd('/'), dtNow.Year, dtNow.Month);
             //附件临时目录
-            string directoryTempPath = string.Format("{0}/{1}/{2}/", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_UploaderTempPath.TrimEnd('/'), dtNow.Year, dtNow.Month);
+            string directoryTempPath = string.Format("{0}/{1}/{2}/", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPathTemp.TrimEnd('/'), dtNow.Year, dtNow.Month);
             //原图保存后的物理地址
             string savedServerPath = string.Empty;
             //原图是否需要裁剪

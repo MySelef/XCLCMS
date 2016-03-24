@@ -14,7 +14,8 @@ namespace XCLCMS.FileManager
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            XCLNetTools.FileHandler.FileDirectory.MakeDirectory(XCLNetTools.FileHandler.ComFile.MapPath(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_UploaderFilePath));
+            XCLNetTools.FileHandler.FileDirectory.MakeDirectory(XCLNetTools.FileHandler.ComFile.MapPath(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath));
+            XCLNetTools.FileHandler.FileDirectory.MakeDirectory(XCLNetTools.FileHandler.ComFile.MapPath(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPathTemp));
         }
     }
 }

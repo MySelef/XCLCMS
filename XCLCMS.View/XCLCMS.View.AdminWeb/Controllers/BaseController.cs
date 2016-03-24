@@ -39,6 +39,7 @@ namespace XCLCMS.View.AdminWeb.Controllers
             pageConfig.UserID = ViewBag.CommonModel.CurrentUserModel.UserInfoID;
             pageConfig.UserName = ViewBag.CommonModel.CurrentUserModel.UserName;
             pageConfig.ResourceVersion = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
+            pageConfig.FileManagerFileListURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_FileListURL;
             pageConfig.EnumConfig = string.Empty;
             ViewBag.PageGlobalConfigJSON = new JavaScriptSerializer().Serialize(pageConfig);
         }

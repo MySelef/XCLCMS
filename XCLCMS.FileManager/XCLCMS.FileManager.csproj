@@ -241,12 +241,14 @@
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\FileInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogicFileController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Common\ShowImgVM.cs" />
     <Compile Include="Models\FileInfo\ListVM.cs" />
+    <Compile Include="Models\LogicFile\ListVM.cs" />
     <Compile Include="Models\Uploader\FileSetting.cs" />
     <Compile Include="Models\Uploader\ThumbImgSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -268,6 +270,7 @@
     <Content Include="Config\AppSettings.config" />
     <Content Include="Config\ConnectionStrings.config" />
     <Content Include="Views\Common\ShowImg.cshtml" />
+    <Content Include="Views\LogicFile\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

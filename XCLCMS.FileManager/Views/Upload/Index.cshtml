@@ -2,7 +2,7 @@
     Layout = "~/Views/Layout/Main.cshtml";
 }
 
-<div id="tabFileUpload" class="easyui-tabs" style="width:100%;height:750px;">
+<div id="tabFileUpload" class="easyui-tabs" style="width:100%;">
     <div title="选择文件">
         <div style="padding:5px" class="XCLUploadFile">
             <div class="XCLNote" id="fileNote"></div>
@@ -10,12 +10,10 @@
                 <ul id="ItemsUL"></ul>
             </div>
             <div class="easyui-progressbar" id="fileUploaderProgress" data-options="value:0,text:'文件上传进度：{value}%'" style="width:100%;"></div>
-            <div style="padding:10px;">
-                <div style="text-align:right;">
-                    <a href="javascript:void(0);" id="btnClear" class="easyui-linkbutton " data-options="iconCls:'icon-clear'" style="width:100px;">清空</a>
-                    <a href="javascript:void(0);" id="btnAddFile" class="easyui-linkbutton " data-options="iconCls:'icon-add'" style="width:100px;">添加文件</a>
-                    <a href="javascript:void(0);" id="btnUploadFile" class="easyui-linkbutton " data-options="iconCls:'icon-ok'" style="width:100px;">开始上传</a>
-                </div>
+            <div style="text-align:right;margin-top:20px;">
+                <a href="javascript:void(0);" id="btnClear"  class="btn btn-danger">清空</a>
+                <a href="javascript:void(0);"  id="btnAddFile" class="btn btn-primary">添加文件</a>
+                <a href="javascript:void(0);"  id="btnUploadFile" class="btn btn-success">开始上传</a>
             </div>
         </div>
     </div>
@@ -52,79 +50,48 @@
 
 <!--图片编辑模板-->
 <script type="text/html" id="divEditFileTemp">
-    <div id="divEditFile">
+    <div id="divEditFile" style="min-height:700px;">
         <table class="XCLTableEdit">
             <tr>
                 {{if IsImage}}
-                <td align="center" style="vertical-align:top;">
+                <td align="center" style="vertical-align:top; width:50%;">
                     <fieldset>
-                        <legend class="XCLGray">原图：</legend>
+                        <legend>原图</legend>
                         <div>
                             <div>
                                 <img src="{{ImgBigPath}}" id="ImgToEdit" />
                             </div>
                             <div style="padding:5px;">
-                                <a href="javascript:void(0);" class="easyui-linkbutton" id="btnShowSource">查看原图</a>
+                                <p class="text-success">原图：宽高（{{ImgWidth}}*{{ImgHeight}}），大小（{{Size}}），文件名（{{Name}}）</p>
+                                <p class="text-success">当前预览图：宽高（{{ImgPreviewWidth}}*{{ImgPreviewHeight}}），预览比例（{{ImgPreviewRatio}}，与原图比较）</p>
+                                <p class="text-warning">裁剪后的属性：<span id="divImgCropInfo"></span></p>
+                                <a href="javascript:void(0);" class="btn btn-primary" id="btnShowSource">查看原图</a>
                             </div>
                         </div>
                     </fieldset>
                 </td>
                 {{/if}}
-                <td style="vertical-align:top;">
+                <td style="vertical-align:top; width:50%;">
                     <div>
-                        {{if IsImage}}
-                        <fieldset>
-                            <legend class="XCLGray">当前预览图属性：</legend>
-                            <div>
-                                宽高：{{ImgPreviewWidth}}*{{ImgPreviewHeight}}，预览比例（与原图比较）：{{ImgPreviewRatio}}
-                            </div>
-                        </fieldset>
-                        <fieldset>
-                            <legend class="XCLGray">原图属性：</legend>
-                            <div>
-                                宽高：{{ImgWidth}}*{{ImgHeight}}，大小：{{Size}}，文件名：{{Name}}
-                            </div>
-                        </fieldset>
-                        <fieldset>
-                            <legend class="XCLGray">裁剪后的属性：</legend>
-                            <div id="divImgCropInfo"></div>
-                        </fieldset>
-                        {{/if}}
-
-                        <fieldset>
-                            <legend class="XCLGray">文件信息：</legend>
-                            <div>
-                                <table class="XCLTableEdit">
-                                    <tr>
-                                        <td class="XCLTitle" width="20%">文件名：</td>
-                                        <td width="30%">
-                                            <input type="text" value="{{Name}}" />
-                                        </td>
-                                        <td width="20%"></td>
-                                        <td width="30%"></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </fieldset>
 
                         {{if IsImage}}
                         <fieldset>
-                            <legend class="XCLGray">缩略图设置（在裁剪后的图片的基础上，再生成缩略图）：</legend>
+                            <legend >缩略图设置（在裁剪后的图片的基础上，再生成缩略图）</legend>
                             <div>
                                 <div class="dynamicCon">
                                     <table class="XCLTableEdit">
                                         <tr class="XCLTableHeader">
                                             <td width="10%">序号</td>
-                                            <td width="40%">指定宽高</td>
+                                            <td width="20%">指定宽高</td>
                                             <td width="20%">等比缩放</td>
                                             <td width="10%">是否为主图</td>
-                                            <td width="20%">操作</td>
+                                            <td width="40%">操作</td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td></td>
                                             <td align="center">
-                                                <a href="javascript:void(0);" class="btnEqualRatioAll">调整所有</a>
+                                                <a href="javascript:void(0);" class="btnEqualRatioAll btn btn-info">调整所有</a>
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -132,51 +99,102 @@
                                         <tr class="temp">
                                             <td align="center" class="dynamicCon-Index"></td>
                                             <td>
-                                                宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex" value="" style="width:50px;" />px，
-                                                高：<input type="text" id="txtThumbHeight" name="txtThumbHeight" class="dynamicCon-autoCreateIdIndex" value="" style="width:50px;" />px
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">宽</div>
+                                                    <input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex form-control" value=""/>
+                                                    <div class="input-group-addon">px</div>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">高</div>
+                                                    <input type="text" id="txtThumbHeight" name="txtThumbHeight" class="dynamicCon-autoCreateIdIndex form-control" value=""/>
+                                                    <div class="input-group-addon">px</div>
+                                                </div>
                                             </td>
                                             <td align="center">
-                                                <a href="javascript:void(0);" class="btnEqualRatio">调整</a>
+                                                <a href="javascript:void(0);" class="btnEqualRatio btn btn-info">调整</a>
                                             </td>
                                             <td align="center">
                                                 <input type="checkbox" name="ckIsMain" />
                                             </td>
                                             <td align="center">
-                                                <a href="javascript:void(0);" class="addBtn">添加</a>
-                                                <a href="javascript:void(0);" class="delBtn">删除</a>
+                                                <a href="javascript:void(0);" class="addBtn btn btn-primary">添加</a>
+                                                <a href="javascript:void(0);" class="delBtn btn btn-danger">删除</a>
                                             </td>
                                         </tr>
                                         {{each ThumbImgSettings as m i}}
                                         <tr class="items">
                                             <td align="center" class="dynamicCon-Index"></td>
                                             <td>
-                                                宽：<input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex" value="{{m.Width}}" style="width:50px;" />px，
-                                                高：<input type="text" id="txtThumbHeight" name="txtThumbHeight" class="dynamicCon-autoCreateIdIndex" value="{{m.Height}}" style="width:50px;" />px
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">宽</div>
+                                                    <input type="text" id="txtThumbWidth" name="txtThumbWidth" class="dynamicCon-autoCreateIdIndex form-control" value="{{m.Width}}"/>
+                                                    <div class="input-group-addon">px</div>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">高</div>
+                                                    <input type="text" id="txtThumbHeight" name="txtThumbHeight" class="dynamicCon-autoCreateIdIndex form-control" value="{{m.Height}}"/>
+                                                    <div class="input-group-addon">px</div>
+                                                </div>                                            
                                             </td>
                                             <td align="center">
-                                                <a href="javascript:void(0);" class="btnEqualRatio">调整</a>
+                                                <a href="javascript:void(0);" class="btnEqualRatio btn btn-info">调整</a>
                                             </td>
                                             <td align="center">
                                                 <input type="checkbox" name="ckIsMain" {{if m.IsMain}} checked="checked" {{/if}} />
                                             </td>
                                             <td align="center">
-                                                <a href="javascript:void(0);" class="addBtn">添加</a>
-                                                <a href="javascript:void(0);" class="delBtn">删除</a>
+                                                <a href="javascript:void(0);" class="addBtn btn btn-primary">添加</a>
+                                                <a href="javascript:void(0);" class="delBtn btn btn-danger">删除</a>
                                             </td>
                                         </tr>
                                         {{/each}}
                                     </table>
                                 </div>
                                 <div>
-                                    <br />
-                                    注：若不操作裁剪，则主图为原图；若操作裁剪，则主图为裁剪后的图片；若在缩略图设置中选择了主图选项，则该图即作为主图！
+                                    <p class="text-danger">注：若不操作裁剪，则主图为原图；若操作裁剪，则主图为裁剪后的图片；若在缩略图设置中选择了主图选项，则该图即作为主图！</p>
                                 </div>
                             </div>
                         </fieldset>
                         {{/if}}
+
+
+                        <fieldset>
+                            <legend>文件信息</legend>
+                            <div>
+                                <table class="XCLTableEdit">
+                                    <tr>
+                                        <td class="XCLTitle" width="20%">标题：</td>
+                                        <td width="30%">
+                                            <input type="text" value="{{Name}}" class="form-control" />
+                                        </td>
+                                        <td class="XCLTitle" width="20%">查看类型：</td>
+                                        <td width="30%">
+                                            <select class="form-control"></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="XCLTitle">下载数：</td>
+                                        <td>
+                                            <input type="text" class="form-control" />
+                                        </td>
+                                        <td class="XCLTitle">查看数：</td>
+                                        <td>
+                                            <input type="text" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="XCLTitle">描述信息：</td>
+                                        <td colspan="3">
+                                            <textarea class="form-control"></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </fieldset>
+
                     </div>
                     <div class="XCLHandBar">
-                        <a id="btnSaveEdit" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存设置</a>
+                        <a href="javascript:void(0);" id="btnSaveEdit" class="btn btn-success">保存设置</a>
                     </div>
                 </td>
             </tr>

@@ -62,17 +62,22 @@ app.Add = {
     _changeUploadButton: function (enable) {
         if (enable) {
             this._uploader.disableBrowse(false);
-            $("#btnAddFile,#btnUploadFile").linkbutton("enable");
+            $("#btnAddFile,#btnUploadFile").removeClass("disabled");
         } else {
             this._uploader.disableBrowse(true);
-            $("#btnAddFile,#btnUploadFile").linkbutton("disable");
+            $("#btnAddFile,#btnUploadFile").addClass("disabled");
         }
     },
     /**
     * 改变清空按钮的状态（可用、不可用）
     */
     _changeClearButtonState: function (enable) {
-        $("#btnClear").linkbutton(enable ? "enable" : "disable");
+        var $btn=$("#btnClear");
+        if (enable) {
+            $btn.removeClass("disabled");
+        } else {
+            $btn.addClass("disabled");
+        }
     },
     /**
      * model
@@ -81,7 +86,7 @@ app.Add = {
         this.IsImage = false;//是否为图片
         this.Path = "";//原路径
         this.ImgSmallPath = "";//较小尺寸（文件为图片时180*180）
-        this.ImgBigPath = "";//较大尺寸（文件为图片时400*400）
+        this.ImgBigPath = "";//较大尺寸（文件为图片时600*600）
         this.Id = "";//选择文件时，自动分配的id
         this.Size = "";//文件大小
         this.Format = "";//文件格式
@@ -150,7 +155,7 @@ app.Add = {
 
                         var imgObj = new mOxie.Image();
                         imgObj.onload = function () {
-                            imgObj.downsize(400, 400);
+                            imgObj.downsize(600, 600);
                             model.ImgBigPath = imgObj.getAsDataURL();
                             model.ImgPreviewWidth = imgObj.width;
                             model.ImgPreviewHeight = imgObj.height;

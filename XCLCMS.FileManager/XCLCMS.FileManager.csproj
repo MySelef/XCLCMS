@@ -143,7 +143,6 @@
     <Content Include="Resources\Js\bootstrap\js\bootstrap.js" />
     <Content Include="Resources\Js\bootstrap\js\bootstrap.min.js" />
     <Content Include="Resources\Js\bootstrap\js\npm.js" />
-    <Content Include="Resources\Js\dynamicCon.js" />
     <Content Include="Resources\Js\EasyUI\jquery.easyui.min.js" />
     <Content Include="Resources\Js\EasyUI\themes\color.css" />
     <Content Include="Resources\Js\EasyUI\themes\default\easyui.css" />
@@ -204,6 +203,7 @@
     <Content Include="Resources\Js\Jquery\jquery.color.js" />
     <Content Include="Resources\Js\json2.js" />
     <Content Include="Resources\Js\ng\FileInfoController.js" />
+    <Content Include="Resources\Js\ng\UploadController.js" />
     <Content Include="Resources\Js\plupload\i18n\zh_CN.js" />
     <Content Include="Resources\Js\plupload\jquery.plupload.queue\css\jquery.plupload.queue.css" />
     <Content Include="Resources\Js\plupload\jquery.plupload.queue\img\backgrounds.gif" />
@@ -271,6 +271,7 @@
     <Content Include="Config\ConnectionStrings.config" />
     <Content Include="Views\Common\ShowImg.cshtml" />
     <Content Include="Views\LogicFile\List.cshtml" />
+    <Content Include="Views\Upload\Index1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -278,9 +279,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Home\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\XCLCMS.Lib\XCLCMS.Lib.csproj">
       <Project>{e2aa6c7f-5b46-4a4b-93e4-4ed457587c4e}</Project>

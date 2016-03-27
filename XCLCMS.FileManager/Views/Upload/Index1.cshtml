@@ -1,0 +1,176 @@
+﻿@{
+    Layout = "~/Views/Layout/Main.cshtml";
+    ViewBag.NgModule = "ngUpload";
+}
+
+<div ng-controller="fileUpload">
+
+    <div id="tabFileUpload" class="easyui-tabs" style="width:100%;">
+        <div title="选择文件">
+            <div style="padding:5px" class="XCLUploadFile">
+                <div class="XCLNote">您当前已添加{{FileModelList.length}}个文件。</div>
+                <div class="UploadItemDiv">
+                    <ul id="ItemsUL">
+                        <li ng-repeat="m in FileModelList">
+                            <div class="itemContent">
+                                <img ng-if="m.IsImage" ng-src="{{m.ImgSmallPath}}" id="{{m.Id}}" />
+                                <img ng-if="!m.IsImage" ng-src="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)Resources/Images/document.png" id="{{m.Id}}" />
+                            </div>
+                            <div class="itemDescription">
+                                大小：{{m.Size}}，格式：{{m.Format}}<br />
+                                文件名：{{m.Name}}
+                            </div>
+                            <div class="itemBottom">
+                                <a href="javascript:void(0);" ng-click="fileDetailFunction(m.Id)">详情</a>
+                                <a href="javascript:void(0);" ng-click="fileEditFunction(m.Id)" ng-if="m.IsCanEdit">编辑</a>
+                                <a href="javascript:void(0);" ng-click="fileDelFunction(m.Id)" ng-if="m.IsCanDel">删除</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="easyui-progressbar" id="fileUploaderProgress" data-options="value:0,text:'文件上传进度：{value}%'" style="width:100%;"></div>
+                <div style="text-align:right;margin-top:20px;">
+                    <a href="javascript:void(0);" class="btn btn-danger" ng-click="clearFunction()">清空</a>
+                    <a href="javascript:void(0);" id="btnAddFile" class="btn btn-primary {{IsCanAddFile?"":"disabled"}}">添加文件</a>
+                    <a href="javascript:void(0);" class="btn btn-success {{IsCanUploadFile?"":"disabled"}}" ng-click="startUpload()">开始上传</a>
+                </div>
+            </div>
+        </div>
+        <div title="文件详情">
+            <table class="XCLTableEdit">
+                <tr>
+                    <td class="XCLTitle">文件名：</td>
+                    <td>{{CurrentFileModel.Name}}</td>
+                    <td class="XCLTitle">大小：</td>
+                    <td>{{CurrentFileModel.Size}}</td>
+                    <td class="XCLTitle">格式：</td>
+                    <td>{{CurrentFileModel.Format}}</td>
+                </tr>
+            </table>
+        </div>
+        <div title="文件设置">
+            <div id="divEditFile" style="min-height:700px;">
+                <table class="XCLTableEdit">
+                    <tr>
+                        <td align="center" style="vertical-align:top; width:50%;" ng-if="CurrentFileModel.IsImage">
+                            <fieldset>
+                                <legend>原图</legend>
+                                <div>
+                                    <div>
+                                        <img ng-src="{{CurrentFileModel.ImgBigPath}}" id="ImgToEdit" onload="angular.element(this).scope().initImgCrop();" />
+                                    </div>
+                                    <div style="padding:5px;">
+                                        <p class="text-success">原图：宽高（{{CurrentFileModel.ImgWidth}}*{{CurrentFileModel.ImgHeight}}），大小（{{CurrentFileModel.Size}}），文件名（{{CurrentFileModel.Name}}）</p>
+                                        <p class="text-success">当前预览图：宽高（{{CurrentFileModel.ImgPreviewWidth}}*{{CurrentFileModel.ImgPreviewHeight}}），预览比例（{{CurrentFileModel.ImgPreviewRatio}}，与原图比较）</p>
+                                        <p class="text-warning">裁剪后的属性：
+                                            X1：{{CurrentFileModel.ImgX1}}，Y1：{{CurrentFileModel.ImgY1}}，X2：{{CurrentFileModel.ImgX2}}，Y2：{{CurrentFileModel.ImgY2}}。宽高：{{CurrentFileModel.ImgCropWidth}}*{{CurrentFileModel.ImgCropHeight}}
+                                        </p>
+                                        <a href="javascript:void(0);" class="btn btn-primary" ng-click="showSourceImg()">查看原图</a>
+                                        <form action="@Url.Action("ShowImg","Common")" method="post" target="_blank" id="formShowImg" style="display:none;">
+                                            <input type="hidden" name="ImgSrc" value="{{CurrentFileModel.ImgSrc}}" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </td>
+                        <td style="vertical-align:top; width:50%;">
+                            <div>
+
+                                <fieldset ng-if="CurrentFileModel.IsImage">
+                                    <legend>缩略图设置（在裁剪后的图片的基础上，再生成缩略图）</legend>
+                                    <div>
+                                        <table class="XCLTableEdit">
+                                                <tr class="XCLTableHeader">
+                                                    <td width="10%">序号</td>
+                                                    <td width="20%">指定宽高</td>
+                                                    <td width="20%">等比缩放</td>
+                                                    <td width="10%">是否为主图</td>
+                                                    <td width="40%">操作</td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td align="center">
+                                                        <a href="javascript:void(0);" class="btn btn-info" ng-click="setEqualRatio()">调整所有</a>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr ng-repeat="m in CurrentFileModel.ThumbImgSettings">
+                                                    <td align="center">{{$index+1}}</td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">宽</div>
+                                                            <input type="text" id="txtThumbWidth{{$index+1}}" name="txtThumbWidth" class="form-control" value="{{m.Width}}" ng-model="m.Width" />
+                                                            <div class="input-group-addon">px</div>
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">高</div>
+                                                            <input type="text" id="txtThumbHeight{{$index+1}}" name="txtThumbHeight" class="form-control" value="{{m.Height}}" ng-model="m.Height"  />
+                                                            <div class="input-group-addon">px</div>
+                                                        </div>
+                                                    </td>
+                                                    <td align="center">
+                                                        <a href="javascript:void(0);" class="btn btn-info" ng-click="setEqualRatio(m)">调整</a>
+                                                    </td>
+                                                    <td align="center">
+                                                        <input type="checkbox" name="ckIsMain" ng-checked="m.IsMain" ng-model="m.IsMain" />
+                                                    </td>
+                                                    <td align="center">
+                                                        <a href="javascript:void(0);" class="btn btn-primary" ng-click="thumbImgSettingAdd()">添加</a>
+                                                        <a href="javascript:void(0);" class="btn btn-danger" ng-click="thumbImgSettingDel($index)" ng-if="CurrentFileModel.ThumbImgSettings.length>1">删除</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        <div>
+                                            <p class="text-danger">注：若不操作裁剪，则主图为原图；若操作裁剪，则主图为裁剪后的图片；若在缩略图设置中选择了主图选项，则该图即作为主图！</p>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>文件信息</legend>
+                                    <div>
+                                        <table class="XCLTableEdit">
+                                            <tr>
+                                                <td class="XCLTitle" width="20%">标题：</td>
+                                                <td width="30%">
+                                                    <input type="text" value="{{CurrentFileModel.Title}}" class="form-control" ng-model="CurrentFileModel.Title" />
+                                                </td>
+                                                <td class="XCLTitle" width="20%">查看类型：</td>
+                                                <td width="30%">
+                                                    <select class="form-control" ng-model="CurrentFileModel.ViewType"></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="XCLTitle">下载数：</td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="CurrentFileModel.DownloadCount" />
+                                                </td>
+                                                <td class="XCLTitle">查看数：</td>
+                                                <td>
+                                                    <input type="text" class="form-control" ng-model="CurrentFileModel.ViewCount" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="XCLTitle">描述信息：</td>
+                                                <td colspan="3">
+                                                    <textarea class="form-control" ng-model="CurrentFileModel.Description"></textarea>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </fieldset>
+
+                            </div>
+                            @*<div class="XCLHandBar">
+                                <a href="javascript:void(0);" ng-click="saveEdit()" class="btn btn-success">保存设置</a>
+                            </div>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+     </div>
+
+</div>

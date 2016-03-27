@@ -18,14 +18,6 @@ namespace XCLCMS.FileManager.Controllers
         }
 
         /// <summary>
-        /// 上传
-        /// </summary>
-        public ActionResult Index1()
-        {
-            return View();
-        }
-
-        /// <summary>
         /// 上传文件
         /// </summary>
         [HttpPost]

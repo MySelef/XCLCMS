@@ -266,12 +266,11 @@
     <Content Include="Views\Layout\Header.cshtml" />
     <Content Include="Views\Layout\Footer.cshtml" />
     <Content Include="Views\Layout\Main.cshtml" />
-    <Content Include="Views\Upload\Index.cshtml" />
     <Content Include="Config\AppSettings.config" />
     <Content Include="Config\ConnectionStrings.config" />
     <Content Include="Views\Common\ShowImg.cshtml" />
     <Content Include="Views\LogicFile\List.cshtml" />
-    <Content Include="Views\Upload\Index1.cshtml" />
+    <Content Include="Views\Upload\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

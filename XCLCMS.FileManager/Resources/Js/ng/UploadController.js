@@ -44,7 +44,6 @@
     var thumbImgSettingModel = function () {
         this.Width = 0;//宽度
         this.Height = 0;//高度
-        this.IsMain = false;//是否为主图
     };
 
     //当前文件列表
@@ -123,46 +122,22 @@
     $scope.clearFunction = function () {
         $("#fileUploaderProgress").progressbar("setValue", 0);
         $scope.FileModelList = [];
+        $scope.CurrentFileModel = null;
         _uploader.splice(0, _uploader.files.length);
         _uploader.refresh();
     };
 
     //单击修改文件
     $scope.fileEditFunction = function (id) {
+        if (_jcp) {
+            _jcp.destroy();
+        }
+
         $scope.CurrentFileModel = getModelById(id);
         if (null == $scope.CurrentFileModel.ThumbImgSettings || $scope.CurrentFileModel.ThumbImgSettings.length == 0) {
             $scope.CurrentFileModel.ThumbImgSettings = [new thumbImgSettingModel()];
         }
         tabFileUpload.tabs('select', "文件设置");
-
-        if (_jcp) {
-            _jcp.destroy();
-        }
-
-        ////生成缩略图设置
-        //var thumbLines = function () {
-        //    var $con = $(this).closest("tr");
-        //    var $w = $con.find("input[id^='txtThumbWidth']"), $h = $con.find("input[id^='txtThumbHeight']");
-        //    var wVal = XJ.Data.GetInt($.trim($w.val())), hVal = XJ.Data.GetInt($.trim($h.val()));
-        //    $w.val(wVal);
-        //    $h.val(hVal);
-        //    if (wVal) {
-        //        $h.val(XJ.Data.GetInt((wVal * $scope.CurrentFileModel.ImgCropHeight) / $scope.CurrentFileModel.ImgCropWidth));
-        //    } else if (hVal) {
-        //        $w.val(XJ.Data.GetInt((hVal * $scope.CurrentFileModel.ImgCropWidth) / $scope.CurrentFileModel.ImgCropHeight));
-        //    }
-        //};
-        //$("body").off("click", ".btnEqualRatio").on("click", ".btnEqualRatio", function () {
-        //    //调整指定行
-        //    thumbLines.call(this);
-        //    return false;
-        //});
-        //$("body").off("click", ".btnEqualRatioAll").on("click", ".btnEqualRatioAll", function () {
-        //    //调整所有行
-        //    $(".btnEqualRatio").each(function () {
-        //        thumbLines.call(this);
-        //    });
-        //});
     };
 
     //单击文件详情
@@ -253,20 +228,6 @@
         });
     };
 
-    ////单击保存编辑
-    //$scope.saveEdit = function () {
-    //    $scope.CurrentFileModel.ThumbImgSettings = [];
-    //    var $con = $(".dynamicCon"), $w = $con.find("input[name='txtThumbWidth']"), $h = $con.find("input[name='txtThumbHeight']"), $isMain = $con.find("input[name='ckIsMain']");
-    //    $w.each(function (idx, n) {
-    //        var obj = new thumbImgSettingModel();
-    //        obj.Width = XJ.Data.GetInt($.trim(n.value));
-    //        obj.Height = XJ.Data.GetInt($.trim($h[idx].value));
-    //        obj.IsMain = $isMain[idx].checked;
-    //        $scope.CurrentFileModel.ThumbImgSettings.push(obj);
-    //    });
-    //    tabFileUpload.tabs('close', tabTitle);
-    //};
-
     //图片编辑时，初始化裁剪插件
     $scope.initImgCrop = function () {
         $("img#ImgToEdit").Jcrop({
@@ -293,8 +254,7 @@
 
     $scope.$watch("CurrentFileModel", function (model) {
         //tab选项卡状态更新
-        try
-        {
+        try {
             if (model) {
                 tabFileUpload.tabs('enableTab', "文件详情");
                 tabFileUpload.tabs('enableTab', "文件设置");
@@ -304,11 +264,11 @@
                 tabFileUpload.tabs('disableTab', "文件设置");
             }
         } catch (ex) { }
-        ////计算等比值更新
-        //if (model) {
-        //    $scope.setEqualRatio();
-        //}
-    });
+        //计算等比值更新
+        if (model) {
+            $scope.setEqualRatio();
+        }
+    }, true);
 
     //初始化
     $scope.init = function () {
@@ -334,6 +294,7 @@
                 model.Name = file.name;
                 model.Size = plupload.formatSize(file.size);
                 model.IsImage = XJ.ContentType.IsImage(file.type);
+                model.Format = file.name.slice(file.name.lastIndexOf(".")+1);
                 //生成预览图
                 previewImage({
                     file: file,

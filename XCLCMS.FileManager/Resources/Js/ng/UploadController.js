@@ -55,6 +55,9 @@
     //是否允许开始上传的操作
     $scope.IsCanUploadFile = true;
 
+    //是否允许操作每一个文件下方的按钮
+    $scope.IsCanOperateFileItem = true;
+
     //当前在操作中的model（如：查询该文件详情、修改该文件信息）
     $scope.CurrentFileModel = null;
 
@@ -104,10 +107,13 @@
             _uploader.disableBrowse(false);
             $scope.IsCanAddFile = true;
             $scope.IsCanUploadFile = true;
+            $scope.IsCanOperateFileItem = true;
         } else {
             _uploader.disableBrowse(true);
             $scope.IsCanAddFile = false;
             $scope.IsCanUploadFile = false;
+            $scope.IsCanOperateFileItem = false;
+            $scope.CurrentFileModel = null;
         }
     };
 
@@ -125,25 +131,34 @@
         $scope.CurrentFileModel = null;
         _uploader.splice(0, _uploader.files.length);
         _uploader.refresh();
+        changeUploadButton(true);
     };
 
     //单击修改文件
     $scope.fileEditFunction = function (id) {
+        tabFileUpload.tabs('select', "文件设置");
+        if ($scope.CurrentFileModel && id == $scope.CurrentFileModel.Id) {
+            return false;
+        }
         if (_jcp) {
             _jcp.destroy();
         }
-
         $scope.CurrentFileModel = getModelById(id);
         if (null == $scope.CurrentFileModel.ThumbImgSettings || $scope.CurrentFileModel.ThumbImgSettings.length == 0) {
             $scope.CurrentFileModel.ThumbImgSettings = [new thumbImgSettingModel()];
         }
-        tabFileUpload.tabs('select', "文件设置");
     };
 
     //单击文件详情
     $scope.fileDetailFunction = function (id) {
-        $scope.CurrentFileModel = getModelById(id);
         tabFileUpload.tabs('select', "文件详情");
+        if ($scope.CurrentFileModel && id == $scope.CurrentFileModel.Id) {
+            return false;
+        }
+        if (_jcp) {
+            _jcp.destroy();
+        }
+        $scope.CurrentFileModel = getModelById(id);
     };
 
     //单击删除文件
@@ -294,7 +309,7 @@
                 model.Name = file.name;
                 model.Size = plupload.formatSize(file.size);
                 model.IsImage = XJ.ContentType.IsImage(file.type);
-                model.Format = file.name.slice(file.name.lastIndexOf(".")+1);
+                model.Format = file.name.slice(file.name.lastIndexOf(".") + 1);
                 //生成预览图
                 previewImage({
                     file: file,
@@ -328,16 +343,14 @@
         });
         //文件上传前事件
         _uploader.bind("BeforeUpload", function (up) {
-            var fileuplist = $.map($scope.FileModelList, function (n) {
+            changeUploadButton(false);
+            var fileuplist = $.each($scope.FileModelList, function (idx, n) {
                 //去掉不使用的image-data数据，避免post到服务器
                 n.ImgSmallPath = "";
                 n.ImgBigPath = "";
                 n.Path = "";
-                return n;
             });
             up.settings.multipart_params = { FileSetting: JSON.stringify(fileuplist) };
-            changeUploadButton(false);
-            $scope.$apply();
         });
         //文件上传中的事件
         _uploader.bind("UploadProgress", function (up, file) {

@@ -20,7 +20,7 @@
                                 <p>{{m.Name}}</p>
                                 <p>大小：{{m.Size}}，格式：{{m.Format}}</p>
                             </div>
-                            <div class="itemBottom">
+                            <div class="itemBottom" ng-if="IsCanOperateFileItem">
                                 <a href="javascript:void(0);" ng-click="fileDetailFunction(m.Id)">详情</a>
                                 <a href="javascript:void(0);" ng-click="fileEditFunction(m.Id)" ng-if="m.IsCanEdit">编辑</a>
                                 <a href="javascript:void(0);" ng-click="fileDelFunction(m.Id)" ng-if="m.IsCanDel">删除</a>
@@ -28,11 +28,11 @@
                         </li>
                     </ul>
                 </div>
-                <div class="easyui-progressbar" id="fileUploaderProgress" data-options="value:0,text:'文件上传进度：{value}%'" style="width:100%;"></div>
-                <div style="text-align:right;margin-top:20px;">
-                    <a href="javascript:void(0);" class="btn btn-danger" ng-click="clearFunction()">清空</a>
-                    <a href="javascript:void(0);" id="btnAddFile" class="btn btn-primary {{IsCanAddFile?"":"disabled"}}">添加文件</a>
-                    <a href="javascript:void(0);" class="btn btn-success {{IsCanUploadFile?"":"disabled"}}" ng-click="startUpload()">开始上传</a>
+                <div class="easyui-progressbar" id="fileUploaderProgress" data-options="value:0,text:'文件上传进度：{value}%'" style="width:100%;" ng-show="FileModelList.length>0"></div>
+                <div style="text-align:center;margin-top:20px;margin-bottom:20px;">
+                    <a href="javascript:void(0);" class="btn btn-danger btn-lg" ng-click="clearFunction()" ng-if="FileModelList.length>0"><span class="glyphicon glyphicon-trash">&nbsp;</span>清空重选</a>
+                    <a href="javascript:void(0);" id="btnAddFile" class="btn btn-primary btn-lg {{IsCanAddFile?'':'disabled'}}"><span class="glyphicon glyphicon-plus">&nbsp;</span>添加文件</a>
+                    <a href="javascript:void(0);" class="btn btn-success btn-lg {{IsCanUploadFile?'':'disabled'}}" ng-click="startUpload()" ng-show="FileModelList.length>0"><span class="glyphicon glyphicon-upload">&nbsp;</span>开始上传</a>
                 </div>
             </div>
         </div>

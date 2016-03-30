@@ -37,15 +37,19 @@
 
 <script type="text/javascript">
     (function (config,go) {
-
         config.RootUrl="@XCLNetTools.StringHander.Common.RootUri";
-
         go.globalSettings({
             templateName: "artdialog",
             isExclusive:false
         });
-
     })(window.AppConfig = window.AppConfig || {}, $.XGoAjax);
+
+    (function (config) {
+        config.lock = true;
+        config.opacity = 0.2;
+        config.resize = true;
+    })(art.dialog.defaults);
+
 </script>
 
 

@@ -24,7 +24,6 @@ namespace XCLCMS.FileManager.Controllers
         public JsonResult UploadSubmit(FormCollection fm)
         {
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            List<string> savedImgPathList = new List<string>();
 
             #region 基本信息
 
@@ -37,10 +36,13 @@ namespace XCLCMS.FileManager.Controllers
             string directoryPath = string.Format("{0}/{1}/{2}/", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath.TrimEnd('/'), dtNow.Year, dtNow.Month);
             //附件临时目录
             string directoryTempPath = string.Format("{0}/{1}/{2}/", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPathTemp.TrimEnd('/'), dtNow.Year, dtNow.Month);
+
+            //保存后的相对路径
+            string relativePath = string.Empty;
             //原图保存后的物理地址
             string savedServerPath = string.Empty;
-            //原图是否需要裁剪
-            bool isNeedCrop = false;
+            //主文件id
+            long mainFileID = 0;
 
             //生成目录
             XCLNetTools.FileHandler.FileDirectory.MakeDirectory(Server.MapPath(directoryPath));
@@ -48,7 +50,7 @@ namespace XCLCMS.FileManager.Controllers
 
             #endregion 基本信息
 
-            #region 生成缩略图
+            #region 文件参数
 
             string fileSetting = fm["FileSetting"] ?? "";
             XCLCMS.FileManager.Models.Uploader.FileSetting settingModel = null;
@@ -65,7 +67,7 @@ namespace XCLCMS.FileManager.Controllers
             if (null == settingModel)
             {
                 msgModel.IsSuccess = false;
-                msgModel.Message = "参数设置无效！";
+                msgModel.Message = string.Format("文件【{0}】参数设置无效！", file.FileName);
                 return Json(msgModel);
             }
 
@@ -74,11 +76,11 @@ namespace XCLCMS.FileManager.Controllers
                 settingModel.ThumbImgSettings = settingModel.ThumbImgSettings.Where(k => k.Width > 0 && k.Height > 0).Distinct().ToList();
             }
 
-            #region 裁剪主图
+            #endregion 文件参数
 
-            isNeedCrop = settingModel.ImgCropHeight > 0 && settingModel.ImgCropWidth > 0;
+            #region 裁剪主图或直接保存文件
 
-            if (isNeedCrop)
+            if (settingModel.IsNeedCrop)
             {
                 //如果需要裁剪，则原图先保存到临时文件夹中
                 savedServerPath = Server.MapPath(string.Format("{0}/{1}", directoryTempPath.TrimEnd('/'), newFileName));
@@ -88,24 +90,34 @@ namespace XCLCMS.FileManager.Controllers
                 {
                     if (null != img)
                     {
-                        savedServerPath = Server.MapPath(string.Format("{0}/{1}_{2}_{3}.{4}", directoryPath.TrimEnd('/'), name, settingModel.ImgCropWidth, settingModel.ImgCropHeight, ext));
+                        relativePath = string.Format("{0}/{1}_{2}_{3}.{4}", directoryPath.TrimEnd('/'), name, settingModel.ImgCropWidth, settingModel.ImgCropHeight, ext);
+                        savedServerPath = Server.MapPath(relativePath);
                         img.Save(savedServerPath);
-                        savedImgPathList.Add(savedServerPath);
+
+                        mainFileID = this.SaveFileInfoToDB(0, settingModel, relativePath);
                     }
                 }
             }
             else
             {
                 //如果不裁剪，则直接保存原图
-                savedServerPath = Server.MapPath(string.Format("{0}/{1}", directoryPath.TrimEnd('/'), newFileName));
+                relativePath = string.Format("{0}/{1}", directoryPath.TrimEnd('/'), newFileName);
+                savedServerPath = Server.MapPath(relativePath);
                 file.SaveAs(savedServerPath);
 
-                savedImgPathList.Add(savedServerPath);
+                mainFileID = this.SaveFileInfoToDB(0, settingModel, relativePath);
             }
 
-            #endregion 裁剪主图
+            if (mainFileID == 0)
+            {
+                msgModel.IsSuccess = false;
+                msgModel.Message = string.Format("【{0}】主文件保存失败，请重新上传！", file.FileName);
+                return Json(msgModel);
+            }
 
-            #region 根据主图的参数设置再生成缩略图
+            #endregion 裁剪主图或直接保存文件
+
+            #region 如果是图片，则根据主图的参数设置再生成缩略图
 
             if (null != settingModel.ThumbImgSettings && settingModel.ThumbImgSettings.Count > 0)
             {
@@ -115,22 +127,58 @@ namespace XCLCMS.FileManager.Controllers
                     {
                         if (null != img)
                         {
-                            string thumbPath = Server.MapPath(string.Format("{0}/{1}_{2}_{3}.{4}", directoryPath.TrimEnd('/'), name, thumb.Width, thumb.Height, ext));
+                            relativePath = string.Format("{0}/{1}_{2}_{3}.{4}", directoryPath.TrimEnd('/'), name, thumb.Width, thumb.Height, ext);
+                            string thumbPath = Server.MapPath(relativePath);
                             img.Save(thumbPath);
-                            savedImgPathList.Add(thumbPath);
+
+                            this.SaveFileInfoToDB(mainFileID, settingModel, relativePath);
                         }
                     }
                 }
             }
 
-            #endregion 根据主图的参数设置再生成缩略图
+            #endregion 如果是图片，则根据主图的参数设置再生成缩略图
 
-            #endregion 生成缩略图
-
-            msgModel.CustomObject = savedImgPathList;
             msgModel.IsSuccess = true;
+            msgModel.Message = string.Format("文件【{0}】上传完毕！", file.FileName);
 
             return Json(msgModel);
+        }
+
+        /// <summary>
+        /// 保存文件信息到数据库
+        /// </summary>
+        /// <param name="parentId">父文件ID(如果保存缩略图的话，此id就是主图的id)</param>
+        /// <param name="settingModel">设置信息</param>
+        /// <param name="relativePath">相对路径</param>
+        /// <returns>记录主键ID</returns>
+        private long SaveFileInfoToDB(long parentId, XCLCMS.FileManager.Models.Uploader.FileSetting settingModel, string relativePath)
+        {
+            System.IO.FileInfo info = new System.IO.FileInfo(Server.MapPath(relativePath));
+            DateTime dtNow = DateTime.Now;
+            XCLCMS.Data.BLL.Attachment bll = new Data.BLL.Attachment();
+            XCLCMS.Data.Model.Attachment model = new Data.Model.Attachment();
+            model.AttachmentID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.ATT);
+            model.CreaterID = 0;
+            model.CreaterName = "";
+            model.CreateTime = dtNow;
+            model.Description = settingModel.Description;
+            model.DownLoadCount = settingModel.DownloadCount;
+            model.Ext = info.Extension;
+            model.FileSize = (decimal)(info.Length / 8.0 / 1024);
+            model.FormatType = "";
+            model.ImgHeight = settingModel.IsNeedCrop ? settingModel.ImgCropHeight : settingModel.ImgHeight;
+            model.ImgWidth = settingModel.IsNeedCrop ? settingModel.ImgCropWidth : settingModel.ImgWidth;
+            model.ParentID = parentId;
+            model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
+            model.Title = settingModel.Title;
+            model.UpdaterID = 0;
+            model.UpdaterName = "";
+            model.UpdateTime = dtNow;
+            model.URL = relativePath;
+            model.ViewCount = settingModel.ViewCount;
+            model.ViewType = settingModel.ViewType;
+            return bll.Add(model) ? model.AttachmentID : 0;
         }
     }
 }

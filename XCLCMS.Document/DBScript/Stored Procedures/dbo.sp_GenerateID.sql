@@ -1,7 +1,9 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 
 
 
@@ -67,6 +69,12 @@ BEGIN
 			SELECT @IDValue=ISNULL(MAX(IDValue),100)+1 FROM dbo.GenerateID WHERE IDType=@IDType
 			SET @IDCode=CAST('600'+CAST(@IDValue AS VARCHAR) AS BIGINT)		
 		END		
+		--附件
+		ELSE IF(@IDType='ATT')
+		BEGIN
+			SELECT @IDValue=ISNULL(MAX(IDValue),100)+1 FROM dbo.GenerateID WHERE IDType=@IDType
+			SET @IDCode=CAST('700'+CAST(@IDValue AS VARCHAR) AS BIGINT)		
+		END		
 		
 		INSERT INTO dbo.GenerateID ( IDType, IDValue,IDCode,CreateTime, Remark ) VALUES(@IDType,@IDValue,@IDCode,GETDATE(),@Remark)	
 	
@@ -76,7 +84,7 @@ BEGIN
 	END TRY
 	BEGIN CATCH
 	
-		set @ResultMessage= ERROR_MESSAGE() 
+		SET @ResultMessage= ERROR_MESSAGE() 
 		SET @ResultCode=0
 		ROLLBACK TRAN		
 		
@@ -84,6 +92,7 @@ BEGIN
 
 	
 END
+
 
 
 

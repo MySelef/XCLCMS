@@ -17,10 +17,5 @@ namespace XCLCMS.FileManager.Models.Uploader
         /// 高度
         /// </summary>
         public int Height { get; set; }
-
-        /// <summary>
-        /// 是否为主图
-        /// </summary>
-        public bool IsMain { get; set; }
     }
 }

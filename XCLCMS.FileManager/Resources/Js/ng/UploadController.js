@@ -35,9 +35,6 @@
         this.DownloadCount = 0;//下载数
         this.ViewCount = 0;//查看数
         this.Description = "";//描述
-
-        this.IsCanEdit = true;//是否可以编辑信息
-        this.IsCanDel = true;//是否可以删除该文件
     };
 
     //文件编辑中缩略图设置model
@@ -358,13 +355,7 @@
         });
         //所有文件上传完成后事件
         _uploader.bind("UploadComplete", function (up, files) {
-            if (files.length > 0) {
-                art.dialog({
-                    icon: "succeed",
-                    content: "所有文件已上传完毕！",
-                    ok: true
-                });
-            } else {
+            if (files.length == 0) {
                 art.dialog({
                     icon: "face-smile",
                     content: "当前没有待上传的文件！",

@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article.cs" />
+    <Compile Include="Attachment.cs" />
     <Compile Include="Common\BaseDAL.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="GenerateID.cs" />

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article.cs" />
+    <Compile Include="Attachment.cs" />
     <Compile Include="Custom\ProcedureResultModel.cs" />
     <Compile Include="Custom\SysDicSimple.cs" />
     <Compile Include="Custom\SysFunctionSimple.cs" />

@@ -25,7 +25,7 @@ namespace XCLCMS.FileManager.Models.Uploader
         public string ImgSmallPath { get; set; }
 
         /// <summary>
-        /// 较大尺寸（文件为图片时400*400）
+        /// 较大尺寸（文件为图片时600*600）
         /// </summary>
         public string ImgBigPath { get; set; }
 
@@ -138,5 +138,41 @@ namespace XCLCMS.FileManager.Models.Uploader
         /// 要生成的缩略图选项设置
         /// </summary>
         public List<ThumbImgSetting> ThumbImgSettings { get; set; }
+
+        /// <summary>
+        /// 文件标题
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// 查看类型
+        /// </summary>
+        public string ViewType { get; set; }
+
+        /// <summary>
+        /// 下载数
+        /// </summary>
+        public int DownloadCount { get; set; }
+
+        /// <summary>
+        /// 查看数
+        /// </summary>
+        public int ViewCount { get; set; }
+
+        /// <summary>
+        /// 描述
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 原图是否需要裁剪（如果裁剪后的宽高和原图宽高一样，则判断为原图不需要剪裁操作）
+        /// </summary>
+        public bool IsNeedCrop
+        {
+            get
+            {
+                return this.ImgCropWidth == this.ImgWidth && this.ImgCropHeight == this.ImgHeight && this.ImgWidth > 0 && this.ImgHeight > 0;
+            }
+        }
     }
 }

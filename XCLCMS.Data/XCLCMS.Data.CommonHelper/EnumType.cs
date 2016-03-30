@@ -471,7 +471,13 @@ namespace XCLCMS.Data.CommonHelper
             /// 商户 Merchant
             /// </summary>
             [Description("商户")]
-            MER
+            MER,
+
+            /// <summary>
+            /// 附件 Attachment
+            /// </summary>
+            [Description("附件")]
+            ATT
         }
 
         #endregion ID生成

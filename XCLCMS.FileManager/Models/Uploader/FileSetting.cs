@@ -171,7 +171,19 @@ namespace XCLCMS.FileManager.Models.Uploader
         {
             get
             {
-                return this.ImgCropWidth == this.ImgWidth && this.ImgCropHeight == this.ImgHeight && this.ImgWidth > 0 && this.ImgHeight > 0;
+                if (!this.IsImage)
+                {
+                    return false;
+                }
+                if (this.ImgCropWidth == 0 || this.ImgCropHeight == 0)
+                {
+                    return false;
+                }
+                if (this.ImgCropWidth == this.ImgWidth && this.ImgCropHeight == this.ImgHeight && this.ImgWidth > 0 && this.ImgHeight > 0)
+                {
+                    return false;
+                }
+                return true;
             }
         }
     }

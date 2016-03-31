@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using XCLNetTools.Generic;
 
 namespace XCLCMS.FileManager.Controllers
 {
@@ -54,20 +52,15 @@ namespace XCLCMS.FileManager.Controllers
 
             string fileSetting = fm["FileSetting"] ?? "";
             XCLCMS.FileManager.Models.Uploader.FileSetting settingModel = null;
-            List<XCLCMS.FileManager.Models.Uploader.FileSetting> settingList = null;
             if (!string.IsNullOrEmpty(fileSetting))
             {
-                settingList = XCLNetTools.Serialize.JSON.DeSerialize<List<XCLCMS.FileManager.Models.Uploader.FileSetting>>(fileSetting);
-                if (settingList.IsNotNullOrEmpty())
-                {
-                    settingModel = settingList[0];
-                }
+                settingModel = XCLNetTools.Serialize.JSON.DeSerialize<XCLCMS.FileManager.Models.Uploader.FileSetting>(fileSetting);
             }
 
             if (null == settingModel)
             {
                 msgModel.IsSuccess = false;
-                msgModel.Message = string.Format("文件【{0}】参数设置无效！", file.FileName);
+                msgModel.Message = "参数设置无效！";
                 return Json(msgModel);
             }
 
@@ -94,7 +87,7 @@ namespace XCLCMS.FileManager.Controllers
                         savedServerPath = Server.MapPath(relativePath);
                         img.Save(savedServerPath);
 
-                        mainFileID = this.SaveFileInfoToDB(0, settingModel, relativePath);
+                        mainFileID = this.SaveFileInfoToDB(0, settingModel, relativePath, settingModel.ImgCropWidth, settingModel.ImgCropHeight);
                     }
                 }
             }
@@ -105,13 +98,13 @@ namespace XCLCMS.FileManager.Controllers
                 savedServerPath = Server.MapPath(relativePath);
                 file.SaveAs(savedServerPath);
 
-                mainFileID = this.SaveFileInfoToDB(0, settingModel, relativePath);
+                mainFileID = this.SaveFileInfoToDB(0, settingModel, relativePath, settingModel.ImgWidth, settingModel.ImgHeight);
             }
 
             if (mainFileID == 0)
             {
                 msgModel.IsSuccess = false;
-                msgModel.Message = string.Format("【{0}】主文件保存失败，请重新上传！", file.FileName);
+                msgModel.Message = "主文件保存失败，请重新上传！";
                 return Json(msgModel);
             }
 
@@ -131,7 +124,7 @@ namespace XCLCMS.FileManager.Controllers
                             string thumbPath = Server.MapPath(relativePath);
                             img.Save(thumbPath);
 
-                            this.SaveFileInfoToDB(mainFileID, settingModel, relativePath);
+                            this.SaveFileInfoToDB(mainFileID, settingModel, relativePath, thumb.Width, thumb.Height);
                         }
                     }
                 }
@@ -140,7 +133,7 @@ namespace XCLCMS.FileManager.Controllers
             #endregion 如果是图片，则根据主图的参数设置再生成缩略图
 
             msgModel.IsSuccess = true;
-            msgModel.Message = string.Format("文件【{0}】上传完毕！", file.FileName);
+            msgModel.Message = "上传成功！";
 
             return Json(msgModel);
         }
@@ -152,7 +145,7 @@ namespace XCLCMS.FileManager.Controllers
         /// <param name="settingModel">设置信息</param>
         /// <param name="relativePath">相对路径</param>
         /// <returns>记录主键ID</returns>
-        private long SaveFileInfoToDB(long parentId, XCLCMS.FileManager.Models.Uploader.FileSetting settingModel, string relativePath)
+        private long SaveFileInfoToDB(long parentId, XCLCMS.FileManager.Models.Uploader.FileSetting settingModel, string relativePath, int width, int height)
         {
             System.IO.FileInfo info = new System.IO.FileInfo(Server.MapPath(relativePath));
             DateTime dtNow = DateTime.Now;
@@ -164,11 +157,11 @@ namespace XCLCMS.FileManager.Controllers
             model.CreateTime = dtNow;
             model.Description = settingModel.Description;
             model.DownLoadCount = settingModel.DownloadCount;
-            model.Ext = info.Extension;
+            model.Ext = (info.Extension ?? "").Trim('.');
             model.FileSize = (decimal)(info.Length / 8.0 / 1024);
             model.FormatType = "";
-            model.ImgHeight = settingModel.IsNeedCrop ? settingModel.ImgCropHeight : settingModel.ImgHeight;
-            model.ImgWidth = settingModel.IsNeedCrop ? settingModel.ImgCropWidth : settingModel.ImgWidth;
+            model.ImgHeight = height;
+            model.ImgWidth = width;
             model.ParentID = parentId;
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
             model.Title = settingModel.Title;

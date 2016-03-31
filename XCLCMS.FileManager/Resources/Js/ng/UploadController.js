@@ -35,6 +35,9 @@
         this.DownloadCount = 0;//下载数
         this.ViewCount = 0;//查看数
         this.Description = "";//描述
+
+        this.IsUploadSuccess = false;//是否上传成功
+        this.UploadMsg = "";//上传结果消息
     };
 
     //文件编辑中缩略图设置model
@@ -339,19 +342,30 @@
             $scope.$apply();
         });
         //文件上传前事件
-        _uploader.bind("BeforeUpload", function (up) {
+        _uploader.bind("BeforeUpload", function (up,file) {
             changeUploadButton(false);
-            var fileuplist = $.each($scope.FileModelList, function (idx, n) {
-                //去掉不使用的image-data数据，避免post到服务器
-                n.ImgSmallPath = "";
-                n.ImgBigPath = "";
-                n.Path = "";
+            var f = $.map($scope.FileModelList, function (n) {
+                return file.id == n.Id ? n : null;
             });
-            up.settings.multipart_params = { FileSetting: JSON.stringify(fileuplist) };
+            if (f && f.length > 0) {
+                //去掉不使用的image-data数据，避免post到服务器
+                f[0].ImgSmallPath = "";
+                f[0].ImgBigPath = "";
+                f[0].Path = "";
+            }
+            up.settings.multipart_params = { FileSetting: JSON.stringify(f[0]) };
         });
         //文件上传中的事件
         _uploader.bind("UploadProgress", function (up, file) {
             $("#fileUploaderProgress").progressbar("setValue", up.total.percent);
+        });
+        //当队列中的某一个文件上传完成后触发
+        _uploader.bind("FileUploaded", function (uploader, file, r) {
+            var resp = JSON.parse(r.response);
+            var m = getModelById(file.id);
+            m.UploadMsg = resp.Message;
+            m.IsUploadSuccess = resp.IsSuccess;
+            $scope.$apply();
         });
         //所有文件上传完成后事件
         _uploader.bind("UploadComplete", function (up, files) {

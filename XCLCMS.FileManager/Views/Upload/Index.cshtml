@@ -25,6 +25,10 @@
                                 <a href="javascript:void(0);" ng-click="fileEditFunction(m.Id)">编辑</a>
                                 <a href="javascript:void(0);" ng-click="fileDelFunction(m.Id)">删除</a>
                             </div>
+                            <div ng-if="!!m.UploadMsg">
+                                <p class="text-success" ng-if="m.IsUploadSuccess">{{m.UploadMsg}}</p>
+                                <p class="text-danger" ng-if="!m.IsUploadSuccess">{{m.UploadMsg}}</p>
+                            </div>
                         </li>
                     </ul>
                 </div>

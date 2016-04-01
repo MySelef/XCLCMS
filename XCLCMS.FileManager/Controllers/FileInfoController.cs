@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace XCLCMS.FileManager.Controllers
 {
-    public class FileInfoController : Controller
+    public class FileInfoController : BaseController
     {
         // GET: FileInfo
         public ActionResult List()

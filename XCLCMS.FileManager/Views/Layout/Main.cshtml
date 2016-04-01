@@ -1,5 +1,11 @@
 ﻿@{
     Layout = null;
+
+    XCLCMS.Data.Model.UserInfo CurrentUserModel = null;
+    if (null != ViewBag.CommonModel)
+    {
+        CurrentUserModel = ViewBag.CommonModel.CurrentUserModel as XCLCMS.Data.Model.UserInfo;
+    }
 }
 
 <!DOCTYPE html>
@@ -18,14 +24,8 @@
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <a href="#" class="navbar-brand">XCLCMS文件管理</a>
             </div>
             <div class="navbar-collapse collapse" id="navbar">
@@ -34,10 +34,19 @@
                     <li activeReg="/LogicFile/"><a href="@Url.Action("List","LogicFile")">逻辑文件列表</a></li>
                     <li activeReg="/Upload/"><a href="@Url.Action("Index","Upload")">上传</a></li>
                 </ul>
-            </div><!--/.nav-collapse -->
+                
+                @if (null != CurrentUserModel)
+                {
+                    <p class="navbar-text" style="float:right;">
+                        您好，@(string.Format("{0}（{1}）", CurrentUserModel.UserName, CurrentUserModel.RoleName))  <a href="javascript:void(0);" id="btnLoginOut">安全退出</a>
+                        &nbsp;&nbsp;&nbsp;
+                    </p>
+                }
+                
+            </div>
         </div>
     </nav>
-    <div class="container" style="width:100%;">
+    <div class="container-fluid">
         @RenderBody()
     </div>
 

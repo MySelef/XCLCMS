@@ -24,11 +24,6 @@
                 _this.ClearRubbishData();
                 return false;
             });
-            //退出
-            $("#btnLoginOut").on("click", function () {
-                _this.LogOut();
-                return false;
-            });
         },
         /**
          * 公共验证方法
@@ -105,19 +100,6 @@
                 },
                 templateOption: {
                     beforeSendMsg: "正在清理缓存中，请稍后..."
-                }
-            });
-        },
-        /**
-        * 退出系统
-        */
-        LogOut: function () {
-            art.dialog.tips("正在安全退出中，请稍后......", 999999999);
-            $.getJSON(XCLCMSPageGlobalConfig.RootURL + "Login/LogOut", { v: Math.random() }, function (data) {
-                if (data.IsSuccess) {
-                    top.location.reload(true);
-                } else {
-                    art.dialog.tips("退出失败，请重试！");
                 }
             });
         },

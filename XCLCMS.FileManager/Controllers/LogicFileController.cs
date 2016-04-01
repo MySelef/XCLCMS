@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace XCLCMS.FileManager.Controllers
 {
-    public class LogicFileController : Controller
+    public class LogicFileController : BaseController
     {
         public ActionResult List()
         {

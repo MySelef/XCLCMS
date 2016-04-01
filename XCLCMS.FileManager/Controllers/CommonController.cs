@@ -7,7 +7,7 @@ using XCLCMS.FileManager.Models.Common;
 
 namespace XCLCMS.FileManager.Controllers
 {
-    public class CommonController : Controller
+    public class CommonController : BaseController
     {
         /// <summary>
         /// 图片显示

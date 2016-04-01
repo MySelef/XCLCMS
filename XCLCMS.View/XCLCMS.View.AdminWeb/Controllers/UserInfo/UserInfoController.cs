@@ -52,8 +52,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             #endregion 初始化查询条件
 
             XCLCMS.Data.BLL.UserInfo uBLL = new Data.BLL.UserInfo();
-            viewModel.UserInfoList = uBLL.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[UserInfoID]", "[UserInfoID] desc");
-            viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
+            viewModel.UserInfoList = uBLL.GetPageList(base.PageParamsInfo, strWhere, "", "[UserInfoID]", "[UserInfoID] desc");
+            viewModel.PagerModel = base.PageParamsInfo;
 
             return View("~/Views/UserInfo/UserInfoList.cshtml", viewModel);
         }

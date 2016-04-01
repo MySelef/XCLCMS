@@ -14,30 +14,28 @@ namespace XCLCMS.Data.DAL.Common
         /// 分页(可按非主键排序)
         /// </summary>
         /// <param name="tableName">表名</param>
-        /// <param name="pageSize">每页最多显示的条数</param>
-        /// <param name="pageIndex">当前为第几页 1为第1页</param>
-        /// <param name="recordCount">总记录数</param>
+        /// <param name="pageInfo">分页参数信息</param>
         /// <param name="strWhere"> 查询条件 (注意: 不要加 where)</param>
         /// <param name="fieldName">列名，若为空，则取所有列</param>
         ///<param name="fieldKey">主键名</param>
         ///<param name="fieldOrder">排序字段，可加DESC/ASC</param>
         /// <returns>DataTable</returns>
-        public static DataTable GetPageList(string tableName, int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public static DataTable GetPageList(string tableName, XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
             Database db = new XCLCMS.Data.DAL.Common.BaseDAL().CreateDatabase();
             DbCommand dbCommand = db.GetStoredProcCommand("sp_Pager");
             db.AddOutParameter(dbCommand, "RecordCount", DbType.Int32, 4);
             db.AddOutParameter(dbCommand, "PageCount", DbType.Int32, 4);
 
-            db.AddInParameter(dbCommand, "PageSize", DbType.Int32, pageSize);
-            db.AddInParameter(dbCommand, "PageCurrent", DbType.Int32, pageIndex);
+            db.AddInParameter(dbCommand, "PageSize", DbType.Int32, pageInfo.PageSize);
+            db.AddInParameter(dbCommand, "PageCurrent", DbType.Int32, pageInfo.PageIndex);
             db.AddInParameter(dbCommand, "tbname", DbType.String, tableName);
             db.AddInParameter(dbCommand, "FieldShow", DbType.String, fieldName);
             db.AddInParameter(dbCommand, "Where", DbType.String, strWhere);
             db.AddInParameter(dbCommand, "FieldOrder", DbType.String, fieldOrder);
             db.AddInParameter(dbCommand, "FieldKey", DbType.String, fieldKey);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            int.TryParse(Convert.ToString(dbCommand.Parameters["@RecordCount"].Value), out recordCount);
+            pageInfo.RecordCount = XCLNetTools.Common.DataTypeConvert.ToInt(dbCommand.Parameters["@RecordCount"].Value);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
 

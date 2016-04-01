@@ -98,7 +98,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\AdminBaseController.cs" />
-    <Compile Include="Base\IBaseController.cs" />
+    <Compile Include="Base\FileManagerBaseController.cs" />
+    <Compile Include="Base\AbstractBaseController.cs" />
     <Compile Include="Common\Comm.cs" />
     <Compile Include="Common\Tool.cs" />
     <Compile Include="Encrypt\EncryptHelper.cs" />

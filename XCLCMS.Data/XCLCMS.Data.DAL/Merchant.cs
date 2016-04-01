@@ -266,9 +266,9 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 分页数据列表
         /// </summary>
-        public List<XCLCMS.Data.Model.Merchant> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public List<XCLCMS.Data.Model.Merchant> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
-            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("Merchant", pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
+            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("Merchant", pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Merchant>(dt) as List<XCLCMS.Data.Model.Merchant>;
         }
 

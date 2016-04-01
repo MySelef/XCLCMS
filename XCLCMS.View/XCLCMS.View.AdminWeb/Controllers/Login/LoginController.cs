@@ -31,10 +31,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
         public ActionResult LogOut()
         {
             XCLCMS.Lib.Login.LoginHelper.SetLogInfo(Lib.Login.LoginHelper.LoginType.OFF, null);
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            msgModel.IsSuccess = true;
-            msgModel.Message = "退出成功！";
-            return Json(msgModel, JsonRequestBehavior.AllowGet);
+            return RedirectToRoute("LoginShortURL");
         }
 
         /// <summary>

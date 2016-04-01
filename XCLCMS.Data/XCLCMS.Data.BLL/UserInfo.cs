@@ -77,9 +77,9 @@ namespace XCLCMS.Data.BLL
         /// <summary>
         /// 分页列表
         /// </summary>
-        public List<XCLCMS.Data.Model.UserInfo> GetPageList(int pageSize, int pageIndex, ref int recordCount, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public List<XCLCMS.Data.Model.UserInfo> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
         {
-            return dal.GetPageList(pageSize, pageIndex, ref recordCount, strWhere, fieldName, fieldKey, fieldOrder);
+            return dal.GetPageList(pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
         }
 
         /// <summary>

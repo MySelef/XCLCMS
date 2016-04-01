@@ -40,8 +40,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             #endregion 初始化查询条件
 
             XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
-            viewModel.SysWebSettingList = bll.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[SysWebSettingID]", "[KeyName] asc");
-            viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
+            viewModel.SysWebSettingList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[SysWebSettingID]", "[KeyName] asc");
+            viewModel.PagerModel = base.PageParamsInfo;
             return View("~/Views/SysWebSetting/SysWebSettingList.cshtml", viewModel);
         }
 

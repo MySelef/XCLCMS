@@ -41,8 +41,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             #endregion 初始化查询条件
 
             XCLCMS.Data.BLL.Article bll = new Data.BLL.Article();
-            viewModel.ArticleList = bll.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[ArticleID]", "[ArticleID] desc");
-            viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
+            viewModel.ArticleList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[ArticleID]", "[ArticleID] desc");
+            viewModel.PagerModel = base.PageParamsInfo;
             return View("~/Views/Article/ArticleList.cshtml", viewModel);
         }
 

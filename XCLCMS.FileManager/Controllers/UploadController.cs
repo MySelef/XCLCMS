@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace XCLCMS.FileManager.Controllers
 {
-    public class UploadController : Controller
+    public class UploadController : BaseController
     {
         /// <summary>
         /// 上传

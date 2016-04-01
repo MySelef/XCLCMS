@@ -54,8 +54,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             #endregion 初始化查询条件
 
             XCLCMS.Data.BLL.Merchant uBLL = new Data.BLL.Merchant();
-            viewModel.MerchantList = uBLL.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[MerchantID]", "[MerchantID] desc");
-            viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
+            viewModel.MerchantList = uBLL.GetPageList(base.PageParamsInfo, strWhere, "", "[MerchantID]", "[MerchantID] desc");
+            viewModel.PagerModel = base.PageParamsInfo;
 
             return View("~/Views/Merchant/MerchantList.cshtml", viewModel);
         }

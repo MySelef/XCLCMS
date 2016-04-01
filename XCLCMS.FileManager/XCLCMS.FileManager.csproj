@@ -74,6 +74,13 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="XCLNetLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\XCLCMS.Document\Libs\XCLNetLogger.dll</HintPath>
+    </Reference>
+    <Reference Include="XCLNetSearch">
+      <HintPath>..\XCLCMS.Document\Libs\XCLNetSearch.dll</HintPath>
+    </Reference>
     <Reference Include="XCLNetTools">
       <HintPath>..\XCLCMS.Document\Libs\XCLNetTools.dll</HintPath>
     </Reference>
@@ -237,7 +244,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\FileInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -271,6 +280,8 @@
     <Content Include="Views\Common\ShowImg.cshtml" />
     <Content Include="Views\LogicFile\List.cshtml" />
     <Content Include="Views\Upload\Index.cshtml" />
+    <Content Include="Config\XCLNetLogger.config" />
+    <Content Include="Views\Common\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

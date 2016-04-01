@@ -38,8 +38,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysLog
             #endregion 初始化查询条件
 
             XCLCMS.Data.BLL.SysLog bll = new Data.BLL.SysLog();
-            viewModel.SysLogList = bll.GetPageList(base.PageSize, base.PageIndex, ref base.RecordCount, strWhere, "", "[SysLogID]", "[CreateTime] desc");
-            viewModel.PagerModel = new XCLNetTools.Entity.PagerInfo(base.PageIndex, base.PageSize, base.RecordCount);
+            viewModel.SysLogList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[SysLogID]", "[CreateTime] desc");
+            viewModel.PagerModel = base.PageParamsInfo;
 
             viewModel.ClearLogDateTypeList = XCLNetTools.Enum.EnumHelper.GetEnumFieldModelList(typeof(XCLNetTools.Enum.CommonEnum.BeforeDateTypeEnum));
 

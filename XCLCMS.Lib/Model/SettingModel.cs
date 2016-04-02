@@ -19,10 +19,12 @@
 
         public string Admin_ResourceRootURL { get; set; }
         public string Admin_ResourceVersion { get; set; }
+        public string Admin_LogOutURL { get; set; }
 
         public string FileManager_UploadPath { get; set; }
         public string FileManager_UploadPathTemp { get; set; }
         public string FileManager_RootURL { get; set; }
         public string FileManager_FileListURL { get; set; }
+        public string FileManager_FileUploadURL { get; set; }
     }
 }

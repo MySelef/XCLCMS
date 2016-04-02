@@ -7,5 +7,21 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
     /// </summary>
     public class OtherController : Controller
     {
+        /// <summary>
+        /// 跳转至文件管理页
+        /// </summary>
+        public ActionResult FileManagerFileList()
+        {
+            return Redirect(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_FileListURL);
+        }
+
+        /// <summary>
+        /// 跳转至文件上传页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FileManagerUpload()
+        {
+            return Redirect(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_FileUploadURL);
+        }
     }
 }

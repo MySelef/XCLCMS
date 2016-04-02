@@ -10,6 +10,7 @@ namespace XCLCMS.FileManager.Controllers
         /// <summary>
         /// 上传
         /// </summary>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_FileAdd)]
         public ActionResult Index()
         {
             return View();
@@ -19,6 +20,7 @@ namespace XCLCMS.FileManager.Controllers
         /// 上传文件
         /// </summary>
         [HttpPost]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_FileAdd)]
         public JsonResult UploadSubmit(FormCollection fm)
         {
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();

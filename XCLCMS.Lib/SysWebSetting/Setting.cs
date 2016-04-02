@@ -12,25 +12,28 @@ namespace XCLCMS.Lib.SysWebSetting
         /// <summary>
         /// 所有配置
         /// </summary>
-        private static List<XCLNetTools.Entity.KeyValue> AllSettings = new Func<List<XCLNetTools.Entity.KeyValue>>(() =>
+        private static List<XCLNetTools.Entity.KeyValue> AllSettings
         {
-            List<XCLNetTools.Entity.KeyValue> lst = null;
-            XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
-            var settingList = bll.GetModelList(string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()));
-            if (null != settingList && settingList.Count > 0)
+            get
             {
-                lst = new List<XCLNetTools.Entity.KeyValue>();
-                settingList.ForEach(m =>
+                List<XCLNetTools.Entity.KeyValue> lst = null;
+                XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
+                var settingList = bll.GetModelList(string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()));
+                if (null != settingList && settingList.Count > 0)
                 {
-                    lst.Add(new XCLNetTools.Entity.KeyValue()
+                    lst = new List<XCLNetTools.Entity.KeyValue>();
+                    settingList.ForEach(m =>
                     {
-                        Key = m.KeyName,
-                        Value = m.KeyValue
+                        lst.Add(new XCLNetTools.Entity.KeyValue()
+                        {
+                            Key = m.KeyName,
+                            Value = m.KeyValue
+                        });
                     });
-                });
+                }
+                return lst;
             }
-            return lst;
-        })();
+        }
 
         /// <summary>
         /// model形式的配置

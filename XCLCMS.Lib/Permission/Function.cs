@@ -185,6 +185,30 @@ namespace XCLCMS.Lib.Permission
             /// </summary>
             [Description("商户管理-商户信息查看")]
             SysFun_UserAdmin_MerchantView = 400170,
+
+            /// <summary>
+            ///文件管理-磁盘文件查看
+            /// </summary>
+            [Description("文件管理-磁盘文件查看")]
+            FileManager_DiskFileView = 400172,
+
+            /// <summary>
+            ///文件管理-磁盘文件删除
+            /// </summary>
+            [Description("文件管理-磁盘文件删除")]
+            FileManager_DiskFileDel = 400173,
+
+            /// <summary>
+            ///文件管理-逻辑文件查看
+            /// </summary>
+            [Description("文件管理-逻辑文件查看")]
+            FileManager_LogicFileView = 400174,
+
+            /// <summary>
+            ///文件管理-文件上传
+            /// </summary>
+            [Description("文件管理-文件上传")]
+            FileManager_FileAdd = 400175,
         }
     }
 }

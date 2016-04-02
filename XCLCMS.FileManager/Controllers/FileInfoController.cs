@@ -7,7 +7,10 @@ namespace XCLCMS.FileManager.Controllers
 {
     public class FileInfoController : BaseController
     {
-        // GET: FileInfo
+        /// <summary>
+        /// 磁盘文件列表页
+        /// </summary>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_DiskFileView)]
         public ActionResult List()
         {
             Models.FileInfo.ListVM viewModel = this.GetFormViewModel();
@@ -42,6 +45,10 @@ namespace XCLCMS.FileManager.Controllers
             return viewModel;
         }
 
+        /// <summary>
+        /// 查询磁盘文件列表
+        /// </summary>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_DiskFileView)]
         public JsonResult GetFileList()
         {
             var viewModel = this.GetFormViewModel();
@@ -56,6 +63,15 @@ namespace XCLCMS.FileManager.Controllers
                 Data = msg,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+        }
+
+        /// <summary>
+        /// 磁盘文件删除
+        /// </summary>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_DiskFileDel)]
+        public override ActionResult DelSubmit(FormCollection fm)
+        {
+            return base.DelSubmit(fm);
         }
     }
 }

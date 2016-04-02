@@ -87,5 +87,17 @@ namespace XCLCMS.Data.BLL
         }
 
         #endregion BasicMethod
+
+        #region ExtensionMethod
+
+        /// <summary>
+        /// 分页列表
+        /// </summary>
+        public List<XCLCMS.Data.Model.Attachment> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        {
+            return dal.GetPageList(pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
+        }
+
+        #endregion ExtensionMethod
     }
 }

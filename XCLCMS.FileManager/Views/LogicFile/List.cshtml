@@ -3,3 +3,85 @@
 }
 @model XCLCMS.FileManager.Models.LogicFile.ListVM
 
+<form>
+
+    <div>
+        @Html.Raw(Model.Search.XCLNetSearchHTML())
+    </div>
+    <table class="table table-bordered">
+        <tr>
+            <th class="text-center">
+                <input type="checkbox" value="" />
+            </th>
+            <th class="text-center">序号</th>
+            <th class="text-center">文件ID</th>
+            <th class="text-center">主文件ID</th>
+            <th class="text-center">标题</th>
+            <th class="text-center">查看类型</th>
+            <th class="text-center">格式类型</th>
+            <th class="text-center">扩展名</th>
+            <th class="text-center">相对路径</th>
+            <th class="text-center">描述信息</th>
+            <th class="text-center">下载数</th>
+            <th class="text-center">查看数</th>
+            <th class="text-center">大小（kb）</th>
+            <th class="text-center">图片宽度（如果是图片）</th>
+            <th class="text-center">图片高度（如果是图片）</th>
+            <th class="text-center">记录状态</th>
+            <th class="text-center">创建时间</th>
+            <th class="text-center">更新时间</th>
+        </tr>
+        @{
+            if (Model.AttachmentList.IsNotNullOrEmpty())
+            {
+                for (int i = 0; i < Model.AttachmentList.Count; i++)
+                {
+                    var m = Model.AttachmentList[i];
+                    <tr>
+                        <td  class="text-center"><input type="checkbox" value="@m.AttachmentID" /></td>
+                        <td  class="text-center">
+                            @(Model.PagerModel.StartIndex+i)
+                        </td>
+
+                        <td class="text-center">@m.AttachmentID</td>
+                        <td  class="text-center">@m.ParentID</td>
+                        <td>@m.Title</td>
+                        <td class="text-center">@m.ViewType</td>
+                        <td class="text-center">@m.FormatType</td>
+                        <td class="text-center">@m.Ext</td>
+                        <td>@m.URL</td>
+                        <td>@m.Description</td>
+                        <td class="text-center">@m.DownLoadCount</td>
+                        <td  class="text-center">@m.ViewCount</td>
+                        <td class="text-center">@m.FileSize</td>
+                        <td class="text-center">@m.ImgWidth</td>
+                        <td class="text-center">@m.ImgHeight</td>
+                        <td  class="text-center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), m.RecordState)</td>
+                        <td  class="text-center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.CreateTime)</td>
+                        <td  class="text-center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.UpdateTime)</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="100"  class="text-center">
+                        暂无数据！
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    @Html.Partial("~/Views/UserControl/XCLPager.cshtml", Model.PagerModel)
+
+
+</form>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        app.LogicFileList.Init();
+    });
+</script>

@@ -101,7 +101,7 @@ a {
         padding: 5px 10px 5px 10px;
     }
 
-.XCLTableList {
+/*.XCLTableList {
     border: solid 1px #496da6;
     width: 100%;
     border-spacing: 0px;
@@ -153,7 +153,7 @@ a {
         background: #496da6;
         color: #fff;
         white-space: nowrap;
-    }
+    }*/
 
 .XCLValidError {
     color: #f00;

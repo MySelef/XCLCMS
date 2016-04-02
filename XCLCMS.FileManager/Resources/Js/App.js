@@ -6,3 +6,10 @@ app.FileList = {
         $.XCheck();
     }
 };
+
+
+app.LogicFileList = {
+    Init: function () {
+
+    }
+};

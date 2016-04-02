@@ -55,6 +55,9 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
       <HintPath>..\XCLCMS.Document\Libs\EnterpriseLibrary\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
+    <Reference Include="MvcPager">
+      <HintPath>..\XCLCMS.Document\Libs\MvcPager\MvcPager.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -150,6 +153,7 @@
     <Content Include="Resources\Js\bootstrap\js\bootstrap.js" />
     <Content Include="Resources\Js\bootstrap\js\bootstrap.min.js" />
     <Content Include="Resources\Js\bootstrap\js\npm.js" />
+    <Content Include="Resources\Js\dynamicCon.js" />
     <Content Include="Resources\Js\EasyUI\jquery.easyui.min.js" />
     <Content Include="Resources\Js\EasyUI\themes\color.css" />
     <Content Include="Resources\Js\EasyUI\themes\default\easyui.css" />
@@ -237,6 +241,18 @@
     <Content Include="Resources\Js\plupload\plupload.min.js" />
     <Content Include="Resources\Js\Validate\jquery.validate.js" />
     <Content Include="Resources\Js\Validate\XCLValidatorMethod.js" />
+    <Content Include="Resources\Js\WdatePicker\calendar.js" />
+    <Content Include="Resources\Js\WdatePicker\lang\en.js" />
+    <Content Include="Resources\Js\WdatePicker\lang\zh-cn.js" />
+    <Content Include="Resources\Js\WdatePicker\lang\zh-tw.js" />
+    <Content Include="Resources\Js\WdatePicker\skin\datePicker.gif" />
+    <Content Include="Resources\Js\WdatePicker\skin\default\datepicker.css" />
+    <Content Include="Resources\Js\WdatePicker\skin\default\img.gif" />
+    <Content Include="Resources\Js\WdatePicker\skin\WdatePicker.css" />
+    <Content Include="Resources\Js\WdatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Resources\Js\WdatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Resources\Js\WdatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Resources\Js\WdatePicker\WdatePicker.js" />
     <Content Include="Resources\Js\XCheck.js" />
     <Content Include="Resources\Js\XGoAjax.js" />
     <Content Include="Resources\Js\XGoAjaxTemplate.js" />
@@ -282,6 +298,7 @@
     <Content Include="Views\Upload\Index.cshtml" />
     <Content Include="Config\XCLNetLogger.config" />
     <Content Include="Views\Common\Error.cshtml" />
+    <Content Include="Views\UserControl\XCLPager.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

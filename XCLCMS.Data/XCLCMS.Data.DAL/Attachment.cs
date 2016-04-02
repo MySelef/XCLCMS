@@ -3,6 +3,8 @@ using System;
 using System.Data;
 using System.Data.Common;
 using System.Text;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace XCLCMS.Data.DAL
 {
@@ -226,5 +228,19 @@ namespace XCLCMS.Data.DAL
         }
 
         #endregion Method
+
+
+        #region MethodEx
+
+        /// <summary>
+        /// 分页数据列表
+        /// </summary>
+        public List<XCLCMS.Data.Model.Attachment> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        {
+            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("Attachment", pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Attachment>(dt) as List<XCLCMS.Data.Model.Attachment>;
+        }
+
+        #endregion MethodEx
     }
 }

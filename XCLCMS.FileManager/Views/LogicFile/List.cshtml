@@ -46,7 +46,7 @@
                         <td class="text-center">@m.AttachmentID</td>
                         <td  class="text-center">@m.ParentID</td>
                         <td>@m.Title</td>
-                        <td class="text-center">@m.ViewType</td>
+                        <td class="text-center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.AttachmentViewTypeEnum), m.ViewType)</td>
                         <td class="text-center">@m.FormatType</td>
                         <td class="text-center">@m.Ext</td>
                         <td>@m.URL</td>

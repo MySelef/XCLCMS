@@ -41,7 +41,7 @@
             </div>
         </div>
         <div title="文件详情">
-            <table class="XCLTableEdit">
+            <table class="table table-bordered">
                 <tr>
                     <td class="XCLTitle">文件名：</td>
                     <td>{{CurrentFileModel.Name}}</td>
@@ -54,7 +54,7 @@
         </div>
         <div title="文件设置">
             <div id="divEditFile" style="min-height:700px;">
-                <table class="XCLTableEdit">
+                <table class="table table-bordered">
                     <tr>
                         <td align="center" style="vertical-align:top; width:50%;" ng-if="CurrentFileModel.IsImage">
                             <fieldset>
@@ -116,11 +116,11 @@
                                 <fieldset ng-if="CurrentFileModel.IsImage">
                                     <legend>缩略图设置（在裁剪后的图片的基础上，再生成缩略图）</legend>
                                     <div>
-                                        <table class="XCLTableEdit">
-                                                <tr class="XCLTableHeader">
-                                                    <td width="20%">序号</td>
-                                                    <td width="30%">指定宽高（等比）</td>
-                                                    <td width="50%">操作</td>
+                                        <table class="table table-bordered">
+                                                <tr>
+                                                    <th width="20%" class="text-center">序号</th>
+                                                    <th width="30%" class="text-center">指定宽高（等比）</th>
+                                                    <th width="50%" class="text-center">操作</th>
                                                 </tr>
                                                 <tr ng-repeat="m in CurrentFileModel.ThumbImgSettings">
                                                     <td align="center">{{$index+1}}</td>
@@ -148,29 +148,31 @@
                                 <fieldset>
                                     <legend>文件信息</legend>
                                     <div>
-                                        <table class="XCLTableEdit">
+                                        <table class="table table-bordered">
                                             <tr>
-                                                <td class="XCLTitle" width="20%">标题：</td>
+                                                <td class="text-right" width="20%">标题：</td>
                                                 <td width="30%">
                                                     <input type="text" value="{{CurrentFileModel.Title}}" class="form-control" ng-model="CurrentFileModel.Title" />
                                                 </td>
-                                                <td class="XCLTitle" width="20%">查看类型：</td>
+                                                <td class="text-right" width="20%">查看类型：</td>
                                                 <td width="30%">
-                                                    <select class="form-control" ng-model="CurrentFileModel.ViewType"></select>
+                                                    <select class="form-control" ng-model="CurrentFileModel.ViewType">
+                                                        @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.AttachmentViewTypeEnum)))
+                                                    </select>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="XCLTitle">下载数：</td>
+                                                <td class="text-right">下载数：</td>
                                                 <td>
                                                     <input type="text" class="form-control" ng-model="CurrentFileModel.DownloadCount" />
                                                 </td>
-                                                <td class="XCLTitle">查看数：</td>
+                                                <td class="text-right">查看数：</td>
                                                 <td>
                                                     <input type="text" class="form-control" ng-model="CurrentFileModel.ViewCount" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="XCLTitle">描述信息：</td>
+                                                <td class="text-right">描述信息：</td>
                                                 <td colspan="3">
                                                     <textarea class="form-control" ng-model="CurrentFileModel.Description"></textarea>
                                                 </td>

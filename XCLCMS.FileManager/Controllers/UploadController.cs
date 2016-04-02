@@ -118,16 +118,11 @@ namespace XCLCMS.FileManager.Controllers
             {
                 foreach (var thumb in settingModel.ThumbImgSettings)
                 {
-                    using (var img = XCLNetTools.FileHandler.ImgLib.Crop(savedServerPath, thumb.Width, thumb.Height, 0, 0))
+                    relativePath = string.Format("{0}/{1}_{2}_{3}.{4}", directoryPath.TrimEnd('/'), name, thumb.Width, thumb.Height, ext);
+                    XCLNetTools.FileHandler.ImgLib.MakeThumbnail(savedServerPath, Server.MapPath(relativePath), thumb.Width, thumb.Height);
+                    if (System.IO.File.Exists(Server.MapPath(relativePath)))
                     {
-                        if (null != img)
-                        {
-                            relativePath = string.Format("{0}/{1}_{2}_{3}.{4}", directoryPath.TrimEnd('/'), name, thumb.Width, thumb.Height, ext);
-                            string thumbPath = Server.MapPath(relativePath);
-                            img.Save(thumbPath);
-
-                            this.SaveFileInfoToDB(mainFileID, settingModel, relativePath, thumb.Width, thumb.Height);
-                        }
+                        this.SaveFileInfoToDB(mainFileID, settingModel, relativePath, thumb.Width, thumb.Height);
                     }
                 }
             }

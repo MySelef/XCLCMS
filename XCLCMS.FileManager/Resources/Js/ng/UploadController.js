@@ -31,7 +31,7 @@
         this.ThumbImgSettings = [];//要生成的缩略图选项设置
 
         this.Title = "";//文件标题
-        this.ViewType = "";//查看类型
+        this.ViewType = "NOR";//查看类型
         this.DownloadCount = 0;//下载数
         this.ViewCount = 0;//查看数
         this.Description = "";//描述

@@ -4,14 +4,15 @@
 @model XCLCMS.FileManager.Models.LogicFile.ListVM
 
 <form>
-
+    <button type="button" class="btn btn-primary">修改信息</button>
+    <button type="button" class="btn btn-danger">批量删除</button>
     <div>
         @Html.Raw(Model.Search.XCLNetSearchHTML())
     </div>
     <table class="table table-bordered">
         <tr>
             <th class="text-center">
-                <input type="checkbox" value="" />
+                <input type="checkbox"   class="xcheckgroup checkAllCurrent"/>
             </th>
             <th class="text-center">序号</th>
             <th class="text-center">文件ID</th>
@@ -25,8 +26,8 @@
             <th class="text-center">下载数</th>
             <th class="text-center">查看数</th>
             <th class="text-center">大小（kb）</th>
-            <th class="text-center">图片宽度（如果是图片）</th>
-            <th class="text-center">图片高度（如果是图片）</th>
+            <th class="text-center">图片宽度</th>
+            <th class="text-center">图片高度</th>
             <th class="text-center">记录状态</th>
             <th class="text-center">创建时间</th>
             <th class="text-center">更新时间</th>
@@ -38,19 +39,28 @@
                 {
                     var m = Model.AttachmentList[i];
                     <tr>
-                        <td  class="text-center"><input type="checkbox" value="@m.AttachmentID" /></td>
+                        <td  class="text-center"><input type="checkbox" value="@m.AttachmentID"  class="xcheckgroup checkItem" /></td>
                         <td  class="text-center">
-                            @(Model.PagerModel.StartIndex+i)
+                            @(Model.PagerModel.StartIndex + i)
                         </td>
 
-                        <td class="text-center">@m.AttachmentID</td>
-                        <td  class="text-center">@m.ParentID</td>
-                        <td>@m.Title</td>
+                        <td class="text-center"><a href="@Url.Action("Show", "LogicFile", new { AttachmentID = m.AttachmentID })">@m.AttachmentID</a></td>
+                        <td  class="text-center">
+                            @if (m.ParentID > 0)
+                            {
+                                <a href="@Url.Action("Show", "LogicFile", new { AttachmentID = m.ParentID })">@m.ParentID</a>
+                            }
+                            else
+                            {
+                                @m.ParentID
+                            }
+                        </td>
+                        <td>@XCLNetTools.StringHander.Common.GetSubString(m.Title,20,"...")</td>
                         <td class="text-center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.AttachmentViewTypeEnum), m.ViewType)</td>
                         <td class="text-center">@m.FormatType</td>
                         <td class="text-center">@m.Ext</td>
                         <td>@m.URL</td>
-                        <td>@m.Description</td>
+                        <td>@XCLNetTools.StringHander.Common.GetSubString(m.Description,20,"...")</td>
                         <td class="text-center">@m.DownLoadCount</td>
                         <td  class="text-center">@m.ViewCount</td>
                         <td class="text-center">@m.FileSize</td>

@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Views/Layout/Main.cshtml";
+}
+@model XCLCMS.FileManager.Models.LogicFile.ShowVM
+
+<fieldset>
+    <legend>基本信息</legend>
+    <div>
+        <table class="table table-bordered">
+            <tr>
+                <td class="text-right" width="10%">文件ID：</td>
+                <td width="40%">
+                    @Model.Attachment.AttachmentID
+                </td>
+                <td class="text-right" width="10%">主文件ID：</td>
+                <td width="40%">
+                    @Model.Attachment.ParentID
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">标题：</td>
+                <td>@Model.Attachment.Title</td>
+                <td class="text-right">查看类型：</td>
+                <td>@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.AttachmentViewTypeEnum), Model.Attachment.ViewType)</td>
+            </tr>
+            <tr>
+                <td class="text-right">格式类型：</td>
+                <td>@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.AttachmentFormatTypeEnum), Model.Attachment.FormatType)</td>
+                <td class="text-right">扩展名：</td>
+                <td>@Model.Attachment.Ext</td>
+            </tr>
+            <tr>
+                <td class="text-right">相对路径：</td>
+                <td>@Model.Attachment.URL</td>
+                <td class="text-right">描述信息：</td>
+                <td>@Model.Attachment.Description</td>
+            </tr>
+            <tr>
+                <td class="text-right">下载数：</td>
+                <td>@Model.Attachment.DownLoadCount</td>
+                <td class="text-right">查看数：</td>
+                <td>@Model.Attachment.ViewCount</td>
+            </tr>
+            <tr>
+                <td class="text-right">大小：</td>
+                <td>@Model.Attachment.FileSize kb</td>
+                <td class="text-right">图片宽高（如果是图片）：</td>
+                <td>宽：@Model.Attachment.ImgWidth  px  高：@Model.Attachment.ImgHeight  px</td>
+            </tr>
+            <tr>
+                <td class="text-right">创建时间：</td>
+                <td>
+                    @Model.Attachment.CreateTime
+                    （@Model.Attachment.CreaterName）
+                </td>
+                <td class="text-right">更新时间：</td>
+                <td>
+                    @Model.Attachment.UpdateTime
+                    （@Model.Attachment.UpdaterName）
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</fieldset>
+
+
+@if (Model.SubAttachmentList.IsNotNullOrEmpty())
+{
+    <fieldset>
+        <legend>关联文件</legend>
+        <div>
+            <ul>
+                @foreach (var m in Model.SubAttachmentList)
+                {
+                    <li style="width:100px;float:left;"><a href="@Url.Action("Show", "LogicFile", new { AttachmentID = m.AttachmentID })">@m.AttachmentID</a></li>
+                }
+            </ul>
+        </div>
+    </fieldset>
+}
+
+<hr />
+<div class="text-center">
+    <a href="@Url.Action("List","LogicFile")" class="btn btn-primary">返回</a>
+</div>

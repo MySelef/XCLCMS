@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.FileManager.Controllers
 {
@@ -8,7 +10,6 @@ namespace XCLCMS.FileManager.Controllers
         /// <summary>
         /// 逻辑文件列表
         /// </summary>
-        /// <returns></returns>
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileView)]
         public ActionResult List()
         {
@@ -31,7 +32,7 @@ namespace XCLCMS.FileManager.Controllers
                 new XCLNetSearch.SearchFieldInfo("大小（kb）","FileSize|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("图片宽度（如果是图片）","ImgWidth|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("图片高度（如果是图片）","ImgHeight|number|text",""),
-                
+
                 new XCLNetSearch.SearchFieldInfo("创建时间","CreateTime|dateTime|text",""),
                 new XCLNetSearch.SearchFieldInfo("创建者名","CreaterName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("更新时间","UpdateTime|dateTime|text",""),
@@ -50,6 +51,30 @@ namespace XCLCMS.FileManager.Controllers
             viewModel.AttachmentList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[AttachmentID]", "[AttachmentID] desc");
             viewModel.PagerModel = base.PageParamsInfo;
             return View(viewModel);
+        }
+
+        /// <summary>
+        /// 查看文件详情
+        /// </summary>
+        public ActionResult Show()
+        {
+            var bll = new XCLCMS.Data.BLL.Attachment();
+            XCLCMS.FileManager.Models.LogicFile.ShowVM viewModel = new Models.LogicFile.ShowVM();
+            viewModel.AttachmentID = XCLNetTools.StringHander.FormHelper.GetLong("AttachmentID");
+            viewModel.Attachment = bll.GetModel(viewModel.AttachmentID) ?? new Data.Model.Attachment();
+            if (viewModel.Attachment.AttachmentID > 0)
+            {
+                viewModel.SubAttachmentList = bll.GetCorrelativeList(viewModel.Attachment.AttachmentID);
+            }
+            return View(viewModel);
+        }
+
+        /// <summary>
+        /// 修改文件信息
+        /// </summary>
+        public ActionResult Update()
+        {
+            return View();
         }
     }
 }

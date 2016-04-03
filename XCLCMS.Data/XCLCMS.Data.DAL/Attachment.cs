@@ -1,10 +1,10 @@
 ﻿using Microsoft.Practices.EnterpriseLibrary.Data;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Text;
 using System.Linq;
-using System.Collections.Generic;
+using System.Text;
 
 namespace XCLCMS.Data.DAL
 {
@@ -105,8 +105,9 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public XCLCMS.Data.Model.Attachment GetModel(long AttachmentID)
         {
+            XCLCMS.Data.Model.Attachment model = new XCLCMS.Data.Model.Attachment();
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetStoredProcCommand("Attachment_GetModel");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from Attachment where AttachmentID=@AttachmentID");
             db.AddInParameter(dbCommand, "AttachmentID", DbType.Int64, AttachmentID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             if (ds.Tables[0].Rows.Count > 0)
@@ -229,7 +230,6 @@ namespace XCLCMS.Data.DAL
 
         #endregion Method
 
-
         #region MethodEx
 
         /// <summary>
@@ -239,6 +239,63 @@ namespace XCLCMS.Data.DAL
         {
             DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("Attachment", pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Attachment>(dt) as List<XCLCMS.Data.Model.Attachment>;
+        }
+
+        /// <summary>
+        /// 获取指定id的子记录信息
+        /// </summary>
+        public List<XCLCMS.Data.Model.Attachment> GetListByParentID(long parentId)
+        {
+            XCLCMS.Data.Model.Attachment model = new XCLCMS.Data.Model.Attachment();
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from Attachment where ParentID=@ParentID");
+            db.AddInParameter(dbCommand, "ParentID", DbType.Int64, parentId);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Attachment>(ds.Tables[0]) as List<XCLCMS.Data.Model.Attachment>;
+        }
+
+        /// <summary>
+        /// 获取与指定附件相关的附件列表（不包含该指定的附件id）
+        /// </summary>
+        public List<XCLCMS.Data.Model.Attachment> GetCorrelativeList(long attachmentID)
+        {
+            var model = this.GetModel(attachmentID);
+            if (null == model)
+            {
+                return null;
+            }
+            XCLCMS.Data.Model.Attachment tempModel = null;
+            List<XCLCMS.Data.Model.Attachment> temp = null;
+            List<XCLCMS.Data.Model.Attachment> result = new List<Model.Attachment>();
+
+            temp = this.GetListByParentID(model.AttachmentID);
+
+            if (null != temp && temp.Count > 0)
+            {
+                result.AddRange(temp);
+            }
+
+            if (model.ParentID > 0)
+            {
+                temp = this.GetListByParentID(model.ParentID);
+                if (null != temp && temp.Count > 0)
+                {
+                    result.AddRange(temp);
+                }
+
+                tempModel = this.GetModel(model.ParentID);
+                if (null != tempModel)
+                {
+                    result.Add(tempModel);
+                }
+            }
+
+            if (null != result && result.Count > 0)
+            {
+                result = result.Distinct().Where(k => k.AttachmentID != attachmentID).ToList();
+            }
+
+            return result;
         }
 
         #endregion MethodEx

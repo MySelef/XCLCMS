@@ -98,6 +98,22 @@ namespace XCLCMS.Data.BLL
             return dal.GetPageList(pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
         }
 
+        /// <summary>
+        /// 获取指定id的子记录信息
+        /// </summary>
+        public List<XCLCMS.Data.Model.Attachment> GetListByParentID(long parentId)
+        {
+            return dal.GetListByParentID(parentId);
+        }
+
+        /// <summary>
+        /// 获取与指定附件相关的附件列表（不包含该指定的附件id）
+        /// </summary>
+        public List<XCLCMS.Data.Model.Attachment> GetCorrelativeList(long attachmentID)
+        {
+            return dal.GetCorrelativeList(attachmentID);
+        }
+
         #endregion ExtensionMethod
     }
 }

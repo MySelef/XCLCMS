@@ -274,6 +274,7 @@
     <Compile Include="Models\Common\ShowImgVM.cs" />
     <Compile Include="Models\FileInfo\ListVM.cs" />
     <Compile Include="Models\LogicFile\ListVM.cs" />
+    <Compile Include="Models\LogicFile\ShowVM.cs" />
     <Compile Include="Models\Uploader\FileSetting.cs" />
     <Compile Include="Models\Uploader\ThumbImgSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -299,6 +300,8 @@
     <Content Include="Config\XCLNetLogger.config" />
     <Content Include="Views\Common\Error.cshtml" />
     <Content Include="Views\UserControl\XCLPager.cshtml" />
+    <Content Include="Views\LogicFile\Show.cshtml" />
+    <Content Include="Views\LogicFile\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -149,8 +149,8 @@ namespace XCLCMS.FileManager.Controllers
             XCLCMS.Data.BLL.Attachment bll = new Data.BLL.Attachment();
             XCLCMS.Data.Model.Attachment model = new Data.Model.Attachment();
             model.AttachmentID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.ATT);
-            model.CreaterID = 0;
-            model.CreaterName = "";
+            model.CreaterID = base.UserID;
+            model.CreaterName = base.CurrentUserModel.UserName;
             model.CreateTime = dtNow;
             model.Description = settingModel.Description;
             model.DownLoadCount = settingModel.DownloadCount;
@@ -162,8 +162,8 @@ namespace XCLCMS.FileManager.Controllers
             model.ParentID = parentId;
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
             model.Title = settingModel.Title;
-            model.UpdaterID = 0;
-            model.UpdaterName = "";
+            model.UpdaterID = base.UserID;
+            model.UpdaterName = base.CurrentUserModel.UserName;
             model.UpdateTime = dtNow;
             model.URL = relativePath;
             model.ViewCount = settingModel.ViewCount;

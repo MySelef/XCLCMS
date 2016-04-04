@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using XCLNetTools.Generic;
 
 namespace XCLCMS.FileManager.Controllers
 {
@@ -58,6 +57,7 @@ namespace XCLCMS.FileManager.Controllers
         /// <summary>
         /// 查看文件详情
         /// </summary>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileView)]
         public ActionResult Show()
         {
             var bll = new XCLCMS.Data.BLL.Attachment();
@@ -74,9 +74,57 @@ namespace XCLCMS.FileManager.Controllers
         /// <summary>
         /// 修改文件信息
         /// </summary>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileUpdate)]
         public ActionResult Update()
         {
-            return View();
+            var bll = new XCLCMS.Data.BLL.Attachment();
+            XCLCMS.FileManager.Models.LogicFile.UpdateVM viewModel = new Models.LogicFile.UpdateVM();
+            viewModel.AttachmentID = XCLNetTools.StringHander.FormHelper.GetLong("AttachmentID");
+            viewModel.Attachment = bll.GetModel(viewModel.AttachmentID) ?? new Data.Model.Attachment();
+            return View(viewModel);
+        }
+
+        /// <summary>
+        /// 修改文件信息 提交操作
+        /// </summary>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileUpdate)]
+        public override ActionResult UpdateSubmit(FormCollection fm)
+        {
+            XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
+            var bll = new XCLCMS.Data.BLL.Attachment();
+            long attachmentID = XCLNetTools.StringHander.FormHelper.GetLong("AttachmentID");
+            var model = bll.GetModel(attachmentID);
+            if (null == model)
+            {
+                msg.IsSuccess = false;
+                msg.Message = "未找到该记录！";
+                return Json(msg);
+            }
+            model.Title = XCLNetTools.StringHander.FormHelper.GetString("Title");
+            model.Description = XCLNetTools.StringHander.FormHelper.GetString("Description");
+            model.UpdaterID = base.UserID;
+            model.UpdaterName = base.CurrentUserModel.UserName;
+            model.UpdateTime = DateTime.Now;
+            if (bll.Update(model))
+            {
+                msg.IsSuccess = true;
+                msg.Message = "更新成功！";
+            }
+            else
+            {
+                msg.IsSuccess = false;
+                msg.Message = "更新失败！";
+            }
+            return Json(msg);
+        }
+
+        /// <summary>
+        /// 文件删除操作
+        /// </summary>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileDel)]
+        public override ActionResult DelSubmit(FormCollection fm)
+        {
+            return base.DelSubmit(fm);
         }
     }
 }

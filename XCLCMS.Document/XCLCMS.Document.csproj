@@ -104,6 +104,10 @@
     <Content Include="DBScript\Views\dbo.v_SysFunction.sql" />
     <Content Include="DBScript\Views\dbo.v_SysRole.sql" />
     <Content Include="Img\11.jpg" />
+    <Content Include="Img\20160306-01.jpg" />
+    <Content Include="Img\20160306-02.jpg" />
+    <Content Include="Img\20160306-03.jpg" />
+    <Content Include="Img\20160404-01.jpg" />
     <Content Include="Img\22.jpg" />
     <Content Include="Img\33.jpg" />
     <Content Include="Img\44.jpg" />

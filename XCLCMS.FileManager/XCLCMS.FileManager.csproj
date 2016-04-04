@@ -275,6 +275,7 @@
     <Compile Include="Models\FileInfo\ListVM.cs" />
     <Compile Include="Models\LogicFile\ListVM.cs" />
     <Compile Include="Models\LogicFile\ShowVM.cs" />
+    <Compile Include="Models\LogicFile\UpdateVM.cs" />
     <Compile Include="Models\Uploader\FileSetting.cs" />
     <Compile Include="Models\Uploader\ThumbImgSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

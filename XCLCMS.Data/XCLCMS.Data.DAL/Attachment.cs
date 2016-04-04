@@ -68,7 +68,7 @@ namespace XCLCMS.Data.DAL
         public bool Update(XCLCMS.Data.Model.Attachment model)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetStoredProcCommand("Attachment_Update");
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_Attachment_Update");
             db.AddInParameter(dbCommand, "AttachmentID", DbType.Int64, model.AttachmentID);
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.ParentID);
             db.AddInParameter(dbCommand, "FileName", DbType.AnsiString, model.FileName);
@@ -90,6 +90,10 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "UpdateTime", DbType.DateTime, model.UpdateTime);
             db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
             db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
+
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+
             db.ExecuteNonQuery(dbCommand);
             var result = XCLCMS.Data.DAL.Common.Common.GetProcedureResult(dbCommand.Parameters);
             if (result.IsSuccess)

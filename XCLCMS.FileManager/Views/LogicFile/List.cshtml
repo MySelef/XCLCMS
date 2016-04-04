@@ -4,8 +4,11 @@
 @model XCLCMS.FileManager.Models.LogicFile.ListVM
 
 <form>
-    <button type="button" class="btn btn-primary">修改信息</button>
-    <button type="button" class="btn btn-danger">批量删除</button>
+    @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileDel))
+    {
+        <button type="button" class="btn btn-danger">批量删除</button>
+    }
+
     <div>
         @Html.Raw(Model.Search.XCLNetSearchHTML())
     </div>
@@ -26,11 +29,10 @@
             <th class="text-center">下载数</th>
             <th class="text-center">查看数</th>
             <th class="text-center">大小（kb）</th>
-            <th class="text-center">图片宽度</th>
-            <th class="text-center">图片高度</th>
             <th class="text-center">记录状态</th>
             <th class="text-center">创建时间</th>
             <th class="text-center">更新时间</th>
+            <th class="text-center">操作</th>
         </tr>
         @{
             if (Model.AttachmentList.IsNotNullOrEmpty())
@@ -44,11 +46,11 @@
                             @(Model.PagerModel.StartIndex + i)
                         </td>
 
-                        <td class="text-center"><a href="@Url.Action("Show", "LogicFile", new { AttachmentID = m.AttachmentID })">@m.AttachmentID</a></td>
+                        <td class="text-center"><a href="@Url.Action("Show", "LogicFile", new { AttachmentID = m.AttachmentID })" target="_blank">@m.AttachmentID</a></td>
                         <td  class="text-center">
                             @if (m.ParentID > 0)
                             {
-                                <a href="@Url.Action("Show", "LogicFile", new { AttachmentID = m.ParentID })">@m.ParentID</a>
+                                <a href="@Url.Action("Show", "LogicFile", new { AttachmentID = m.ParentID })" target="_blank">@m.ParentID</a>
                             }
                             else
                             {
@@ -64,11 +66,23 @@
                         <td class="text-center">@m.DownLoadCount</td>
                         <td  class="text-center">@m.ViewCount</td>
                         <td class="text-center">@m.FileSize</td>
-                        <td class="text-center">@m.ImgWidth</td>
-                        <td class="text-center">@m.ImgHeight</td>
                         <td  class="text-center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), m.RecordState)</td>
                         <td  class="text-center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.CreateTime)</td>
                         <td  class="text-center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.UpdateTime)</td>
+                        <td class="text-center">
+                        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileView))
+                        {
+                            <a href="@Url.Action("Show", "LogicFile", new { AttachmentID = m.AttachmentID })" target="_blank">详情</a>
+                        }
+                        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileUpdate))
+                        {
+                            <a href="@Url.Action("Update", "LogicFile", new { AttachmentID = m.AttachmentID })" target="_blank">修改</a>
+                        }
+                        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileDel))
+                        {
+                            <a href="">删除</a>
+                        }
+                        </td>
                     </tr>
                 }
             }
@@ -92,6 +106,6 @@
 
 <script type="text/javascript">
     $(function () {
-        app.LogicFileList.Init();
+        app.LogicFile.List.Init();
     });
 </script>

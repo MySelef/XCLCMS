@@ -209,6 +209,18 @@ namespace XCLCMS.Lib.Permission
             /// </summary>
             [Description("文件管理-文件上传")]
             FileManager_FileAdd = 400175,
+
+            /// <summary>
+            ///文件管理-逻辑文件删除
+            /// </summary>
+            [Description("文件管理-逻辑文件删除")]
+            FileManager_LogicFileDel = 400176,
+
+            /// <summary>
+            ///文件管理-逻辑文件修改
+            /// </summary>
+            [Description("文件管理-逻辑文件修改")]
+            FileManager_LogicFileUpdate = 400177,
         }
     }
 }

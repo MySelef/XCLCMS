@@ -34,3 +34,5 @@ XCLCMS是一个轻量级的CMS（内容管理系统），您可以免费使用�
 ![](https://raw.githubusercontent.com/xucongli1989/XCLCMS/master/XCLCMS.Document/Img/20160306-02.jpg)
 
 ![](https://raw.githubusercontent.com/xucongli1989/XCLCMS/master/XCLCMS.Document/Img/20160306-03.jpg)
+
+![](https://raw.githubusercontent.com/xucongli1989/XCLCMS/master/XCLCMS.Document/Img/20160404-01.jpg)

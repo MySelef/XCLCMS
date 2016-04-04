@@ -29,7 +29,7 @@ namespace XCLCMS.FileManager.Controllers
 
             HttpPostedFileBase file = Request.Files["FileInfo"];
             DateTime dtNow = DateTime.Now;
-            string name = string.Format("{0:yyyyMMdd}_{1}", dtNow, System.Guid.NewGuid().ToString("N"));
+            string name = System.Guid.NewGuid().ToString("N");
             string ext = XCLNetTools.FileHandler.ComFile.GetExtName(file.FileName);
             string newFileName = string.Format("{0}.{1}", name, ext);
             //附件主目录
@@ -149,6 +149,7 @@ namespace XCLCMS.FileManager.Controllers
             XCLCMS.Data.BLL.Attachment bll = new Data.BLL.Attachment();
             XCLCMS.Data.Model.Attachment model = new Data.Model.Attachment();
             model.AttachmentID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.ATT);
+            model.FileName = info.Name;
             model.CreaterID = base.UserID;
             model.CreaterName = base.CurrentUserModel.UserName;
             model.CreateTime = dtNow;

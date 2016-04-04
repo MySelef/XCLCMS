@@ -27,6 +27,7 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("sp_Attachment_ADD");
             db.AddInParameter(dbCommand, "AttachmentID", DbType.Int64, model.AttachmentID);
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.ParentID);
+            db.AddInParameter(dbCommand, "FileName", DbType.AnsiString, model.FileName);
             db.AddInParameter(dbCommand, "Title", DbType.String, model.Title);
             db.AddInParameter(dbCommand, "ViewType", DbType.AnsiString, model.ViewType);
             db.AddInParameter(dbCommand, "FormatType", DbType.AnsiString, model.FormatType);
@@ -70,6 +71,7 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("Attachment_Update");
             db.AddInParameter(dbCommand, "AttachmentID", DbType.Int64, model.AttachmentID);
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.ParentID);
+            db.AddInParameter(dbCommand, "FileName", DbType.AnsiString, model.FileName);
             db.AddInParameter(dbCommand, "Title", DbType.String, model.Title);
             db.AddInParameter(dbCommand, "ViewType", DbType.AnsiString, model.ViewType);
             db.AddInParameter(dbCommand, "FormatType", DbType.AnsiString, model.FormatType);
@@ -135,6 +137,10 @@ namespace XCLCMS.Data.DAL
                 if (row["ParentID"] != null && row["ParentID"].ToString() != "")
                 {
                     model.ParentID = long.Parse(row["ParentID"].ToString());
+                }
+                if (row["FileName"] != null)
+                {
+                    model.FileName = row["FileName"].ToString();
                 }
                 if (row["Title"] != null)
                 {
@@ -218,8 +224,7 @@ namespace XCLCMS.Data.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select AttachmentID,ParentID,Title,ViewType,FormatType,Ext,URL,Description,DownLoadCount,ViewCount,FileSize,ImgWidth,ImgHeight,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
-            strSql.Append(" FROM Attachment ");
+            strSql.Append("select *  FROM Attachment ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

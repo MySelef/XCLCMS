@@ -10,7 +10,7 @@
         @Html.Raw(Model.Search.XCLNetSearchHTML())
     </div>
     <table class="table table-bordered">
-        <tr>
+        <tr class="active">
             <th class="text-center">
                 <input type="checkbox"   class="xcheckgroup checkAllCurrent"/>
             </th>
@@ -21,7 +21,7 @@
             <th class="text-center">查看类型</th>
             <th class="text-center">格式类型</th>
             <th class="text-center">扩展名</th>
-            <th class="text-center">相对路径</th>
+            <th class="text-center">文件名</th>
             <th class="text-center">描述信息</th>
             <th class="text-center">下载数</th>
             <th class="text-center">查看数</th>
@@ -38,7 +38,7 @@
                 for (int i = 0; i < Model.AttachmentList.Count; i++)
                 {
                     var m = Model.AttachmentList[i];
-                    <tr>
+                    <tr @Html.Raw(i%2==0?"":" class='active' ")>
                         <td  class="text-center"><input type="checkbox" value="@m.AttachmentID"  class="xcheckgroup checkItem" /></td>
                         <td  class="text-center">
                             @(Model.PagerModel.StartIndex + i)
@@ -59,7 +59,7 @@
                         <td class="text-center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.AttachmentViewTypeEnum), m.ViewType)</td>
                         <td class="text-center">@m.FormatType</td>
                         <td class="text-center">@m.Ext</td>
-                        <td>@m.URL</td>
+                        <td><a href="@((m.URL??"").Replace("~/",XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_RootURL))" target="_blank">@m.FileName</a></td>
                         <td>@XCLNetTools.StringHander.Common.GetSubString(m.Description,20,"...")</td>
                         <td class="text-center">@m.DownLoadCount</td>
                         <td  class="text-center">@m.ViewCount</td>

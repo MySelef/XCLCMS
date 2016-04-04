@@ -27,7 +27,7 @@
         <hr />
 
         <table class="table table-bordered">
-                <tr>
+                <tr class="active">
                     <th class="text-center">
                         <input type="checkbox"  class="xcheckgroup checkAllCurrent"/>
                     </th>
@@ -41,7 +41,7 @@
                     <th class="text-center">操作</th>
                 </tr>
 
-                <tr ng-repeat="m in data">
+                <tr ng-repeat="m in data" class="{{$index%2==0?'':'active'}}">
                     <th class="text-center">
                         <input type="checkbox" value="{{m.ID}}" class="xcheckgroup checkItem" />
                     </th>

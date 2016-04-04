@@ -22,6 +22,7 @@ namespace XCLCMS.FileManager.Controllers
                 new XCLNetSearch.SearchFieldInfo("文件ID","AttachmentID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("主文件ID","ParentID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("标题","Title|string|text",""),
+                new XCLNetSearch.SearchFieldInfo("文件名","FileName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("查看类型","ViewType|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("格式类型","FormatType|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("扩展名","Ext|string|text",""),
@@ -48,6 +49,7 @@ namespace XCLCMS.FileManager.Controllers
             #endregion 初始化查询条件
 
             XCLCMS.Data.BLL.Attachment bll = new Data.BLL.Attachment();
+            base.PageParamsInfo.PageSize = 15;
             viewModel.AttachmentList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[AttachmentID]", "[AttachmentID] desc");
             viewModel.PagerModel = base.PageParamsInfo;
             return View(viewModel);

@@ -18,6 +18,12 @@
                 </td>
             </tr>
             <tr>
+                <td class="text-right">文件名：</td>
+                <td><a href="@((Model.Attachment.URL??"").Replace("~/",XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_RootURL))" target="_blank">@Model.Attachment.FileName</a></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
                 <td class="text-right">标题：</td>
                 <td>@Model.Attachment.Title</td>
                 <td class="text-right">查看类型：</td>

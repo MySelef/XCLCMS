@@ -21,21 +21,24 @@
         </ol>
 
         <button type="button" class="btn btn-success" ng-click="initList()">刷新列表</button>
-        <button type="button" class="btn btn-primary">新建目录</button>
-        <button type="button" class="btn btn-danger">删除文件</button>
+
+        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_DiskFileDel))
+        {
+            <button type="button" class="btn btn-danger" ng-click="delBatchSubmit()">删除文件</button>
+        }
 
         <hr />
 
         <table class="table table-bordered">
                 <tr class="active">
                     <th class="text-center">
-                        <input type="checkbox"  class="xcheckgroup checkAllCurrent"/>
+                        <input type="checkbox"  class="xcheckgroup checkAllCurrent xcheckValue" value=""/>
                     </th>
                     <th class="text-center">ID</th>
                     <th class="text-center">文件名</th>
                     <th class="text-center">Web路径</th>
                     <th class="text-center">扩展名</th>
-                    <th class="text-center">大小（MB）</th>
+                    <th class="text-center">大小（KB）</th>
                     <th class="text-center">修改时间</th>
                     <th class="text-center">创建时间</th>
                     <th class="text-center">操作</th>
@@ -43,7 +46,7 @@
 
                 <tr ng-repeat="m in data" class="{{$index%2==0?'':'active'}}">
                     <th class="text-center">
-                        <input type="checkbox" value="{{m.ID}}" class="xcheckgroup checkItem" />
+                        <input type="checkbox" value="{{m.Path | encodeURIComponent}}" class="xcheckgroup checkItem" />
                     </th>
                     <th scope="row" class="text-center">{{m.ID}}</th>
                     <td>
@@ -60,12 +63,14 @@
                         <a href="{{m.WebPath}}" target="_blank">{{m.WebPath}}</a>
                     </td>
                     <td class="text-center">{{m.ExtName}}</td>
-                    <td class="text-center">{{(m.Size/1024.0/1024.0).toFixed(2)}}</td>
+                    <td class="text-center">{{(m.Size/1024.0).toFixed(2)}}</td>
                     <td class="text-center">{{m.ModifyTime}}</td>
                     <td class="text-center">{{m.CreateTime}}</td>
                     <td class="text-center">
-                        <button>修改</button>
-                        <button>删除</button>
+                    @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_DiskFileDel))
+                    {
+                          <a href="javascript:void(0);" ng-click="delSubmit(m.Path)">删除</a>
+                    }
                     </td>
                 </tr>
 

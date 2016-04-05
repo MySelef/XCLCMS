@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -71,7 +72,38 @@ namespace XCLCMS.FileManager.Controllers
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_DiskFileDel)]
         public override ActionResult DelSubmit(FormCollection fm)
         {
-            return base.DelSubmit(fm);
+            XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
+            var paths = (XCLNetTools.StringHander.FormHelper.GetString("paths") ?? "").Split(',').ToList();
+            if (null == paths || paths.Count == 0)
+            {
+                msg.IsSuccess = false;
+                msg.Message = "请指定要删除的文件！";
+                return Json(msg);
+            }
+            string p = string.Empty;
+            foreach (var m in paths)
+            {
+                if (string.IsNullOrWhiteSpace(m))
+                {
+                    continue;
+                }
+                p = System.Web.HttpUtility.UrlDecode(m);
+                //安全起见，删除前判断是否为指定的目录
+                if (p.IndexOf(Server.MapPath(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath)) >= 0)
+                {
+                    XCLNetTools.FileHandler.ComFile.DeleteFile(p);
+                    XCLNetTools.FileHandler.FileDirectory.DelTree(p);
+                }
+                else
+                {
+                    msg.IsSuccess = false;
+                    msg.Message = "非法的删除操作！";
+                    return Json(msg);
+                }
+            }
+            msg.IsSuccess = true;
+            msg.Message = "删除成功！";
+            return Json(msg);
         }
     }
 }

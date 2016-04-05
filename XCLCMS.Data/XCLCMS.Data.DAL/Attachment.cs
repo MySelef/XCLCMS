@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
+using System.Transactions;
 
 namespace XCLCMS.Data.DAL
 {
@@ -305,6 +306,56 @@ namespace XCLCMS.Data.DAL
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        public bool Delete(List<long> idLst, XCLCMS.Data.Model.Custom.ContextModel context)
+        {
+            if (null == idLst || idLst.Count == 0)
+            {
+                return true;
+            }
+            DateTime dtNow = DateTime.Now;
+            using (var scope = new TransactionScope())
+            {
+                foreach (var id in idLst)
+                {
+                    var model = this.GetModel(id);
+                    if (null == model)
+                    {
+                        continue;
+                    }
+                    //删除当前记录
+                    model.UpdaterID = context.UserInfo.UserInfoID;
+                    model.UpdaterName = context.UserInfo.UserName;
+                    model.UpdateTime = dtNow;
+                    model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString();
+                    if (!this.Update(model))
+                    {
+                        return false;
+                    }
+                    //更新子记录的parentid为0
+                    var subLst = this.GetListByParentID(id);
+                    if (null != subLst && subLst.Count > 0)
+                    {
+                        foreach (var subModel in subLst)
+                        {
+                            subModel.ParentID = 0;
+                            subModel.UpdaterID = context.UserInfo.UserInfoID;
+                            subModel.UpdaterName = context.UserInfo.UserName;
+                            subModel.UpdateTime = dtNow;
+                            if (!this.Update(subModel))
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+                scope.Complete();
+            }
+            return true;
         }
 
         #endregion MethodEx

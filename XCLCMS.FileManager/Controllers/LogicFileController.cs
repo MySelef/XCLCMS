@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace XCLCMS.FileManager.Controllers
@@ -124,7 +125,42 @@ namespace XCLCMS.FileManager.Controllers
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileDel)]
         public override ActionResult DelSubmit(FormCollection fm)
         {
-            return base.DelSubmit(fm);
+            XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
+            var bll = new XCLCMS.Data.BLL.Attachment();
+            var ids = (XCLNetTools.StringHander.FormHelper.GetString("attachmentIDs") ?? "").Split(',').ToList().ConvertAll(k => XCLNetTools.Common.DataTypeConvert.ToLong(k));
+            if (null == ids || ids.Count == 0)
+            {
+                msg.IsSuccess = false;
+                msg.Message = "请指定要删除的记录！";
+                return Json(msg);
+            }
+            if (bll.Delete(ids, base.ContextModel))
+            {
+                msg.IsSuccess = true;
+                msg.Message = "删除成功！";
+                msg.IsRefresh = true;
+
+                //删除物理文件
+                foreach (var id in ids)
+                {
+                    var model = bll.GetModel(id);
+                    if (null == model)
+                    {
+                        continue;
+                    }
+                    if (string.IsNullOrWhiteSpace(model.URL))
+                    {
+                        continue;
+                    }
+                    XCLNetTools.FileHandler.ComFile.DeleteFile(Server.MapPath(model.URL));
+                }
+            }
+            else
+            {
+                msg.IsSuccess = false;
+                msg.Message = "删除失败！";
+            }
+            return Json(msg);
         }
     }
 }

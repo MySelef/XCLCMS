@@ -11,6 +11,7 @@ namespace XCLCMS.Lib.Base
         #region 当前登录用户相关
 
         private XCLCMS.Data.Model.UserInfo _currentUserModel = null;
+        private XCLCMS.Data.Model.Custom.ContextModel _contextModel = null;
 
         /// <summary>
         /// 当前登录的用户实体
@@ -39,6 +40,28 @@ namespace XCLCMS.Lib.Base
         }
 
         #endregion 当前登录用户相关
+
+        #region 其它
+
+        /// <summary>
+        /// db上下文
+        /// </summary>
+        public XCLCMS.Data.Model.Custom.ContextModel ContextModel
+        {
+            get
+            {
+                if (null != this._contextModel)
+                {
+                    return this._contextModel;
+                }
+                return new Data.Model.Custom.ContextModel()
+                {
+                    UserInfo = this.CurrentUserModel
+                };
+            }
+        }
+
+        #endregion 其它
 
         #region 页面操作相关
 

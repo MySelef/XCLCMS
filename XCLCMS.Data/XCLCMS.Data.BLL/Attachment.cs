@@ -114,6 +114,14 @@ namespace XCLCMS.Data.BLL
             return dal.GetCorrelativeList(attachmentID);
         }
 
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        public bool Delete(List<long> idLst, XCLCMS.Data.Model.Custom.ContextModel context)
+        {
+            return dal.Delete(idLst, context);
+        }
+
         #endregion ExtensionMethod
     }
 }

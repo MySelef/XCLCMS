@@ -27,5 +27,6 @@
         public string FileManager_RootURL { get; set; }
         public string FileManager_FileListURL { get; set; }
         public string FileManager_FileUploadURL { get; set; }
+        public string FileManager_LogicFileListURL { get; set; }
     }
 }

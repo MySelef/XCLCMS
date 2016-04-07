@@ -14,6 +14,7 @@ namespace XCLCMS.FileManager.Controllers
         public ActionResult List()
         {
             XCLCMS.FileManager.Models.LogicFile.ListVM viewModel = new Models.LogicFile.ListVM();
+            viewModel.IsSimple = XCLNetTools.StringHander.FormHelper.GetInt("IsSimple") == 1;
 
             #region 初始化查询条件
 

@@ -1,0 +1,60 @@
+﻿@model XCLCMS.FileManager.Models.LogicFile.ListVM
+
+<table class="table table-bordered">
+    <tr class="active">
+        <th class="text-center">
+            <input type="checkbox" class="xcheckgroup checkAllCurrent xcheckValue" value="" />
+        </th>
+        <th class="text-center">序号</th>
+        <th class="text-center">文件ID</th>
+        <th class="text-center">主文件ID</th>
+        <th class="text-center">标题</th>
+        <th class="text-center">格式类型</th>
+        <th class="text-center">扩展名</th>
+        <th class="text-center">文件名</th>
+        <th class="text-center">描述信息</th>
+        <th class="text-center">大小（kb）</th>
+    </tr>
+    @{
+        if (Model.AttachmentList.IsNotNullOrEmpty())
+        {
+            for (int i = 0; i < Model.AttachmentList.Count; i++)
+            {
+                var m = Model.AttachmentList[i];
+                <tr @Html.Raw(i % 2 == 0 ? "" : " class='active' ")>
+                    <td class="text-center"><input type="checkbox" value="@m.AttachmentID" class="xcheckgroup checkItem" /></td>
+                    <td class="text-center">
+                        @(Model.PagerModel.StartIndex + i)
+                    </td>
+
+                    <td class="text-center"><a href="@Url.Action("Show", "LogicFile", new { AttachmentID = m.AttachmentID })" target="_blank">@m.AttachmentID</a></td>
+                    <td class="text-center">
+                        @if (m.ParentID > 0)
+                        {
+                            <a href="@Url.Action("Show", "LogicFile", new { AttachmentID = m.ParentID })" target="_blank">@m.ParentID</a>
+                        }
+                        else
+                        {
+                            @m.ParentID
+                        }
+                    </td>
+                    <td>@XCLNetTools.StringHander.Common.GetSubString(m.Title, 20, "...")</td>
+                    <td class="text-center">@m.FormatType</td>
+                    <td class="text-center">@m.Ext</td>
+                    <td><a href="@((m.URL??"").Replace("~/",XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_RootURL))" target="_blank">@m.FileName</a></td>
+                    <td>@XCLNetTools.StringHander.Common.GetSubString(m.Description, 20, "...")</td>
+                    <td class="text-center">@m.FileSize</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="100" class="text-center">
+                    暂无数据！
+                </td>
+            </tr>
+        }
+    }
+</table>
+

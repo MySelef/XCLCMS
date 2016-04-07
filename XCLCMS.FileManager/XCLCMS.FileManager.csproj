@@ -303,6 +303,7 @@
     <Content Include="Views\UserControl\XCLPager.cshtml" />
     <Content Include="Views\LogicFile\Show.cshtml" />
     <Content Include="Views\LogicFile\Update.cshtml" />
+    <Content Include="Views\UserControl\LogicFileListSimple.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

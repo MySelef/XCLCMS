@@ -76,13 +76,19 @@
                             </tr>
                             <tr>
                                 <td align="center">
-                                    <a href="javascript:void(0);" id="btnMainImage1">选择图片</a>
+                                    @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM() {
+                                           TxtName= "mainImage1"
+                                    })
                                 </td>
                                 <td align="center">
-                                    <a href="javascript:void(0);">选择图片</a>
+                                    @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM() {
+                                   TxtName= "mainImage2"
+                               })
                                 </td>
                                 <td align="center">
-                                    <a href="javascript:void(0);">选择图片</a>
+                                    @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM() {
+                                   TxtName = "mainImage3"
+                               })
                                 </td>
                             </tr>
                         </table>
@@ -144,7 +150,10 @@
                 <tr>
                     <td class="XCLTitle">附件：</td>
                     <td colspan="5">
-                        <input type="file" />
+                        @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM() {
+                       TxtName="txtAttachments",
+                       MaxFileCount=10
+                   })
                     </td>
                 </tr>
 

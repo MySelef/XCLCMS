@@ -47,5 +47,10 @@ namespace XCLCMS.View.AdminWeb.Common
         /// 文件管理器文件列表路径
         /// </summary>
         public string FileManagerFileListURL { get; set; }
+
+        /// <summary>
+        /// 文件管理器逻辑文件列表路径
+        /// </summary>
+        public string FileManagerLogicFileListURL { get; set; }
     }
 }

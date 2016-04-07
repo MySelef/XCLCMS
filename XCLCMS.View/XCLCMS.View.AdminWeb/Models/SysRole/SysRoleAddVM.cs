@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace XCLCMS.View.AdminViewModel.SysRole
+namespace XCLCMS.View.AdminWeb.Models.SysRole
 {
     /// <summary>
     /// 添加或修改角色的viewmodel

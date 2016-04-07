@@ -1,4 +1,4 @@
-﻿namespace XCLCMS.View.AdminViewModel.SysWebSetting
+﻿namespace XCLCMS.View.AdminWeb.Models.SysWebSetting
 {
     /// <summary>
     /// 配置添加或修改页 viewmodel

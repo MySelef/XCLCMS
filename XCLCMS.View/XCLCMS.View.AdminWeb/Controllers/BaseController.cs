@@ -22,7 +22,7 @@ namespace XCLCMS.View.AdminWeb.Controllers
             base.OnActionExecuting(filterContext);
 
             //主模板数据
-            XCLCMS.View.AdminViewModel.Main.MainVM mainViewModel = new XCLCMS.View.AdminViewModel.Main.MainVM();
+            XCLCMS.View.AdminWeb.Models.Main.MainVM mainViewModel = new XCLCMS.View.AdminWeb.Models.Main.MainVM();
             XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
             var allMenuList = sysDicBLL.GetSysMenuList();
             if (allMenuList.IsNotNullOrEmpty())

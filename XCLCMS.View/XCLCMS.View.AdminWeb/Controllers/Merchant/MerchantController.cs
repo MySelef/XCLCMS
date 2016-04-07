@@ -15,7 +15,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView)]
         public ActionResult Index()
         {
-            XCLCMS.View.AdminViewModel.Merchant.MerchantListVM viewModel = new XCLCMS.View.AdminViewModel.Merchant.MerchantListVM();
+            XCLCMS.View.AdminWeb.Models.Merchant.MerchantListVM viewModel = new XCLCMS.View.AdminWeb.Models.Merchant.MerchantListVM();
 
             #region 初始化查询条件
 
@@ -71,7 +71,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
             XCLCMS.Data.BLL.SysDic dicBLL = new Data.BLL.SysDic();
             XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
-            XCLCMS.View.AdminViewModel.Merchant.MerchantAddVM viewModel = new AdminViewModel.Merchant.MerchantAddVM();
+            XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM viewModel = new XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM();
             viewModel.Merchant = new XCLCMS.Data.Model.Merchant();
 
             var merchantTypeDic = merchantBLL.GetMerchantTypeDic();
@@ -119,9 +119,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         /// <summary>
         /// 将表单值转为viewModel
         /// </summary>
-        private XCLCMS.View.AdminViewModel.Merchant.MerchantAddVM GetViewModel(FormCollection fm)
+        private XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM GetViewModel(FormCollection fm)
         {
-            XCLCMS.View.AdminViewModel.Merchant.MerchantAddVM viewModel = new AdminViewModel.Merchant.MerchantAddVM();
+            XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM viewModel = new XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM();
             viewModel.Merchant = new Data.Model.Merchant();
             viewModel.Merchant.Address = (fm["txtAddress"] ?? "").Trim();
             viewModel.Merchant.ContactName = (fm["txtContactName"] ?? "").Trim();
@@ -150,7 +150,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAdd)]
         public override ActionResult AddSubmit(FormCollection fm)
         {
-            XCLCMS.View.AdminViewModel.Merchant.MerchantAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
             XCLCMS.Data.Model.Merchant model = new XCLCMS.Data.Model.Merchant();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
@@ -203,7 +203,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         {
             base.UpdateSubmit(fm);
             long merchantId = XCLNetTools.StringHander.FormHelper.GetLong("merchantId");
-            XCLCMS.View.AdminViewModel.Merchant.MerchantAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             XCLCMS.Data.Model.Merchant model = merchantBLL.GetModel(merchantId);

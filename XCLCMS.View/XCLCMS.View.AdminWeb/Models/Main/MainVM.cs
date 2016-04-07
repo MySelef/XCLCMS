@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace XCLCMS.View.AdminViewModel.Main
+namespace XCLCMS.View.AdminWeb.Models.Main
 {
     /// <summary>
     /// 主模板视图model

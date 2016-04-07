@@ -27,7 +27,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
 
             XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
             XCLCMS.Data.BLL.SysFunction functionBLL = new Data.BLL.SysFunction();
-            XCLCMS.View.AdminViewModel.SysRole.SysRoleAddVM viewModel = new AdminViewModel.SysRole.SysRoleAddVM();
+            XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM();
 
             switch (base.CurrentHandleType)
             {
@@ -71,9 +71,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
         /// <summary>
         /// 将表单值转为viewModel
         /// </summary>
-        private XCLCMS.View.AdminViewModel.SysRole.SysRoleAddVM GetViewModel(FormCollection fm)
+        private XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM GetViewModel(FormCollection fm)
         {
-            XCLCMS.View.AdminViewModel.SysRole.SysRoleAddVM viewModel = new AdminViewModel.SysRole.SysRoleAddVM();
+            XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM();
             viewModel.SysRole = new Data.Model.SysRole();
             viewModel.SysRoleID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["SysRoleID"]);
             viewModel.ParentID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["ParentID"]);
@@ -90,7 +90,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
         public override ActionResult AddSubmit(FormCollection fm)
         {
             base.AddSubmit(fm);
-            XCLCMS.View.AdminViewModel.SysRole.SysRoleAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM viewModel = this.GetViewModel(fm);
 
             XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
             XCLCMS.Data.Model.SysRole model = null;
@@ -142,7 +142,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
         public override ActionResult UpdateSubmit(FormCollection fm)
         {
             base.UpdateSubmit(fm);
-            XCLCMS.View.AdminViewModel.SysRole.SysRoleAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
             XCLCMS.Data.Model.SysRole model = null;
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();

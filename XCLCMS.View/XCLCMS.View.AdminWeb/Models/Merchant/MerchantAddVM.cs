@@ -1,4 +1,4 @@
-﻿namespace XCLCMS.View.AdminViewModel.Merchant
+﻿namespace XCLCMS.View.AdminWeb.Models.Merchant
 {
     public class MerchantAddVM
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace XCLCMS.View.AdminViewModel.SysLog
+namespace XCLCMS.View.AdminWeb.Models.SysLog
 {
     public class SysLogListVM
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace XCLCMS.View.AdminViewModel.SysWebSetting
+namespace XCLCMS.View.AdminWeb.Models.SysWebSetting
 {
     /// <summary>
     /// 配置 列表

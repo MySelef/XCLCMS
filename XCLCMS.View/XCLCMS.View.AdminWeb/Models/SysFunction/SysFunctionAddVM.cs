@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace XCLCMS.View.AdminViewModel.SysFunction
+namespace XCLCMS.View.AdminWeb.Models.SysFunction
 {
     /// <summary>
     /// 功能添加或修改页 viewmodel

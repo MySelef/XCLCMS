@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/MasterView/Simple.cshtml";
 }
-@model XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM
+@model XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM
 
 <form id="mainForm" action="@Model.FormAction" method="post">
     <input type="hidden" name="SysDicID" id="SysDicID" value="@Model.SysDicID" />
@@ -51,7 +51,7 @@
                             </td>
                         </tr>
 
-                        @if(Model.SysDicCategory==XCLCMS.View.AdminViewModel.SysDic.SysDicCategoryEnum.SysMenu)
+                        @if(Model.SysDicCategory==XCLCMS.View.AdminWeb.Models.SysDic.SysDicCategoryEnum.SysMenu)
                         {
                             <tr>
                                 <td class="XCLTitle">所属功能模块：</td>

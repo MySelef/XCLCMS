@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace XCLCMS.View.AdminViewModel.SysDic
+namespace XCLCMS.View.AdminWeb.Models.SysDic
 {
     /// <summary>
     /// 系统字典库添加页的视图

@@ -41,17 +41,17 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             long sysDicId = XCLNetTools.StringHander.FormHelper.GetLong("sysDicId");
             XCLCMS.Data.BLL.SysDic bll = new Data.BLL.SysDic();
             XCLCMS.Data.BLL.SysFunction functionBLL = new Data.BLL.SysFunction();
-            XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM viewModel = new AdminViewModel.SysDic.SysDicAddVM();
+            XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM();
 
             //判断当前字典是否属于【系统菜单】
-            if (viewModel.SysDicCategory == AdminViewModel.SysDic.SysDicCategoryEnum.None)
+            if (viewModel.SysDicCategory == XCLCMS.View.AdminWeb.Models.SysDic.SysDicCategoryEnum.None)
             {
                 var menus = new XCLCMS.Data.BLL.View.v_SysDic_SysMenu().GetModelList("");
                 if (menus.IsNotNullOrEmpty())
                 {
                     if (menus.Exists(k => k.SysDicID == sysDicId || (k.ParentID == sysDicId && base.CurrentHandleType == Lib.Common.Comm.HandleType.ADD)))
                     {
-                        viewModel.SysDicCategory = AdminViewModel.SysDic.SysDicCategoryEnum.SysMenu;
+                        viewModel.SysDicCategory = XCLCMS.View.AdminWeb.Models.SysDic.SysDicCategoryEnum.SysMenu;
                     }
                 }
             }
@@ -82,9 +82,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
         /// <summary>
         /// 将表单值转为viewModel
         /// </summary>
-        private XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM GetViewModel(FormCollection fm)
+        private XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM GetViewModel(FormCollection fm)
         {
-            XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM viewModel = new AdminViewModel.SysDic.SysDicAddVM();
+            XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM();
             viewModel.SysDic = new Data.Model.SysDic();
             viewModel.SysDicID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["SysDicID"]);
             viewModel.ParentID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["ParentID"]);
@@ -103,7 +103,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
         public override ActionResult AddSubmit(FormCollection fm)
         {
             base.AddSubmit(fm);
-            XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM viewModel = this.GetViewModel(fm);
 
             XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
             XCLCMS.Data.Model.SysDic sysDicModel = new Data.Model.SysDic();
@@ -145,7 +145,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
         public override ActionResult UpdateSubmit(FormCollection fm)
         {
             base.UpdateSubmit(fm);
-            XCLCMS.View.AdminViewModel.SysDic.SysDicAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM viewModel = this.GetViewModel(fm);
 
             XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();

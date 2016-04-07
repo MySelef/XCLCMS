@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace XCLCMS.View.AdminViewModel.UserInfo
+namespace XCLCMS.View.AdminWeb.Models.UserInfo
 {
     public class UserInfoListVM
     {

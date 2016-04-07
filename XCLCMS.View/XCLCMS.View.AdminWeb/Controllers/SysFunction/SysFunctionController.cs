@@ -25,7 +25,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
             long sysFunctionID = XCLNetTools.StringHander.FormHelper.GetLong("SysFunctionID");
 
             XCLCMS.Data.BLL.SysFunction bll = new Data.BLL.SysFunction();
-            XCLCMS.View.AdminViewModel.SysFunction.SysFunctionAddVM viewModel = new AdminViewModel.SysFunction.SysFunctionAddVM();
+            XCLCMS.View.AdminWeb.Models.SysFunction.SysFunctionAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysFunction.SysFunctionAddVM();
 
             switch (base.CurrentHandleType)
             {
@@ -64,9 +64,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
         /// <summary>
         /// 将表单值转为viewModel
         /// </summary>
-        private XCLCMS.View.AdminViewModel.SysFunction.SysFunctionAddVM GetViewModel(FormCollection fm)
+        private XCLCMS.View.AdminWeb.Models.SysFunction.SysFunctionAddVM GetViewModel(FormCollection fm)
         {
-            XCLCMS.View.AdminViewModel.SysFunction.SysFunctionAddVM viewModel = new AdminViewModel.SysFunction.SysFunctionAddVM();
+            XCLCMS.View.AdminWeb.Models.SysFunction.SysFunctionAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysFunction.SysFunctionAddVM();
             viewModel.SysFunction = new Data.Model.SysFunction();
             viewModel.SysFunctionID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["SysFunctionID"]);
             viewModel.ParentID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["ParentID"]);
@@ -81,7 +81,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
         public override ActionResult AddSubmit(FormCollection fm)
         {
             base.AddSubmit(fm);
-            XCLCMS.View.AdminViewModel.SysFunction.SysFunctionAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.SysFunction.SysFunctionAddVM viewModel = this.GetViewModel(fm);
 
             XCLCMS.Data.BLL.SysFunction bll = new Data.BLL.SysFunction();
             XCLCMS.Data.Model.SysFunction model = null;
@@ -117,7 +117,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
         public override ActionResult UpdateSubmit(FormCollection fm)
         {
             base.UpdateSubmit(fm);
-            XCLCMS.View.AdminViewModel.SysFunction.SysFunctionAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.SysFunction.SysFunctionAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.SysFunction bll = new Data.BLL.SysFunction();
             XCLCMS.Data.Model.SysFunction model = null;
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();

@@ -17,7 +17,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserView)]
         public ActionResult Index()
         {
-            XCLCMS.View.AdminViewModel.UserInfo.UserInfoListVM viewModel = new XCLCMS.View.AdminViewModel.UserInfo.UserInfoListVM();
+            XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoListVM viewModel = new XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoListVM();
 
             #region 初始化查询条件
 
@@ -68,7 +68,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             long userInfoId = XCLNetTools.StringHander.FormHelper.GetLong("userInfoId");
 
             XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
-            XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM viewModel = new AdminViewModel.UserInfo.UserInfoAddVM();
+            XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM viewModel = new XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM();
             viewModel.UserInfo = new XCLCMS.Data.Model.UserInfo();
 
             switch (base.CurrentHandleType)
@@ -97,9 +97,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
         /// <summary>
         /// 将表单值转为viewModel
         /// </summary>
-        private XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM GetViewModel(FormCollection fm)
+        private XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM GetViewModel(FormCollection fm)
         {
-            XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM viewModel = new AdminViewModel.UserInfo.UserInfoAddVM();
+            XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM viewModel = new XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM();
             viewModel.UserInfo = new Data.Model.UserInfo();
             viewModel.UserInfo.Age = XCLNetTools.Common.DataTypeConvert.ToInt((fm["txtAge"] ?? "").Trim());
             viewModel.UserInfo.Birthday = XCLNetTools.Common.DataTypeConvert.ToDateTimeNull((fm["txtBirthday"] ?? "").Trim());
@@ -126,7 +126,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserAdd)]
         public override ActionResult AddSubmit(FormCollection fm)
         {
-            XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
             XCLCMS.Data.Model.UserInfo model = new XCLCMS.Data.Model.UserInfo();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
@@ -193,7 +193,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
         {
             base.UpdateSubmit(fm);
             long userInfoId = XCLNetTools.StringHander.FormHelper.GetLong("userInfoId");
-            XCLCMS.View.AdminViewModel.UserInfo.UserInfoAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             XCLCMS.Data.Model.UserInfo model = userInfoBLL.GetModel(userInfoId);

@@ -1,4 +1,4 @@
-﻿namespace XCLCMS.View.AdminViewModel.Article
+﻿namespace XCLCMS.View.AdminWeb.Models.Article
 {
     /// <summary>
     /// 文章添加或修改页的viewmodel

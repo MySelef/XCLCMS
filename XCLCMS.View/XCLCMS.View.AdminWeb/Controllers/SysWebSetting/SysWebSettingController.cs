@@ -15,7 +15,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingView)]
         public ActionResult Index()
         {
-            XCLCMS.View.AdminViewModel.SysWebSetting.SysWebSettingListVM viewModel = new AdminViewModel.SysWebSetting.SysWebSettingListVM();
+            XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingListVM viewModel = new XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingListVM();
 
             #region 初始化查询条件
 
@@ -55,7 +55,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             long sysWebSettingID = XCLNetTools.StringHander.FormHelper.GetLong("SysWebSettingID");
 
             XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
-            XCLCMS.View.AdminViewModel.SysWebSetting.SysWebSettingAddVM viewModel = new AdminViewModel.SysWebSetting.SysWebSettingAddVM();
+            XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM();
 
             switch (base.CurrentHandleType)
             {
@@ -76,9 +76,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
         /// <summary>
         /// 将表单值转为viewModel
         /// </summary>
-        private XCLCMS.View.AdminViewModel.SysWebSetting.SysWebSettingAddVM GetViewModel(FormCollection fm)
+        private XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM GetViewModel(FormCollection fm)
         {
-            XCLCMS.View.AdminViewModel.SysWebSetting.SysWebSettingAddVM viewModel = new AdminViewModel.SysWebSetting.SysWebSettingAddVM();
+            XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM();
             viewModel.SysWebSetting = new Data.Model.SysWebSetting();
             viewModel.SysWebSetting.KeyName = (fm["txtKeyName"] ?? "").Trim();
             viewModel.SysWebSetting.KeyValue = (fm["txtKeyValue"] ?? "").Trim();
@@ -91,7 +91,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
         public override ActionResult AddSubmit(FormCollection fm)
         {
             base.AddSubmit(fm);
-            XCLCMS.View.AdminViewModel.SysWebSetting.SysWebSettingAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM viewModel = this.GetViewModel(fm);
 
             XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
             XCLCMS.Data.Model.SysWebSetting model = null;
@@ -127,7 +127,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
         {
             base.UpdateSubmit(fm);
             long sysWebSettingID = XCLNetTools.StringHander.FormHelper.GetLong("SysWebSettingID");
-            XCLCMS.View.AdminViewModel.SysWebSetting.SysWebSettingAddVM viewModel = this.GetViewModel(fm);
+            XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
             XCLCMS.Data.Model.SysWebSetting model = null;
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();

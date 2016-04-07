@@ -15,7 +15,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysLog
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysLogView)]
         public ActionResult Index()
         {
-            XCLCMS.View.AdminViewModel.SysLog.SysLogListVM viewModel = new AdminViewModel.SysLog.SysLogListVM();
+            XCLCMS.View.AdminWeb.Models.SysLog.SysLogListVM viewModel = new XCLCMS.View.AdminWeb.Models.SysLog.SysLogListVM();
 
             #region 初始化查询条件
 

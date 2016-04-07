@@ -10,7 +10,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
     {
         public ActionResult Index()
         {
-            XCLCMS.View.AdminViewModel.Article.ArticleListVM viewModel = new AdminViewModel.Article.ArticleListVM();
+            XCLCMS.View.AdminWeb.Models.Article.ArticleListVM viewModel = new XCLCMS.View.AdminWeb.Models.Article.ArticleListVM();
 
             #region 初始化查询条件
 
@@ -55,7 +55,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             long articleID = XCLNetTools.StringHander.FormHelper.GetLong("ArticleID");
 
             XCLCMS.Data.BLL.Article bll = new Data.BLL.Article();
-            XCLCMS.View.AdminViewModel.Article.ArticleAddVM viewModel = new AdminViewModel.Article.ArticleAddVM();
+            XCLCMS.View.AdminWeb.Models.Article.ArticleAddVM viewModel = new XCLCMS.View.AdminWeb.Models.Article.ArticleAddVM();
 
             var articleTypeDic = bll.GetArticleTypeDic();
 

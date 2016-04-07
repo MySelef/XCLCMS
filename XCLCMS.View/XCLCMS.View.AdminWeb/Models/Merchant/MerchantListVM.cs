@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace XCLCMS.View.AdminViewModel.Merchant
+namespace XCLCMS.View.AdminWeb.Models.Merchant
 {
     public class MerchantListVM
     {

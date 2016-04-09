@@ -8,23 +8,6 @@ namespace XCLCMS.Data.CommonHelper
     /// </summary>
     public class Converter
     {
-        /// <summary>
-        /// 将list long 转为datatable（列名为ID）
-        /// </summary>
-        public static DataTable ConvertToIDTable(List<long> lst)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("ID", typeof(long));
-            if (null != lst && lst.Count > 0)
-            {
-                foreach (var m in lst)
-                {
-                    var dr = dt.NewRow();
-                    dr["ID"] = m;
-                    dt.Rows.Add(dr);
-                }
-            }
-            return dt;
-        }
+
     }
 }

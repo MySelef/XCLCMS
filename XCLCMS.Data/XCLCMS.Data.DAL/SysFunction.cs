@@ -213,7 +213,7 @@ namespace XCLCMS.Data.DAL
             dbCommand.Parameters.Add(new SqlParameter("FunctionListTable", SqlDbType.Structured)
             {
                 Direction = ParameterDirection.Input,
-                Value = XCLCMS.Data.CommonHelper.Converter.ConvertToIDTable(functionList)
+                Value = XCLNetTools.DataSource.DataTableHelper.ToSingleColumnDataTable<long, long>(functionList)
             });
 
             db.ExecuteNonQuery(dbCommand);

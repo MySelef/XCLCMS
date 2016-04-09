@@ -4,10 +4,12 @@ GO
 SET ANSI_NULLS ON
 GO
 
+
 CREATE PROCEDURE [dbo].[sp_Attachment_ADD]
 @AttachmentID BIGINT,
 @ParentID BIGINT,
-@FileName varchar(500),
+@OriginFileName varchar(500),
+@FileName VARCHAR(500),
 @Title NVARCHAR(200),
 @ViewType CHAR(3),
 @FormatType CHAR(3),
@@ -33,9 +35,9 @@ CREATE PROCEDURE [dbo].[sp_Attachment_ADD]
  AS 
  BEGIN TRY
 	INSERT INTO [Attachment](
-	[AttachmentID],[ParentID],[FileName],[Title],[ViewType],[FormatType],[Ext],[URL],[Description],[DownLoadCount],[ViewCount],[FileSize],[ImgWidth],[ImgHeight],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
+	[AttachmentID],[ParentID],[OriginFileName],[FileName],[Title],[ViewType],[FormatType],[Ext],[URL],[Description],[DownLoadCount],[ViewCount],[FileSize],[ImgWidth],[ImgHeight],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
 	)VALUES(
-	@AttachmentID,@ParentID,@FileName,@Title,@ViewType,@FormatType,@Ext,@URL,@Description,@DownLoadCount,@ViewCount,@FileSize,@ImgWidth,@ImgHeight,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
+	@AttachmentID,@ParentID,@OriginFileName,@FileName,@Title,@ViewType,@FormatType,@Ext,@URL,@Description,@DownLoadCount,@ViewCount,@FileSize,@ImgWidth,@ImgHeight,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
 	)
 
 	SET @ResultCode=1
@@ -44,5 +46,6 @@ BEGIN CATCH
 	SET @ResultMessage= ERROR_MESSAGE() 
 	SET @ResultCode=0
 END CATCH
+
 
 GO

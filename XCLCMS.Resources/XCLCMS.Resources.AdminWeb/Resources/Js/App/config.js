@@ -8,23 +8,11 @@ var require = {
     paths: {
         "kindeditor-all": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/kindeditor/kindeditor-all",
         "kindeditorCN": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/kindeditor/lang/zh_CN",
-
-        "moxie": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/plupload/moxie.min",
-        "jquery.plupload.queue": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/plupload/jquery.plupload.queue/jquery.plupload.queue",
-        "plupload": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/plupload/plupload.full.min",
-        "pluploadCN": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/plupload/i18n/zh_CN",
-
-        "jquery.color": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/jquery/jquery.color",
-        "jquery.jcrop": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/Jcrop/js/jquery.jcrop",
-
+        
         "readmore": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/readmore"
     },
     shim: {
-        "kindeditorCN": ["kindeditor-all"],
-
-        "plupload": ["moxie"],
-        "jquery.plupload.queue": ["plupload"],
-        "pluploadCN": ["moxie", "jquery.plupload.queue", "plupload", "jquery.color", "jquery.jcrop"]
+        "kindeditorCN": ["kindeditor-all"]
     }
 };
 

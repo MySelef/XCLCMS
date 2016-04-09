@@ -167,6 +167,7 @@
     <Content Include="Resources\Js\EasyUI\themes\icons\mini_add.png" />
     <Content Include="Resources\Js\EasyUI\themes\icons\mini_edit.png" />
     <Content Include="Resources\Js\EasyUI\themes\icons\mini_refresh.png" />
+    <Content Include="Resources\Js\EasyUI\themes\icons\more.png" />
     <Content Include="Resources\Js\EasyUI\themes\icons\no.png" />
     <Content Include="Resources\Js\EasyUI\themes\icons\ok.png" />
     <Content Include="Resources\Js\EasyUI\themes\icons\pencil.png" />

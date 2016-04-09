@@ -68,30 +68,11 @@
                 <tr>
                     <td class="XCLTitle">主图：</td>
                     <td>
-                        <table class="XCLTableEdit" style="height:150px;">
-                            <tr style="height:100px;">
-                                <td width="33%" id="mainImage1FileList"></td>
-                                <td width="33%"></td>
-                                <td width="33%"></td>
-                            </tr>
-                            <tr>
-                                <td align="center">
-                                    @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM() {
-                                           TxtName= "mainImage1"
-                                    })
-                                </td>
-                                <td align="center">
-                                    @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM() {
-                                   TxtName= "mainImage2"
-                               })
-                                </td>
-                                <td align="center">
-                                    @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM() {
-                                   TxtName = "mainImage3"
-                               })
-                                </td>
-                            </tr>
-                        </table>
+                        @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM()
+                        {
+                            TxtName = "mainImage",
+                            MaxFileCount=3
+                        })
                     </td>
                     <td class="XCLTitle">发布时间：</td>
                     <td>
@@ -105,6 +86,11 @@
                 <tr>
                     <td class="XCLTitle">图集：</td>
                     <td colspan="5">
+                        @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM()
+                       {
+                           TxtName = "pictures",
+                           MaxFileCount = 100
+                       })
                     </td>
                 </tr>
                 <tr>

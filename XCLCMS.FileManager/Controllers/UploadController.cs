@@ -163,6 +163,7 @@ namespace XCLCMS.FileManager.Controllers
             model.ParentID = parentId;
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
             model.Title = settingModel.Title;
+            model.OriginFileName = settingModel.Name;
             model.UpdaterID = base.UserID;
             model.UpdaterName = base.CurrentUserModel.UserName;
             model.UpdateTime = dtNow;

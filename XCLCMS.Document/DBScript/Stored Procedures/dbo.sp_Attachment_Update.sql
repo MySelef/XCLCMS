@@ -5,9 +5,11 @@ SET ANSI_NULLS ON
 GO
 
 
+
 CREATE PROCEDURE [dbo].[sp_Attachment_Update]
 @AttachmentID BIGINT,
 @ParentID BIGINT,
+@OriginFileName varchar(500),
 @FileName VARCHAR(500),
 @Title NVARCHAR(200),
 @ViewType CHAR(3),
@@ -34,7 +36,7 @@ CREATE PROCEDURE [dbo].[sp_Attachment_Update]
  BEGIN TRY
 	UPDATE [Attachment] SET 
 	Title=@Title, 
-	[ParentID] = @ParentID,[FileName] = @FileName,[ViewType] = @ViewType,[FormatType] = @FormatType,[Ext] = @Ext,[URL] = @URL,[Description] = @Description,[DownLoadCount] = @DownLoadCount,[ViewCount] = @ViewCount,[FileSize] = @FileSize,[ImgWidth] = @ImgWidth,[ImgHeight] = @ImgHeight,[RecordState] = @RecordState,[CreateTime] = @CreateTime,[CreaterID] = @CreaterID,[CreaterName] = @CreaterName,[UpdateTime] = @UpdateTime,[UpdaterID] = @UpdaterID,[UpdaterName] = @UpdaterName
+	[ParentID] = @ParentID,[OriginFileName]=@OriginFileName,[FileName] = @FileName,[ViewType] = @ViewType,[FormatType] = @FormatType,[Ext] = @Ext,[URL] = @URL,[Description] = @Description,[DownLoadCount] = @DownLoadCount,[ViewCount] = @ViewCount,[FileSize] = @FileSize,[ImgWidth] = @ImgWidth,[ImgHeight] = @ImgHeight,[RecordState] = @RecordState,[CreateTime] = @CreateTime,[CreaterID] = @CreaterID,[CreaterName] = @CreaterName,[UpdateTime] = @UpdateTime,[UpdaterID] = @UpdaterID,[UpdaterName] = @UpdaterName
 	WHERE AttachmentID=@AttachmentID
 	SET @ResultCode=1
  END TRY
@@ -42,6 +44,7 @@ CREATE PROCEDURE [dbo].[sp_Attachment_Update]
 			SET @ResultMessage= ERROR_MESSAGE() 
 			SET @ResultCode=0
 	END CATCH
+
 
 
 GO

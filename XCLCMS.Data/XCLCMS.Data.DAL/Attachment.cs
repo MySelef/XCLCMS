@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Transactions;
@@ -28,6 +29,7 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("sp_Attachment_ADD");
             db.AddInParameter(dbCommand, "AttachmentID", DbType.Int64, model.AttachmentID);
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.ParentID);
+            db.AddInParameter(dbCommand, "OriginFileName", DbType.AnsiString, model.OriginFileName);
             db.AddInParameter(dbCommand, "FileName", DbType.AnsiString, model.FileName);
             db.AddInParameter(dbCommand, "Title", DbType.String, model.Title);
             db.AddInParameter(dbCommand, "ViewType", DbType.AnsiString, model.ViewType);
@@ -72,6 +74,7 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("sp_Attachment_Update");
             db.AddInParameter(dbCommand, "AttachmentID", DbType.Int64, model.AttachmentID);
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.ParentID);
+            db.AddInParameter(dbCommand, "OriginFileName", DbType.AnsiString, model.OriginFileName);
             db.AddInParameter(dbCommand, "FileName", DbType.AnsiString, model.FileName);
             db.AddInParameter(dbCommand, "Title", DbType.String, model.Title);
             db.AddInParameter(dbCommand, "ViewType", DbType.AnsiString, model.ViewType);
@@ -142,6 +145,10 @@ namespace XCLCMS.Data.DAL
                 if (row["ParentID"] != null && row["ParentID"].ToString() != "")
                 {
                     model.ParentID = long.Parse(row["ParentID"].ToString());
+                }
+                if (row["OriginFileName"] != null)
+                {
+                    model.OriginFileName = row["OriginFileName"].ToString();
                 }
                 if (row["FileName"] != null)
                 {
@@ -256,7 +263,6 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public List<XCLCMS.Data.Model.Attachment> GetListByParentID(long parentId)
         {
-            XCLCMS.Data.Model.Attachment model = new XCLCMS.Data.Model.Attachment();
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand("select * from Attachment where ParentID=@ParentID");
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, parentId);
@@ -356,6 +362,35 @@ namespace XCLCMS.Data.DAL
                 scope.Complete();
             }
             return true;
+        }
+
+        /// <summary>
+        /// 根据文件id查询文件信息
+        /// </summary>
+        public List<XCLCMS.Data.Model.Attachment> GetList(List<long> ids)
+        {
+            if (null == ids || ids.Count == 0)
+            {
+                return null;
+            }
+            ids = ids.Distinct().ToList();
+
+            string sql = @"
+                select a.* from Attachment as a
+                inner join @TVP_ID as b on a.AttachmentID=b.ID
+            ";
+
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(sql);
+            dbCommand.Parameters.Add(new SqlParameter("TVP_ID", SqlDbType.Structured)
+            {
+                TypeName= "TVP_IDTable",
+                Direction = ParameterDirection.Input,
+                Value = XCLNetTools.DataSource.DataTableHelper.ToSingleColumnDataTable<long,long>(ids)
+            });
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Attachment>(ds.Tables[0]) as List<XCLCMS.Data.Model.Attachment>;
+
         }
 
         #endregion MethodEx

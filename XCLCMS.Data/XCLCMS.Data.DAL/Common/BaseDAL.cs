@@ -7,7 +7,6 @@ namespace XCLCMS.Data.DAL.Common
     /// </summary>
     public class BaseDAL
     {
-        private object obj = new object();
         private Database _createDatabase = null;
 
         /// <summary>
@@ -15,12 +14,9 @@ namespace XCLCMS.Data.DAL.Common
         /// </summary>
         public Database CreateDatabase()
         {
-            lock (this.obj)
+            if (null == this._createDatabase)
             {
-                if (null == this._createDatabase)
-                {
-                    this._createDatabase = new DatabaseProviderFactory().Create("ConnectionString");
-                }
+                this._createDatabase = new DatabaseProviderFactory().Create("ConnectionString");
             }
             return this._createDatabase;
         }

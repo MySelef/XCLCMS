@@ -117,7 +117,7 @@ namespace XCLCMS.Data.DAL
             dbCommand.Parameters.Add(new SqlParameter("FK_SysRoleIDTable", SqlDbType.Structured)
             {
                 Direction = ParameterDirection.Input,
-                Value = XCLCMS.Data.CommonHelper.Converter.ConvertToIDTable(roleIdList)
+                Value = XCLNetTools.DataSource.DataTableHelper.ToSingleColumnDataTable<long, long>(roleIdList)
             });
 
             db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);

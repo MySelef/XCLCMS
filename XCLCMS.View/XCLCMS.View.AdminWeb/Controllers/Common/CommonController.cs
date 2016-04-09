@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Common
 {
@@ -31,6 +32,20 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             msgModel.IsSuccess = true;
             msgModel.Message = "垃圾数据清理成功！";
+            return Json(msgModel, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 根据文件id查询文件详情
+        /// </summary>
+        /// <returns></returns>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileView)]
+        public JsonResult GetFileInfo()
+        {
+            var ids = (XCLNetTools.StringHander.FormHelper.GetString("FileID") ?? "").Split(',').ToList().ConvertAll(k => XCLNetTools.Common.DataTypeConvert.ToLong(k));
+            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
+            msgModel.CustomObject = new XCLCMS.Data.BLL.Attachment().GetList(ids);
+            msgModel.IsSuccess = true;
             return Json(msgModel, JsonRequestBehavior.AllowGet);
         }
     }

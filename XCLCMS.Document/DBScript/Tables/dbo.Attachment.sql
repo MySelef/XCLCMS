@@ -1,7 +1,8 @@
 CREATE TABLE [dbo].[Attachment]
 (
 [AttachmentID] [bigint] NOT NULL,
-[ParentID] [bigint] NOT NULL CONSTRAINT [DF__tmp_ms_xx__Paren__51300E55] DEFAULT ((0)),
+[ParentID] [bigint] NOT NULL CONSTRAINT [DF__tmp_ms_xx__Paren__7755B73D] DEFAULT ((0)),
+[OriginFileName] [varchar] (500) COLLATE Chinese_PRC_CI_AS NULL,
 [FileName] [varchar] (500) COLLATE Chinese_PRC_CI_AS NULL,
 [Title] [nvarchar] (200) COLLATE Chinese_PRC_CI_AS NULL,
 [ViewType] [char] (3) COLLATE Chinese_PRC_CI_AS NOT NULL,
@@ -11,9 +12,9 @@ CREATE TABLE [dbo].[Attachment]
 [Description] [nvarchar] (2000) COLLATE Chinese_PRC_CI_AS NULL,
 [DownLoadCount] [int] NOT NULL,
 [ViewCount] [int] NOT NULL,
-[FileSize] [decimal] (18, 2) NOT NULL CONSTRAINT [DF__tmp_ms_xx__FileS__5224328E] DEFAULT ((0)),
-[ImgWidth] [int] NOT NULL CONSTRAINT [DF__tmp_ms_xx__ImgWi__531856C7] DEFAULT ((0)),
-[ImgHeight] [int] NOT NULL CONSTRAINT [DF__tmp_ms_xx__ImgHe__540C7B00] DEFAULT ((0)),
+[FileSize] [decimal] (18, 2) NOT NULL CONSTRAINT [DF__tmp_ms_xx__FileS__7849DB76] DEFAULT ((0)),
+[ImgWidth] [int] NOT NULL CONSTRAINT [DF__tmp_ms_xx__ImgWi__793DFFAF] DEFAULT ((0)),
+[ImgHeight] [int] NOT NULL CONSTRAINT [DF__tmp_ms_xx__ImgHe__7A3223E8] DEFAULT ((0)),
 [RecordState] [char] (1) COLLATE Chinese_PRC_CI_AS NOT NULL,
 [CreateTime] [datetime] NOT NULL,
 [CreaterID] [bigint] NOT NULL,
@@ -61,6 +62,9 @@ EXEC sp_addextendedproperty N'MS_Description', '图片高度（如果是图片�
 GO
 
 EXEC sp_addextendedproperty N'MS_Description', '图片宽度（如果是图片）', 'SCHEMA', N'dbo', 'TABLE', N'Attachment', 'COLUMN', N'ImgWidth'
+GO
+
+EXEC sp_addextendedproperty N'MS_Description', '原始文件名', 'SCHEMA', N'dbo', 'TABLE', N'Attachment', 'COLUMN', N'OriginFileName'
 GO
 
 EXEC sp_addextendedproperty N'MS_Description', '主附件ID', 'SCHEMA', N'dbo', 'TABLE', N'Attachment', 'COLUMN', N'ParentID'

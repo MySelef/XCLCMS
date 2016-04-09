@@ -122,6 +122,14 @@ namespace XCLCMS.Data.BLL
             return dal.Delete(idLst, context);
         }
 
+        /// <summary>
+        /// 根据文件id查询文件信息
+        /// </summary>
+        public List<XCLCMS.Data.Model.Attachment> GetList(List<long> ids)
+        {
+            return dal.GetList(ids);
+        }
+
         #endregion ExtensionMethod
     }
 }

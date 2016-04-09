@@ -9,9 +9,14 @@ namespace XCLCMS.FileManager.Models.LogicFile
     public class ListVM
     {
         /// <summary>
-        /// 列表页面是否以简版显示（用于站点选择附件）
+        /// 列表页面是否为选择文件的场景（用于站点选择附件）
         /// </summary>
-        public bool IsSimple { get; set; }
+        public bool IsSelectFile { get; set; }
+
+        /// <summary>
+        /// 选择文件场景下的callback
+        /// </summary>
+        public string SelectFileCallBack { get; set; }
 
         /// <summary>
         /// 查询控件

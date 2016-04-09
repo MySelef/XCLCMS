@@ -7,6 +7,12 @@
     font-size: 13px;
 }
 
+ul, li {
+    padding: 0px;
+    list-style-position: inside;
+    list-style-type: none;
+}
+
 body {
     width: auto;
 }

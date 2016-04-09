@@ -17,6 +17,10 @@ app.LogicFile.List = {
             _this.DelSubmit($(":checkbox.xcheckValue").val());
             return false;
         });
+        $("#btnSelectFiles").on("click", function () {
+            _this.SelectFiles($(":checkbox.xcheckValue").val(),$(this).attr("callback"));
+            return false;
+        });
     },
     DelSubmit: function (ids) {
         if (!ids) {
@@ -34,6 +38,15 @@ app.LogicFile.List = {
             });
         }, function () {
         });
+    },
+    SelectFiles: function (ids,callback) {
+        if (!ids || !callback) {
+            art.dialog.tips("请先选择文件再操作！");
+            return false;
+        }
+        art.dialog.opener[callback].call(null,ids);
+        var api = art.dialog.open.api;
+        api && api.close();
     }
 };
 app.LogicFile.Update = {

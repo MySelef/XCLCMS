@@ -1,7 +1,47 @@
 ﻿@model XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM
 
 <div id="@Model.ID">
-    <a href="javascript:void(0);">选择文件</a>
+    <a href="javascript:void(0);" class="btnSelect easyui-linkbutton">选择文件</a>
     <input type="hidden" name="@Model.TxtName" value="@Model.TxtDefaultValue" />
+    <div class="divSelectedFileList"></div>
 </div>
 
+<script type="text/html" id="temp@(Model.ID)">
+    <ul>
+        {{each FileList as m i}}
+        <li style="margin:5px;">
+            {{i+1}}、
+            <a href="{{m.URL}}" target="_blank">{{m.OriginFileName}}</a>
+            <a href="#" class="XCLRedBolder">×</a>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+
+<script type="text/javascript">
+
+    var @Model.ID=function(ids){
+        if(!ids){
+            art.dialog.alert("无效的文件ID！");
+            return false;
+        }
+        $.XGoAjax({
+            ajax:{
+                url:XCLCMSPageGlobalConfig.RootURL+"Common/GetFileInfo?FileID="+ids
+            },
+            success:function(ops,data){
+                $("#@(Model.ID) .divSelectedFileList").html(template("temp@(Model.ID)",{FileList:data.CustomObject||{}}));
+            }
+        });
+    };
+
+    $(function () {
+        var $div = $("div#@Model.ID");
+        $div.on("click", ".btnSelect", function () {
+            art.dialog.open(XCLCMSPageGlobalConfig.FileManagerLogicFileListURL + "?isSelectFile=1&selectFileCallback=@Model.ID", {
+                title: '文件选择', width: 1200, height: 700
+            });
+            return false;
+        });
+    });
+</script>

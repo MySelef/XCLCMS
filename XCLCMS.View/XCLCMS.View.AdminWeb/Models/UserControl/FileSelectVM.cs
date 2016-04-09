@@ -4,7 +4,7 @@ namespace XCLCMS.View.AdminWeb.Models.UserControl
 {
     public class FileSelectVM
     {
-        private string _id = Guid.NewGuid().ToString("N");
+        private string _id = string.Format("_{0}", Guid.NewGuid().ToString("N"));
         private int _maxFileCount = 1;
         private string _txtName = "txtFileSelectValue";
 
@@ -14,7 +14,6 @@ namespace XCLCMS.View.AdminWeb.Models.UserControl
         public string ID
         {
             get { return this._id; }
-            private set { this._id = value; }
         }
 
         /// <summary>

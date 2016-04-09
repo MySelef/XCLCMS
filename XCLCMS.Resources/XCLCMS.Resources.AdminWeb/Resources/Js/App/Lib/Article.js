@@ -34,11 +34,6 @@
             var _this = this;
             _this.Elements.Init();
 
-            //初始化主图上传
-            $("#btnMainImage1").on("click", function () {
-                _this.UploadMainImage();
-            });
-
             //初始化编辑器
             var editor = null;
             KindEditor.ready(function (K) {
@@ -68,9 +63,6 @@
                 checkbox: true,
                 onlyLeafCheck: true
             });
-        },
-        UploadMainImage: function () {
-            art.dialog.open(XCLCMSPageGlobalConfig.FileManagerLogicFileListURL+"?issimple=1", { title: '文件管理器', width: 1200, height: 700 });
         }
     };
 

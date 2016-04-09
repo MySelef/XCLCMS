@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Atricle
@@ -8,6 +9,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
     /// </summary>
     public class ArticleController : BaseController
     {
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleView)]
         public ActionResult Index()
         {
             XCLCMS.View.AdminWeb.Models.Article.ArticleListVM viewModel = new XCLCMS.View.AdminWeb.Models.Article.ArticleListVM();
@@ -49,7 +51,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
         /// <summary>
         /// 添加或编辑首页
         /// </summary>
-        /// <returns></returns>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleAdd)]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleEdit)]
         public ActionResult Add()
         {
             long articleID = XCLNetTools.StringHander.FormHelper.GetLong("ArticleID");
@@ -87,6 +90,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
                     {
                         IsNeedPleaseSelect = false
                     });
+                    viewModel.VerifyStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.VerifyStateEnum), new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        IsNeedPleaseSelect = false
+                    });
                     viewModel.Article.IsCanComment = XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "Article");
                     break;
@@ -100,13 +107,143 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             return View("~/Views/Article/ArticleAdd.cshtml", viewModel);
         }
 
-        public override ActionResult AddSubmit(FormCollection fm)
+        /// <summary>
+        /// 将表单值转为viewModel
+        /// </summary>
+        private XCLCMS.View.AdminWeb.Models.Article.ArticleAddVM GetViewModel(FormCollection fm)
         {
-            XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
+            var viewModel = new XCLCMS.View.AdminWeb.Models.Article.ArticleAddVM();
 
-            return Json(msg);
+            string selArticleType = XCLNetTools.StringHander.FormHelper.GetString("selArticleType");
+            var mainImageIDList = XCLNetTools.StringHander.FormHelper.GetLongList("mainImage");
+
+            viewModel.Article = new Data.Model.Article();
+            viewModel.Article.ArticleID = XCLNetTools.StringHander.FormHelper.GetLong("ArticleID");
+            viewModel.Article.ArticleContentType = XCLNetTools.StringHander.FormHelper.GetString("selArticleContentType");
+            viewModel.Article.ArticleState = XCLNetTools.StringHander.FormHelper.GetString("selArticleState");
+            viewModel.Article.AuthorName = XCLNetTools.StringHander.FormHelper.GetString("selAuthorName");
+            viewModel.Article.BadCount = XCLNetTools.StringHander.FormHelper.GetInt("txtBadCount");
+            viewModel.Article.Code = XCLNetTools.StringHander.FormHelper.GetString("txtCode").Trim();
+            if (string.IsNullOrWhiteSpace(viewModel.Article.Code))
+            {
+                viewModel.Article.Code = null;
+            }
+            viewModel.Article.Comments = XCLNetTools.StringHander.FormHelper.GetString("txtComments");
+            viewModel.Article.Contents = XCLNetTools.StringHander.FormHelper.GetString("txtContents");
+            viewModel.Article.FromInfo = XCLNetTools.StringHander.FormHelper.GetString("selFromInfo");
+            viewModel.Article.GoodCount = XCLNetTools.StringHander.FormHelper.GetInt("txtGoodCount");
+            viewModel.Article.HotCount = XCLNetTools.StringHander.FormHelper.GetInt("txtHotCount");
+            viewModel.Article.IsCanComment = XCLNetTools.StringHander.FormHelper.GetString("ckIsCanComment");
+            viewModel.Article.IsEssence = XCLNetTools.StringHander.FormHelper.GetString("ckIsEssence");
+            viewModel.Article.IsRecommend = XCLNetTools.StringHander.FormHelper.GetString("ckIsRecommend");
+            viewModel.Article.IsTop = XCLNetTools.StringHander.FormHelper.GetString("ckIsTop");
+            viewModel.Article.KeyWords = XCLNetTools.StringHander.FormHelper.GetString("txtKeyWords");
+            viewModel.Article.LinkUrl = XCLNetTools.StringHander.FormHelper.GetString("txtLinkUrl");
+
+            if (null != mainImageIDList && mainImageIDList.Count > 0)
+            {
+                viewModel.Article.MainImage1 = mainImageIDList.Count >= 1 ? mainImageIDList[0] : 0;
+                viewModel.Article.MainImage2 = mainImageIDList.Count >= 2 ? mainImageIDList[1] : 0;
+                viewModel.Article.MainImage3 = mainImageIDList.Count >= 3 ? mainImageIDList[2] : 0;
+            }
+            else
+            {
+                viewModel.Article.MainImage1 = 0;
+                viewModel.Article.MainImage2 = 0;
+                viewModel.Article.MainImage3 = 0;
+            }
+
+            viewModel.Article.MiddleCount = XCLNetTools.StringHander.FormHelper.GetInt("txtMiddleCount");
+            viewModel.Article.PublishTime = XCLNetTools.StringHander.FormHelper.GetDateTimeNull("txtPublishTime");
+            viewModel.Article.SubTitle = XCLNetTools.StringHander.FormHelper.GetString("txtSubTitle");
+            viewModel.Article.Summary = XCLNetTools.StringHander.FormHelper.GetString("txtSummary");
+            viewModel.Article.Tags = XCLNetTools.StringHander.FormHelper.GetString("txtTags");
+            viewModel.Article.Title = XCLNetTools.StringHander.FormHelper.GetString("txtTitle");
+            viewModel.Article.TopBeginTime = XCLNetTools.StringHander.FormHelper.GetDateTimeNull("txtBeginTop");
+            viewModel.Article.TopEndTime = XCLNetTools.StringHander.FormHelper.GetDateTimeNull("txtEndTop");
+            viewModel.Article.URLOpenType = XCLNetTools.StringHander.FormHelper.GetString("selURLOpenType");
+            viewModel.Article.VerifyState = XCLNetTools.StringHander.FormHelper.GetString("selVerifyState");
+            viewModel.Article.ViewCount = XCLNetTools.StringHander.FormHelper.GetInt("txtViewCount");
+
+            return viewModel;
         }
 
+        /// <summary>
+        /// 添加文章信息
+        /// </summary>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleAdd)]
+        public override ActionResult AddSubmit(FormCollection fm)
+        {
+            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
+
+            var viewModel = this.GetViewModel(fm);
+            var model = new XCLCMS.Data.Model.Article();
+            model.ArticleContentType = viewModel.Article.ArticleContentType;
+            model.ArticleID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.ART);
+            model.ArticleState = viewModel.Article.ArticleState;
+            model.AuthorName = viewModel.Article.AuthorName;
+            model.BadCount = viewModel.Article.BadCount;
+            model.Code = viewModel.Article.Code;
+            model.CommentCount = viewModel.Article.CommentCount;
+            model.Comments = viewModel.Article.Comments;
+            model.Contents = viewModel.Article.Contents;
+            model.CreaterID = base.UserID;
+            model.CreaterName = base.CurrentUserModel.UserName;
+            model.CreateTime = DateTime.Now;
+            model.FromInfo = viewModel.Article.FromInfo;
+            model.GoodCount = viewModel.Article.GoodCount;
+            model.HotCount = viewModel.Article.HotCount;
+            model.IsCanComment = viewModel.Article.IsCanComment;
+            model.IsEssence = viewModel.Article.IsEssence;
+            model.IsRecommend = viewModel.Article.IsRecommend;
+            model.IsTop = viewModel.Article.IsTop;
+            model.KeyWords = viewModel.Article.KeyWords;
+            model.LinkUrl = viewModel.Article.LinkUrl;
+            model.MainImage1 = viewModel.Article.MainImage1;
+            model.MainImage2 = viewModel.Article.MainImage2;
+            model.MainImage3 = viewModel.Article.MainImage3;
+            model.MiddleCount = viewModel.Article.MiddleCount;
+            model.PublishTime = viewModel.Article.PublishTime;
+            model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
+            model.SubTitle = viewModel.Article.SubTitle;
+            model.Summary = viewModel.Article.Summary;
+            model.Tags = viewModel.Article.Tags;
+            model.Title = viewModel.Article.Title;
+            model.TopBeginTime = viewModel.Article.TopBeginTime;
+            model.TopEndTime = viewModel.Article.TopEndTime;
+            model.UpdaterID = base.UserID;
+            model.UpdaterName = base.CurrentUserModel.UserName;
+            model.UpdateTime = DateTime.Now;
+            model.URLOpenType = viewModel.Article.URLOpenType;
+            model.VerifyState = viewModel.Article.VerifyState;
+            model.ViewCount = viewModel.Article.ViewCount;
+
+            var articleContext = new Data.BLL.Strategy.Article.ArticleContext();
+            articleContext.CurrentUserInfo = base.CurrentUserModel;
+            articleContext.Article = model;
+            articleContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.ADD;
+
+            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
+                new XCLCMS.Data.BLL.Strategy.Article.Article()
+            });
+            strategy.Execute(articleContext);
+
+            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
+            {
+                msgModel.Message = "添加成功！";
+                msgModel.IsSuccess = true;
+            }
+            else
+            {
+                msgModel.Message = strategy.ResultMessage;
+                msgModel.IsSuccess = false;
+                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "添加文章信息失败", strategy.ResultMessage);
+            }
+
+            return Json(msgModel);
+        }
+
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleDel)]
         public override ActionResult DelSubmit(FormCollection fm)
         {
             XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
@@ -114,6 +251,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             return Json(msg);
         }
 
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleEdit)]
         public override ActionResult UpdateSubmit(FormCollection fm)
         {
             XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();

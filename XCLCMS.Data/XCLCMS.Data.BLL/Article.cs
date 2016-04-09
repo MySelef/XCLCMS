@@ -84,6 +84,14 @@ namespace XCLCMS.Data.BLL
             return new XCLCMS.Data.BLL.SysDic().GetDictionaryByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.ArticleType.ToString());
         }
 
+        /// <summary>
+        /// 判断指定code是否存在
+        /// </summary>
+        public bool IsExistCode(string code)
+        {
+            return dal.IsExistCode(code);
+        }
+
         #endregion ExtensionMethod
     }
 }

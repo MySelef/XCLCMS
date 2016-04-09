@@ -41,5 +41,10 @@
         /// 文章作者select的options
         /// </summary>
         public string AuthorNameOptions { get; set; }
+
+        /// <summary>
+        /// 文章审核状态select的options
+        /// </summary>
+        public string VerifyStateOptions { get; set; }
     }
 }

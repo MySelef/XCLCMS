@@ -127,7 +127,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
         public override ActionResult AddSubmit(FormCollection fm)
         {
             XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM viewModel = this.GetViewModel(fm);
-            XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
             XCLCMS.Data.Model.UserInfo model = new XCLCMS.Data.Model.UserInfo();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             model.UserInfoID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.USR);

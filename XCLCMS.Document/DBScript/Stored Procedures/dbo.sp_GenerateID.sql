@@ -18,6 +18,7 @@ GO
 
 
 
+
 CREATE PROC [dbo].[sp_GenerateID](
 	@ResultCode INT OUTPUT,
 	@ResultMessage NVARCHAR(1000) OUTPUT,
@@ -75,6 +76,12 @@ BEGIN
 			SELECT @IDValue=ISNULL(MAX(IDValue),100)+1 FROM dbo.GenerateID WHERE IDType=@IDType
 			SET @IDCode=CAST('700'+CAST(@IDValue AS VARCHAR) AS BIGINT)		
 		END		
+		--文章信息
+		ELSE IF(@IDType='ART')
+		BEGIN
+			SELECT @IDValue=ISNULL(MAX(IDValue),100)+1 FROM dbo.GenerateID WHERE IDType=@IDType
+			SET @IDCode=CAST('800'+CAST(@IDValue AS VARCHAR) AS BIGINT)		
+		END		
 		
 		INSERT INTO dbo.GenerateID ( IDType, IDValue,IDCode,CreateTime, Remark ) VALUES(@IDType,@IDValue,@IDCode,GETDATE(),@Remark)	
 	
@@ -92,6 +99,7 @@ BEGIN
 
 	
 END
+
 
 
 

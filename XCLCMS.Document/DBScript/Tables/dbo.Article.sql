@@ -9,9 +9,9 @@ CREATE TABLE [dbo].[Article]
 [ArticleContentType] [char] (3) COLLATE Chinese_PRC_CI_AS NOT NULL,
 [Contents] [nvarchar] (max) COLLATE Chinese_PRC_CI_AS NULL,
 [Summary] [nvarchar] (500) COLLATE Chinese_PRC_CI_AS NULL,
-[MainImage1] [varchar] (200) COLLATE Chinese_PRC_CI_AS NULL,
-[MainImage2] [varchar] (200) COLLATE Chinese_PRC_CI_AS NULL,
-[MainImage3] [varchar] (200) COLLATE Chinese_PRC_CI_AS NULL,
+[MainImage1] [bigint] NULL CONSTRAINT [DF__Article__MainIma__7B264821] DEFAULT ((0)),
+[MainImage2] [bigint] NULL CONSTRAINT [DF__Article__MainIma__7C1A6C5A] DEFAULT ((0)),
+[MainImage3] [bigint] NULL CONSTRAINT [DF__Article__MainIma__7D0E9093] DEFAULT ((0)),
 [ViewCount] [int] NOT NULL,
 [IsCanComment] [char] (1) COLLATE Chinese_PRC_CI_AS NOT NULL,
 [CommentCount] [int] NOT NULL,
@@ -93,12 +93,16 @@ EXEC sp_addextendedproperty N'MS_Description', '关键字(逗号分隔)', 'SCHEM
 GO
 EXEC sp_addextendedproperty N'MS_Description', '链接地址(标题仅为链接时)', 'SCHEMA', N'dbo', 'TABLE', N'Article', 'COLUMN', N'LinkUrl'
 GO
-EXEC sp_addextendedproperty N'MS_Description', '主图片1地址', 'SCHEMA', N'dbo', 'TABLE', N'Article', 'COLUMN', N'MainImage1'
+
+EXEC sp_addextendedproperty N'MS_Description', '主图片1ID', 'SCHEMA', N'dbo', 'TABLE', N'Article', 'COLUMN', N'MainImage1'
 GO
-EXEC sp_addextendedproperty N'MS_Description', '主图片2地址', 'SCHEMA', N'dbo', 'TABLE', N'Article', 'COLUMN', N'MainImage2'
+
+EXEC sp_addextendedproperty N'MS_Description', '主图片2ID', 'SCHEMA', N'dbo', 'TABLE', N'Article', 'COLUMN', N'MainImage2'
 GO
-EXEC sp_addextendedproperty N'MS_Description', '主图片3地址', 'SCHEMA', N'dbo', 'TABLE', N'Article', 'COLUMN', N'MainImage3'
+
+EXEC sp_addextendedproperty N'MS_Description', '主图片3ID', 'SCHEMA', N'dbo', 'TABLE', N'Article', 'COLUMN', N'MainImage3'
 GO
+
 EXEC sp_addextendedproperty N'MS_Description', '点【中】数', 'SCHEMA', N'dbo', 'TABLE', N'Article', 'COLUMN', N'MiddleCount'
 GO
 EXEC sp_addextendedproperty N'MS_Description', '发布时间', 'SCHEMA', N'dbo', 'TABLE', N'Article', 'COLUMN', N'PublishTime'

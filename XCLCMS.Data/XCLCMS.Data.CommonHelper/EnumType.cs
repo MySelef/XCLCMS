@@ -477,7 +477,13 @@ namespace XCLCMS.Data.CommonHelper
             /// 附件 Attachment
             /// </summary>
             [Description("附件")]
-            ATT
+            ATT,
+
+            /// <summary>
+            /// 文章信息 Article
+            /// </summary>
+            [Description("文章信息")]
+            ART
         }
 
         #endregion ID生成

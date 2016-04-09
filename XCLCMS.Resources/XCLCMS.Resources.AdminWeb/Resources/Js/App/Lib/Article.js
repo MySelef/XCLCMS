@@ -33,6 +33,7 @@
         Init: function () {
             var _this = this;
             _this.Elements.Init();
+            _this.InitValidator();
 
             //初始化编辑器
             var editor = null;
@@ -43,7 +44,8 @@
                         var textCount = this.count('text');
                         var data = { WordCount: textCount };
                         _this.Elements.divContentNote.html(template(_this.HTMLTemps.divContentNoteTemp, data));
-                    }
+                    },
+                    afterBlur: function () { this.sync(); }
                 });
             });
 
@@ -62,6 +64,33 @@
                 url: XCLCMSPageGlobalConfig.RootURL + "SysDicCommon/GetEasyUITreeByCode?code=ArticleType",
                 checkbox: true,
                 onlyLeafCheck: true
+            });
+        },
+        /**
+         * 表单验证初始化
+         */
+        InitValidator: function () {
+            var validator = $("form:first").validate({
+                rules: {
+                    txtCode: {
+                        XCLCustomRemote: {
+                            url: XCLCMSPageGlobalConfig.RootURL + "ArticleCommon/IsExistCode",
+                            data: {
+                                code: function () {
+                                    return $("#txtCode").val();
+                                }
+                            }
+                        },
+                        AccountNO: true
+                    },
+                    txtTitle: { required: true }
+                }
+            });
+            common.BindLinkButtonEvent("click", $("#btnSave"), function () {
+                if (!common.CommonFormValid(validator)) {
+                    return false;
+                }
+                $.XGoAjax({ target: $("#btnSave")[0] });
             });
         }
     };

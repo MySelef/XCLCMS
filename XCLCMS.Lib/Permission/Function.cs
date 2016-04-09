@@ -8,7 +8,7 @@ namespace XCLCMS.Lib.Permission
     public class Function
     {
         /// <summary>
-        /// 所有功能枚举（数据来源于存储过程proc_Sys_GetFunctionEnumList）
+        /// 所有功能枚举（该数据由存储过程proc_Sys_GetFunctionEnumList生成）
         /// </summary>
         public enum FunctionEnum
         {
@@ -221,6 +221,30 @@ namespace XCLCMS.Lib.Permission
             /// </summary>
             [Description("文件管理-逻辑文件修改")]
             FileManager_LogicFileUpdate = 400177,
+
+            /// <summary>
+            ///文章管理-文章信息添加
+            /// </summary>
+            [Description("文章管理-文章信息添加")]
+            SysFun_UserAdmin_ArticleAdd = 400179,
+
+            /// <summary>
+            ///文章管理-文章信息删除
+            /// </summary>
+            [Description("文章管理-文章信息删除")]
+            SysFun_UserAdmin_ArticleDel = 400180,
+
+            /// <summary>
+            ///文章管理-文章信息修改
+            /// </summary>
+            [Description("文章管理-文章信息修改")]
+            SysFun_UserAdmin_ArticleEdit = 400181,
+
+            /// <summary>
+            ///文章管理-文章信息查看
+            /// </summary>
+            [Description("文章管理-文章信息查看")]
+            SysFun_UserAdmin_ArticleView = 400182,
         }
     }
 }

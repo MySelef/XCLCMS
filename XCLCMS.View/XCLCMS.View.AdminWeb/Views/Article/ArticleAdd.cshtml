@@ -14,7 +14,7 @@
                     <td class="XCLTitle" style="width: 10%" rowspan="2"><span class="XCLRedBolder">*</span>标题：</td>
                     <td style="width: 25%">
                         主标题：
-                        <textarea id="txtTitle" name="txtTile" style="height:40px;" >@Model.Article.Title</textarea>
+                        <textarea id="txtTitle" name="txtTitle" style="height:40px;" >@Model.Article.Title</textarea>
                     </td>
                     <td class="XCLTitle" style="width: 10%">作者：</td>
                     <td style="width: 25%">
@@ -39,6 +39,9 @@
                         <select id="selArticleContentType" name="selArticleContentType" class="easyui-combobox" data-options="editable:false" style="height:25px;width:200px;" multiple>
                             @Html.Raw(Model.ArticleContentTypeOptions)
                         </select>
+                        <br />
+                        跳转链接地址：
+                        <input type="text" id="txtLinkUrl" name="txtLinkUrl" value="@Model.Article.LinkUrl" />
                     </td>
                     <td class="XCLTitle">打开方式：</td>
                     <td>
@@ -100,7 +103,9 @@
                         <input type="checkbox" id="ckIsCanComment" name="ckIsCanComment" @Html.Raw(Model.Article.IsCanComment=="Y" ? " checked='checked' " : "") value="@XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString()" /><label for="ckIsCanComment">可以评论</label>
                         <input type="checkbox" id="ckIsRecommend" name="ckIsRecommend"  @Html.Raw(Model.Article.IsRecommend=="Y" ? " checked='checked' " : "") value="@XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString()" /><label for="ckIsRecommend">推荐</label>
                         <input type="checkbox" id="ckIsEssence" name="ckIsEssence"  @Html.Raw(Model.Article.IsEssence=="Y" ? " checked='checked' " : "") value="@XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString()" /><label for="ckIsEssence">精华</label>
-                        <input type="checkbox" id="ckIsTop" name="ckIsTop"  @Html.Raw(Model.Article.IsTop=="Y" ? " checked='checked' " : "") value="@XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString()" /><label for="ckIsTop">置顶</label>（<input type="text" id="txtBeginTop" name="txtBeginTop" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />~<input type="text" id="txtEndTop" name="txtEndTop" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />）
+                        <input type="checkbox" id="ckIsTop" name="ckIsTop"  @Html.Raw(Model.Article.IsTop=="Y" ? " checked='checked' " : "") value="@XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString()" />
+                        <label for="ckIsTop">置顶</label>
+                        （<input type="text" id="txtBeginTop" name="txtBeginTop" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />~<input type="text" id="txtEndTop" name="txtEndTop" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />）
                     </td>
                 </tr>
                 <tr>
@@ -195,8 +200,12 @@
                             @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.Article.RecordState.ToString())
                         }
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td class="XCLTitle">审核状态：</td>
+                    <td>
+                        <select id="selVerifyState" name="selVerifyState">
+                            @Html.Raw(Model.VerifyStateOptions)
+                        </select>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -210,7 +219,7 @@
                     break;
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
-                    if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingDel))
+                    if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleDel))
                     {
                         <a id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删 除</a>
                     }

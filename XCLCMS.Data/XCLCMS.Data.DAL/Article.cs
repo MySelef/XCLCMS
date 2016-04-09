@@ -186,6 +186,17 @@ namespace XCLCMS.Data.DAL
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Article>(dt) as List<XCLCMS.Data.Model.Article>;
         }
 
+        /// <summary>
+        /// 判断指定code是否存在
+        /// </summary>
+        public bool IsExistCode(string code)
+        {
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from Article where Code=@Code");
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
+            return db.ExecuteScalar(dbCommand) != null;
+        }
+
         #endregion MethodEx
     }
 }

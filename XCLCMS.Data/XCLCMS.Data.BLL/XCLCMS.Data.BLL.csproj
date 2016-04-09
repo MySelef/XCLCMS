@@ -53,6 +53,7 @@
     <Compile Include="Common\Common.cs" />
     <Compile Include="GenerateID.cs" />
     <Compile Include="Merchant.cs" />
+    <Compile Include="ObjectAttachment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strategy\Article\Article.cs" />
     <Compile Include="Strategy\Article\ArticleContext.cs" />

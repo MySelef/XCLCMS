@@ -124,10 +124,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             viewModel.Article.AuthorName = XCLNetTools.StringHander.FormHelper.GetString("selAuthorName");
             viewModel.Article.BadCount = XCLNetTools.StringHander.FormHelper.GetInt("txtBadCount");
             viewModel.Article.Code = XCLNetTools.StringHander.FormHelper.GetString("txtCode").Trim();
-            if (string.IsNullOrWhiteSpace(viewModel.Article.Code))
-            {
-                viewModel.Article.Code = null;
-            }
             viewModel.Article.Comments = XCLNetTools.StringHander.FormHelper.GetString("txtComments");
             viewModel.Article.Contents = XCLNetTools.StringHander.FormHelper.GetString("txtContents");
             viewModel.Article.FromInfo = XCLNetTools.StringHander.FormHelper.GetString("selFromInfo");
@@ -183,7 +179,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             model.ArticleState = viewModel.Article.ArticleState;
             model.AuthorName = viewModel.Article.AuthorName;
             model.BadCount = viewModel.Article.BadCount;
-            model.Code = viewModel.Article.Code;
+            if (string.IsNullOrWhiteSpace(viewModel.Article.Code))
+            {
+                model.Code = model.ArticleID.ToString();
+            }
+            else
+            {
+                model.Code = viewModel.Article.Code;
+            }
+
             model.CommentCount = viewModel.Article.CommentCount;
             model.Comments = viewModel.Article.Comments;
             model.Contents = viewModel.Article.Contents;

@@ -20,7 +20,7 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
+        public List<XCLCMS.Data.Model.SysLog> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select SysLogID,LogLevel,LogType,RefferUrl,Url,Code,Title,Contents,ClientIP,Remark,CreateTime ");
@@ -31,7 +31,8 @@ namespace XCLCMS.Data.DAL
             }
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
-            return db.ExecuteDataSet(dbCommand);
+            var ds = db.ExecuteDataSet(dbCommand);
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysLog>(ds) as List<XCLCMS.Data.Model.SysLog>;
         }
 
         #endregion Method

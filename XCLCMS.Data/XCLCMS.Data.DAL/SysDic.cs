@@ -1,5 +1,6 @@
 ﻿using Microsoft.Practices.EnterpriseLibrary.Data;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
@@ -32,7 +33,7 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
+        public List<XCLCMS.Data.Model.SysDic> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select SysDicID,Code,DicType,ParentID,DicName,DicValue,Sort,Remark,FK_FunctionID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
@@ -43,7 +44,8 @@ namespace XCLCMS.Data.DAL
             }
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
-            return db.ExecuteDataSet(dbCommand);
+            var ds = db.ExecuteDataSet(dbCommand);
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysDic>(ds) as List<XCLCMS.Data.Model.SysDic>;
         }
 
         #endregion Method
@@ -53,17 +55,17 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 获取指定sysDicID所属的层级list
         /// </summary>
-        public DataTable GetLayerListBySysDicID(long sysDicID)
+        public List<XCLCMS.Data.Model.Custom.SysDicSimple> GetLayerListBySysDicID(long sysDicID)
         {
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(string.Format("select * from fun_SysDic_GetLayerListByID({0})", sysDicID));
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            DataTable dt = null;
-            if (null != ds && ds.Tables.Count > 0)
+            var lst = XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.Custom.SysDicSimple>(ds) as List<XCLCMS.Data.Model.Custom.SysDicSimple>;
+            if (null != lst)
             {
-                dt = ds.Tables[0];
+                lst.Reverse();
             }
-            return dt;
+            return lst;
         }
 
         /// <summary>
@@ -97,7 +99,7 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 根据code查询其子项
         /// </summary>
-        public DataTable GetChildListByCode(string code)
+        public List<XCLCMS.Data.Model.SysDic> GetChildListByCode(string code)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT
@@ -112,13 +114,13 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
 
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysDic>(ds) as List<XCLCMS.Data.Model.SysDic>;
         }
 
         /// <summary>
         /// 根据SysDicID查询其子项
         /// </summary>
-        public DataTable GetChildListByID(long sysDicID)
+        public List<XCLCMS.Data.Model.SysDic> GetChildListByID(long sysDicID)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT
@@ -132,7 +134,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, sysDicID);
 
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysDic>(ds) as List<XCLCMS.Data.Model.SysDic>;
         }
 
         /// <summary>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XCLCMS.Data.Model.Custom
+﻿namespace XCLCMS.Data.Model.Custom
 {
     /// <summary>
     /// 上下文

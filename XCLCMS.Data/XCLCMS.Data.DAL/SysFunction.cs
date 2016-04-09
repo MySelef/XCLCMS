@@ -105,7 +105,7 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
+        public List<XCLCMS.Data.Model.SysFunction> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select SysFunctionID,ParentID,FunctionName,Code,Remark,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
@@ -116,7 +116,8 @@ namespace XCLCMS.Data.DAL
             }
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
-            return db.ExecuteDataSet(dbCommand);
+            var ds = db.ExecuteDataSet(dbCommand);
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysFunction>(ds) as List<XCLCMS.Data.Model.SysFunction>;
         }
 
         #endregion Method
@@ -158,7 +159,7 @@ namespace XCLCMS.Data.DAL
         /// 获取指定角色的所有功能
         /// </summary>
         /// <param name="sysRoleID">角色ID</param>
-        public DataTable GetListByRoleID(long sysRoleID)
+        public List<XCLCMS.Data.Model.SysFunction> GetListByRoleID(long sysRoleID)
         {
             string strSql = @"WITH Info1 AS (
 	                                    SELECT DISTINCT a.FK_SysFunctionID FROM dbo.SysRoleFunction AS a WHERE RecordState='N' AND FK_SysRoleID=@SysRoleID
@@ -172,24 +173,24 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             db.AddInParameter(dbCommand, "SysRoleID", DbType.Int64, sysRoleID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysFunction>(ds) as List<XCLCMS.Data.Model.SysFunction>;
         }
 
         /// <summary>
         /// 获取指定SysFunctionID所属的层级list
         /// </summary>
-        public DataTable GetLayerListBySysFunctionID(long sysFunctionID)
+        public List<XCLCMS.Data.Model.Custom.SysFunctionSimple> GetLayerListBySysFunctionID(long sysFunctionID)
         {
             string str = string.Format("select * from fun_SysFunction_GetLayerListByID({0})", sysFunctionID);
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(str.ToString());
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            DataTable dt = null;
-            if (null != ds && ds.Tables.Count > 0)
+            var lst = XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.Custom.SysFunctionSimple>(ds) as List<XCLCMS.Data.Model.Custom.SysFunctionSimple>;
+            if (null != lst)
             {
-                dt = ds.Tables[0];
+                lst.Reverse();
             }
-            return dt;
+            return lst;
         }
 
         /// <summary>
@@ -212,7 +213,7 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 根据SysFunctionID查询其子项
         /// </summary>
-        public DataTable GetChildListByID(long sysFunctionID)
+        public List<XCLCMS.Data.Model.SysFunction> GetChildListByID(long sysFunctionID)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT
@@ -224,7 +225,7 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, sysFunctionID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysFunction>(ds) as List<XCLCMS.Data.Model.SysFunction>;
         }
 
         #endregion MethodEx

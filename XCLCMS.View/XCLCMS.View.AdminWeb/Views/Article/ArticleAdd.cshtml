@@ -36,12 +36,22 @@
                     </td>
                     <td class="XCLTitle">内容类型：</td>
                     <td>
-                        <select id="selArticleContentType" name="selArticleContentType" class="easyui-combobox" data-options="editable:false" style="height:25px;width:200px;" multiple>
-                            @Html.Raw(Model.ArticleContentTypeOptions)
-                        </select>
-                        <br />
-                        跳转链接地址：
-                        <input type="text" id="txtLinkUrl" name="txtLinkUrl" value="@Model.Article.LinkUrl" />
+                        <table style="width:100%">
+                            <tr>
+                                <td align="right">类型</td>
+                                <td>
+                                    <select id="selArticleContentType" name="selArticleContentType">
+                                        @Html.Raw(Model.ArticleContentTypeOptions)
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">跳转链接地址</td>
+                                <td>
+                                    <input type="text" id="txtLinkUrl" name="txtLinkUrl" value="@Model.Article.LinkUrl" />
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                     <td class="XCLTitle">打开方式：</td>
                     <td>
@@ -59,13 +69,13 @@
                     </td>
                     <td class="XCLTitle">关键字：</td>
                     <td>
-                        <input type="text" id="txtKeyWords" name="txtKeyWords" value="@Model.Article.KeyWords" />
+                        <textarea id="txtKeyWords" name="txtKeyWords"  style="height:40px;" >@Model.Article.KeyWords</textarea>
                     </td>
                     <td class="XCLTitle">Tags：</td>
                     <td>
-                        <input type="text" id="txtTags" name="txtTags" value="@Model.Article.Tags" />
+                        <textarea id="txtTags" name="txtTags"  style="height:40px;" >@Model.Article.Tags</textarea>
                         <p></p>
-                        <span class="XCLNote">注：多个请用英文逗号（;）隔开！</span>
+                        <span class="XCLNote">注：多个请用英文逗号（,）隔开！</span>
                     </td>
                 </tr>
                 <tr>
@@ -87,7 +97,7 @@
                         <input type="text" id="txtCode" name="txtCode" value="@Model.Article.Code" />
                     </td>
                 </tr>
-                <tr>
+                @*<tr>
                     <td class="XCLTitle">图集：</td>
                     <td colspan="5">
                         @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM()
@@ -96,7 +106,7 @@
                            MaxFileCount = 100
                        })
                     </td>
-                </tr>
+                </tr>*@
                 <tr>
                     <td class="XCLTitle">属性：</td>
                     <td colspan="5">

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 
 namespace XCLCMS.Data.BLL
 {
@@ -42,26 +41,9 @@ namespace XCLCMS.Data.BLL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
-        {
-            return dal.GetList(strWhere);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
         public List<XCLCMS.Data.Model.Article> GetModelList(string strWhere)
         {
-            DataSet ds = dal.GetList(strWhere);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Article>(ds.Tables[0]) as List<XCLCMS.Data.Model.Article>;
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public DataSet GetAllList()
-        {
-            return GetList("");
+            return dal.GetModelList(strWhere);
         }
 
         #endregion BasicMethod

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Practices.EnterpriseLibrary.Data;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
@@ -107,7 +108,7 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
+        public List<XCLCMS.Data.Model.SysRole> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select SysRoleID,ParentID,RoleName,Code,Sort,Weight,Remark,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
@@ -117,7 +118,8 @@ namespace XCLCMS.Data.DAL
                 strSql.Append(" where " + strWhere);
             }
             Database db = base.CreateDatabase();
-            return db.ExecuteDataSet(CommandType.Text, strSql.ToString());
+            var ds = db.ExecuteDataSet(CommandType.Text, strSql.ToString());
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysRole>(ds) as List<XCLCMS.Data.Model.SysRole>;
         }
 
         #endregion Method
@@ -127,7 +129,7 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 获取指定userid的角色
         /// </summary>
-        public DataTable GetListByUserID(long userId)
+        public List<XCLCMS.Data.Model.SysRole> GetListByUserID(long userId)
         {
             string strSql = @"SELECT
                                         a.*
@@ -137,7 +139,7 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             db.AddInParameter(dbCommand, "FK_UserInfoID", DbType.Int64, userId);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysRole>(ds) as List<XCLCMS.Data.Model.SysRole>;
         }
 
         /// <summary>
@@ -154,18 +156,18 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 获取指定SysRoleID所属的层级list
         /// </summary>
-        public DataTable GetLayerListBySysRoleID(long sysRoleID)
+        public List<XCLCMS.Data.Model.Custom.SysRoleSimple> GetLayerListBySysRoleID(long sysRoleID)
         {
             string str = string.Format("select * from fun_SysRole_GetLayerListByID({0})", sysRoleID);
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(str.ToString());
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            DataTable dt = null;
-            if (null != ds && ds.Tables.Count > 0)
+            var lst = XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.Custom.SysRoleSimple>(ds) as List<XCLCMS.Data.Model.Custom.SysRoleSimple>;
+            if (null != lst)
             {
-                dt = ds.Tables[0];
+                lst.Reverse();
             }
-            return dt;
+            return lst;
         }
 
         /// <summary>
@@ -188,7 +190,7 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 根据SysRoleID查询其子项
         /// </summary>
-        public DataTable GetChildListByID(long sysRoleID)
+        public List<XCLCMS.Data.Model.SysRole> GetChildListByID(long sysRoleID)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT
@@ -200,7 +202,7 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, sysRoleID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysRole>(ds) as List<XCLCMS.Data.Model.SysRole>;
         }
 
         #endregion MethodEx

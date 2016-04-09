@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 
 namespace XCLCMS.Data.BLL
 {
@@ -27,26 +25,9 @@ namespace XCLCMS.Data.BLL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
-        {
-            return dal.GetList(strWhere);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
         public List<XCLCMS.Data.Model.SysDic> GetModelList(string strWhere)
         {
-            DataSet ds = dal.GetList(strWhere);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysDic>(ds.Tables[0]) as List<XCLCMS.Data.Model.SysDic>;
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public DataSet GetAllList()
-        {
-            return GetList("");
+            return dal.GetModelList(strWhere);
         }
 
         #endregion BasicMethod
@@ -59,24 +40,7 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.Custom.SysDicSimple> GetLayerListBySysDicID(long sysDicID)
         {
-            List<XCLCMS.Data.Model.Custom.SysDicSimple> lst = null;
-            DataTable dt = dal.GetLayerListBySysDicID(sysDicID);
-            if (null != dt && dt.Rows.Count > 0)
-            {
-                lst = new List<XCLCMS.Data.Model.Custom.SysDicSimple>();
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    XCLCMS.Data.Model.Custom.SysDicSimple model = new XCLCMS.Data.Model.Custom.SysDicSimple()
-                    {
-                        DicName = dt.Rows[i]["DicName"].ToString(),
-                        SysDicID = Convert.ToInt64(dt.Rows[i]["SysDicID"].ToString()),
-                        ParentID = Convert.ToInt64(dt.Rows[i]["ParentID"].ToString())
-                    };
-                    lst.Add(model);
-                }
-                lst.Reverse();
-            }
-            return lst;
+            return dal.GetLayerListBySysDicID(sysDicID);
         }
 
         /// <summary>
@@ -100,8 +64,7 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.SysDic> GetChildListByCode(string code)
         {
-            DataTable dt = dal.GetChildListByCode(code);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysDic>(dt) as List<XCLCMS.Data.Model.SysDic>;
+            return dal.GetChildListByCode(code);
         }
 
         /// <summary>
@@ -109,8 +72,7 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.SysDic> GetChildListByID(long sysDicID)
         {
-            DataTable dt = dal.GetChildListByID(sysDicID);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysDic>(dt) as List<XCLCMS.Data.Model.SysDic>;
+            return dal.GetChildListByID(sysDicID);
         }
 
         /// <summary>

@@ -159,7 +159,7 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
+        public List<XCLCMS.Data.Model.Article> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select ArticleID,Code,Title,SubTitle,AuthorName,FromInfo,ArticleType,Contents,Summary,MainImage,ViewCount,IsCanComment,CommentCount,GoodCount,MiddleCount,BadCount,HotCount,URLOpenType,ArticleState,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
@@ -170,7 +170,8 @@ namespace XCLCMS.Data.DAL
             }
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
-            return db.ExecuteDataSet(dbCommand);
+            var ds = db.ExecuteDataSet(dbCommand);
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.Article>(ds) as List<XCLCMS.Data.Model.Article>;
         }
 
         #endregion Method

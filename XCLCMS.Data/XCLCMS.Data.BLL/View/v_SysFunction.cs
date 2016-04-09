@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 
 namespace XCLCMS.Data.BLL.View
 {
@@ -26,48 +25,9 @@ namespace XCLCMS.Data.BLL.View
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
-        {
-            return dal.GetList(strWhere);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
         public List<XCLCMS.Data.Model.View.v_SysFunction> GetModelList(string strWhere)
         {
-            DataSet ds = dal.GetList(strWhere);
-            return DataTableToList(ds.Tables[0]);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.View.v_SysFunction> DataTableToList(DataTable dt)
-        {
-            List<XCLCMS.Data.Model.View.v_SysFunction> modelList = new List<XCLCMS.Data.Model.View.v_SysFunction>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                XCLCMS.Data.Model.View.v_SysFunction model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = dal.DataRowToModel(dt.Rows[n]);
-                    if (model != null)
-                    {
-                        modelList.Add(model);
-                    }
-                }
-            }
-            return modelList;
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public DataSet GetAllList()
-        {
-            return GetList("");
+            return dal.GetModelList(strWhere);
         }
 
         #endregion BasicMethod
@@ -79,13 +39,7 @@ namespace XCLCMS.Data.BLL.View
         /// </summary>
         public List<XCLCMS.Data.Model.View.v_SysFunction> GetList(long parentID)
         {
-            List<XCLCMS.Data.Model.View.v_SysFunction> lst = null;
-            DataTable dt = dal.GetList(parentID);
-            if (null != dt && dt.Rows.Count > 0)
-            {
-                lst = DataTableToList(dt);
-            }
-            return lst;
+            return dal.GetList(parentID);
         }
 
         #endregion ExtensionMethod

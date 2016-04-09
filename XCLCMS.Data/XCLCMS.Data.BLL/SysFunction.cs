@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 
 namespace XCLCMS.Data.BLL
 {
@@ -43,26 +41,9 @@ namespace XCLCMS.Data.BLL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
-        {
-            return dal.GetList(strWhere);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
         public List<XCLCMS.Data.Model.SysFunction> GetModelList(string strWhere)
         {
-            DataSet ds = dal.GetList(strWhere);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysFunction>(ds.Tables[0]) as List<XCLCMS.Data.Model.SysFunction>;
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public DataSet GetAllList()
-        {
-            return GetList("");
+            return dal.GetModelList(strWhere);
         }
 
         #endregion BasicMethod
@@ -91,8 +72,7 @@ namespace XCLCMS.Data.BLL
         /// <param name="sysRoleID">角色ID</param>
         public List<XCLCMS.Data.Model.SysFunction> GetListByRoleID(long sysRoleID)
         {
-            DataTable dt = dal.GetListByRoleID(sysRoleID);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysFunction>(dt) as List<XCLCMS.Data.Model.SysFunction>;
+            return dal.GetListByRoleID(sysRoleID);
         }
 
         /// <summary>
@@ -101,24 +81,7 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.Custom.SysFunctionSimple> GetLayerListBySysFunctionId(long sysFunctionId)
         {
-            List<XCLCMS.Data.Model.Custom.SysFunctionSimple> lst = null;
-            DataTable dt = dal.GetLayerListBySysFunctionID(sysFunctionId);
-            if (null != dt && dt.Rows.Count > 0)
-            {
-                lst = new List<XCLCMS.Data.Model.Custom.SysFunctionSimple>();
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    XCLCMS.Data.Model.Custom.SysFunctionSimple model = new XCLCMS.Data.Model.Custom.SysFunctionSimple()
-                    {
-                        FunctionName = dt.Rows[i]["FunctionName"].ToString(),
-                        SysFunctionID = Convert.ToInt64(dt.Rows[i]["SysFunctionId"].ToString()),
-                        ParentID = Convert.ToInt64(dt.Rows[i]["ParentID"].ToString())
-                    };
-                    lst.Add(model);
-                }
-                lst.Reverse();
-            }
-            return lst;
+            return dal.GetLayerListBySysFunctionID(sysFunctionId);
         }
 
         /// <summary>
@@ -134,8 +97,7 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.SysFunction> GetChildListByID(long sysFunctionID)
         {
-            DataTable dt = dal.GetChildListByID(sysFunctionID);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysFunction>(dt) as List<XCLCMS.Data.Model.SysFunction>;
+            return dal.GetChildListByID(sysFunctionID);
         }
 
         #endregion ExtensionMethod

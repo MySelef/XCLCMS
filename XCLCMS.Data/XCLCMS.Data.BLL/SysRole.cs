@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 
 namespace XCLCMS.Data.BLL
 {
@@ -43,18 +41,9 @@ namespace XCLCMS.Data.BLL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
-        {
-            return dal.GetList(strWhere);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
         public List<XCLCMS.Data.Model.SysRole> GetModelList(string strWhere)
         {
-            DataSet ds = dal.GetList(strWhere);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysRole>(ds.Tables[0]) as List<XCLCMS.Data.Model.SysRole>;
+            return dal.GetModelList(strWhere);
         }
 
         #endregion BasicMethod
@@ -66,8 +55,7 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.SysRole> GetListByUserID(long userId)
         {
-            DataTable dt = dal.GetListByUserID(userId);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysRole>(dt) as List<XCLCMS.Data.Model.SysRole>;
+            return dal.GetListByUserID(userId);
         }
 
         /// <summary>
@@ -84,24 +72,7 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.Custom.SysRoleSimple> GetLayerListBySysRoleID(long sysRoleID)
         {
-            List<XCLCMS.Data.Model.Custom.SysRoleSimple> lst = null;
-            DataTable dt = dal.GetLayerListBySysRoleID(sysRoleID);
-            if (null != dt && dt.Rows.Count > 0)
-            {
-                lst = new List<XCLCMS.Data.Model.Custom.SysRoleSimple>();
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    XCLCMS.Data.Model.Custom.SysRoleSimple model = new XCLCMS.Data.Model.Custom.SysRoleSimple()
-                    {
-                        RoleName = dt.Rows[i]["RoleName"].ToString(),
-                        SysRoleID = Convert.ToInt64(dt.Rows[i]["SysRoleID"].ToString()),
-                        ParentID = Convert.ToInt64(dt.Rows[i]["ParentID"].ToString())
-                    };
-                    lst.Add(model);
-                }
-                lst.Reverse();
-            }
-            return lst;
+            return dal.GetLayerListBySysRoleID(sysRoleID);
         }
 
         /// <summary>
@@ -117,8 +88,7 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.SysRole> GetChildListByID(long sysRoleID)
         {
-            DataTable dt = dal.GetChildListByID(sysRoleID);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysRole>(dt) as List<XCLCMS.Data.Model.SysRole>;
+            return dal.GetChildListByID(sysRoleID);
         }
 
         #endregion ExtensionMethod

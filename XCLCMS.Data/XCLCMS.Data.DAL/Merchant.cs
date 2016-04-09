@@ -129,7 +129,7 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
+        public List<XCLCMS.Data.Model.Merchant> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select * FROM Merchant ");
@@ -137,8 +137,9 @@ namespace XCLCMS.Data.DAL
             {
                 strSql.Append(" where " + strWhere);
             }
-            Database db = DatabaseFactory.CreateDatabase();
-            return db.ExecuteDataSet(CommandType.Text, strSql.ToString());
+            Database db = base.CreateDatabase();
+            var ds = db.ExecuteDataSet(CommandType.Text, strSql.ToString());
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.Merchant>(ds) as List<XCLCMS.Data.Model.Merchant>;
         }
 
         #endregion Method

@@ -127,7 +127,7 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public DataSet GetList(string strWhere)
+        public List<XCLCMS.Data.Model.Attachment> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select *  FROM Attachment ");
@@ -136,7 +136,8 @@ namespace XCLCMS.Data.DAL
                 strSql.Append(" where " + strWhere);
             }
             Database db = base.CreateDatabase();
-            return db.ExecuteDataSet(CommandType.Text, strSql.ToString());
+            var ds = db.ExecuteDataSet(CommandType.Text, strSql.ToString());
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.Attachment>(ds) as List<XCLCMS.Data.Model.Attachment>;
         }
 
         #endregion Method

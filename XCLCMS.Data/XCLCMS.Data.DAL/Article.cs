@@ -33,9 +33,9 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "ArticleContentType", DbType.AnsiString, model.ArticleContentType);
             db.AddInParameter(dbCommand, "Contents", DbType.String, model.Contents);
             db.AddInParameter(dbCommand, "Summary", DbType.String, model.Summary);
-            db.AddInParameter(dbCommand, "MainImage1", DbType.AnsiString, model.MainImage1);
-            db.AddInParameter(dbCommand, "MainImage2", DbType.AnsiString, model.MainImage2);
-            db.AddInParameter(dbCommand, "MainImage3", DbType.AnsiString, model.MainImage3);
+            db.AddInParameter(dbCommand, "MainImage1", DbType.Int64, model.MainImage1);
+            db.AddInParameter(dbCommand, "MainImage2", DbType.Int64, model.MainImage2);
+            db.AddInParameter(dbCommand, "MainImage3", DbType.Int64, model.MainImage3);
             db.AddInParameter(dbCommand, "ViewCount", DbType.Int32, model.ViewCount);
             db.AddInParameter(dbCommand, "IsCanComment", DbType.AnsiString, model.IsCanComment);
             db.AddInParameter(dbCommand, "CommentCount", DbType.Int32, model.CommentCount);
@@ -95,9 +95,9 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "ArticleContentType", DbType.AnsiString, model.ArticleContentType);
             db.AddInParameter(dbCommand, "Contents", DbType.String, model.Contents);
             db.AddInParameter(dbCommand, "Summary", DbType.String, model.Summary);
-            db.AddInParameter(dbCommand, "MainImage1", DbType.AnsiString, model.MainImage1);
-            db.AddInParameter(dbCommand, "MainImage2", DbType.AnsiString, model.MainImage2);
-            db.AddInParameter(dbCommand, "MainImage3", DbType.AnsiString, model.MainImage3);
+            db.AddInParameter(dbCommand, "MainImage1", DbType.Int64, model.MainImage1);
+            db.AddInParameter(dbCommand, "MainImage2", DbType.Int64, model.MainImage2);
+            db.AddInParameter(dbCommand, "MainImage3", DbType.Int64, model.MainImage3);
             db.AddInParameter(dbCommand, "ViewCount", DbType.Int32, model.ViewCount);
             db.AddInParameter(dbCommand, "IsCanComment", DbType.AnsiString, model.IsCanComment);
             db.AddInParameter(dbCommand, "CommentCount", DbType.Int32, model.CommentCount);
@@ -151,182 +151,9 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand("select * from Article where ArticleID=@ArticleID");
             db.AddInParameter(dbCommand, "ArticleID", DbType.Int64, ArticleID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                return DataRowToModel(ds.Tables[0].Rows[0]);
-            }
-            else
-            {
-                return null;
-            }
-        }
 
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public XCLCMS.Data.Model.Article DataRowToModel(DataRow row)
-        {
-            XCLCMS.Data.Model.Article model = new XCLCMS.Data.Model.Article();
-            if (row != null)
-            {
-                if (row["ArticleID"] != null && row["ArticleID"].ToString() != "")
-                {
-                    model.ArticleID = long.Parse(row["ArticleID"].ToString());
-                }
-                if (row["Code"] != null)
-                {
-                    model.Code = row["Code"].ToString();
-                }
-                if (row["Title"] != null)
-                {
-                    model.Title = row["Title"].ToString();
-                }
-                if (row["SubTitle"] != null)
-                {
-                    model.SubTitle = row["SubTitle"].ToString();
-                }
-                if (row["AuthorName"] != null)
-                {
-                    model.AuthorName = row["AuthorName"].ToString();
-                }
-                if (row["FromInfo"] != null)
-                {
-                    model.FromInfo = row["FromInfo"].ToString();
-                }
-                if (row["ArticleContentType"] != null)
-                {
-                    model.ArticleContentType = row["ArticleContentType"].ToString();
-                }
-                if (row["Contents"] != null)
-                {
-                    model.Contents = row["Contents"].ToString();
-                }
-                if (row["Summary"] != null)
-                {
-                    model.Summary = row["Summary"].ToString();
-                }
-                if (row["MainImage1"] != null)
-                {
-                    model.MainImage1 = row["MainImage1"].ToString();
-                }
-                if (row["MainImage2"] != null)
-                {
-                    model.MainImage2 = row["MainImage2"].ToString();
-                }
-                if (row["MainImage3"] != null)
-                {
-                    model.MainImage3 = row["MainImage3"].ToString();
-                }
-                if (row["ViewCount"] != null && row["ViewCount"].ToString() != "")
-                {
-                    model.ViewCount = int.Parse(row["ViewCount"].ToString());
-                }
-                if (row["IsCanComment"] != null)
-                {
-                    model.IsCanComment = row["IsCanComment"].ToString();
-                }
-                if (row["CommentCount"] != null && row["CommentCount"].ToString() != "")
-                {
-                    model.CommentCount = int.Parse(row["CommentCount"].ToString());
-                }
-                if (row["GoodCount"] != null && row["GoodCount"].ToString() != "")
-                {
-                    model.GoodCount = int.Parse(row["GoodCount"].ToString());
-                }
-                if (row["MiddleCount"] != null && row["MiddleCount"].ToString() != "")
-                {
-                    model.MiddleCount = int.Parse(row["MiddleCount"].ToString());
-                }
-                if (row["BadCount"] != null && row["BadCount"].ToString() != "")
-                {
-                    model.BadCount = int.Parse(row["BadCount"].ToString());
-                }
-                if (row["HotCount"] != null && row["HotCount"].ToString() != "")
-                {
-                    model.HotCount = int.Parse(row["HotCount"].ToString());
-                }
-                if (row["URLOpenType"] != null)
-                {
-                    model.URLOpenType = row["URLOpenType"].ToString();
-                }
-                if (row["ArticleState"] != null)
-                {
-                    model.ArticleState = row["ArticleState"].ToString();
-                }
-                if (row["VerifyState"] != null)
-                {
-                    model.VerifyState = row["VerifyState"].ToString();
-                }
-                if (row["IsRecommend"] != null)
-                {
-                    model.IsRecommend = row["IsRecommend"].ToString();
-                }
-                if (row["IsEssence"] != null)
-                {
-                    model.IsEssence = row["IsEssence"].ToString();
-                }
-                if (row["IsTop"] != null)
-                {
-                    model.IsTop = row["IsTop"].ToString();
-                }
-                if (row["TopBeginTime"] != null && row["TopBeginTime"].ToString() != "")
-                {
-                    model.TopBeginTime = DateTime.Parse(row["TopBeginTime"].ToString());
-                }
-                if (row["TopEndTime"] != null && row["TopEndTime"].ToString() != "")
-                {
-                    model.TopEndTime = DateTime.Parse(row["TopEndTime"].ToString());
-                }
-                if (row["KeyWords"] != null)
-                {
-                    model.KeyWords = row["KeyWords"].ToString();
-                }
-                if (row["Tags"] != null)
-                {
-                    model.Tags = row["Tags"].ToString();
-                }
-                if (row["Comments"] != null)
-                {
-                    model.Comments = row["Comments"].ToString();
-                }
-                if (row["LinkUrl"] != null)
-                {
-                    model.LinkUrl = row["LinkUrl"].ToString();
-                }
-                if (row["PublishTime"] != null && row["PublishTime"].ToString() != "")
-                {
-                    model.PublishTime = DateTime.Parse(row["PublishTime"].ToString());
-                }
-                if (row["RecordState"] != null)
-                {
-                    model.RecordState = row["RecordState"].ToString();
-                }
-                if (row["CreateTime"] != null && row["CreateTime"].ToString() != "")
-                {
-                    model.CreateTime = DateTime.Parse(row["CreateTime"].ToString());
-                }
-                if (row["CreaterID"] != null && row["CreaterID"].ToString() != "")
-                {
-                    model.CreaterID = long.Parse(row["CreaterID"].ToString());
-                }
-                if (row["CreaterName"] != null)
-                {
-                    model.CreaterName = row["CreaterName"].ToString();
-                }
-                if (row["UpdateTime"] != null && row["UpdateTime"].ToString() != "")
-                {
-                    model.UpdateTime = DateTime.Parse(row["UpdateTime"].ToString());
-                }
-                if (row["UpdaterID"] != null && row["UpdaterID"].ToString() != "")
-                {
-                    model.UpdaterID = long.Parse(row["UpdaterID"].ToString());
-                }
-                if (row["UpdaterName"] != null)
-                {
-                    model.UpdaterName = row["UpdaterName"].ToString();
-                }
-            }
-            return model;
+            var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Article>(ds.Tables[0]);
+            return null != lst && lst.Count > 0 ? lst[0] : null;
         }
 
         /// <summary>

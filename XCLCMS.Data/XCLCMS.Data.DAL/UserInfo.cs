@@ -26,130 +26,8 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand("select * from UserInfo where UserInfoID=@UserInfoID");
             db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, UserInfoID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                return DataRowToModel(ds.Tables[0].Rows[0]);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public XCLCMS.Data.Model.UserInfo DataRowToModel(DataRow row)
-        {
-            XCLCMS.Data.Model.UserInfo model = new XCLCMS.Data.Model.UserInfo();
-            if (row != null)
-            {
-                if (row["UserInfoID"] != null && row["UserInfoID"].ToString() != "")
-                {
-                    model.UserInfoID = long.Parse(row["UserInfoID"].ToString());
-                }
-                if (row["UserName"] != null)
-                {
-                    model.UserName = row["UserName"].ToString();
-                }
-                if (row["FK_MerchantID"] != null && row["FK_MerchantID"].ToString() != "")
-                {
-                    model.FK_MerchantID = long.Parse(row["FK_MerchantID"].ToString());
-                }
-                if (row["RealName"] != null)
-                {
-                    model.RealName = row["RealName"].ToString();
-                }
-                if (row["NickName"] != null)
-                {
-                    model.NickName = row["NickName"].ToString();
-                }
-                if (row["Pwd"] != null)
-                {
-                    model.Pwd = row["Pwd"].ToString();
-                }
-                if (row["Age"] != null && row["Age"].ToString() != "")
-                {
-                    model.Age = int.Parse(row["Age"].ToString());
-                }
-                if (row["SexType"] != null)
-                {
-                    model.SexType = row["SexType"].ToString();
-                }
-                if (row["Birthday"] != null && row["Birthday"].ToString() != "")
-                {
-                    model.Birthday = DateTime.Parse(row["Birthday"].ToString());
-                }
-                if (row["Tel"] != null)
-                {
-                    model.Tel = row["Tel"].ToString();
-                }
-                if (row["QQ"] != null)
-                {
-                    model.QQ = row["QQ"].ToString();
-                }
-                if (row["Email"] != null)
-                {
-                    model.Email = row["Email"].ToString();
-                }
-                if (row["OtherContact"] != null)
-                {
-                    model.OtherContact = row["OtherContact"].ToString();
-                }
-                if (row["AccessType"] != null)
-                {
-                    model.AccessType = row["AccessType"].ToString();
-                }
-                if (row["AccessToken"] != null)
-                {
-                    model.AccessToken = row["AccessToken"].ToString();
-                }
-                if (row["UserState"] != null)
-                {
-                    model.UserState = row["UserState"].ToString();
-                }
-                if (row["Remark"] != null)
-                {
-                    model.Remark = row["Remark"].ToString();
-                }
-                if (row["RoleName"] != null)
-                {
-                    model.RoleName = row["RoleName"].ToString();
-                }
-                if (row["RoleMaxWeight"] != null && row["RoleMaxWeight"].ToString() != "")
-                {
-                    model.RoleMaxWeight = int.Parse(row["RoleMaxWeight"].ToString());
-                }
-                if (row["RecordState"] != null)
-                {
-                    model.RecordState = row["RecordState"].ToString();
-                }
-                if (row["CreateTime"] != null && row["CreateTime"].ToString() != "")
-                {
-                    model.CreateTime = DateTime.Parse(row["CreateTime"].ToString());
-                }
-                if (row["CreaterID"] != null && row["CreaterID"].ToString() != "")
-                {
-                    model.CreaterID = long.Parse(row["CreaterID"].ToString());
-                }
-                if (row["CreaterName"] != null)
-                {
-                    model.CreaterName = row["CreaterName"].ToString();
-                }
-                if (row["UpdateTime"] != null && row["UpdateTime"].ToString() != "")
-                {
-                    model.UpdateTime = DateTime.Parse(row["UpdateTime"].ToString());
-                }
-                if (row["UpdaterID"] != null && row["UpdaterID"].ToString() != "")
-                {
-                    model.UpdaterID = long.Parse(row["UpdaterID"].ToString());
-                }
-                if (row["UpdaterName"] != null)
-                {
-                    model.UpdaterName = row["UpdaterName"].ToString();
-                }
-            }
-            return model;
+            var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.UserInfo>(ds.Tables[0]);
+            return null != lst && lst.Count > 0 ? lst[0] : null;
         }
 
         /// <summary>
@@ -197,17 +75,13 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public XCLCMS.Data.Model.UserInfo GetModel(string userName, string pwd)
         {
-            XCLCMS.Data.Model.UserInfo model = null;
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand("select top 1 * from UserInfo where UserName=@UserName and Pwd=@Pwd");
             db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, userName);
             db.AddInParameter(dbCommand, "Pwd", DbType.AnsiString, pwd);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            if (null != ds && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                model = this.DataRowToModel(ds.Tables[0].Rows[0]);
-            }
-            return model;
+            var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.UserInfo>(ds.Tables[0]);
+            return null != lst && lst.Count > 0 ? lst[0] : null;
         }
 
         /// <summary>

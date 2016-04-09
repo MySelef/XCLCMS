@@ -54,29 +54,7 @@ namespace XCLCMS.Data.BLL
         public List<XCLCMS.Data.Model.SysRole> GetModelList(string strWhere)
         {
             DataSet ds = dal.GetList(strWhere);
-            return DataTableToList(ds.Tables[0]);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.SysRole> DataTableToList(DataTable dt)
-        {
-            List<XCLCMS.Data.Model.SysRole> modelList = new List<XCLCMS.Data.Model.SysRole>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                XCLCMS.Data.Model.SysRole model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = dal.DataRowToModel(dt.Rows[n]);
-                    if (model != null)
-                    {
-                        modelList.Add(model);
-                    }
-                }
-            }
-            return modelList;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysRole>(ds.Tables[0]) as List<XCLCMS.Data.Model.SysRole>;
         }
 
         #endregion BasicMethod
@@ -88,13 +66,8 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.SysRole> GetListByUserID(long userId)
         {
-            List<XCLCMS.Data.Model.SysRole> lst = null;
             DataTable dt = dal.GetListByUserID(userId);
-            if (null != dt && dt.Rows.Count > 0)
-            {
-                lst = DataTableToList(dt);
-            }
-            return lst;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysRole>(dt) as List<XCLCMS.Data.Model.SysRole>;
         }
 
         /// <summary>
@@ -144,13 +117,8 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.SysRole> GetChildListByID(long sysRoleID)
         {
-            List<XCLCMS.Data.Model.SysRole> lst = null;
             DataTable dt = dal.GetChildListByID(sysRoleID);
-            if (null != dt && dt.Rows.Count > 0)
-            {
-                lst = this.DataTableToList(dt);
-            }
-            return lst;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysRole>(dt) as List<XCLCMS.Data.Model.SysRole>;
         }
 
         #endregion ExtensionMethod

@@ -2,25 +2,47 @@
 
 <div id="@Model.ID">
     <a href="javascript:void(0);" class="btnSelect easyui-linkbutton">选择文件</a>
-    <input type="hidden" name="@Model.TxtName" value="@Model.TxtDefaultValue" />
-    <div class="divSelectedFileList"></div>
+    @*<input type="hidden" name="@Model.TxtName" value="@Model.TxtDefaultValue" />*@
+    <ul class="divSelectedFileList"></ul>
 </div>
 
 <script type="text/html" id="temp@(Model.ID)">
-    <ul>
-        {{each FileList as m i}}
-        <li style="margin:5px;">
-            {{i+1}}、
-            <a href="{{m.URL}}" target="_blank">{{m.OriginFileName}}</a>
-            <a href="#" class="XCLRedBolder">×</a>
-        </li>
-        {{/each}}
-    </ul>
+    {{each FileList as m i}}
+    <li style="margin:5px;">
+        <a href="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_OpenAPI_ShowAttachmentURL)/{{m.AttachmentID}}" target="_blank">{{m.OriginFileName}}</a>
+        <a href="javascript:void(0);" class="delSelectedFile XCLRedBolder">×</a>
+        <input type="hidden" name="@Model.TxtName" value="{{m.AttachmentID}}" />
+    </li>
+    {{/each}}
 </script>
 
 <script type="text/javascript">
 
-    var @Model.ID=function(ids){
+    var @Model.ID={
+        init:function(){
+            var $div = $("div#@Model.ID");
+            $div.on("click", ".btnSelect", function () {
+                art.dialog.open(XCLCMSPageGlobalConfig.FileManagerLogicFileListURL + "?isSelectFile=1&selectFileCallback=@(Model.ID)_callback", {
+                    title: '文件选择', width: 1200, height: 700
+                });
+                return false;
+            });
+            $div.on("click",".delSelectedFile",function(){
+                $(this).closest("li").remove();
+                return false;
+            });
+        },
+        getSelectedIds:function(){
+            var v=[];
+            $("#@(Model.ID) input[name='@(Model.TxtName)']").each(function(){
+                v.push(this.value);
+            });
+            return v;
+        }
+    };
+
+
+    var @(Model.ID)_callback=function(ids){
         if(!ids){
             art.dialog.alert("无效的文件ID！");
             return false;
@@ -30,18 +52,33 @@
                 url:XCLCMSPageGlobalConfig.RootURL+"Common/GetFileInfo?FileID="+ids
             },
             success:function(ops,data){
-                $("#@(Model.ID) .divSelectedFileList").html(template("temp@(Model.ID)",{FileList:data.CustomObject||{}}));
+                if(!data.CustomObject || data.CustomObject.length==0){
+                    return true;
+                }
+                var selecteds=@(Model.ID).getSelectedIds();
+                if(selecteds && selecteds.length>0){
+                    data.CustomObject=$.map(data.CustomObject,function(n){
+                        for(var i=0;i<selecteds.length;i++){
+                            if(selecteds[i]==n.AttachmentID){
+                                return null;
+                            }
+                        }
+                        return n;
+                    });
+                }
+
+                if(selecteds.length+data.CustomObject.length>@(Model.MaxFileCount)){
+                    art.dialog.alert("最多只能选择【@(Model.MaxFileCount)】个文件！");
+                    return true;
+                }
+
+                $("#@(Model.ID) .divSelectedFileList").append(template("temp@(Model.ID)",{FileList:data.CustomObject||{}}));
             }
         });
     };
 
+
     $(function () {
-        var $div = $("div#@Model.ID");
-        $div.on("click", ".btnSelect", function () {
-            art.dialog.open(XCLCMSPageGlobalConfig.FileManagerLogicFileListURL + "?isSelectFile=1&selectFileCallback=@Model.ID", {
-                title: '文件选择', width: 1200, height: 700
-            });
-            return false;
-        });
+        @(Model.ID).init();
     });
 </script>

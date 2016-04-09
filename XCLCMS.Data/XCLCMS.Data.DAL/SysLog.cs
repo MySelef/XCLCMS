@@ -18,62 +18,6 @@ namespace XCLCMS.Data.DAL
         #region Method
 
         /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public XCLCMS.Data.Model.SysLog DataRowToModel(DataRow row)
-        {
-            XCLCMS.Data.Model.SysLog model = new XCLCMS.Data.Model.SysLog();
-            if (row != null)
-            {
-                if (row["SysLogID"] != null && row["SysLogID"].ToString() != "")
-                {
-                    model.SysLogID = long.Parse(row["SysLogID"].ToString());
-                }
-                if (row["LogLevel"] != null)
-                {
-                    model.LogLevel = row["LogLevel"].ToString();
-                }
-                if (row["LogType"] != null)
-                {
-                    model.LogType = row["LogType"].ToString();
-                }
-                if (row["RefferUrl"] != null)
-                {
-                    model.RefferUrl = row["RefferUrl"].ToString();
-                }
-                if (row["Url"] != null)
-                {
-                    model.Url = row["Url"].ToString();
-                }
-                if (row["Code"] != null)
-                {
-                    model.Code = row["Code"].ToString();
-                }
-                if (row["Title"] != null)
-                {
-                    model.Title = row["Title"].ToString();
-                }
-                if (row["Contents"] != null)
-                {
-                    model.Contents = row["Contents"].ToString();
-                }
-                if (row["ClientIP"] != null)
-                {
-                    model.ClientIP = row["ClientIP"].ToString();
-                }
-                if (row["Remark"] != null)
-                {
-                    model.Remark = row["Remark"].ToString();
-                }
-                if (row["CreateTime"] != null && row["CreateTime"].ToString() != "")
-                {
-                    model.CreateTime = DateTime.Parse(row["CreateTime"].ToString());
-                }
-            }
-            return model;
-        }
-
-        /// <summary>
         /// 获得数据列表
         /// </summary>
         public DataSet GetList(string strWhere)

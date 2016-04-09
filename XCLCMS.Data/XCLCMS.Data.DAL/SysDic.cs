@@ -25,90 +25,8 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand("select * from SysDic where SysDicID=@SysDicID");
             db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, SysDicID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                return DataRowToModel(ds.Tables[0].Rows[0]);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public XCLCMS.Data.Model.SysDic DataRowToModel(DataRow row)
-        {
-            XCLCMS.Data.Model.SysDic model = new XCLCMS.Data.Model.SysDic();
-            if (row != null)
-            {
-                if (row["SysDicID"] != null && row["SysDicID"].ToString() != "")
-                {
-                    model.SysDicID = long.Parse(row["SysDicID"].ToString());
-                }
-                if (row["Code"] != null)
-                {
-                    model.Code = row["Code"].ToString();
-                }
-                if (row["DicType"] != null)
-                {
-                    model.DicType = row["DicType"].ToString();
-                }
-                if (row["ParentID"] != null && row["ParentID"].ToString() != "")
-                {
-                    model.ParentID = long.Parse(row["ParentID"].ToString());
-                }
-                if (row["DicName"] != null)
-                {
-                    model.DicName = row["DicName"].ToString();
-                }
-                if (row["DicValue"] != null)
-                {
-                    model.DicValue = row["DicValue"].ToString();
-                }
-                if (row["Sort"] != null && row["Sort"].ToString() != "")
-                {
-                    model.Sort = int.Parse(row["Sort"].ToString());
-                }
-                if (row["Remark"] != null)
-                {
-                    model.Remark = row["Remark"].ToString();
-                }
-                if (row["FK_FunctionID"] != null && row["FK_FunctionID"].ToString() != "")
-                {
-                    model.FK_FunctionID = long.Parse(row["FK_FunctionID"].ToString());
-                }
-                if (row["RecordState"] != null)
-                {
-                    model.RecordState = row["RecordState"].ToString();
-                }
-                if (row["CreateTime"] != null && row["CreateTime"].ToString() != "")
-                {
-                    model.CreateTime = DateTime.Parse(row["CreateTime"].ToString());
-                }
-                if (row["CreaterID"] != null && row["CreaterID"].ToString() != "")
-                {
-                    model.CreaterID = long.Parse(row["CreaterID"].ToString());
-                }
-                if (row["CreaterName"] != null)
-                {
-                    model.CreaterName = row["CreaterName"].ToString();
-                }
-                if (row["UpdateTime"] != null && row["UpdateTime"].ToString() != "")
-                {
-                    model.UpdateTime = DateTime.Parse(row["UpdateTime"].ToString());
-                }
-                if (row["UpdaterID"] != null && row["UpdaterID"].ToString() != "")
-                {
-                    model.UpdaterID = long.Parse(row["UpdaterID"].ToString());
-                }
-                if (row["UpdaterName"] != null)
-                {
-                    model.UpdaterName = row["UpdaterName"].ToString();
-                }
-            }
-            return model;
+            var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysDic>(ds.Tables[0]);
+            return null != lst && lst.Count > 0 ? lst[0] : null;
         }
 
         /// <summary>
@@ -300,7 +218,6 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public XCLCMS.Data.Model.SysDic GetModelByCode(string code)
         {
-            XCLCMS.Data.Model.SysDic model = null;
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT
                                         top 1
@@ -313,12 +230,9 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            DataTable dt = null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
-            if (null != dt && dt.Rows.Count > 0)
-            {
-                model = this.DataRowToModel(dt.Rows[0]);
-            }
-            return model;
+
+            var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysDic>(ds.Tables[0]);
+            return null != lst && lst.Count > 0 ? lst[0] : null;
         }
 
         #endregion MethodEx

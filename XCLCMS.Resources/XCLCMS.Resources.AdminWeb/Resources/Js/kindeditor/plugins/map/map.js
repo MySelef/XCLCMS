@@ -9,10 +9,10 @@
 
 // Google Maps: http://code.google.com/apis/maps/index.html
 
-KindEditor.plugin('map', function (K) {
-    var self = this, name = 'map', lang = self.lang(name + '.');
-    self.clickToolbar(name, function () {
-        var html = ['<div style="padding:10px 20px;">',
+KindEditor.plugin('map', function(K) {
+	var self = this, name = 'map', lang = self.lang(name + '.');
+	self.clickToolbar(name, function() {
+		var html = ['<div style="padding:10px 20px;">',
 			'<div class="ke-dialog-row">',
 			lang.address + ' <input id="kindeditor_plugin_map_address" name="address" class="ke-input-text" value="" style="width:200px;" /> ',
 			'<span class="ke-button-common ke-button-outer">',
@@ -21,43 +21,43 @@ KindEditor.plugin('map', function (K) {
 			'</div>',
 			'<div class="ke-map" style="width:558px;height:360px;"></div>',
 			'</div>'].join('');
-        var dialog = self.createDialog({
-            name: name,
-            width: 600,
-            title: self.lang(name),
-            body: html,
-            yesBtn: {
-                name: self.lang('yes'),
-                click: function (e) {
-                    var geocoder = win.geocoder,
+		var dialog = self.createDialog({
+			name : name,
+			width : 600,
+			title : self.lang(name),
+			body : html,
+			yesBtn : {
+				name : self.lang('yes'),
+				click : function(e) {
+					var geocoder = win.geocoder,
 						map = win.map,
 						center = map.getCenter().lat() + ',' + map.getCenter().lng(),
 						zoom = map.getZoom(),
 						maptype = map.getMapTypeId(),
 						url = 'http://maps.googleapis.com/maps/api/staticmap';
-                    url += '?center=' + encodeURIComponent(center);
-                    url += '&zoom=' + encodeURIComponent(zoom);
-                    url += '&size=558x360';
-                    url += '&maptype=' + encodeURIComponent(maptype);
-                    url += '&markers=' + encodeURIComponent(center);
-                    url += '&language=' + self.langType;
-                    url += '&sensor=false';
-                    self.exec('insertimage', url).hideDialog().focus();
-                }
-            },
-            beforeRemove: function () {
-                searchBtn.remove();
-                if (doc) {
-                    doc.write('');
-                }
-                iframe.remove();
-            }
-        });
-        var div = dialog.div,
+						url += '?center=' + encodeURIComponent(center);
+						url += '&zoom=' + encodeURIComponent(zoom);
+						url += '&size=558x360';
+						url += '&maptype=' + encodeURIComponent(maptype);
+						url += '&markers=' + encodeURIComponent(center);
+						url += '&language=' + self.langType;
+						url += '&sensor=false';
+					self.exec('insertimage', url).hideDialog().focus();
+				}
+			},
+			beforeRemove : function() {
+				searchBtn.remove();
+				if (doc) {
+					doc.write('');
+				}
+				iframe.remove();
+			}
+		});
+		var div = dialog.div,
 			addressBox = K('[name="address"]', div),
 			searchBtn = K('[name="searchBtn"]', div),
 			win, doc;
-        var iframeHtml = ['<!doctype html><html><head>',
+		var iframeHtml = ['<!doctype html><html><head>',
 			'<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />',
 			'<style>',
 			'	html { height: 100% }',
@@ -111,27 +111,27 @@ KindEditor.plugin('map', function (K) {
 			'<body onload="initialize();">',
 			'<div id="map_canvas" style="width:100%; height:100%"></div>',
 			'</body></html>'].join('\n');
-        // TODO：用doc.write(iframeHtml)方式加载时，在IE6上第一次加载报错，暂时使用src方式
-        var iframe = K('<iframe class="ke-textarea" frameborder="0" src="' + self.pluginsPath + 'map/map.html" style="width:558px;height:360px;"></iframe>');
-        function ready() {
-            win = iframe[0].contentWindow;
-            doc = K.iframeDoc(iframe);
-            //doc.open();
-            //doc.write(iframeHtml);
-            //doc.close();
-        }
-        iframe.bind('load', function () {
-            iframe.unbind('load');
-            if (K.IE) {
-                ready();
-            } else {
-                setTimeout(ready, 0);
-            }
-        });
-        K('.ke-map', div).replaceWith(iframe);
-        // search map
-        searchBtn.click(function () {
-            win.search(addressBox.val());
-        });
-    });
+		// TODO：用doc.write(iframeHtml)方式加载时，在IE6上第一次加载报错，暂时使用src方式
+		var iframe = K('<iframe class="ke-textarea" frameborder="0" src="' + self.pluginsPath + 'map/map.html" style="width:558px;height:360px;"></iframe>');
+		function ready() {
+			win = iframe[0].contentWindow;
+			doc = K.iframeDoc(iframe);
+			//doc.open();
+			//doc.write(iframeHtml);
+			//doc.close();
+		}
+		iframe.bind('load', function() {
+			iframe.unbind('load');
+			if (K.IE) {
+				ready();
+			} else {
+				setTimeout(ready, 0);
+			}
+		});
+		K('.ke-map', div).replaceWith(iframe);
+		// search map
+		searchBtn.click(function() {
+			win.search(addressBox.val());
+		});
+	});
 });

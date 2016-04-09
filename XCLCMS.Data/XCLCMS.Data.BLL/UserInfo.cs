@@ -37,29 +37,7 @@ namespace XCLCMS.Data.BLL
         public List<XCLCMS.Data.Model.UserInfo> GetModelList(string strWhere)
         {
             DataSet ds = dal.GetList(strWhere);
-            return DataTableToList(ds.Tables[0]);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.UserInfo> DataTableToList(DataTable dt)
-        {
-            List<XCLCMS.Data.Model.UserInfo> modelList = new List<XCLCMS.Data.Model.UserInfo>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                XCLCMS.Data.Model.UserInfo model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = dal.DataRowToModel(dt.Rows[n]);
-                    if (model != null)
-                    {
-                        modelList.Add(model);
-                    }
-                }
-            }
-            return modelList;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.UserInfo>(ds.Tables[0]) as List<XCLCMS.Data.Model.UserInfo>;
         }
 
         /// <summary>

@@ -7,6 +7,13 @@
     font-size: 13px;
 }
 
+.XCLFooter {
+position:absolute;
+bottom:0px;
+width:100%;
+margin-bottom:20px;
+}
+
 /*input[type='text'], input[type='password'] {
     height: 22px;
     font-size: 14px;

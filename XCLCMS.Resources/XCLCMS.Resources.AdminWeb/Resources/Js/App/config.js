@@ -6,8 +6,8 @@ var require = {
     baseUrl: XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/App/",
     urlArgs: "v=" + XCLCMSPageGlobalConfig.ResourceVersion,
     paths: {
-        "kindeditor-all": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/kindeditor/kindeditor-all",
-        "kindeditorCN": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/kindeditor/lang/zh_CN",
+        "kindeditor-all": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/kindeditor/kindeditor-all-min",
+        "kindeditorCN": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/kindeditor/lang/zh-CN",
         
         "readmore": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/readmore"
     },

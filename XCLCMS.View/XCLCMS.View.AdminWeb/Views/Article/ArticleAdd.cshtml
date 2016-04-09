@@ -68,11 +68,12 @@
                 <tr>
                     <td class="XCLTitle">主图：</td>
                     <td>
-                        @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM()
-                        {
-                            TxtName = "mainImage",
-                            MaxFileCount=3
-                        })
+                            @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM()
+                           {
+                               TxtName = "mainImage",
+                               MaxFileCount = 3
+                           })
+                        <span class="XCLNote">最多可选择3个文件！</span>
                     </td>
                     <td class="XCLTitle">发布时间：</td>
                     <td>
@@ -103,20 +104,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="XCLTitle" rowspan="2">概述：</td>
+                    <td class="XCLTitle">概述：</td>
                     <td colspan="5">
                         <textarea id="txtSummary" name="txtSummary">@Model.Article.Summary</textarea>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5">
-                        <a href="javascript:void(0);" class="easyui-linkbutton" >提取内容前200字</a>
-                    </td>
-                </tr>
-                <tr>
                     <td class="XCLTitle" rowspan="2">内容：</td>
                     <td colspan="5">
-                        <textarea id="txtContents" name="txtContents" style="height:500px;">@Model.Article.Contents</textarea>
+                        <textarea id="txtContents" name="txtContents" style="height:400px;">@Model.Article.Contents</textarea>
                     </td>
                 </tr>
                 <tr>

@@ -38,29 +38,7 @@ namespace XCLCMS.Data.BLL
         public List<XCLCMS.Data.Model.SysDic> GetModelList(string strWhere)
         {
             DataSet ds = dal.GetList(strWhere);
-            return DataTableToList(ds.Tables[0]);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.SysDic> DataTableToList(DataTable dt)
-        {
-            List<XCLCMS.Data.Model.SysDic> modelList = new List<XCLCMS.Data.Model.SysDic>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                XCLCMS.Data.Model.SysDic model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = dal.DataRowToModel(dt.Rows[n]);
-                    if (model != null)
-                    {
-                        modelList.Add(model);
-                    }
-                }
-            }
-            return modelList;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysDic>(ds.Tables[0]) as List<XCLCMS.Data.Model.SysDic>;
         }
 
         /// <summary>
@@ -122,13 +100,8 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.SysDic> GetChildListByCode(string code)
         {
-            List<XCLCMS.Data.Model.SysDic> lst = null;
             DataTable dt = dal.GetChildListByCode(code);
-            if (null != dt && dt.Rows.Count > 0)
-            {
-                lst = this.DataTableToList(dt);
-            }
-            return lst;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysDic>(dt) as List<XCLCMS.Data.Model.SysDic>;
         }
 
         /// <summary>
@@ -136,13 +109,8 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.SysDic> GetChildListByID(long sysDicID)
         {
-            List<XCLCMS.Data.Model.SysDic> lst = null;
             DataTable dt = dal.GetChildListByID(sysDicID);
-            if (null != dt && dt.Rows.Count > 0)
-            {
-                lst = this.DataTableToList(dt);
-            }
-            return lst;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysDic>(dt) as List<XCLCMS.Data.Model.SysDic>;
         }
 
         /// <summary>

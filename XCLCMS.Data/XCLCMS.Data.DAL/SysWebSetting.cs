@@ -94,70 +94,8 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand("select * from SysWebSetting where SysWebSettingID=@SysWebSettingID");
             db.AddInParameter(dbCommand, "SysWebSettingID", DbType.Int64, SysWebSettingID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                return DataRowToModel(ds.Tables[0].Rows[0]);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public XCLCMS.Data.Model.SysWebSetting DataRowToModel(DataRow row)
-        {
-            XCLCMS.Data.Model.SysWebSetting model = new XCLCMS.Data.Model.SysWebSetting();
-            if (row != null)
-            {
-                if (row["SysWebSettingID"] != null && row["SysWebSettingID"].ToString() != "")
-                {
-                    model.SysWebSettingID = long.Parse(row["SysWebSettingID"].ToString());
-                }
-                if (row["KeyName"] != null)
-                {
-                    model.KeyName = row["KeyName"].ToString();
-                }
-                if (row["KeyValue"] != null)
-                {
-                    model.KeyValue = row["KeyValue"].ToString();
-                }
-                if (row["Remark"] != null)
-                {
-                    model.Remark = row["Remark"].ToString();
-                }
-                if (row["RecordState"] != null)
-                {
-                    model.RecordState = row["RecordState"].ToString();
-                }
-                if (row["CreateTime"] != null && row["CreateTime"].ToString() != "")
-                {
-                    model.CreateTime = DateTime.Parse(row["CreateTime"].ToString());
-                }
-                if (row["CreaterID"] != null && row["CreaterID"].ToString() != "")
-                {
-                    model.CreaterID = long.Parse(row["CreaterID"].ToString());
-                }
-                if (row["CreaterName"] != null)
-                {
-                    model.CreaterName = row["CreaterName"].ToString();
-                }
-                if (row["UpdateTime"] != null && row["UpdateTime"].ToString() != "")
-                {
-                    model.UpdateTime = DateTime.Parse(row["UpdateTime"].ToString());
-                }
-                if (row["UpdaterID"] != null && row["UpdaterID"].ToString() != "")
-                {
-                    model.UpdaterID = long.Parse(row["UpdaterID"].ToString());
-                }
-                if (row["UpdaterName"] != null)
-                {
-                    model.UpdaterName = row["UpdaterName"].ToString();
-                }
-            }
-            return model;
+            var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysWebSetting>(ds.Tables[0]);
+            return null != lst && lst.Count > 0 ? lst[0] : null;
         }
 
         /// <summary>

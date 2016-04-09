@@ -53,29 +53,7 @@ namespace XCLCMS.Data.BLL
         public List<XCLCMS.Data.Model.SysWebSetting> GetModelList(string strWhere)
         {
             DataSet ds = dal.GetList(strWhere);
-            return DataTableToList(ds.Tables[0]);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.SysWebSetting> DataTableToList(DataTable dt)
-        {
-            List<XCLCMS.Data.Model.SysWebSetting> modelList = new List<XCLCMS.Data.Model.SysWebSetting>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                XCLCMS.Data.Model.SysWebSetting model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = dal.DataRowToModel(dt.Rows[n]);
-                    if (model != null)
-                    {
-                        modelList.Add(model);
-                    }
-                }
-            }
-            return modelList;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysWebSetting>(ds.Tables[0]) as List<XCLCMS.Data.Model.SysWebSetting>;
         }
 
         /// <summary>

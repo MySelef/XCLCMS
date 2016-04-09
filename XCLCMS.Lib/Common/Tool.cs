@@ -8,6 +8,8 @@ namespace XCLCMS.Lib.Common
     /// </summary>
     public class Tool
     {
+        #region 数据字典相关
+
         /// <summary>
         /// 将指定code的SysDic的子项转为options
         /// </summary>
@@ -35,5 +37,24 @@ namespace XCLCMS.Lib.Common
             }
             return str.ToString();
         }
+
+        #endregion 数据字典相关
+
+        #region 文件管理相关
+
+        /// <summary>
+        /// 将文件管理中的文件相对路径转为url绝对路径
+        /// 如：~/upload/files/123.jpg -> //www.w.com/filemanager/upload/files/123.jpg
+        /// </summary>
+        public static string GetAttachmentAbsoluteURL(string relativeUrl)
+        {
+            if (string.IsNullOrWhiteSpace(relativeUrl))
+            {
+                throw new Exception("未指定参数：relativeUrl！");
+            }
+            return System.Web.HttpUtility.UrlDecode(relativeUrl).Trim().Replace("~/", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_RootURL);
+        }
+
+        #endregion 文件管理相关
     }
 }

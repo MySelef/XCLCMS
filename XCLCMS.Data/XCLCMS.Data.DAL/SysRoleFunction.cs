@@ -47,7 +47,7 @@ namespace XCLCMS.Data.DAL
             dbCommand.Parameters.Add(new SqlParameter("FK_SysFunctionIDTable", SqlDbType.Structured)
             {
                 Direction = ParameterDirection.Input,
-                Value = XCLNetTools.DataSource.DataTableHelper.ToSingleColumnDataTable<long,long>(functionIdList)
+                Value = XCLNetTools.DataSource.DataTableHelper.ToSingleColumnDataTable<long, long>(functionIdList)
             });
 
             db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);

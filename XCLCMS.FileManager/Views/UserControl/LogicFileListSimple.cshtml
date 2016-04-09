@@ -41,7 +41,7 @@
                     <td>@XCLNetTools.StringHander.Common.GetSubString(m.Title, 20, "...")</td>
                     <td class="text-center">@m.FormatType</td>
                     <td class="text-center">@m.Ext</td>
-                    <td><a href="@((m.URL??"").Replace("~/",XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_RootURL))" target="_blank">@m.FileName</a></td>
+                    <td><a href="@Url.Action("ShowAttachment","OpenApi",new { id=m.AttachmentID})" target="_blank">@m.OriginFileName</a></td>
                     <td>@XCLNetTools.StringHander.Common.GetSubString(m.Description, 20, "...")</td>
                     <td class="text-center">@m.FileSize</td>
                 </tr>

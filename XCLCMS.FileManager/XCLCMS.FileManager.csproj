@@ -267,6 +267,7 @@
     <Compile Include="Controllers\FileInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogicFileController.cs" />
+    <Compile Include="Controllers\OpenApiController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -311,7 +312,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\OpenApi\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XCLCMS.Data\XCLCMS.Data.BLL\XCLCMS.Data.BLL.csproj">
       <Project>{054ca0f2-19e8-4121-ab61-e89bb52c0b7c}</Project>

@@ -19,54 +19,6 @@ namespace XCLCMS.Data.DAL
         #region Method
 
         /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public XCLCMS.Data.Model.SysUserRole DataRowToModel(DataRow row)
-        {
-            XCLCMS.Data.Model.SysUserRole model = new XCLCMS.Data.Model.SysUserRole();
-            if (row != null)
-            {
-                if (row["FK_UserInfoID"] != null && row["FK_UserInfoID"].ToString() != "")
-                {
-                    model.FK_UserInfoID = long.Parse(row["FK_UserInfoID"].ToString());
-                }
-                if (row["FK_SysRoleID"] != null && row["FK_SysRoleID"].ToString() != "")
-                {
-                    model.FK_SysRoleID = long.Parse(row["FK_SysRoleID"].ToString());
-                }
-                if (row["RecordState"] != null)
-                {
-                    model.RecordState = row["RecordState"].ToString();
-                }
-                if (row["CreateTime"] != null && row["CreateTime"].ToString() != "")
-                {
-                    model.CreateTime = DateTime.Parse(row["CreateTime"].ToString());
-                }
-                if (row["CreaterID"] != null && row["CreaterID"].ToString() != "")
-                {
-                    model.CreaterID = long.Parse(row["CreaterID"].ToString());
-                }
-                if (row["CreaterName"] != null)
-                {
-                    model.CreaterName = row["CreaterName"].ToString();
-                }
-                if (row["UpdateTime"] != null && row["UpdateTime"].ToString() != "")
-                {
-                    model.UpdateTime = DateTime.Parse(row["UpdateTime"].ToString());
-                }
-                if (row["UpdaterID"] != null && row["UpdaterID"].ToString() != "")
-                {
-                    model.UpdaterID = long.Parse(row["UpdaterID"].ToString());
-                }
-                if (row["UpdaterName"] != null)
-                {
-                    model.UpdaterName = row["UpdaterName"].ToString();
-                }
-            }
-            return model;
-        }
-
-        /// <summary>
         /// 获得数据列表
         /// </summary>
         public DataSet GetList(string strWhere)

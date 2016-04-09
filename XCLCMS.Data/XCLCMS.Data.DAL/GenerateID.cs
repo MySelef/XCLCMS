@@ -13,7 +13,6 @@ namespace XCLCMS.Data.DAL
         public GenerateID()
         { }
 
-
         #region MethodEx
 
         /// <summary>

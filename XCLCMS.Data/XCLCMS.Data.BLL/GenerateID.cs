@@ -10,7 +10,6 @@
         public GenerateID()
         { }
 
-
         #region ExtensionMethod
 
         /// <summary>

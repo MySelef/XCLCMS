@@ -54,29 +54,7 @@ namespace XCLCMS.Data.BLL
         public List<XCLCMS.Data.Model.SysFunction> GetModelList(string strWhere)
         {
             DataSet ds = dal.GetList(strWhere);
-            return DataTableToList(ds.Tables[0]);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.SysFunction> DataTableToList(DataTable dt)
-        {
-            List<XCLCMS.Data.Model.SysFunction> modelList = new List<XCLCMS.Data.Model.SysFunction>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                XCLCMS.Data.Model.SysFunction model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = dal.DataRowToModel(dt.Rows[n]);
-                    if (model != null)
-                    {
-                        modelList.Add(model);
-                    }
-                }
-            }
-            return modelList;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysFunction>(ds.Tables[0]) as List<XCLCMS.Data.Model.SysFunction>;
         }
 
         /// <summary>
@@ -113,13 +91,8 @@ namespace XCLCMS.Data.BLL
         /// <param name="sysRoleID">角色ID</param>
         public List<XCLCMS.Data.Model.SysFunction> GetListByRoleID(long sysRoleID)
         {
-            List<XCLCMS.Data.Model.SysFunction> lst = null;
             DataTable dt = dal.GetListByRoleID(sysRoleID);
-            if (null != dt && dt.Rows.Count > 0)
-            {
-                lst = this.DataTableToList(dt);
-            }
-            return lst;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysFunction>(dt) as List<XCLCMS.Data.Model.SysFunction>;
         }
 
         /// <summary>
@@ -161,13 +134,8 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         public List<XCLCMS.Data.Model.SysFunction> GetChildListByID(long sysFunctionID)
         {
-            List<XCLCMS.Data.Model.SysFunction> lst = null;
             DataTable dt = dal.GetChildListByID(sysFunctionID);
-            if (null != dt && dt.Rows.Count > 0)
-            {
-                lst = this.DataTableToList(dt);
-            }
-            return lst;
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysFunction>(dt) as List<XCLCMS.Data.Model.SysFunction>;
         }
 
         #endregion ExtensionMethod

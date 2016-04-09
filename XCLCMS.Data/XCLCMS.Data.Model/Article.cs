@@ -22,9 +22,9 @@ namespace XCLCMS.Data.Model
         private string _articlecontenttype;
         private string _contents;
         private string _summary;
-        private string _mainimage1;
-        private string _mainimage2;
-        private string _mainimage3;
+        private long? _mainimage1 = 0;
+        private long? _mainimage2 = 0;
+        private long? _mainimage3 = 0;
         private int _viewcount;
         private string _iscancomment;
         private int _commentcount;
@@ -54,7 +54,7 @@ namespace XCLCMS.Data.Model
         private string _updatername;
 
         /// <summary>
-        ///
+        /// ArticleID
         /// </summary>
         public long ArticleID
         {
@@ -135,27 +135,27 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 主图片1地址
+        /// 主图片1ID
         /// </summary>
-        public string MainImage1
+        public long? MainImage1
         {
             set { _mainimage1 = value; }
             get { return _mainimage1; }
         }
 
         /// <summary>
-        /// 主图片2地址
+        /// 主图片2ID
         /// </summary>
-        public string MainImage2
+        public long? MainImage2
         {
             set { _mainimage2 = value; }
             get { return _mainimage2; }
         }
 
         /// <summary>
-        /// 主图片3地址
+        /// 主图片3ID
         /// </summary>
-        public string MainImage3
+        public long? MainImage3
         {
             set { _mainimage3 = value; }
             get { return _mainimage3; }

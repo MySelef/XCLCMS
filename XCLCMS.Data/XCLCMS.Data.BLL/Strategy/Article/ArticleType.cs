@@ -3,14 +3,14 @@
 namespace XCLCMS.Data.BLL.Strategy.Article
 {
     /// <summary>
-    /// 保存文章附件关系信息
+    /// 保存文章分类关系信息
     /// </summary>
-    public class ObjectAttachment : BaseStrategy
+    public class ArticleType : BaseStrategy
     {
         /// <summary>
         /// 构造
         /// </summary>
-        public ObjectAttachment()
+        public ArticleType()
         {
             this.Name = "保存文章附件关系信息";
         }
@@ -28,15 +28,15 @@ namespace XCLCMS.Data.BLL.Strategy.Article
             }
 
             bool flag = false;
-            XCLCMS.Data.BLL.ObjectAttachment bll = new BLL.ObjectAttachment();
+            XCLCMS.Data.BLL.ArticleType bll = new BLL.ArticleType();
 
             try
             {
-                //删除附件关系
-                bll.Delete(CommonHelper.EnumType.ObjectTypeEnum.ART, articleContext.Article.ArticleID);
+                //删除分类关系
+                bll.Delete(articleContext.Article.ArticleID);
 
-                //添加附件关系
-                flag = bll.Add(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.ART, articleContext.Article.ArticleID, articleContext.ArticleAttachmentIDList, new Model.Custom.ContextModel()
+                //添加分类关系
+                flag = bll.Add(articleContext.Article.ArticleID, articleContext.ArticleTypeIDList, new Model.Custom.ContextModel()
                 {
                     UserInfo = articleContext.CurrentUserInfo
                 });

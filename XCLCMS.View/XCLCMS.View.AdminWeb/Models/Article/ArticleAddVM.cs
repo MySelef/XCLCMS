@@ -1,4 +1,6 @@
-﻿namespace XCLCMS.View.AdminWeb.Models.Article
+﻿using System.Collections.Generic;
+
+namespace XCLCMS.View.AdminWeb.Models.Article
 {
     /// <summary>
     /// 文章添加或修改页的viewmodel
@@ -46,5 +48,15 @@
         /// 文章审核状态select的options
         /// </summary>
         public string VerifyStateOptions { get; set; }
+
+        /// <summary>
+        /// 文章附件ID
+        /// </summary>
+        public List<long> AttachmentIDList { get; set; }
+
+        /// <summary>
+        /// 文章分类ID
+        /// </summary>
+        public List<long> ArticleTypeIDList { get; set; }
     }
 }

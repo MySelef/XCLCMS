@@ -114,8 +114,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
         {
             var viewModel = new XCLCMS.View.AdminWeb.Models.Article.ArticleAddVM();
 
-            string selArticleType = XCLNetTools.StringHander.FormHelper.GetString("selArticleType");
             var mainImageIDList = XCLNetTools.StringHander.FormHelper.GetLongList("mainImage");
+
+            viewModel.AttachmentIDList = XCLNetTools.StringHander.FormHelper.GetLongList("txtAttachments");
+            viewModel.ArticleTypeIDList = XCLNetTools.StringHander.FormHelper.GetLongList("selArticleType");
 
             viewModel.Article = new Data.Model.Article();
             viewModel.Article.ArticleID = XCLNetTools.StringHander.FormHelper.GetLong("ArticleID");
@@ -226,9 +228,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             articleContext.CurrentUserInfo = base.CurrentUserModel;
             articleContext.Article = model;
             articleContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.ADD;
+            articleContext.ArticleTypeIDList = viewModel.ArticleTypeIDList;
+            articleContext.ArticleAttachmentIDList = viewModel.AttachmentIDList;
 
             XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
-                new XCLCMS.Data.BLL.Strategy.Article.Article()
+                new XCLCMS.Data.BLL.Strategy.Article.Article(),
+                new XCLCMS.Data.BLL.Strategy.Article.ObjectAttachment(),
+                new XCLCMS.Data.BLL.Strategy.Article.ArticleType()
             });
             strategy.Execute(articleContext);
 

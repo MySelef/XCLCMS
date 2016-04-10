@@ -10,11 +10,11 @@ using System.Text;
 namespace XCLCMS.Data.DAL
 {
     /// <summary>
-    /// 数据访问类:ObjectAttachment
+    /// 数据访问类:ArticleType
     /// </summary>
-    public partial class ObjectAttachment : XCLCMS.Data.DAL.Common.BaseDAL
+    public partial class ArticleType : XCLCMS.Data.DAL.Common.BaseDAL
     {
-        public ObjectAttachment()
+        public ArticleType()
         { }
 
         #region Method
@@ -22,13 +22,12 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         ///  增加一条数据
         /// </summary>
-        public bool Add(XCLCMS.Data.Model.ObjectAttachment model)
+        public bool Add(XCLCMS.Data.Model.ArticleType model)
         {
-            Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetStoredProcCommand("sp_ObjectAttachment_ADD");
-            db.AddInParameter(dbCommand, "ObjectType", DbType.AnsiString, model.ObjectType);
-            db.AddInParameter(dbCommand, "FK_ObjectID", DbType.Int64, model.FK_ObjectID);
-            db.AddInParameter(dbCommand, "FK_AttachmentID", DbType.Int64, model.FK_AttachmentID);
+            Database db = DatabaseFactory.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_ArticleType_ADD");
+            db.AddInParameter(dbCommand, "FK_ArticleID", DbType.Int64, model.FK_ArticleID);
+            db.AddInParameter(dbCommand, "FK_TypeID", DbType.Int64, model.FK_TypeID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
@@ -55,18 +54,18 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 获得数据列表
         /// </summary>
-        public List<XCLCMS.Data.Model.ObjectAttachment> GetModelList(string strWhere)
+        public List<XCLCMS.Data.Model.ArticleType> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select ObjectType,FK_ObjectID,FK_AttachmentID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
-            strSql.Append(" FROM ObjectAttachment ");
+            strSql.Append("select FK_ArticleID,FK_TypeID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
+            strSql.Append(" FROM ArticleType ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
             }
-            Database db = base.CreateDatabase();
+            Database db = DatabaseFactory.CreateDatabase();
             var ds = db.ExecuteDataSet(CommandType.Text, strSql.ToString());
-            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.ObjectAttachment>(ds) as List<XCLCMS.Data.Model.ObjectAttachment>;
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.ArticleType>(ds) as List<XCLCMS.Data.Model.ArticleType>;
         }
 
         #endregion Method
@@ -76,22 +75,21 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 批量删除
         /// </summary>
-        public bool Delete(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum objectType, long objectID)
+        public bool Delete(long articleID)
         {
             string sql = @"
-                delete from ObjectAttachment where ObjectType=@ObjectType and FK_ObjectID=@FK_ObjectID
+                delete from ArticleType where FK_ArticleID=@FK_ArticleID
             ";
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(sql);
-            db.AddInParameter(dbCommand, "ObjectType", DbType.String, objectType);
-            db.AddInParameter(dbCommand, "FK_ObjectID", DbType.Int64, objectID);
+            db.AddInParameter(dbCommand, "FK_ArticleID", DbType.Int64, articleID);
             return db.ExecuteNonQuery(dbCommand) >= 0;
         }
 
         /// <summary>
         /// 批量添加
         /// </summary>
-        public bool Add(List<XCLCMS.Data.Model.ObjectAttachment> lst)
+        public bool Add(List<XCLCMS.Data.Model.ArticleType> lst)
         {
             if (null == lst || lst.Count == 0)
             {
@@ -100,16 +98,16 @@ namespace XCLCMS.Data.DAL
             lst = lst.Distinct().ToList();
 
             string sql = @"
-                insert into ObjectAttachment
-                select * from @TVP_ObjectAttachment as tvp
+                insert into ArticleType
+                select * from @TVP_ArticleType as tvp
             ";
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(sql);
-            dbCommand.Parameters.Add(new SqlParameter("TVP_ObjectAttachment", SqlDbType.Structured)
+            dbCommand.Parameters.Add(new SqlParameter("TVP_ArticleType", SqlDbType.Structured)
             {
-                TypeName = "TVP_ObjectAttachment",
+                TypeName = "TVP_ArticleType",
                 Direction = ParameterDirection.Input,
-                Value = XCLNetTools.DataSource.DataTableHelper.ToDataTable<XCLCMS.Data.Model.ObjectAttachment>(lst)
+                Value = XCLNetTools.DataSource.DataTableHelper.ToDataTable<XCLCMS.Data.Model.ArticleType>(lst)
             });
             return db.ExecuteNonQuery(dbCommand) >= 0;
         }
@@ -117,19 +115,19 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 批量添加
         /// </summary>
-        public bool Add(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum objectType, long objectID, List<long> attachmentIDList, XCLCMS.Data.Model.Custom.ContextModel context = null)
+        public bool Add(long articleID, List<long> articleTypeIDList, XCLCMS.Data.Model.Custom.ContextModel context = null)
         {
-            if (null == attachmentIDList || attachmentIDList.Count == 0)
+            if (null == articleTypeIDList || articleTypeIDList.Count == 0)
             {
                 return true;
             }
-            attachmentIDList = attachmentIDList.Distinct().ToList();
+            articleTypeIDList = articleTypeIDList.Distinct().ToList();
 
             DateTime dtNow = DateTime.Now;
-            var lst = new List<XCLCMS.Data.Model.ObjectAttachment>();
-            attachmentIDList.ForEach(id =>
+            var lst = new List<XCLCMS.Data.Model.ArticleType>();
+            articleTypeIDList.ForEach(id =>
             {
-                var model = new XCLCMS.Data.Model.ObjectAttachment();
+                var model = new XCLCMS.Data.Model.ArticleType();
                 if (null != context && null != context.UserInfo)
                 {
                     model.CreaterID = context.UserInfo.UserInfoID;
@@ -139,9 +137,8 @@ namespace XCLCMS.Data.DAL
                 }
                 model.CreateTime = dtNow;
                 model.UpdateTime = dtNow;
-                model.FK_AttachmentID = id;
-                model.FK_ObjectID = objectID;
-                model.ObjectType = objectType.ToString();
+                model.FK_TypeID = id;
+                model.FK_ArticleID = articleID;
                 model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                 lst.Add(model);
             });

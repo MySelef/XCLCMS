@@ -63,9 +63,7 @@
                 <tr>
                     <td class="XCLTitle">分类：</td>
                     <td>
-                        <select id="selArticleType" name="selArticleType" style="width:200px;height:25px;" multiple>
-                            @Html.Raw(Model.ArticleTypeOptions)
-                        </select>
+                        <input id="selArticleType" name="selArticleType" value="@Model.Article.ArticleTypeIDs" style="width:200px;height:25px;" multiple/>
                     </td>
                     <td class="XCLTitle">关键字：</td>
                     <td>
@@ -151,7 +149,8 @@
                     <td colspan="5">
                         @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM() {
                        TxtName="txtAttachments",
-                       MaxFileCount=10
+                       MaxFileCount=100,
+                       TxtDefaultValue= Model.AttachmentIDList.IsNotNullOrEmpty()?string.Join(",", Model.AttachmentIDList.ToArray()):""
                    })
                     </td>
                 </tr>

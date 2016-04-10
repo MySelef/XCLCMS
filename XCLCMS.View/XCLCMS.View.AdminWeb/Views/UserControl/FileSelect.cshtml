@@ -10,6 +10,7 @@
     {{each FileList as m i}}
     <li style="margin:5px;">
         <a href="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_OpenAPI_ShowAttachmentURL)/{{m.AttachmentID}}" target="_blank">{{m.OriginFileName}}</a>
+        （{{m.FileSize}} KB）
         <a href="javascript:void(0);" class="delSelectedFile XCLRedBolder">×</a>
         <input type="hidden" name="@Model.TxtName" value="{{m.AttachmentID}}" />
     </li>
@@ -31,6 +32,11 @@
                 $(this).closest("li").remove();
                 return false;
             });
+            //根据id来初始化
+            var defaultValues="@Model.TxtDefaultValue";
+            if(defaultValues){
+                @(Model.ID)_callback(defaultValues);
+            }
         },
         getSelectedIds:function(){
             var v=[];

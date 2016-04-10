@@ -5,6 +5,68 @@
     var app = {};
     app.ArticleList = {
         Init: function () {
+            var _this = this;
+            $("#btnUpdate").on("click", function () {
+                return _this.Update();
+            });
+            $("#btnDel").on("click", function () {
+                return _this.Del();
+            })
+        },
+        /**
+         * 返回已选择的value数组
+         */
+        GetSelectValue: function () {
+            var selectVal = $(".XCLTableCheckAll").val();
+            var ids = selectVal.split(',');
+            if (selectVal && selectVal !== "" && ids.length > 0) {
+                return ids;
+            } else {
+                return null;
+            }
+        },
+        /**
+         * 打开文章信息【修改】页面
+         */
+        Update: function () {
+            var $btn = $("#btnUpdate"), ids = this.GetSelectValue();
+            if (ids && ids.length === 1) {
+                var query = {
+                    handletype: "update",
+                    ArticleID: ids[0]
+                }
+
+                var url = XJ.Url.AddParam($btn.attr("href"), query);
+                $btn.attr("href", url);
+                return true;
+            } else {
+                art.dialog.tips("请选择一条记录进行修改操作！");
+                return false;
+            }
+        },
+        /**
+         * 删除文章信息
+         */
+        Del: function () {
+            var ids = this.GetSelectValue();
+            if (!ids || ids.length == 0) {
+                art.dialog.tips("请至少选择一条记录进行操作！");
+                return false;
+            }
+
+            art.dialog.confirm("您确定要删除此信息吗？", function () {
+                $.XGoAjax({
+                    target: $("#btnDel")[0],
+                    ajax: {
+                        url: XCLCMSPageGlobalConfig.RootURL + "Article/DelSubmit",
+                        data: { MerchantIds: ids.join(',') },
+                        type: "POST"
+                    }
+                });
+            }, function () {
+            });
+
+            return false;
         }
     };
 
@@ -78,6 +140,9 @@
                             data: {
                                 code: function () {
                                     return $("#txtCode").val();
+                                },
+                                articleID: function () {
+                                    return $("#ArticleID").val();
                                 }
                             }
                         },

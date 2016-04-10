@@ -101,6 +101,7 @@ namespace XCLCMS.Data.BLL
 
         /// <summary>
         /// 根据字典库code返回该 code子项dictionary
+        /// key:DicName,value:DicValue
         /// </summary>
         public Dictionary<string, string> GetDictionaryByCode(string code)
         {
@@ -112,6 +113,25 @@ namespace XCLCMS.Data.BLL
                 lst.ForEach(k =>
                 {
                     result.Add(k.DicName, k.DicValue);
+                });
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 根据字典库code返回该 code子项dictionary
+        /// key:DicName,value:SysDicID
+        /// </summary>
+        public Dictionary<string, long> GetDictionaryByCodeWithID(string code)
+        {
+            Dictionary<string, long> result = null;
+            var lst = this.GetChildListByCode(code);
+            if (null != lst && lst.Count > 0)
+            {
+                result = new Dictionary<string, long>();
+                lst.ForEach(k =>
+                {
+                    result.Add(k.DicName, k.SysDicID);
                 });
             }
             return result;

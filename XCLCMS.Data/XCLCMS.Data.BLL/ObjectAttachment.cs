@@ -58,6 +58,14 @@ namespace XCLCMS.Data.BLL
             return dal.Add(objectType, objectID, attachmentIDList, context);
         }
 
+        /// <summary>
+        /// 返回指定类型的附件列表
+        /// </summary>
+        public List<XCLCMS.Data.Model.ObjectAttachment> GetModelList(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum objectType, long objectID)
+        {
+            return dal.GetModelList(objectType, objectID);
+        }
+
         #endregion Extend Method
     }
 }

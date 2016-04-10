@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Atricle
@@ -42,7 +43,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
 
             #endregion 初始化查询条件
 
-            XCLCMS.Data.BLL.Article bll = new Data.BLL.Article();
+            XCLCMS.Data.BLL.View.v_Article bll = new Data.BLL.View.v_Article();
             viewModel.ArticleList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[ArticleID]", "[ArticleID] desc");
             viewModel.PagerModel = base.PageParamsInfo;
             return View("~/Views/Article/ArticleList.cshtml", viewModel);
@@ -57,54 +58,72 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
         {
             long articleID = XCLNetTools.StringHander.FormHelper.GetLong("ArticleID");
 
-            XCLCMS.Data.BLL.Article bll = new Data.BLL.Article();
+            var objectAttachmentBLL = new XCLCMS.Data.BLL.ObjectAttachment();
+            XCLCMS.Data.BLL.Article articleBLL = new Data.BLL.Article();
+            XCLCMS.Data.BLL.View.v_Article bll = new Data.BLL.View.v_Article();
             XCLCMS.View.AdminWeb.Models.Article.ArticleAddVM viewModel = new XCLCMS.View.AdminWeb.Models.Article.ArticleAddVM();
-
-            var articleTypeDic = bll.GetArticleTypeDic();
+            
 
             switch (base.CurrentHandleType)
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
-                    viewModel.Article = new Data.Model.Article();
-                    viewModel.ArticleTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(articleTypeDic, new XCLNetTools.Entity.SetOptionEntity()
-                    {
-                        IsNeedPleaseSelect = true
-                    });
-                    viewModel.ArticleStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum), new XCLNetTools.Entity.SetOptionEntity()
-                    {
-                        IsNeedPleaseSelect = true
-                    });
-                    viewModel.ArticleContentTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum), new XCLNetTools.Entity.SetOptionEntity()
-                    {
-                        IsNeedPleaseSelect = false
-                    });
-                    viewModel.URLOpenTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum), new XCLNetTools.Entity.SetOptionEntity()
-                    {
-                        IsNeedPleaseSelect = true
-                    });
-                    viewModel.FromInfoOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleFromInfoEnum), new XCLNetTools.Entity.SetOptionEntity()
-                    {
-                        IsNeedPleaseSelect = false
-                    });
-                    viewModel.AuthorNameOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleAuthorNameEnum), new XCLNetTools.Entity.SetOptionEntity()
-                    {
-                        IsNeedPleaseSelect = false
-                    });
-                    viewModel.VerifyStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.VerifyStateEnum), new XCLNetTools.Entity.SetOptionEntity()
-                    {
-                        IsNeedPleaseSelect = false
-                    });
+                    viewModel.Article = new Data.Model.View.v_Article();
                     viewModel.Article.IsCanComment = XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "Article");
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
                     viewModel.Article = bll.GetModel(articleID);
+                    var attLst = objectAttachmentBLL.GetModelList(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.ART, viewModel.Article.ArticleID);
+                    if (null != attLst && attLst.Count > 0)
+                    {
+                        viewModel.AttachmentIDList = attLst.Select(k => k.FK_AttachmentID).ToList();
+                    }
                     viewModel.FormAction = Url.Action("UpdateSubmit", "Article");
                     break;
             }
+            
+            viewModel.ArticleStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum), new XCLNetTools.Entity.SetOptionEntity()
+            {
+                IsNeedPleaseSelect = false,
+                DefaultValue = viewModel.Article.ArticleState
+            });
+            viewModel.ArticleContentTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum), new XCLNetTools.Entity.SetOptionEntity()
+            {
+                IsNeedPleaseSelect = false,
+                DefaultValue = viewModel.Article.ArticleContentType
+            });
+            viewModel.URLOpenTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.URLOpenTypeEnum), new XCLNetTools.Entity.SetOptionEntity()
+            {
+                IsNeedPleaseSelect = true,
+                DefaultValue = viewModel.Article.URLOpenType
+            });
+            viewModel.FromInfoOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleFromInfoEnum), new XCLNetTools.Entity.SetOptionEntity()
+            {
+                IsNeedPleaseSelect = false,
+                DefaultValue = viewModel.Article.FromInfo
+            });
+            viewModel.AuthorNameOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleAuthorNameEnum), new XCLNetTools.Entity.SetOptionEntity()
+            {
+                IsNeedPleaseSelect = false,
+                DefaultValue = viewModel.Article.AuthorName
+            });
+            viewModel.VerifyStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.VerifyStateEnum), new XCLNetTools.Entity.SetOptionEntity()
+            {
+                IsNeedPleaseSelect = false,
+                DefaultValue = viewModel.Article.VerifyState
+            });
 
             return View("~/Views/Article/ArticleAdd.cshtml", viewModel);
+        }
+
+        /// <summary>
+        /// 查看页
+        /// </summary>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleView)]
+        public ActionResult Show()
+        {
+            return View("~/Views/Article/ArticleShow.cshtml");
         }
 
         /// <summary>
@@ -119,7 +138,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             viewModel.AttachmentIDList = XCLNetTools.StringHander.FormHelper.GetLongList("txtAttachments");
             viewModel.ArticleTypeIDList = XCLNetTools.StringHander.FormHelper.GetLongList("selArticleType");
 
-            viewModel.Article = new Data.Model.Article();
+            viewModel.Article = new Data.Model.View.v_Article();
             viewModel.Article.ArticleID = XCLNetTools.StringHander.FormHelper.GetLong("ArticleID");
             viewModel.Article.ArticleContentType = XCLNetTools.StringHander.FormHelper.GetString("selArticleContentType");
             viewModel.Article.ArticleState = XCLNetTools.StringHander.FormHelper.GetString("selArticleState");

@@ -11,6 +11,6 @@ namespace XCLCMS.View.AdminWeb.Models.Article
 
         public XCLNetTools.Entity.PagerInfo PagerModel { get; set; }
 
-        public List<XCLCMS.Data.Model.Article> ArticleList { get; set; }
+        public List<XCLCMS.Data.Model.View.v_Article> ArticleList { get; set; }
     }
 }

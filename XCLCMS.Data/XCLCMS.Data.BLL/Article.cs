@@ -61,9 +61,9 @@ namespace XCLCMS.Data.BLL
         /// <summary>
         /// 获取文章类型
         /// </summary>
-        public Dictionary<string, string> GetArticleTypeDic()
+        public Dictionary<string, long> GetArticleTypeDic()
         {
-            return new XCLCMS.Data.BLL.SysDic().GetDictionaryByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.ArticleType.ToString());
+            return new XCLCMS.Data.BLL.SysDic().GetDictionaryByCodeWithID(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.ArticleType.ToString());
         }
 
         /// <summary>

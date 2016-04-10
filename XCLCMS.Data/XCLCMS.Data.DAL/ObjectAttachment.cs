@@ -149,6 +149,23 @@ namespace XCLCMS.Data.DAL
             return this.Add(lst);
         }
 
+        /// <summary>
+        /// 返回指定类型的附件列表
+        /// </summary>
+        public List<XCLCMS.Data.Model.ObjectAttachment> GetModelList(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum objectType, long objectID)
+        {
+            string sql = @"
+                select * from ObjectAttachment where ObjectType=@ObjectType and FK_ObjectID=@FK_ObjectID
+            ";
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(sql);
+            db.AddInParameter(dbCommand, "ObjectType", DbType.String, objectType.ToString());
+            db.AddInParameter(dbCommand, "FK_ObjectID", DbType.Int64, objectID);
+
+            var ds = db.ExecuteDataSet(dbCommand);
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.ObjectAttachment>(ds) as List<XCLCMS.Data.Model.ObjectAttachment>;
+        }
+
         #endregion Extend Method
     }
 }

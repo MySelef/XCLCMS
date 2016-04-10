@@ -12,12 +12,7 @@ namespace XCLCMS.View.AdminWeb.Models.Article
         /// </summary>
         public string FormAction { get; set; }
 
-        public XCLCMS.Data.Model.Article Article { get; set; }
-
-        /// <summary>
-        /// 文章类型select的option
-        /// </summary>
-        public string ArticleTypeOptions { get; set; }
+        public XCLCMS.Data.Model.View.v_Article Article { get; set; }
 
         /// <summary>
         /// 文章状态select的option
@@ -25,7 +20,7 @@ namespace XCLCMS.View.AdminWeb.Models.Article
         public string ArticleStateOptions { get; set; }
 
         /// <summary>
-        /// 文章类型类型select的option
+        /// 文章内容类型select的option
         /// </summary>
         public string ArticleContentTypeOptions { get; set; }
 
@@ -58,5 +53,6 @@ namespace XCLCMS.View.AdminWeb.Models.Article
         /// 文章分类ID
         /// </summary>
         public List<long> ArticleTypeIDList { get; set; }
+        
     }
 }

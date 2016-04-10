@@ -71,7 +71,7 @@
                         <p></p>
                         <span class="XCLNote">注：多个请用英文逗号（,）隔开！</span>
                     </td>
-                    <td class="XCLTitle">Tags：</td>
+                    <td class="XCLTitle">标签：</td>
                     <td>
                         <textarea id="txtTags" name="txtTags"  style="height:40px;" >@Model.Article.Tags</textarea>
                         <p></p>
@@ -82,10 +82,11 @@
                     <td class="XCLTitle">主图：</td>
                     <td>
                             @Html.Partial("~/views/UserControl/FileSelect.cshtml", new XCLCMS.View.AdminWeb.Models.UserControl.FileSelectVM()
-                           {
-                               TxtName = "mainImage",
-                               MaxFileCount = 3
-                           })
+                       {
+                           TxtName = "mainImage",
+                           MaxFileCount = 3,
+                           TxtDefaultValue=string.Join(",", new List<long>() { Model.Article.MainImage1.GetValueOrDefault(), Model.Article.MainImage2.GetValueOrDefault(), Model.Article.MainImage3.GetValueOrDefault()})
+                       })
                         <span class="XCLNote">最多可选择3个文件！</span>
                     </td>
                     <td class="XCLTitle">发布时间：</td>
@@ -115,7 +116,8 @@
                         <input type="checkbox" id="ckIsEssence" name="ckIsEssence"  @Html.Raw(Model.Article.IsEssence=="Y" ? " checked='checked' " : "") value="@XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString()" /><label for="ckIsEssence">精华</label>
                         <input type="checkbox" id="ckIsTop" name="ckIsTop"  @Html.Raw(Model.Article.IsTop=="Y" ? " checked='checked' " : "") value="@XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString()" />
                         <label for="ckIsTop">置顶</label>
-                        （<input type="text" id="txtBeginTop" name="txtBeginTop" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />~<input type="text" id="txtEndTop" name="txtEndTop" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />）
+                        （<input type="text" id="txtBeginTop" name="txtBeginTop" value="@string.Format("{0:yyyy-MM-dd hh:mm}", Model.Article.TopBeginTime)" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />
+                        ~<input type="text" id="txtEndTop" name="txtEndTop" value="@string.Format("{0:yyyy-MM-dd hh:mm}", Model.Article.TopEndTime)"  onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' }); return false;" />）
                     </td>
                 </tr>
                 <tr>

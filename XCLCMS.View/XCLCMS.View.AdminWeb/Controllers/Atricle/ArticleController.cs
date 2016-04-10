@@ -62,7 +62,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
             XCLCMS.Data.BLL.Article articleBLL = new Data.BLL.Article();
             XCLCMS.Data.BLL.View.v_Article bll = new Data.BLL.View.v_Article();
             XCLCMS.View.AdminWeb.Models.Article.ArticleAddVM viewModel = new XCLCMS.View.AdminWeb.Models.Article.ArticleAddVM();
-            
 
             switch (base.CurrentHandleType)
             {
@@ -70,6 +69,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
                     viewModel.Article = new Data.Model.View.v_Article();
                     viewModel.Article.IsCanComment = XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "Article");
+                    viewModel.Article.PublishTime = DateTime.Now.Date;
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
@@ -82,7 +82,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
                     viewModel.FormAction = Url.Action("UpdateSubmit", "Article");
                     break;
             }
-            
+
             viewModel.ArticleStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum), new XCLNetTools.Entity.SetOptionEntity()
             {
                 IsNeedPleaseSelect = false,
@@ -123,7 +123,24 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleView)]
         public ActionResult Show()
         {
-            return View("~/Views/Article/ArticleShow.cshtml");
+            var bll = new XCLCMS.Data.BLL.View.v_Article();
+            var attachmentBLL = new XCLCMS.Data.BLL.Attachment();
+            var objAttachMentBLL = new XCLCMS.Data.BLL.ObjectAttachment();
+            var viewModel = new XCLCMS.View.AdminWeb.Models.Article.ArticleShowVM();
+            viewModel.Article = bll.GetModel(XCLNetTools.StringHander.FormHelper.GetLong("articleID")) ?? new Data.Model.View.v_Article();
+
+            viewModel.MainImgList = attachmentBLL.GetList(new List<long>() {
+                viewModel.Article.MainImage1.GetValueOrDefault(),
+                viewModel.Article.MainImage2.GetValueOrDefault(),
+                viewModel.Article.MainImage3.GetValueOrDefault()
+            });
+
+            var attList = objAttachMentBLL.GetModelList(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.ART, viewModel.Article.ArticleID);
+            if (null != attList && attList.Count > 0)
+            {
+                viewModel.AttactmentList = attachmentBLL.GetList(attList.Select(k => k.FK_AttachmentID).ToList());
+            }
+            return View("~/Views/Article/ArticleShow.cshtml", viewModel);
         }
 
         /// <summary>
@@ -275,17 +292,110 @@ namespace XCLCMS.View.AdminWeb.Controllers.Atricle
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleDel)]
         public override ActionResult DelSubmit(FormCollection fm)
         {
-            XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
-
-            return Json(msg);
+            XCLCMS.Data.BLL.Article bll = new Data.BLL.Article();
+            XCLCMS.Data.Model.Article model = null;
+            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
+            long[] ids = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("ArticleIds").Split(','));
+            if (null != ids && ids.Length > 0)
+            {
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    model = bll.GetModel(ids[i]);
+                    if (null != model)
+                    {
+                        model.UpdaterID = base.CurrentUserModel.UserInfoID;
+                        model.UpdaterName = base.CurrentUserModel.UserName;
+                        model.UpdateTime = DateTime.Now;
+                        model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
+                        bll.Update(model);
+                    }
+                }
+            }
+            msgModel.IsSuccess = true;
+            msgModel.IsRefresh = true;
+            msgModel.Message = "删除成功！";
+            return Json(msgModel);
         }
 
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleEdit)]
         public override ActionResult UpdateSubmit(FormCollection fm)
         {
-            XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
+            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
 
-            return Json(msg);
+            var bll = new XCLCMS.Data.BLL.Article();
+            var viewModel = this.GetViewModel(fm);
+            var model = bll.GetModel(viewModel.Article.ArticleID);
+
+            model.ArticleContentType = viewModel.Article.ArticleContentType;
+            model.ArticleState = viewModel.Article.ArticleState;
+            model.AuthorName = viewModel.Article.AuthorName;
+            model.BadCount = viewModel.Article.BadCount;
+            if (string.IsNullOrWhiteSpace(viewModel.Article.Code))
+            {
+                model.Code = model.ArticleID.ToString();
+            }
+            else
+            {
+                model.Code = viewModel.Article.Code;
+            }
+
+            model.CommentCount = viewModel.Article.CommentCount;
+            model.Comments = viewModel.Article.Comments;
+            model.Contents = viewModel.Article.Contents;
+            model.FromInfo = viewModel.Article.FromInfo;
+            model.GoodCount = viewModel.Article.GoodCount;
+            model.HotCount = viewModel.Article.HotCount;
+            model.IsCanComment = viewModel.Article.IsCanComment;
+            model.IsEssence = viewModel.Article.IsEssence;
+            model.IsRecommend = viewModel.Article.IsRecommend;
+            model.IsTop = viewModel.Article.IsTop;
+            model.KeyWords = viewModel.Article.KeyWords;
+            model.LinkUrl = viewModel.Article.LinkUrl;
+            model.MainImage1 = viewModel.Article.MainImage1;
+            model.MainImage2 = viewModel.Article.MainImage2;
+            model.MainImage3 = viewModel.Article.MainImage3;
+            model.MiddleCount = viewModel.Article.MiddleCount;
+            model.PublishTime = viewModel.Article.PublishTime;
+            model.SubTitle = viewModel.Article.SubTitle;
+            model.Summary = viewModel.Article.Summary;
+            model.Tags = viewModel.Article.Tags;
+            model.Title = viewModel.Article.Title;
+            model.TopBeginTime = viewModel.Article.TopBeginTime;
+            model.TopEndTime = viewModel.Article.TopEndTime;
+            model.UpdaterID = base.UserID;
+            model.UpdaterName = base.CurrentUserModel.UserName;
+            model.UpdateTime = DateTime.Now;
+            model.URLOpenType = viewModel.Article.URLOpenType;
+            model.VerifyState = viewModel.Article.VerifyState;
+            model.ViewCount = viewModel.Article.ViewCount;
+
+            var articleContext = new Data.BLL.Strategy.Article.ArticleContext();
+            articleContext.CurrentUserInfo = base.CurrentUserModel;
+            articleContext.Article = model;
+            articleContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.UPDATE;
+            articleContext.ArticleTypeIDList = viewModel.ArticleTypeIDList;
+            articleContext.ArticleAttachmentIDList = viewModel.AttachmentIDList;
+
+            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
+                new XCLCMS.Data.BLL.Strategy.Article.Article(),
+                new XCLCMS.Data.BLL.Strategy.Article.ObjectAttachment(),
+                new XCLCMS.Data.BLL.Strategy.Article.ArticleType()
+            });
+            strategy.Execute(articleContext);
+
+            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
+            {
+                msgModel.Message = "修改成功！";
+                msgModel.IsSuccess = true;
+            }
+            else
+            {
+                msgModel.Message = strategy.ResultMessage;
+                msgModel.IsSuccess = false;
+                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "添加文章信息失败", strategy.ResultMessage);
+            }
+
+            return Json(msgModel);
         }
     }
 }

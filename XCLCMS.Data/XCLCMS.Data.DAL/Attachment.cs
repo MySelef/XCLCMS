@@ -286,7 +286,7 @@ namespace XCLCMS.Data.DAL
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Attachment>(ds.Tables[0]) as List<XCLCMS.Data.Model.Attachment>;
         }
-
+        
         #endregion MethodEx
     }
 }

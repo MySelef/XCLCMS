@@ -176,6 +176,7 @@
     </Compile>
     <Compile Include="Models\Article\ArticleAddVM.cs" />
     <Compile Include="Models\Article\ArticleListVM.cs" />
+    <Compile Include="Models\Article\ArticleShowVM.cs" />
     <Compile Include="Models\Main\MainVM.cs" />
     <Compile Include="Models\Merchant\MerchantAddVM.cs" />
     <Compile Include="Models\Merchant\MerchantListVM.cs" />

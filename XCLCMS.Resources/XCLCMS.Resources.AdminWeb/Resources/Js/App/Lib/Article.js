@@ -59,7 +59,7 @@
                     target: $("#btnDel")[0],
                     ajax: {
                         url: XCLCMSPageGlobalConfig.RootURL + "Article/DelSubmit",
-                        data: { MerchantIds: ids.join(',') },
+                        data: { ArticleIds: ids.join(',') },
                         type: "POST"
                     }
                 });
@@ -127,6 +127,10 @@
                 checkbox: true,
                 onlyLeafCheck: true
             });
+
+            $("#btnDel").on("click", function () {
+                return _this.Del();
+            });
         },
         /**
          * 表单验证初始化
@@ -145,8 +149,7 @@
                                     return $("#ArticleID").val();
                                 }
                             }
-                        },
-                        AccountNO: true
+                        }
                     },
                     txtTitle: { required: true }
                 }
@@ -157,6 +160,26 @@
                 }
                 $.XGoAjax({ target: $("#btnSave")[0] });
             });
+        },
+        /**
+         * 删除文章信息
+         */
+        Del: function () {
+            var id = $("#ArticleID").val();
+
+            art.dialog.confirm("您确定要删除此信息吗？", function () {
+                $.XGoAjax({
+                    target: $("#btnDel")[0],
+                    ajax: {
+                        url: XCLCMSPageGlobalConfig.RootURL + "Article/DelSubmit",
+                        data: { ArticleIds: id },
+                        type: "POST"
+                    }
+                });
+            }, function () {
+            });
+
+            return false;
         }
     };
 

@@ -43,6 +43,19 @@ namespace XCLCMS.Lib.Common
         #region 文件管理相关
 
         /// <summary>
+        /// 根据文件id，返回用于网站上显示的文件地址
+        /// </summary>
+        public static string GetAttachmentAbsoluteURL(long id)
+        {
+            if (id <= 0)
+            {
+                return null;
+            }
+            var model = new XCLCMS.Data.BLL.Attachment().GetModel(id);
+            return null != model ? GetAttachmentAbsoluteURL(model.URL) : null;
+        }
+
+        /// <summary>
         /// 将文件管理中的文件相对路径转为url绝对路径
         /// 如：~/upload/files/123.jpg -> //www.w.com/filemanager/upload/files/123.jpg
         /// </summary>

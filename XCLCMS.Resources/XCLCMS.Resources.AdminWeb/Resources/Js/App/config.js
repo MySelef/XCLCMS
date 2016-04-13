@@ -6,13 +6,13 @@ var require = {
     baseUrl: XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/App/",
     urlArgs: "v=" + XCLCMSPageGlobalConfig.ResourceVersion,
     paths: {
-        "kindeditor-all": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/kindeditor/kindeditor-all-min",
-        "kindeditorCN": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/kindeditor/lang/zh-CN",
+        "ckeditor": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/ckeditor/ckeditor",
+        "ckeditorCN": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/ckeditor/lang/zh-cn",
         
         "readmore": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/readmore"
     },
     shim: {
-        "kindeditorCN": ["kindeditor-all"]
+        "ckeditorCN": ["ckeditor"]
     }
 };
 

@@ -99,18 +99,6 @@
 
             //初始化编辑器
             CKEDITOR.replace('txtContents');
-            //var editor = null;
-            //KindEditor.ready(function (K) {
-            //    editor = K.create('textarea[name="txtContents"]', {
-            //        allowFileManager: true,
-            //        afterChange: function () {
-            //            var textCount = this.count('text');
-            //            var data = { WordCount: textCount };
-            //            _this.Elements.divContentNote.html(template(_this.HTMLTemps.divContentNoteTemp, data));
-            //        },
-            //        afterBlur: function () { this.sync(); }
-            //    });
-            //});
 
             //随机生成点赞数
             common.BindLinkButtonEvent("click", _this.Elements.btnRandomCount, function () {
@@ -158,6 +146,9 @@
             common.BindLinkButtonEvent("click", $("#btnSave"), function () {
                 if (!common.CommonFormValid(validator)) {
                     return false;
+                }
+                for (instance in CKEDITOR.instances) {
+                    CKEDITOR.instances[instance].updateElement();
                 }
                 $.XGoAjax({ target: $("#btnSave")[0] });
             });

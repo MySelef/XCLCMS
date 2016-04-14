@@ -118,6 +118,9 @@
     <Content Include="Libs\HtmlAgilityPack\Net40\HtmlAgilityPack.dll" />
     <Content Include="Libs\HtmlAgilityPack\Net40\HtmlAgilityPack.pdb" />
     <Content Include="Libs\HtmlAgilityPack\Net40\HtmlAgilityPack.XML" />
+    <Content Include="Libs\MvcPager\3.0\Webdiyer.MvcPager.dll" />
+    <Content Include="Libs\MvcPager\3.0\Webdiyer.MvcPager.XML" />
+    <Content Include="Libs\MvcPager\3.0\zh-CHS\Webdiyer.MvcPager.resources.dll" />
     <Content Include="Libs\MvcPager\MvcPager.dll" />
     <Content Include="Libs\XCLNetLogger.dll" />
     <Content Include="Libs\XCLNetLogger.XML" />

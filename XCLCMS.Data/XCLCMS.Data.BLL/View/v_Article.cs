@@ -39,6 +39,14 @@ namespace XCLCMS.Data.BLL.View
             return dal.GetPageList(pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
         }
 
+        /// <summary>
+        /// 分页数据列表
+        /// </summary>
+        public List<XCLCMS.Data.Model.View.v_Article> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, XCLCMS.Data.Model.Custom.ArticleSearchCondition condition)
+        {
+            return dal.GetPageList(pageInfo, condition);
+        }
+
         #endregion Extend Method
     }
 }

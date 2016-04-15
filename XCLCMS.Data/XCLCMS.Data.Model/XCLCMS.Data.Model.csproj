@@ -47,6 +47,7 @@
     <Compile Include="Article.cs" />
     <Compile Include="ArticleType.cs" />
     <Compile Include="Attachment.cs" />
+    <Compile Include="Custom\ArticleSearchCondition.cs" />
     <Compile Include="Custom\ContextModel.cs" />
     <Compile Include="Custom\ProcedureResultModel.cs" />
     <Compile Include="Custom\SysDicSimple.cs" />

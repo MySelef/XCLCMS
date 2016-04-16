@@ -13,7 +13,7 @@ XCLCMS是一个轻量级的CMS（内容管理系统），您可以免费使用�
 2. 被授权人义务：在软件和软件的所有副本中都必须包含版权声明和许可声明。
 
 ### 案例
-我的ABC个人博客（http://blog.wdydh.com）
+[我的ABC个人博客](http://blog.wdydh.com)
 
 ### 贡献者
 1. xucongli1989

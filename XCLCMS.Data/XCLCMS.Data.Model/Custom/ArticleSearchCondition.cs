@@ -5,8 +5,6 @@
     /// </summary>
     public class ArticleSearchCondition
     {
-        private string _recordState = "N";
-
         /// <summary>
         /// 文章类型
         /// </summary>
@@ -15,10 +13,16 @@
         /// <summary>
         /// 记录状态
         /// </summary>
-        public string RecordState
-        {
-            get { return this._recordState; }
-            set { this._recordState = value; }
-        }
+        public string RecordState { get; set; }
+
+        /// <summary>
+        /// 文章审核状态
+        /// </summary>
+        public string VerifyState { get; set; }
+
+        /// <summary>
+        /// 文章状态
+        /// </summary>
+        public string ArticleState { get; set; }
     }
 }

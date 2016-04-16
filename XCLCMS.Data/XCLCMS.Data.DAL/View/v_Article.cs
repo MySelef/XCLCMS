@@ -124,6 +124,16 @@ namespace XCLCMS.Data.DAL.View
                     where.Add("tb_Article.RecordState=@RecordState");
                     db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, condition.RecordState);
                 }
+                if (!string.IsNullOrEmpty(condition.VerifyState))
+                {
+                    where.Add("tb_Article.VerifyState=@VerifyState");
+                    db.AddInParameter(dbCommand, "VerifyState", DbType.AnsiString, condition.VerifyState);
+                }
+                if (!string.IsNullOrEmpty(condition.ArticleState))
+                {
+                    where.Add("tb_Article.ArticleState=@ArticleState");
+                    db.AddInParameter(dbCommand, "ArticleState", DbType.AnsiString, condition.ArticleState);
+                }
             }
 
             if (where.Count > 0)

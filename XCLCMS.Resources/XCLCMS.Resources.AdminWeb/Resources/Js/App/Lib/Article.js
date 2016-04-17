@@ -79,11 +79,15 @@
             btnRandomCount: null,//随机生成点赞数的按钮
             selArticleType: null,//文章分类
             selArticleContentType: null,//文章内容类型
+            selAuthorName: null,//作者
+            selFromInfo:null,//来源
             Init: function () {
                 this.divContentNote = $("#divContentNote");
                 this.btnRandomCount = $("#btnRandomCount");
                 this.selArticleType = $("#selArticleType");
                 this.selArticleContentType = $("#selArticleContentType");
+                this.selAuthorName = $("#selAuthorName");
+                this.selFromInfo = $("#selFromInfo");
             }
         },
         /**
@@ -116,6 +120,16 @@
                 checkbox: true,
                 onlyLeafCheck: true
             });
+
+            //combox初始值
+            var defaultValue = this.Elements.selAuthorName.attr("defaultValue");
+            if (!XJ.Data.IsUndefined(defaultValue)) {
+                this.Elements.selAuthorName.combobox('setValue', defaultValue);
+            }
+            defaultValue = this.Elements.selFromInfo.attr("defaultValue");
+            if (!XJ.Data.IsUndefined(defaultValue)) {
+                this.Elements.selFromInfo.combobox('setValue', defaultValue);
+            }
 
             $("#btnDel").on("click", function () {
                 return _this.Del();

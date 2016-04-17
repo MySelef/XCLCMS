@@ -18,13 +18,13 @@
                     </td>
                     <td class="XCLTitle" style="width: 10%">作者：</td>
                     <td style="width: 25%">
-                        <select id="selAuthorName" name="selAuthorName" class="easyui-combobox"  style="height:25px;width:200px;">
+                        <select id="selAuthorName" name="selAuthorName" class="easyui-combobox" defaultValue="@Model.Article.AuthorName" style="height:25px;width:200px;">
                             @Html.Raw(Model.AuthorNameOptions)
                         </select>
                     </td>
                     <td class="XCLTitle" style="width: 10%">来源：</td>
                     <td style="width: 25%">
-                        <select id="selFromInfo" name="selFromInfo" class="easyui-combobox"  style="height:25px;width:200px;">
+                        <select id="selFromInfo" name="selFromInfo" class="easyui-combobox" defaultValue="@Model.Article.FromInfo"  style="height:25px;width:200px;">
                             @Html.Raw(Model.FromInfoOptions)
                         </select>
                     </td>

@@ -4,6 +4,8 @@
 @model XCLCMS.FileManager.Models.LogicFile.ListVM
 
 <form>
+
+    <input type="hidden" name="IsSelectFile" value="@(Model.IsSelectFile?1:0)" />
     
     @if (Model.IsSelectFile)
     {

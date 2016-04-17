@@ -156,7 +156,7 @@ namespace XCLCMS.FileManager.Controllers
             model.Description = settingModel.Description;
             model.DownLoadCount = settingModel.DownloadCount;
             model.Ext = (info.Extension ?? "").Trim('.');
-            model.FileSize = (decimal)(info.Length / 8.0 / 1024);
+            model.FileSize = (decimal)(info.Length / 1024);
             model.FormatType = "";
             model.ImgHeight = height;
             model.ImgWidth = width;

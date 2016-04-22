@@ -1,14 +1,10 @@
 ﻿using System;
 
-namespace XCLCMS.Data.Model
+namespace XCLCMS.Data.Model.View
 {
-    /// <summary>
-    /// 商户表
-    /// </summary>
-    [Serializable]
-    public partial class Merchant
+    public class v_Merchant
     {
-        public Merchant()
+        public v_Merchant()
         { }
 
         #region Model
@@ -38,9 +34,11 @@ namespace XCLCMS.Data.Model
         private DateTime _updatetime;
         private long _updaterid;
         private string _updatername;
+        private string _merchanttypename;
+        private string _passtypename;
 
         /// <summary>
-        /// 商户ID
+        ///
         /// </summary>
         public long MerchantID
         {
@@ -49,7 +47,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 商户名
+        ///
         /// </summary>
         public string MerchantName
         {
@@ -58,7 +56,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 商户类型(参见字典库)
+        ///
         /// </summary>
         public long FK_MerchantType
         {
@@ -67,7 +65,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 绑定的域名
+        ///
         /// </summary>
         public string Domain
         {
@@ -76,7 +74,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// logo图片地址
+        ///
         /// </summary>
         public string LogoURL
         {
@@ -85,7 +83,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 联系人
+        ///
         /// </summary>
         public string ContactName
         {
@@ -94,7 +92,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 手机
+        ///
         /// </summary>
         public string Tel
         {
@@ -103,7 +101,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 固话
+        ///
         /// </summary>
         public string Landline
         {
@@ -112,7 +110,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 电子邮件
+        ///
         /// </summary>
         public string Email
         {
@@ -121,7 +119,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// qq
+        ///
         /// </summary>
         public string QQ
         {
@@ -130,7 +128,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 证件类型（参见字典库）
+        ///
         /// </summary>
         public long FK_PassType
         {
@@ -139,7 +137,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 证件号
+        ///
         /// </summary>
         public string PassNumber
         {
@@ -148,7 +146,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 地址
+        ///
         /// </summary>
         public string Address
         {
@@ -157,7 +155,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 其它联系信息
+        ///
         /// </summary>
         public string OtherContact
         {
@@ -166,7 +164,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 商户备注信息
+        ///
         /// </summary>
         public string MerchantRemark
         {
@@ -175,7 +173,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 注册时间
+        ///
         /// </summary>
         public DateTime? RegisterTime
         {
@@ -184,7 +182,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 商户状态(MerchantStateEnum)
+        ///
         /// </summary>
         public string MerchantState
         {
@@ -193,7 +191,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 备注
+        ///
         /// </summary>
         public string Remark
         {
@@ -202,7 +200,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 记录状态(RecordStateEnum)
+        ///
         /// </summary>
         public string RecordState
         {
@@ -211,7 +209,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 创建时间
+        ///
         /// </summary>
         public DateTime CreateTime
         {
@@ -220,7 +218,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 创建者ID
+        ///
         /// </summary>
         public long CreaterID
         {
@@ -229,7 +227,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 创建者名
+        ///
         /// </summary>
         public string CreaterName
         {
@@ -238,7 +236,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 更新时间
+        ///
         /// </summary>
         public DateTime UpdateTime
         {
@@ -247,7 +245,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 更新人ID
+        ///
         /// </summary>
         public long UpdaterID
         {
@@ -256,12 +254,30 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 更新人名
+        ///
         /// </summary>
         public string UpdaterName
         {
             set { _updatername = value; }
             get { return _updatername; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string MerchantTypeName
+        {
+            set { _merchanttypename = value; }
+            get { return _merchanttypename; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string PassTypeName
+        {
+            set { _passtypename = value; }
+            get { return _passtypename; }
         }
 
         #endregion Model

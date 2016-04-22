@@ -26,7 +26,7 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("sp_Merchant_ADD");
             db.AddInParameter(dbCommand, "MerchantID", DbType.Int64, model.MerchantID);
             db.AddInParameter(dbCommand, "MerchantName", DbType.String, model.MerchantName);
-            db.AddInParameter(dbCommand, "MerchantType", DbType.AnsiString, model.MerchantType);
+            db.AddInParameter(dbCommand, "FK_MerchantType", DbType.Int64, model.FK_MerchantType);
             db.AddInParameter(dbCommand, "Domain", DbType.AnsiString, model.Domain);
             db.AddInParameter(dbCommand, "LogoURL", DbType.AnsiString, model.LogoURL);
             db.AddInParameter(dbCommand, "ContactName", DbType.String, model.ContactName);
@@ -34,7 +34,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "Landline", DbType.AnsiString, model.Landline);
             db.AddInParameter(dbCommand, "Email", DbType.AnsiString, model.Email);
             db.AddInParameter(dbCommand, "QQ", DbType.AnsiString, model.QQ);
-            db.AddInParameter(dbCommand, "PassType", DbType.AnsiString, model.PassType);
+            db.AddInParameter(dbCommand, "FK_PassType", DbType.Int64, model.FK_PassType);
             db.AddInParameter(dbCommand, "PassNumber", DbType.AnsiString, model.PassNumber);
             db.AddInParameter(dbCommand, "Address", DbType.String, model.Address);
             db.AddInParameter(dbCommand, "OtherContact", DbType.String, model.OtherContact);
@@ -74,7 +74,7 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("sp_Merchant_Update");
             db.AddInParameter(dbCommand, "MerchantID", DbType.Int64, model.MerchantID);
             db.AddInParameter(dbCommand, "MerchantName", DbType.String, model.MerchantName);
-            db.AddInParameter(dbCommand, "MerchantType", DbType.AnsiString, model.MerchantType);
+            db.AddInParameter(dbCommand, "FK_MerchantType", DbType.Int64, model.FK_MerchantType);
             db.AddInParameter(dbCommand, "Domain", DbType.AnsiString, model.Domain);
             db.AddInParameter(dbCommand, "LogoURL", DbType.AnsiString, model.LogoURL);
             db.AddInParameter(dbCommand, "ContactName", DbType.String, model.ContactName);
@@ -82,7 +82,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "Landline", DbType.AnsiString, model.Landline);
             db.AddInParameter(dbCommand, "Email", DbType.AnsiString, model.Email);
             db.AddInParameter(dbCommand, "QQ", DbType.AnsiString, model.QQ);
-            db.AddInParameter(dbCommand, "PassType", DbType.AnsiString, model.PassType);
+            db.AddInParameter(dbCommand, "FK_PassType", DbType.Int64, model.FK_PassType);
             db.AddInParameter(dbCommand, "PassNumber", DbType.AnsiString, model.PassNumber);
             db.AddInParameter(dbCommand, "Address", DbType.String, model.Address);
             db.AddInParameter(dbCommand, "OtherContact", DbType.String, model.OtherContact);
@@ -147,12 +147,14 @@ namespace XCLCMS.Data.DAL
         #region MethodEx
 
         /// <summary>
-        /// 分页数据列表
+        /// 判断指定MerchantName是否存在
         /// </summary>
-        public List<XCLCMS.Data.Model.Merchant> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public bool IsExistMerchantName(string merchantName)
         {
-            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("Merchant", pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Merchant>(dt) as List<XCLCMS.Data.Model.Merchant>;
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from Merchant where MerchantName=@MerchantName");
+            db.AddInParameter(dbCommand, "MerchantName", DbType.AnsiString, merchantName);
+            return db.ExecuteScalar(dbCommand) != null;
         }
 
         #endregion MethodEx

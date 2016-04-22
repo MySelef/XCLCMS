@@ -1,13 +1,15 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
 
 
+
 CREATE PROCEDURE [dbo].[sp_Merchant_ADD]
 @MerchantID bigint,
 @MerchantName nvarchar(100),
-@MerchantType char(1),
+@FK_MerchantType bigint,
 @Domain varchar(200),
 @LogoURL varchar(200),
 @ContactName nvarchar(100),
@@ -15,7 +17,7 @@ CREATE PROCEDURE [dbo].[sp_Merchant_ADD]
 @Landline varchar(200),
 @Email varchar(100),
 @QQ varchar(50),
-@PassType char(3),
+@FK_PassType bigint,
 @PassNumber varchar(100),
 @Address nvarchar(200),
 @OtherContact nvarchar(500),
@@ -39,14 +41,14 @@ BEGIN
 
 	BEGIN TRY
 		INSERT INTO [Merchant](
-		[MerchantID],[MerchantName],[MerchantType],[Domain],[LogoURL],[ContactName],[Tel],[Landline],[Email],[QQ],[PassType],[PassNumber],[Address],[OtherContact],[MerchantRemark],[RegisterTime],[MerchantState],[Remark],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
+		[MerchantID],[MerchantName],[FK_MerchantType],[Domain],[LogoURL],[ContactName],[Tel],[Landline],[Email],[QQ],[FK_PassType],[PassNumber],[Address],[OtherContact],[MerchantRemark],[RegisterTime],[MerchantState],[Remark],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
 		)VALUES(
-		@MerchantID,@MerchantName,@MerchantType,@Domain,@LogoURL,@ContactName,@Tel,@Landline,@Email,@QQ,@PassType,@PassNumber,@Address,@OtherContact,@MerchantRemark,@RegisterTime,@MerchantState,@Remark,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
+		@MerchantID,@MerchantName,@FK_MerchantType,@Domain,@LogoURL,@ContactName,@Tel,@Landline,@Email,@QQ,@FK_PassType,@PassNumber,@Address,@OtherContact,@MerchantRemark,@RegisterTime,@MerchantState,@Remark,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
 		)
 		SET @ResultCode=1
 	END TRY
 	BEGIN CATCH
-			set @ResultMessage= ERROR_MESSAGE() 
+			SET @ResultMessage= ERROR_MESSAGE() 
 			SET @ResultCode=0
 	END CATCH
 
@@ -54,5 +56,6 @@ END
 
 
  
+
 
 GO

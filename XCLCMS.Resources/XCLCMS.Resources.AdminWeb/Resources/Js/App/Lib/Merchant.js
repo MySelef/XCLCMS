@@ -105,10 +105,12 @@
                             data: {
                                 MerchantName: function () {
                                     return $("#txtMerchantName").val();
+                                },
+                                MerchantID: function () {
+                                    return $("#MerchantID").val();
                                 }
                             }
-                        },
-                        AccountNO: true
+                        }
                     },
                     txtEmail: "email",
                     selMerchantState: { required: true }

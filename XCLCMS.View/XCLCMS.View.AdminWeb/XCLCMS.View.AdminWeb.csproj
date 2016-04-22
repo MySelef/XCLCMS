@@ -159,6 +159,7 @@
     <Compile Include="Controllers\Common\OtherController.cs" />
     <Compile Include="Controllers\Home\DefaultController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
+    <Compile Include="Controllers\Merchant\MerchantCommonController.cs" />
     <Compile Include="Controllers\Merchant\MerchantController.cs" />
     <Compile Include="Controllers\SysDic\SysDicCommonController.cs" />
     <Compile Include="Controllers\SysDic\SysDicController.cs" />
@@ -257,6 +258,9 @@
       <Project>{e2aa6c7f-5b46-4a4b-93e4-4ed457587c4e}</Project>
       <Name>XCLCMS.Lib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\MerchantCommon\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

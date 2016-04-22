@@ -23,14 +23,14 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("商户ID","MerchantID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("商户名","MerchantName|string|text",""),
-                new XCLNetSearch.SearchFieldInfo("商户类型","MerchantTypeID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("商户类型","FK_MerchantType|number|select",XCLCMS.Lib.Common.Tool.GetSysDicOptionsByCode("MerchantType")),
                 new XCLNetSearch.SearchFieldInfo("绑定的域名","Domain|string|text",""),
-                new XCLNetSearch.SearchFieldInfo("联系人","ContactName|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("联系人","ContactName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("手机","Tel|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("固话","Landline|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("电子邮件","Email|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("QQ","QQ|string|text",""),
-                new XCLNetSearch.SearchFieldInfo("证件类型","PassTypeID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("证件类型","FK_PassType|number|select",XCLCMS.Lib.Common.Tool.GetSysDicOptionsByCode("PassType")),
                 new XCLNetSearch.SearchFieldInfo("证件号","PassNumber|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("地址","Address|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("其它联系信息","OtherContact|string|text",""),
@@ -53,8 +53,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
             #endregion 初始化查询条件
 
-            XCLCMS.Data.BLL.Merchant uBLL = new Data.BLL.Merchant();
-            viewModel.MerchantList = uBLL.GetPageList(base.PageParamsInfo, strWhere, "", "[MerchantID]", "[MerchantID] desc");
+            XCLCMS.Data.BLL.View.v_Merchant bll = new Data.BLL.View.v_Merchant();
+            viewModel.MerchantList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[MerchantID]", "[MerchantID] desc");
             viewModel.PagerModel = base.PageParamsInfo;
 
             return View("~/Views/Merchant/MerchantList.cshtml", viewModel);
@@ -97,12 +97,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                     viewModel.Merchant = merchantBLL.GetModel(merchantId);
                     viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Entity.SetOptionEntity()
                     {
-                        DefaultValue = viewModel.Merchant.MerchantType,
+                        DefaultValue = viewModel.Merchant.FK_MerchantType.ToString(),
                         IsNeedPleaseSelect = true
                     });
                     viewModel.PassTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(passTypeDic, new XCLNetTools.Entity.SetOptionEntity()
                     {
-                        DefaultValue = viewModel.Merchant.PassType,
+                        DefaultValue = viewModel.Merchant.FK_PassType.ToString(),
                         IsNeedPleaseSelect = true
                     });
                     viewModel.MerchantStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum), new XCLNetTools.Entity.SetOptionEntity()
@@ -132,10 +132,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             viewModel.Merchant.MerchantName = (fm["txtMerchantName"] ?? "").Trim();
             viewModel.Merchant.MerchantRemark = (fm["txtMerchantRemark"] ?? "").Trim();
             viewModel.Merchant.MerchantState = (fm["selMerchantState"] ?? "").Trim();
-            viewModel.Merchant.MerchantType = (fm["selMerchantType"] ?? "").Trim();
+            viewModel.Merchant.FK_MerchantType = XCLNetTools.StringHander.FormHelper.GetLong("selMerchantType");
             viewModel.Merchant.OtherContact = (fm["txtOtherContact"] ?? "").Trim();
             viewModel.Merchant.PassNumber = (fm["txtPassNumber"] ?? "").Trim();
-            viewModel.Merchant.PassType = (fm["selPassType"] ?? "").Trim();
+            viewModel.Merchant.FK_PassType = XCLNetTools.StringHander.FormHelper.GetLong("selPassType");
             viewModel.Merchant.QQ = (fm["txtQQ"] ?? "").Trim();
             viewModel.Merchant.RegisterTime = XCLNetTools.Common.DataTypeConvert.ToDateTimeNull((fm["txtRegisterTime"] ?? "").Trim());
             viewModel.Merchant.Remark = (fm["txtRemark"] ?? "").Trim();
@@ -167,12 +167,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.MerchantName = viewModel.Merchant.MerchantName;
             model.MerchantRemark = viewModel.Merchant.MerchantRemark;
             model.MerchantState = viewModel.Merchant.MerchantState;
-            model.MerchantType = viewModel.Merchant.MerchantType;
+            model.FK_MerchantType = viewModel.Merchant.FK_MerchantType;
             model.OtherContact = viewModel.Merchant.OtherContact;
             model.PassNumber = viewModel.Merchant.PassNumber;
-            model.PassType = viewModel.Merchant.PassType;
+            model.FK_PassType = viewModel.Merchant.FK_PassType;
             model.QQ = viewModel.Merchant.QQ;
-            model.RecordState = viewModel.Merchant.RecordState;
+            model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
             model.RegisterTime = viewModel.Merchant.RegisterTime;
             model.Remark = viewModel.Merchant.Remark;
             model.Tel = viewModel.Merchant.Tel;
@@ -209,9 +209,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             XCLCMS.Data.Model.Merchant model = merchantBLL.GetModel(merchantId);
             model.Address = viewModel.Merchant.Address;
             model.ContactName = viewModel.Merchant.ContactName;
-            model.CreaterID = base.CurrentUserModel.UserInfoID;
-            model.CreaterName = base.CurrentUserModel.UserName;
-            model.CreateTime = DateTime.Now;
             model.Domain = viewModel.Merchant.Domain;
             model.Email = viewModel.Merchant.Email;
             model.Landline = viewModel.Merchant.Landline;
@@ -219,12 +216,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.MerchantName = viewModel.Merchant.MerchantName;
             model.MerchantRemark = viewModel.Merchant.MerchantRemark;
             model.MerchantState = viewModel.Merchant.MerchantState;
-            model.MerchantType = viewModel.Merchant.MerchantType;
+            model.FK_MerchantType = viewModel.Merchant.FK_MerchantType;
             model.OtherContact = viewModel.Merchant.OtherContact;
             model.PassNumber = viewModel.Merchant.PassNumber;
-            model.PassType = viewModel.Merchant.PassType;
+            model.FK_PassType = viewModel.Merchant.FK_PassType;
             model.QQ = viewModel.Merchant.QQ;
-            model.RecordState = viewModel.Merchant.RecordState;
             model.RegisterTime = viewModel.Merchant.RegisterTime;
             model.Remark = viewModel.Merchant.Remark;
             model.Tel = viewModel.Merchant.Tel;

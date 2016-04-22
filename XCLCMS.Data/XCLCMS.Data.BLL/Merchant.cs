@@ -50,20 +50,21 @@ namespace XCLCMS.Data.BLL
 
         #region ExtensionMethod
 
-        /// <summary>
-        /// 分页列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.Merchant> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
-        {
-            return dal.GetPageList(pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
-        }
 
         /// <summary>
         /// 获取商户类型
         /// </summary>
-        public Dictionary<string, string> GetMerchantTypeDic()
+        public Dictionary<string, long> GetMerchantTypeDic()
         {
-            return new XCLCMS.Data.BLL.SysDic().GetDictionaryByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.MerchantType.ToString());
+            return new XCLCMS.Data.BLL.SysDic().GetDictionaryByCodeWithID(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.MerchantType.ToString());
+        }
+
+        /// <summary>
+        /// 判断指定MerchantName是否存在
+        /// </summary>
+        public bool IsExistMerchantName(string merchantName)
+        {
+            return dal.IsExistMerchantName(merchantName);
         }
 
         #endregion ExtensionMethod

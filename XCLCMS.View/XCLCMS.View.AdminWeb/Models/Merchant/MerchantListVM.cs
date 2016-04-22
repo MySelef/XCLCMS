@@ -17,6 +17,6 @@ namespace XCLCMS.View.AdminWeb.Models.Merchant
         /// <summary>
         /// 商户信息列表
         /// </summary>
-        public List<XCLCMS.Data.Model.Merchant> MerchantList { get; set; }
+        public List<XCLCMS.Data.Model.View.v_Merchant> MerchantList { get; set; }
     }
 }

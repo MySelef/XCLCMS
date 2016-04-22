@@ -62,9 +62,11 @@
                             <td align="center">
                                 @(Model.PagerModel.StartIndex+i)
                             </td>
-
+                            <td>
+                                @m.MerchantID
+                            </td>
                             <td>@m.MerchantName</td>
-                            <td align="center">@m.MerchantType</td>
+                            <td align="center">@m.MerchantTypeName</td>
                             <td>@m.Domain</td>
                             <td>@m.LogoURL</td>
                             <td>@m.ContactName</td>
@@ -72,14 +74,13 @@
                             <td>@m.Landline</td>
                             <td>@m.Email</td>
                             <td>@m.QQ</td>
-                            <td align="center">@m.PassType</td>
+                            <td align="center">@m.PassTypeName</td>
                             <td>@m.PassNumber</td>
                             <td>@m.Address</td>
                             <td>@m.OtherContact</td>
                             <td>@m.MerchantRemark</td>
                             <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.RegisterTime)</td>
                             <td align="center" class="@(string.Equals(m.MerchantState,XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum.N.ToString())?"XCLRed":"")">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum),m.MerchantState)</td>
-
                             <td>@m.Remark</td>
                             <td align="center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), m.RecordState)</td>
                             <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.CreateTime)</td>

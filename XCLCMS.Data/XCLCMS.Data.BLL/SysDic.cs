@@ -140,9 +140,9 @@ namespace XCLCMS.Data.BLL
         /// <summary>
         /// 获取证件类型
         /// </summary>
-        public Dictionary<string, string> GetPassTypeDic()
+        public Dictionary<string, long> GetPassTypeDic()
         {
-            return this.GetDictionaryByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.PassType.ToString());
+            return this.GetDictionaryByCodeWithID(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.PassType.ToString());
         }
 
         /// <summary>

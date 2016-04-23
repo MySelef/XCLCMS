@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace XCLCMS.View.AdminWeb.Controllers.Atricle
+namespace XCLCMS.View.AdminWeb.Controllers.Article
 {
     /// <summary>
     /// 文章公共controller

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace XCLCMS.View.AdminWeb.Controllers.Atricle
+namespace XCLCMS.View.AdminWeb.Controllers.Article
 {
     /// <summary>
     /// 文章controller

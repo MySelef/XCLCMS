@@ -1,4 +1,6 @@
-﻿namespace XCLCMS.Data.Model.Custom
+﻿using System.Collections.Generic;
+
+namespace XCLCMS.Data.Model.Custom
 {
     /// <summary>
     /// 文章查询条件
@@ -8,7 +10,7 @@
         /// <summary>
         /// 文章类型
         /// </summary>
-        public long? ArticleTypeID { get; set; }
+        public List<long> ArticleTypeIDList { get; set; }
 
         /// <summary>
         /// 记录状态

@@ -113,6 +113,7 @@
     <Content Include="Img\44.jpg" />
     <Content Include="Img\55.jpg" />
     <Content Include="Img\66.jpg" />
+    <Content Include="Libs\Aspose\Aspose.Cells.dll" />
     <Content Include="Libs\EnterpriseLibrary\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
     <Content Include="Libs\EnterpriseLibrary\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
     <Content Include="Libs\HtmlAgilityPack\Net40\HtmlAgilityPack.dll" />

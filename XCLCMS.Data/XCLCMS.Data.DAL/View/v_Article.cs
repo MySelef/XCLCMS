@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace XCLCMS.Data.DAL.View
@@ -113,11 +114,19 @@ namespace XCLCMS.Data.DAL.View
 
             if (null != condition)
             {
-                if (condition.ArticleTypeID > 0)
+                if (null != condition.ArticleTypeIDList && condition.ArticleTypeIDList.Count > 0)
                 {
-                    join_ArticleType = " inner join ArticleType as  tb_ArticleType on tb_Article.ArticleID=tb_ArticleType.FK_ArticleID";
-                    where.Add("tb_ArticleType.FK_TypeID=@FK_TypeID");
-                    db.AddInParameter(dbCommand, "FK_TypeID", DbType.Int32, condition.ArticleTypeID);
+                    join_ArticleType = @"
+                                                      inner join ArticleType as  tb_ArticleType on tb_Article.ArticleID=tb_ArticleType.FK_ArticleID
+                                                      inner join @TVP_ArticleTypeID as tvp_articleTypeID on tb_ArticleType.FK_TypeID=tvp_articleTypeID.ID
+                                                ";
+
+                    dbCommand.Parameters.Add(new SqlParameter("TVP_ArticleTypeID", SqlDbType.Structured)
+                    {
+                        TypeName = "TVP_IDTable",
+                        Direction = ParameterDirection.Input,
+                        Value = XCLNetTools.DataSource.DataTableHelper.ToSingleColumnDataTable<long, long>(condition.ArticleTypeIDList)
+                    });
                 }
                 if (!string.IsNullOrEmpty(condition.RecordState))
                 {

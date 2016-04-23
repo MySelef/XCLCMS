@@ -245,7 +245,7 @@
 
     //图片编辑时，初始化裁剪插件
     $scope.initImgCrop = function () {
-        $("img#ImgToEdit").Jcrop({
+        $("img#ImgToEdit").removeAttr("style").hide().Jcrop({
             onSelect: function () {
                 getCropImgXYInfo.apply(this, arguments);
                 $scope.$apply();

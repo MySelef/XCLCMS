@@ -16,6 +16,9 @@ namespace XCLCMS.Lib.Filters
         /// </summary>
         public bool IsMustLogin { get; set; }
 
+        /// <summary>
+        /// 当前用户
+        /// </summary>
         private XCLCMS.Data.Model.UserInfo UserInfo { get; set; }
 
         /// <summary>

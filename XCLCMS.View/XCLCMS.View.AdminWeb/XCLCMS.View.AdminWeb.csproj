@@ -153,6 +153,7 @@
     <Compile Include="Common\PageGlobalConfig.cs" />
     <Compile Include="Common\WebCommon.cs" />
     <Compile Include="Controllers\API\ArticleController.cs" />
+    <Compile Include="Controllers\API\BaseAPIController.cs" />
     <Compile Include="Controllers\Article\ArticleCommonController.cs" />
     <Compile Include="Controllers\Article\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -176,6 +177,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\API\APIRequestEntity.cs" />
+    <Compile Include="Models\API\APIResponseEntity.cs" />
     <Compile Include="Models\Article\ArticleAddVM.cs" />
     <Compile Include="Models\Article\ArticleListVM.cs" />
     <Compile Include="Models\Article\ArticleShowVM.cs" />
@@ -261,7 +264,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\API\" />
     <Folder Include="Views\MerchantCommon\" />
   </ItemGroup>
   <PropertyGroup>

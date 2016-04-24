@@ -712,10 +712,6 @@
     <Content Include="Global.asax" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\XCLCMS.Data.WebAPIEntity\XCLCMS.Data.WebAPIEntity.csproj">
-      <Project>{df6f982f-2be8-4a93-b835-79629c487a5e}</Project>
-      <Name>XCLCMS.Data.WebAPIEntity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\XCLCMS.Data\XCLCMS.Data.BLL\XCLCMS.Data.BLL.csproj">
       <Project>{054ca0f2-19e8-4121-ab61-e89bb52c0b7c}</Project>
       <Name>XCLCMS.Data.BLL</Name>

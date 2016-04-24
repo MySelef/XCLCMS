@@ -149,11 +149,8 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\PageGlobalConfig.cs" />
     <Compile Include="Common\WebCommon.cs" />
-    <Compile Include="Controllers\API\ArticleController.cs" />
-    <Compile Include="Controllers\API\BaseAPIController.cs" />
     <Compile Include="Controllers\Article\ArticleCommonController.cs" />
     <Compile Include="Controllers\Article\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -177,8 +174,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\API\APIRequestEntity.cs" />
-    <Compile Include="Models\API\APIResponseEntity.cs" />
     <Compile Include="Models\Article\ArticleAddVM.cs" />
     <Compile Include="Models\Article\ArticleListVM.cs" />
     <Compile Include="Models\Article\ArticleShowVM.cs" />
@@ -246,6 +241,10 @@
     <Content Include="Global.asax" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\XCLCMS.Data.WebAPIEntity\XCLCMS.Data.WebAPIEntity.csproj">
+      <Project>{df6f982f-2be8-4a93-b835-79629c487a5e}</Project>
+      <Name>XCLCMS.Data.WebAPIEntity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\XCLCMS.Data\XCLCMS.Data.BLL\XCLCMS.Data.BLL.csproj">
       <Project>{054ca0f2-19e8-4121-ab61-e89bb52c0b7c}</Project>
       <Name>XCLCMS.Data.BLL</Name>

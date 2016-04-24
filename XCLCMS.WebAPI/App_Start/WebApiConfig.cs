@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace XCLCMS.View.AdminWeb
+namespace XCLCMS.WebAPI
 {
     public static class WebApiConfig
     {

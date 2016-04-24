@@ -1,17 +1,17 @@
 ﻿using System;
 
-namespace XCLCMS.View.AdminWeb.Models.API
+namespace XCLCMS.Data.WebAPIEntity
 {
     /// <summary>
     /// web api request实体
     /// </summary>
     [Serializable]
-    public class APIRequestEntity
+    public class APIRequestEntity<T> where T : new()
     {
         /// <summary>
         /// 用户名
         /// </summary>
-        public long UserID { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// 密码
@@ -32,5 +32,10 @@ namespace XCLCMS.View.AdminWeb.Models.API
         /// 请求ID
         /// </summary>
         public string RequestID { get; } = Guid.NewGuid().ToString("N");
+
+        /// <summary>
+        /// request的数据
+        /// </summary>
+        public T Data { get; set; }
     }
 }

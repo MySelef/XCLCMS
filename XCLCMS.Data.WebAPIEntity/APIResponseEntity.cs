@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XCLCMS.View.AdminWeb.Models.API
+namespace XCLCMS.Data.WebAPIEntity
 {
     /// <summary>
     /// web api response实体

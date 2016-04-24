@@ -1,4 +1,4 @@
-﻿namespace XCLCMS.View.AdminWeb.Controllers.API
+﻿namespace XCLCMS.WebAPI.Controllers
 {
     /// <summary>
     /// web api基类

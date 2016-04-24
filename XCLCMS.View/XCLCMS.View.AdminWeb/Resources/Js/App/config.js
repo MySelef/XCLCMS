@@ -3,13 +3,13 @@
 *   说明：使用requirejs只加载部分js模块，剩余插件不使用require加载
 */
 var require = {
-    baseUrl: XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/App/",
+    baseUrl: XCLCMSPageGlobalConfig.RootURL + "Resources/Js/App/",
     urlArgs: "v=" + XCLCMSPageGlobalConfig.ResourceVersion,
     paths: {
-        "ckeditor": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/ckeditor/ckeditor",
-        "ckeditorCN": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/ckeditor/lang/zh-cn",
+        "ckeditor": XCLCMSPageGlobalConfig.RootURL + "Resources/Js/ckeditor/ckeditor",
+        "ckeditorCN": XCLCMSPageGlobalConfig.RootURL + "Resources/Js/ckeditor/lang/zh-cn",
         
-        "readmore": XCLCMSPageGlobalConfig.ResourceURL + "Resources/Js/readmore"
+        "readmore": XCLCMSPageGlobalConfig.RootURL + "Resources/Js/readmore"
     },
     shim: {
         "ckeditorCN": ["ckeditor"]

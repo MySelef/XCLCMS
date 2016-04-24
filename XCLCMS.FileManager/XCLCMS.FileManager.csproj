@@ -114,6 +114,8 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Resources\Css\Base.css" />
+    <Content Include="Resources\Images\document.png" />
+    <Content Include="Resources\Images\sky-background.png" />
     <Content Include="Resources\Js\Angularjs\angular.min.js" />
     <Content Include="Resources\Js\App.js" />
     <Content Include="Resources\Js\artDialog\artDialog.js" />

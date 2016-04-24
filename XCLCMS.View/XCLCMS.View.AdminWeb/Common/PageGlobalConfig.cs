@@ -29,11 +29,6 @@ namespace XCLCMS.View.AdminWeb.Common
         public string RootURL { get; set; }
 
         /// <summary>
-        /// 静态资源根路径
-        /// </summary>
-        public string ResourceURL { get; set; }
-
-        /// <summary>
         /// 静态资源版本号
         /// </summary>
         public string ResourceVersion { get; set; }

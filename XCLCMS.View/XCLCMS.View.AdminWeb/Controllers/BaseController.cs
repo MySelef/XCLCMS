@@ -34,7 +34,6 @@ namespace XCLCMS.View.AdminWeb.Controllers
             //页面全局配置信息
             XCLCMS.View.AdminWeb.Common.PageGlobalConfig pageConfig = new AdminWeb.Common.PageGlobalConfig();
             pageConfig.IsLogOn = ViewBag.CommonModel.IsLogOn;
-            pageConfig.ResourceURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL;
             pageConfig.RootURL = XCLCMS.View.AdminWeb.Common.WebCommon.RootURL;
             pageConfig.UserID = ViewBag.CommonModel.CurrentUserModel.UserInfoID;
             pageConfig.UserName = ViewBag.CommonModel.CurrentUserModel.UserName;

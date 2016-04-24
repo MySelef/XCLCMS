@@ -9,8 +9,7 @@
     //全局配置
     @if (null == ViewBag.PageGlobalConfigJSON) {
         @:var XCLCMSPageGlobalConfig={
-                    @:RootURL:"@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)",
-                    @:ResourceURL: "@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL)"
+                    @:RootURL:"@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)"
                 @:};
         }
     else

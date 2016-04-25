@@ -130,6 +130,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysWebSetting\Setting.cs" />
     <Compile Include="Model\SettingModel.cs" />
+    <Compile Include="WebAPI\ArticleAPI.cs" />
+    <Compile Include="WebAPI\Library.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -147,6 +149,10 @@
     <ProjectReference Include="..\XCLCMS.Data\XCLCMS.Data.Model\XCLCMS.Data.Model.csproj">
       <Project>{1c3a4834-de9b-4b4f-8378-084f83c58e90}</Project>
       <Name>XCLCMS.Data.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XCLCMS.Data\XCLCMS.Data.WebAPIEntity\XCLCMS.Data.WebAPIEntity.csproj">
+      <Project>{df6f982f-2be8-4a93-b835-79629c487a5e}</Project>
+      <Name>XCLCMS.Data.WebAPIEntity</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,4 @@
-﻿using System.Web.Http;
+﻿using System;
 using XCLCMS.Data.WebAPIEntity;
 
 namespace XCLCMS.WebAPI.Controllers
@@ -22,55 +22,54 @@ namespace XCLCMS.WebAPI.Controllers
         /// <summary>
         /// 检查文章code是否已存在
         /// </summary>
-        public APIResponseEntity<bool> IsExistCode([FromBody]APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.IsExistCodeEntity> value)
+        public APIResponseEntity<bool> IsExistCode(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.IsExistCodeEntity> request)
         {
-            return null;
-            //#region 初始化
+            #region 初始化
 
-            //request.Data.Code = (request.Data.Code ?? "").Trim();
-            //APIResponseEntity<bool> response = new APIResponseEntity<bool>()
-            //{
-            //    IsSuccess = true,
-            //    Message = "该唯一标识可以使用！",
-            //    Result = true
-            //};
-            //XCLCMS.Data.Model.Article model = null;
+            request.Data.Code = (request.Data.Code ?? "").Trim();
+            APIResponseEntity<bool> response = new APIResponseEntity<bool>()
+            {
+                IsSuccess = true,
+                Message = "该唯一标识可以使用！",
+                Result = true
+            };
+            XCLCMS.Data.Model.Article model = null;
 
-            //#endregion 初始化
+            #endregion 初始化
 
-            //#region 数据校验
+            #region 数据校验
 
-            //if (string.IsNullOrEmpty(request.Data.Code))
-            //{
-            //    response.Message = "请指定Code参数！";
-            //    response.IsSuccess = false;
-            //    response.Result = false;
-            //    return response;
-            //}
+            if (string.IsNullOrEmpty(request.Data.Code))
+            {
+                response.Message = "请指定Code参数！";
+                response.IsSuccess = false;
+                response.Result = false;
+                return response;
+            }
 
-            //#endregion 数据校验
+            #endregion 数据校验
 
-            //#region 构建response
+            #region 构建response
 
-            //if (request.Data.ArticleID > 0)
-            //{
-            //    model = articleBLL.GetModel(request.Data.ArticleID);
-            //    if (null != model && string.Equals(request.Data.Code, model.Code, StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        return response;
-            //    }
-            //}
+            if (request.Data.ArticleID > 0)
+            {
+                model = articleBLL.GetModel(request.Data.ArticleID);
+                if (null != model && string.Equals(request.Data.Code, model.Code, StringComparison.OrdinalIgnoreCase))
+                {
+                    return response;
+                }
+            }
 
-            //if (articleBLL.IsExistCode(request.Data.Code))
-            //{
-            //    response.IsSuccess = false;
-            //    response.Result = false;
-            //    response.Message = "该唯一标识已被占用！";
-            //    return response;
-            //}
-            //return response;
+            if (articleBLL.IsExistCode(request.Data.Code))
+            {
+                response.IsSuccess = false;
+                response.Result = false;
+                response.Message = "该唯一标识已被占用！";
+                return response;
+            }
+            return response;
 
-            //#endregion 构建response
+            #endregion 构建response
         }
     }
 }

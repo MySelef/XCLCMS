@@ -16,7 +16,9 @@
         public string Common_UserLoginFlagName { get; set; }
         public string Common_WebName { get; set; }
         public string Common_WebURL { get; set; }
-        
+        public string Common_WebAPIServiceURL { get; set; }
+
+
         public string Admin_ResourceVersion { get; set; }
         public string Admin_LogOutURL { get; set; }
         public string Admin_LogOnURL { get; set; }

@@ -12,6 +12,7 @@ namespace XCLCMS.Lib.Base
 
         private XCLCMS.Data.Model.UserInfo _currentUserModel = null;
         private XCLCMS.Data.Model.Custom.ContextModel _contextModel = null;
+        private string _userToken = null;
 
         /// <summary>
         /// 当前登录的用户实体
@@ -36,6 +37,22 @@ namespace XCLCMS.Lib.Base
             get
             {
                 return null != this.CurrentUserModel ? this.CurrentUserModel.UserInfoID : 0;
+            }
+        }
+
+        /// <summary>
+        /// 当前用户标识
+        /// </summary>
+        public string UserToken
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(this._userToken))
+                {
+                    return this._userToken;
+                }
+                this._userToken = XCLCMS.Lib.Login.LoginHelper.CreateUserToken(this.CurrentUserModel.UserName, this.CurrentUserModel.Pwd);
+                return this._userToken;
             }
         }
 

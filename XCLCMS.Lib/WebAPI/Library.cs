@@ -26,6 +26,7 @@ namespace XCLCMS.Lib.WebAPI
             {
                 var requestJson = JsonConvert.SerializeObject(request);
                 HttpContent httpContent = new StringContent(requestJson);
+                httpContent.Headers.Add(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName, request.UserToken);
                 httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 var httpClient = new HttpClient();
                 var json = httpClient.PostAsync(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebAPIServiceURL + path.Trim().Trim('/'), httpContent).Result.Content.ReadAsStringAsync().Result;
@@ -44,12 +45,11 @@ namespace XCLCMS.Lib.WebAPI
         /// 创建request对象
         /// </summary>
         /// <returns>request对象</returns>
-        public static APIRequestEntity<TRequest> CreateRequest<TRequest>(XCLCMS.Data.Model.UserInfo userInfo) where TRequest : new()
+        public static APIRequestEntity<TRequest> CreateRequest<TRequest>(string userToken) where TRequest : new()
         {
             APIRequestEntity<TRequest> request = new APIRequestEntity<TRequest>();
             request.ClientIP = XCLNetTools.Common.IPHelper.GetClientIP();
-            request.PWD = userInfo.Pwd;
-            request.UserName = userInfo.UserName;
+            request.UserToken = userToken;
             request.Url = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
             return request;
         }

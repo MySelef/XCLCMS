@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 
 namespace XCLCMS.Lib.Base.API
 {
@@ -21,7 +22,13 @@ namespace XCLCMS.Lib.Base.API
             {
                 if (this._currentUserModel == null)
                 {
-                    this._currentUserModel = XCLCMS.Lib.Login.LoginHelper.GetUserInfoFromLoginInfo();
+                    string token = null;
+                    var tokenHeaders = base.ActionContext.Request.Headers.GetValues(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName);
+                    if (null != tokenHeaders && tokenHeaders.Count() > 0)
+                    {
+                        token = tokenHeaders.First();
+                    }
+                    this._currentUserModel = XCLCMS.Lib.Login.LoginHelper.GetUserInfoByUserToken(token);
                 }
                 return this._currentUserModel;
             }

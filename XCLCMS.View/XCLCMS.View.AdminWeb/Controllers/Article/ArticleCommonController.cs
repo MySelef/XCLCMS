@@ -12,7 +12,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
         /// </summary>
         public ActionResult IsExistCode()
         {
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.IsExistCodeEntity>(base.CurrentUserModel);
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.IsExistCodeEntity>(base.UserToken);
             request.Data = new Data.WebAPIEntity.RequestEntity.Article.IsExistCodeEntity()
             {
                 Code = XCLNetTools.StringHander.FormHelper.GetString("code").Trim(),

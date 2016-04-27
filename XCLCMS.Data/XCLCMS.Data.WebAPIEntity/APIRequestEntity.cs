@@ -11,16 +11,10 @@ namespace XCLCMS.Data.WebAPIEntity
     public class APIRequestEntity<T> where T : new()
     {
         /// <summary>
-        /// 用户名
+        /// token
         /// </summary>
         [DataMember]
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// 密码
-        /// </summary>
-        [DataMember]
-        public string PWD { get; set; }
+        public string UserToken { get; set; }
 
         /// <summary>
         /// 来源ip

@@ -41,6 +41,17 @@ namespace XCLCMS.Lib.Login
         }
 
         /// <summary>
+        /// 根据用户名和密码生成用户token
+        /// </summary>
+        public static string CreateUserToken(string userName, string pwd)
+        {
+            XCLCMS.Lib.Login.UserLoginInfoModel loginInfo = new XCLCMS.Lib.Login.UserLoginInfoModel();
+            loginInfo.UserName = userName;
+            loginInfo.Pwd = pwd;
+            return XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringDES(loginInfo.ToString());
+        }
+
+        /// <summary>
         /// 设置登录与退出的相关信息（session/cookie...）
         /// </summary>
         public static void SetLogInfo(LoginType type, XCLCMS.Data.Model.UserInfo userInfo)
@@ -55,10 +66,7 @@ namespace XCLCMS.Lib.Login
                     break;
                 //登录
                 case LoginType.ON:
-                    XCLCMS.Lib.Login.UserLoginInfoModel loginInfo = new XCLCMS.Lib.Login.UserLoginInfoModel();
-                    loginInfo.UserName = userInfo.UserName;
-                    loginInfo.Pwd = userInfo.Pwd;
-                    string loginStr = XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringDES(loginInfo.ToString());
+                    string loginStr = CreateUserToken(userInfo.UserName, userInfo.Pwd);
                     XCLNetTools.Http.CookieHelper.SetCookies(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName, loginStr, 30);
                     context.Session[XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName] = loginStr;
                     break;
@@ -80,33 +88,32 @@ namespace XCLCMS.Lib.Login
             {
                 return null;
             }
-            loginString = XCLCMS.Lib.Encrypt.EncryptHelper.DecryptStringDES(loginString);
-            var loginModel = XCLCMS.Lib.Login.LoginHelper.GetUserLoginInfo(loginString);
-            XCLCMS.Data.BLL.UserInfo bll = new Data.BLL.UserInfo();
-            return bll.GetModel(loginModel.UserName, loginModel.Pwd);
+            return XCLCMS.Lib.Login.LoginHelper.GetUserInfoByUserToken(loginString);
         }
 
         /// <summary>
         /// 根据该model的字符串形式还原该model
         /// </summary>
-        /// <param name="str">如：admin^21232F297A57A5A743894A0E4A801FC3</param>
-        /// <returns></returns>
-        private static UserLoginInfoModel GetUserLoginInfo(string str)
+        /// <param name="userToken">加密后的userToken信息</param>
+        /// <returns>解密后的用户信息</returns>
+        public static XCLCMS.Data.Model.UserInfo GetUserInfoByUserToken(string userToken)
         {
-            if (string.IsNullOrEmpty(str))
+            if (string.IsNullOrEmpty(userToken))
             {
                 return null;
             }
-            string[] strSplit = str.Split('^');
+            //解密为：admin^21232F297A57A5A743894A0E4A801FC3
+            userToken = XCLCMS.Lib.Encrypt.EncryptHelper.DecryptStringDES(userToken);
+            string[] strSplit = userToken.Split('^');
             if (strSplit.Length != 2)
             {
                 return null;
             }
-
+            XCLCMS.Data.BLL.UserInfo bll = new Data.BLL.UserInfo();
             UserLoginInfoModel model = new UserLoginInfoModel();
             model.UserName = strSplit[0];
             model.Pwd = strSplit[1];
-            return model;
+            return bll.GetModel(model.UserName, model.Pwd);
         }
 
         #endregion 登录相关信息设置

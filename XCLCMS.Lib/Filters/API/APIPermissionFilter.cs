@@ -29,12 +29,20 @@ namespace XCLCMS.Lib.Filters.API
             {
                 return;
             }
-            this.UserInfo = new XCLCMS.Data.BLL.UserInfo().GetModel("admin", "5E987164BFE0CA7C101BF24FB8651D8E");
+
+            string token = null;
+            var tokenHeaders = actionContext.Request.Headers.GetValues(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName);
+            if (null != tokenHeaders && tokenHeaders.Count() > 0)
+            {
+                token = tokenHeaders.First();
+            }
+
+            this.UserInfo = XCLCMS.Lib.Login.LoginHelper.GetUserInfoByUserToken(token);
+
             if (null == this.UserInfo)
             {
                 throw new HttpResponseException(System.Net.HttpStatusCode.Forbidden);
             }
-
             base.OnAuthorization(actionContext);
         }
 

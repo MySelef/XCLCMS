@@ -52,7 +52,7 @@ namespace XCLCMS.Lib.Common
         /// <summary>
         /// 站点配置信息缓存
         /// </summary>
-        public static readonly string SettingCacheName = "SettingCacheName";
+        public const string SettingCacheName = "SettingCacheName";
 
         /// <summary>
         /// 缓存清理
@@ -65,6 +65,11 @@ namespace XCLCMS.Lib.Common
         #endregion 缓存相关
 
         #region 其它
+
+        /// <summary>
+        /// web api 用户token名
+        /// </summary>
+        public const string WebAPIUserTokenHeaderName = "XCLCMSWebAPIHeader";
 
         /// <summary>
         /// 重写json

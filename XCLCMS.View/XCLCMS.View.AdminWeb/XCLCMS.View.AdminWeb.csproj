@@ -158,6 +158,7 @@
     <Compile Include="Controllers\Common\OtherController.cs" />
     <Compile Include="Controllers\Home\DefaultController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
+    <Compile Include="Controllers\Merchant\MerchantAppController.cs" />
     <Compile Include="Controllers\Merchant\MerchantCommonController.cs" />
     <Compile Include="Controllers\Merchant\MerchantController.cs" />
     <Compile Include="Controllers\SysDic\SysDicCommonController.cs" />
@@ -701,6 +702,8 @@
     <Content Include="Resources\Js\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Resources\Js\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Resources\Js\ckeditor\skins\moono\readme.md" />
+    <Content Include="Views\Merchant\MerchantAppList.cshtml" />
+    <Content Include="Views\Merchant\MerchantAppAdd.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -735,7 +738,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Js\Jquery\UI\" />
-    <Folder Include="Views\MerchantCommon\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

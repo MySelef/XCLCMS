@@ -180,6 +180,7 @@
     <Compile Include="Models\Article\ArticleShowVM.cs" />
     <Compile Include="Models\Main\MainVM.cs" />
     <Compile Include="Models\Merchant\MerchantAddVM.cs" />
+    <Compile Include="Models\Merchant\MerchantAppListVM.cs" />
     <Compile Include="Models\Merchant\MerchantListVM.cs" />
     <Compile Include="Models\SysDic\SysDicAddVM.cs" />
     <Compile Include="Models\SysFunction\SysFunctionAddVM.cs" />

@@ -140,6 +140,30 @@
             });
             return false;
         }
-    }
+    };
+
+
+
+
+    /**
+    * 商户应用信息列表
+    */
+    app.MerchantAppList = {
+        Init: function () {
+
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
     return app;
 });

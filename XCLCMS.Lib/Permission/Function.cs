@@ -187,6 +187,30 @@ namespace XCLCMS.Lib.Permission
             SysFun_UserAdmin_MerchantView = 400170,
 
             /// <summary>
+            ///商户管理-商户应用信息添加
+            /// </summary>
+            [Description("商户管理-商户应用信息添加")]
+            SysFun_UserAdmin_MerchantAppAdd = 400183,
+
+            /// <summary>
+            ///商户管理-商户应用信息修改
+            /// </summary>
+            [Description("商户管理-商户应用信息修改")]
+            SysFun_UserAdmin_MerchantAppEdit = 400184,
+
+            /// <summary>
+            ///商户管理-商户应用信息删除
+            /// </summary>
+            [Description("商户管理-商户应用信息删除")]
+            SysFun_UserAdmin_MerchantAppDel = 400185,
+
+            /// <summary>
+            ///商户管理-商户应用信息查看
+            /// </summary>
+            [Description("商户管理-商户应用信息查看")]
+            SysFun_UserAdmin_MerchantAppView = 400186,
+
+            /// <summary>
             ///文件管理-磁盘文件查看
             /// </summary>
             [Description("文件管理-磁盘文件查看")]

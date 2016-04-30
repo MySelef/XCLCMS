@@ -54,6 +54,7 @@
     <Compile Include="Common\Common.cs" />
     <Compile Include="GenerateID.cs" />
     <Compile Include="Merchant.cs" />
+    <Compile Include="MerchantApp.cs" />
     <Compile Include="ObjectAttachment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strategy\Article\Article.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="UserInfo.cs" />
     <Compile Include="View\v_Article.cs" />
     <Compile Include="View\v_Merchant.cs" />
+    <Compile Include="View\v_MerchantApp.cs" />
     <Compile Include="View\v_SysDic.cs" />
     <Compile Include="View\v_SysDic_SysMenu.cs" />
     <Compile Include="View\v_SysFunction.cs" />

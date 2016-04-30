@@ -29,4 +29,6 @@ $(function () {
         templateName: "artdialog",
         isExclusive: false
     });
+
+    window.alert = art.dialog.alert;
 });

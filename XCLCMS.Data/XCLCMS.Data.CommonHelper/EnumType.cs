@@ -483,7 +483,13 @@ namespace XCLCMS.Data.CommonHelper
             /// 文章信息 Article
             /// </summary>
             [Description("文章信息")]
-            ART
+            ART,
+
+            /// <summary>
+            /// 商户应用 MerchantApp
+            /// </summary>
+            [Description("商户应用")]
+            MEP
         }
 
         #endregion ID生成

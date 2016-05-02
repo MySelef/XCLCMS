@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Merchant
@@ -46,9 +47,150 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             return View("~/Views/Merchant/MerchantAppList.cshtml", viewModel);
         }
 
+        /// <summary>
+        /// 添加与编辑商户应用页面首页
+        /// </summary>
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAppAdd)]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAppEdit)]
         public ActionResult Add()
         {
-            return View("~/Views/Merchant/MerchantAppAdd.cshtml");
+            long merchantAppId = XCLNetTools.StringHander.FormHelper.GetLong("merchantAppId");
+
+            var merchantAppBLL = new Data.BLL.MerchantApp();
+            var viewModel = new XCLCMS.View.AdminWeb.Models.Merchant.MerchantAppAddVM();
+            viewModel.MerchantApp = new Data.Model.MerchantApp();
+
+            switch (base.CurrentHandleType)
+            {
+                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                    viewModel.MerchantApp = new Data.Model.MerchantApp();
+                    viewModel.FormAction = Url.Action("AddSubmit", "MerchantApp");
+                    break;
+
+                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                    viewModel.MerchantApp = merchantAppBLL.GetModel(merchantAppId);
+                    viewModel.FormAction = Url.Action("UpdateSubmit", "MerchantApp");
+                    break;
+            }
+
+            return View("~/Views/Merchant/MerchantAppAdd.cshtml", viewModel);
+        }
+
+        /// <summary>
+        /// 将表单值转为viewModel
+        /// </summary>
+        private XCLCMS.View.AdminWeb.Models.Merchant.MerchantAppAddVM GetViewModel(FormCollection fm)
+        {
+            var viewModel = new XCLCMS.View.AdminWeb.Models.Merchant.MerchantAppAddVM();
+            viewModel.MerchantApp = new Data.Model.MerchantApp();
+            viewModel.MerchantApp.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantID");
+            viewModel.MerchantApp.MerchantAppID = XCLNetTools.StringHander.FormHelper.GetLong("MerchantAppID");
+            viewModel.MerchantApp.MerchantAppName = XCLNetTools.StringHander.FormHelper.GetString("txtMerchantAppName");
+            viewModel.MerchantApp.Remark = XCLNetTools.StringHander.FormHelper.GetString("txtRemark");
+            return viewModel;
+        }
+
+        /// <summary>
+        /// 添加商户应用信息
+        /// </summary>
+        [HttpPost]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAppAdd)]
+        public override ActionResult AddSubmit(FormCollection fm)
+        {
+            var viewModel = this.GetViewModel(fm);
+            XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new Data.BLL.MerchantApp();
+            XCLCMS.Data.Model.MerchantApp model = new XCLCMS.Data.Model.MerchantApp();
+            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
+            model.MerchantAppID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.MEP);
+            model.FK_MerchantID = viewModel.MerchantApp.FK_MerchantID;
+            model.MerchantAppName = viewModel.MerchantApp.MerchantAppName;
+            model.CreaterID = base.CurrentUserModel.UserInfoID;
+            model.CreaterName = base.CurrentUserModel.UserName;
+            model.CreateTime = DateTime.Now;
+            model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
+            model.Remark = viewModel.MerchantApp.Remark;
+            model.UpdaterID = model.CreaterID;
+            model.UpdaterName = model.CreaterName;
+            model.UpdateTime = model.CreateTime;
+
+            if (merchantAppBLL.Add(model))
+            {
+                msgModel.Message = "添加成功！";
+                msgModel.IsSuccess = true;
+            }
+            else
+            {
+                msgModel.Message = "添加失败！";
+                msgModel.IsSuccess = false;
+            }
+
+            return Json(msgModel);
+        }
+
+        /// <summary>
+        /// 更新商户应用信息
+        /// </summary>
+        [HttpPost]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAppEdit)]
+        public override ActionResult UpdateSubmit(FormCollection fm)
+        {
+            base.UpdateSubmit(fm);
+            long merchantAppId = XCLNetTools.StringHander.FormHelper.GetLong("merchantAppId");
+            var viewModel = this.GetViewModel(fm);
+            var merchantAppBLL = new Data.BLL.MerchantApp();
+            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
+            var model = merchantAppBLL.GetModel(merchantAppId);
+            model.FK_MerchantID = viewModel.MerchantApp.FK_MerchantID;
+            model.MerchantAppName = viewModel.MerchantApp.MerchantAppName;
+            model.Remark = viewModel.MerchantApp.Remark;
+            model.UpdaterID = model.CreaterID;
+            model.UpdaterName = model.CreaterName;
+            model.UpdateTime = model.CreateTime;
+
+            if (merchantAppBLL.Update(model))
+            {
+                msgModel.Message = "修改成功！";
+                msgModel.IsSuccess = true;
+            }
+            else
+            {
+                msgModel.Message = "修改失败！";
+                msgModel.IsSuccess = false;
+            }
+            return Json(msgModel);
+        }
+
+        /// <summary>
+        /// 删除商户应用信息
+        /// </summary>
+        [HttpPost]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAppDel)]
+        public override ActionResult DelSubmit(FormCollection fm)
+        {
+            base.DelSubmit(fm);
+            var merchantAppBLL = new Data.BLL.MerchantApp();
+            XCLCMS.Data.Model.MerchantApp merchantAppModel = null;
+            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
+            long[] merchantAppIds = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("merchantAppIds").Split(','));
+            if (null != merchantAppIds && merchantAppIds.Length > 0)
+            {
+                for (int i = 0; i < merchantAppIds.Length; i++)
+                {
+                    merchantAppModel = merchantAppBLL.GetModel(merchantAppIds[i]);
+                    if (null != merchantAppModel)
+                    {
+                        merchantAppModel.UpdaterID = base.CurrentUserModel.UserInfoID;
+                        merchantAppModel.UpdaterName = base.CurrentUserModel.UserName;
+                        merchantAppModel.UpdateTime = DateTime.Now;
+                        merchantAppModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
+                        merchantAppBLL.Update(merchantAppModel);
+                    }
+                }
+            }
+            msgModel.IsSuccess = true;
+            msgModel.IsRefresh = true;
+            msgModel.Message = "删除成功！";
+            return Json(msgModel);
         }
     }
 }

@@ -144,7 +144,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         }
 
         /// <summary>
-        /// 添加用户信息
+        /// 添加商户信息
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAdd)]
@@ -195,7 +195,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         }
 
         /// <summary>
-        /// 更新用户信息
+        /// 更新商户信息
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantEdit)]

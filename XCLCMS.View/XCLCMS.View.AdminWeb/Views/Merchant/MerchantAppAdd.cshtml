@@ -1,9 +1,83 @@
-﻿
-
-@{
+﻿@{
     Layout = "~/Views/MasterView/Main.cshtml";
 }
+@model XCLCMS.View.AdminWeb.Models.Merchant.MerchantAppAddVM
 
+<form id="mainForm" action="@Model.FormAction" method="post">
+    <input type="hidden" id="MerchantAppID" name="MerchantAppID" value="@Model.MerchantApp.MerchantAppID" />
 
-<h2>MerchantAppAdd</h2>
+    <div class="XCLAccordion" style="border-top: none;">
+        <div class="XCLAccordionHeader">1、基本信息：</div>
+        <div class="XCLAccordionBody">
+            <table class="XCLTableEdit">
+                <tr>
+                    <td class="XCLTitle" style="width: 10%">所属商户：</td>
+                    <td style="width: 25%">
+                        <input type="text" id="txtMerchantID" name="txtMerchantID" value="@Model.MerchantApp.FK_MerchantID" />
+                    </td>
+                    <td class="XCLTitle" style="width: 10%">商户应用名：</td>
+                    <td style="width: 25%">
+                        <input type="text" id="txtMerchantAppName" name="txtMerchantAppName" value="@Model.MerchantApp.MerchantAppName" />
+                    </td>
+                    <td class="XCLTitle" style="width: 10%"></td>
+                    <td style="width: 25%">
 
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle">备注：</td>
+                    <td>
+                        <textarea id="txtRemark" name="txtRemark">@Model.MerchantApp.Remark</textarea>
+                    </td>
+                    <td class="XCLTitle">记录状态：</td>
+                    <td>
+                        @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                        {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString())
+                        }
+                        else
+                        {
+                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.MerchantApp.RecordState.ToString())
+                        }
+                    </td>
+                    <td class="XCLTitle"></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="XCLHandBar">
+            <a href="@XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+            @switch ((XCLCMS.Lib.Common.Comm.HandleType)ViewBag.CurrentHandleType)
+            {
+                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存商户</a>
+                    break;
+                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
+                    if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAppDel))
+                    {
+                        <a id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删 除</a>
+                    }
+                    break;
+            }
+        </div>
+    </div>
+</form>
+
+<div class="XCLPanel" style="margin-top: 5px;">
+    <div class="XCLPanelHeader XCLBolder">
+        操作说明：
+    </div>
+    <div class="XCLPanelBody">
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(["Lib/Merchant"], function (merchant) {
+        $(function () {
+            merchant.MerchantAppAdd.Init();
+        });
+    });
+</script>

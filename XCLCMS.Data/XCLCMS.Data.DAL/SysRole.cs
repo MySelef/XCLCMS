@@ -31,6 +31,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "Sort", DbType.Int32, model.Sort);
             db.AddInParameter(dbCommand, "Weight", DbType.Int32, model.Weight);
             db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
@@ -68,6 +69,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "Sort", DbType.Int32, model.Sort);
             db.AddInParameter(dbCommand, "Weight", DbType.Int32, model.Weight);
             db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
@@ -111,8 +113,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.SysRole> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select SysRoleID,ParentID,RoleName,Code,Sort,Weight,Remark,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
-            strSql.Append(" FROM SysRole ");
+            strSql.Append("select * FROM SysRole ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

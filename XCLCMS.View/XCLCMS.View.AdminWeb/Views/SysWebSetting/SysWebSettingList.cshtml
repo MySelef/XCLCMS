@@ -29,6 +29,8 @@
                 </td>
                 <td>序号</td>
                 <td>配置ID</td>
+                <td>所属商户</td>
+                <td>所属应用</td>
                 <td>名称</td>
                 <td>说明</td>
                 <td>值</td>
@@ -50,6 +52,8 @@
                                 @(Model.PagerModel.StartIndex+i)
                             </td>
                             <td align="center" class="XCLNoWrap">@m.SysWebSettingID</td>
+                            <td>@m.MerchantName</td>
+                            <td>@m.MerchantAppName</td>
                             <td>@m.KeyName</td>
                             <td>@m.Remark</td>
                             <td>@m.KeyValue</td>

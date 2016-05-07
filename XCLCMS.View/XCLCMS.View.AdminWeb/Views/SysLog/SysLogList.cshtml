@@ -28,6 +28,8 @@
                 </td>
                 <td>序号</td>
                 <td>日志ID</td>
+                <td>所属商户号</td>
+                <td>所属应用号</td>
                 <td>日志级别</td>
                 <td>日志类别</td>
                 <td>创建时间</td>
@@ -45,6 +47,8 @@
                                 @(Model.PagerModel.StartIndex+i)
                             </td>
                             <td align="center">@m.SysLogID</td>
+                            <td align="center">@m.FK_MerchantID</td>
+                            <td align="center">@m.FK_MerchantAppID</td>
                             <td>@m.LogLevel</td>
                             <td>@m.LogType</td>
                             <td style="white-space:nowrap;">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.CreateTime)</td>

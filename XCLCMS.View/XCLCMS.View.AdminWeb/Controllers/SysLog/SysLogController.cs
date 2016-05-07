@@ -22,6 +22,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysLog
             viewModel.Search = new XCLNetSearch.Search();
             viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("日志ID","SysLogID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("所属商户号","FK_MerchantID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("所属应用号","FK_MerchantAppID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("日志级别","LogLevel|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("日志类别","LogType|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("来源URL","RefferUrl|string|text",""),

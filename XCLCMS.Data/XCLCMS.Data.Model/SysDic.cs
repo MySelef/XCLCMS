@@ -22,6 +22,8 @@ namespace XCLCMS.Data.Model
         private int _sort;
         private string _remark;
         private long? _fk_functionid;
+        private long _fk_merchantid = 0;
+        private long _fk_merchantappid = 0;
         private string _recordstate;
         private DateTime _createtime;
         private long _createrid;
@@ -109,6 +111,24 @@ namespace XCLCMS.Data.Model
         {
             set { _fk_functionid = value; }
             get { return _fk_functionid; }
+        }
+
+        /// <summary>
+        /// 所属商户号
+        /// </summary>
+        public long FK_MerchantID
+        {
+            set { _fk_merchantid = value; }
+            get { return _fk_merchantid; }
+        }
+
+        /// <summary>
+        /// 所属应用号
+        /// </summary>
+        public long FK_MerchantAppID
+        {
+            set { _fk_merchantappid = value; }
+            get { return _fk_merchantappid; }
         }
 
         /// <summary>

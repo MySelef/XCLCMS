@@ -71,6 +71,17 @@
                         </tr>
 
                         <tr>
+                            <td class="XCLTitle">所属商户号：</td>
+                            <td>
+                                <input type="text" class="easyui-numberbox" id="txtMerchantID" name="txtMerchantID" value="@Model.SysDic.FK_MerchantID" style="height:25px;" />
+                            </td>
+                            <td class="XCLTitle">所属应用号：</td>
+                            <td>
+                                <input type="text" class="easyui-numberbox" id="txtMerchantAppID" name="txtMerchantAppID" value="@Model.SysDic.FK_MerchantAppID" style="height:25px;" />
+                            </td>
+                        </tr>
+
+                        <tr>
                             <td class="XCLTitle">备注：</td>
                             <td colspan="3">
                                 <textarea id="txtRemark" name="txtRemark">@Model.SysDic.Remark</textarea>

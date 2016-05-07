@@ -23,8 +23,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.SysLog> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select SysLogID,LogLevel,LogType,RefferUrl,Url,Code,Title,Contents,ClientIP,Remark,CreateTime ");
-            strSql.Append(" FROM SysLog ");
+            strSql.Append("select * FROM SysLog ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

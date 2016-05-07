@@ -22,6 +22,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             viewModel.Search = new XCLNetSearch.Search();
             viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("配置ID","SysWebSettingID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("所属商户ID","FK_MerchantID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("所属应用ID","FK_MerchantAppID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("所属商户名","MerchantName|string|text",""),
+                new XCLNetSearch.SearchFieldInfo("所属应用名","MerchantAppName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("名称","KeyName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("值","KeyValue|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("说明","Remark|string|text",""),
@@ -39,7 +43,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
 
             #endregion 初始化查询条件
 
-            XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
+            XCLCMS.Data.BLL.View.v_SysWebSetting bll = new Data.BLL.View.v_SysWebSetting();
             viewModel.SysWebSettingList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[SysWebSettingID]", "[KeyName] asc");
             viewModel.PagerModel = base.PageParamsInfo;
             return View("~/Views/SysWebSetting/SysWebSettingList.cshtml", viewModel);

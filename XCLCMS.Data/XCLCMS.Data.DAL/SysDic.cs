@@ -36,8 +36,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.SysDic> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select SysDicID,Code,DicType,ParentID,DicName,DicValue,Sort,Remark,FK_FunctionID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
-            strSql.Append(" FROM SysDic ");
+            strSql.Append("select * FROM SysDic ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -153,6 +152,8 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "Sort", DbType.Int32, model.Sort);
             db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
             db.AddInParameter(dbCommand, "FK_FunctionID", DbType.Int64, model.FK_FunctionID);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "FK_MerchantAppID", DbType.Int64, model.FK_MerchantAppID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
@@ -192,6 +193,8 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "Sort", DbType.Int32, model.Sort);
             db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
             db.AddInParameter(dbCommand, "FK_FunctionID", DbType.Int64, model.FK_FunctionID);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "FK_MerchantAppID", DbType.Int64, model.FK_MerchantAppID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);

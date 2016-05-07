@@ -20,6 +20,7 @@ namespace XCLCMS.Data.Model.View
         private int? _sort;
         private int? _weight;
         private string _remark;
+        private long? _fk_merchantid;
         private string _recordstate;
         private DateTime? _createtime;
         private long? _createrid;
@@ -29,6 +30,7 @@ namespace XCLCMS.Data.Model.View
         private string _updatername;
         private int? _nodelevel;
         private int _isleaf;
+        private string _merchantname;
 
         /// <summary>
         ///
@@ -91,6 +93,15 @@ namespace XCLCMS.Data.Model.View
         {
             set { _remark = value; }
             get { return _remark; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public long? FK_MerchantID
+        {
+            set { _fk_merchantid = value; }
+            get { return _fk_merchantid; }
         }
 
         /// <summary>
@@ -172,6 +183,15 @@ namespace XCLCMS.Data.Model.View
         {
             set { _isleaf = value; }
             get { return _isleaf; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string MerchantName
+        {
+            set { _merchantname = value; }
+            get { return _merchantname; }
         }
 
         #endregion Model

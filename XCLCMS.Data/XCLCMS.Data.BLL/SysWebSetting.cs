@@ -49,15 +49,7 @@ namespace XCLCMS.Data.BLL
         #endregion BasicMethod
 
         #region ExtensionMethod
-
-        /// <summary>
-        /// 分页数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.SysWebSetting> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
-        {
-            return dal.GetPageList(pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
-        }
-
+        
         /// <summary>
         /// 判断指定配置名是否存在
         /// </summary>

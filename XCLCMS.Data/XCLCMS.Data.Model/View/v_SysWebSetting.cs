@@ -1,26 +1,24 @@
 ﻿using System;
 
-namespace XCLCMS.Data.Model
+namespace XCLCMS.Data.Model.View
 {
     /// <summary>
-    /// 角色表
+    /// v_SysWebSetting:实体类(属性说明自动提取数据库字段的描述信息)
     /// </summary>
     [Serializable]
-    public partial class SysRole
+    public partial class v_SysWebSetting
     {
-        public SysRole()
+        public v_SysWebSetting()
         { }
 
         #region Model
 
-        private long _sysroleid;
-        private long _parentid;
-        private string _rolename;
-        private string _code;
-        private int _sort;
-        private int? _weight;
+        private long _syswebsettingid;
+        private string _keyname;
+        private string _keyvalue;
         private string _remark;
-        private long _fk_merchantid = 0;
+        private long _fk_merchantid;
+        private long _fk_merchantappid;
         private string _recordstate;
         private DateTime _createtime;
         private long _createrid;
@@ -28,63 +26,38 @@ namespace XCLCMS.Data.Model
         private DateTime _updatetime;
         private long _updaterid;
         private string _updatername;
+        private string _merchantname;
+        private string _merchantappname;
 
         /// <summary>
-        /// SysRoleID
+        ///
         /// </summary>
-        public long SysRoleID
+        public long SysWebSettingID
         {
-            set { _sysroleid = value; }
-            get { return _sysroleid; }
+            set { _syswebsettingid = value; }
+            get { return _syswebsettingid; }
         }
 
         /// <summary>
-        /// 父ID
+        ///
         /// </summary>
-        public long ParentID
+        public string KeyName
         {
-            set { _parentid = value; }
-            get { return _parentid; }
+            set { _keyname = value; }
+            get { return _keyname; }
         }
 
         /// <summary>
-        /// 角色名
+        ///
         /// </summary>
-        public string RoleName
+        public string KeyValue
         {
-            set { _rolename = value; }
-            get { return _rolename; }
+            set { _keyvalue = value; }
+            get { return _keyvalue; }
         }
 
         /// <summary>
-        /// 角色标识
-        /// </summary>
-        public string Code
-        {
-            set { _code = value; }
-            get { return _code; }
-        }
-
-        /// <summary>
-        /// 排序号
-        /// </summary>
-        public int Sort
-        {
-            set { _sort = value; }
-            get { return _sort; }
-        }
-
-        /// <summary>
-        /// 权重
-        /// </summary>
-        public int? Weight
-        {
-            set { _weight = value; }
-            get { return _weight; }
-        }
-
-        /// <summary>
-        /// 备注
+        ///
         /// </summary>
         public string Remark
         {
@@ -93,7 +66,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 所属商户号
+        ///
         /// </summary>
         public long FK_MerchantID
         {
@@ -102,7 +75,16 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 记录状态(RecordStateEnum)
+        ///
+        /// </summary>
+        public long FK_MerchantAppID
+        {
+            set { _fk_merchantappid = value; }
+            get { return _fk_merchantappid; }
+        }
+
+        /// <summary>
+        ///
         /// </summary>
         public string RecordState
         {
@@ -111,7 +93,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 创建时间
+        ///
         /// </summary>
         public DateTime CreateTime
         {
@@ -120,7 +102,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 创建者ID
+        ///
         /// </summary>
         public long CreaterID
         {
@@ -129,7 +111,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 创建者名
+        ///
         /// </summary>
         public string CreaterName
         {
@@ -138,7 +120,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 更新时间
+        ///
         /// </summary>
         public DateTime UpdateTime
         {
@@ -147,7 +129,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 更新人ID
+        ///
         /// </summary>
         public long UpdaterID
         {
@@ -156,12 +138,30 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 更新人名
+        ///
         /// </summary>
         public string UpdaterName
         {
             set { _updatername = value; }
             get { return _updatername; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string MerchantName
+        {
+            set { _merchantname = value; }
+            get { return _merchantname; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string MerchantAppName
+        {
+            set { _merchantappname = value; }
+            get { return _merchantappname; }
         }
 
         #endregion Model

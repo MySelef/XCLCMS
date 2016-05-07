@@ -23,10 +23,12 @@ namespace XCLCMS.Data.Model
         private string _contents;
         private string _clientip;
         private string _remark;
+        private long _fk_merchantid = 0;
+        private long _fk_merchantappid = 0;
         private DateTime _createtime;
 
         /// <summary>
-        ///
+        /// SysLogID
         /// </summary>
         public long SysLogID
         {
@@ -113,6 +115,24 @@ namespace XCLCMS.Data.Model
         {
             set { _remark = value; }
             get { return _remark; }
+        }
+
+        /// <summary>
+        /// 所属商户号
+        /// </summary>
+        public long FK_MerchantID
+        {
+            set { _fk_merchantid = value; }
+            get { return _fk_merchantid; }
+        }
+
+        /// <summary>
+        /// 所属应用号
+        /// </summary>
+        public long FK_MerchantAppID
+        {
+            set { _fk_merchantappid = value; }
+            get { return _fk_merchantappid; }
         }
 
         /// <summary>

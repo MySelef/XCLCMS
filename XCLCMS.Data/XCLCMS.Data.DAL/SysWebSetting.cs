@@ -28,6 +28,8 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "KeyName", DbType.AnsiString, model.KeyName);
             db.AddInParameter(dbCommand, "KeyValue", DbType.AnsiString, model.KeyValue);
             db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "FK_MerchantAppID", DbType.Int64, model.FK_MerchantAppID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
@@ -62,6 +64,8 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "KeyName", DbType.AnsiString, model.KeyName);
             db.AddInParameter(dbCommand, "KeyValue", DbType.AnsiString, model.KeyValue);
             db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "FK_MerchantAppID", DbType.Int64, model.FK_MerchantAppID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
@@ -104,8 +108,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.SysWebSetting> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select SysWebSettingID,KeyName,KeyValue,Remark,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
-            strSql.Append(" FROM SysWebSetting ");
+            strSql.Append("select * FROM SysWebSetting ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -119,15 +122,6 @@ namespace XCLCMS.Data.DAL
         #endregion Method
 
         #region MethodEx
-
-        /// <summary>
-        /// 分页数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.SysWebSetting> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
-        {
-            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("SysWebSetting", pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysWebSetting>(dt) as List<XCLCMS.Data.Model.SysWebSetting>;
-        }
 
         /// <summary>
         /// 判断指定配置名是否存在

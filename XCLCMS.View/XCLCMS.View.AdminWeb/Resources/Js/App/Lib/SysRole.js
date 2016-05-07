@@ -56,6 +56,7 @@
                     { field: 'SysRoleID', title: 'ID', width: '5%' },
                     { field: 'ParentID', title: '父ID', width: '5%' },
                     { field: 'NodeLevel', title: '层级', width: '5%' },
+                    {field:'MerchantName',title:'所属商户',width:'5%'},
                     { field: 'RoleName', title: '角色名', width: '20%' },
                     { field: 'Weight', title: '权重', width: '5%' },
                     { field: 'Code', title: '角色标识', width: '10%' },
@@ -287,6 +288,9 @@
                                 }
                             }
                         }
+                    },
+                    txtMerchantID: {
+                        required: true
                     }
                 }
             });

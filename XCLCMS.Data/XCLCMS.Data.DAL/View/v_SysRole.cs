@@ -39,8 +39,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_SysRole> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select SysRoleID,ParentID,RoleName,Code,Sort,Weight,Remark,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName,NodeLevel,IsLeaf ");
-            strSql.Append(" FROM v_SysRole ");
+            strSql.Append("select * FROM v_SysRole ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

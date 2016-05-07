@@ -37,8 +37,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_SysDic> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select SysDicID,Code,DicType,ParentID,DicName,DicValue,Sort,Remark,FK_FunctionID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName,NodeLevel,IsLeaf ");
-            strSql.Append(" FROM v_SysDic ");
+            strSql.Append("select * FROM v_SysDic ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

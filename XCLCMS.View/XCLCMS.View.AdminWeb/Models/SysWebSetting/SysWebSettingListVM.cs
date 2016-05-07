@@ -11,6 +11,6 @@ namespace XCLCMS.View.AdminWeb.Models.SysWebSetting
 
         public XCLNetTools.Entity.PagerInfo PagerModel { get; set; }
 
-        public List<XCLCMS.Data.Model.SysWebSetting> SysWebSettingList { get; set; }
+        public List<XCLCMS.Data.Model.View.v_SysWebSetting> SysWebSettingList { get; set; }
     }
 }

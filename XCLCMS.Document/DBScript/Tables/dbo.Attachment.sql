@@ -1,7 +1,7 @@
 CREATE TABLE [dbo].[Attachment]
 (
 [AttachmentID] [bigint] NOT NULL,
-[ParentID] [bigint] NOT NULL CONSTRAINT [DF__tmp_ms_xx__Paren__7755B73D] DEFAULT ((0)),
+[ParentID] [bigint] NOT NULL CONSTRAINT [DF__tmp_ms_xx__Paren__1C5231C2] DEFAULT ((0)),
 [OriginFileName] [varchar] (500) COLLATE Chinese_PRC_CI_AS NULL,
 [FileName] [varchar] (500) COLLATE Chinese_PRC_CI_AS NULL,
 [Title] [nvarchar] (200) COLLATE Chinese_PRC_CI_AS NULL,
@@ -12,9 +12,10 @@ CREATE TABLE [dbo].[Attachment]
 [Description] [nvarchar] (2000) COLLATE Chinese_PRC_CI_AS NULL,
 [DownLoadCount] [int] NOT NULL,
 [ViewCount] [int] NOT NULL,
-[FileSize] [decimal] (18, 2) NOT NULL CONSTRAINT [DF__tmp_ms_xx__FileS__7849DB76] DEFAULT ((0)),
-[ImgWidth] [int] NOT NULL CONSTRAINT [DF__tmp_ms_xx__ImgWi__793DFFAF] DEFAULT ((0)),
-[ImgHeight] [int] NOT NULL CONSTRAINT [DF__tmp_ms_xx__ImgHe__7A3223E8] DEFAULT ((0)),
+[FileSize] [decimal] (18, 2) NOT NULL CONSTRAINT [DF__tmp_ms_xx__FileS__1D4655FB] DEFAULT ((0)),
+[ImgWidth] [int] NOT NULL CONSTRAINT [DF__tmp_ms_xx__ImgWi__1E3A7A34] DEFAULT ((0)),
+[ImgHeight] [int] NOT NULL CONSTRAINT [DF__tmp_ms_xx__ImgHe__1F2E9E6D] DEFAULT ((0)),
+[FK_MerchantID] [bigint] NOT NULL CONSTRAINT [DF__tmp_ms_xx__FK_Me__2022C2A6] DEFAULT ((0)),
 [RecordState] [char] (1) COLLATE Chinese_PRC_CI_AS NOT NULL,
 [CreateTime] [datetime] NOT NULL,
 [CreaterID] [bigint] NOT NULL,
@@ -26,6 +27,8 @@ CREATE TABLE [dbo].[Attachment]
 ALTER TABLE [dbo].[Attachment] ADD 
 CONSTRAINT [PK_Attachment] PRIMARY KEY CLUSTERED  ([AttachmentID]) ON [PRIMARY]
 CREATE NONCLUSTERED INDEX [IX_Title] ON [dbo].[Attachment] ([Title]) ON [PRIMARY]
+
+CREATE NONCLUSTERED INDEX [IX_FK_MerchantID] ON [dbo].[Attachment] ([FK_MerchantID]) ON [PRIMARY]
 
 GO
 EXEC sp_addextendedproperty N'MS_Description', '附件表', 'SCHEMA', N'dbo', 'TABLE', N'Attachment', NULL, NULL
@@ -53,6 +56,9 @@ EXEC sp_addextendedproperty N'MS_Description', '附件扩展名(不含点)', 'SC
 GO
 
 EXEC sp_addextendedproperty N'MS_Description', '附件大小（kb）', 'SCHEMA', N'dbo', 'TABLE', N'Attachment', 'COLUMN', N'FileSize'
+GO
+
+EXEC sp_addextendedproperty N'MS_Description', '所属商户号', 'SCHEMA', N'dbo', 'TABLE', N'Attachment', 'COLUMN', N'FK_MerchantID'
 GO
 
 EXEC sp_addextendedproperty N'MS_Description', '附件格式类型(AttachmentFormatTypeEnum)', 'SCHEMA', N'dbo', 'TABLE', N'Attachment', 'COLUMN', N'FormatType'

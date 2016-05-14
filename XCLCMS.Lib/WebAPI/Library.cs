@@ -18,19 +18,32 @@ namespace XCLCMS.Lib.WebAPI
         /// <typeparam name="TResponse">返回类型</typeparam>
         /// <param name="request">请求类对象</param>
         /// <param name="path">请求路径</param>
+        /// <param name="isGet">是否为get请求，默认为get</param>
         /// <returns>请求结果</returns>
-        public static APIResponseEntity<TResponse> Request<TRequest, TResponse>(APIRequestEntity<TRequest> request, string path) where TRequest : new() where TResponse : new()
+        public static APIResponseEntity<TResponse> Request<TRequest, TResponse>(APIRequestEntity<TRequest> request, string path, bool isGet = true) where TRequest : new() where TResponse : new()
         {
             APIResponseEntity<TResponse> response = default(APIResponseEntity<TResponse>);
             try
             {
+                string requestURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebAPIServiceURL + path.Trim().Trim('/');
                 var requestJson = JsonConvert.SerializeObject(request);
-                HttpContent httpContent = new StringContent(requestJson);
-                httpContent.Headers.Add(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName, request.UserToken);
-                httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 var httpClient = new HttpClient();
-                var json = httpClient.PostAsync(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebAPIServiceURL + path.Trim().Trim('/'), httpContent).Result.Content.ReadAsStringAsync().Result;
-                response = Newtonsoft.Json.JsonConvert.DeserializeObject<APIResponseEntity<TResponse>>(json);
+                var httpRequest = new HttpRequestMessage();
+                if (isGet)
+                {
+                    httpRequest.RequestUri = new Uri(requestURL + "?json=" +System.Web.HttpUtility.UrlEncode(requestJson));
+                    httpRequest.Method = HttpMethod.Get;
+                }
+                else
+                {
+                    httpRequest.RequestUri = new Uri(requestURL);
+                    httpRequest.Method = HttpMethod.Post;
+                    httpRequest.Content = new StringContent(requestJson);
+                    httpRequest.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                }
+                httpRequest.Headers.Add(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName, request.UserToken);
+                httpRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                response = httpClient.SendAsync(httpRequest).Result.Content.ReadAsAsync<APIResponseEntity<TResponse>>().Result;
             }
             catch (Exception ex)
             {

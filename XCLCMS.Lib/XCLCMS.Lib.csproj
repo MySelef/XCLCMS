@@ -132,6 +132,7 @@
     <Compile Include="Model\SettingModel.cs" />
     <Compile Include="WebAPI\ArticleAPI.cs" />
     <Compile Include="WebAPI\Library.cs" />
+    <Compile Include="WebAPI\MerchantAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

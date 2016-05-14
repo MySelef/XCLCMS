@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Runtime.Serialization;
 
 namespace XCLCMS.Data.WebAPIEntity
@@ -13,24 +14,28 @@ namespace XCLCMS.Data.WebAPIEntity
         /// <summary>
         /// token
         /// </summary>
+        [JsonIgnore]
         [DataMember]
         public string UserToken { get; set; }
 
         /// <summary>
         /// 来源ip
         /// </summary>
+        [JsonIgnore]
         [DataMember]
         public string ClientIP { get; set; }
 
         /// <summary>
         /// 来源url
         /// </summary>
+        [JsonIgnore]
         [DataMember]
         public string Url { get; set; }
 
         /// <summary>
         /// 请求ID
         /// </summary>
+        [JsonIgnore]
         [DataMember]
         public string RequestID { get; } = Guid.NewGuid().ToString("N");
 

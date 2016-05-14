@@ -53,9 +53,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
             #endregion 初始化查询条件
 
-            XCLCMS.Data.BLL.View.v_Merchant bll = new Data.BLL.View.v_Merchant();
-            viewModel.MerchantList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[MerchantID]", "[MerchantID] desc");
-            viewModel.PagerModel = base.PageParamsInfo;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.MerchantPageListConditionEntity>(base.UserToken);
+            request.Data = new Data.WebAPIEntity.RequestEntity.Merchant.MerchantPageListConditionEntity()
+            {
+                PageInfo = base.PageParamsInfo,
+                Where = strWhere
+            };
+            var response = XCLCMS.Lib.WebAPI.MerchantAPI.GetMerchantPageList(request).Result;
+            viewModel.MerchantList = response.MerchantList;
+            viewModel.PagerModel = response.PagerInfo;
 
             return View("~/Views/Merchant/MerchantList.cshtml", viewModel);
         }

@@ -9,7 +9,7 @@ namespace XCLCMS.Data.WebAPIEntity
     /// </summary>
     [Serializable]
     [DataContract]
-    public class APIRequestEntity<T> where T : new()
+    public class APIRequestEntity<TBody>
     {
         /// <summary>
         /// token
@@ -43,6 +43,6 @@ namespace XCLCMS.Data.WebAPIEntity
         /// request的数据
         /// </summary>
         [DataMember]
-        public T Data { get; set; }
+        public TBody Body { get; set; }
     }
 }

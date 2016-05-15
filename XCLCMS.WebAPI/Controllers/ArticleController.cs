@@ -15,7 +15,7 @@ namespace XCLCMS.WebAPI.Controllers
             APIResponseEntity<XCLCMS.Data.Model.Article> response = new APIResponseEntity<Data.Model.Article>();
             var model = articleBLL.GetModel(id);
             response.IsSuccess = null != model;
-            response.Result = model;
+            response.Body = model;
             return response;
         }
 
@@ -26,12 +26,12 @@ namespace XCLCMS.WebAPI.Controllers
         {
             #region 初始化
 
-            request.Data.Code = (request.Data.Code ?? "").Trim();
+            request.Body.Code = (request.Body.Code ?? "").Trim();
             APIResponseEntity<bool> response = new APIResponseEntity<bool>()
             {
                 IsSuccess = true,
                 Message = "该唯一标识可以使用！",
-                Result = true
+                Body = true
             };
             XCLCMS.Data.Model.Article model = null;
 
@@ -39,11 +39,11 @@ namespace XCLCMS.WebAPI.Controllers
 
             #region 数据校验
 
-            if (string.IsNullOrEmpty(request.Data.Code))
+            if (string.IsNullOrEmpty(request.Body.Code))
             {
                 response.Message = "请指定Code参数！";
                 response.IsSuccess = false;
-                response.Result = false;
+                response.Body = false;
                 return response;
             }
 
@@ -51,19 +51,19 @@ namespace XCLCMS.WebAPI.Controllers
 
             #region 构建response
 
-            if (request.Data.ArticleID > 0)
+            if (request.Body.ArticleID > 0)
             {
-                model = articleBLL.GetModel(request.Data.ArticleID);
-                if (null != model && string.Equals(request.Data.Code, model.Code, StringComparison.OrdinalIgnoreCase))
+                model = articleBLL.GetModel(request.Body.ArticleID);
+                if (null != model && string.Equals(request.Body.Code, model.Code, StringComparison.OrdinalIgnoreCase))
                 {
                     return response;
                 }
             }
 
-            if (articleBLL.IsExistCode(request.Data.Code))
+            if (articleBLL.IsExistCode(request.Body.Code))
             {
                 response.IsSuccess = false;
-                response.Result = false;
+                response.Body = false;
                 response.Message = "该唯一标识已被占用！";
                 return response;
             }

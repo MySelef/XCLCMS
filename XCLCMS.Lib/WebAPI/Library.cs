@@ -22,7 +22,7 @@ namespace XCLCMS.Lib.WebAPI
         /// <returns>请求结果</returns>
         public static APIResponseEntity<TResponse> Request<TRequest, TResponse>(APIRequestEntity<TRequest> request, string path, bool isGet = true) where TRequest : new() where TResponse : new()
         {
-            APIResponseEntity<TResponse> response = default(APIResponseEntity<TResponse>);
+            APIResponseEntity<TResponse> response = new APIResponseEntity<TResponse>();
             try
             {
                 string requestURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebAPIServiceURL + path.Trim().Trim('/');
@@ -31,7 +31,7 @@ namespace XCLCMS.Lib.WebAPI
                 var httpRequest = new HttpRequestMessage();
                 if (isGet)
                 {
-                    httpRequest.RequestUri = new Uri(requestURL + "?json=" +System.Web.HttpUtility.UrlEncode(requestJson));
+                    httpRequest.RequestUri = new Uri(requestURL + "?json=" + System.Web.HttpUtility.UrlEncode(requestJson));
                     httpRequest.Method = HttpMethod.Get;
                 }
                 else

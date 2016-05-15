@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Merchant
@@ -54,12 +55,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             #endregion 初始化查询条件
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.MerchantPageListConditionEntity>(base.UserToken);
-            request.Data = new Data.WebAPIEntity.RequestEntity.Merchant.MerchantPageListConditionEntity()
+            request.Body = new Data.WebAPIEntity.RequestEntity.Merchant.MerchantPageListConditionEntity()
             {
                 PageInfo = base.PageParamsInfo,
                 Where = strWhere
             };
-            var response = XCLCMS.Lib.WebAPI.MerchantAPI.GetMerchantPageList(request).Result;
+            var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantPageList(request).Body;
             viewModel.MerchantList = response.MerchantList;
             viewModel.PagerModel = response.PagerInfo;
 
@@ -100,7 +101,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
-                    viewModel.Merchant = merchantBLL.GetModel(merchantId);
+
+                    var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
+                    request.Body = merchantId;
+                    var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantDetail(request);
+
+                    viewModel.Merchant = response.Body;
                     viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Entity.SetOptionEntity()
                     {
                         DefaultValue = viewModel.Merchant.FK_MerchantType.ToString(),
@@ -157,7 +163,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         public override ActionResult AddSubmit(FormCollection fm)
         {
             XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM viewModel = this.GetViewModel(fm);
-            XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
             XCLCMS.Data.Model.Merchant model = new XCLCMS.Data.Model.Merchant();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             model.MerchantID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.MER);
@@ -186,16 +191,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.UpdaterName = model.CreaterName;
             model.UpdateTime = model.CreateTime;
 
-            if (merchantBLL.Add(model))
-            {
-                msgModel.Message = "添加成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = "添加失败！";
-                msgModel.IsSuccess = false;
-            }
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.Merchant>(base.UserToken);
+            request.Body = model;
+            var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantAdd(request);
+            msgModel.IsSuccess = response.IsSuccess;
+            msgModel.Message = response.Message;
 
             return Json(msgModel);
         }
@@ -208,11 +208,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         public override ActionResult UpdateSubmit(FormCollection fm)
         {
             base.UpdateSubmit(fm);
-            long merchantId = XCLNetTools.StringHander.FormHelper.GetLong("merchantId");
             XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM viewModel = this.GetViewModel(fm);
-            XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            XCLCMS.Data.Model.Merchant model = merchantBLL.GetModel(merchantId);
+
+            var model = new XCLCMS.Data.Model.Merchant();
+            model.MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("merchantId");
             model.Address = viewModel.Merchant.Address;
             model.ContactName = viewModel.Merchant.ContactName;
             model.Domain = viewModel.Merchant.Domain;
@@ -234,16 +234,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.UpdaterName = model.CreaterName;
             model.UpdateTime = model.CreateTime;
 
-            if (merchantBLL.Update(model))
-            {
-                msgModel.Message = "修改成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = "修改失败！";
-                msgModel.IsSuccess = false;
-            }
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.Merchant>(base.UserToken);
+            request.Body = model;
+            var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantUpdate(request);
+            msgModel.IsSuccess = response.IsSuccess;
+            msgModel.Message = response.Message;
+
             return Json(msgModel);
         }
 
@@ -255,29 +251,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         public override ActionResult DelSubmit(FormCollection fm)
         {
             base.DelSubmit(fm);
-            XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
-            XCLCMS.Data.Model.Merchant merchantModel = null;
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            long[] merchantIds = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("merchantIds").Split(','));
-            if (null != merchantIds && merchantIds.Length > 0)
-            {
-                for (int i = 0; i < merchantIds.Length; i++)
-                {
-                    merchantModel = merchantBLL.GetModel(merchantIds[i]);
-                    if (null != merchantModel)
-                    {
-                        merchantModel.UpdaterID = base.CurrentUserModel.UserInfoID;
-                        merchantModel.UpdaterName = base.CurrentUserModel.UserName;
-                        merchantModel.UpdateTime = DateTime.Now;
-                        merchantModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
-                        merchantModel.MerchantState = XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum.N.ToString();
-                        merchantBLL.Update(merchantModel);
-                    }
-                }
-            }
-            msgModel.IsSuccess = true;
             msgModel.IsRefresh = true;
-            msgModel.Message = "删除成功！";
+
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<List<long>>(base.UserToken);
+            request.Body = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("merchantIds").Split(',')).ToList();
+            var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantDelete(request);
+            msgModel.IsSuccess = response.IsSuccess;
+            msgModel.Message = response.Message;
+
             return Json(msgModel);
         }
     }

@@ -5,7 +5,6 @@ CREATE TABLE [dbo].[SysFunction]
 [FunctionName] [varchar] (100) COLLATE Chinese_PRC_CI_AS NOT NULL,
 [Code] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL,
 [Remark] [nvarchar] (500) COLLATE Chinese_PRC_CI_AS NULL,
-[FK_MerchantID] [bigint] NOT NULL CONSTRAINT [DF__tmp_ms_xx__FK_Me__324172E1] DEFAULT ((0)),
 [RecordState] [char] (1) COLLATE Chinese_PRC_CI_AS NOT NULL,
 [CreateTime] [datetime] NOT NULL,
 [CreaterID] [bigint] NOT NULL,
@@ -20,7 +19,7 @@ CREATE NONCLUSTERED INDEX [IX_FunctionName] ON [dbo].[SysFunction] ([FunctionNam
 
 CREATE NONCLUSTERED INDEX [IX_Code] ON [dbo].[SysFunction] ([Code]) ON [PRIMARY]
 
-CREATE NONCLUSTERED INDEX [IX_FK_MerchantID] ON [dbo].[SysFunction] ([FK_MerchantID]) ON [PRIMARY]
+
 
 GO
 EXEC sp_addextendedproperty N'MS_Description', '系统功能表', 'SCHEMA', N'dbo', 'TABLE', N'SysFunction', NULL, NULL
@@ -38,8 +37,6 @@ GO
 EXEC sp_addextendedproperty N'MS_Description', '创建时间', 'SCHEMA', N'dbo', 'TABLE', N'SysFunction', 'COLUMN', N'CreateTime'
 GO
 
-EXEC sp_addextendedproperty N'MS_Description', '所属商户号', 'SCHEMA', N'dbo', 'TABLE', N'SysFunction', 'COLUMN', N'FK_MerchantID'
-GO
 
 EXEC sp_addextendedproperty N'MS_Description', '功能名', 'SCHEMA', N'dbo', 'TABLE', N'SysFunction', 'COLUMN', N'FunctionName'
 GO

@@ -242,25 +242,5 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
             return Json(msgModel);
         }
-
-        /// <summary>
-        /// 删除商户信息
-        /// </summary>
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantDel)]
-        public override ActionResult DelSubmit(FormCollection fm)
-        {
-            base.DelSubmit(fm);
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            msgModel.IsRefresh = true;
-
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<List<long>>(base.UserToken);
-            request.Body = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("merchantIds").Split(',')).ToList();
-            var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantDelete(request);
-            msgModel.IsSuccess = response.IsSuccess;
-            msgModel.Message = response.Message;
-
-            return Json(msgModel);
-        }
     }
 }

@@ -159,7 +159,6 @@
     <Compile Include="Controllers\Home\DefaultController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Merchant\MerchantAppController.cs" />
-    <Compile Include="Controllers\Merchant\MerchantCommonController.cs" />
     <Compile Include="Controllers\Merchant\MerchantController.cs" />
     <Compile Include="Controllers\SysDic\SysDicCommonController.cs" />
     <Compile Include="Controllers\SysDic\SysDicController.cs" />
@@ -196,9 +195,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\AppSettings.config" />
-    <Content Include="Config\StaticResourceConfig.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Resources\Css\Base.css" />
     <Content Include="Resources\Css\Login.css" />
     <Content Include="Resources\Images\document.png" />

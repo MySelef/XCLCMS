@@ -4,7 +4,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-
 <script type="text/javascript">
     //全局配置
     @if (null == ViewBag.PageGlobalConfigJSON) {
@@ -18,35 +17,30 @@
             @:XCLCMSPageGlobalConfig.EnumConfig=@(Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson));
         }
 </script>
+<link rel="icon" href="~/Resources/Images/logo/favicon.ico?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" />
+<script src="~/Resources/Js/json2.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/Jquery/jquery-1.11.2.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<link href="~/Resources/Js/EasyUI/themes/icon.css?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" rel="stylesheet" type="text/css" />
+<link href="~/Resources/Js/EasyUI/themes/default/easyui.css?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" rel="stylesheet" type="text/css" />
+<script src="~/Resources/Js/EasyUI/jquery.easyui.min.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<link href="~/Resources/Js/artDialog/skins/blue.css?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" rel="stylesheet" type="text/css" />
+<script src="~/Resources/Js/artDialog/artDialog.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/artDialog/plugins/iframeTools.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/artTemplate/template.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/validate/jquery.validate.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/validate/XCLValidatorMethod.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/WdatePicker/WdatePicker.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<link href="~/Resources/Css/base.css?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" rel="stylesheet" type="text/css" />
+<script src="~/Resources/Js/table.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/XGoAjax/XGoAjax.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/XGoAjax/XGoAjaxTemplate.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/dynamicCon.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/XJsTool.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
 
-@{
-    List<string> resourceList = new List<string>();
-    resourceList.AddRange(new List<string>()
-    {
-        "icon",
-        "json2.js",
-        "jquery",
-        "easyui_ico.css",
-        "easyui.css",
-        "easyui.js",
-
-        "artDialog.css",
-        "artDialog.js",
-        "artDialog.iframeTools.js",
-        "artTemplate.js",
-
-        "validate.js",
-        "XCLValidatorMethod.js",
-
-        "WdatePicker.js",
-        "base.css",
-        "table.js",
-        "XGoAjax.js",
-        "XGoAjaxTemplate.js",
-        "dynamicCon.js",
-        "XJsTool.js"
-
-    });
-}
-
-@Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig, resourceList))
+<script type="text/javascript" src="http://localhost/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)"></script>
+<script type="text/javascript">
+    (function(api){
+        api.UserToken=XCLCMSPageGlobalConfig.UserToken;
+        api.Init();
+    })(window.XCLCMSWebApi);
+</script>

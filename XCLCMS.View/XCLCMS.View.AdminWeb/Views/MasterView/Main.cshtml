@@ -12,28 +12,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-
     @Html.Partial("~/Views/MasterView/Header.cshtml")
-
     <style type="text/css">
         body {min-width:1000px;}
     </style>
-
     @RenderSection("CustomHeader", false)
-
-   @Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
-        "config.js",
-        "require.js"
-   }))
+    <script type="text/javascript" src="~/Resources/Js/App/config.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)"></script>
+    <script data-main="main.js" type="text/javascript" src="~/Resources/Js/App/require.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)"></script>
 </head>
 <body class="easyui-layout">
-
     <div data-options="region:'center',border:false">
-
         <div class="easyui-panel" style="height:50px;overflow:hidden;border:0px;">
             <span style="font-size:25px;font-weight:bolder;line-height:50px;padding-left:10px;">@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebName)后台管理</span>
         </div>
-
         <div class="XCLPanel" style="border-bottom:none;">
             <div class="XCLPanelHeader">
                 @if(null!=CurrentUserModel){
@@ -43,7 +34,6 @@
                 公告通知：<a href="">2014又要放假了，大家火车票买了没？</a>
             </div>
         </div>
-
         <div id="DivMenuTabs" class="easyui-tabs" style="height:auto;">
             @if (null != mainViewModel)
             {

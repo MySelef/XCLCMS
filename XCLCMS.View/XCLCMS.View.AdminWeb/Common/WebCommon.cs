@@ -1,5 +1,4 @@
 ﻿using System.Web;
-using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Common
 {
@@ -8,42 +7,6 @@ namespace XCLCMS.View.AdminWeb.Common
     /// </summary>
     public class WebCommon
     {
-        private static object obj = new object();
-
-        #region 静态资源相关
-
-        private static XCLNetTools.Entity.StaticResourceConfig _staticResourceConfig = null;
-
-        /// <summary>
-        /// 静态资源
-        /// </summary>
-        public static XCLNetTools.Entity.StaticResourceConfig StaticResourceConfig
-        {
-            get
-            {
-                lock (obj)
-                {
-                    var newStaticResourceConfig = _staticResourceConfig.DeepClone();
-                    if (newStaticResourceConfig.StaticResourceList.IsNotNullOrEmpty())
-                    {
-                        newStaticResourceConfig.StaticResourceList.ForEach(k =>
-                        {
-                            k.Version = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
-                            k.Src = k.Src.Replace("{ResourcesRootURL}", XCLNetTools.StringHander.Common.RootUri );
-                            k.Attr = k.Attr.Replace("{ResourcesRootURL}", XCLNetTools.StringHander.Common.RootUri);
-                        });
-                    }
-                    return newStaticResourceConfig;
-                }
-            }
-            set
-            {
-                _staticResourceConfig = value;
-            }
-        }
-
-        #endregion 静态资源相关
-
         #region 路径相关
 
         /// <summary>

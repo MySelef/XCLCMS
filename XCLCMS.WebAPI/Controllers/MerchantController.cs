@@ -152,5 +152,41 @@ namespace XCLCMS.WebAPI.Controllers
 
             return response;
         }
+
+        /// <summary>
+        /// 判断商户名是否存在
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<bool> IsExistMerchantName(string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.IsExistMerchantNameEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<bool>();
+            response.IsSuccess = true;
+            response.Message = "该商户名可以使用！";
+
+            if (request.Body.MerchantID > 0)
+            {
+                var model = merchantBLL.GetModel(request.Body.MerchantID);
+                if (null != model)
+                {
+                    if (string.Equals(request.Body.MerchantName, model.MerchantName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return response;
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(request.Body.MerchantName))
+            {
+                bool isExist = merchantBLL.IsExistMerchantName(request.Body.MerchantName);
+                if (isExist)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "该商户名已被占用！";
+                }
+            }
+
+            return response;
+        }
     }
 }

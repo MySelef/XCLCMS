@@ -52,6 +52,7 @@
     <Compile Include="APIResponseEntity.cs" />
     <Compile Include="RequestEntity\Article\IsExistCodeEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestEntity\Merchant\IsExistMerchantNameEntity.cs" />
     <Compile Include="RequestEntity\Merchant\MerchantPageListConditionEntity.cs" />
     <Compile Include="ResponseEntity\Merchant\MerchantPageListResponseEntity.cs" />
   </ItemGroup>

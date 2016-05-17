@@ -1,7 +1,9 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 
 
 CREATE PROCEDURE [dbo].[sp_SysRole_Update]
@@ -12,6 +14,7 @@ CREATE PROCEDURE [dbo].[sp_SysRole_Update]
 @Sort int,
 @Weight int,
 @Remark varchar(1000),
+@FK_MerchantID bigint,
 @RecordState char(1),
 @CreateTime datetime,
 @CreaterID bigint,
@@ -32,7 +35,7 @@ BEGIN
 	
 		--更新角色信息
 		UPDATE [SysRole] SET 
-		RoleName=@RoleName ,RecordState=@RecordState, 
+		RoleName=@RoleName ,RecordState=@RecordState, FK_MerchantID=@FK_MerchantID ,
 		[ParentID] = @ParentID,[Code] = @Code,[Sort] = @Sort,[Weight] = @Weight,[Remark] = @Remark,[CreateTime] = @CreateTime,[CreaterID] = @CreaterID,[CreaterName] = @CreaterName,[UpdateTime] = @UpdateTime,[UpdaterID] = @UpdaterID,[UpdaterName] = @UpdaterName
 		WHERE SysRoleID=@SysRoleID
 		
@@ -43,12 +46,13 @@ BEGIN
 		COMMIT TRAN trans
 	END TRY
 	BEGIN CATCH
-		set @ResultMessage= ERROR_MESSAGE() 
+		SET @ResultMessage= ERROR_MESSAGE() 
 		SET @ResultCode=0
 		ROLLBACK TRAN trans
 	END CATCH
 
 END
+
 
 
 

@@ -61,11 +61,13 @@
             }
 
             art.dialog.confirm("您确定要删除此信息吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = ids;
                 $.XGoAjax({
                     target: $("#btnDel")[0],
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "Merchant/DelSubmit",
-                        data: { MerchantIds: ids.join(',') },
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Merchant/MerchantDelete",
+                        data: request,
                         type: "POST"
                     }
                 });
@@ -101,13 +103,14 @@
                     txtMerchantName: {
                         required: true,
                         XCLCustomRemote: {
-                            url: XCLCMSPageGlobalConfig.RootURL + "MerchantCommon/IsExistMerchantName",
+                            url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Merchant/IsExistMerchantName",
                             data: {
-                                MerchantName: function () {
-                                    return $("#txtMerchantName").val();
-                                },
-                                MerchantID: function () {
-                                    return $("#MerchantID").val();
+                                "json": function () {
+                                    var request = XCLCMSWebApi.CreateRequest();
+                                    request.Body = {};
+                                    request.Body.MerchantName=$("#txtMerchantName").val();
+                                    request.Body.MerchantID=$("#MerchantID").val();
+                                    return JSON.stringify(request);
                                 }
                             }
                         }
@@ -127,13 +130,14 @@
          * 删除商户
          */
         Del: function () {
-            var id = $("#MerchantID").val();
             art.dialog.confirm("您确定要删除此信息吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = [$("#MerchantID").val()];
                 $.XGoAjax({
                     target: $("#btnDel")[0],
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "Merchant/DelSubmit",
-                        data: { MerchantIds: id },
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Merchant/MerchantDelete",
+                        data: request,
                         type: "POST"
                     }
                 });

@@ -19,6 +19,11 @@ namespace XCLCMS.View.AdminWeb.Common
         public string UserName { get; set; }
 
         /// <summary>
+        /// 用户token
+        /// </summary>
+        public string UserToken { get; set; }
+
+        /// <summary>
         /// 当前用户是否已登录
         /// </summary>
         public bool IsLogOn { get; set; }
@@ -47,5 +52,10 @@ namespace XCLCMS.View.AdminWeb.Common
         /// 文件管理器逻辑文件列表路径
         /// </summary>
         public string FileManagerLogicFileListURL { get; set; }
+
+        /// <summary>
+        /// web api服务地址
+        /// </summary>
+        public string WebAPIServiceURL { get; set; }
     }
 }

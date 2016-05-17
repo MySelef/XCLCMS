@@ -37,11 +37,14 @@ namespace XCLCMS.View.AdminWeb.Controllers
             pageConfig.RootURL = XCLCMS.View.AdminWeb.Common.WebCommon.RootURL;
             pageConfig.UserID = ViewBag.CommonModel.CurrentUserModel.UserInfoID;
             pageConfig.UserName = ViewBag.CommonModel.CurrentUserModel.UserName;
+            pageConfig.UserToken = base.UserToken;
             pageConfig.ResourceVersion = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
             pageConfig.FileManagerFileListURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_FileListURL;
             pageConfig.FileManagerLogicFileListURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_LogicFileListURL;
+            pageConfig.WebAPIServiceURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebAPIServiceURL;
             pageConfig.EnumConfig = string.Empty;
             ViewBag.PageGlobalConfigJSON = new JavaScriptSerializer().Serialize(pageConfig);
+            
         }
 
         #endregion 拦截器

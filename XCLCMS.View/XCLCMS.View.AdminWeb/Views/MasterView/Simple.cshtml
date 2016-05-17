@@ -2,18 +2,13 @@
 <html lang="zh-cn">
 <head>
     @Html.Partial("~/Views/MasterView/Header.cshtml")
-
     @RenderSection("CustomHeader", false)
-
-   @Html.Raw(XCLNetTools.StringHander.Common.GetStaticResourceUrl(XCLCMS.View.AdminWeb.Common.WebCommon.StaticResourceConfig,new List<string>(){
-        "config.js",
-        "require.js"
-   }))
+    <script type="text/javascript" src="~/Resources/Js/App/config.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)"></script>
+    <script data-main="main.js" type="text/javascript" src="~/Resources/Js/App/require.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)"></script>
 </head>
 <body>
         @RenderBody()
         @Html.Partial("~/Views/MasterView/Footer.cshtml")
-
         @RenderSection("CustomFooter", false)
 </body>
 </html>

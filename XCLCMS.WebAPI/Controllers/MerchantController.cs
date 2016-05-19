@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web.Http;
 using XCLCMS.Data.WebAPIEntity;
 using XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant;
@@ -9,15 +10,20 @@ using XCLNetTools.Generic;
 
 namespace XCLCMS.WebAPI.Controllers
 {
+    /// <summary>
+    /// 商户管理
+    /// </summary>
     public class MerchantController : BaseAPIController
     {
         private XCLCMS.Data.BLL.View.v_Merchant vMerchantBLL = new Data.BLL.View.v_Merchant();
         private XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
+        private XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new XCLCMS.Data.BLL.MerchantApp();
 
         /// <summary>
         /// 查询商户信息实体
         /// </summary>
         [HttpGet]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView)]
         public APIResponseEntity<XCLCMS.Data.Model.Merchant> MerchantDetail(string json)
         {
             var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
@@ -31,6 +37,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 查询商户信息分页列表
         /// </summary>
         [HttpGet]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView)]
         public APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.Merchant.MerchantPageListResponseEntity> MerchantPageList(string json)
         {
             var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<MerchantPageListConditionEntity>>(System.Web.HttpUtility.UrlDecode(json));
@@ -46,10 +53,32 @@ namespace XCLCMS.WebAPI.Controllers
         /// 新增商户信息
         /// </summary>
         [HttpPost]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAdd)]
         public APIResponseEntity<bool> MerchantAdd(JObject obj)
         {
             var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.Merchant>>();
             var response = new APIResponseEntity<bool>();
+
+            #region 数据校验
+
+            request.Body.MerchantName = (request.Body.MerchantName ?? "").Trim();
+
+            if (string.IsNullOrWhiteSpace(request.Body.MerchantName))
+            {
+                response.IsSuccess = false;
+                response.Message = "请提供商户名！";
+                return response;
+            }
+
+            if (this.merchantBLL.IsExistMerchantName(request.Body.MerchantName))
+            {
+                response.IsSuccess = false;
+                response.Message = string.Format("商户名【{0}】已存在！", request.Body.MerchantName);
+                return response;
+            }
+
+            #endregion 数据校验
+
             response.IsSuccess = this.merchantBLL.Add(request.Body);
             if (response.Body)
             {
@@ -66,10 +95,13 @@ namespace XCLCMS.WebAPI.Controllers
         /// 修改商户信息
         /// </summary>
         [HttpPost]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantEdit)]
         public APIResponseEntity<bool> MerchantUpdate(JObject obj)
         {
             var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.Merchant>>();
             var response = new APIResponseEntity<bool>();
+
+            #region 数据校验
 
             var model = merchantBLL.GetModel(request.Body.MerchantID);
             if (null == model)
@@ -78,6 +110,18 @@ namespace XCLCMS.WebAPI.Controllers
                 response.Message = "请指定有效的商户信息！";
                 return response;
             }
+
+            if (!string.Equals(model.MerchantName, request.Body.MerchantName))
+            {
+                if (this.merchantBLL.IsExistMerchantName(request.Body.MerchantName))
+                {
+                    response.IsSuccess = false;
+                    response.Message = string.Format("商户名【{0}】已存在！", request.Body.MerchantName);
+                    return response;
+                }
+            }
+
+            #endregion 数据校验
 
             model.Address = request.Body.Address;
             model.ContactName = request.Body.ContactName;
@@ -116,6 +160,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 删除商户信息
         /// </summary>
         [HttpPost]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantDel)]
         public APIResponseEntity<bool> MerchantDelete(JObject obj)
         {
             var request = obj.ToObject<APIRequestEntity<List<long>>>();
@@ -133,22 +178,51 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
-            request.Body.ForEach(k =>
+            using (var scope = new TransactionScope())
             {
-                var merchantModel = merchantBLL.GetModel(k);
-                if (null != merchantModel)
+                foreach (var k in request.Body)
                 {
-                    merchantModel.UpdaterID = base.CurrentUserModel.UserInfoID;
-                    merchantModel.UpdaterName = base.CurrentUserModel.UserName;
-                    merchantModel.UpdateTime = DateTime.Now;
-                    merchantModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
-                    merchantModel.MerchantState = XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum.N.ToString();
-                    merchantBLL.Update(merchantModel);
+                    //删除商户基础信息
+                    var merchantModel = merchantBLL.GetModel(k);
+                    if (null != merchantModel)
+                    {
+                        merchantModel.UpdaterID = base.CurrentUserModel.UserInfoID;
+                        merchantModel.UpdaterName = base.CurrentUserModel.UserName;
+                        merchantModel.UpdateTime = DateTime.Now;
+                        merchantModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
+                        merchantModel.MerchantState = XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum.N.ToString();
+                        if (!merchantBLL.Update(merchantModel))
+                        {
+                            response.IsSuccess = false;
+                            response.Message = "删除失败！";
+                            return response;
+                        }
+                        //删除商户应用信息
+                        var merchantAppModelList = this.merchantAppBLL.GetModelList(merchantModel.MerchantID);
+                        if (merchantAppModelList.IsNotNullOrEmpty())
+                        {
+                            foreach (var app in merchantAppModelList)
+                            {
+                                app.UpdaterID = base.CurrentUserModel.UserInfoID;
+                                app.UpdaterName = base.CurrentUserModel.UserName;
+                                app.UpdateTime = DateTime.Now;
+                                app.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
+                                if (!this.merchantAppBLL.Update(app))
+                                {
+                                    response.IsSuccess = false;
+                                    response.Message = "删除失败！";
+                                    return response;
+                                }
+                            }
+                        }
+                    }
                 }
-            });
+                scope.Complete();
+            }
 
             response.IsSuccess = true;
             response.Message = "已成功删除商户信息！";
+            response.IsRefresh = true;
 
             return response;
         }
@@ -157,12 +231,15 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断商户名是否存在
         /// </summary>
         [HttpGet]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView)]
         public APIResponseEntity<bool> IsExistMerchantName(string json)
         {
             var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.IsExistMerchantNameEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<bool>();
             response.IsSuccess = true;
             response.Message = "该商户名可以使用！";
+
+            request.Body.MerchantName = (request.Body.MerchantName ?? "").Trim();
 
             if (request.Body.MerchantID > 0)
             {

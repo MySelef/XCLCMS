@@ -115,5 +115,21 @@ namespace XCLCMS.Data.DAL
         }
 
         #endregion Method
+
+        #region Extend Method
+
+        /// <summary>
+        /// 获取指定商户的所有应用
+        /// </summary>
+        public List<XCLCMS.Data.Model.MerchantApp> GetModelList(long merchantID)
+        {
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from MerchantApp where FK_MerchantID=@FK_MerchantID");
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, merchantID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.MerchantApp>(ds.Tables[0]) as List<XCLCMS.Data.Model.MerchantApp>;
+        }
+
+        #endregion Extend Method
     }
 }

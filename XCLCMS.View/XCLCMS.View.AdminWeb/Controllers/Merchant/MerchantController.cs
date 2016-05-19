@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.Merchant
@@ -164,7 +163,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         {
             XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.Model.Merchant model = new XCLCMS.Data.Model.Merchant();
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             model.MerchantID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.MER);
             model.Address = viewModel.Merchant.Address;
             model.ContactName = viewModel.Merchant.ContactName;
@@ -194,10 +192,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.Merchant>(base.UserToken);
             request.Body = model;
             var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantAdd(request);
-            msgModel.IsSuccess = response.IsSuccess;
-            msgModel.Message = response.Message;
 
-            return Json(msgModel);
+            return Json(response);
         }
 
         /// <summary>
@@ -209,7 +205,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         {
             base.UpdateSubmit(fm);
             XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM viewModel = this.GetViewModel(fm);
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
 
             var model = new XCLCMS.Data.Model.Merchant();
             model.MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("merchantId");
@@ -237,10 +232,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.Merchant>(base.UserToken);
             request.Body = model;
             var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantUpdate(request);
-            msgModel.IsSuccess = response.IsSuccess;
-            msgModel.Message = response.Message;
 
-            return Json(msgModel);
+            return Json(response);
         }
     }
 }

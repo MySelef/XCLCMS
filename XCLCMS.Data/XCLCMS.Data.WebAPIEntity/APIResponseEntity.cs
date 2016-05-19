@@ -8,7 +8,7 @@ namespace XCLCMS.Data.WebAPIEntity
     /// </summary>
     [Serializable]
     [DataContract]
-    public class APIResponseEntity<TBody>
+    public class APIResponseEntity<TBody> : XCLNetTools.Message.MessageModel
     {
         private bool _isSuccess = true;
         private TBody _body = default(TBody);
@@ -17,7 +17,7 @@ namespace XCLCMS.Data.WebAPIEntity
         /// 是否成功（如果TBody与IsSuccess属性均为bool，则Body与IsSuccess一致）
         /// </summary>
         [DataMember]
-        public bool IsSuccess
+        public override bool IsSuccess
         {
             get { return this._isSuccess; }
             set
@@ -49,11 +49,5 @@ namespace XCLCMS.Data.WebAPIEntity
                 }
             }
         }
-
-        /// <summary>
-        /// 消息提示
-        /// </summary>
-        [DataMember]
-        public string Message { get; set; }
     }
 }

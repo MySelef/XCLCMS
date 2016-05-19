@@ -19,13 +19,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
                 ArticleID = XCLNetTools.StringHander.FormHelper.GetLong("ArticleID")
             };
             var response = XCLCMS.Lib.WebAPI.ArticleAPI.IsExistCode(request);
-
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel()
-            {
-                IsSuccess = response.IsSuccess,
-                Message = response.Message
-            };
-            return Json(msgModel, JsonRequestBehavior.AllowGet);
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
     }
 }

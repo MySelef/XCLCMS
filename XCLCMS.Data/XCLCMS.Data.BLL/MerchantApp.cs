@@ -47,5 +47,17 @@ namespace XCLCMS.Data.BLL
         }
 
         #endregion BasicMethod
+
+        #region Extend Method
+
+        /// <summary>
+        /// 获取指定商户的所有应用
+        /// </summary>
+        public List<XCLCMS.Data.Model.MerchantApp> GetModelList(long merchantID)
+        {
+            return dal.GetModelList(merchantID);
+        }
+
+        #endregion Extend Method
     }
 }

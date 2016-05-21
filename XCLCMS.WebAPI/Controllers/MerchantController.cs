@@ -24,9 +24,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView)]
-        public APIResponseEntity<XCLCMS.Data.Model.Merchant> MerchantDetail(string json)
+        public APIResponseEntity<XCLCMS.Data.Model.Merchant> MerchantDetail([FromUri] APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<XCLCMS.Data.Model.Merchant>();
             response.Body = merchantBLL.GetModel(request.Body);
             response.IsSuccess = true;
@@ -38,14 +37,52 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView)]
-        public APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.Merchant.MerchantPageListResponseEntity> MerchantPageList(string json)
+        public APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.Merchant.MerchantPageListResponseEntity> MerchantPageList([FromUri]APIRequestEntity<MerchantPageListConditionEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<MerchantPageListConditionEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var pager = request.Body.PagerInfoSimple.ToPagerInfo();
             var response = new APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.Merchant.MerchantPageListResponseEntity>();
             response.Body = new Data.WebAPIEntity.ResponseEntity.Merchant.MerchantPageListResponseEntity();
-            response.Body.MerchantList = vMerchantBLL.GetPageList(request.Body.PageInfo, request.Body.Where, "", "[MerchantID]", "[MerchantID] desc");
-            response.Body.PagerInfo = request.Body.PageInfo;
+            response.Body.MerchantList = vMerchantBLL.GetPageList(pager, request.Body.Where, "", "[MerchantID]", "[MerchantID] desc");
+            response.Body.PagerInfo = pager;
             response.IsSuccess = true;
+            return response;
+        }
+
+        /// <summary>
+        /// 判断商户名是否存在
+        /// </summary>
+        [HttpGet]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView)]
+        public APIResponseEntity<bool> IsExistMerchantName([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.IsExistMerchantNameEntity> request)
+        {
+            var response = new APIResponseEntity<bool>();
+            response.IsSuccess = true;
+            response.Message = "该商户名可以使用！";
+
+            request.Body.MerchantName = (request.Body.MerchantName ?? "").Trim();
+
+            if (request.Body.MerchantID > 0)
+            {
+                var model = merchantBLL.GetModel(request.Body.MerchantID);
+                if (null != model)
+                {
+                    if (string.Equals(request.Body.MerchantName, model.MerchantName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return response;
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(request.Body.MerchantName))
+            {
+                bool isExist = merchantBLL.IsExistMerchantName(request.Body.MerchantName);
+                if (isExist)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "该商户名已被占用！";
+                }
+            }
+
             return response;
         }
 
@@ -223,45 +260,6 @@ namespace XCLCMS.WebAPI.Controllers
             response.IsSuccess = true;
             response.Message = "已成功删除商户信息！";
             response.IsRefresh = true;
-
-            return response;
-        }
-
-        /// <summary>
-        /// 判断商户名是否存在
-        /// </summary>
-        [HttpGet]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView)]
-        public APIResponseEntity<bool> IsExistMerchantName(string json)
-        {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.IsExistMerchantNameEntity>>(System.Web.HttpUtility.UrlDecode(json));
-            var response = new APIResponseEntity<bool>();
-            response.IsSuccess = true;
-            response.Message = "该商户名可以使用！";
-
-            request.Body.MerchantName = (request.Body.MerchantName ?? "").Trim();
-
-            if (request.Body.MerchantID > 0)
-            {
-                var model = merchantBLL.GetModel(request.Body.MerchantID);
-                if (null != model)
-                {
-                    if (string.Equals(request.Body.MerchantName, model.MerchantName, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return response;
-                    }
-                }
-            }
-
-            if (!string.IsNullOrEmpty(request.Body.MerchantName))
-            {
-                bool isExist = merchantBLL.IsExistMerchantName(request.Body.MerchantName);
-                if (isExist)
-                {
-                    response.IsSuccess = false;
-                    response.Message = "该商户名已被占用！";
-                }
-            }
 
             return response;
         }

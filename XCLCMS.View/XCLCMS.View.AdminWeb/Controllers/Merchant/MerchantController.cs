@@ -56,7 +56,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.MerchantPageListConditionEntity>(base.UserToken);
             request.Body = new Data.WebAPIEntity.RequestEntity.Merchant.MerchantPageListConditionEntity()
             {
-                PageInfo = base.PageParamsInfo,
+                PagerInfoSimple = base.PageParamsInfo.ToPagerInfoSimple(),
                 Where = strWhere
             };
             var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantPageList(request).Body;

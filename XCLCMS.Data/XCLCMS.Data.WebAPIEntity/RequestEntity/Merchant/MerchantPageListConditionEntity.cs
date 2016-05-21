@@ -12,7 +12,7 @@ namespace XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant
     public class MerchantPageListConditionEntity
     {
         [DataMember]
-        public XCLNetTools.Entity.PagerInfo PageInfo { get; set; }
+        public XCLNetTools.Entity.PagerInfoSimple PagerInfoSimple { get; set; }
 
         [DataMember]
         public string Where { get; set; }

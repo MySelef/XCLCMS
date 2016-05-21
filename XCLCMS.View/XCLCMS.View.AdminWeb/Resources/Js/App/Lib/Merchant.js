@@ -102,17 +102,17 @@
                 rules: {
                     txtMerchantName: {
                         required: true,
-                        XCLCustomRemote: {
-                            url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Merchant/IsExistMerchantName",
-                            data: {
-                                "json": function () {
+                        XCLCustomRemote: function () {
+                            return {
+                                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Merchant/IsExistMerchantName",
+                                data: (function () {
                                     var request = XCLCMSWebApi.CreateRequest();
                                     request.Body = {};
-                                    request.Body.MerchantName=$("#txtMerchantName").val();
-                                    request.Body.MerchantID=$("#MerchantID").val();
-                                    return JSON.stringify(request);
-                                }
-                            }
+                                    request.Body.MerchantName = $("#txtMerchantName").val();
+                                    request.Body.MerchantID = $("#MerchantID").val();
+                                    return request;
+                                })()
+                            };
                         }
                     },
                     txtEmail: "email",

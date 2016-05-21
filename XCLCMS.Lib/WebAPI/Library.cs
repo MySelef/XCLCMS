@@ -28,17 +28,17 @@ namespace XCLCMS.Lib.WebAPI
                 string requestURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebAPIServiceURL + path.Trim().Trim('/');
                 var httpClient = new HttpClient();
                 var httpRequest = new HttpRequestMessage();
+                string requestJson = JsonConvert.SerializeObject(request);
                 if (isGet)
                 {
-                    var obj = Newtonsoft.Json.Linq.JObject.FromObject(request);
-                    httpRequest.RequestUri = new Uri(requestURL + "?" + XCLNetTools.Serialize.Lib.ConvertJObjectToUrlParameters(obj));
+                    httpRequest.RequestUri = new Uri(requestURL + "?json=" + System.Web.HttpUtility.UrlEncode(requestJson));
                     httpRequest.Method = HttpMethod.Get;
                 }
                 else
                 {
                     httpRequest.RequestUri = new Uri(requestURL);
                     httpRequest.Method = HttpMethod.Post;
-                    httpRequest.Content = new StringContent(JsonConvert.SerializeObject(request));
+                    httpRequest.Content = new StringContent(requestJson);
                     httpRequest.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 }
                 httpRequest.Headers.Add(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName, request.UserToken);

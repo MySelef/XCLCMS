@@ -48,13 +48,5 @@ namespace XCLCMS.Lib.WebAPI
         {
             return Library.Request<List<long>, bool>(request, "Merchant/MerchantDelete", false);
         }
-
-        /// <summary>
-        /// 判断商户名是否存在
-        /// </summary>
-        public static APIResponseEntity<bool> IsExistMerchantName(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.IsExistMerchantNameEntity> request)
-        {
-            return Library.Request<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.IsExistMerchantNameEntity, bool>(request, "Merchant/IsExistMerchantName");
-        }
     }
 }

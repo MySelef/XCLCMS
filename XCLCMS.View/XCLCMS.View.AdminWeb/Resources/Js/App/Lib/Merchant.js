@@ -105,13 +105,15 @@
                         XCLCustomRemote: function () {
                             return {
                                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Merchant/IsExistMerchantName",
-                                data: (function () {
-                                    var request = XCLCMSWebApi.CreateRequest();
-                                    request.Body = {};
-                                    request.Body.MerchantName = $("#txtMerchantName").val();
-                                    request.Body.MerchantID = $("#MerchantID").val();
-                                    return request;
-                                })()
+                                data: {
+                                    "json": function () {
+                                        var request = XCLCMSWebApi.CreateRequest();
+                                        request.Body = {};
+                                        request.Body.MerchantName = $("#txtMerchantName").val();
+                                        request.Body.MerchantID = $("#MerchantID").val();
+                                        return JSON.stringify(request);
+                                    }
+                                }
                             };
                         }
                     },

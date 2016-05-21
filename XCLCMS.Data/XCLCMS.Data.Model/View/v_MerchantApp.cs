@@ -16,6 +16,13 @@ namespace XCLCMS.Data.Model.View
         private long _merchantappid;
         private string _merchantappname;
         private long _fk_merchantid;
+        private string _resourceversion;
+        private string _email;
+        private string _copyright;
+        private string _metadescription;
+        private string _metakeywords;
+        private string _metatitle;
+        private string _weburl;
         private string _remark;
         private string _recordstate;
         private DateTime _createtime;
@@ -51,6 +58,69 @@ namespace XCLCMS.Data.Model.View
         {
             set { _fk_merchantid = value; }
             get { return _fk_merchantid; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string ResourceVersion
+        {
+            set { _resourceversion = value; }
+            get { return _resourceversion; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string Email
+        {
+            set { _email = value; }
+            get { return _email; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string CopyRight
+        {
+            set { _copyright = value; }
+            get { return _copyright; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string MetaDescription
+        {
+            set { _metadescription = value; }
+            get { return _metadescription; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string MetaKeyWords
+        {
+            set { _metakeywords = value; }
+            get { return _metakeywords; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string MetaTitle
+        {
+            set { _metatitle = value; }
+            get { return _metatitle; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string WebURL
+        {
+            set { _weburl = value; }
+            get { return _weburl; }
         }
 
         /// <summary>

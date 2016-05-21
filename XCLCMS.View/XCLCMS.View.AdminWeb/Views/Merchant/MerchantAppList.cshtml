@@ -33,6 +33,13 @@
                     <td>商户应用ID</td>
                     <td>所属商户</td>
                     <td>商户应用名</td>
+                    <td>静态资源版本号</td>
+                    <td>联系人邮箱</td>
+                    <td>版权信息</td>
+                    <td>Meta描述</td>
+                    <td>Meta关键字</td>
+                    <td>Meta标题</td>
+                    <td>站点网址</td>
                     <td>备注</td>
                     <td>记录状态</td>
                     <td>创建时间</td>
@@ -53,8 +60,14 @@
                                     @m.MerchantAppID
                                 </td>
                                 <td>@m.MerchantName</td>
-                                <td>@m.MerchantName</td>
-
+                                <td>@m.MerchantAppName</td>
+                                <td>@m.ResourceVersion</td>
+                                <td>@m.Email</td>
+                                <td>@m.CopyRight</td>
+                                <td>@m.MetaDescription</td>
+                                <td>@m.MetaKeyWords</td>
+                                <td>@m.MetaTitle</td>
+                                <td>@m.WebURL</td>
                                 <td>@m.Remark</td>
                                 <td align="center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), m.RecordState)</td>
                                 <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.CreateTime)</td>

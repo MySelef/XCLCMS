@@ -19,9 +19,38 @@
                     <td style="width: 25%">
                         <input type="text" id="txtMerchantAppName" name="txtMerchantAppName" value="@Model.MerchantApp.MerchantAppName" />
                     </td>
-                    <td class="XCLTitle" style="width: 10%"></td>
+                    <td class="XCLTitle" style="width: 10%">静态资源版本号：</td>
                     <td style="width: 25%">
+                        <input type="text" name="txtResourceVersion" value="@Model.MerchantApp.ResourceVersion" />
+                    </td>
+                </tr>
 
+                <tr>
+                    <td class="XCLTitle">站点网址：</td>
+                    <td>
+                        <input type="text" name="txtWebURL" value="@Model.MerchantApp.WebURL" />
+                    </td>
+                    <td class="XCLTitle">Meta标题：</td>
+                    <td>
+                        <input type="text" name="txtMetaTitle" value="@Model.MerchantApp.MetaTitle" />
+                    </td>
+                    <td class="XCLTitle">Meta关键字：</td>
+                    <td>
+                        <input type="text" name="txtMetaKeyWords" value="@Model.MerchantApp.MetaKeyWords" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="XCLTitle">联系人邮箱：</td>
+                    <td>
+                        <input type="text" name="txtEmail" value="@Model.MerchantApp.Email" />
+                    </td>
+                    <td class="XCLTitle">版权信息：</td>
+                    <td>
+                        <input type="text" name="txtCopyRight" value="@Model.MerchantApp.CopyRight" />
+                    </td>
+                    <td class="XCLTitle">Meta描述：</td>
+                    <td>
+                        <input type="text" name="txtMetaDescription" value="@Model.MerchantApp.MetaDescription" />
                     </td>
                 </tr>
 

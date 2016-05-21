@@ -27,6 +27,13 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "MerchantAppID", DbType.Int64, model.MerchantAppID);
             db.AddInParameter(dbCommand, "MerchantAppName", DbType.AnsiString, model.MerchantAppName);
             db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "ResourceVersion", DbType.AnsiString, model.ResourceVersion);
+            db.AddInParameter(dbCommand, "Email", DbType.AnsiString, model.Email);
+            db.AddInParameter(dbCommand, "CopyRight", DbType.AnsiString, model.CopyRight);
+            db.AddInParameter(dbCommand, "MetaDescription", DbType.AnsiString, model.MetaDescription);
+            db.AddInParameter(dbCommand, "MetaKeyWords", DbType.AnsiString, model.MetaKeyWords);
+            db.AddInParameter(dbCommand, "MetaTitle", DbType.AnsiString, model.MetaTitle);
+            db.AddInParameter(dbCommand, "WebURL", DbType.AnsiString, model.WebURL);
             db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
@@ -61,6 +68,13 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "MerchantAppID", DbType.Int64, model.MerchantAppID);
             db.AddInParameter(dbCommand, "MerchantAppName", DbType.AnsiString, model.MerchantAppName);
             db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "ResourceVersion", DbType.AnsiString, model.ResourceVersion);
+            db.AddInParameter(dbCommand, "Email", DbType.AnsiString, model.Email);
+            db.AddInParameter(dbCommand, "CopyRight", DbType.AnsiString, model.CopyRight);
+            db.AddInParameter(dbCommand, "MetaDescription", DbType.AnsiString, model.MetaDescription);
+            db.AddInParameter(dbCommand, "MetaKeyWords", DbType.AnsiString, model.MetaKeyWords);
+            db.AddInParameter(dbCommand, "MetaTitle", DbType.AnsiString, model.MetaTitle);
+            db.AddInParameter(dbCommand, "WebURL", DbType.AnsiString, model.WebURL);
             db.AddInParameter(dbCommand, "Remark", DbType.AnsiString, model.Remark);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);

@@ -87,6 +87,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             viewModel.MerchantApp.MerchantAppID = XCLNetTools.StringHander.FormHelper.GetLong("MerchantAppID");
             viewModel.MerchantApp.MerchantAppName = XCLNetTools.StringHander.FormHelper.GetString("txtMerchantAppName");
             viewModel.MerchantApp.Remark = XCLNetTools.StringHander.FormHelper.GetString("txtRemark");
+            viewModel.MerchantApp.ResourceVersion = XCLNetTools.StringHander.FormHelper.GetString("txtResourceVersion");
+            viewModel.MerchantApp.Email = XCLNetTools.StringHander.FormHelper.GetString("txtEmail");
+            viewModel.MerchantApp.CopyRight = XCLNetTools.StringHander.FormHelper.GetString("txtCopyRight");
+            viewModel.MerchantApp.MetaDescription = XCLNetTools.StringHander.FormHelper.GetString("txtMetaDescription");
+            viewModel.MerchantApp.MetaKeyWords = XCLNetTools.StringHander.FormHelper.GetString("txtMetaKeyWords");
+            viewModel.MerchantApp.MetaTitle = XCLNetTools.StringHander.FormHelper.GetString("txtMetaTitle");
+            viewModel.MerchantApp.WebURL = XCLNetTools.StringHander.FormHelper.GetString("txtWebURL");
             return viewModel;
         }
 
@@ -112,6 +119,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.UpdaterID = model.CreaterID;
             model.UpdaterName = model.CreaterName;
             model.UpdateTime = model.CreateTime;
+            model.ResourceVersion = viewModel.MerchantApp.ResourceVersion;
+            model.Email = viewModel.MerchantApp.Email;
+            model.CopyRight = viewModel.MerchantApp.CopyRight;
+            model.MetaDescription = viewModel.MerchantApp.MetaDescription;
+            model.MetaKeyWords = viewModel.MerchantApp.MetaKeyWords;
+            model.MetaTitle = viewModel.MerchantApp.MetaTitle;
+            model.WebURL = viewModel.MerchantApp.WebURL;
 
             if (merchantAppBLL.Add(model))
             {
@@ -146,6 +160,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.UpdaterID = model.CreaterID;
             model.UpdaterName = model.CreaterName;
             model.UpdateTime = model.CreateTime;
+            model.ResourceVersion = viewModel.MerchantApp.ResourceVersion;
+            model.Email = viewModel.MerchantApp.Email;
+            model.CopyRight = viewModel.MerchantApp.CopyRight;
+            model.MetaDescription = viewModel.MerchantApp.MetaDescription;
+            model.MetaKeyWords = viewModel.MerchantApp.MetaKeyWords;
+            model.MetaTitle = viewModel.MerchantApp.MetaTitle;
+            model.WebURL = viewModel.MerchantApp.WebURL;
 
             if (merchantAppBLL.Update(model))
             {

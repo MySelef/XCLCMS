@@ -16,8 +16,8 @@
         public const string SysAdminUserName = "admin";
 
         /// <summary>
-        /// 系统内置商户名
+        /// 系统内置商户ID
         /// </summary>
-        public const string SysMerchantName = "系统内置商户";
+        public const long SysMerchantID = 600104;
     }
 }

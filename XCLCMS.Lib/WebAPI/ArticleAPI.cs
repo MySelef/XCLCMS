@@ -5,7 +5,7 @@ namespace XCLCMS.Lib.WebAPI
     /// <summary>
     /// 文章API
     /// </summary>
-    public class ArticleAPI
+    public static class ArticleAPI
     {
         /// <summary>
         /// 是否存在Code

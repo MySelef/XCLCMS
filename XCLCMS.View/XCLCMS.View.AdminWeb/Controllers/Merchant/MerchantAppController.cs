@@ -40,9 +40,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
             #endregion 初始化查询条件
 
-            XCLCMS.Data.BLL.View.v_MerchantApp bll = new Data.BLL.View.v_MerchantApp();
-            viewModel.MerchantAppList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[MerchantAppID]", "[MerchantAppID] desc");
-            viewModel.PagerModel = base.PageParamsInfo;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.PageListConditionEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.PageListConditionEntity()
+            {
+                PagerInfoSimple = base.PageParamsInfo.ToPagerInfoSimple(),
+                Where = strWhere
+            };
+            var response = XCLCMS.Lib.WebAPI.MerchantAppAPI.PageList(request).Body;
+            viewModel.MerchantAppList = response.ResultList;
+            viewModel.PagerModel = response.PagerInfo;
 
             return View("~/Views/Merchant/MerchantAppList.cshtml", viewModel);
         }
@@ -68,7 +74,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
-                    viewModel.MerchantApp = merchantAppBLL.GetModel(merchantAppId);
+                    var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
+                    request.Body = merchantAppId;
+                    var response = XCLCMS.Lib.WebAPI.MerchantAppAPI.Detail(request);
+
+                    viewModel.MerchantApp = response.Body;
                     viewModel.FormAction = Url.Action("UpdateSubmit", "MerchantApp");
                     break;
             }
@@ -107,7 +117,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             var viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new Data.BLL.MerchantApp();
             XCLCMS.Data.Model.MerchantApp model = new XCLCMS.Data.Model.MerchantApp();
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             model.MerchantAppID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.MEP);
             model.FK_MerchantID = viewModel.MerchantApp.FK_MerchantID;
             model.MerchantAppName = viewModel.MerchantApp.MerchantAppName;
@@ -127,18 +136,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.MetaTitle = viewModel.MerchantApp.MetaTitle;
             model.WebURL = viewModel.MerchantApp.WebURL;
 
-            if (merchantAppBLL.Add(model))
-            {
-                msgModel.Message = "添加成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = "添加失败！";
-                msgModel.IsSuccess = false;
-            }
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.MerchantApp>(base.UserToken);
+            request.Body = model;
+            var response = XCLCMS.Lib.WebAPI.MerchantAppAPI.Add(request);
 
-            return Json(msgModel);
+            return Json(response);
         }
 
         /// <summary>
@@ -152,7 +154,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             long merchantAppId = XCLNetTools.StringHander.FormHelper.GetLong("merchantAppId");
             var viewModel = this.GetViewModel(fm);
             var merchantAppBLL = new Data.BLL.MerchantApp();
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             var model = merchantAppBLL.GetModel(merchantAppId);
             model.FK_MerchantID = viewModel.MerchantApp.FK_MerchantID;
             model.MerchantAppName = viewModel.MerchantApp.MerchantAppName;
@@ -168,50 +169,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.MetaTitle = viewModel.MerchantApp.MetaTitle;
             model.WebURL = viewModel.MerchantApp.WebURL;
 
-            if (merchantAppBLL.Update(model))
-            {
-                msgModel.Message = "修改成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = "修改失败！";
-                msgModel.IsSuccess = false;
-            }
-            return Json(msgModel);
-        }
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.MerchantApp>(base.UserToken);
+            request.Body = model;
+            var response = XCLCMS.Lib.WebAPI.MerchantAppAPI.Update(request);
 
-        /// <summary>
-        /// 删除商户应用信息
-        /// </summary>
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAppDel)]
-        public override ActionResult DelSubmit(FormCollection fm)
-        {
-            base.DelSubmit(fm);
-            var merchantAppBLL = new Data.BLL.MerchantApp();
-            XCLCMS.Data.Model.MerchantApp merchantAppModel = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            long[] merchantAppIds = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("merchantAppIds").Split(','));
-            if (null != merchantAppIds && merchantAppIds.Length > 0)
-            {
-                for (int i = 0; i < merchantAppIds.Length; i++)
-                {
-                    merchantAppModel = merchantAppBLL.GetModel(merchantAppIds[i]);
-                    if (null != merchantAppModel)
-                    {
-                        merchantAppModel.UpdaterID = base.CurrentUserModel.UserInfoID;
-                        merchantAppModel.UpdaterName = base.CurrentUserModel.UserName;
-                        merchantAppModel.UpdateTime = DateTime.Now;
-                        merchantAppModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
-                        merchantAppBLL.Update(merchantAppModel);
-                    }
-                }
-            }
-            msgModel.IsSuccess = true;
-            msgModel.IsRefresh = true;
-            msgModel.Message = "删除成功！";
-            return Json(msgModel);
+            return Json(response);
         }
     }
 }

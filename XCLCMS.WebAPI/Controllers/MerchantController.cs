@@ -5,7 +5,7 @@ using System.Linq;
 using System.Transactions;
 using System.Web.Http;
 using XCLCMS.Data.WebAPIEntity;
-using XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant;
+using XCLCMS.Data.WebAPIEntity.RequestEntity;
 using XCLNetTools.Generic;
 
 namespace XCLCMS.WebAPI.Controllers
@@ -24,7 +24,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView)]
-        public APIResponseEntity<XCLCMS.Data.Model.Merchant> MerchantDetail([FromUri] string json)
+        public APIResponseEntity<XCLCMS.Data.Model.Merchant> Detail([FromUri] string json)
         {
             var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<XCLCMS.Data.Model.Merchant>();
@@ -38,13 +38,13 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView)]
-        public APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.Merchant.MerchantPageListResponseEntity> MerchantPageList([FromUri] string json)
+        public APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Merchant>> PageList([FromUri] string json)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<MerchantPageListConditionEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<PageListConditionEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var pager = request.Body.PagerInfoSimple.ToPagerInfo();
-            var response = new APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.Merchant.MerchantPageListResponseEntity>();
-            response.Body = new Data.WebAPIEntity.ResponseEntity.Merchant.MerchantPageListResponseEntity();
-            response.Body.MerchantList = vMerchantBLL.GetPageList(pager, request.Body.Where, "", "[MerchantID]", "[MerchantID] desc");
+            var response = new APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Merchant>>();
+            response.Body = new Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<Data.Model.View.v_Merchant>();
+            response.Body.ResultList = vMerchantBLL.GetPageList(pager, request.Body.Where, "", "[MerchantID]", "[MerchantID] desc");
             response.Body.PagerInfo = pager;
             response.IsSuccess = true;
             return response;
@@ -94,7 +94,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAdd)]
-        public APIResponseEntity<bool> MerchantAdd(JObject obj)
+        public APIResponseEntity<bool> Add(JObject obj)
         {
             var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.Merchant>>();
             var response = new APIResponseEntity<bool>();
@@ -136,7 +136,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantEdit)]
-        public APIResponseEntity<bool> MerchantUpdate(JObject obj)
+        public APIResponseEntity<bool> Update(JObject obj)
         {
             var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.Merchant>>();
             var response = new APIResponseEntity<bool>();
@@ -201,7 +201,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantDel)]
-        public APIResponseEntity<bool> MerchantDelete(JObject obj)
+        public APIResponseEntity<bool> Delete(JObject obj)
         {
             var request = obj.ToObject<APIRequestEntity<List<long>>>();
             var response = new APIResponseEntity<bool>();
@@ -224,35 +224,44 @@ namespace XCLCMS.WebAPI.Controllers
                 {
                     //删除商户基础信息
                     var merchantModel = merchantBLL.GetModel(k);
-                    if (null != merchantModel)
+                    if (null == merchantModel)
                     {
-                        merchantModel.UpdaterID = base.CurrentUserModel.UserInfoID;
-                        merchantModel.UpdaterName = base.CurrentUserModel.UserName;
-                        merchantModel.UpdateTime = DateTime.Now;
-                        merchantModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
-                        merchantModel.MerchantState = XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum.N.ToString();
-                        if (!merchantBLL.Update(merchantModel))
+                        continue;
+                    }
+
+                    if (merchantModel.MerchantID == XCLCMS.Data.CommonHelper.SystemDataConst.SysMerchantID)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = string.Format("不可以删除系统内置商户【{0}】！", merchantModel.MerchantName);
+                        return response;
+                    }
+
+                    merchantModel.UpdaterID = base.CurrentUserModel.UserInfoID;
+                    merchantModel.UpdaterName = base.CurrentUserModel.UserName;
+                    merchantModel.UpdateTime = DateTime.Now;
+                    merchantModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
+                    merchantModel.MerchantState = XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum.N.ToString();
+                    if (!merchantBLL.Update(merchantModel))
+                    {
+                        response.IsSuccess = false;
+                        response.Message = "删除失败！";
+                        return response;
+                    }
+                    //删除商户应用信息
+                    var merchantAppModelList = this.merchantAppBLL.GetModelList(merchantModel.MerchantID);
+                    if (merchantAppModelList.IsNotNullOrEmpty())
+                    {
+                        foreach (var app in merchantAppModelList)
                         {
-                            response.IsSuccess = false;
-                            response.Message = "删除失败！";
-                            return response;
-                        }
-                        //删除商户应用信息
-                        var merchantAppModelList = this.merchantAppBLL.GetModelList(merchantModel.MerchantID);
-                        if (merchantAppModelList.IsNotNullOrEmpty())
-                        {
-                            foreach (var app in merchantAppModelList)
+                            app.UpdaterID = base.CurrentUserModel.UserInfoID;
+                            app.UpdaterName = base.CurrentUserModel.UserName;
+                            app.UpdateTime = DateTime.Now;
+                            app.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
+                            if (!this.merchantAppBLL.Update(app))
                             {
-                                app.UpdaterID = base.CurrentUserModel.UserInfoID;
-                                app.UpdaterName = base.CurrentUserModel.UserName;
-                                app.UpdateTime = DateTime.Now;
-                                app.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
-                                if (!this.merchantAppBLL.Update(app))
-                                {
-                                    response.IsSuccess = false;
-                                    response.Message = "删除失败！";
-                                    return response;
-                                }
+                                response.IsSuccess = false;
+                                response.Message = "删除失败！";
+                                return response;
                             }
                         }
                     }

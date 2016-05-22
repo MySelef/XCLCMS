@@ -53,14 +53,14 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
             #endregion 初始化查询条件
 
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.MerchantPageListConditionEntity>(base.UserToken);
-            request.Body = new Data.WebAPIEntity.RequestEntity.Merchant.MerchantPageListConditionEntity()
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.PageListConditionEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.PageListConditionEntity()
             {
                 PagerInfoSimple = base.PageParamsInfo.ToPagerInfoSimple(),
                 Where = strWhere
             };
-            var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantPageList(request).Body;
-            viewModel.MerchantList = response.MerchantList;
+            var response = XCLCMS.Lib.WebAPI.MerchantAPI.PageList(request).Body;
+            viewModel.MerchantList = response.ResultList;
             viewModel.PagerModel = response.PagerInfo;
 
             return View("~/Views/Merchant/MerchantList.cshtml", viewModel);
@@ -103,7 +103,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = merchantId;
-                    var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantDetail(request);
+                    var response = XCLCMS.Lib.WebAPI.MerchantAPI.Detail(request);
 
                     viewModel.Merchant = response.Body;
                     viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Entity.SetOptionEntity()
@@ -191,7 +191,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.Merchant>(base.UserToken);
             request.Body = model;
-            var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantAdd(request);
+            var response = XCLCMS.Lib.WebAPI.MerchantAPI.Add(request);
 
             return Json(response);
         }
@@ -231,7 +231,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.Merchant>(base.UserToken);
             request.Body = model;
-            var response = XCLCMS.Lib.WebAPI.MerchantAPI.MerchantUpdate(request);
+            var response = XCLCMS.Lib.WebAPI.MerchantAPI.Update(request);
 
             return Json(response);
         }

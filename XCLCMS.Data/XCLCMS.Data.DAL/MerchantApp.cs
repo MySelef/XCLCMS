@@ -144,6 +144,17 @@ namespace XCLCMS.Data.DAL
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.MerchantApp>(ds.Tables[0]) as List<XCLCMS.Data.Model.MerchantApp>;
         }
 
+        /// <summary>
+        /// 判断指定MerchantAppName是否存在
+        /// </summary>
+        public bool IsExistMerchantAppName(string merchantAppName)
+        {
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from MerchantApp where MerchantAppName=@MerchantAppName");
+            db.AddInParameter(dbCommand, "MerchantAppName", DbType.AnsiString, merchantAppName);
+            return db.ExecuteScalar(dbCommand) != null;
+        }
+
         #endregion Extend Method
     }
 }

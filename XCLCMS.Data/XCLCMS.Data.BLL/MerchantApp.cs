@@ -58,6 +58,14 @@ namespace XCLCMS.Data.BLL
             return dal.GetModelList(merchantID);
         }
 
+        /// <summary>
+        /// 判断指定MerchantAppName是否存在
+        /// </summary>
+        public bool IsExistMerchantAppName(string merchantAppName)
+        {
+            return dal.IsExistMerchantAppName(merchantAppName);
+        }
+
         #endregion Extend Method
     }
 }

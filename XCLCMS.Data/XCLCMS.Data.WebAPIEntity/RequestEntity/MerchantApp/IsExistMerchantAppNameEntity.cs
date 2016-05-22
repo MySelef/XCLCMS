@@ -5,16 +5,16 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant
+namespace XCLCMS.Data.WebAPIEntity.RequestEntity.MerchantApp
 {
     [Serializable]
     [DataContract]
-    public class MerchantPageListConditionEntity
+    public class IsExistMerchantAppNameEntity
     {
         [DataMember]
-        public XCLNetTools.Entity.PagerInfoSimple PagerInfoSimple { get; set; }
+        public string MerchantAppName { get; set; }
 
         [DataMember]
-        public string Where { get; set; }
+        public long MerchantAppID { get; set; }
     }
 }

@@ -23,7 +23,7 @@
         非常抱歉，您访问的页面出错啦！
     </div>
     <div style="text-align:center;padding:15px;">
-        如有疑问，请联系：@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_AdminEmail
+        如有疑问，请联系：@ViewBag.CurrentMerchantApp.Email
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <a href="@Url.Action("Index","Default")">回到首页</a>
     </div>
@@ -39,7 +39,7 @@
         详细错误信息：@Model.MessageMore
     </div>
     <div style="text-align:center;">
-        @Html.Raw(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_CopyRight)
+        @Html.Raw(ViewBag.CurrentMerchantApp.CopyRight)
     </div>
 </body>
 </html>

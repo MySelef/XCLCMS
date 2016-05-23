@@ -1,40 +1,31 @@
-﻿<title>@(string.IsNullOrEmpty(ViewBag.Title) ? XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaTitle : string.Format("{0}——{1}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaTitle, ViewBag.Title))</title>
-<meta name="keywords" content="@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaKeyWords" />
-<meta name="description" content="@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_MetaDescription" />
+﻿<title>@(ViewBag.Title)</title>
+<meta name="keywords" content="@ViewBag.KeyWords" />
+<meta name="description" content="@ViewBag.Description" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <script type="text/javascript">
     //全局配置
-    @if (null == ViewBag.PageGlobalConfigJSON) {
-        @:var XCLCMSPageGlobalConfig={
-                    @:RootURL:"@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)"
-                @:};
-        }
-    else
-    {
-        @:var XCLCMSPageGlobalConfig =@(Html.Raw(ViewBag.PageGlobalConfigJSON));
-            @:XCLCMSPageGlobalConfig.EnumConfig=@(Html.Raw(XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson));
-        }
+    @(Html.Raw(ViewBag.PageGlobalConfigJSON))
 </script>
-<link rel="icon" href="~/Resources/Images/logo/favicon.ico?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" />
-<script src="~/Resources/Js/json2.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<script src="~/Resources/Js/Jquery/jquery-1.11.2.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<link href="~/Resources/Js/EasyUI/themes/icon.css?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" rel="stylesheet" type="text/css" />
-<link href="~/Resources/Js/EasyUI/themes/default/easyui.css?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" rel="stylesheet" type="text/css" />
-<script src="~/Resources/Js/EasyUI/jquery.easyui.min.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<link href="~/Resources/Js/artDialog/skins/blue.css?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" rel="stylesheet" type="text/css" />
-<script src="~/Resources/Js/artDialog/artDialog.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<script src="~/Resources/Js/artDialog/plugins/iframeTools.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<script src="~/Resources/Js/artTemplate/template.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<script src="~/Resources/Js/validate/jquery.validate.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<script src="~/Resources/Js/validate/XCLValidatorMethod.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<script src="~/Resources/Js/WdatePicker/WdatePicker.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<link href="~/Resources/Css/base.css?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" rel="stylesheet" type="text/css" />
-<script src="~/Resources/Js/table.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<script src="~/Resources/Js/XGoAjax/XGoAjax.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<script src="~/Resources/Js/XGoAjax/XGoAjaxTemplate.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<script src="~/Resources/Js/dynamicCon.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
-<script src="~/Resources/Js/XJsTool.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" type="text/javascript"></script>
+<link rel="icon" href="~/Resources/Images/logo/favicon.ico?v=@(ViewBag.ResourceVersion)" />
+<script src="~/Resources/Js/json2.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/Jquery/jquery-1.11.2.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<link href="~/Resources/Js/EasyUI/themes/icon.css?v=@(ViewBag.ResourceVersion)" rel="stylesheet" type="text/css" />
+<link href="~/Resources/Js/EasyUI/themes/default/easyui.css?v=@(ViewBag.ResourceVersion)" rel="stylesheet" type="text/css" />
+<script src="~/Resources/Js/EasyUI/jquery.easyui.min.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<link href="~/Resources/Js/artDialog/skins/blue.css?v=@(ViewBag.ResourceVersion)" rel="stylesheet" type="text/css" />
+<script src="~/Resources/Js/artDialog/artDialog.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/artDialog/plugins/iframeTools.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/artTemplate/template.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/validate/jquery.validate.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/validate/XCLValidatorMethod.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/WdatePicker/WdatePicker.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<link href="~/Resources/Css/base.css?v=@(ViewBag.ResourceVersion)" rel="stylesheet" type="text/css" />
+<script src="~/Resources/Js/table.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/XGoAjax/XGoAjax.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/XGoAjax/XGoAjaxTemplate.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/dynamicCon.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
+<script src="~/Resources/Js/XJsTool.js?v=@(ViewBag.ResourceVersion)" type="text/javascript"></script>
 
-<script type="text/javascript" src="http://localhost/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)"></script>
+<script type="text/javascript" src="http://localhost/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js?v=@(ViewBag.ResourceVersion)"></script>

@@ -35,10 +35,10 @@ namespace XCLCMS.FileManager.Controllers
             //XCLCMS.View.AdminWeb.Common.PageGlobalConfig pageConfig = new AdminWeb.Common.PageGlobalConfig();
             //pageConfig.IsLogOn = ViewBag.CommonModel.IsLogOn;
             //pageConfig.ResourceURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceRootURL;
-            //pageConfig.RootURL = XCLCMS.View.AdminWeb.Common.WebCommon.RootURL;
+            //pageConfig.RootURL = XCLNetTools.StringHander.Common.RootUri;
             //pageConfig.UserID = ViewBag.CommonModel.CurrentUserModel.UserInfoID;
             //pageConfig.UserName = ViewBag.CommonModel.CurrentUserModel.UserName;
-            //pageConfig.ResourceVersion = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion;
+            //pageConfig.ResourceVersion = ViewBag.ResourceVersion;
             //pageConfig.FileManagerFileListURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_FileListURL;
             //pageConfig.EnumConfig = string.Empty;
             //ViewBag.PageGlobalConfigJSON = new JavaScriptSerializer().Serialize(pageConfig);

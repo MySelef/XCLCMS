@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XCLCMS.View.AdminWeb.Common
+namespace XCLCMS.Lib.Model
 {
     /// <summary>
     /// 页面全局配置（序列化为json）
@@ -32,11 +32,6 @@ namespace XCLCMS.View.AdminWeb.Common
         /// 站点根路径
         /// </summary>
         public string RootURL { get; set; }
-
-        /// <summary>
-        /// 静态资源版本号
-        /// </summary>
-        public string ResourceVersion { get; set; }
 
         /// <summary>
         /// 枚举json

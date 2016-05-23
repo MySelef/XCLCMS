@@ -17,13 +17,13 @@
         body {min-width:1000px;}
     </style>
     @RenderSection("CustomHeader", false)
-    <script type="text/javascript" src="~/Resources/Js/App/config.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)"></script>
-    <script data-main="main.js" type="text/javascript" src="~/Resources/Js/App/require.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)"></script>
+    <script type="text/javascript" src="~/Resources/Js/App/config.js?v=@(ViewBag.ResourceVersion)"></script>
+    <script data-main="main.js" type="text/javascript" src="~/Resources/Js/App/require.js?v=@(ViewBag.ResourceVersion)"></script>
 </head>
 <body class="easyui-layout">
     <div data-options="region:'center',border:false">
         <div class="easyui-panel" style="height:50px;overflow:hidden;border:0px;">
-            <span style="font-size:25px;font-weight:bolder;line-height:50px;padding-left:10px;">@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebName)后台管理</span>
+            <span style="font-size:25px;font-weight:bolder;line-height:50px;padding-left:10px;">@(ViewBag.CurrentMerchantApp.MerchantAppName)后台管理</span>
         </div>
         <div class="XCLPanel" style="border-bottom:none;">
             <div class="XCLPanelHeader">
@@ -52,7 +52,7 @@
                                         foreach(var child in childMenu)
                                         {
                                             var linkUrl=(child.DicValue??"").Trim();
-                                            linkUrl=linkUrl.Replace("~/",XCLCMS.View.AdminWeb.Common.WebCommon.RootURL);
+                                            linkUrl=linkUrl.Replace("~/",XCLNetTools.StringHander.Common.RootUri);
                                             if(string.IsNullOrEmpty(linkUrl))
                                             {
                                                 linkUrl = "javascript:void(0);";
@@ -78,8 +78,8 @@
     </div>
 
     <div data-options="region:'south'" style="height: 30px;text-align:center;padding-top:5px;">
-        如有疑问，请<a href="mailto:@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_AdminEmail">联系我们</a>
-        @Html.Raw(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_CopyRight)
+        如有疑问，请<a href="mailto:@ViewBag.CurrentMerchantApp.Email">联系我们</a>
+        @Html.Raw(ViewBag.CurrentMerchantApp.CopyRight)
         @Html.Partial("~/Views/MasterView/Footer.cshtml")
     </div>
 

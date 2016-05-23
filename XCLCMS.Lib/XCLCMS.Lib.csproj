@@ -125,6 +125,7 @@
     <Compile Include="Login\LoginHelper.cs" />
     <Compile Include="Login\UserLoginInfoModel.cs" />
     <Compile Include="Model\CommonModel.cs" />
+    <Compile Include="Model\PageGlobalConfig.cs" />
     <Compile Include="Permission\Function.cs" />
     <Compile Include="Permission\PerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

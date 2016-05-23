@@ -6,7 +6,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
     /// <summary>
     /// 登录controller
     /// </summary>
-    public class LoginController : Controller
+    public class LoginController : XCLCMS.Lib.Base.AdminBaseController
     {
         /// <summary>
         /// 验证码所在session名

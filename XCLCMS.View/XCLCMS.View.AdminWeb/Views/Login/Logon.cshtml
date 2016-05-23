@@ -2,9 +2,9 @@
 <html lang="zh-cn">
 <head>
     @Html.Partial("~/Views/MasterView/Header.cshtml")
-    <link href="~/Resources/Css/login.css?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="~/Resources/Js/App/config.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)"></script>
-    <script data-main="main.js" type="text/javascript" src="~/Resources/Js/App/require.js?v=@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_ResourceVersion)"></script>
+    <link href="~/Resources/Css/login.css?v=@(ViewBag.ResourceVersion)" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="~/Resources/Js/App/config.js?v=@(ViewBag.ResourceVersion)"></script>
+    <script data-main="main.js" type="text/javascript" src="~/Resources/Js/App/require.js?v=@(ViewBag.ResourceVersion)"></script>
 </head>
 <body>
     <div class="login-welcome">
@@ -48,7 +48,7 @@
                                     </td>
                                     <td>
                                         <span>
-                                            <img src="@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)Login/GenerateValidCode" alt="单击进行更换图片！" title="单击进行更换图片！" onclick="this.src='@(XCLCMS.View.AdminWeb.Common.WebCommon.RootURL)Login/GenerateValidCode'+'?'+Math.random();return false;" style="width:66px;height:29px;" />
+                                            <img src="@(XCLNetTools.StringHander.Common.RootUri)Login/GenerateValidCode" alt="单击进行更换图片！" title="单击进行更换图片！" onclick="this.src='@(XCLNetTools.StringHander.Common.RootUri)Login/GenerateValidCode'+'?'+Math.random();return false;" style="width:66px;height:29px;" />
                                         </span>
                                         <input type="text" id="txtValidCode" name="txtValidCode" style="width:70px;" />
                                     </td>

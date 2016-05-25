@@ -1,7 +1,9 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 
 
 CREATE PROCEDURE [dbo].[sp_SysWebSetting_ADD]
@@ -9,6 +11,8 @@ CREATE PROCEDURE [dbo].[sp_SysWebSetting_ADD]
 @KeyName varchar(100),
 @KeyValue varchar(2000),
 @Remark varchar(1000),
+@FK_MerchantID bigint,
+@FK_MerchantAppID bigint,
 @RecordState char(1),
 @CreateTime datetime,
 @CreaterID bigint,
@@ -25,17 +29,19 @@ BEGIN
  
 	BEGIN TRY
 		INSERT INTO [SysWebSetting](
-		[SysWebSettingID],[KeyName],[KeyValue],[Remark],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
+		[SysWebSettingID],[KeyName],[KeyValue],[Remark],[FK_MerchantID],[FK_MerchantAppID],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
 		)VALUES(
-		@SysWebSettingID,@KeyName,@KeyValue,@Remark,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
+		@SysWebSettingID,@KeyName,@KeyValue,@Remark,@FK_MerchantID,@FK_MerchantAppID,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
 		)
+
 		SET @ResultCode=1
 	END TRY 
 	BEGIN CATCH
-		set @ResultMessage= ERROR_MESSAGE() 
+		SET @ResultMessage= ERROR_MESSAGE() 
 		SET @ResultCode=0
 	END CATCH 
 
 END
+
 
 GO

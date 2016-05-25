@@ -1,10 +1,13 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
 
 
+
 CREATE PROCEDURE [dbo].[sp_SysLog_ADD]
+@SysLogID bigint output,
 @LogLevel varchar(50),
 @LogType varchar(50),
 @RefferUrl varchar(1000),
@@ -14,14 +17,18 @@ CREATE PROCEDURE [dbo].[sp_SysLog_ADD]
 @Contents varchar(4000),
 @ClientIP varchar(50),
 @Remark varchar(2000),
-@CreateTime DATETIME
+@FK_MerchantID bigint,
+@FK_MerchantAppID bigint,
+@CreateTime datetime
 
  AS 
  
 	INSERT INTO [SysLog](
-	[LogLevel],[LogType],[RefferUrl],[Url],[Code],[Title],[Contents],[ClientIP],[Remark],[CreateTime]
+	[LogLevel],[LogType],[RefferUrl],[Url],[Code],[Title],[Contents],[ClientIP],[Remark],[FK_MerchantID],[FK_MerchantAppID],[CreateTime]
 	)VALUES(
-	@LogLevel,@LogType,@RefferUrl,@Url,@Code,@Title,@Contents,@ClientIP,@Remark,@CreateTime
+	@LogLevel,@LogType,@RefferUrl,@Url,@Code,@Title,@Contents,@ClientIP,@Remark,@FK_MerchantID,@FK_MerchantAppID,@CreateTime
 	)
+	SET @SysLogID = @@IDENTITY
+
 
 GO

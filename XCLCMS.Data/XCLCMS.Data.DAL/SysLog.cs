@@ -52,7 +52,7 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         /// <param name="startTime">开始时间</param>
         /// <param name="endTime">结束时间</param>
-        public void ClearListByDateTime(DateTime? startTime, DateTime? endTime)
+        public bool ClearListByDateTime(DateTime? startTime, DateTime? endTime)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(" DELETE FROM dbo.SysLog WHERE 1=1 ");
@@ -71,7 +71,7 @@ namespace XCLCMS.Data.DAL
                 db.AddInParameter(dbCommand, "EndTime", DbType.DateTime, (DateTime)endTime);
             }
 
-            db.ExecuteNonQuery(dbCommand);
+            return db.ExecuteNonQuery(dbCommand) > 0;
         }
 
         #endregion MethodEx

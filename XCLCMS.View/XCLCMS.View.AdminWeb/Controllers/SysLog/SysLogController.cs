@@ -39,9 +39,16 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysLog
 
             #endregion 初始化查询条件
 
-            XCLCMS.Data.BLL.SysLog bll = new Data.BLL.SysLog();
-            viewModel.SysLogList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[SysLogID]", "[CreateTime] desc");
-            viewModel.PagerModel = base.PageParamsInfo;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.PageListConditionEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.PageListConditionEntity()
+            {
+                PagerInfoSimple = base.PageParamsInfo.ToPagerInfoSimple(),
+                Where = strWhere
+            };
+            var response = XCLCMS.Lib.WebAPI.SysLogAPI.PageList(request).Body;
+
+            viewModel.SysLogList = response.ResultList;
+            viewModel.PagerModel = response.PagerInfo;
 
             viewModel.ClearLogDateTypeList = XCLNetTools.Enum.EnumHelper.GetEnumFieldModelList(typeof(XCLNetTools.Enum.CommonEnum.BeforeDateTypeEnum));
 
@@ -57,15 +64,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysLog
         {
             XCLNetTools.Enum.CommonEnum.BeforeDateTypeEnum dateType = XCLNetTools.Enum.CommonEnum.BeforeDateTypeEnum.SevenDay;
             Enum.TryParse<XCLNetTools.Enum.CommonEnum.BeforeDateTypeEnum>(XCLNetTools.StringHander.FormHelper.GetString("dateType"), out dateType);
-            DateTime endTime = XCLNetTools.StringHander.DateHelper.GetBeforeDateTypeDateTime(dateType);
-            XCLCMS.Data.BLL.SysLog bll = new Data.BLL.SysLog();
-            bll.ClearListByDateTime(null, endTime);
 
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            msgModel.IsSuccess = true;
-            msgModel.IsRefresh = true;
-            msgModel.Message = "删除成功！";
-            return Json(msgModel);
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.SysLog.ClearConditionEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.SysLog.ClearConditionEntity()
+            {
+                EndTime = XCLNetTools.StringHander.DateHelper.GetBeforeDateTypeDateTime(dateType)
+            };
+            var response = XCLCMS.Lib.WebAPI.SysLogAPI.Delete(request);
+
+            return Json(response);
         }
     }
 }

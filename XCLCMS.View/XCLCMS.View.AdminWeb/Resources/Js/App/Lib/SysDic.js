@@ -197,10 +197,12 @@
             var _this = this;
             var ids = _this.GetSelectedIds();
             art.dialog.confirm("您确定要删除此信息吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = ids;
                 $.XGoAjax({
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "SysDic/DelSubmit",
-                        data: { SysDicIds: ids.join(',') },
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/Delete",
+                        data: request,
                         type: "POST"
                     },
                     postSuccess: function () {
@@ -218,10 +220,13 @@
             var _this = this;
             var ids = _this.GetSelectedIds();
             art.dialog.confirm("您确定要清空此节点的所有子节点吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = ids[0];
+
                 $.XGoAjax({
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "SysDic/DelChildSubmit",
-                        data: { sysDicID: ids[0] },
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/DelChild",
+                        data: request,
                         type: "POST"
                     },
                     postSuccess: function () {

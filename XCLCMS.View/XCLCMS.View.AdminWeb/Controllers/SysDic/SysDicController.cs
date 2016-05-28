@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using XCLNetTools.Generic;
 
@@ -95,9 +94,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             base.AddSubmit(fm);
             XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM viewModel = this.GetViewModel(fm);
 
-            XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
             XCLCMS.Data.Model.SysDic sysDicModel = new Data.Model.SysDic();
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
 
             sysDicModel.Code = viewModel.SysDic.Code;
             sysDicModel.CreaterID = base.CurrentUserModel.UserInfoID;
@@ -118,18 +115,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             sysDicModel.FK_MerchantID = viewModel.SysDic.FK_MerchantID;
             sysDicModel.FK_MerchantAppID = viewModel.SysDic.FK_MerchantAppID;
 
-            if (sysDicBLL.Add(sysDicModel))
-            {
-                msgModel.Message = "添加成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = "添加失败！";
-                msgModel.IsSuccess = false;
-            }
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysDic>(base.UserToken);
+            request.Body = sysDicModel;
+            var response = XCLCMS.Lib.WebAPI.SysDicAPI.Add(request);
 
-            return Json(msgModel);
+            return Json(response);
         }
 
         [HttpPost]
@@ -140,7 +130,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM viewModel = this.GetViewModel(fm);
 
             XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             XCLCMS.Data.Model.SysDic sysDicModel = sysDicBLL.GetModel(viewModel.SysDicID);
             sysDicModel.Code = viewModel.SysDic.Code;
             sysDicModel.UpdaterID = base.CurrentUserModel.UserInfoID;
@@ -155,65 +144,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             sysDicModel.FK_MerchantID = viewModel.SysDic.FK_MerchantID;
             sysDicModel.FK_MerchantAppID = viewModel.SysDic.FK_MerchantAppID;
 
-            if (sysDicBLL.Update(sysDicModel))
-            {
-                msgModel.Message = "修改成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = "修改失败！";
-                msgModel.IsSuccess = false;
-            }
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysDic>(base.UserToken);
+            request.Body = sysDicModel;
+            var response = XCLCMS.Lib.WebAPI.SysDicAPI.Update(request);
 
-            return Json(msgModel);
-        }
-
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicDel)]
-        public override ActionResult DelSubmit(FormCollection fm)
-        {
-            base.DelSubmit(fm);
-            XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
-            XCLCMS.Data.Model.SysDic sysDicModel = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            long[] sysDicIds = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysDicIds").Split(','));
-            if (null != sysDicIds && sysDicIds.Length > 0)
-            {
-                for (int i = 0; i < sysDicIds.Length; i++)
-                {
-                    sysDicModel = sysDicBLL.GetModel(sysDicIds[i]);
-                    if (null != sysDicModel && !string.Equals(sysDicModel.DicType, XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.S.ToString()))
-                    {
-                        sysDicModel.UpdaterID = base.CurrentUserModel.UserInfoID;
-                        sysDicModel.UpdaterName = base.CurrentUserModel.UserName;
-                        sysDicModel.UpdateTime = DateTime.Now;
-                        sysDicModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString();
-                        sysDicBLL.Update(sysDicModel);
-                    }
-                }
-            }
-            msgModel.IsSuccess = true;
-            msgModel.Message = "删除成功！";
-            return Json(msgModel);
-        }
-
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicDel)]
-        public ActionResult DelChildSubmit(FormCollection fm)
-        {
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            XCLCMS.Data.BLL.SysDic bll = new Data.BLL.SysDic();
-            bll.DelChild(new Data.Model.SysDic()
-            {
-                SysDicID = XCLNetTools.StringHander.FormHelper.GetLong("sysDicID"),
-                UpdaterID = base.CurrentUserModel.UserInfoID,
-                UpdaterName = base.CurrentUserModel.UserName,
-                UpdateTime = DateTime.Now
-            });
-            msgModel.IsSuccess = true;
-            msgModel.Message = "子节点清理成功！";
-            return Json(msgModel);
+            return Json(response);
         }
     }
 }

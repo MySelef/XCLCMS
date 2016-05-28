@@ -71,7 +71,7 @@ namespace XCLCMS.Data.DAL
                 db.AddInParameter(dbCommand, "EndTime", DbType.DateTime, (DateTime)endTime);
             }
 
-            return db.ExecuteNonQuery(dbCommand) > 0;
+            return db.ExecuteNonQuery(dbCommand) >= 0;
         }
 
         #endregion MethodEx

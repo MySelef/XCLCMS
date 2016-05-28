@@ -20,18 +20,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
         }
 
         /// <summary>
-        /// 列表页中，ajax请求获取list
-        /// </summary>
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicView)]
-        public ActionResult GetList()
-        {
-            XCLCMS.Data.BLL.View.v_SysDic bll = new Data.BLL.View.v_SysDic();
-            long parentID = XCLNetTools.StringHander.FormHelper.GetLong("id");
-            List<XCLCMS.Data.Model.View.v_SysDic> lst = bll.GetList(parentID);
-            return XCLCMS.Lib.Common.Comm.XCLJsonResult(lst, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
         /// 添加或修改的页面
         /// </summary>
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicAdd)]

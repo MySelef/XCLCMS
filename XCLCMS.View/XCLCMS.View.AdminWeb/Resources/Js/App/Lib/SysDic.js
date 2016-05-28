@@ -44,13 +44,28 @@
             _this.TreeObj = $('#tableSysDicList');
             //加载列表树
             _this.TreeObj.treegrid({
-                url: XCLCMSPageGlobalConfig.RootURL + 'SysDic/GetList',
+                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysDic/GetList',
+                queryParams: {
+                    json: function () {
+                        var request = XCLCMSWebApi.CreateRequest();
+                        request.Body = 0;
+                        return JSON.stringify(request);
+                    }
+                },
+                onBeforeExpand: function (node) {
+                    _this.TreeObj.treegrid('options').queryParams.json = (function () {
+                        var request = XCLCMSWebApi.CreateRequest();
+                        request.Body = node.SysDicID;
+                        return JSON.stringify(request);
+                    })();
+                },
                 method: 'get',
                 idField: 'SysDicID',
                 treeField: 'DicName',
                 rownumbers: true,
                 loadFilter: function (data) {
                     if (data) {
+                        data = data.Body;
                         for (var i = 0; i < data.length; i++) {
                             data[i].state = (data[i].IsLeaf === 1) ? "" : "closed";
                         }

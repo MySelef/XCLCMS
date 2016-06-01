@@ -205,10 +205,12 @@
                         data: request,
                         type: "POST"
                     },
-                    postSuccess: function () {
-                        $.each(ids, function (idx, n) {
-                            _this.TreeObj.treegrid("remove", n);
-                        });
+                    postSuccess: function (ops,data) {
+                        if (data.IsSuccess) {
+                            $.each(ids, function (idx, n) {
+                                _this.TreeObj.treegrid("remove", n);
+                            });
+                        }
                     }
                 });
             }, function () { });

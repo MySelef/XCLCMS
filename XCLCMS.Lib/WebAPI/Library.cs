@@ -43,7 +43,11 @@ namespace XCLCMS.Lib.WebAPI
                 }
                 httpRequest.Headers.Add(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName, request.UserToken);
                 httpRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                response = httpClient.SendAsync(httpRequest).Result.Content.ReadAsAsync<APIResponseEntity<TResponse>>().Result;
+                var res = httpClient.SendAsync(httpRequest).Result.Content.ReadAsStringAsync().Result;
+                if (!string.IsNullOrEmpty(res))
+                {
+                    response = Newtonsoft.Json.JsonConvert.DeserializeObject<APIResponseEntity<TResponse>>(res);
+                }
             }
             catch (Exception ex)
             {

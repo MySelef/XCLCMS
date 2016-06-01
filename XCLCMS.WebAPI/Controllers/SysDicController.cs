@@ -131,8 +131,7 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //只能修改属于自己的商户节点
-            var parentNodeModel = this.sysDicBLL.GetModel(model.FK_MerchantID);
-            if (null == parentNodeModel || parentNodeModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            if (model.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
             {
                 response.IsSuccess = false;
                 response.Message = string.Format("只能修改属于自己的商户节点！");
@@ -188,6 +187,18 @@ namespace XCLCMS.WebAPI.Controllers
 
             request.Body = request.Body.Distinct().ToList();
 
+            //只能删除自己商户的节点
+            if (request.Body.Exists(id =>
+            {
+                var sysDicModel = sysDicBLL.GetModel(id);
+                return null != sysDicModel && sysDicModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID;
+            }))
+            {
+                response.IsSuccess = false;
+                response.Message = "只能删除属于自己的商户节点！";
+                return response;
+            }
+
             int successCount = 0;
 
             request.Body.ForEach(id =>
@@ -226,6 +237,14 @@ namespace XCLCMS.WebAPI.Controllers
             {
                 response.IsSuccess = false;
                 response.Message = "请指定要删除所有子节点的字典ID！";
+                return response;
+            }
+
+            var sysDicModel = sysDicBLL.GetModel(request.Body);
+            if (null != sysDicModel && sysDicModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.IsSuccess = false;
+                response.Message = "只能删除属于自己的商户节点！";
                 return response;
             }
 

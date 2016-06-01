@@ -17,7 +17,7 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
-        /// 删除商户应用信息
+        /// 删除日志信息
         /// </summary>
         public static APIResponseEntity<bool> Delete(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysLog.ClearConditionEntity> request)
         {

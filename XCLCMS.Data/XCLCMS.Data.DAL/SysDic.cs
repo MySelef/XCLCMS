@@ -83,8 +83,8 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool DelChild(XCLCMS.Data.Model.SysDic model)
         {
-            string strSql = string.Format("update SysDic set RecordState='{0}',UpdateTime=@UpdateTime,UpdaterID=@UpdaterID,UpdaterName=@UpdaterName where ParentID=@SysDicID and RecordState='{1}' and DicType<>'{2}'",
-                                    XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString(), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(), XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.S.ToString());
+            string strSql = string.Format("update SysDic set RecordState='{0}',UpdateTime=@UpdateTime,UpdaterID=@UpdaterID,UpdaterName=@UpdaterName where ParentID=@SysDicID and RecordState='{1}'",
+                                    XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString(), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString());
 
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
@@ -145,7 +145,6 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("sp_SysDic_ADD");
             db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, model.SysDicID);
             db.AddInParameter(dbCommand, "Code", DbType.AnsiString, model.Code);
-            db.AddInParameter(dbCommand, "DicType", DbType.AnsiString, model.DicType);
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.ParentID);
             db.AddInParameter(dbCommand, "DicName", DbType.AnsiString, model.DicName);
             db.AddInParameter(dbCommand, "DicValue", DbType.AnsiString, model.DicValue);
@@ -186,7 +185,6 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetStoredProcCommand("sp_SysDic_Update");
             db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, model.SysDicID);
             db.AddInParameter(dbCommand, "Code", DbType.AnsiString, model.Code);
-            db.AddInParameter(dbCommand, "DicType", DbType.AnsiString, model.DicType);
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, model.ParentID);
             db.AddInParameter(dbCommand, "DicName", DbType.AnsiString, model.DicName);
             db.AddInParameter(dbCommand, "DicValue", DbType.AnsiString, model.DicValue);

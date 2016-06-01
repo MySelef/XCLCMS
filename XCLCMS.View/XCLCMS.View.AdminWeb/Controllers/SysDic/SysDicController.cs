@@ -47,7 +47,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
                     viewModel.SysDic = new Data.Model.SysDic();
-                    viewModel.SysDic.DicType = XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.U.ToString();
                     viewModel.ParentID = sysDicId;
                     viewModel.SysDicID = -1;
                     viewModel.FormAction = Url.Action("AddSubmit", "SysDic");
@@ -77,7 +76,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             viewModel.ParentID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["ParentID"]);
             viewModel.SysDic.Code = (fm["txtCode"] ?? "").Trim();
             viewModel.SysDic.DicName = (fm["txtDicName"] ?? "").Trim();
-            viewModel.SysDic.DicType = (fm["selDicType"] ?? "").Trim();
             viewModel.SysDic.DicValue = (fm["txtDicValue"] ?? "").Trim();
             viewModel.SysDic.Sort = XCLNetTools.Common.DataTypeConvert.ToInt(fm["txtSort"] ?? "");
             viewModel.SysDic.Remark = (fm["txtRemark"] ?? "").Trim();
@@ -104,7 +102,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             sysDicModel.UpdaterName = base.CurrentUserModel.UserName;
             sysDicModel.UpdateTime = DateTime.Now;
             sysDicModel.DicName = viewModel.SysDic.DicName;
-            sysDicModel.DicType = viewModel.SysDic.DicType;
             sysDicModel.DicValue = viewModel.SysDic.DicValue;
             sysDicModel.ParentID = viewModel.ParentID;
             sysDicModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
@@ -136,7 +133,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             sysDicModel.UpdaterName = base.CurrentUserModel.UserName;
             sysDicModel.UpdateTime = DateTime.Now;
             sysDicModel.DicName = viewModel.SysDic.DicName;
-            sysDicModel.DicType = viewModel.SysDic.DicType;
             sysDicModel.DicValue = viewModel.SysDic.DicValue;
             sysDicModel.Sort = viewModel.SysDic.Sort;
             sysDicModel.Remark = viewModel.SysDic.Remark;

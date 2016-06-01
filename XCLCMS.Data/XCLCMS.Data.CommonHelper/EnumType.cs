@@ -290,28 +290,6 @@ namespace XCLCMS.Data.CommonHelper
 
         #endregion 建议反馈
 
-        #region 字典库
-
-        /// <summary>
-        /// 字典类型
-        /// </summary>
-        public enum DicTypeEnum
-        {
-            /// <summary>
-            /// 系统级 System
-            /// </summary>
-            [Description("系统级")]
-            S,
-
-            /// <summary>
-            /// 用户级 User
-            /// </summary>
-            [Description("用户级")]
-            U
-        }
-
-        #endregion 字典库
-
         #region 用户
 
         /// <summary>

@@ -142,7 +142,6 @@ namespace XCLCMS.WebAPI.Controllers
 
             model.Code = request.Body.Code;
             model.DicName = request.Body.DicName;
-            model.DicType = request.Body.DicType;
             model.DicValue = request.Body.DicValue;
             model.FK_FunctionID = request.Body.FK_FunctionID;
             model.FK_MerchantAppID = request.Body.FK_MerchantAppID;
@@ -204,7 +203,7 @@ namespace XCLCMS.WebAPI.Controllers
             request.Body.ForEach(id =>
             {
                 var sysDicModel = sysDicBLL.GetModel(id);
-                if (null != sysDicModel && !string.Equals(sysDicModel.DicType, XCLCMS.Data.CommonHelper.EnumType.DicTypeEnum.S.ToString()))
+                if (null != sysDicModel)
                 {
                     sysDicModel.UpdaterID = base.CurrentUserModel.UserInfoID;
                     sysDicModel.UpdaterName = base.CurrentUserModel.UserName;

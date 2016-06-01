@@ -76,11 +76,10 @@
                     { field: 'SysDicID', title: 'ID', width: '5%' },
                     { field: 'ParentID', title: '父ID', width: '5%' },
                     { field: 'NodeLevel', title: '层级', width: '2%' },
-                    { field: 'MerchantName', title: '所属商户', width: '5%' },
+                    { field: 'MerchantName', title: '所属商户', width: '10%' },
                     { field: 'DicName', title: '字典名', width: '20%' },
                     { field: 'DicValue', title: '字典值', width: '7%' },
                     { field: 'Code', title: '唯一标识', width: '10%' },
-                    { field: 'DicType', title: '字典类型', formatter: easyUI.EnumToDescription, width: '5%' },
                     { field: 'Sort', title: '排序号', width: '5%' },
                     { field: 'FK_FunctionID', title: '所属功能ID', width: '5%' },
                     { field: 'RecordState', title: '记录状态', formatter: easyUI.EnumToDescription, width: '5%' },
@@ -104,10 +103,6 @@
                     if (row.IsLeaf == 1) {
                         //叶子节点隐藏部分菜单
                         _this.Elements.menu_SysDic_delSub.hide();
-                    }
-                    if (row.DicType == 'S') {
-                        //系统级字典库隐藏部分菜单
-                        _this.Elements.menu_SysDic_del.hide();
                     }
 
                     $(this).treegrid('select', row.SysDicID);
@@ -330,9 +325,6 @@
                                 }
                             }
                         }
-                    },
-                    selDicType: {
-                        required: true
                     }
                 }
             });

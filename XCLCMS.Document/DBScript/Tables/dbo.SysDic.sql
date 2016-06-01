@@ -2,7 +2,6 @@ CREATE TABLE [dbo].[SysDic]
 (
 [SysDicID] [bigint] NOT NULL,
 [Code] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL,
-[DicType] [char] (1) COLLATE Chinese_PRC_CI_AS NOT NULL,
 [ParentID] [bigint] NOT NULL,
 [DicName] [varchar] (200) COLLATE Chinese_PRC_CI_AS NULL,
 [DicValue] [varchar] (1000) COLLATE Chinese_PRC_CI_AS NULL,
@@ -46,8 +45,6 @@ GO
 EXEC sp_addextendedproperty N'MS_Description', '键', 'SCHEMA', N'dbo', 'TABLE', N'SysDic', 'COLUMN', N'DicName'
 GO
 
-EXEC sp_addextendedproperty N'MS_Description', '字典类型(DicTypeEnum)', 'SCHEMA', N'dbo', 'TABLE', N'SysDic', 'COLUMN', N'DicType'
-GO
 
 EXEC sp_addextendedproperty N'MS_Description', '值', 'SCHEMA', N'dbo', 'TABLE', N'SysDic', 'COLUMN', N'DicValue'
 GO

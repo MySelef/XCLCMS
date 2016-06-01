@@ -15,7 +15,6 @@ namespace XCLCMS.Data.Model.View
 
         private long? _sysdicid;
         private string _code;
-        private string _dictype;
         private long? _parentid;
         private string _dicname;
         private string _dicvalue;
@@ -53,14 +52,6 @@ namespace XCLCMS.Data.Model.View
             get { return _code; }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        public string DicType
-        {
-            set { _dictype = value; }
-            get { return _dictype; }
-        }
 
         /// <summary>
         ///

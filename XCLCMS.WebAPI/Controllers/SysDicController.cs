@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using XCLCMS.Data.WebAPIEntity;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.WebAPI.Controllers
 {
@@ -14,6 +15,80 @@ namespace XCLCMS.WebAPI.Controllers
     {
         private XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
         private XCLCMS.Data.BLL.View.v_SysDic vSysDicBLL = new Data.BLL.View.v_SysDic();
+
+        /// <summary>
+        /// 判断字典的唯一标识是否已经存在
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<bool> IsExistSysDicCode([FromUri] string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.IsExistSysDicCodeEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<bool>();
+            response.IsSuccess = true;
+            response.Message = "该字典标识可以使用！";
+
+            XCLCMS.Data.Model.SysDic model = null;
+            if (request.Body.SysDicID > 0)
+            {
+                model = this.sysDicBLL.GetModel(request.Body.SysDicID);
+                if (null != model)
+                {
+                    if (string.Equals(request.Body.Code, model.Code, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return response;
+                    }
+                }
+            }
+            if (!string.IsNullOrEmpty(request.Body.Code))
+            {
+                bool isExist = new XCLCMS.Data.BLL.SysDic().IsExistCode(request.Body.Code);
+                if (isExist)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "该字典标识已被占用！";
+                    return response;
+                }
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// 判断字典名，在同一级别中是否存在
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<bool> IsExistSysDicNameInSameLevel([FromUri] string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.IsExistSysDicNameInSameLevelEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<bool>();
+            response.IsSuccess = true;
+            response.Message = "该字典名可以使用！";
+
+            XCLCMS.Data.Model.SysDic model = null;
+
+            if (request.Body.SysDicID > 0)
+            {
+                model = this.sysDicBLL.GetModel(request.Body.SysDicID);
+                if (null != model)
+                {
+                    if (string.Equals(request.Body.SysDicName, model.DicName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return response;
+                    }
+                }
+            }
+
+            List<XCLCMS.Data.Model.SysDic> lst = this.sysDicBLL.GetChildListByID(request.Body.ParentID);
+            if (lst.IsNotNullOrEmpty())
+            {
+                if (lst.Exists(k => string.Equals(k.DicName, request.Body.SysDicName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    response.IsSuccess = false;
+                    response.Message = "该字典名在当前层级中已存在！";
+                    return response;
+                }
+            }
+            return response;
+        }
 
         /// <summary>
         /// 查询所有字典列表

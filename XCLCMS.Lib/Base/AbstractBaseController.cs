@@ -12,6 +12,9 @@ namespace XCLCMS.Lib.Base
         private XCLCMS.Data.Model.Custom.ContextModel _contextModel = null;
         private string _userToken = null;
         private XCLCMS.Data.Model.MerchantApp _currentMerchantApp = null;
+        private XCLCMS.Data.Model.Merchant _currentMerchant = null;
+
+        private XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
 
         #region 当前登录用户相关
 
@@ -94,6 +97,21 @@ namespace XCLCMS.Lib.Base
                     this._currentMerchantApp = XCLCMS.Lib.Common.Comm.CurrentMerchantApp;
                 }
                 return this._currentMerchantApp;
+            }
+        }
+
+        /// <summary>
+        /// 当前商户实体
+        /// </summary>
+        public XCLCMS.Data.Model.Merchant CurrentMerchant
+        {
+            get
+            {
+                if (null == this._currentMerchant)
+                {
+                    this._currentMerchant = this.merchantBLL.GetModel(this.CurrentMerchantApp.FK_MerchantID);
+                }
+                return this._currentMerchant;
             }
         }
 
@@ -201,6 +219,7 @@ namespace XCLCMS.Lib.Base
             ViewBag.UserID = this.UserID;
             ViewBag.ResourceVersion = this.CurrentMerchantApp.ResourceVersion;
             ViewBag.CurrentMerchantApp = this.CurrentMerchantApp;
+            ViewBag.CurrentMerchant = this.CurrentMerchant;
 
             //公共信息
             XCLCMS.Lib.Model.CommonModel commonModel = new XCLCMS.Lib.Model.CommonModel();

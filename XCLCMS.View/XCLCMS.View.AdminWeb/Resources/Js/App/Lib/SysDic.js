@@ -200,7 +200,7 @@
                         data: request,
                         type: "POST"
                     },
-                    postSuccess: function (ops,data) {
+                    postSuccess: function (ops, data) {
                         if (data.IsSuccess) {
                             $.each(ids, function (idx, n) {
                                 _this.TreeObj.treegrid("remove", n);
@@ -298,30 +298,34 @@
                 rules: {
                     txtDicName: {
                         required: true,
-                        XCLCustomRemote: {
-                            url: XCLCMSPageGlobalConfig.RootURL + "SysDicCommon/IsExistSysDicNameInSameLevel",
-                            data: {
-                                sysDicName: function () {
-                                    return $("#txtDicName").val();
-                                },
-                                parentID: function () {
-                                    return $("#ParentID").val();
-                                },
-                                SysDicID: function () {
-                                    return $("#SysDicID").val();
+                        XCLCustomRemote: function () {
+                            return {
+                                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/IsExistSysDicNameInSameLevel",
+                                data: {
+                                    "json": function () {
+                                        var request = XCLCMSWebApi.CreateRequest();
+                                        request.Body = {};
+                                        request.Body.SysDicName = $("#txtDicName").val();
+                                        request.Body.ParentID = $("#ParentID").val();
+                                        request.Body.SysDicID = $("#SysDicID").val();
+                                        return JSON.stringify(request);
+                                    }
                                 }
-                            }
+                            };
                         }
                     },
                     txtCode: {
-                        XCLCustomRemote: {
-                            url: XCLCMSPageGlobalConfig.RootURL + "SysDicCommon/IsExistSysDicCode",
-                            data: {
-                                code: function () {
-                                    return $("#txtCode").val();
-                                },
-                                SysDicID: function () {
-                                    return $("#SysDicID").val();
+                        XCLCustomRemote: function () {
+                            return {
+                                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/IsExistSysDicCode",
+                                data: {
+                                    "json": function () {
+                                        var request = XCLCMSWebApi.CreateRequest();
+                                        request.Body = {};
+                                        request.Body.Code = $("#txtCode").val();
+                                        request.Body.SysDicID = $("#SysDicID").val();
+                                        return JSON.stringify(request);
+                                    }
                                 }
                             }
                         }

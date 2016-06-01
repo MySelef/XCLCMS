@@ -55,6 +55,8 @@
     <Compile Include="RequestEntity\MerchantApp\IsExistMerchantAppNameEntity.cs" />
     <Compile Include="RequestEntity\Merchant\IsExistMerchantNameEntity.cs" />
     <Compile Include="RequestEntity\PageListConditionEntity.cs" />
+    <Compile Include="RequestEntity\SysDic\IsExistSysDicCodeEntity.cs" />
+    <Compile Include="RequestEntity\SysDic\IsExistSysDicNameInSameLevelEntity.cs" />
     <Compile Include="RequestEntity\SysLog\ClearConditionEntity.cs" />
     <Compile Include="ResponseEntity\PageListResponseEntity.cs" />
   </ItemGroup>

@@ -13,16 +13,18 @@
                 <tr>
                     <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>名称：</td>
                     <td style="width: 25%">
-                        <textarea id="txtKeyName" name="txtKeyName" >@Model.SysWebSetting.KeyName</textarea>
+                        <textarea id="txtKeyName" name="txtKeyName">@Model.SysWebSetting.KeyName</textarea>
                     </td>
                     <td class="XCLTitle" style="width: 10%">值：</td>
                     <td style="width: 25%">
-                        <textarea id="txtKeyValue" name="txtKeyValue" >@Model.SysWebSetting.KeyValue</textarea>
+                        <textarea id="txtKeyValue" name="txtKeyValue">@Model.SysWebSetting.KeyValue</textarea>
                     </td>
-                    <td class="XCLTitle" style="width: 10%"></td>
+                    <td class="XCLTitle" style="width: 10%">所属应用：</td>
                     <td style="width: 25%">
+                        <input type="text" name="txtMerchantAppID" value="@Model.SysWebSetting.FK_MerchantAppID" />
                     </td>
                 </tr>
+
                 <tr>
                     <td class="XCLTitle">备注：</td>
                     <td>
@@ -34,7 +36,8 @@
                         {
                             @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString())
                         }
-                        else {
+                        else
+                        {
                             @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.SysWebSetting.RecordState.ToString())
                         }
                     </td>

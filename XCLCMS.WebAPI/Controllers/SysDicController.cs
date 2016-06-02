@@ -13,6 +13,7 @@ namespace XCLCMS.WebAPI.Controllers
     /// </summary>
     public class SysDicController : BaseAPIController
     {
+        private XCLCMS.Data.BLL.MerchantApp merchartAppBLL = new Data.BLL.MerchantApp();
         private XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
         private XCLCMS.Data.BLL.View.v_SysDic vSysDicBLL = new Data.BLL.View.v_SysDic();
 
@@ -118,6 +119,7 @@ namespace XCLCMS.WebAPI.Controllers
 
             request.Body.DicName = (request.Body.DicName ?? "").Trim();
             request.Body.Code = (request.Body.Code ?? "").Trim();
+            request.Body.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
 
             //字典名必填
             if (string.IsNullOrEmpty(request.Body.DicName))
@@ -145,6 +147,24 @@ namespace XCLCMS.WebAPI.Controllers
                 response.IsSuccess = false;
                 response.Message = string.Format("只能在自己商户的节点下面添加子节点！");
                 return response;
+            }
+
+            //应用号与商户一致
+            if (request.Body.FK_MerchantAppID > 0)
+            {
+                var appModel = this.merchartAppBLL.GetModel(request.Body.FK_MerchantAppID);
+                if (null == appModel)
+                {
+                    response.IsSuccess = false;
+                    response.Message = string.Format("应用号【{0}】不存在！", request.Body.FK_MerchantAppID);
+                    return response;
+                }
+                if (appModel.FK_MerchantID != request.Body.FK_MerchantID)
+                {
+                    response.IsSuccess = false;
+                    response.Message = string.Format("应用号【{0}】不属于商户【{1}】！", request.Body.FK_MerchantAppID, request.Body.FK_MerchantID);
+                    return response;
+                }
             }
 
             #endregion 数据校验
@@ -211,6 +231,24 @@ namespace XCLCMS.WebAPI.Controllers
                 response.IsSuccess = false;
                 response.Message = string.Format("只能修改属于自己的商户节点！");
                 return response;
+            }
+
+            //应用号与商户一致
+            if (request.Body.FK_MerchantAppID > 0)
+            {
+                var appModel = this.merchartAppBLL.GetModel(request.Body.FK_MerchantAppID);
+                if (null == appModel)
+                {
+                    response.IsSuccess = false;
+                    response.Message = string.Format("应用号【{0}】不存在！", request.Body.FK_MerchantAppID);
+                    return response;
+                }
+                if (appModel.FK_MerchantID != request.Body.FK_MerchantID)
+                {
+                    response.IsSuccess = false;
+                    response.Message = string.Format("应用号【{0}】不属于商户【{1}】！", request.Body.FK_MerchantAppID, request.Body.FK_MerchantID);
+                    return response;
+                }
             }
 
             #endregion 数据校验

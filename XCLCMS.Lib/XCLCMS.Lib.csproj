@@ -137,6 +137,7 @@
     <Compile Include="WebAPI\MerchantAppAPI.cs" />
     <Compile Include="WebAPI\SysDicAPI.cs" />
     <Compile Include="WebAPI\SysLogAPI.cs" />
+    <Compile Include="WebAPI\SysWebSettingAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

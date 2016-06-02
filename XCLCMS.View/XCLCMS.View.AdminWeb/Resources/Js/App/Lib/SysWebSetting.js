@@ -52,11 +52,13 @@
             }
 
             art.dialog.confirm("您确定要删除此信息吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = ids;
                 $.XGoAjax({
                     target: $("#btnDel")[0],
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "SysWebSetting/DelSubmit",
-                        data: { SysWebSettingIDs: ids.join(',') },
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysWebSetting/Delete",
+                        data: request,
                         type: "POST"
                     }
                 });
@@ -83,16 +85,19 @@
                 rules: {
                     txtKeyName: {
                         required: true,
-                        XCLCustomRemote: {
-                            url: XCLCMSPageGlobalConfig.RootURL + "SysWebSettingCommon/IsExistKeyName",
-                            data: {
-                                KeyName: function () {
-                                    return $("#txtKeyName").val();
-                                },
-                                SysWebSettingID: function () {
-                                    return $("#SysWebSettingID").val();
+                        XCLCustomRemote: function () {
+                            return {
+                                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysWebSetting/IsExistKeyName",
+                                data: {
+                                    "json": function () {
+                                        var request = XCLCMSWebApi.CreateRequest();
+                                        request.Body = {};
+                                        request.Body.KeyName = $("#txtKeyName").val();
+                                        request.Body.SysWebSettingID = $("#SysWebSettingID").val();
+                                        return JSON.stringify(request);
+                                    }
                                 }
-                            }
+                            };
                         }
                     }
                 }
@@ -108,13 +113,14 @@
          * 删除配置
          */
         Del: function () {
-            var id = $("#SysWebSettingID").val();
             art.dialog.confirm("您确定要删除此信息吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = [$("#SysWebSettingID").val()];
                 $.XGoAjax({
                     target: $("#btnDel")[0],
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "SysWebSetting/DelSubmit",
-                        data: { SysWebSettingIDs: id },
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysWebSetting/DelSubmit",
+                        data: request,
                         type: "POST"
                     }
                 });

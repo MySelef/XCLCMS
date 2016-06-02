@@ -43,9 +43,16 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
 
             #endregion 初始化查询条件
 
-            XCLCMS.Data.BLL.View.v_SysWebSetting bll = new Data.BLL.View.v_SysWebSetting();
-            viewModel.SysWebSettingList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[SysWebSettingID]", "[KeyName] asc");
-            viewModel.PagerModel = base.PageParamsInfo;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.PageListConditionEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.PageListConditionEntity()
+            {
+                PagerInfoSimple = base.PageParamsInfo.ToPagerInfoSimple(),
+                Where = strWhere
+            };
+            var response = XCLCMS.Lib.WebAPI.SysWebSettingAPI.PageList(request).Body;
+            viewModel.SysWebSettingList = response.ResultList;
+            viewModel.PagerModel = response.PagerInfo;
+
             return View("~/Views/SysWebSetting/SysWebSettingList.cshtml", viewModel);
         }
 
@@ -58,7 +65,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
         {
             long sysWebSettingID = XCLNetTools.StringHander.FormHelper.GetLong("SysWebSettingID");
 
-            XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
             XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM();
 
             switch (base.CurrentHandleType)
@@ -69,7 +75,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
-                    viewModel.SysWebSetting = bll.GetModel(sysWebSettingID);
+                    var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
+                    request.Body = sysWebSettingID;
+                    var response = XCLCMS.Lib.WebAPI.SysWebSettingAPI.Detail(request);
+
+                    viewModel.SysWebSetting = response.Body;
                     viewModel.FormAction = Url.Action("UpdateSubmit", "SysWebSetting");
                     break;
             }
@@ -87,6 +97,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             viewModel.SysWebSetting.KeyName = (fm["txtKeyName"] ?? "").Trim();
             viewModel.SysWebSetting.KeyValue = (fm["txtKeyValue"] ?? "").Trim();
             viewModel.SysWebSetting.Remark = (fm["txtRemark"] ?? "").Trim();
+            viewModel.SysWebSetting.FK_MerchantAppID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantAppID");
             return viewModel;
         }
 
@@ -99,7 +110,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
 
             XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
             XCLCMS.Data.Model.SysWebSetting model = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             model = new Data.Model.SysWebSetting();
             model.CreaterID = base.CurrentUserModel.UserInfoID;
             model.CreaterName = base.CurrentUserModel.UserName;
@@ -112,17 +122,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             model.Remark = viewModel.SysWebSetting.Remark;
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
             model.SysWebSettingID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.SET);
-            if (bll.Add(model))
-            {
-                msgModel.Message = "添加成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = "添加失败！";
-                msgModel.IsSuccess = false;
-            }
-            return Json(msgModel);
+            model.FK_MerchantAppID = viewModel.SysWebSetting.FK_MerchantAppID;
+
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysWebSetting>(base.UserToken);
+            request.Body = model;
+            var response = XCLCMS.Lib.WebAPI.SysWebSettingAPI.Add(request);
+
+            return Json(response);
         }
 
         [HttpPost]
@@ -134,7 +140,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
             XCLCMS.Data.Model.SysWebSetting model = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             model = bll.GetModel(sysWebSettingID);
             model.KeyName = viewModel.SysWebSetting.KeyName;
             model.KeyValue = viewModel.SysWebSetting.KeyValue;
@@ -142,46 +147,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             model.UpdaterName = base.CurrentUserModel.UserName;
             model.UpdateTime = DateTime.Now;
             model.Remark = viewModel.SysWebSetting.Remark;
-            if (bll.Update(model))
-            {
-                msgModel.Message = "修改成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = "修改失败！";
-                msgModel.IsSuccess = false;
-            }
-            return Json(msgModel);
-        }
+            model.FK_MerchantAppID = viewModel.SysWebSetting.FK_MerchantAppID;
 
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingDel)]
-        public override ActionResult DelSubmit(FormCollection fm)
-        {
-            base.DelSubmit(fm);
-            XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
-            XCLCMS.Data.Model.SysWebSetting model = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            DateTime dtNow = DateTime.Now;
-            long[] ids = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysWebSettingIDs").Split(','));
-            for (int i = 0; i < ids.Length; i++)
-            {
-                if (ids[i] <= 0) continue;
-                model = bll.GetModel(ids[i]);
-                if (null != model)
-                {
-                    model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString();
-                    model.UpdaterID = base.CurrentUserModel.UserInfoID;
-                    model.UpdaterName = base.CurrentUserModel.UserName;
-                    model.UpdateTime = dtNow;
-                    bll.Update(model);
-                }
-            }
-            msgModel.IsSuccess = true;
-            msgModel.IsRefresh = true;
-            msgModel.Message = "删除成功！";
-            return Json(msgModel);
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysWebSetting>(base.UserToken);
+            request.Body = model;
+            var response = XCLCMS.Lib.WebAPI.SysWebSettingAPI.Update(request);
+
+            return Json(response);
         }
     }
 }

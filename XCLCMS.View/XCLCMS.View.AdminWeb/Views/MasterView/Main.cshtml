@@ -33,8 +33,9 @@
                 }
                 @if (null != ViewBag.CurrentMerchant) {
                     @:当前商户：@ViewBag.CurrentMerchant.MerchantName
+                    @:，当前商户号：@ViewBag.CurrentMerchant.MerchantID
                 }
-                【公告通知：<a href="">2014又要放假了，大家火车票买了没？</a>】
+                <span style="float:right;"><span class="XCLRed">公告通知：</span><a href="">2014又要放假了，大家火车票买了没？</a></span>
             </div>
         </div>
         <div id="DivMenuTabs" class="easyui-tabs" style="height:auto;">

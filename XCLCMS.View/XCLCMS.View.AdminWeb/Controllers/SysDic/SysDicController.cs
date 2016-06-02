@@ -81,7 +81,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             viewModel.SysDic.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.SysDic.FK_FunctionID = XCLNetTools.Common.DataTypeConvert.ToLongNull(fm["txtFunctionID"] ?? "");
             viewModel.SysDic.FK_MerchantAppID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["txtMerchantAppID"]);
-            viewModel.SysDic.FK_MerchantID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["txtMerchantID"]);
             return viewModel;
         }
 
@@ -109,7 +108,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             sysDicModel.Remark = viewModel.SysDic.Remark;
             sysDicModel.FK_FunctionID = viewModel.SysDic.FK_FunctionID;
             sysDicModel.SysDicID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.DIC);
-            sysDicModel.FK_MerchantID = viewModel.SysDic.FK_MerchantID;
             sysDicModel.FK_MerchantAppID = viewModel.SysDic.FK_MerchantAppID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysDic>(base.UserToken);
@@ -137,7 +135,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             sysDicModel.Sort = viewModel.SysDic.Sort;
             sysDicModel.Remark = viewModel.SysDic.Remark;
             sysDicModel.FK_FunctionID = viewModel.SysDic.FK_FunctionID;
-            sysDicModel.FK_MerchantID = viewModel.SysDic.FK_MerchantID;
             sysDicModel.FK_MerchantAppID = viewModel.SysDic.FK_MerchantAppID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysDic>(base.UserToken);

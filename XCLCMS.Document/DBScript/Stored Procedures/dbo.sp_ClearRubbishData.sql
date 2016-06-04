@@ -1,7 +1,9 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 
 
 
@@ -50,6 +52,12 @@ BEGIN
 	/*****************UserInfo*****************/
 	DELETE FROM dbo.UserInfo WHERE RecordState='D'
 	
+	/*****************SysRole*****************/
+	DELETE FROM dbo.SysRole WHERE RecordState<>'N'
+
+	/*****************SysRoleFunction*****************/
+	DELETE FROM dbo.SysRoleFunction WHERE RecordState<>'N'
+
 	/*****************SysUserRole*****************/
 	DELETE FROM dbo.SysUserRole FROM dbo.SysUserRole AS a
 	LEFT JOIN dbo.UserInfo AS b ON a.FK_UserInfoID=b.UserInfoID
@@ -58,7 +66,25 @@ BEGIN
 	/*****************SysFunction*****************/
 	DELETE FROM dbo.SysFunction WHERE RecordState<>'N'
 
+	/*****************Article*****************/
+	DELETE FROM dbo.Article WHERE RecordState<>'N'
+
+	/*****************ArticleType*****************/
+	DELETE FROM dbo.ArticleType FROM dbo.ArticleType AS a
+	LEFT JOIN dbo.Article AS b ON a.FK_ArticleID=b.ArticleID
+	WHERE b.ArticleID IS NULL
+
+	/*****************MerchantApp*****************/
+	DELETE FROM dbo.MerchantApp WHERE RecordState<>'N'
+
+	/*****************Merchant*****************/
+	DELETE FROM dbo.Merchant WHERE RecordState<>'N'
+
+	/*****************SysWebSetting*****************/
+	DELETE FROM dbo.SysWebSetting WHERE RecordState<>'N'
+
 END
+
 
 
 

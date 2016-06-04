@@ -18,6 +18,20 @@ namespace XCLCMS.WebAPI.Controllers
         private XCLCMS.Data.BLL.View.v_SysDic vSysDicBLL = new Data.BLL.View.v_SysDic();
 
         /// <summary>
+        /// 查询字典信息实体
+        /// </summary>
+        [HttpGet]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicView)]
+        public APIResponseEntity<XCLCMS.Data.Model.SysDic> Detail([FromUri] string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<XCLCMS.Data.Model.SysDic>();
+            response.Body = this.sysDicBLL.GetModel(request.Body);
+            response.IsSuccess = true;
+            return response;
+        }
+
+        /// <summary>
         /// 判断字典的唯一标识是否已经存在
         /// </summary>
         [HttpGet]

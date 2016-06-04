@@ -8,6 +8,9 @@ namespace XCLCMS.WebAPI
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            //XCLNetLogger配置信息
+            XCLNetLogger.Config.LogConfig.SetConfig(Server.MapPath("~/Config/XCLNetLogger.config"));
         }
     }
 }

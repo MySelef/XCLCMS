@@ -9,6 +9,14 @@ namespace XCLCMS.Lib.WebAPI
     public static class SysDicAPI
     {
         /// <summary>
+        /// 查询字典信息实体
+        /// </summary>
+        public static APIResponseEntity<XCLCMS.Data.Model.SysDic> Detail(APIRequestEntity<long> request)
+        {
+            return Library.Request<long, XCLCMS.Data.Model.SysDic>(request, "SysDic/Detail");
+        }
+
+        /// <summary>
         /// 判断字典的唯一标识是否已经存在
         /// </summary>
         public static APIResponseEntity<bool> IsExistSysDicCode(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.IsExistSysDicCodeEntity> request)

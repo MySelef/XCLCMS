@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using XCLNetTools.Generic;
@@ -39,9 +38,14 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
-                    viewModel.SysRole = bll.GetModel(sysRoleID);
-                    viewModel.ParentID = viewModel.SysRole.ParentID;
-                    viewModel.SysRoleID = viewModel.SysRole.SysRoleID;
+
+                    var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
+                    request.Body = sysRoleID;
+                    var response = XCLCMS.Lib.WebAPI.SysRoleAPI.Detail(request);
+
+                    viewModel.SysRole = response.Body;
+                    viewModel.ParentID = response.Body.ParentID;
+                    viewModel.SysRoleID = response.Body.SysRoleID;
                     var roleHadFunctions = functionBLL.GetListByRoleID(sysRoleID);
                     if (roleHadFunctions.IsNotNullOrEmpty())
                     {
@@ -57,18 +61,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
         }
 
         /// <summary>
-        /// 列表页中，ajax请求获取list
-        /// </summary>
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleView)]
-        public ActionResult GetList()
-        {
-            XCLCMS.Data.BLL.View.v_SysRole bll = new Data.BLL.View.v_SysRole();
-            long parentID = XCLNetTools.StringHander.FormHelper.GetLong("id");
-            List<XCLCMS.Data.Model.View.v_SysRole> lst = bll.GetList(parentID);
-            return XCLCMS.Lib.Common.Comm.XCLJsonResult(lst, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
         /// 将表单值转为viewModel
         /// </summary>
         private XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM GetViewModel(FormCollection fm)
@@ -81,7 +73,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             viewModel.SysRole.RoleName = (fm["txtRoleName"] ?? "").Trim();
             viewModel.SysRole.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.SysRole.Weight = XCLNetTools.Common.DataTypeConvert.ToIntNull(fm["txtWeight"]);
-            viewModel.SysRole.FK_MerchantID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["txtMerchantID"]);
+            viewModel.SysRole.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
             viewModel.RoleFunctionIDList = XCLNetTools.StringHander.FormHelper.GetLongList("txtRoleFunction");
             return viewModel;
         }
@@ -95,7 +87,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
 
             XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
             XCLCMS.Data.Model.SysRole model = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             model = new Data.Model.SysRole();
             model.CreaterID = base.CurrentUserModel.UserInfoID;
             model.CreaterName = base.CurrentUserModel.UserName;
@@ -112,31 +103,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             model.Weight = viewModel.SysRole.Weight;
             model.FK_MerchantID = viewModel.SysRole.FK_MerchantID;
 
-            XCLCMS.Data.BLL.Strategy.SysRole.SysRoleContext sysRoleContext = new Data.BLL.Strategy.SysRole.SysRoleContext();
-            sysRoleContext.CurrentUserInfo = base.CurrentUserModel;
-            sysRoleContext.SysRole = model;
-            sysRoleContext.FunctionIdList = viewModel.RoleFunctionIDList;
-            sysRoleContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.ADD;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity();
+            request.Body.SysRole = model;
+            request.Body.FunctionIdList = viewModel.RoleFunctionIDList;
+            var response = XCLCMS.Lib.WebAPI.SysRoleAPI.Add(request);
 
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
-                new XCLCMS.Data.BLL.Strategy.SysRole.SysRole(),
-                new XCLCMS.Data.BLL.Strategy.SysRole.SysRoleFunction()
-            });
-            strategy.Execute<XCLCMS.Data.BLL.Strategy.SysRole.SysRoleContext>(sysRoleContext);
-
-            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
-            {
-                msgModel.Message = "添加成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = strategy.ResultMessage;
-                msgModel.IsSuccess = false;
-                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "添加角色信息失败", strategy.ResultMessage);
-            }
-
-            return Json(msgModel);
+            return Json(response);
         }
 
         [HttpPost]
@@ -147,7 +120,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
             XCLCMS.Data.Model.SysRole model = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             model = bll.GetModel(viewModel.SysRoleID);
             model.RoleName = viewModel.SysRole.RoleName;
             model.UpdaterID = base.CurrentUserModel.UserInfoID;
@@ -158,77 +130,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             model.Weight = viewModel.SysRole.Weight;
             model.FK_MerchantID = viewModel.SysRole.FK_MerchantID;
 
-            XCLCMS.Data.BLL.Strategy.SysRole.SysRoleContext sysRoleContext = new Data.BLL.Strategy.SysRole.SysRoleContext();
-            sysRoleContext.CurrentUserInfo = base.CurrentUserModel;
-            sysRoleContext.SysRole = model;
-            sysRoleContext.FunctionIdList = viewModel.RoleFunctionIDList;
-            sysRoleContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.UPDATE;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity();
+            request.Body.SysRole = model;
+            request.Body.FunctionIdList = viewModel.RoleFunctionIDList;
+            var response = XCLCMS.Lib.WebAPI.SysRoleAPI.Update(request);
 
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
-                new XCLCMS.Data.BLL.Strategy.SysRole.SysRole(),
-                new XCLCMS.Data.BLL.Strategy.SysRole.SysRoleFunction()
-            });
-            strategy.Execute<XCLCMS.Data.BLL.Strategy.SysRole.SysRoleContext>(sysRoleContext);
-
-            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
-            {
-                msgModel.Message = "修改成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = strategy.ResultMessage;
-                msgModel.IsSuccess = false;
-                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "修改角色信息失败", strategy.ResultMessage);
-            }
-
-            return Json(msgModel);
-        }
-
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleDel)]
-        public override ActionResult DelSubmit(FormCollection fm)
-        {
-            base.DelSubmit(fm);
-            XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
-            XCLCMS.Data.Model.SysRole model = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            DateTime dtNow = DateTime.Now;
-            long[] ids = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysRoleIDs").Split(','));
-            for (int i = 0; i < ids.Length; i++)
-            {
-                if (ids[i] <= 0) continue;
-                model = bll.GetModel(ids[i]);
-                if (null != model)
-                {
-                    model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString();
-                    model.UpdaterID = base.CurrentUserModel.UserInfoID;
-                    model.UpdaterName = base.CurrentUserModel.UserName;
-                    model.UpdateTime = dtNow;
-                    bll.Update(model);
-                }
-            }
-            msgModel.IsSuccess = true;
-            msgModel.Message = "删除成功！";
-            return Json(msgModel);
-        }
-
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleDel)]
-        public ActionResult DelChildSubmit(FormCollection fm)
-        {
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
-            bll.DelChild(new Data.Model.SysRole()
-            {
-                SysRoleID = XCLNetTools.StringHander.FormHelper.GetLong("sysRoleId"),
-                UpdaterID = base.CurrentUserModel.UserInfoID,
-                UpdaterName = base.CurrentUserModel.UserName,
-                UpdateTime = DateTime.Now
-            });
-            msgModel.IsSuccess = true;
-            msgModel.Message = "子节点清理成功！";
-            return Json(msgModel);
+            return Json(response);
         }
     }
 }

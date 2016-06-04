@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
 using XCLNetTools.Generic;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysRole
@@ -11,86 +10,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
     /// </summary>
     public class SysRoleCommonController : BaseController
     {
-        /// <summary>
-        /// 判断角色标识是否已经存在
-        /// </summary>
-        public JsonResult IsExistCode()
-        {
-            string code = XCLNetTools.StringHander.FormHelper.GetString("Code").Trim();
-            long sysRoleID = XCLNetTools.StringHander.FormHelper.GetLong("SysRoleID");
-
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel()
-            {
-                IsSuccess = true,
-                Message = "该标识可以使用！"
-            };
-            XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
-            XCLCMS.Data.Model.SysRole model = null;
-            if (sysRoleID > 0)
-            {
-                model = bll.GetModel(sysRoleID);
-                if (null != model)
-                {
-                    if (string.Equals(code, model.Code, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return Json(msgModel, JsonRequestBehavior.AllowGet);
-                    }
-                }
-            }
-            if (!string.IsNullOrEmpty(code))
-            {
-                bool isExist = new XCLCMS.Data.BLL.SysRole().IsExistCode(code);
-                if (isExist)
-                {
-                    msgModel.IsSuccess = false;
-                    msgModel.Message = "该标识名已存在！";
-                }
-            }
-            return Json(msgModel, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// 判断角色名，在同一级别中是否存在
-        /// </summary>
-        public JsonResult IsExistRoleNameInSameLevel()
-        {
-            string roleName = XCLNetTools.StringHander.FormHelper.GetString("roleName").Trim();
-            long parentID = XCLNetTools.StringHander.FormHelper.GetLong("parentID");
-            long sysRoleID = XCLNetTools.StringHander.FormHelper.GetLong("SysRoleID");
-
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel()
-            {
-                IsSuccess = true,
-                Message = "该角色名可以使用！"
-            };
-            XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
-            XCLCMS.Data.Model.SysRole model = null;
-
-            if (sysRoleID > 0)
-            {
-                model = bll.GetModel(sysRoleID);
-                if (null != model)
-                {
-                    if (string.Equals(roleName, model.RoleName, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return Json(msgModel, JsonRequestBehavior.AllowGet);
-                    }
-                }
-            }
-
-            List<XCLCMS.Data.Model.SysRole> lst = bll.GetChildListByID(parentID);
-            if (lst.IsNotNullOrEmpty())
-            {
-                if (lst.Exists(k => string.Equals(k.RoleName, roleName, StringComparison.OrdinalIgnoreCase)))
-                {
-                    msgModel.IsSuccess = false;
-                    msgModel.Message = "该角色名在当前层级中已存在！";
-                }
-            }
-
-            return Json(msgModel, JsonRequestBehavior.AllowGet);
-        }
-
         /// <summary>
         /// 获取easyui tree格式的所有角色json
         /// </summary>

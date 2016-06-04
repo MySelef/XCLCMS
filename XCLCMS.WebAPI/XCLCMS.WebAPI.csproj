@@ -89,6 +89,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="XCLNetLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\XCLCMS.Document\Libs\XCLNetLogger.dll</HintPath>
+    </Reference>
     <Reference Include="XCLNetTools, Version=2.3.5944.18941, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\XCLCMS.Document\Libs\XCLNetTools.dll</HintPath>
@@ -102,6 +106,7 @@
     <Compile Include="Controllers\MerchantController.cs" />
     <Compile Include="Controllers\SysDicController.cs" />
     <Compile Include="Controllers\SysLogController.cs" />
+    <Compile Include="Controllers\SysRoleController.cs" />
     <Compile Include="Controllers\SysWebSettingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

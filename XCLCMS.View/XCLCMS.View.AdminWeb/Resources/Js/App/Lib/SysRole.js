@@ -39,13 +39,28 @@
             _this.TreeObj = $('#tableSysRoleList');
             //加载列表树
             _this.TreeObj.treegrid({
-                url: XCLCMSPageGlobalConfig.RootURL + 'SysRole/GetList',
+                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysRole/GetList',
+                queryParams: {
+                    json: function () {
+                        var request = XCLCMSWebApi.CreateRequest();
+                        request.Body = 0;
+                        return JSON.stringify(request);
+                    }
+                },
+                onBeforeExpand: function (node) {
+                    _this.TreeObj.treegrid('options').queryParams.json = (function () {
+                        var request = XCLCMSWebApi.CreateRequest();
+                        request.Body = node.SysRoleID;
+                        return JSON.stringify(request);
+                    })();
+                },
                 method: 'get',
                 idField: 'SysRoleID',
                 treeField: 'RoleName',
                 rownumbers: true,
                 loadFilter: function (data) {
                     if (data) {
+                        data = data.Body;
                         for (var i = 0; i < data.length; i++) {
                             data[i].state = (data[i].IsLeaf === 1) ? "" : "closed";
                         }
@@ -56,7 +71,7 @@
                     { field: 'SysRoleID', title: 'ID', width: '5%' },
                     { field: 'ParentID', title: '父ID', width: '5%' },
                     { field: 'NodeLevel', title: '层级', width: '5%' },
-                    {field:'MerchantName',title:'所属商户',width:'5%'},
+                    { field: 'MerchantName', title: '所属商户', width: '5%' },
                     { field: 'RoleName', title: '角色名', width: '20%' },
                     { field: 'Weight', title: '权重', width: '5%' },
                     { field: 'Code', title: '角色标识', width: '10%' },
@@ -171,15 +186,20 @@
             var _this = this;
             var ids = _this.GetSelectedIds();
             art.dialog.confirm("您确定要删除此信息吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = ids;
                 $.XGoAjax({
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "SysRole/DelSubmit",
-                        data: { SysRoleIDs: ids.join(',') }, type: "POST"
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysRole/Delete",
+                        data: request,
+                        type: "POST"
                     },
-                    postSuccess: function () {
-                        $.each(ids, function (idx, n) {
-                            _this.TreeObj.treegrid("remove", n);
-                        });
+                    postSuccess: function (ops, data) {
+                        if (data.IsSuccess) {
+                            $.each(ids, function (idx, n) {
+                                _this.TreeObj.treegrid("remove", n);
+                            });
+                        }
                     }
                 });
             }, function () { });
@@ -191,10 +211,12 @@
             var _this = this;
             var ids = _this.GetSelectedIds();
             art.dialog.confirm("您确定要清空此节点的所有子节点吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = ids[0];
                 $.XGoAjax({
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "SysRole/DelChildSubmit",
-                        data: { sysRoleId: ids[0] },
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysRole/DelChild",
+                        data: request,
                         type: "POST"
                     }, postSuccess: function () {
                         var parent = _this.TreeObj.treegrid("getParent", ids[0]);
@@ -262,29 +284,29 @@
                     txtRoleName: {
                         required: true,
                         XCLCustomRemote: {
-                            url: XCLCMSPageGlobalConfig.RootURL + "SysRoleCommon/IsExistRoleNameInSameLevel",
+                            url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysRole/IsExistRoleNameInSameLevel",
                             data: {
-                                roleName: function () {
-                                    return $("#txtRoleName").val();
-                                },
-                                parentID: function () {
-                                    return $("#ParentID").val();
-                                },
-                                SysRoleID: function () {
-                                    return $("#SysRoleID").val();
+                                "json": function () {
+                                    var request = XCLCMSWebApi.CreateRequest();
+                                    request.Body = {};
+                                    request.Body.RoleName = $("#txtRoleName").val();
+                                    request.Body.ParentID = $("#ParentID").val();
+                                    request.Body.SysRoleID = $("#SysRoleID").val();
+                                    return JSON.stringify(request);
                                 }
                             }
                         }
                     },
                     txtCode: {
                         XCLCustomRemote: {
-                            url: XCLCMSPageGlobalConfig.RootURL + "SysRoleCommon/IsExistCode",
+                            url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysRole/IsExistCode",
                             data: {
-                                Code: function () {
-                                    return $("#txtCode").val();
-                                },
-                                SysRoleID: function () {
-                                    return $("#SysRoleID").val();
+                                "json": function () {
+                                    var request = XCLCMSWebApi.CreateRequest();
+                                    request.Body = {};
+                                    request.Body.Code = $("#txtCode").val();
+                                    request.Body.SysRoleID = $("#SysRoleID").val();
+                                    return JSON.stringify(request);
                                 }
                             }
                         }

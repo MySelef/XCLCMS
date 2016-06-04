@@ -58,6 +58,9 @@
     <Compile Include="RequestEntity\SysDic\IsExistSysDicCodeEntity.cs" />
     <Compile Include="RequestEntity\SysDic\IsExistSysDicNameInSameLevelEntity.cs" />
     <Compile Include="RequestEntity\SysLog\ClearConditionEntity.cs" />
+    <Compile Include="RequestEntity\SysRole\IsExistCodeEntity.cs" />
+    <Compile Include="RequestEntity\SysRole\IsExistRoleNameInSameLevelEntity.cs" />
+    <Compile Include="RequestEntity\SysRole\AddOrUpdateEntity.cs" />
     <Compile Include="RequestEntity\SysWebSetting\IsExistKeyNameEntity.cs" />
     <Compile Include="ResponseEntity\PageListResponseEntity.cs" />
   </ItemGroup>

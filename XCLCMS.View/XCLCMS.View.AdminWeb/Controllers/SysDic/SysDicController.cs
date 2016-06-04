@@ -53,8 +53,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
-                    viewModel.SysDicID = sysDicId;
-                    viewModel.SysDic = bll.GetModel(sysDicId);
+
+                    var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
+                    request.Body = sysDicId;
+                    var response = XCLCMS.Lib.WebAPI.SysDicAPI.Detail(request);
+
+                    viewModel.SysDicID = response.Body.SysDicID;
+                    viewModel.SysDic = response.Body;
                     viewModel.ParentID = viewModel.SysDic.ParentID;
                     viewModel.FormAction = Url.Action("UpdateSubmit", "SysDic");
                     break;

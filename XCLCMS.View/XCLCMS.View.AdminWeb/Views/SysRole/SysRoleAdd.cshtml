@@ -44,12 +44,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="XCLTitle">所属商户：</td>
-                            <td>
-                                <input type="text" class="easyui-numberbox" id="txtMerchantID" name="txtMerchantID" value="@Model.SysRole.FK_MerchantID"   style="height:25px;" />
-                            </td>
-                        </tr>
-                        <tr>
                             <td class="XCLTitle">分配角色权限：</td>
                             <td>
                                     <input id="txtRoleFunction" name="txtRoleFunction" style="width:300px;height:25px;" xcl-data-value="@(null==Model.RoleFunctionIDList?"":string.Join(",",Model.RoleFunctionIDList.ToArray()))" multiple />

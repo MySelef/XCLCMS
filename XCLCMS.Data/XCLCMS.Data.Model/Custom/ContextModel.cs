@@ -6,8 +6,13 @@
     public class ContextModel
     {
         /// <summary>
-        /// 当前用户信息
+        /// 用户id
         /// </summary>
-        public UserInfo UserInfo { get; set; }
+        public long UserInfoID { get; set; }
+
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public string UserName { get; set; }
     }
 }

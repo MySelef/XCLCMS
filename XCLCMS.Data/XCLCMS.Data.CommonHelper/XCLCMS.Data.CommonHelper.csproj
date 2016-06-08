@@ -53,6 +53,7 @@
     <Compile Include="EnumType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysDicConst.cs" />
+    <Compile Include="SysRoleConst.cs" />
     <Compile Include="SystemDataConst.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

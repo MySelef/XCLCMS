@@ -91,6 +91,22 @@ namespace XCLCMS.Data.BLL
             return dal.GetChildListByID(sysRoleID);
         }
 
+        /// <summary>
+        /// 根据code查询model
+        /// </summary>
+        public XCLCMS.Data.Model.SysRole GetModelByCode(string code)
+        {
+            return dal.GetModelByCode(code);
+        }
+
+        /// <summary>
+        /// 获取根节点model
+        /// </summary>
+        public XCLCMS.Data.Model.SysRole GetRootModel()
+        {
+            return this.GetModelByCode(CommonHelper.SysRoleConst.SysRoleCodeEnum.Root.ToString());
+        }
+
         #endregion ExtensionMethod
     }
 }

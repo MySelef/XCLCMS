@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace XCLCMS.Data.DAL
@@ -155,6 +156,42 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from Merchant where MerchantName=@MerchantName");
             db.AddInParameter(dbCommand, "MerchantName", DbType.AnsiString, merchantName);
             return db.ExecuteScalar(dbCommand) != null;
+        }
+
+        /// <summary>
+        /// 批量删除商户数据
+        /// </summary>
+        public bool Delete(List<long> idLst, XCLCMS.Data.Model.Custom.ContextModel context)
+        {
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_Merchant_Del");
+
+            dbCommand.Parameters.Add(new SqlParameter("@MerchantID", SqlDbType.Structured)
+            {
+                TypeName = "TVP_IDTable",
+                Direction = ParameterDirection.Input,
+                Value = XCLNetTools.DataSource.DataTableHelper.ToSingleColumnDataTable<long,long>(idLst)
+            });
+            dbCommand.Parameters.Add(new SqlParameter("@Context", SqlDbType.Structured)
+            {
+                TypeName = "TVP_Context",
+                Direction = ParameterDirection.Input,
+                Value = XCLNetTools.DataSource.DataTableHelper.ToDataTable(new List<XCLCMS.Data.Model.Custom.ContextModel>() { context })
+            });
+
+            db.AddOutParameter(dbCommand, "ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(dbCommand, "ResultMessage", DbType.String, 1000);
+            db.ExecuteNonQuery(dbCommand);
+
+            var result = XCLCMS.Data.DAL.Common.Common.GetProcedureResult(dbCommand.Parameters);
+            if (result.IsSuccess)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception(result.ResultMessage);
+            }
         }
 
         #endregion MethodEx

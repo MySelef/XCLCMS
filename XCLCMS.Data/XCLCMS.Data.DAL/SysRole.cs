@@ -206,6 +206,28 @@ namespace XCLCMS.Data.DAL
             return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysRole>(ds) as List<XCLCMS.Data.Model.SysRole>;
         }
 
+        /// <summary>
+        /// 根据code查询model
+        /// </summary>
+        public XCLCMS.Data.Model.SysRole GetModelByCode(string code)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(@"SELECT
+                                        top 1
+                                        a.*
+                                        FROM dbo.SysRole AS a
+                                        where a.RecordState='N' and a.Code=@Code
+                                        ");
+
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+
+            var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysRole>(ds.Tables[0]);
+            return null != lst && lst.Count > 0 ? lst[0] : null;
+        }
+
         #endregion MethodEx
     }
 }

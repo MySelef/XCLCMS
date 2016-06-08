@@ -18,6 +18,8 @@ namespace XCLCMS.WebAPI.Controllers
         private XCLCMS.Data.BLL.View.v_Merchant vMerchantBLL = new Data.BLL.View.v_Merchant();
         private XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
         private XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new XCLCMS.Data.BLL.MerchantApp();
+        private XCLCMS.Data.BLL.SysRole sysRoleBLL = new XCLCMS.Data.BLL.SysRole();
+        private XCLCMS.Data.BLL.SysDic sysDicBLL = new XCLCMS.Data.BLL.SysDic();
 
         /// <summary>
         /// 查询商户信息实体
@@ -119,7 +121,60 @@ namespace XCLCMS.WebAPI.Controllers
 
             #endregion 数据校验
 
-            response.IsSuccess = this.merchantBLL.Add(request.Body);
+            using (var scope = new TransactionScope())
+            {
+                bool flag = false;
+
+                //添加商户基础信息
+                flag = this.merchantBLL.Add(request.Body);
+
+                //初始化角色节点
+                if (flag)
+                {
+                    var rootRole = sysRoleBLL.GetRootModel();
+                    flag = sysRoleBLL.Add(new Data.Model.SysRole()
+                    {
+                        CreaterID = base.CurrentUserModel.UserInfoID,
+                        CreaterName = base.CurrentUserModel.UserName,
+                        FK_MerchantID = request.Body.MerchantID,
+                        ParentID = rootRole.SysRoleID,
+                        RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(),
+                        CreateTime = DateTime.Now,
+                        RoleName = request.Body.MerchantName,
+                        UpdaterID = base.CurrentUserModel.UserInfoID,
+                        UpdaterName = base.CurrentUserModel.UserName,
+                        UpdateTime = DateTime.Now,
+                        SysRoleID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.RLE)
+                    });
+                }
+
+                //初始化字典库节点
+                if (flag)
+                {
+                    var rootDic = this.sysDicBLL.GetRootModel();
+                    flag = this.sysDicBLL.Add(new Data.Model.SysDic()
+                    {
+                        CreaterID = base.CurrentUserModel.UserInfoID,
+                        CreaterName = base.CurrentUserModel.UserName,
+                        CreateTime = DateTime.Now,
+                        DicName = request.Body.MerchantName,
+                        FK_MerchantID = request.Body.MerchantID,
+                        ParentID = rootDic.SysDicID,
+                        RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(),
+                        SysDicID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.DIC),
+                        UpdaterID = base.CurrentUserModel.UserInfoID,
+                        UpdaterName = base.CurrentUserModel.UserName,
+                        UpdateTime = DateTime.Now
+                    });
+                }
+
+                response.IsSuccess = flag;
+                if (response.IsSuccess)
+                {
+                    scope.Complete();
+                }
+            }
+
             if (response.Body)
             {
                 response.Message = "商户信息添加成功！";
@@ -218,55 +273,26 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
-            using (var scope = new TransactionScope())
+            foreach (var k in request.Body)
             {
-                foreach (var k in request.Body)
+                var merchantModel = merchantBLL.GetModel(k);
+                if (null == merchantModel)
                 {
-                    //删除商户基础信息
-                    var merchantModel = merchantBLL.GetModel(k);
-                    if (null == merchantModel)
-                    {
-                        continue;
-                    }
-
-                    if (merchantModel.MerchantID == XCLCMS.Data.CommonHelper.SystemDataConst.SysMerchantID)
-                    {
-                        response.IsSuccess = false;
-                        response.Message = string.Format("不可以删除系统内置商户【{0}】！", merchantModel.MerchantName);
-                        return response;
-                    }
-
-                    merchantModel.UpdaterID = base.CurrentUserModel.UserInfoID;
-                    merchantModel.UpdaterName = base.CurrentUserModel.UserName;
-                    merchantModel.UpdateTime = DateTime.Now;
-                    merchantModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
-                    merchantModel.MerchantState = XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum.N.ToString();
-                    if (!merchantBLL.Update(merchantModel))
-                    {
-                        response.IsSuccess = false;
-                        response.Message = "删除失败！";
-                        return response;
-                    }
-                    //删除商户应用信息
-                    var merchantAppModelList = this.merchantAppBLL.GetModelList(merchantModel.MerchantID);
-                    if (merchantAppModelList.IsNotNullOrEmpty())
-                    {
-                        foreach (var app in merchantAppModelList)
-                        {
-                            app.UpdaterID = base.CurrentUserModel.UserInfoID;
-                            app.UpdaterName = base.CurrentUserModel.UserName;
-                            app.UpdateTime = DateTime.Now;
-                            app.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
-                            if (!this.merchantAppBLL.Update(app))
-                            {
-                                response.IsSuccess = false;
-                                response.Message = "删除失败！";
-                                return response;
-                            }
-                        }
-                    }
+                    continue;
                 }
-                scope.Complete();
+                if (merchantModel.MerchantID == XCLCMS.Data.CommonHelper.SystemDataConst.SysMerchantID)
+                {
+                    response.IsSuccess = false;
+                    response.Message = string.Format("不可以删除系统内置商户【{0}】！", merchantModel.MerchantName);
+                    return response;
+                }
+            }
+
+            if (!this.merchantBLL.Delete(request.Body, base.ContextModel))
+            {
+                response.IsSuccess = false;
+                response.Message = "删除失败！";
+                return response;
             }
 
             response.IsSuccess = true;

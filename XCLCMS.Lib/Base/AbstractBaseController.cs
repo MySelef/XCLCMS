@@ -78,7 +78,8 @@ namespace XCLCMS.Lib.Base
                 {
                     this._contextModel = new Data.Model.Custom.ContextModel()
                     {
-                        UserInfo = this.CurrentUserModel
+                        UserInfoID = this.CurrentUserModel.UserInfoID,
+                        UserName=this.CurrentUserModel.UserName
                     };
                 }
                 return this._contextModel;

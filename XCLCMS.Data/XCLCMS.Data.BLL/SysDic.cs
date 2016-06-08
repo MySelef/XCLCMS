@@ -153,6 +153,14 @@ namespace XCLCMS.Data.BLL
             return dal.GetModelByCode(code);
         }
 
+        /// <summary>
+        /// 获取根节点model
+        /// </summary>
+        public XCLCMS.Data.Model.SysDic GetRootModel()
+        {
+            return this.GetModelByCode(CommonHelper.SysDicConst.SysDicCodeEnum.Root.ToString());
+        }
+
         #endregion ExtensionMethod
     }
 }

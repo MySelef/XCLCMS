@@ -62,7 +62,8 @@ namespace XCLCMS.Lib.Base.API
                 }
                 return new Data.Model.Custom.ContextModel()
                 {
-                    UserInfo = this.CurrentUserModel
+                    UserInfoID = this.CurrentUserModel.UserInfoID,
+                    UserName= this.CurrentUserModel.UserName
                 };
             }
         }

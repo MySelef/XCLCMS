@@ -130,12 +130,12 @@ namespace XCLCMS.Data.DAL
             attachmentIDList.ForEach(id =>
             {
                 var model = new XCLCMS.Data.Model.ObjectAttachment();
-                if (null != context && null != context.UserInfo)
+                if (null != context)
                 {
-                    model.CreaterID = context.UserInfo.UserInfoID;
-                    model.CreaterName = context.UserInfo.UserName;
-                    model.UpdaterID = context.UserInfo.UserInfoID;
-                    model.UpdaterName = context.UserInfo.UserName;
+                    model.CreaterID = context.UserInfoID;
+                    model.CreaterName = context.UserName;
+                    model.UpdaterID = context.UserInfoID;
+                    model.UpdaterName = context.UserName;
                 }
                 model.CreateTime = dtNow;
                 model.UpdateTime = dtNow;

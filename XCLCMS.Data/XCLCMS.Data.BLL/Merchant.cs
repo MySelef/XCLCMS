@@ -50,7 +50,6 @@ namespace XCLCMS.Data.BLL
 
         #region ExtensionMethod
 
-
         /// <summary>
         /// 获取商户类型
         /// </summary>
@@ -65,6 +64,14 @@ namespace XCLCMS.Data.BLL
         public bool IsExistMerchantName(string merchantName)
         {
             return dal.IsExistMerchantName(merchantName);
+        }
+
+        /// <summary>
+        /// 批量删除商户数据
+        /// </summary>
+        public bool Delete(List<long> idLst, XCLCMS.Data.Model.Custom.ContextModel context)
+        {
+            return dal.Delete(idLst, context);
         }
 
         #endregion ExtensionMethod

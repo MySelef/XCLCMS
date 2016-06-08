@@ -38,7 +38,8 @@ namespace XCLCMS.Data.BLL.Strategy.Article
                 //添加分类关系
                 flag = bll.Add(articleContext.Article.ArticleID, articleContext.ArticleTypeIDList, new Model.Custom.ContextModel()
                 {
-                    UserInfo = articleContext.CurrentUserInfo
+                    UserInfoID = articleContext.CurrentUserInfo.UserInfoID,
+                    UserName= articleContext.CurrentUserInfo.UserName
                 });
             }
             catch (Exception ex)

@@ -229,8 +229,8 @@ namespace XCLCMS.Data.DAL
                         continue;
                     }
                     //删除当前记录
-                    model.UpdaterID = context.UserInfo.UserInfoID;
-                    model.UpdaterName = context.UserInfo.UserName;
+                    model.UpdaterID = context.UserInfoID;
+                    model.UpdaterName = context.UserName;
                     model.UpdateTime = dtNow;
                     model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString();
                     if (!this.Update(model))
@@ -244,8 +244,8 @@ namespace XCLCMS.Data.DAL
                         foreach (var subModel in subLst)
                         {
                             subModel.ParentID = 0;
-                            subModel.UpdaterID = context.UserInfo.UserInfoID;
-                            subModel.UpdaterName = context.UserInfo.UserName;
+                            subModel.UpdaterID = context.UserInfoID;
+                            subModel.UpdaterName = context.UserName;
                             subModel.UpdateTime = dtNow;
                             if (!this.Update(subModel))
                             {

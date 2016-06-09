@@ -137,6 +137,7 @@
     <Compile Include="WebAPI\MerchantAPI.cs" />
     <Compile Include="WebAPI\MerchantAppAPI.cs" />
     <Compile Include="WebAPI\SysDicAPI.cs" />
+    <Compile Include="WebAPI\SysFunctionAPI.cs" />
     <Compile Include="WebAPI\SysLogAPI.cs" />
     <Compile Include="WebAPI\SysRoleAPI.cs" />
     <Compile Include="WebAPI\SysWebSettingAPI.cs" />

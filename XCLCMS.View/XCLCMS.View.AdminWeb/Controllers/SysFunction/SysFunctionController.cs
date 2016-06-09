@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
@@ -37,7 +36,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
-                    viewModel.SysFunction = bll.GetModel(sysFunctionID);
+
+                    var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
+                    request.Body = sysFunctionID;
+                    var response = XCLCMS.Lib.WebAPI.SysFunctionAPI.Detail(request);
+
+                    viewModel.SysFunction = response.Body;
                     viewModel.ParentID = viewModel.SysFunction.ParentID;
                     viewModel.SysFunctionID = viewModel.SysFunction.SysFunctionID;
                     viewModel.FormAction = Url.Action("UpdateSubmit", "SysFunction");
@@ -47,18 +51,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
             viewModel.PathList = bll.GetLayerListBySysFunctionId(sysFunctionID);
 
             return View("~/Views/SysFunction/SysFunctionAdd.cshtml", viewModel);
-        }
-
-        /// <summary>
-        /// 列表页中，ajax请求获取list
-        /// </summary>
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView)]
-        public ActionResult GetList()
-        {
-            XCLCMS.Data.BLL.View.v_SysFunction bll = new Data.BLL.View.v_SysFunction();
-            long parentID = XCLNetTools.StringHander.FormHelper.GetLong("id");
-            List<XCLCMS.Data.Model.View.v_SysFunction> lst = bll.GetList(parentID);
-            return XCLCMS.Lib.Common.Comm.XCLJsonResult(lst, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -99,17 +91,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
             model.SysFunctionID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.FUN);
             model.Code = viewModel.SysFunction.Code;
-            if (bll.Add(model))
-            {
-                msgModel.Message = "添加成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = "添加失败！";
-                msgModel.IsSuccess = false;
-            }
-            return Json(msgModel);
+
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysFunction>(base.UserToken);
+            request.Body = model;
+            var response = XCLCMS.Lib.WebAPI.SysFunctionAPI.Add(request);
+
+            return Json(response);
         }
 
         [HttpPost]
@@ -128,63 +115,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
             model.UpdateTime = DateTime.Now;
             model.Remark = viewModel.SysFunction.Remark;
             model.Code = viewModel.SysFunction.Code;
-            if (bll.Update(model))
-            {
-                msgModel.Message = "修改成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = "修改失败！";
-                msgModel.IsSuccess = false;
-            }
-            return Json(msgModel);
-        }
 
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionDel)]
-        public override ActionResult DelSubmit(FormCollection fm)
-        {
-            base.DelSubmit(fm);
-            XCLCMS.Data.BLL.SysFunction bll = new Data.BLL.SysFunction();
-            XCLCMS.Data.Model.SysFunction model = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            DateTime dtNow = DateTime.Now;
-            long[] ids = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("SysFunctionIDs").Split(','));
-            for (int i = 0; i < ids.Length; i++)
-            {
-                if (ids[i] <= 0) continue;
-                model = bll.GetModel(ids[i]);
-                if (null != model)
-                {
-                    model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString();
-                    model.UpdaterID = base.CurrentUserModel.UserInfoID;
-                    model.UpdaterName = base.CurrentUserModel.UserName;
-                    model.UpdateTime = dtNow;
-                    bll.Update(model);
-                }
-            }
-            msgModel.IsSuccess = true;
-            msgModel.Message = "删除成功！";
-            return Json(msgModel);
-        }
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysFunction>(base.UserToken);
+            request.Body = model;
+            var response = XCLCMS.Lib.WebAPI.SysFunctionAPI.Update(request);
 
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionDel)]
-        public ActionResult DelChildSubmit(FormCollection fm)
-        {
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            XCLCMS.Data.BLL.SysFunction bll = new Data.BLL.SysFunction();
-            bll.DelChild(new Data.Model.SysFunction()
-            {
-                SysFunctionID = XCLNetTools.StringHander.FormHelper.GetLong("sysFunctionId"),
-                UpdaterID = base.CurrentUserModel.UserInfoID,
-                UpdaterName = base.CurrentUserModel.UserName,
-                UpdateTime = DateTime.Now
-            });
-            msgModel.IsSuccess = true;
-            msgModel.Message = "子节点清理成功！";
-            return Json(msgModel);
+            return Json(response);
         }
     }
 }

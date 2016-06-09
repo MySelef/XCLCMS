@@ -39,13 +39,28 @@
             _this.TreeObj = $('#tableSysFunctionList');
             //加载列表树
             _this.TreeObj.treegrid({
-                url: XCLCMSPageGlobalConfig.RootURL + 'SysFunction/GetList',
+                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysFunction/GetList',
+                queryParams: {
+                    json: function () {
+                        var request = XCLCMSWebApi.CreateRequest();
+                        request.Body = 0;
+                        return JSON.stringify(request);
+                    }
+                },
+                onBeforeExpand: function (node) {
+                    _this.TreeObj.treegrid('options').queryParams.json = (function () {
+                        var request = XCLCMSWebApi.CreateRequest();
+                        request.Body = node.SysFunctionID;
+                        return JSON.stringify(request);
+                    })();
+                },
                 method: 'get',
                 idField: 'SysFunctionID',
                 treeField: 'FunctionName',
                 rownumbers: true,
                 loadFilter: function (data) {
                     if (data) {
+                        data = data.Body;
                         for (var i = 0; i < data.length; i++) {
                             data[i].state = (data[i].IsLeaf === 1) ? "" : "closed";
                         }
@@ -168,15 +183,20 @@
             var _this = this;
             var ids = _this.GetSelectedIds();
             art.dialog.confirm("您确定要删除此信息吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = ids;
                 $.XGoAjax({
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "SysFunction/DelSubmit",
-                        data: { SysFunctionIDs: ids.join(',') }, type: "POST"
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysFunction/Delete",
+                        data: request,
+                        type: "POST"
                     },
                     postSuccess: function () {
-                        $.each(ids, function (idx, n) {
-                            _this.TreeObj.treegrid("remove", n);
-                        });
+                        if (data.IsSuccess) {
+                            $.each(ids, function (idx, n) {
+                                _this.TreeObj.treegrid("remove", n);
+                            });
+                        }
                     }
                 });
             }, function () { });
@@ -188,10 +208,13 @@
             var _this = this;
             var ids = _this.GetSelectedIds();
             art.dialog.confirm("您确定要清空此节点的所有子节点吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = ids[0];
                 $.XGoAjax({
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "SysFunction/DelChildSubmit",
-                        data: { sysFunctionId: ids[0] }, type: "POST"
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysFunction/DelChild",
+                        data: request,
+                        type: "POST"
                     },
                     postSuccess: function () {
                         var parent = _this.TreeObj.treegrid("getParent", ids[0]);
@@ -230,32 +253,36 @@
                 rules: {
                     txtFunctionName: {
                         required: true,
-                        XCLCustomRemote: {
-                            url: XCLCMSPageGlobalConfig.RootURL + "SysFunctionCommon/IsExistFunctionNameInSameLevel",
-                            data: {
-                                functionName: function () {
-                                    return $("#txtFunctionName").val();
-                                },
-                                parentID: function () {
-                                    return $("#ParentID").val();
-                                },
-                                SysFunctionID: function () {
-                                    return $("#SysFunctionID").val();
+                        XCLCustomRemote: function () {
+                            return {
+                                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysFunction/IsExistFunctionNameInSameLevel",
+                                data: {
+                                    "json": function () {
+                                        var request = XCLCMSWebApi.CreateRequest();
+                                        request.Body = {};
+                                        request.Body.FunctionName = $("#txtFunctionName").val();
+                                        request.Body.ParentID = $("#ParentID").val();
+                                        request.Body.SysFunctionID = $("#SysFunctionID").val();
+                                        return JSON.stringify(request);
+                                    }
                                 }
-                            }
+                            };
                         }
                     },
                     txtCode: {
-                        XCLCustomRemote: {
-                            url: XCLCMSPageGlobalConfig.RootURL + "SysFunctionCommon/IsExistCode",
-                            data: {
-                                Code: function () {
-                                    return $("#txtCode").val();
-                                },
-                                SysFunctionID: function () {
-                                    return $("#SysFunctionID").val();
+                        XCLCustomRemote: function () {
+                            return {
+                                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysFunction/IsExistCode",
+                                data: {
+                                    "json": function () {
+                                        var request = XCLCMSWebApi.CreateRequest();
+                                        request.Body = {};
+                                        request.Body.Code = $("#txtCode").val();
+                                        request.Body.SysFunctionID = $("#SysFunctionID").val();
+                                        return JSON.stringify(request);
+                                    }
                                 }
-                            }
+                            };
                         }
                     }
                 }

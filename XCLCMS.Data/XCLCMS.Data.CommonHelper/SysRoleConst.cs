@@ -13,7 +13,12 @@
             /// <summary>
             /// 根节点
             /// </summary>
-            Root
+            Root,
+
+            /// <summary>
+            /// 商户主角色
+            /// </summary>
+            MerchantMainRole
         }
     }
 }

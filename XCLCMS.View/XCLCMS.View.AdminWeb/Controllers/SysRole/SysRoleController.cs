@@ -73,7 +73,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             viewModel.SysRole.RoleName = (fm["txtRoleName"] ?? "").Trim();
             viewModel.SysRole.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.SysRole.Weight = XCLNetTools.Common.DataTypeConvert.ToIntNull(fm["txtWeight"]);
-            viewModel.SysRole.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
             viewModel.RoleFunctionIDList = XCLNetTools.StringHander.FormHelper.GetLongList("txtRoleFunction");
             return viewModel;
         }
@@ -101,7 +100,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             model.SysRoleID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.RLE);
             model.Code = viewModel.SysRole.Code;
             model.Weight = viewModel.SysRole.Weight;
-            model.FK_MerchantID = viewModel.SysRole.FK_MerchantID;
+            model.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity>(base.UserToken);
             request.Body = new Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity();
@@ -128,7 +127,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             model.Remark = viewModel.SysRole.Remark;
             model.Code = viewModel.SysRole.Code;
             model.Weight = viewModel.SysRole.Weight;
-            model.FK_MerchantID = viewModel.SysRole.FK_MerchantID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity>(base.UserToken);
             request.Body = new Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity();

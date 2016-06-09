@@ -32,7 +32,7 @@
                 <td>商户ID</td>
                 <td>商户名</td>
                 <td>商户类型</td>
-                <td>系统内置</td>
+                <td>系统类型</td>
                 <td>绑定的域名</td>
                 <td>logo</td>
                 <td>联系人</td>
@@ -68,7 +68,7 @@
                             </td>
                             <td>@m.MerchantName</td>
                             <td align="center">@m.MerchantTypeName</td>
-                            <td align="center">@(m.IsSystem==1?"是":"否")</td>
+                            <td align="center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum), m.MerchantSystemType)</td>
                             <td>@m.Domain</td>
                             <td>@m.LogoURL</td>
                             <td>@m.ContactName</td>

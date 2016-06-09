@@ -16,7 +16,7 @@ namespace XCLCMS.Data.Model.View
         private long _merchantid;
         private string _merchantname;
         private long _fk_merchanttype;
-        private int _issystem;
+        private string _merchantsystemtype;
         private string _domain;
         private string _logourl;
         private string _contactname;
@@ -72,10 +72,10 @@ namespace XCLCMS.Data.Model.View
         /// <summary>
         ///
         /// </summary>
-        public int IsSystem
+        public string MerchantSystemType
         {
-            set { _issystem = value; }
-            get { return _issystem; }
+            set { _merchantsystemtype = value; }
+            get { return _merchantsystemtype; }
         }
 
         /// <summary>

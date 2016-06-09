@@ -216,8 +216,16 @@ namespace XCLCMS.WebAPI.Controllers
                 }
             }
 
+            if (model.MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.SYS.ToString() && !string.Equals(request.Body.MerchantSystemType, model.MerchantSystemType, StringComparison.OrdinalIgnoreCase))
+            {
+                response.IsSuccess = false;
+                response.Message = "不能修改系统内置商户的类型！";
+                return response;
+            }
+
             #endregion 数据校验
 
+            model.MerchantSystemType = request.Body.MerchantSystemType;
             model.Address = request.Body.Address;
             model.ContactName = request.Body.ContactName;
             model.Domain = request.Body.Domain;
@@ -280,7 +288,7 @@ namespace XCLCMS.WebAPI.Controllers
                 {
                     continue;
                 }
-                if (merchantModel.IsSystem == 1)
+                if (merchantModel.MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.SYS.ToString())
                 {
                     response.IsSuccess = false;
                     response.Message = string.Format("不可以删除系统内置商户【{0}】！", merchantModel.MerchantName);

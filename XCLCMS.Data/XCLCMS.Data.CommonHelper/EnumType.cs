@@ -406,6 +406,24 @@ namespace XCLCMS.Data.CommonHelper
             N
         }
 
+        /// <summary>
+        /// 商户系统类型
+        /// </summary>
+        public enum MerchantSystemTypeEnum
+        {
+            /// <summary>
+            /// 普通商户 Normal
+            /// </summary>
+            [Description("普通商户")]
+            NOR,
+
+            /// <summary>
+            /// 系统内置商户 System
+            /// </summary>
+            [Description("系统内置商户")]
+            SYS,
+        }
+
         #endregion 商户
 
         #region ID生成

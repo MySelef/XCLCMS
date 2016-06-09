@@ -7,11 +7,12 @@ GO
 
 
 
+
 CREATE PROCEDURE [dbo].[sp_Merchant_Update]
 @MerchantID bigint,
 @MerchantName nvarchar(100),
 @FK_MerchantType bigint,
-@IsSystem tinyint,
+@MerchantSystemType char(3),
 @Domain varchar(200),
 @LogoURL varchar(200),
 @ContactName nvarchar(100),
@@ -43,7 +44,7 @@ BEGIN
 	BEGIN TRY
 		UPDATE [Merchant] SET 
 		MerchantName=@MerchantName ,
-		[FK_MerchantType] = @FK_MerchantType,[IsSystem] = @IsSystem,[Domain] = @Domain,[LogoURL] = @LogoURL,[ContactName] = @ContactName,[Tel] = @Tel,[Landline] = @Landline,[Email] = @Email,[QQ] = @QQ,[FK_PassType] = @FK_PassType,[PassNumber] = @PassNumber,[Address] = @Address,[OtherContact] = @OtherContact,[MerchantRemark] = @MerchantRemark,[RegisterTime] = @RegisterTime,[MerchantState] = @MerchantState,[Remark] = @Remark,[RecordState] = @RecordState,[CreateTime] = @CreateTime,[CreaterID] = @CreaterID,[CreaterName] = @CreaterName,[UpdateTime] = @UpdateTime,[UpdaterID] = @UpdaterID,[UpdaterName] = @UpdaterName
+		[FK_MerchantType] = @FK_MerchantType,[MerchantSystemType] = @MerchantSystemType,[Domain] = @Domain,[LogoURL] = @LogoURL,[ContactName] = @ContactName,[Tel] = @Tel,[Landline] = @Landline,[Email] = @Email,[QQ] = @QQ,[FK_PassType] = @FK_PassType,[PassNumber] = @PassNumber,[Address] = @Address,[OtherContact] = @OtherContact,[MerchantRemark] = @MerchantRemark,[RegisterTime] = @RegisterTime,[MerchantState] = @MerchantState,[Remark] = @Remark,[RecordState] = @RecordState,[CreateTime] = @CreateTime,[CreaterID] = @CreaterID,[CreaterName] = @CreaterName,[UpdateTime] = @UpdateTime,[UpdaterID] = @UpdaterID,[UpdaterName] = @UpdaterName
 		WHERE MerchantID=@MerchantID
 
 		SET @ResultCode=1
@@ -54,6 +55,7 @@ BEGIN
 	END CATCH
 
 END 
+
 
 
 

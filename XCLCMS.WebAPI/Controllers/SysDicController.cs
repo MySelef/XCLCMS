@@ -133,7 +133,6 @@ namespace XCLCMS.WebAPI.Controllers
 
             request.Body.DicName = (request.Body.DicName ?? "").Trim();
             request.Body.Code = (request.Body.Code ?? "").Trim();
-            request.Body.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
 
             //字典名必填
             if (string.IsNullOrEmpty(request.Body.DicName))

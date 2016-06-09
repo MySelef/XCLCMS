@@ -24,6 +24,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                 new XCLNetSearch.SearchFieldInfo("商户ID","MerchantID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("商户名","MerchantName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("商户类型","FK_MerchantType|number|select",XCLCMS.Lib.Common.Tool.GetSysDicOptionsByCode("MerchantType")),
+                new XCLNetSearch.SearchFieldInfo("商户系统类型","MerchantSystemType|string|select",XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum))),
                 new XCLNetSearch.SearchFieldInfo("绑定的域名","Domain|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("联系人","ContactName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("手机","Tel|string|text",""),
@@ -95,11 +96,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                     {
                         IsNeedPleaseSelect = true
                     });
-                    viewModel.IsSystemOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLNetTools.Enum.CommonEnum.是否), new XCLNetTools.Entity.SetOptionEntity()
+                    viewModel.MerchantSystemTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum), new XCLNetTools.Entity.SetOptionEntity()
                     {
-                        IsNeedPleaseSelect = false,
-                        TextFieldEnum = XCLNetTools.Enum.CommonEnum.SelectOptionFieldEnum.Text,
-                        ValueFieldEnum = XCLNetTools.Enum.CommonEnum.SelectOptionFieldEnum.Value
+                        IsNeedPleaseSelect = false
                     });
                     viewModel.MerchantStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum));
                     viewModel.FormAction = Url.Action("AddSubmit", "Merchant");
@@ -122,12 +121,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                         DefaultValue = viewModel.Merchant.FK_PassType.ToString(),
                         IsNeedPleaseSelect = true
                     });
-                    viewModel.IsSystemOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLNetTools.Enum.CommonEnum.是否), new XCLNetTools.Entity.SetOptionEntity()
+                    viewModel.MerchantSystemTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum), new XCLNetTools.Entity.SetOptionEntity()
                     {
-                        DefaultValue = viewModel.Merchant.IsSystem.ToString(),
-                        IsNeedPleaseSelect = false,
-                        TextFieldEnum = XCLNetTools.Enum.CommonEnum.SelectOptionFieldEnum.Text,
-                        ValueFieldEnum = XCLNetTools.Enum.CommonEnum.SelectOptionFieldEnum.Value
+                        DefaultValue = viewModel.Merchant.MerchantSystemType,
+                        IsNeedPleaseSelect = false
                     });
                     viewModel.MerchantStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum), new XCLNetTools.Entity.SetOptionEntity()
                     {
@@ -164,6 +161,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             viewModel.Merchant.RegisterTime = XCLNetTools.Common.DataTypeConvert.ToDateTimeNull((fm["txtRegisterTime"] ?? "").Trim());
             viewModel.Merchant.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.Merchant.Tel = (fm["txtTel"] ?? "").Trim();
+            viewModel.Merchant.MerchantSystemType = fm["selMerchantSystemType"];
             return viewModel;
         }
 
@@ -201,6 +199,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.UpdaterID = model.CreaterID;
             model.UpdaterName = model.CreaterName;
             model.UpdateTime = model.CreateTime;
+            model.MerchantSystemType = viewModel.Merchant.MerchantSystemType;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.Merchant>(base.UserToken);
             request.Body = model;
@@ -241,6 +240,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.UpdaterID = model.CreaterID;
             model.UpdaterName = model.CreaterName;
             model.UpdateTime = model.CreateTime;
+            model.MerchantSystemType = viewModel.Merchant.MerchantSystemType;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.Merchant>(base.UserToken);
             request.Body = model;

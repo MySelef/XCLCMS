@@ -30,6 +30,6 @@
         /// <summary>
         /// 是否系统内置 select的options
         /// </summary>
-        public string IsSystemOptions { get; set; }
+        public string MerchantSystemTypeOptions { get; set; }
     }
 }

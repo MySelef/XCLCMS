@@ -132,7 +132,6 @@ namespace XCLCMS.WebAPI.Controllers
                 response.Message = "请指定角色信息！";
                 return response;
             }
-            request.Body.SysRole.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
             request.Body.SysRole.RoleName = (request.Body.SysRole.RoleName ?? "").Trim();
             request.Body.SysRole.Code = (request.Body.SysRole.Code ?? "").Trim();
 
@@ -220,7 +219,6 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
-            request.Body.SysRole.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
             request.Body.SysRole.RoleName = (request.Body.SysRole.RoleName ?? "").Trim();
             request.Body.SysRole.Code = (request.Body.SysRole.Code ?? "").Trim();
 
@@ -241,6 +239,14 @@ namespace XCLCMS.WebAPI.Controllers
                     response.Message = string.Format("角色标识【{0}】已存在！", request.Body.SysRole.Code);
                     return response;
                 }
+            }
+
+            //只能修改属于自己的商户节点
+            if (model.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.IsSuccess = false;
+                response.Message = string.Format("只能修改属于自己的商户节点！");
+                return response;
             }
 
             #endregion 数据校验

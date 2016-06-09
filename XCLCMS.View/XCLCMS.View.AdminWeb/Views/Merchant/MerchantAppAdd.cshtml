@@ -24,37 +24,40 @@
                         <input type="text" name="txtResourceVersion" value="@Model.MerchantApp.ResourceVersion" />
                     </td>
                 </tr>
-
                 <tr>
                     <td class="XCLTitle">站点网址：</td>
                     <td>
                         <input type="text" name="txtWebURL" value="@Model.MerchantApp.WebURL" />
                     </td>
-                    <td class="XCLTitle">Meta标题：</td>
-                    <td>
-                        <input type="text" name="txtMetaTitle" value="@Model.MerchantApp.MetaTitle" />
-                    </td>
-                    <td class="XCLTitle">Meta关键字：</td>
-                    <td>
-                        <input type="text" name="txtMetaKeyWords" value="@Model.MerchantApp.MetaKeyWords" />
-                    </td>
-                </tr>
-                <tr>
                     <td class="XCLTitle">联系人邮箱：</td>
                     <td>
                         <input type="text" name="txtEmail" value="@Model.MerchantApp.Email" />
                     </td>
-                    <td class="XCLTitle">版权信息：</td>
-                    <td>
-                        <input type="text" name="txtCopyRight" value="@Model.MerchantApp.CopyRight" />
-                    </td>
-                    <td class="XCLTitle">Meta描述：</td>
-                    <td>
-                        <input type="text" name="txtMetaDescription" value="@Model.MerchantApp.MetaDescription" />
-                    </td>
+                    <td class="XCLTitle"></td>
+                    <td></td>
                 </tr>
 
                 <tr>
+                    <td class="XCLTitle">Meta标题：</td>
+                    <td>
+                        <textarea name="txtMetaTitle">@Model.MerchantApp.MetaTitle</textarea>
+                    </td>
+                    <td class="XCLTitle">Meta关键字：</td>
+                    <td>
+                        <textarea name="txtMetaKeyWords">@Model.MerchantApp.MetaKeyWords</textarea>
+                    </td>
+                    <td class="XCLTitle">Meta描述：</td>
+                    <td>
+                        <textarea name="txtMetaDescription">@Model.MerchantApp.MetaDescription</textarea>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="XCLTitle">版权信息：</td>
+                    <td>
+                        <textarea name="txtCopyRight">@Model.MerchantApp.CopyRight</textarea>
+                    </td>
                     <td class="XCLTitle">备注：</td>
                     <td>
                         <textarea id="txtRemark" name="txtRemark">@Model.MerchantApp.Remark</textarea>
@@ -70,8 +73,6 @@
                             @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.MerchantApp.RecordState.ToString())
                         }
                     </td>
-                    <td class="XCLTitle"></td>
-                    <td></td>
                 </tr>
             </table>
         </div>

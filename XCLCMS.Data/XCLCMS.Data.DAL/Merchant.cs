@@ -28,7 +28,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "MerchantID", DbType.Int64, model.MerchantID);
             db.AddInParameter(dbCommand, "MerchantName", DbType.String, model.MerchantName);
             db.AddInParameter(dbCommand, "FK_MerchantType", DbType.Int64, model.FK_MerchantType);
-            db.AddInParameter(dbCommand, "IsSystem", DbType.Byte, model.IsSystem);
+            db.AddInParameter(dbCommand, "MerchantSystemType", DbType.AnsiString, model.MerchantSystemType);
             db.AddInParameter(dbCommand, "Domain", DbType.AnsiString, model.Domain);
             db.AddInParameter(dbCommand, "LogoURL", DbType.AnsiString, model.LogoURL);
             db.AddInParameter(dbCommand, "ContactName", DbType.String, model.ContactName);
@@ -77,7 +77,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "MerchantID", DbType.Int64, model.MerchantID);
             db.AddInParameter(dbCommand, "MerchantName", DbType.String, model.MerchantName);
             db.AddInParameter(dbCommand, "FK_MerchantType", DbType.Int64, model.FK_MerchantType);
-            db.AddInParameter(dbCommand, "IsSystem", DbType.Byte, model.IsSystem);
+            db.AddInParameter(dbCommand, "MerchantSystemType", DbType.AnsiString, model.MerchantSystemType);
             db.AddInParameter(dbCommand, "Domain", DbType.AnsiString, model.Domain);
             db.AddInParameter(dbCommand, "LogoURL", DbType.AnsiString, model.LogoURL);
             db.AddInParameter(dbCommand, "ContactName", DbType.String, model.ContactName);

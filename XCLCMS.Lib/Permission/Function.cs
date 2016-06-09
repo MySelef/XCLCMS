@@ -269,6 +269,12 @@ namespace XCLCMS.Lib.Permission
             /// </summary>
             [Description("文章管理-文章信息查看")]
             SysFun_UserAdmin_ArticleView = 400182,
+
+            /// <summary>
+            ///数据过滤-仅限当前商户
+            /// </summary>
+            [Description("数据过滤-仅限当前商户")]
+            SysFun_DataFilter_OnlyCurrentMerchant = 400188,
         }
     }
 }

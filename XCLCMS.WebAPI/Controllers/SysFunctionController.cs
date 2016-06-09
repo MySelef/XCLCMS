@@ -118,6 +118,59 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 获取easyui tree格式的所有功能json
+        /// </summary>
+        [HttpGet]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView)]
+        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetAllJsonForEasyUITree([FromUri] string json)
+        {
+            var response = new APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>();
+            response.IsSuccess = true;
+
+            List<XCLNetTools.Entity.EasyUI.TreeItem> tree = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
+            var allData = this.vSysFunctionBLL.GetModelList("");
+            if (allData.IsNotNullOrEmpty())
+            {
+                var root = allData.Where(k => k.ParentID == 0).FirstOrDefault();//根节点
+                if (null != root)
+                {
+                    tree.Add(new XCLNetTools.Entity.EasyUI.TreeItem()
+                    {
+                        ID = root.SysFunctionID.ToString(),
+                        State = root.IsLeaf == 1 ? "open" : "closed",
+                        Text = root.FunctionName
+                    });
+
+                    Action<XCLNetTools.Entity.EasyUI.TreeItem> getChildAction = null;
+                    getChildAction = new Action<XCLNetTools.Entity.EasyUI.TreeItem>((parentModel) =>
+                    {
+                        var childs = allData.Where(k => k.ParentID == Convert.ToInt64(parentModel.ID)).ToList();
+                        if (childs.IsNotNullOrEmpty())
+                        {
+                            parentModel.Children = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
+                            childs.ForEach(m =>
+                            {
+                                var treeItem = new XCLNetTools.Entity.EasyUI.TreeItem()
+                                {
+                                    ID = m.SysFunctionID.ToString(),
+                                    State = m.IsLeaf == 1 ? "open" : "closed",
+                                    Text = m.FunctionName
+                                };
+                                getChildAction(treeItem);
+                                parentModel.Children.Add(treeItem);
+                            });
+                        }
+                    });
+
+                    //从根节点开始
+                    getChildAction(tree[0]);
+                }
+            }
+            response.Body = tree;
+            return response;
+        }
+
+        /// <summary>
         /// 添加功能
         /// </summary>
         [HttpPost]

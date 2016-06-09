@@ -161,7 +161,6 @@
     <Compile Include="Controllers\Merchant\MerchantController.cs" />
     <Compile Include="Controllers\SysDic\SysDicCommonController.cs" />
     <Compile Include="Controllers\SysDic\SysDicController.cs" />
-    <Compile Include="Controllers\SysFunction\SysFunctionCommonController.cs" />
     <Compile Include="Controllers\SysFunction\SysFunctionController.cs" />
     <Compile Include="Controllers\SysLog\SysLogController.cs" />
     <Compile Include="Controllers\SysRole\SysRoleCommonController.cs" />

@@ -267,12 +267,21 @@
                 return;
             }
 
+            var request = XCLCMSWebApi.CreateRequest();
+            request.Body = {};
+            var reqJSON=JSON.stringify(request);
+
             $obj.combotree({
-                url: XCLCMSPageGlobalConfig.RootURL + 'SysFunctionCommon/GetAllJsonForEasyUITree',
+                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysFunction/GetAllJsonForEasyUITree?json=' + reqJSON,
                 method: 'get',
                 checkbox: true,
                 lines: true,
-                multiple: true
+                multiple: true,
+                loadFilter: function (data) {
+                    if (data) {
+                        return data.Body;
+                    }
+                }
             });
 
             _this.Elements.txtRoleFunction.combotree("setValues", (_this.Elements.txtRoleFunction.attr("xcl-data-value") || "").split(','));

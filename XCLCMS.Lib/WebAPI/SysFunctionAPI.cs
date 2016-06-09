@@ -41,6 +41,14 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 获取easyui tree格式的所有功能json
+        /// </summary>
+        public static APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetAllJsonForEasyUITree(APIRequestEntity<object> request)
+        {
+            return Library.Request<object, List<XCLNetTools.Entity.EasyUI.TreeItem>>(request, "SysFunction/GetAllJsonForEasyUITree");
+        }
+
+        /// <summary>
         /// 添加功能
         /// </summary>
         public static APIResponseEntity<bool> Add(APIRequestEntity<XCLCMS.Data.Model.SysFunction> request)

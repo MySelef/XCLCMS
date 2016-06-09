@@ -16,6 +16,7 @@ namespace XCLCMS.Data.Model
         private long _merchantid;
         private string _merchantname;
         private long _fk_merchanttype;
+        private int _issystem = 0;
         private string _domain;
         private string _logourl;
         private string _contactname;
@@ -64,6 +65,15 @@ namespace XCLCMS.Data.Model
         {
             set { _fk_merchanttype = value; }
             get { return _fk_merchanttype; }
+        }
+
+        /// <summary>
+        /// 是否为系统内置商户
+        /// </summary>
+        public int IsSystem
+        {
+            set { _issystem = value; }
+            get { return _issystem; }
         }
 
         /// <summary>

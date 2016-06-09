@@ -37,8 +37,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_Merchant> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select MerchantID,MerchantName,FK_MerchantType,Domain,LogoURL,ContactName,Tel,Landline,Email,QQ,FK_PassType,PassNumber,Address,OtherContact,MerchantRemark,RegisterTime,MerchantState,Remark,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName,MerchantTypeName,PassTypeName ");
-            strSql.Append(" FROM v_Merchant ");
+            strSql.Append("select * FROM v_Merchant ");
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             var ds = db.ExecuteDataSet(dbCommand);

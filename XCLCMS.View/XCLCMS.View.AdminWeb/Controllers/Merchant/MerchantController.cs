@@ -95,6 +95,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                     {
                         IsNeedPleaseSelect = true
                     });
+                    viewModel.IsSystemOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLNetTools.Enum.CommonEnum.是否), new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        IsNeedPleaseSelect = false,
+                        TextFieldEnum = XCLNetTools.Enum.CommonEnum.SelectOptionFieldEnum.Text,
+                        ValueFieldEnum = XCLNetTools.Enum.CommonEnum.SelectOptionFieldEnum.Value
+                    });
                     viewModel.MerchantStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum));
                     viewModel.FormAction = Url.Action("AddSubmit", "Merchant");
                     break;
@@ -115,6 +121,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                     {
                         DefaultValue = viewModel.Merchant.FK_PassType.ToString(),
                         IsNeedPleaseSelect = true
+                    });
+                    viewModel.IsSystemOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLNetTools.Enum.CommonEnum.是否), new XCLNetTools.Entity.SetOptionEntity()
+                    {
+                        DefaultValue = viewModel.Merchant.IsSystem.ToString(),
+                        IsNeedPleaseSelect = false,
+                        TextFieldEnum = XCLNetTools.Enum.CommonEnum.SelectOptionFieldEnum.Text,
+                        ValueFieldEnum = XCLNetTools.Enum.CommonEnum.SelectOptionFieldEnum.Value
                     });
                     viewModel.MerchantStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantStateEnum), new XCLNetTools.Entity.SetOptionEntity()
                     {

@@ -280,7 +280,7 @@ namespace XCLCMS.WebAPI.Controllers
                 {
                     continue;
                 }
-                if (merchantModel.MerchantID == XCLCMS.Data.CommonHelper.SystemDataConst.SysMerchantID)
+                if (merchantModel.IsSystem == 1)
                 {
                     response.IsSuccess = false;
                     response.Message = string.Format("不可以删除系统内置商户【{0}】！", merchantModel.MerchantName);

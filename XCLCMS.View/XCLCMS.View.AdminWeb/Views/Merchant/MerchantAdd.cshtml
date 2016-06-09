@@ -86,6 +86,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="XCLTitle">是否为系统内置：</td>
+                    <td>
+                        <select id="selIsSystem" name="selIsSystem">@Html.Raw(Model.IsSystemOptions)</select>
+                    </td>
                     <td class="XCLTitle">备注：</td>
                     <td>
                         <textarea id="txtRemark" name="txtRemark">@Model.Merchant.Remark</textarea>
@@ -100,8 +104,6 @@
                             @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.Merchant.RecordState.ToString())
                         }
                     </td>
-                    <td class="XCLTitle"></td>
-                    <td></td>
                 </tr>
             </table>
         </div>

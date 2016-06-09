@@ -2,7 +2,11 @@
 
 namespace XCLCMS.Data.Model.View
 {
-    public class v_Merchant
+    /// <summary>
+    /// v_Merchant:实体类(属性说明自动提取数据库字段的描述信息)
+    /// </summary>
+    [Serializable]
+    public partial class v_Merchant
     {
         public v_Merchant()
         { }
@@ -12,6 +16,7 @@ namespace XCLCMS.Data.Model.View
         private long _merchantid;
         private string _merchantname;
         private long _fk_merchanttype;
+        private int _issystem;
         private string _domain;
         private string _logourl;
         private string _contactname;
@@ -62,6 +67,15 @@ namespace XCLCMS.Data.Model.View
         {
             set { _fk_merchanttype = value; }
             get { return _fk_merchanttype; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public int IsSystem
+        {
+            set { _issystem = value; }
+            get { return _issystem; }
         }
 
         /// <summary>

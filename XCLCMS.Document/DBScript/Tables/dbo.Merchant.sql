@@ -3,6 +3,7 @@ CREATE TABLE [dbo].[Merchant]
 [MerchantID] [bigint] NOT NULL,
 [MerchantName] [nvarchar] (100) COLLATE Chinese_PRC_CI_AS NOT NULL,
 [FK_MerchantType] [bigint] NOT NULL,
+[IsSystem] [tinyint] NOT NULL CONSTRAINT [DF__tmp_ms_xx__IsSys__15702A09] DEFAULT ((0)),
 [Domain] [varchar] (200) COLLATE Chinese_PRC_CI_AS NULL,
 [LogoURL] [varchar] (200) COLLATE Chinese_PRC_CI_AS NULL,
 [ContactName] [nvarchar] (100) COLLATE Chinese_PRC_CI_AS NULL,
@@ -59,6 +60,9 @@ EXEC sp_addextendedproperty N'MS_Description', '商户类型(参见字典库)', 
 GO
 
 EXEC sp_addextendedproperty N'MS_Description', '证件类型（参见字典库）', 'SCHEMA', N'dbo', 'TABLE', N'Merchant', 'COLUMN', N'FK_PassType'
+GO
+
+EXEC sp_addextendedproperty N'MS_Description', '是否为系统内置商户', 'SCHEMA', N'dbo', 'TABLE', N'Merchant', 'COLUMN', N'IsSystem'
 GO
 
 EXEC sp_addextendedproperty N'MS_Description', '固话', 'SCHEMA', N'dbo', 'TABLE', N'Merchant', 'COLUMN', N'Landline'

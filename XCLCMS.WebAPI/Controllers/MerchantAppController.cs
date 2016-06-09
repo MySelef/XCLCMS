@@ -223,8 +223,8 @@ namespace XCLCMS.WebAPI.Controllers
                 {
                     continue;
                 }
-
-                if (merchantAppModel.FK_MerchantID == XCLCMS.Data.CommonHelper.SystemDataConst.SysMerchantID)
+                var merchantModel = this.merchantBLL.GetModel(merchantAppModel.FK_MerchantID);
+                if (null != merchantModel && merchantModel.IsSystem == 1)
                 {
                     response.IsSuccess = false;
                     response.Message = string.Format("不可以删除系统内置商户的应用【{0}】！", merchantAppModel.MerchantAppName);

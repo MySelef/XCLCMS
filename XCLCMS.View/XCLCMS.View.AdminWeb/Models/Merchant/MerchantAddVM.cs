@@ -26,5 +26,10 @@
         /// 商户状态select的options
         /// </summary>
         public string MerchantStateOptions { get; set; }
+
+        /// <summary>
+        /// 是否系统内置 select的options
+        /// </summary>
+        public string IsSystemOptions { get; set; }
     }
 }

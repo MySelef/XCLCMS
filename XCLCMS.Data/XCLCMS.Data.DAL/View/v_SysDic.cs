@@ -76,6 +76,19 @@ namespace XCLCMS.Data.DAL.View
             return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.View.v_SysDic>(ds) as List<XCLCMS.Data.Model.View.v_SysDic>;
         }
 
+        /// <summary>
+        /// 获取所有系统菜单信息
+        /// </summary>
+        public List<XCLCMS.Data.Model.View.v_SysDic> GetSystemMenuModelList()
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(@"SELECT * FROM dbo.fun_SysDic_GetAllUnderListByCode('SysMenu')");
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.View.v_SysDic>(ds.Tables[0]) as List<XCLCMS.Data.Model.View.v_SysDic>;
+        }
+
         #endregion ExtensionMethod
     }
 }

@@ -88,10 +88,12 @@
                     _this.Elements.menu_SysRole_edit.show();
                     _this.Elements.menu_SysRole_delSub.show();
 
-                    if (row.ParentID == 0) {
+                    if (row.IsRoot) {
                         //根节点隐藏部分菜单
+                        _this.Elements.menu_SysRole_add.hide();
                         _this.Elements.menu_SysRole_del.hide();
                         _this.Elements.menu_SysRole_edit.hide();
+                        _this.Elements.menu_SysRole_delSub.hide();
                     }
                     if (row.IsLeaf == 1) {
                         //叶子节点隐藏部分菜单

@@ -47,6 +47,14 @@ namespace XCLCMS.Data.BLL.View
             return dal.GetAllUnderListByCode(code);
         }
 
+        /// <summary>
+        /// 获取所有系统菜单信息
+        /// </summary>
+        public List<XCLCMS.Data.Model.View.v_SysDic> GetSystemMenuModelList()
+        {
+            return dal.GetSystemMenuModelList();
+        }
+
         #endregion ExtensionMethod
     }
 }

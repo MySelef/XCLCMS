@@ -33,7 +33,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             //判断当前字典是否属于【系统菜单】
             if (viewModel.SysDicCategory == XCLCMS.View.AdminWeb.Models.SysDic.SysDicCategoryEnum.None)
             {
-                var menus = new XCLCMS.Data.BLL.View.v_SysDic_SysMenu().GetModelList("");
+                var menus = new XCLCMS.Data.BLL.View.v_SysDic().GetSystemMenuModelList();
                 if (menus.IsNotNullOrEmpty())
                 {
                     if (menus.Exists(k => k.SysDicID == sysDicId || (k.ParentID == sysDicId && base.CurrentHandleType == Lib.Common.Comm.HandleType.ADD)))

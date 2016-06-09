@@ -95,10 +95,12 @@
                     _this.Elements.menu_SysDic_edit.show();
                     _this.Elements.menu_SysDic_delSub.show();
 
-                    if (row.ParentID == 0) {
+                    if (row.IsRoot) {
                         //根节点隐藏部分菜单
+                        _this.Elements.menu_SysDic_add.hide();
                         _this.Elements.menu_SysDic_del.hide();
                         _this.Elements.menu_SysDic_edit.hide();
+                        _this.Elements.menu_SysDic_delSub.hide();
                     }
                     if (row.IsLeaf == 1) {
                         //叶子节点隐藏部分菜单

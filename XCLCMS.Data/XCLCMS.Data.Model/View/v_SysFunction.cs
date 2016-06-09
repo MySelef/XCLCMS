@@ -27,6 +27,7 @@ namespace XCLCMS.Data.Model.View
         private string _updatername;
         private int? _nodelevel;
         private int _isleaf;
+        private int _isroot;
 
         /// <summary>
         ///
@@ -152,6 +153,15 @@ namespace XCLCMS.Data.Model.View
         {
             set { _isleaf = value; }
             get { return _isleaf; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public int IsRoot
+        {
+            set { _isroot = value; }
+            get { return _isroot; }
         }
 
         #endregion Model

@@ -153,13 +153,33 @@ namespace XCLCMS.WebAPI.Controllers
                 }
             }
 
-            //当前用户只能加在自己的商户号下面
+            //父字典是否存在
             var parentNodeModel = this.sysDicBLL.GetModel(request.Body.ParentID);
-            if (null == parentNodeModel || parentNodeModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            if (null == parentNodeModel)
             {
                 response.IsSuccess = false;
-                response.Message = string.Format("只能在自己商户的节点下面添加子节点！");
+                response.Message = "父字典不存在！";
                 return response;
+            }
+
+            //当前用户只能加在自己的商户号下面
+            if (this.vSysDicBLL.IsRoot(parentNodeModel.SysDicID))
+            {
+                if (request.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "只能添加自己的商户字典！";
+                    return response;
+                }
+            }
+            else
+            {
+                if (parentNodeModel.FK_MerchantID != request.Body.FK_MerchantID)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "您添加的字典必须与父字典在同一个商户中！";
+                    return response;
+                }
             }
 
             //应用号与商户一致
@@ -236,14 +256,6 @@ namespace XCLCMS.WebAPI.Controllers
                     response.Message = string.Format("字典唯一标识【{0}】已存在！", request.Body.Code);
                     return response;
                 }
-            }
-
-            //只能修改属于自己的商户节点
-            if (model.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
-            {
-                response.IsSuccess = false;
-                response.Message = string.Format("只能修改属于自己的商户节点！");
-                return response;
             }
 
             //应用号与商户一致

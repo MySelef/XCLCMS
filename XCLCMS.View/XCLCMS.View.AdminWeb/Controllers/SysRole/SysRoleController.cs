@@ -24,6 +24,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
         {
             long sysRoleID = XCLNetTools.StringHander.FormHelper.GetLong("SysRoleID");
 
+            var vSysRoleBLL = new XCLCMS.Data.BLL.View.v_SysRole();
             XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
             XCLCMS.Data.BLL.SysFunction functionBLL = new Data.BLL.SysFunction();
             XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM();
@@ -35,6 +36,17 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
                     viewModel.ParentID = sysRoleID;
                     viewModel.SysRoleID = -1;
                     viewModel.FormAction = Url.Action("AddSubmit", "SysRole");
+
+                    //添加时，若父节点为根节点，则该角色的商户号为当前用户的商户号；否则，则为父级的商户号
+                    if (vSysRoleBLL.IsRoot(sysRoleID))
+                    {
+                        viewModel.SysRole.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
+                    }
+                    else
+                    {
+                        viewModel.SysRole.FK_MerchantID = bll.GetModel(sysRoleID).FK_MerchantID;
+                    }
+
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
@@ -74,6 +86,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             viewModel.SysRole.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.SysRole.Weight = XCLNetTools.Common.DataTypeConvert.ToIntNull(fm["txtWeight"]);
             viewModel.RoleFunctionIDList = XCLNetTools.StringHander.FormHelper.GetLongList("txtRoleFunction");
+            viewModel.SysRole.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("MerchantID");
             return viewModel;
         }
 
@@ -100,7 +113,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             model.SysRoleID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.RLE);
             model.Code = viewModel.SysRole.Code;
             model.Weight = viewModel.SysRole.Weight;
-            model.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
+            model.FK_MerchantID = viewModel.SysRole.FK_MerchantID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity>(base.UserToken);
             request.Body = new Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity();

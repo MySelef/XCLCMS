@@ -42,6 +42,27 @@ namespace XCLCMS.Data.BLL.View
             return dal.GetList(parentID);
         }
 
+        /// <summary>
+        /// 根据code查询model
+        /// </summary>
+        public XCLCMS.Data.Model.View.v_SysRole GetModelByCode(string code)
+        {
+            return dal.GetModelByCode(code);
+        }
+
+        /// <summary>
+        /// 判断指定角色是否为根节点
+        /// </summary>
+        public bool IsRoot(long sysRoleID)
+        {
+            var model = this.GetModel(sysRoleID);
+            if (null != model)
+            {
+                return model.IsRoot == 1;
+            }
+            return false;
+        }
+
         #endregion ExtensionMethod
     }
 }

@@ -55,6 +55,19 @@ namespace XCLCMS.Data.BLL.View
             return dal.GetSystemMenuModelList();
         }
 
+        /// <summary>
+        /// 判断指定字典是否为根节点
+        /// </summary>
+        public bool IsRoot(long sysDicID)
+        {
+            var model = this.GetModel(sysDicID);
+            if (null != model)
+            {
+                return model.IsRoot == 1;
+            }
+            return false;
+        }
+
         #endregion ExtensionMethod
     }
 }

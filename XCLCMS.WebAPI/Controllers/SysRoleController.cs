@@ -154,13 +154,33 @@ namespace XCLCMS.WebAPI.Controllers
                 }
             }
 
-            //当前用户只能加在自己的商户号下面
+            //父角色是否存在
             var parentNodeModel = this.sysRoleBLL.GetModel(request.Body.SysRole.ParentID);
-            if (null == parentNodeModel || parentNodeModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            if (null == parentNodeModel)
             {
                 response.IsSuccess = false;
-                response.Message = string.Format("只能在自己商户的节点下面添加子节点！");
+                response.Message = "父角色不存在！";
                 return response;
+            }
+
+            //当前用户只能加在自己的商户号下面
+            if (this.vSysRoleBLL.IsRoot(parentNodeModel.SysRoleID))
+            {
+                if (request.Body.SysRole.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "只能添加自己的商户角色！";
+                    return response;
+                }
+            }
+            else
+            {
+                if (parentNodeModel.FK_MerchantID != request.Body.SysRole.FK_MerchantID)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "您添加的角色必须与父角色在同一个商户中！";
+                    return response;
+                }
             }
 
             #endregion 数据校验
@@ -241,19 +261,9 @@ namespace XCLCMS.WebAPI.Controllers
                 }
             }
 
-            //只能修改属于自己的商户节点
-            if (model.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
-            {
-                response.IsSuccess = false;
-                response.Message = string.Format("只能修改属于自己的商户节点！");
-                return response;
-            }
-
             #endregion 数据校验
 
             model.Code = request.Body.SysRole.Code;
-            model.FK_MerchantID = request.Body.SysRole.FK_MerchantID;
-            model.ParentID = request.Body.SysRole.ParentID;
             model.RecordState = request.Body.SysRole.RecordState;
             model.Remark = request.Body.SysRole.Remark;
             model.RoleName = request.Body.SysRole.RoleName;

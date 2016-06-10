@@ -32,6 +32,7 @@ namespace XCLCMS.Data.Model.View
         private int _isleaf;
         private int _isroot;
         private string _merchantname;
+        private string _merchantsystemtype;
 
         /// <summary>
         ///
@@ -202,6 +203,15 @@ namespace XCLCMS.Data.Model.View
         {
             set { _merchantname = value; }
             get { return _merchantname; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string MerchantSystemType
+        {
+            set { _merchantsystemtype = value; }
+            get { return _merchantsystemtype; }
         }
 
         #endregion Model

@@ -13,6 +13,7 @@ namespace XCLCMS.WebAPI.Controllers
     /// </summary>
     public class SysFunctionController : BaseAPIController
     {
+        private XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
         private XCLCMS.Data.BLL.SysFunction sysFunctionBLL = new Data.BLL.SysFunction();
         private XCLCMS.Data.BLL.View.v_SysFunction vSysFunctionBLL = new Data.BLL.View.v_SysFunction();
 
@@ -124,11 +125,32 @@ namespace XCLCMS.WebAPI.Controllers
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView)]
         public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetAllJsonForEasyUITree([FromUri] string json)
         {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetAllJsonForEasyUITreeEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>();
             response.IsSuccess = true;
 
+            List<XCLCMS.Data.Model.View.v_SysFunction> allData = null;
             List<XCLNetTools.Entity.EasyUI.TreeItem> tree = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
-            var allData = this.vSysFunctionBLL.GetModelList("");
+
+            var merchantModel = this.merchantBLL.GetModel(request.Body.MerchantID);
+            if (null == merchantModel)
+            {
+                response.IsSuccess = false;
+                response.Message = "您指定的商户号无效！";
+                return response;
+            }
+
+            //根据情况，是否只显示普通商户的功能权限以供选择
+            if (merchantModel.MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.NOR.ToString())
+            {
+                allData = XCLCMS.Lib.Permission.PerHelper.GetNormalMerchantFunctionTreeList();
+            }
+            else
+            {
+                //所有权限功能
+                allData = this.vSysFunctionBLL.GetModelList("");
+            }
+
             if (allData.IsNotNullOrEmpty())
             {
                 var root = allData.Where(k => k.ParentID == 0).FirstOrDefault();//根节点

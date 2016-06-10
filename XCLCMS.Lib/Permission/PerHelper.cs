@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace XCLCMS.Lib.Permission
@@ -32,6 +33,37 @@ namespace XCLCMS.Lib.Permission
         public static List<XCLCMS.Data.Model.SysRole> GetRoleByUserID(long userId)
         {
             return new XCLCMS.Data.BLL.SysRole().GetListByUserID(userId);
+        }
+
+        /// <summary>
+        /// 获取普通商户的所有功能数据源列表
+        /// </summary>
+        public static List<XCLCMS.Data.Model.View.v_SysFunction> GetNormalMerchantFunctionTreeList()
+        {
+            var bll = new XCLCMS.Data.BLL.SysFunction();
+            var roleBLL = new XCLCMS.Data.BLL.View.v_SysRole();
+            var roleModel = roleBLL.GetModelByCode(XCLCMS.Data.CommonHelper.SysRoleConst.SysRoleCodeEnum.MerchantMainRole.ToString());
+            if (null == roleModel)
+            {
+                throw new Exception("请指定普通商户所有功能主角色！");
+            }
+            var allFuns = GetFunctionList();
+            var funLst = bll.GetListByRoleID(roleModel.SysRoleID.Value);
+            var resultId = new List<long>();
+
+            if (null != funLst && funLst.Count > 0)
+            {
+                funLst.ForEach(k =>
+                {
+                    var lst = bll.GetLayerListBySysFunctionId(k.SysFunctionID);
+                    if (null != lst && lst.Count > 0)
+                    {
+                        resultId.AddRange(lst.Select(m => m.SysFunctionID));
+                    }
+                });
+            }
+            resultId = resultId.Distinct().ToList();
+            return allFuns.Where(k => resultId.Contains(k.SysFunctionID.Value)).ToList();
         }
 
         #endregion 角色相关

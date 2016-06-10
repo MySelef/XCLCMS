@@ -8,6 +8,7 @@ GO
 
 
 
+
 CREATE VIEW [dbo].[v_SysRole] AS
 
  WITH Info1 AS 
@@ -24,9 +25,11 @@ a.*,
 	CASE WHEN EXISTS (SELECT TOP 1 1 FROM dbo.SysRole AS b  WHERE b.ParentID=a.SysRoleID AND b.RecordState='N') THEN 0 ELSE 1 END
 ) AS IsLeaf,
 (CASE WHEN a.ParentID=0 THEN 1 ELSE 0 END) AS IsRoot,
-b.MerchantName
+b.MerchantName,
+b.MerchantSystemType
 FROM Info1 AS a
 LEFT JOIN dbo.Merchant AS b ON a.FK_MerchantID=b.MerchantID
+
 
 
 

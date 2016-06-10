@@ -26,6 +26,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
         public ActionResult Add()
         {
             long sysDicId = XCLNetTools.StringHander.FormHelper.GetLong("sysDicId");
+            var vSysDicBLL = new Data.BLL.View.v_SysDic();
             XCLCMS.Data.BLL.SysDic bll = new Data.BLL.SysDic();
             XCLCMS.Data.BLL.SysFunction functionBLL = new Data.BLL.SysFunction();
             XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM();
@@ -50,6 +51,16 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                     viewModel.ParentID = sysDicId;
                     viewModel.SysDicID = -1;
                     viewModel.FormAction = Url.Action("AddSubmit", "SysDic");
+
+                    //添加时，若父节点为根节点，则该字典的商户号为当前用户的商户号；否则，则为父级的商户号
+                    if (vSysDicBLL.IsRoot(sysDicId))
+                    {
+                        viewModel.SysDic.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
+                    }
+                    else
+                    {
+                        viewModel.SysDic.FK_MerchantID = bll.GetModel(sysDicId).FK_MerchantID;
+                    }
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
@@ -86,6 +97,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             viewModel.SysDic.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.SysDic.FK_FunctionID = XCLNetTools.Common.DataTypeConvert.ToLongNull(fm["txtFunctionID"] ?? "");
             viewModel.SysDic.FK_MerchantAppID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["txtMerchantAppID"]);
+            viewModel.SysDic.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("MerchantID");
             return viewModel;
         }
 
@@ -114,7 +126,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             sysDicModel.FK_FunctionID = viewModel.SysDic.FK_FunctionID;
             sysDicModel.SysDicID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.DIC);
             sysDicModel.FK_MerchantAppID = viewModel.SysDic.FK_MerchantAppID;
-            sysDicModel.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
+            sysDicModel.FK_MerchantID = viewModel.SysDic.FK_MerchantID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysDic>(base.UserToken);
             request.Body = sysDicModel;

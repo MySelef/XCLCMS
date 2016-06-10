@@ -57,6 +57,7 @@
     <Compile Include="RequestEntity\PageListConditionEntity.cs" />
     <Compile Include="RequestEntity\SysDic\IsExistSysDicCodeEntity.cs" />
     <Compile Include="RequestEntity\SysDic\IsExistSysDicNameInSameLevelEntity.cs" />
+    <Compile Include="RequestEntity\SysFunction\GetAllJsonForEasyUITreeEntity.cs" />
     <Compile Include="RequestEntity\SysFunction\IsExistCodeEntity.cs" />
     <Compile Include="RequestEntity\SysFunction\IsExistFunctionNameInSameLevelEntity.cs" />
     <Compile Include="RequestEntity\SysLog\ClearConditionEntity.cs" />

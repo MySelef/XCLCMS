@@ -15,6 +15,7 @@ namespace XCLCMS.WebAPI.Controllers
     {
         private XCLCMS.Data.BLL.SysRole sysRoleBLL = new Data.BLL.SysRole();
         private XCLCMS.Data.BLL.View.v_SysRole vSysRoleBLL = new Data.BLL.View.v_SysRole();
+        private XCLCMS.Data.BLL.Merchant merchantBLL = new XCLCMS.Data.BLL.Merchant();
 
         /// <summary>
         /// 查询角色信息实体
@@ -123,6 +124,7 @@ namespace XCLCMS.WebAPI.Controllers
         {
             var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity>>();
             var response = new APIResponseEntity<bool>();
+            var allLeafFunctionIds = XCLCMS.Lib.Permission.PerHelper.GetFunctionList().Where(k => k.IsLeaf == 1).Select(k => (long)k.SysFunctionID).ToList();
 
             #region 数据校验
 
@@ -134,6 +136,10 @@ namespace XCLCMS.WebAPI.Controllers
             }
             request.Body.SysRole.RoleName = (request.Body.SysRole.RoleName ?? "").Trim();
             request.Body.SysRole.Code = (request.Body.SysRole.Code ?? "").Trim();
+            if (request.Body.FunctionIdList.IsNotNullOrEmpty())
+            {
+                request.Body.FunctionIdList = request.Body.FunctionIdList.Intersect(allLeafFunctionIds).ToList();
+            }
 
             //必须指定角色信息
             if (string.IsNullOrEmpty(request.Body.SysRole.RoleName))
@@ -163,6 +169,15 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
+            //商户必须存在
+            var merchant = this.merchantBLL.GetModel(request.Body.SysRole.FK_MerchantID);
+            if (null == merchant)
+            {
+                response.IsSuccess = false;
+                response.Message = "无效的商户号！";
+                return response;
+            }
+
             //当前用户只能加在自己的商户号下面
             if (this.vSysRoleBLL.IsRoot(parentNodeModel.SysRoleID))
             {
@@ -180,6 +195,21 @@ namespace XCLCMS.WebAPI.Controllers
                     response.IsSuccess = false;
                     response.Message = "您添加的角色必须与父角色在同一个商户中！";
                     return response;
+                }
+            }
+
+            //普通商户的权限是否已越界
+            if (merchant.MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.NOR.ToString())
+            {
+                var normalFunIds = XCLCMS.Lib.Permission.PerHelper.GetNormalMerchantFunctionIDList();
+                if (request.Body.FunctionIdList.IsNotNullOrEmpty())
+                {
+                    if (request.Body.FunctionIdList.Exists(k => !normalFunIds.Contains(k)))
+                    {
+                        response.IsSuccess = false;
+                        response.Message = "该角色的权限已越界！";
+                        return response;
+                    }
                 }
             }
 
@@ -221,6 +251,7 @@ namespace XCLCMS.WebAPI.Controllers
         {
             var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity>>();
             var response = new APIResponseEntity<bool>();
+            var allLeafFunctionIds = XCLCMS.Lib.Permission.PerHelper.GetFunctionList().Where(k => k.IsLeaf == 1).Select(k => (long)k.SysFunctionID).ToList();
 
             #region 数据校验
 
@@ -241,6 +272,10 @@ namespace XCLCMS.WebAPI.Controllers
 
             request.Body.SysRole.RoleName = (request.Body.SysRole.RoleName ?? "").Trim();
             request.Body.SysRole.Code = (request.Body.SysRole.Code ?? "").Trim();
+            if (request.Body.FunctionIdList.IsNotNullOrEmpty())
+            {
+                request.Body.FunctionIdList = request.Body.FunctionIdList.Intersect(allLeafFunctionIds).ToList();
+            }
 
             //必须指定角色信息
             if (string.IsNullOrEmpty(request.Body.SysRole.RoleName))
@@ -258,6 +293,30 @@ namespace XCLCMS.WebAPI.Controllers
                     response.IsSuccess = false;
                     response.Message = string.Format("角色标识【{0}】已存在！", request.Body.SysRole.Code);
                     return response;
+                }
+            }
+
+            //商户必须存在
+            var merchant = this.merchantBLL.GetModel(request.Body.SysRole.FK_MerchantID);
+            if (null == merchant)
+            {
+                response.IsSuccess = false;
+                response.Message = "无效的商户号！";
+                return response;
+            }
+
+            //普通商户的权限是否已越界
+            if (merchant.MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.NOR.ToString())
+            {
+                var normalFunIds = XCLCMS.Lib.Permission.PerHelper.GetNormalMerchantFunctionIDList();
+                if (request.Body.FunctionIdList.IsNotNullOrEmpty())
+                {
+                    if (request.Body.FunctionIdList.Exists(k => !normalFunIds.Contains(k)))
+                    {
+                        response.IsSuccess = false;
+                        response.Message = "该角色的权限已越界！";
+                        return response;
+                    }
                 }
             }
 

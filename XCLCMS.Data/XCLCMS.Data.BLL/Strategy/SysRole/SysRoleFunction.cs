@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Transactions;
 
 namespace XCLCMS.Data.BLL.Strategy.SysRole
 {
@@ -37,7 +38,15 @@ namespace XCLCMS.Data.BLL.Strategy.SysRole
             bool flag = false;
             try
             {
-                flag = bll.Add(model, sysRoleContext.FunctionIdList);
+                using (var scope = new TransactionScope())
+                {
+                    flag = bll.Add(model, sysRoleContext.FunctionIdList);
+                    if (flag)
+                    {
+                        bll.ClearInvalidNormalRoleFunctions();
+                        scope.Complete();
+                    }
+                }
             }
             catch (Exception ex)
             {

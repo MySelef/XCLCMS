@@ -66,5 +66,19 @@ namespace XCLCMS.Data.DAL
         }
 
         #endregion Method
+
+        #region Extend Method
+
+        /// <summary>
+        /// 清理无效的普通商户角色的无效权限
+        /// </summary>
+        public void ClearInvalidNormalRoleFunctions()
+        {
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_ClearInvalidNormalRoleFunctions");
+            db.ExecuteNonQuery(dbCommand);
+        }
+
+        #endregion Extend Method
     }
 }

@@ -63,7 +63,21 @@ namespace XCLCMS.Lib.Permission
                 });
             }
             resultId = resultId.Distinct().ToList();
-            return allFuns.Where(k => resultId.Contains(k.SysFunctionID.Value)).ToList();
+            return allFuns.Where(k => resultId.Contains(k.SysFunctionID.Value)).ToList() ?? new List<Data.Model.View.v_SysFunction>();
+        }
+
+        /// <summary>
+        /// 获取普通商户的所有功能id List
+        /// </summary>
+        public static List<long> GetNormalMerchantFunctionIDList()
+        {
+            List<long> result = null;
+            var lst = GetNormalMerchantFunctionTreeList();
+            if (null != lst && lst.Count > 0)
+            {
+                result = lst.Where(k => k.IsLeaf == 1).Select(k => (long)k.SysFunctionID).ToList();
+            }
+            return result ?? new List<long>();
         }
 
         #endregion 角色相关

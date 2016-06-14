@@ -23,5 +23,17 @@ namespace XCLCMS.Data.BLL
         }
 
         #endregion BasicMethod
+
+        #region Extend Method
+
+        /// <summary>
+        /// 清理无效的普通商户角色的无效权限
+        /// </summary>
+        public void ClearInvalidNormalRoleFunctions()
+        {
+            dal.ClearInvalidNormalRoleFunctions();
+        }
+
+        #endregion Extend Method
     }
 }

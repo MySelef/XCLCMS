@@ -136,10 +136,26 @@ namespace XCLCMS.WebAPI.Controllers
             }
             request.Body.SysRole.RoleName = (request.Body.SysRole.RoleName ?? "").Trim();
             request.Body.SysRole.Code = (request.Body.SysRole.Code ?? "").Trim();
-            if (request.Body.FunctionIdList.IsNotNullOrEmpty())
+            if (null == request.Body.FunctionIdList)
             {
-                request.Body.FunctionIdList = request.Body.FunctionIdList.Intersect(allLeafFunctionIds).ToList();
+                request.Body.FunctionIdList = new List<long>();
             }
+
+            //商户必须存在
+            var merchant = this.merchantBLL.GetModel(request.Body.SysRole.FK_MerchantID);
+            if (null == merchant)
+            {
+                response.IsSuccess = false;
+                response.Message = "无效的商户号！";
+                return response;
+            }
+
+            //追加默认的功能权限
+            if (string.Equals(request.Body.SysRole.Code, XCLCMS.Data.CommonHelper.SysRoleConst.SysRoleCodeEnum.MerchantMainRole.ToString(), StringComparison.OrdinalIgnoreCase) || merchant.MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.NOR.ToString())
+            {
+                request.Body.FunctionIdList.AddRange(XCLCMS.Lib.Permission.PerHelper.NormalMerchantFixedFunctionIDList);
+            }
+            request.Body.FunctionIdList = request.Body.FunctionIdList.Intersect(allLeafFunctionIds).Distinct().ToList();
 
             //必须指定角色信息
             if (string.IsNullOrEmpty(request.Body.SysRole.RoleName))
@@ -166,15 +182,6 @@ namespace XCLCMS.WebAPI.Controllers
             {
                 response.IsSuccess = false;
                 response.Message = "父角色不存在！";
-                return response;
-            }
-
-            //商户必须存在
-            var merchant = this.merchantBLL.GetModel(request.Body.SysRole.FK_MerchantID);
-            if (null == merchant)
-            {
-                response.IsSuccess = false;
-                response.Message = "无效的商户号！";
                 return response;
             }
 
@@ -272,10 +279,26 @@ namespace XCLCMS.WebAPI.Controllers
 
             request.Body.SysRole.RoleName = (request.Body.SysRole.RoleName ?? "").Trim();
             request.Body.SysRole.Code = (request.Body.SysRole.Code ?? "").Trim();
-            if (request.Body.FunctionIdList.IsNotNullOrEmpty())
+            if (null == request.Body.FunctionIdList)
             {
-                request.Body.FunctionIdList = request.Body.FunctionIdList.Intersect(allLeafFunctionIds).ToList();
+                request.Body.FunctionIdList = new List<long>();
             }
+
+            //商户必须存在
+            var merchant = this.merchantBLL.GetModel(request.Body.SysRole.FK_MerchantID);
+            if (null == merchant)
+            {
+                response.IsSuccess = false;
+                response.Message = "无效的商户号！";
+                return response;
+            }
+
+            //追加默认的功能权限
+            if (string.Equals(request.Body.SysRole.Code, XCLCMS.Data.CommonHelper.SysRoleConst.SysRoleCodeEnum.MerchantMainRole.ToString(), StringComparison.OrdinalIgnoreCase) || merchant.MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.NOR.ToString())
+            {
+                request.Body.FunctionIdList.AddRange(XCLCMS.Lib.Permission.PerHelper.NormalMerchantFixedFunctionIDList);
+            }
+            request.Body.FunctionIdList = request.Body.FunctionIdList.Intersect(allLeafFunctionIds).ToList();
 
             //必须指定角色信息
             if (string.IsNullOrEmpty(request.Body.SysRole.RoleName))
@@ -294,15 +317,6 @@ namespace XCLCMS.WebAPI.Controllers
                     response.Message = string.Format("角色标识【{0}】已存在！", request.Body.SysRole.Code);
                     return response;
                 }
-            }
-
-            //商户必须存在
-            var merchant = this.merchantBLL.GetModel(request.Body.SysRole.FK_MerchantID);
-            if (null == merchant)
-            {
-                response.IsSuccess = false;
-                response.Message = "无效的商户号！";
-                return response;
             }
 
             //普通商户的权限是否已越界

@@ -9,6 +9,13 @@ namespace XCLCMS.Lib.Permission
     /// </summary>
     public class PerHelper
     {
+        /// <summary>
+        /// 普通商户角色必须包含的权限功能ID列表
+        /// </summary>
+        public static List<long> NormalMerchantFixedFunctionIDList = new List<long>() {
+            (long)XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_DataFilter_OnlyCurrentMerchant
+        };
+
         #region 角色相关
 
         /// <summary>

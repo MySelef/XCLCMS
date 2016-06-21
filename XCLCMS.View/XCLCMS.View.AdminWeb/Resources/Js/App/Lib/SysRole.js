@@ -84,6 +84,7 @@
                 ]],
                 onContextMenu: function (e, row) {
                     e.preventDefault();
+                    _this.Elements.menu_SysRole_add.show();
                     _this.Elements.menu_SysRole_del.show();
                     _this.Elements.menu_SysRole_edit.show();
                     _this.Elements.menu_SysRole_delSub.show();

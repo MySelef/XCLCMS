@@ -163,10 +163,8 @@
     <Compile Include="Controllers\SysDic\SysDicController.cs" />
     <Compile Include="Controllers\SysFunction\SysFunctionController.cs" />
     <Compile Include="Controllers\SysLog\SysLogController.cs" />
-    <Compile Include="Controllers\SysRole\SysRoleCommonController.cs" />
     <Compile Include="Controllers\SysRole\SysRoleController.cs" />
     <Compile Include="Controllers\SysWebSetting\SysWebSettingController.cs" />
-    <Compile Include="Controllers\UserInfo\UserInfoCommonController.cs" />
     <Compile Include="Controllers\UserInfo\UserInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

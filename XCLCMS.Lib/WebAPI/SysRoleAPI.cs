@@ -41,6 +41,14 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 获取easyui tree格式的所有角色json
+        /// </summary>
+        public static APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetAllJsonForEasyUITree(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetAllJsonForEasyUITreeEntity> request)
+        {
+            return Library.Request<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetAllJsonForEasyUITreeEntity, List<XCLNetTools.Entity.EasyUI.TreeItem>>(request, "SysRole/GetAllJsonForEasyUITree");
+        }
+
+        /// <summary>
         /// 添加角色
         /// </summary>
         public static APIResponseEntity<bool> Add(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity> request)

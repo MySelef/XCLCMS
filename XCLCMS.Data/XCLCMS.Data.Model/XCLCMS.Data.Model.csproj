@@ -73,6 +73,7 @@
     <Compile Include="View\v_SysFunction.cs" />
     <Compile Include="View\v_SysRole.cs" />
     <Compile Include="View\v_SysWebSetting.cs" />
+    <Compile Include="View\v_UserInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

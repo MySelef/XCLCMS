@@ -5,6 +5,7 @@
 
 <form id="mainForm" action="@Model.FormAction" method="post">
     <input type="hidden" id="UserInfoID" name="UserInfoID" value="@Model.UserInfo.UserInfoID" />
+    <input type="hidden" name="MerchantID" id="MerchantID" value="@Model.UserInfo.FK_MerchantID" />
 
     <div class="XCLAccordion" style="border-top: none;">
         <div class="XCLAccordionHeader">1、基本信息：</div>

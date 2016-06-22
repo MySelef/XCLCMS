@@ -61,10 +61,12 @@
     <Compile Include="RequestEntity\SysFunction\IsExistCodeEntity.cs" />
     <Compile Include="RequestEntity\SysFunction\IsExistFunctionNameInSameLevelEntity.cs" />
     <Compile Include="RequestEntity\SysLog\ClearConditionEntity.cs" />
+    <Compile Include="RequestEntity\SysRole\GetAllJsonForEasyUITreeEntity.cs" />
     <Compile Include="RequestEntity\SysRole\IsExistCodeEntity.cs" />
     <Compile Include="RequestEntity\SysRole\IsExistRoleNameInSameLevelEntity.cs" />
     <Compile Include="RequestEntity\SysRole\AddOrUpdateEntity.cs" />
     <Compile Include="RequestEntity\SysWebSetting\IsExistKeyNameEntity.cs" />
+    <Compile Include="RequestEntity\UserInfo\AddOrUpdateEntity.cs" />
     <Compile Include="ResponseEntity\PageListResponseEntity.cs" />
   </ItemGroup>
   <ItemGroup>

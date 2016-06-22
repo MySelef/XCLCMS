@@ -51,9 +51,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
 
             #endregion 初始化查询条件
 
-            XCLCMS.Data.BLL.UserInfo uBLL = new Data.BLL.UserInfo();
-            viewModel.UserInfoList = uBLL.GetPageList(base.PageParamsInfo, strWhere, "", "[UserInfoID]", "[UserInfoID] desc");
-            viewModel.PagerModel = base.PageParamsInfo;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.PageListConditionEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.PageListConditionEntity()
+            {
+                PagerInfoSimple = base.PageParamsInfo.ToPagerInfoSimple(),
+                Where = strWhere
+            };
+            var response = XCLCMS.Lib.WebAPI.UserInfoAPI.PageList(request).Body;
+            viewModel.UserInfoList = response.ResultList;
+            viewModel.PagerModel = response.PagerInfo;
 
             return View("~/Views/UserInfo/UserInfoList.cshtml", viewModel);
         }
@@ -81,7 +87,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
-                    viewModel.UserInfo = userInfoBLL.GetModel(userInfoId);
+                    var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
+                    request.Body = userInfoId;
+                    var response = XCLCMS.Lib.WebAPI.UserInfoAPI.Detail(request);
+
+                    viewModel.UserInfo = response.Body;
                     viewModel.FormAction = Url.Action("UpdateSubmit", "UserInfo");
                     var userHadRole = XCLCMS.Lib.Permission.PerHelper.GetRoleByUserID(viewModel.UserInfo.UserInfoID);
                     if (userHadRole.IsNotNullOrEmpty())
@@ -115,6 +125,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             viewModel.UserInfo.Tel = (fm["txtTel"] ?? "").Trim();
             viewModel.UserInfo.UserName = (fm["txtUserName"] ?? "").Trim();
             viewModel.UserInfo.UserState = (fm["selUserState"] ?? "").Trim();
+            viewModel.UserInfo.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("MerchantID");
             viewModel.UserRoleIDs = XCLNetTools.StringHander.FormHelper.GetLongList("txtUserRoleIDs");
             return viewModel;
         }
@@ -152,35 +163,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             model.Tel = viewModel.UserInfo.Tel;
             model.UserName = viewModel.UserInfo.UserName;
             model.UserState = viewModel.UserInfo.UserState;
+            model.FK_MerchantID = viewModel.UserInfo.FK_MerchantID;
 
-            XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext userInfoContext = new Data.BLL.Strategy.UserInfo.UserInfoContext();
-            userInfoContext.CurrentUserInfo = base.CurrentUserModel;
-            userInfoContext.UserInfo = model;
-            userInfoContext.UserRoleIDs = viewModel.UserRoleIDs;
-            userInfoContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.ADD;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity();
+            request.Body.UserInfo = model;
+            request.Body.RoleIdList = viewModel.UserRoleIDs;
+            var response = XCLCMS.Lib.WebAPI.UserInfoAPI.Add(request);
 
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
-                new XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo()
-            });
-            if (XCLCMS.Lib.Permission.PerHelper.HasPermission(base.CurrentUserModel.UserInfoID, Lib.Permission.Function.FunctionEnum.SysFun_SetUserRole))
-            {
-                strategy.StrategyList.Add(new XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo());
-            }
-            strategy.Execute<XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext>(userInfoContext);
-
-            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
-            {
-                msgModel.Message = "添加成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = strategy.ResultMessage;
-                msgModel.IsSuccess = false;
-                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "添加用户信息失败", strategy.ResultMessage);
-            }
-
-            return Json(msgModel);
+            return Json(response);
         }
 
         /// <summary>
@@ -216,69 +207,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             model.SexType = viewModel.UserInfo.SexType;
             model.Tel = viewModel.UserInfo.Tel;
             model.UserState = viewModel.UserInfo.UserState;
+            model.FK_MerchantID = viewModel.UserInfo.FK_MerchantID;
 
-            XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext userInfoContext = new Data.BLL.Strategy.UserInfo.UserInfoContext();
-            userInfoContext.CurrentUserInfo = base.CurrentUserModel;
-            userInfoContext.UserInfo = model;
-            userInfoContext.UserRoleIDs = viewModel.UserRoleIDs;
-            userInfoContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.UPDATE;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity();
+            request.Body.UserInfo = model;
+            request.Body.RoleIdList = viewModel.UserRoleIDs;
+            var response = XCLCMS.Lib.WebAPI.UserInfoAPI.Update(request);
 
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
-                new XCLCMS.Data.BLL.Strategy.UserInfo.UserInfo()
-            });
-            if (XCLCMS.Lib.Permission.PerHelper.HasPermission(base.CurrentUserModel.UserInfoID, Lib.Permission.Function.FunctionEnum.SysFun_SetUserRole))
-            {
-                strategy.StrategyList.Add(new XCLCMS.Data.BLL.Strategy.UserInfo.RoleInfo());
-            }
-            strategy.Execute<XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext>(userInfoContext);
-
-            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
-            {
-                msgModel.Message = "修改成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = strategy.ResultMessage;
-                msgModel.IsSuccess = false;
-                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "修改用户信息失败", strategy.ResultMessage);
-            }
-
-            return Json(msgModel);
-        }
-
-        /// <summary>
-        /// 删除用户信息
-        /// </summary>
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserDel)]
-        public override ActionResult DelSubmit(FormCollection fm)
-        {
-            base.DelSubmit(fm);
-            XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
-            XCLCMS.Data.Model.UserInfo userInfoModel = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            long[] userInfoIds = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("UserInfoIds").Split(','));
-            if (null != userInfoIds && userInfoIds.Length > 0)
-            {
-                for (int i = 0; i < userInfoIds.Length; i++)
-                {
-                    userInfoModel = userInfoBLL.GetModel(userInfoIds[i]);
-                    if (null != userInfoModel)
-                    {
-                        userInfoModel.UpdaterID = base.CurrentUserModel.UserInfoID;
-                        userInfoModel.UpdaterName = base.CurrentUserModel.UserName;
-                        userInfoModel.UpdateTime = DateTime.Now;
-                        userInfoModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
-                        userInfoModel.UserState = XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.D.ToString();
-                        userInfoBLL.Update(userInfoModel);
-                    }
-                }
-            }
-            msgModel.IsSuccess = true;
-            msgModel.IsRefresh = true;
-            msgModel.Message = "删除成功！";
-            return Json(msgModel);
+            return Json(response);
         }
     }
 }

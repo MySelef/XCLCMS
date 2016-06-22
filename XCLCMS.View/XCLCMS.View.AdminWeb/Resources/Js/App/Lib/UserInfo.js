@@ -61,11 +61,14 @@
             }
 
             art.dialog.confirm("您确定要删除此信息吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = ids;
+
                 $.XGoAjax({
                     target: $("#btnDel")[0],
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "UserInfo/DelSubmit",
-                        data: { UserInfoIds: ids.join(',') },
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "UserInfo/Delete",
+                        data: request,
                         type: "POST"
                     }
                 });
@@ -110,13 +113,23 @@
                 return;
             }
 
+            var request = XCLCMSWebApi.CreateRequest();
+            request.Body = {};
+            request.Body.MerchantID = $("#MerchantID").val();
+            var reqJSON = JSON.stringify(request);
+
             $obj.combotree({
-                url: XCLCMSPageGlobalConfig.RootURL + 'SysRoleCommon/GetAllJsonForEasyUITree',
+                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysRole/GetAllJsonForEasyUITree?json=' + reqJSON,
                 method: 'get',
                 checkbox: true,
                 onlyLeafCheck: true,
                 lines: true,
-                multiple: true
+                multiple: true,
+                loadFilter: function (data) {
+                    if (data) {
+                        return data.Body;
+                    }
+                }
             });
 
             _this.Elements.txtUserRoleIDs.combotree("setValues", (_this.Elements.txtUserRoleIDs.attr("xcl-data-value") || "").split(','));
@@ -129,13 +142,17 @@
                 rules: {
                     txtUserName: {
                         required: true,
-                        XCLCustomRemote: {
-                            url: XCLCMSPageGlobalConfig.RootURL + "UserInfoCommon/IsExistUserName",
-                            data: {
-                                UserName: function () {
-                                    return $("#txtUserName").val();
+                        XCLCustomRemote: function () {
+                            return {
+                                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "UserInfo/IsExistUserName",
+                                data: {
+                                    "json": function () {
+                                        var request = XCLCMSWebApi.CreateRequest();
+                                        request.Body = $("#txtUserName").val();
+                                        return JSON.stringify(request);
+                                    }
                                 }
-                            }
+                            };
                         },
                         AccountNO: true
                     },
@@ -156,13 +173,15 @@
          * 删除用户
          */
         Del: function () {
-            var id = $("#UserInfoID").val();
             art.dialog.confirm("您确定要删除此信息吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = [$("#UserInfoID").val()];
+
                 $.XGoAjax({
                     target: $("#btnDel")[0],
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "UserInfo/DelSubmit",
-                        data: { UserInfoIds: id },
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "UserInfo/Delete",
+                        data: request,
                         type: "POST"
                     }
                 });

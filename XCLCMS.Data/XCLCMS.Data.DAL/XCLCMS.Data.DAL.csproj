@@ -81,6 +81,7 @@
     <Compile Include="View\v_SysFunction.cs" />
     <Compile Include="View\v_SysRole.cs" />
     <Compile Include="View\v_SysWebSetting.cs" />
+    <Compile Include="View\v_UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XCLCMS.Data.CommonHelper\XCLCMS.Data.CommonHelper.csproj">

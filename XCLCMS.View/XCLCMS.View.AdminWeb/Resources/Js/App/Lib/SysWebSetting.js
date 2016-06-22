@@ -119,7 +119,7 @@
                 $.XGoAjax({
                     target: $("#btnDel")[0],
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysWebSetting/DelSubmit",
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysWebSetting/Delete",
                         data: request,
                         type: "POST"
                     }

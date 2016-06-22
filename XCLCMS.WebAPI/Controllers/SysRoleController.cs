@@ -116,6 +116,70 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 获取easyui tree格式的所有角色json
+        /// </summary>
+        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetAllJsonForEasyUITree([FromUri] string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetAllJsonForEasyUITreeEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>();
+            response.IsSuccess = true;
+
+            List<XCLCMS.Data.Model.View.v_SysRole> allData = null;
+            List<XCLNetTools.Entity.EasyUI.TreeItem> tree = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
+
+            var merchantModel = this.merchantBLL.GetModel(request.Body.MerchantID);
+            if (null == merchantModel)
+            {
+                response.IsSuccess = false;
+                response.Message = "您指定的商户号无效！";
+                return response;
+            }
+
+            allData = this.vSysRoleBLL.GetModelList("");
+
+            if (allData.IsNotNullOrEmpty())
+            {
+                var root = allData.Where(k => k.ParentID == 0).FirstOrDefault();//根节点
+                if (null != root)
+                {
+                    tree.Add(new XCLNetTools.Entity.EasyUI.TreeItem()
+                    {
+                        ID = root.SysRoleID.ToString(),
+                        State = root.IsLeaf == 1 ? "open" : "closed",
+                        Text = root.RoleName
+                    });
+
+                    Action<XCLNetTools.Entity.EasyUI.TreeItem> getChildAction = null;
+                    getChildAction = new Action<XCLNetTools.Entity.EasyUI.TreeItem>((parentModel) =>
+                    {
+                        var childs = allData.Where(k => k.ParentID == Convert.ToInt64(parentModel.ID)).ToList();
+                        if (childs.IsNotNullOrEmpty())
+                        {
+                            childs = childs.OrderBy(k => k.Weight).ToList();
+                            parentModel.Children = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
+                            childs.ForEach(m =>
+                            {
+                                var treeItem = new XCLNetTools.Entity.EasyUI.TreeItem()
+                                {
+                                    ID = m.SysRoleID.ToString(),
+                                    State = m.IsLeaf == 1 ? "open" : "closed",
+                                    Text = m.RoleName
+                                };
+                                getChildAction(treeItem);
+                                parentModel.Children.Add(treeItem);
+                            });
+                        }
+                    });
+
+                    //从根节点开始
+                    getChildAction(tree[0]);
+                }
+            }
+            response.Body = tree;
+            return response;
+        }
+
+        /// <summary>
         /// 添加角色
         /// </summary>
         [HttpPost]

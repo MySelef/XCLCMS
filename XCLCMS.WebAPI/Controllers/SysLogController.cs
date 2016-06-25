@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Web.Http;
 using XCLCMS.Data.WebAPIEntity;
 using XCLCMS.Data.WebAPIEntity.RequestEntity;
@@ -23,6 +24,16 @@ namespace XCLCMS.WebAPI.Controllers
             var pager = request.Body.PagerInfoSimple.ToPagerInfo();
             var response = new APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.SysLog>>();
             response.Body = new Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<Data.Model.SysLog>();
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant)
+            {
+                request.Body.Where = XCLNetTools.DataBase.SQLLibrary.JoinWithAnd(new List<string>() {
+                    request.Body.Where,
+                    string.Format("FK_MerchantID={0}",base.CurrentUserModel.FK_MerchantID)
+                });
+            }
+
             response.Body.ResultList = sysLogBLL.GetPageList(pager, request.Body.Where, "", "[SysLogID]", "[SysLogID] desc");
             response.Body.PagerInfo = pager;
             response.IsSuccess = true;
@@ -38,7 +49,7 @@ namespace XCLCMS.WebAPI.Controllers
         {
             var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysLog.ClearConditionEntity>>();
             var response = new APIResponseEntity<bool>();
-            if (this.sysLogBLL.ClearListByDateTime(request.Body.StartTime, request.Body.EndTime))
+            if (this.sysLogBLL.ClearListByDateTime(request.Body.StartTime, request.Body.EndTime, base.IsOnlyCurrentMerchant ? base.CurrentUserModel.FK_MerchantID : 0))
             {
                 response.IsSuccess = true;
                 response.IsRefresh = true;

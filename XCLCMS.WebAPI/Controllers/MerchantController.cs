@@ -32,6 +32,14 @@ namespace XCLCMS.WebAPI.Controllers
             var response = new APIResponseEntity<XCLCMS.Data.Model.Merchant>();
             response.Body = merchantBLL.GetModel(request.Body);
             response.IsSuccess = true;
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && null != response.Body && response.Body.MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.Body = null;
+                response.IsSuccess = false;
+            }
+
             return response;
         }
 
@@ -46,6 +54,16 @@ namespace XCLCMS.WebAPI.Controllers
             var pager = request.Body.PagerInfoSimple.ToPagerInfo();
             var response = new APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Merchant>>();
             response.Body = new Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<Data.Model.View.v_Merchant>();
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant)
+            {
+                request.Body.Where = XCLNetTools.DataBase.SQLLibrary.JoinWithAnd(new List<string>() {
+                    request.Body.Where,
+                    string.Format("MerchantID={0}",base.CurrentUserModel.FK_MerchantID)
+                });
+            }
+
             response.Body.ResultList = vMerchantBLL.GetPageList(pager, request.Body.Where, "", "[MerchantID]", "[MerchantID] desc");
             response.Body.PagerInfo = pager;
             response.IsSuccess = true;
@@ -223,6 +241,14 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && request.Body.MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.IsSuccess = false;
+                response.Message = "只能修改自己的商户信息！";
+                return response;
+            }
+
             #endregion 数据校验
 
             model.MerchantSystemType = request.Body.MerchantSystemType;
@@ -285,6 +311,11 @@ namespace XCLCMS.WebAPI.Controllers
             {
                 var merchantModel = merchantBLL.GetModel(k);
                 if (null == merchantModel)
+                {
+                    continue;
+                }
+                //限制商户
+                if (base.IsOnlyCurrentMerchant && merchantModel.MerchantID != base.CurrentUserModel.FK_MerchantID)
                 {
                     continue;
                 }

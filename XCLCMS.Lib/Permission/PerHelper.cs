@@ -116,5 +116,17 @@ namespace XCLCMS.Lib.Permission
         }
 
         #endregion 权限功能相关
+
+        #region 其它
+
+        /// <summary>
+        /// 判断指定用户是否只能访问自己商户的数据
+        /// </summary>
+        public static bool IsOnlyCurrentMerchant(long userId)
+        {
+            return HasPermission(userId, Function.FunctionEnum.SysFun_DataFilter_OnlyCurrentMerchant);
+        }
+
+        #endregion 其它
     }
 }

@@ -63,8 +63,19 @@ namespace XCLCMS.Lib.Base.API
                 return new Data.Model.Custom.ContextModel()
                 {
                     UserInfoID = this.CurrentUserModel.UserInfoID,
-                    UserName= this.CurrentUserModel.UserName
+                    UserName = this.CurrentUserModel.UserName
                 };
+            }
+        }
+
+        /// <summary>
+        /// 当前用户是否只能访问自己的商户数据
+        /// </summary>
+        public bool IsOnlyCurrentMerchant
+        {
+            get
+            {
+                return Lib.Permission.PerHelper.IsOnlyCurrentMerchant(this.CurrentUserModel.UserInfoID);
             }
         }
 

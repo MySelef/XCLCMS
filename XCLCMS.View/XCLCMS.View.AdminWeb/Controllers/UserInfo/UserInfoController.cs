@@ -83,6 +83,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
                     viewModel.UserInfo = new Data.Model.UserInfo();
                     viewModel.UserInfo.SexType = XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum.M.ToString();
                     viewModel.UserInfo.UserState = XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.N.ToString();
+                    viewModel.UserInfo.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
                     viewModel.FormAction = Url.Action("AddSubmit", "UserInfo");
                     break;
 

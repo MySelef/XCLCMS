@@ -40,9 +40,10 @@ namespace XCLCMS.Data.BLL
         /// </summary>
         /// <param name="startTime">开始时间</param>
         /// <param name="endTime">结束时间</param>
-        public bool ClearListByDateTime(DateTime? startTime, DateTime? endTime)
+        /// <param name="merchantID">商户号</param>
+        public bool ClearListByDateTime(DateTime? startTime, DateTime? endTime, long merchantID)
         {
-            return dal.ClearListByDateTime(startTime, endTime);
+            return dal.ClearListByDateTime(startTime, endTime,merchantID);
         }
 
         #endregion ExtensionMethod

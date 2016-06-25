@@ -52,10 +52,15 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         /// <param name="startTime">开始时间</param>
         /// <param name="endTime">结束时间</param>
-        public bool ClearListByDateTime(DateTime? startTime, DateTime? endTime)
+        /// <param name="merchantID">商户号</param>
+        public bool ClearListByDateTime(DateTime? startTime, DateTime? endTime, long merchantID)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(" DELETE FROM dbo.SysLog WHERE 1=1 ");
+            if (merchantID > 0)
+            {
+                strSql.Append(" and FK_MerchantID= " + merchantID);
+            }
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
 

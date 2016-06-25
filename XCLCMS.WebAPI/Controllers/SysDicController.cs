@@ -28,6 +28,14 @@ namespace XCLCMS.WebAPI.Controllers
             var response = new APIResponseEntity<XCLCMS.Data.Model.SysDic>();
             response.Body = this.sysDicBLL.GetModel(request.Body);
             response.IsSuccess = true;
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && null != response.Body && response.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.Body = null;
+                response.IsSuccess = false;
+            }
+
             return response;
         }
 
@@ -116,6 +124,13 @@ namespace XCLCMS.WebAPI.Controllers
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>>();
             response.Body = this.vSysDicBLL.GetList(request.Body);
             response.IsSuccess = true;
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && null != response.Body && response.Body.Count > 0)
+            {
+                response.Body = response.Body.Where(k => k.FK_MerchantID <= 0 || k.FK_MerchantID == base.CurrentUserModel.FK_MerchantID).ToList();
+            }
+
             return response;
         }
 
@@ -162,17 +177,16 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
-            //当前用户只能加在自己的商户号下面
-            if (this.vSysDicBLL.IsRoot(parentNodeModel.SysDicID))
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && request.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
             {
-                if (request.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
-                {
-                    response.IsSuccess = false;
-                    response.Message = "只能添加自己的商户字典！";
-                    return response;
-                }
+                response.IsSuccess = false;
+                response.Message = "只能在自己所属的商户下面添加字典信息！";
+                return response;
             }
-            else
+
+            //当前用户只能加在自己的商户号下面
+            if (!this.vSysDicBLL.IsRoot(parentNodeModel.SysDicID))
             {
                 if (parentNodeModel.FK_MerchantID != request.Body.FK_MerchantID)
                 {
@@ -258,6 +272,14 @@ namespace XCLCMS.WebAPI.Controllers
                 }
             }
 
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && request.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.IsSuccess = false;
+                response.Message = "只能在自己所属的商户下面修改字典信息！";
+                return response;
+            }
+
             //应用号与商户一致
             if (request.Body.FK_MerchantAppID > 0)
             {
@@ -325,15 +347,18 @@ namespace XCLCMS.WebAPI.Controllers
             request.Body = request.Body.Distinct().ToList();
 
             //只能删除自己商户的节点
-            if (request.Body.Exists(id =>
+            if (base.IsOnlyCurrentMerchant)
             {
-                var sysDicModel = sysDicBLL.GetModel(id);
-                return null != sysDicModel && sysDicModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID;
-            }))
-            {
-                response.IsSuccess = false;
-                response.Message = "只能删除属于自己的商户节点！";
-                return response;
+                if (request.Body.Exists(id =>
+                {
+                    var sysDicModel = sysDicBLL.GetModel(id);
+                    return null != sysDicModel && sysDicModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID;
+                }))
+                {
+                    response.IsSuccess = false;
+                    response.Message = "只能删除属于自己的商户节点！";
+                    return response;
+                }
             }
 
             int successCount = 0;
@@ -377,12 +402,15 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
-            var sysDicModel = sysDicBLL.GetModel(request.Body);
-            if (null != sysDicModel && sysDicModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            if (base.IsOnlyCurrentMerchant)
             {
-                response.IsSuccess = false;
-                response.Message = "只能删除属于自己的商户节点！";
-                return response;
+                var sysDicModel = sysDicBLL.GetModel(request.Body);
+                if (null != sysDicModel && sysDicModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "只能删除属于自己的商户节点！";
+                    return response;
+                }
             }
 
             response.IsSuccess = this.sysDicBLL.DelChild(new Data.Model.SysDic()

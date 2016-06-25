@@ -29,6 +29,14 @@ namespace XCLCMS.WebAPI.Controllers
             var response = new APIResponseEntity<XCLCMS.Data.Model.UserInfo>();
             response.Body = userInfoBLL.GetModel(request.Body);
             response.IsSuccess = true;
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && null != response.Body && response.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.Body = null;
+                response.IsSuccess = false;
+            }
+
             return response;
         }
 
@@ -43,6 +51,16 @@ namespace XCLCMS.WebAPI.Controllers
             var pager = request.Body.PagerInfoSimple.ToPagerInfo();
             var response = new APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_UserInfo>>();
             response.Body = new Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<Data.Model.View.v_UserInfo>();
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant)
+            {
+                request.Body.Where = XCLNetTools.DataBase.SQLLibrary.JoinWithAnd(new List<string>() {
+                    request.Body.Where,
+                    string.Format("FK_MerchantID={0}",base.CurrentUserModel.FK_MerchantID)
+                });
+            }
+
             response.Body.ResultList = vUserInfoBLL.GetPageList(pager, request.Body.Where, "", "[UserInfoID]", "[UserInfoID] desc");
             response.Body.PagerInfo = pager;
             response.IsSuccess = true;
@@ -121,6 +139,14 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && request.Body.UserInfo.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.IsSuccess = false;
+                response.Message = "只能在自己所属的商户下面添加用户信息！";
+                return response;
+            }
+
             #endregion 数据校验
 
             XCLCMS.Data.BLL.Strategy.UserInfo.UserInfoContext userInfoContext = new Data.BLL.Strategy.UserInfo.UserInfoContext();
@@ -188,6 +214,14 @@ namespace XCLCMS.WebAPI.Controllers
             {
                 response.IsSuccess = false;
                 response.Message = "无效的商户号！";
+                return response;
+            }
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && request.Body.UserInfo.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.IsSuccess = false;
+                response.Message = "只能在自己所属的商户下面修改用户信息！";
                 return response;
             }
 
@@ -276,6 +310,13 @@ namespace XCLCMS.WebAPI.Controllers
                 {
                     continue;
                 }
+
+                //限制商户
+                if (base.IsOnlyCurrentMerchant && userInfoModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+                {
+                    continue;
+                }
+
                 userInfoModel.UpdaterID = base.CurrentUserModel.UserInfoID;
                 userInfoModel.UpdaterName = base.CurrentUserModel.UserName;
                 userInfoModel.UpdateTime = DateTime.Now;

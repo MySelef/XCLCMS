@@ -28,6 +28,14 @@ namespace XCLCMS.WebAPI.Controllers
             var response = new APIResponseEntity<XCLCMS.Data.Model.SysRole>();
             response.Body = this.sysRoleBLL.GetModel(request.Body);
             response.IsSuccess = true;
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && null != response.Body && response.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.Body = null;
+                response.IsSuccess = false;
+            }
+
             return response;
         }
 
@@ -112,6 +120,13 @@ namespace XCLCMS.WebAPI.Controllers
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysRole>>();
             response.Body = this.vSysRoleBLL.GetList(request.Body);
             response.IsSuccess = true;
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && null != response.Body && response.Body.Count > 0)
+            {
+                response.Body = response.Body.Where(k => k.FK_MerchantID <= 0 || k.FK_MerchantID == base.CurrentUserModel.FK_MerchantID).ToList();
+            }
+
             return response;
         }
 
@@ -136,6 +151,12 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             allData = this.vSysRoleBLL.GetModelList("");
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && null != allData && allData.Count > 0)
+            {
+                allData = allData.Where(k => k.FK_MerchantID <= 0 || k.FK_MerchantID == base.CurrentUserModel.FK_MerchantID).ToList();
+            }
 
             if (allData.IsNotNullOrEmpty())
             {
@@ -249,17 +270,16 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
-            //当前用户只能加在自己的商户号下面
-            if (this.vSysRoleBLL.IsRoot(parentNodeModel.SysRoleID))
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && request.Body.SysRole.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
             {
-                if (request.Body.SysRole.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
-                {
-                    response.IsSuccess = false;
-                    response.Message = "只能添加自己的商户角色！";
-                    return response;
-                }
+                response.IsSuccess = false;
+                response.Message = "只能在自己所属的商户下面添加角色信息！";
+                return response;
             }
-            else
+
+            //子角色与父角色必须在同一商户中
+            if (!this.vSysRoleBLL.IsRoot(parentNodeModel.SysRoleID))
             {
                 if (parentNodeModel.FK_MerchantID != request.Body.SysRole.FK_MerchantID)
                 {
@@ -383,6 +403,14 @@ namespace XCLCMS.WebAPI.Controllers
                 }
             }
 
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && request.Body.SysRole.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.IsSuccess = false;
+                response.Message = "只能在自己所属的商户下面修改角色信息！";
+                return response;
+            }
+
             //普通商户的权限是否已越界
             if (merchant.MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.NOR.ToString())
             {
@@ -457,15 +485,18 @@ namespace XCLCMS.WebAPI.Controllers
             request.Body = request.Body.Distinct().ToList();
 
             //只能删除自己商户的节点
-            if (request.Body.Exists(id =>
+            if (base.IsOnlyCurrentMerchant)
             {
-                var sysRoleModel = this.sysRoleBLL.GetModel(id);
-                return null != sysRoleModel && sysRoleModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID;
-            }))
-            {
-                response.IsSuccess = false;
-                response.Message = "只能删除属于自己的商户节点！";
-                return response;
+                if (request.Body.Exists(id =>
+                {
+                    var sysRoleModel = this.sysRoleBLL.GetModel(id);
+                    return null != sysRoleModel && sysRoleModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID;
+                }))
+                {
+                    response.IsSuccess = false;
+                    response.Message = "只能删除属于自己的商户节点！";
+                    return response;
+                }
             }
 
             int successCount = 0;
@@ -509,12 +540,15 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
-            var sysRoleModel = sysRoleBLL.GetModel(request.Body);
-            if (null != sysRoleModel && sysRoleModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            if (base.IsOnlyCurrentMerchant)
             {
-                response.IsSuccess = false;
-                response.Message = "只能删除属于自己的商户节点！";
-                return response;
+                var sysRoleModel = sysRoleBLL.GetModel(request.Body);
+                if (null != sysRoleModel && sysRoleModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "只能删除属于自己的商户节点！";
+                    return response;
+                }
             }
 
             response.IsSuccess = this.sysRoleBLL.DelChild(new Data.Model.SysRole()

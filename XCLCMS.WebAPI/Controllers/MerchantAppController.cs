@@ -29,6 +29,14 @@ namespace XCLCMS.WebAPI.Controllers
             var response = new APIResponseEntity<XCLCMS.Data.Model.MerchantApp>();
             response.Body = merchantAppBLL.GetModel(request.Body);
             response.IsSuccess = true;
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && null != response.Body && response.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.Body = null;
+                response.IsSuccess = false;
+            }
+
             return response;
         }
 
@@ -43,6 +51,16 @@ namespace XCLCMS.WebAPI.Controllers
             var pager = request.Body.PagerInfoSimple.ToPagerInfo();
             var response = new APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_MerchantApp>>();
             response.Body = new Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<Data.Model.View.v_MerchantApp>();
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant)
+            {
+                request.Body.Where = XCLNetTools.DataBase.SQLLibrary.JoinWithAnd(new List<string>() {
+                    request.Body.Where,
+                    string.Format("FK_MerchantID={0}",base.CurrentUserModel.FK_MerchantID)
+                });
+            }
+
             response.Body.ResultList = vMerchantAppBLL.GetPageList(pager, request.Body.Where, "", "[MerchantAppID]", "[MerchantAppID] desc");
             response.Body.PagerInfo = pager;
             response.IsSuccess = true;
@@ -123,6 +141,14 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && request.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.IsSuccess = false;
+                response.Message = "只能在自己所属的商户下面添加应用信息！";
+                return response;
+            }
+
             #endregion 数据校验
 
             response.IsSuccess = this.merchantAppBLL.Add(request.Body);
@@ -165,6 +191,14 @@ namespace XCLCMS.WebAPI.Controllers
                     response.Message = string.Format("商户应用名【{0}】已存在！", request.Body.MerchantAppName);
                     return response;
                 }
+            }
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && request.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.IsSuccess = false;
+                response.Message = "只能在自己所属的商户下面修改应用信息！";
+                return response;
             }
 
             #endregion 数据校验
@@ -220,6 +254,11 @@ namespace XCLCMS.WebAPI.Controllers
             {
                 var merchantAppModel = merchantAppBLL.GetModel(k);
                 if (null == merchantAppModel)
+                {
+                    continue;
+                }
+                //限制商户
+                if (base.IsOnlyCurrentMerchant && merchantAppModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
                 {
                     continue;
                 }

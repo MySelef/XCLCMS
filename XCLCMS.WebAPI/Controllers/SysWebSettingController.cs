@@ -29,6 +29,14 @@ namespace XCLCMS.WebAPI.Controllers
             var response = new APIResponseEntity<XCLCMS.Data.Model.SysWebSetting>();
             response.Body = sysWebSettingBLL.GetModel(request.Body);
             response.IsSuccess = true;
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && null != response.Body && response.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            {
+                response.Body = null;
+                response.IsSuccess = false;
+            }
+
             return response;
         }
 
@@ -43,6 +51,16 @@ namespace XCLCMS.WebAPI.Controllers
             var pager = request.Body.PagerInfoSimple.ToPagerInfo();
             var response = new APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_SysWebSetting>>();
             response.Body = new Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<Data.Model.View.v_SysWebSetting>();
+
+            //限制商户
+            if (base.IsOnlyCurrentMerchant)
+            {
+                request.Body.Where = XCLNetTools.DataBase.SQLLibrary.JoinWithAnd(new List<string>() {
+                    request.Body.Where,
+                    string.Format("FK_MerchantID={0}",base.CurrentUserModel.FK_MerchantID)
+                });
+            }
+
             response.Body.ResultList = vSysWebSettingBLL.GetPageList(pager, request.Body.Where, "", "[SysWebSettingID]", "[KeyName] asc");
             response.Body.PagerInfo = pager;
             response.IsSuccess = true;
@@ -116,10 +134,11 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
-            if (request.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && request.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
             {
                 response.IsSuccess = false;
-                response.Message = "只能添加属于当前商户的系统配置信息！";
+                response.Message = "只能在自己所属的商户下面添加配置信息！";
                 return response;
             }
 
@@ -185,10 +204,11 @@ namespace XCLCMS.WebAPI.Controllers
                 }
             }
 
-            if (request.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+            //限制商户
+            if (base.IsOnlyCurrentMerchant && request.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
             {
                 response.IsSuccess = false;
-                response.Message = "只能修改属于当前商户的系统配置信息！";
+                response.Message = "只能在自己所属的商户下面修改配置信息！";
                 return response;
             }
 
@@ -256,16 +276,19 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
-            //只能删除自己商户的节点
-            if (request.Body.Exists(id =>
+            //限制商户
+            if (base.IsOnlyCurrentMerchant)
             {
-                var settingModel = this.sysWebSettingBLL.GetModel(id);
-                return null != settingModel && settingModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID;
-            }))
-            {
-                response.IsSuccess = false;
-                response.Message = "只能删除属于自己的商户节点！";
-                return response;
+                if (request.Body.Exists(id =>
+                {
+                    var settingModel = this.sysWebSettingBLL.GetModel(id);
+                    return null != settingModel && settingModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID;
+                }))
+                {
+                    response.IsSuccess = false;
+                    response.Message = "只能删除属于自己的商户节点！";
+                    return response;
+                }
             }
 
             foreach (var k in request.Body)

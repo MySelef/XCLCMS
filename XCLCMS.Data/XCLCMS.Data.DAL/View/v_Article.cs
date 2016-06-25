@@ -35,8 +35,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_Article> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select UpdaterName,UpdaterID,UpdateTime,CreaterName,CreaterID,CreateTime,RecordState,PublishTime,LinkUrl,Comments,Tags,KeyWords,TopEndTime,TopBeginTime,IsTop,IsEssence,IsRecommend,VerifyState,ArticleState,URLOpenType,HotCount,BadCount,MiddleCount,GoodCount,CommentCount,IsCanComment,ViewCount,MainImage3,MainImage2,MainImage1,Summary,Contents,ArticleContentType,FromInfo,AuthorName,SubTitle,Title,Code,ArticleID,ArticleTypeIDs,ArticleTypeNames ");
-            strSql.Append(" FROM v_Article ");
+            strSql.Append("select * FROM v_Article ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

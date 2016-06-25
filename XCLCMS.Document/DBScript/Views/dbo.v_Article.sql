@@ -1,7 +1,11 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
+
+
 
 CREATE VIEW [dbo].[v_Article] AS 
 
@@ -46,6 +50,11 @@ WITH info AS (
     a.UpdateTime ,
     a.UpdaterID ,
     a.UpdaterName,
+	a.FK_MerchantID,
+	a.FK_MerchantAppID,
+	b.MerchantName,
+	b.MerchantSystemType,
+	c.MerchantAppName,
 	(
 		SELECT CAST(FK_TypeID AS VARCHAR)+',' FROM dbo.ArticleType WHERE FK_ArticleID=a.ArticleID FOR XML PATH('')
 	) AS ArticleTypeIDs,
@@ -55,49 +64,59 @@ WITH info AS (
 		WHERE aa.FK_ArticleID=a.ArticleID FOR XML PATH('')
 	) AS ArticleTypeNames
 	FROM dbo.Article AS a
+	LEFT JOIN dbo.Merchant AS b ON a.FK_MerchantID=b.MerchantName
+	LEFT JOIN dbo.MerchantApp AS c ON a.FK_MerchantAppID=c.MerchantAppID
 )
 SELECT 
-info.UpdaterName ,
-info.UpdaterID ,
-info.UpdateTime ,
-info.CreaterName ,
-info.CreaterID ,
-info.CreateTime ,
-info.RecordState ,
-info.PublishTime ,
-info.LinkUrl ,
-info.Comments ,
-info.Tags ,
-info.KeyWords ,
-info.TopEndTime ,
-info.TopBeginTime ,
-info.IsTop ,
-info.IsEssence ,
-info.IsRecommend ,
-info.VerifyState ,
-info.ArticleState ,
-info.URLOpenType ,
-info.HotCount ,
-info.BadCount ,
-info.MiddleCount ,
-info.GoodCount ,
-info.CommentCount ,
-info.IsCanComment ,
-info.ViewCount ,
-info.MainImage3 ,
-info.MainImage2 ,
-info.MainImage1 ,
-info.Summary ,
-info.Contents ,
-info.ArticleContentType ,
-info.FromInfo ,
-info.AuthorName ,
-info.SubTitle ,
-info.Title ,
-info.Code ,
-info.ArticleID ,
-SUBSTRING(info.ArticleTypeIDs,0,LEN(info.ArticleTypeIDs)) AS ArticleTypeIDs ,
-SUBSTRING(info.ArticleTypeNames,0,LEN(info.ArticleTypeNames)) AS ArticleTypeNames
-FROM info
+a.ArticleID ,
+a.Code ,
+a.Title ,
+a.SubTitle ,
+a.AuthorName ,
+a.FromInfo ,
+a.ArticleContentType ,
+a.Contents ,
+a.Summary ,
+a.MainImage1 ,
+a.MainImage2 ,
+a.MainImage3 ,
+a.ViewCount ,
+a.IsCanComment ,
+a.CommentCount ,
+a.GoodCount ,
+a.MiddleCount ,
+a.BadCount ,
+a.HotCount ,
+a.URLOpenType ,
+a.ArticleState ,
+a.VerifyState ,
+a.IsRecommend ,
+a.IsEssence ,
+a.IsTop ,
+a.TopBeginTime ,
+a.TopEndTime ,
+a.KeyWords ,
+a.Tags ,
+a.Comments ,
+a.LinkUrl ,
+a.PublishTime ,
+a.RecordState ,
+a.CreateTime ,
+a.CreaterID ,
+a.CreaterName ,
+a.UpdateTime ,
+a.UpdaterID ,
+a.UpdaterName,
+a.FK_MerchantID,
+a.FK_MerchantAppID,
+a.MerchantName,
+a.MerchantSystemType,
+a.MerchantAppName,
+SUBSTRING(a.ArticleTypeIDs,0,LEN(a.ArticleTypeIDs)) AS ArticleTypeIDs ,
+SUBSTRING(a.ArticleTypeNames,0,LEN(a.ArticleTypeNames)) AS ArticleTypeNames
+FROM info AS a
+
+
+
 
 GO

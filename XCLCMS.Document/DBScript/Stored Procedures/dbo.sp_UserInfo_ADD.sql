@@ -1,7 +1,9 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 
 
 
@@ -12,6 +14,7 @@ CREATE PROCEDURE [dbo].[sp_UserInfo_ADD]
 @UserInfoID bigint,
 @UserName varchar(50),
 @FK_MerchantID bigint,
+@FK_MerchantAppID bigint,
 @RealName nvarchar(50),
 @NickName nvarchar(50),
 @Pwd varchar(50),
@@ -45,19 +48,20 @@ BEGIN
 	
 	BEGIN TRY
 		INSERT INTO [UserInfo](
-		[UserInfoID],[UserName],[FK_MerchantID],[RealName],[NickName],[Pwd],[Age],[SexType],[Birthday],[Tel],[QQ],[Email],[OtherContact],[AccessType],[AccessToken],[UserState],[Remark],[RoleName],[RoleMaxWeight],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
+		[UserInfoID],[UserName],[FK_MerchantID],[FK_MerchantAppID],[RealName],[NickName],[Pwd],[Age],[SexType],[Birthday],[Tel],[QQ],[Email],[OtherContact],[AccessType],[AccessToken],[UserState],[Remark],[RoleName],[RoleMaxWeight],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
 		)VALUES(
-		@UserInfoID,@UserName,@FK_MerchantID,@RealName,@NickName,@Pwd,@Age,@SexType,@Birthday,@Tel,@QQ,@Email,@OtherContact,@AccessType,@AccessToken,@UserState,@Remark,@RoleName,@RoleMaxWeight,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
+		@UserInfoID,@UserName,@FK_MerchantID,@FK_MerchantAppID,@RealName,@NickName,@Pwd,@Age,@SexType,@Birthday,@Tel,@QQ,@Email,@OtherContact,@AccessType,@AccessToken,@UserState,@Remark,@RoleName,@RoleMaxWeight,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
 		)
 		SET @ResultCode=1
 	END TRY
 	BEGIN CATCH
-			set @ResultMessage= ERROR_MESSAGE() 
+			SET @ResultMessage= ERROR_MESSAGE() 
 			SET @ResultCode=0
 	END CATCH
 	
 
 END
+
 
 
 

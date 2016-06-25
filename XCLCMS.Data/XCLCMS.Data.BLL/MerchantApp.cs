@@ -66,6 +66,23 @@ namespace XCLCMS.Data.BLL
             return dal.IsExistMerchantAppName(merchantAppName);
         }
 
+        /// <summary>
+        /// 检查指定的应用号是否属于指定的商户
+        /// </summary>
+        public bool IsTheSameMerchantInfoID(long merchantID, long merchantAppID)
+        {
+            if (merchantAppID == 0)
+            {
+                return true;
+            }
+            var appModel = this.GetModel(merchantAppID);
+            if (null == appModel)
+            {
+                return false;
+            }
+            return appModel.FK_MerchantID == merchantID;
+        }
+
         #endregion Extend Method
     }
 }

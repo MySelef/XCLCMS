@@ -105,7 +105,7 @@ namespace XCLCMS.Data.DAL
             ";
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(sql);
-            dbCommand.Parameters.Add(new SqlParameter("TVP_ObjectAttachment", SqlDbType.Structured)
+            dbCommand.Parameters.Add(new SqlParameter("@TVP_ObjectAttachment", SqlDbType.Structured)
             {
                 TypeName = "TVP_ObjectAttachment",
                 Direction = ParameterDirection.Input,

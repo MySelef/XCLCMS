@@ -107,6 +107,14 @@ namespace XCLCMS.Data.BLL
             return this.GetModelByCode(CommonHelper.SysRoleConst.SysRoleCodeEnum.Root.ToString());
         }
 
+        /// <summary>
+        /// 根据id批量获取实体
+        /// </summary>
+        public List<XCLCMS.Data.Model.SysRole> GetModelList(List<long> roleIdList)
+        {
+            return dal.GetModelList(roleIdList);
+        }
+
         #endregion ExtensionMethod
     }
 }

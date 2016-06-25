@@ -197,21 +197,11 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //应用号与商户一致
-            if (request.Body.FK_MerchantAppID > 0)
+            if (!this.merchartAppBLL.IsTheSameMerchantInfoID(request.Body.FK_MerchantID, request.Body.FK_MerchantAppID))
             {
-                var appModel = this.merchartAppBLL.GetModel(request.Body.FK_MerchantAppID);
-                if (null == appModel)
-                {
-                    response.IsSuccess = false;
-                    response.Message = string.Format("应用号【{0}】不存在！", request.Body.FK_MerchantAppID);
-                    return response;
-                }
-                if (appModel.FK_MerchantID != request.Body.FK_MerchantID)
-                {
-                    response.IsSuccess = false;
-                    response.Message = string.Format("应用号【{0}】不属于商户【{1}】！", request.Body.FK_MerchantAppID, request.Body.FK_MerchantID);
-                    return response;
-                }
+                response.IsSuccess = false;
+                response.Message = "商户号与应用号不匹配，请核对后再试！";
+                return response;
             }
 
             #endregion 数据校验
@@ -281,21 +271,11 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //应用号与商户一致
-            if (request.Body.FK_MerchantAppID > 0)
+            if (!this.merchartAppBLL.IsTheSameMerchantInfoID(request.Body.FK_MerchantID, request.Body.FK_MerchantAppID))
             {
-                var appModel = this.merchartAppBLL.GetModel(request.Body.FK_MerchantAppID);
-                if (null == appModel)
-                {
-                    response.IsSuccess = false;
-                    response.Message = string.Format("应用号【{0}】不存在！", request.Body.FK_MerchantAppID);
-                    return response;
-                }
-                if (appModel.FK_MerchantID != request.Body.FK_MerchantID)
-                {
-                    response.IsSuccess = false;
-                    response.Message = string.Format("应用号【{0}】不属于商户【{1}】！", request.Body.FK_MerchantAppID, request.Body.FK_MerchantID);
-                    return response;
-                }
+                response.IsSuccess = false;
+                response.Message = "商户号与应用号不匹配，请核对后再试！";
+                return response;
             }
 
             #endregion 数据校验

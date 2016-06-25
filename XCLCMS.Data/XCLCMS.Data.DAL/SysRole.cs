@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace XCLCMS.Data.DAL
@@ -226,6 +227,30 @@ namespace XCLCMS.Data.DAL
 
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysRole>(ds.Tables[0]);
             return null != lst && lst.Count > 0 ? lst[0] : null;
+        }
+
+        /// <summary>
+        /// 根据id批量获取实体
+        /// </summary>
+        public List<XCLCMS.Data.Model.SysRole> GetModelList(List<long> roleIdList)
+        {
+            if (null == roleIdList || roleIdList.Count == 0)
+            {
+                return null;
+            }
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(@"
+                                                                                                        SELECT a.* FROM dbo.SysRole AS a
+                                                                                                        INNER JOIN @TVP_RoleID AS b ON a.SysRoleID=b.ID
+                                                                                                    ");
+            dbCommand.Parameters.Add(new SqlParameter("@TVP_RoleID", SqlDbType.Structured)
+            {
+                TypeName= "TVP_IDTable",
+                Direction = ParameterDirection.Input,
+                Value = XCLNetTools.DataSource.DataTableHelper.ToSingleColumnDataTable<long, long>(roleIdList)
+            });
+            var ds = db.ExecuteDataSet(dbCommand);
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.SysRole>(ds) as List<XCLCMS.Data.Model.SysRole>;
         }
 
         #endregion MethodEx

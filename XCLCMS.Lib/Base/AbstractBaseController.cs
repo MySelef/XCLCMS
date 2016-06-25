@@ -11,10 +11,12 @@ namespace XCLCMS.Lib.Base
         private XCLCMS.Data.Model.UserInfo _currentUserModel = null;
         private XCLCMS.Data.Model.Custom.ContextModel _contextModel = null;
         private string _userToken = null;
-        private XCLCMS.Data.Model.MerchantApp _currentMerchantApp = null;
-        private XCLCMS.Data.Model.Merchant _currentMerchant = null;
-
+        private XCLCMS.Data.Model.MerchantApp _currentApplicationMerchantApp = null;
+        private XCLCMS.Data.Model.Merchant _currentApplicationMerchant = null;
+        private XCLCMS.Data.Model.MerchantApp _currentUserMerchantApp = null;
+        private XCLCMS.Data.Model.Merchant _currentUserMerchant = null;
         private XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
+        private XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new XCLCMS.Data.BLL.MerchantApp();
 
         #region 当前登录用户相关
 
@@ -63,6 +65,36 @@ namespace XCLCMS.Lib.Base
             }
         }
 
+        /// <summary>
+        /// 当前用户所属的商户应用实体
+        /// </summary>
+        public XCLCMS.Data.Model.MerchantApp CurrentUserMerchantApp
+        {
+            get
+            {
+                if (null == this._currentUserMerchantApp)
+                {
+                    this._currentUserMerchantApp = this.merchantAppBLL.GetModel(this.CurrentUserModel.FK_MerchantAppID);
+                }
+                return this._currentUserMerchantApp;
+            }
+        }
+
+        /// <summary>
+        /// 当前用户所属的商户信息实体
+        /// </summary>
+        public XCLCMS.Data.Model.Merchant CurrentUserMerchant
+        {
+            get
+            {
+                if (null == this._currentUserMerchant)
+                {
+                    this._currentUserMerchant = this.merchantBLL.GetModel(this.CurrentUserModel.FK_MerchantID);
+                }
+                return this._currentUserMerchant;
+            }
+        }
+
         #endregion 当前登录用户相关
 
         #region 其它
@@ -79,7 +111,7 @@ namespace XCLCMS.Lib.Base
                     this._contextModel = new Data.Model.Custom.ContextModel()
                     {
                         UserInfoID = this.CurrentUserModel.UserInfoID,
-                        UserName=this.CurrentUserModel.UserName
+                        UserName = this.CurrentUserModel.UserName
                     };
                 }
                 return this._contextModel;
@@ -87,32 +119,32 @@ namespace XCLCMS.Lib.Base
         }
 
         /// <summary>
-        /// 当前应用实体
+        /// 当前应用程序的商户应用实体
         /// </summary>
-        public XCLCMS.Data.Model.MerchantApp CurrentMerchantApp
+        public XCLCMS.Data.Model.MerchantApp CurrentApplicationMerchantApp
         {
             get
             {
-                if (null == this._currentMerchantApp)
+                if (null == this._currentApplicationMerchantApp)
                 {
-                    this._currentMerchantApp = XCLCMS.Lib.Common.Comm.CurrentMerchantApp;
+                    this._currentApplicationMerchantApp = XCLCMS.Lib.Common.Comm.CurrentApplicationMerchantApp;
                 }
-                return this._currentMerchantApp;
+                return this._currentApplicationMerchantApp;
             }
         }
 
         /// <summary>
-        /// 当前商户实体
+        /// 当前应用程序的商户信息实体
         /// </summary>
-        public XCLCMS.Data.Model.Merchant CurrentMerchant
+        public XCLCMS.Data.Model.Merchant CurrentApplicationMerchant
         {
             get
             {
-                if (null == this._currentMerchant)
+                if (null == this._currentApplicationMerchant)
                 {
-                    this._currentMerchant = this.merchantBLL.GetModel(this.CurrentMerchantApp.FK_MerchantID);
+                    this._currentApplicationMerchant = this.merchantBLL.GetModel(this.CurrentApplicationMerchantApp.FK_MerchantID);
                 }
-                return this._currentMerchant;
+                return this._currentApplicationMerchant;
             }
         }
 
@@ -218,9 +250,11 @@ namespace XCLCMS.Lib.Base
             //操作类型
             ViewBag.CurrentHandleType = this.CurrentHandleType;
             ViewBag.UserID = this.UserID;
-            ViewBag.ResourceVersion = this.CurrentMerchantApp.ResourceVersion;
-            ViewBag.CurrentMerchantApp = this.CurrentMerchantApp;
-            ViewBag.CurrentMerchant = this.CurrentMerchant;
+            ViewBag.ResourceVersion = this.CurrentApplicationMerchantApp.ResourceVersion;
+            ViewBag.CurrentApplicationMerchantApp = this.CurrentApplicationMerchantApp;
+            ViewBag.CurrentApplicationMerchant = this.CurrentApplicationMerchant;
+            ViewBag.CurrentUserMerchantApp = this.CurrentUserMerchantApp;
+            ViewBag.CurrentUserMerchant = this.CurrentUserMerchant;
 
             //公共信息
             XCLCMS.Lib.Model.CommonModel commonModel = new XCLCMS.Lib.Model.CommonModel();
@@ -260,29 +294,29 @@ namespace XCLCMS.Lib.Base
             //设置title
             if (string.IsNullOrWhiteSpace(ViewBag.Title))
             {
-                ViewBag.Title = this.CurrentMerchantApp.MetaTitle;
+                ViewBag.Title = this.CurrentApplicationMerchantApp.MetaTitle;
             }
             else
             {
-                ViewBag.Title = string.Format("{0}—{1}", ViewBag.Title, this.CurrentMerchantApp.MetaTitle);
+                ViewBag.Title = string.Format("{0}—{1}", ViewBag.Title, this.CurrentApplicationMerchantApp.MetaTitle);
             }
             //设置keywords
             if (string.IsNullOrWhiteSpace(ViewBag.KeyWords))
             {
-                ViewBag.KeyWords = this.CurrentMerchantApp.MetaKeyWords;
+                ViewBag.KeyWords = this.CurrentApplicationMerchantApp.MetaKeyWords;
             }
             else
             {
-                ViewBag.KeyWords = string.Format("{0}—{1}", ViewBag.KeyWords, this.CurrentMerchantApp.MetaKeyWords);
+                ViewBag.KeyWords = string.Format("{0}—{1}", ViewBag.KeyWords, this.CurrentApplicationMerchantApp.MetaKeyWords);
             }
             //设置description
             if (string.IsNullOrWhiteSpace(ViewBag.Description))
             {
-                ViewBag.Description = this.CurrentMerchantApp.MetaDescription;
+                ViewBag.Description = this.CurrentApplicationMerchantApp.MetaDescription;
             }
             else
             {
-                ViewBag.Description = string.Format("{0}—{1}", ViewBag.Description, this.CurrentMerchantApp.MetaDescription);
+                ViewBag.Description = string.Format("{0}—{1}", ViewBag.Description, this.CurrentApplicationMerchantApp.MetaDescription);
             }
         }
 

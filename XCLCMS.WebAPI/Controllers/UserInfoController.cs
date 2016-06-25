@@ -17,6 +17,8 @@ namespace XCLCMS.WebAPI.Controllers
         private XCLCMS.Data.BLL.UserInfo userInfoBLL = new XCLCMS.Data.BLL.UserInfo();
         private XCLCMS.Data.BLL.View.v_UserInfo vUserInfoBLL = new XCLCMS.Data.BLL.View.v_UserInfo();
         private XCLCMS.Data.BLL.Merchant merchantBLL = new XCLCMS.Data.BLL.Merchant();
+        private XCLCMS.Data.BLL.MerchantApp merchartAppBLL = new Data.BLL.MerchantApp();
+        private XCLCMS.Data.BLL.SysRole sysRoleBLL = new XCLCMS.Data.BLL.SysRole();
 
         /// <summary>
         /// 查询用户信息实体
@@ -139,11 +141,28 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
+            //应用号与商户一致
+            if (!this.merchartAppBLL.IsTheSameMerchantInfoID(request.Body.UserInfo.FK_MerchantID, request.Body.UserInfo.FK_MerchantAppID))
+            {
+                response.IsSuccess = false;
+                response.Message = "商户号与应用号不匹配，请核对后再试！";
+                return response;
+            }
+
             //限制商户
             if (base.IsOnlyCurrentMerchant && request.Body.UserInfo.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
             {
                 response.IsSuccess = false;
                 response.Message = "只能在自己所属的商户下面添加用户信息！";
+                return response;
+            }
+
+            //角色是否越界
+            var roleList = this.sysRoleBLL.GetModelList(request.Body.RoleIdList);
+            if (null != roleList && roleList.Count > 0 && roleList.Exists(k => k.FK_MerchantID != request.Body.UserInfo.FK_MerchantID))
+            {
+                response.IsSuccess = false;
+                response.Message = "角色与用户所在商户不匹配！";
                 return response;
             }
 
@@ -217,11 +236,28 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             }
 
+            //应用号与商户一致
+            if (!this.merchartAppBLL.IsTheSameMerchantInfoID(request.Body.UserInfo.FK_MerchantID, request.Body.UserInfo.FK_MerchantAppID))
+            {
+                response.IsSuccess = false;
+                response.Message = "商户号与应用号不匹配，请核对后再试！";
+                return response;
+            }
+
             //限制商户
             if (base.IsOnlyCurrentMerchant && request.Body.UserInfo.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
             {
                 response.IsSuccess = false;
                 response.Message = "只能在自己所属的商户下面修改用户信息！";
+                return response;
+            }
+
+            //角色是否越界
+            var roleList = this.sysRoleBLL.GetModelList(request.Body.RoleIdList);
+            if (null != roleList && roleList.Count > 0 && roleList.Exists(k => k.FK_MerchantID != request.Body.UserInfo.FK_MerchantID))
+            {
+                response.IsSuccess = false;
+                response.Message = "角色与用户所在商户不匹配！";
                 return response;
             }
 
@@ -233,6 +269,7 @@ namespace XCLCMS.WebAPI.Controllers
             model.Birthday = request.Body.UserInfo.Birthday;
             model.Email = request.Body.UserInfo.Email;
             model.FK_MerchantID = request.Body.UserInfo.FK_MerchantID;
+            model.FK_MerchantAppID = request.Body.UserInfo.FK_MerchantAppID;
             model.NickName = request.Body.UserInfo.NickName;
             model.OtherContact = request.Body.UserInfo.OtherContact;
             if (!string.IsNullOrWhiteSpace(request.Body.UserInfo.Pwd))

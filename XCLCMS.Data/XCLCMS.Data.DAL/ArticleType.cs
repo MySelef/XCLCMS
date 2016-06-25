@@ -103,7 +103,7 @@ namespace XCLCMS.Data.DAL
             ";
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(sql);
-            dbCommand.Parameters.Add(new SqlParameter("TVP_ArticleType", SqlDbType.Structured)
+            dbCommand.Parameters.Add(new SqlParameter("@TVP_ArticleType", SqlDbType.Structured)
             {
                 TypeName = "TVP_ArticleType",
                 Direction = ParameterDirection.Input,

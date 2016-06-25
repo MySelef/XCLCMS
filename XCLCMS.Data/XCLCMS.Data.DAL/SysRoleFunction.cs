@@ -44,8 +44,9 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "UpdaterID", DbType.Int64, model.UpdaterID);
             db.AddInParameter(dbCommand, "UpdaterName", DbType.String, model.UpdaterName);
 
-            dbCommand.Parameters.Add(new SqlParameter("FK_SysFunctionIDTable", SqlDbType.Structured)
+            dbCommand.Parameters.Add(new SqlParameter("@FK_SysFunctionIDTable", SqlDbType.Structured)
             {
+                TypeName= "TVP_IDTable",
                 Direction = ParameterDirection.Input,
                 Value = XCLNetTools.DataSource.DataTableHelper.ToSingleColumnDataTable<long, long>(functionIdList)
             });

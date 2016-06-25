@@ -5,7 +5,6 @@
 
 <form id="mainForm" action="@Model.FormAction" method="post">
     <input type="hidden" id="UserInfoID" name="UserInfoID" value="@Model.UserInfo.UserInfoID" />
-    <input type="hidden" name="MerchantID" id="MerchantID" value="@Model.UserInfo.FK_MerchantID" />
 
     <div class="XCLAccordion" style="border-top: none;">
         <div class="XCLAccordionHeader">1、基本信息：</div>
@@ -34,6 +33,18 @@
                         <input type="text" id="txtNickName" name="txtNickName" value="@Model.UserInfo.NickName" />
                     </td>
                 </tr>
+
+                <tr>
+                    <td class="XCLTitle">所属商户号：</td>
+                    <td>
+                        <input type="text" id="txtMerchantID" name="txtMerchantID" value="@Model.UserInfo.FK_MerchantID" />
+                    </td>
+                    <td class="XCLTitle">所属应用号：</td>
+                    <td><input type="text" id="txtMerchantAppID" name="txtMerchantAppID" value="@Model.UserInfo.FK_MerchantAppID" /></td>
+                    <td class="XCLTitle"></td>
+                    <td></td>
+                </tr>
+
                 <tr>
                     <td class="XCLTitle">密码：</td>
                     <td>

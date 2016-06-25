@@ -24,6 +24,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             viewModel.Search = new XCLNetSearch.Search();
             viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("用户ID","UserInfoID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("所属商户","FK_MerchantID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("所属应用","FK_MerchantAppID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("用户名","UserName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("真实姓名","RealName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("昵称","NickName|string|text",""),
@@ -126,7 +128,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             viewModel.UserInfo.Tel = (fm["txtTel"] ?? "").Trim();
             viewModel.UserInfo.UserName = (fm["txtUserName"] ?? "").Trim();
             viewModel.UserInfo.UserState = (fm["selUserState"] ?? "").Trim();
-            viewModel.UserInfo.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("MerchantID");
+            viewModel.UserInfo.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantID");
+            viewModel.UserInfo.FK_MerchantAppID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantAppID");
             viewModel.UserRoleIDs = XCLNetTools.StringHander.FormHelper.GetLongList("txtUserRoleIDs");
             return viewModel;
         }
@@ -165,6 +168,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             model.UserName = viewModel.UserInfo.UserName;
             model.UserState = viewModel.UserInfo.UserState;
             model.FK_MerchantID = viewModel.UserInfo.FK_MerchantID;
+            model.FK_MerchantAppID = viewModel.UserInfo.FK_MerchantAppID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity>(base.UserToken);
             request.Body = new Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity();
@@ -209,6 +213,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             model.Tel = viewModel.UserInfo.Tel;
             model.UserState = viewModel.UserInfo.UserState;
             model.FK_MerchantID = viewModel.UserInfo.FK_MerchantID;
+            model.FK_MerchantAppID = viewModel.UserInfo.FK_MerchantAppID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity>(base.UserToken);
             request.Body = new Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity();

@@ -1,7 +1,9 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 
 
 
@@ -20,6 +22,7 @@ CREATE PROCEDURE [dbo].[sp_UserInfo_Update]
 @UserInfoID bigint,
 @UserName varchar(50),
 @FK_MerchantID bigint,
+@FK_MerchantAppID bigint,
 @RealName nvarchar(50),
 @NickName nvarchar(50),
 @Pwd varchar(50),
@@ -50,42 +53,21 @@ CREATE PROCEDURE [dbo].[sp_UserInfo_Update]
 BEGIN
 
 	BEGIN TRY 
-		UPDATE dbo.UserInfo SET
-		UserName=@UserName ,
-		FK_MerchantID=@FK_MerchantID,
-		RealName =@RealName,
-		NickName =@NickName,
-		Pwd =@Pwd,
-		Age =@Age,
-		SexType =@SexType,
-		Birthday =@Birthday,
-		Tel =@Tel,
-		QQ =@QQ,
-		Email =@Email,
-		OtherContact =@OtherContact,
-		AccessType =@AccessType,
-		AccessToken =@AccessToken,
-		UserState =@UserState,
-		Remark =@Remark,
-		RoleName=@RoleName,
-		RoleMaxWeight=@RoleMaxWeight,
-		RecordState =@RecordState,
-		CreateTime =@CreateTime,
-		CreaterID =@CreaterID,
-		CreaterName=@CreaterName,
-		UpdateTime =@UpdateTime,
-		UpdaterID =@UpdaterID,
-		UpdaterName =@UpdaterName
-		WHERE UserInfoID=@UserInfoID	
+	UPDATE [UserInfo] SET 
+	UserName=@UserName , FK_MerchantID=@FK_MerchantID , RealName=@RealName , NickName=@NickName ,
+	[FK_MerchantAppID] = @FK_MerchantAppID,[Pwd] = @Pwd,[Age] = @Age,[SexType] = @SexType,[Birthday] = @Birthday,[Tel] = @Tel,[QQ] = @QQ,[Email] = @Email,[OtherContact] = @OtherContact,[AccessType] = @AccessType,[AccessToken] = @AccessToken,[UserState] = @UserState,[Remark] = @Remark,[RoleName] = @RoleName,[RoleMaxWeight] = @RoleMaxWeight,[RecordState] = @RecordState,[CreateTime] = @CreateTime,[CreaterID] = @CreaterID,[CreaterName] = @CreaterName,[UpdateTime] = @UpdateTime,[UpdaterID] = @UpdaterID,[UpdaterName] = @UpdaterName
+	WHERE UserInfoID=@UserInfoID
+
 	
 		SET @ResultCode=1
 	END TRY
 	BEGIN CATCH
-		set @ResultMessage= ERROR_MESSAGE() 
+		SET @ResultMessage= ERROR_MESSAGE() 
 		SET @ResultCode=0	
 	END CATCH
 
 END
+
 
 
 

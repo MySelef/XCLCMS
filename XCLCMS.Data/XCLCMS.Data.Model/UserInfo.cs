@@ -15,7 +15,8 @@ namespace XCLCMS.Data.Model
 
         private long _userinfoid;
         private string _username;
-        private long _fk_merchantid;
+        private long _fk_merchantid = 0;
+        private long _fk_merchantappid = 0;
         private string _realname;
         private string _nickname;
         private string _pwd;
@@ -65,6 +66,15 @@ namespace XCLCMS.Data.Model
         {
             set { _fk_merchantid = value; }
             get { return _fk_merchantid; }
+        }
+
+        /// <summary>
+        /// 所属应用号
+        /// </summary>
+        public long FK_MerchantAppID
+        {
+            set { _fk_merchantappid = value; }
+            get { return _fk_merchantappid; }
         }
 
         /// <summary>

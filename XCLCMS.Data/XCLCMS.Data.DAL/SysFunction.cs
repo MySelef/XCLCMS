@@ -145,8 +145,9 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, userId);
             db.AddOutParameter(dbCommand, "IsPass", DbType.Byte, 1);
 
-            dbCommand.Parameters.Add(new SqlParameter("FunctionListTable", SqlDbType.Structured)
+            dbCommand.Parameters.Add(new SqlParameter("@FunctionListTable", SqlDbType.Structured)
             {
+                TypeName= "TVP_IDTable",
                 Direction = ParameterDirection.Input,
                 Value = XCLNetTools.DataSource.DataTableHelper.ToSingleColumnDataTable<long, long>(functionList)
             });

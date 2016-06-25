@@ -277,7 +277,7 @@ namespace XCLCMS.Data.DAL
 
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(sql);
-            dbCommand.Parameters.Add(new SqlParameter("TVP_ID", SqlDbType.Structured)
+            dbCommand.Parameters.Add(new SqlParameter("@TVP_ID", SqlDbType.Structured)
             {
                 TypeName = "TVP_IDTable",
                 Direction = ParameterDirection.Input,

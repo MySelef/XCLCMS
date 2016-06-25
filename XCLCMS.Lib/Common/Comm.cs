@@ -83,7 +83,7 @@ namespace XCLCMS.Lib.Common
         /// <summary>
         /// 获取当前应用实体
         /// </summary>
-        public static XCLCMS.Data.Model.MerchantApp CurrentMerchantApp
+        public static XCLCMS.Data.Model.MerchantApp CurrentApplicationMerchantApp
         {
             get
             {

@@ -95,6 +95,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, model.UserInfoID);
             db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, model.UserName);
             db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "FK_MerchantAppID", DbType.Int64, model.FK_MerchantAppID);
             db.AddInParameter(dbCommand, "RealName", DbType.String, model.RealName);
             db.AddInParameter(dbCommand, "NickName", DbType.String, model.NickName);
             db.AddInParameter(dbCommand, "Pwd", DbType.AnsiString, model.Pwd);
@@ -144,6 +145,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, model.UserInfoID);
             db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, model.UserName);
             db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "FK_MerchantAppID", DbType.Int64, model.FK_MerchantAppID);
             db.AddInParameter(dbCommand, "RealName", DbType.String, model.RealName);
             db.AddInParameter(dbCommand, "NickName", DbType.String, model.NickName);
             db.AddInParameter(dbCommand, "Pwd", DbType.AnsiString, model.Pwd);

@@ -30,17 +30,17 @@
                 </td>
                 <td>序号</td>
                 <td>用户ID</td>
+                <td>所属商户</td>
+                <td>所属应用</td>
                 <td>用户名</td>
                 <td>角色</td>
                 <td>真实姓名</td>
                 <td>昵称</td>
                 <td>年龄</td>
                 <td>性别</td>
-                <td>出生日期</td>
                 <td>手机号</td>
                 <td>QQ</td>
                 <td>电子邮件</td>
-                <td>访问方式</td>
                 <td>备注</td>
                 <td>用户状态</td>
                 <td>记录状态</td>
@@ -59,17 +59,17 @@
                                 @(Model.PagerModel.StartIndex+i)
                             </td>
                             <td align="center">@m.UserInfoID</td>
+                            <td>@m.MerchantName</td>
+                            <td>@m.MerchantAppName</td>
                             <td align="center">@m.UserName</td>
                             <td>@m.RoleName</td>
                             <td align="center">@m.RealName</td>
                             <td align="center">@m.NickName</td>
                             <td align="center">@m.Age</td>
                             <td align="center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum),m.SexType)</td>
-                            <td align="center">@string.Format("{0:yyyy-MM-dd}", m.Birthday)</td>
                             <td align="center">@m.Tel</td>
                             <td align="center">@m.QQ</td>
                             <td>@m.Email</td>
-                            <td>@m.AccessType</td>
                             <td>@m.Remark</td>
                             <td align="center" class="@(string.Equals(m.UserState,XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.D.ToString())?"XCLRed":"")">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.UserStateEnum),m.UserState)</td>
                             <td align="center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), m.RecordState)</td>

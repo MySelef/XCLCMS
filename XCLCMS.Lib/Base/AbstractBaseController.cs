@@ -74,7 +74,7 @@ namespace XCLCMS.Lib.Base
             {
                 if (null == this._currentUserMerchantApp)
                 {
-                    this._currentUserMerchantApp = this.merchantAppBLL.GetModel(this.CurrentUserModel.FK_MerchantAppID);
+                    this._currentUserMerchantApp = null == this.CurrentUserModel ? null : this.merchantAppBLL.GetModel(this.CurrentUserModel.FK_MerchantAppID);
                 }
                 return this._currentUserMerchantApp;
             }
@@ -89,7 +89,7 @@ namespace XCLCMS.Lib.Base
             {
                 if (null == this._currentUserMerchant)
                 {
-                    this._currentUserMerchant = this.merchantBLL.GetModel(this.CurrentUserModel.FK_MerchantID);
+                    this._currentUserMerchant = null == this.CurrentUserModel ? null : this.merchantBLL.GetModel(this.CurrentUserModel.FK_MerchantID);
                 }
                 return this._currentUserMerchant;
             }
@@ -253,9 +253,13 @@ namespace XCLCMS.Lib.Base
             ViewBag.ResourceVersion = this.CurrentApplicationMerchantApp.ResourceVersion;
             ViewBag.CurrentApplicationMerchantApp = this.CurrentApplicationMerchantApp;
             ViewBag.CurrentApplicationMerchant = this.CurrentApplicationMerchant;
-            ViewBag.CurrentUserMerchantApp = this.CurrentUserMerchantApp;
-            ViewBag.CurrentUserMerchant = this.CurrentUserMerchant;
-            ViewBag.UserToken = this.UserToken;
+
+            if (null != this.CurrentUserModel)
+            {
+                ViewBag.CurrentUserMerchantApp = this.CurrentUserMerchantApp;
+                ViewBag.CurrentUserMerchant = this.CurrentUserMerchant;
+                ViewBag.UserToken = this.UserToken;
+            }
 
             //公共信息
             XCLCMS.Lib.Model.CommonModel commonModel = new XCLCMS.Lib.Model.CommonModel();

@@ -55,11 +55,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
                 return Json(msgModel);
             }
 
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity>(base.UserToken);
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity>(XCLCMS.Lib.Login.LoginHelper.GetInnerUserToken());
             request.Body = new Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity();
             request.Body.UserName = (form["txtUserName"] ?? "").Trim();
             request.Body.Pwd = form["txtPwd"] ?? "";
             var response = XCLCMS.Lib.WebAPI.OpenAPI.LogonCheck(request);
+            if (null != response && response.IsSuccess)
+            {
+                XCLCMS.Lib.Login.LoginHelper.SetLogInfo(XCLCMS.Lib.Login.LoginHelper.LoginType.ON, response.Body);
+            }
 
             return Json(response);
         }

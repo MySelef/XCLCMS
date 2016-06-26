@@ -10,9 +10,9 @@ namespace XCLCMS.Lib.WebAPI
         /// <summary>
         /// 登录检查
         /// </summary>
-        public static APIResponseEntity<bool> LogonCheck(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity> request)
+        public static APIResponseEntity<XCLCMS.Data.Model.UserInfo> LogonCheck(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity> request)
         {
-            return Library.Request<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity, bool>(request, "Open/LogonCheck", false);
+            return Library.Request<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity, XCLCMS.Data.Model.UserInfo>(request, "Open/LogonCheck", false);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace XCLCMS.WebAPI.Controllers
     /// <summary>
     /// 开放的API
     /// </summary>
-    public class OpenController
+    public class OpenController: BaseAPIController
     {
         private XCLCMS.Data.BLL.UserInfo userInfoBLL = new XCLCMS.Data.BLL.UserInfo();
 
@@ -15,12 +15,12 @@ namespace XCLCMS.WebAPI.Controllers
         /// 登录检查
         /// </summary>
         [HttpPost]
-        public APIResponseEntity<bool> LogonCheck(JObject obj)
+        public APIResponseEntity<XCLCMS.Data.Model.UserInfo> LogonCheck(JObject obj)
         {
             var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity>>();
-            var response = new APIResponseEntity<bool>();
+            var response = new APIResponseEntity<XCLCMS.Data.Model.UserInfo>();
 
-            XCLCMS.Data.Model.UserInfo userModel = userInfoBLL.GetModel(request.Body.UserName, XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5(request.Body.Pwd));
+            var userModel = userInfoBLL.GetModel(request.Body.UserName, XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5(request.Body.Pwd));
             if (null == userModel)
             {
                 response.Message = string.Format("用户名或密码不正确！", request.Body.UserName);
@@ -33,7 +33,7 @@ namespace XCLCMS.WebAPI.Controllers
             }
             else
             {
-                XCLCMS.Lib.Login.LoginHelper.SetLogInfo(XCLCMS.Lib.Login.LoginHelper.LoginType.ON, userModel);
+                response.Body = userModel;
                 response.IsSuccess = true;
             }
 

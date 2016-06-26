@@ -220,6 +220,19 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 根据SysDicID查询其子项
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<List<XCLCMS.Data.Model.SysDic>> GetChildListByID(string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<List<XCLCMS.Data.Model.SysDic>>();
+            response.Body = this.sysDicBLL.GetChildListByID(request.Body);
+            response.IsSuccess = true;
+            return response;
+        }
+
+        /// <summary>
         /// 获取当前sysDicID所属的层级list
         /// 如:根目录/子目录/文件
         /// </summary>

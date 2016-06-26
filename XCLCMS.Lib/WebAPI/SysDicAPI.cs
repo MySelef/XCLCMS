@@ -57,6 +57,14 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 根据SysDicID查询其子项
+        /// </summary>
+        public static APIResponseEntity<List<XCLCMS.Data.Model.SysDic>> GetChildListByID(APIRequestEntity<long> request)
+        {
+            return Library.Request<long, List<XCLCMS.Data.Model.SysDic>>(request, "SysDic/GetChildListByID");
+        }
+
+        /// <summary>
         /// 获取当前sysDicID所属的层级list
         /// 如:根目录/子目录/文件
         /// </summary>

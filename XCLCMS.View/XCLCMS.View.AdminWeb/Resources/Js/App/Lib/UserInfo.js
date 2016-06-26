@@ -127,7 +127,7 @@
                 multiple: true,
                 loadFilter: function (data) {
                     if (data) {
-                        return data.Body;
+                        return data.Body || [];
                     }
                 }
             });

@@ -255,6 +255,7 @@ namespace XCLCMS.Lib.Base
             ViewBag.CurrentApplicationMerchant = this.CurrentApplicationMerchant;
             ViewBag.CurrentUserMerchantApp = this.CurrentUserMerchantApp;
             ViewBag.CurrentUserMerchant = this.CurrentUserMerchant;
+            ViewBag.UserToken = this.UserToken;
 
             //公共信息
             XCLCMS.Lib.Model.CommonModel commonModel = new XCLCMS.Lib.Model.CommonModel();

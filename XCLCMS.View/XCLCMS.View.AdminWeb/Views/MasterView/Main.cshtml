@@ -42,10 +42,10 @@
                 <span style="float:right;"><span class="XCLRed">公告通知：</span><a href="">2014又要放假了，大家火车票买了没？</a></span>
             </div>
         </div>
+
         <div id="DivMenuTabs" class="easyui-tabs" style="height:auto;">
             @if (null != mainViewModel)
             {
-                var bll = new XCLCMS.Data.BLL.SysDic();
                 if (mainViewModel.MenuList.IsNotNullOrEmpty())
                 {
                     foreach (var m in mainViewModel.MenuList)
@@ -53,18 +53,18 @@
                     <div title="@m.DicName" xcl-sysdiccode="@m.Code" xcl-tabTitle="@m.DicName" style="padding:10px">
                         <div>
                             @{
-                                    var childMenu = bll.GetChildListByID(m.SysDicID);
-                                    if (childMenu.IsNotNullOrEmpty())
+                                List<XCLCMS.Data.Model.SysDic> childMenu =XCLCMS.Lib.WebAPI.Library.SysDicAPI_GetChildListByID(Convert.ToString(ViewBag.UserToken),m.SysDicID.Value);
+                                if (childMenu.IsNotNullOrEmpty())
+                                {
+                                    childMenu=childMenu.Where(ch=>ch.FK_FunctionID==null || XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,(XCLCMS.Lib.Permission.Function.FunctionEnum)ch.FK_FunctionID)).ToList();
+                                    foreach(var child in childMenu)
                                     {
-                                        childMenu=childMenu.Where(ch=>ch.FK_FunctionID==null || XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,(XCLCMS.Lib.Permission.Function.FunctionEnum)ch.FK_FunctionID)).ToList();
-                                        foreach(var child in childMenu)
+                                        var linkUrl=(child.DicValue??"").Trim();
+                                        linkUrl=linkUrl.Replace("~/",XCLNetTools.StringHander.Common.RootUri);
+                                        if(string.IsNullOrEmpty(linkUrl))
                                         {
-                                            var linkUrl=(child.DicValue??"").Trim();
-                                            linkUrl=linkUrl.Replace("~/",XCLNetTools.StringHander.Common.RootUri);
-                                            if(string.IsNullOrEmpty(linkUrl))
-                                            {
-                                                linkUrl = "javascript:void(0);";
-                                            }
+                                            linkUrl = "javascript:void(0);";
+                                        }
                                             <a href="@linkUrl" class="easyui-linkbutton" style="width:auto;padding-left:10px;padding-right:10px;" xcl-sysdiccode="@child.Code" xcl-remark='@Html.Raw(child.Remark)'>@child.DicName</a>
                                         }
                                     }

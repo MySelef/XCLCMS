@@ -33,6 +33,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
                     viewModel.ParentID = sysRoleID;
                     viewModel.SysRoleID = -1;
                     viewModel.FormAction = Url.Action("AddSubmit", "SysRole");
+                    viewModel.SysRole.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:

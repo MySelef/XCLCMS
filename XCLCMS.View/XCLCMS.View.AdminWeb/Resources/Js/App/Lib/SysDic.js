@@ -65,7 +65,7 @@
                 rownumbers: true,
                 loadFilter: function (data) {
                     if (data) {
-                        data = data.Body;
+                        data = data.Body || [];
                         for (var i = 0; i < data.length; i++) {
                             data[i].state = (data[i].IsLeaf === 1) ? "" : "closed";
                         }
@@ -279,12 +279,22 @@
             }
             var isTxtFunctionID = ($obj == _this.Elements.txtFunctionID);
 
+            var request = XCLCMSWebApi.CreateRequest();
+            request.Body = {};
+            request.Body.MerchantID = $("#txtMerchantID").val();
+            var reqJSON = JSON.stringify(request);
+
             $obj.combotree({
-                url: XCLCMSPageGlobalConfig.RootURL + 'SysFunctionCommon/GetAllJsonForEasyUITree',
+                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysFunction/GetAllJsonForEasyUITree?json=' + reqJSON,
                 method: 'get',
                 checkbox: true,
                 lines: true,
                 multiple: (!isTxtFunctionID),//字典对应的功能id只允许选一个
+                loadFilter: function (data) {
+                    if (data) {
+                        return data.Body || [];
+                    }
+                },
                 onBeforeSelect: function (node) {
                     //字典对应的功能只能选择一项
                     if (isTxtFunctionID && node.children) {

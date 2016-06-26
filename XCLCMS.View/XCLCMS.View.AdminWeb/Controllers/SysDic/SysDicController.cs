@@ -48,6 +48,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                     viewModel.ParentID = sysDicId;
                     viewModel.SysDicID = -1;
                     viewModel.FormAction = Url.Action("AddSubmit", "SysDic");
+                    viewModel.SysDic.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:

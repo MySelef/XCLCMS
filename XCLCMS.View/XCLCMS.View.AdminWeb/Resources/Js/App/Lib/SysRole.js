@@ -60,7 +60,7 @@
                 rownumbers: true,
                 loadFilter: function (data) {
                     if (data) {
-                        data = data.Body;
+                        data = data.Body || [];
                         for (var i = 0; i < data.length; i++) {
                             data[i].state = (data[i].IsLeaf === 1) ? "" : "closed";
                         }
@@ -248,8 +248,10 @@
         Elements: {
             //角色所拥有的功能输入框对象
             txtRoleFunction: null,
+            txtMerchantID: null,
             Init: function () {
                 this.txtRoleFunction = $("#txtRoleFunction");
+                this.txtMerchantID = $("#txtMerchantID");
             }
         },
         Init: function () {
@@ -258,6 +260,11 @@
             _this.InitValidator();
 
             _this.CreateFunctionTree(_this.Elements.txtRoleFunction);
+            _this.Elements.txtMerchantID.numberbox({
+                onChange: function () {
+                    _this.CreateFunctionTree(_this.Elements.txtRoleFunction);
+                }
+            });
         },
         /**
         * 创建功能模块的combotree
@@ -271,7 +278,7 @@
             var request = XCLCMSWebApi.CreateRequest();
             request.Body = {};
             request.Body.MerchantID = $("#txtMerchantID").val();
-            var reqJSON=JSON.stringify(request);
+            var reqJSON = JSON.stringify(request);
 
             $obj.combotree({
                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysFunction/GetAllJsonForEasyUITree?json=' + reqJSON,
@@ -281,7 +288,7 @@
                 multiple: true,
                 loadFilter: function (data) {
                     if (data) {
-                        return data.Body;
+                        return data.Body || [];
                     }
                 }
             });

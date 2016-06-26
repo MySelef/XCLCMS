@@ -74,6 +74,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
                     viewModel.Article.IsCanComment = XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "Article");
                     viewModel.Article.PublishTime = DateTime.Now.Date;
+                    viewModel.Article.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:

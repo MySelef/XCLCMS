@@ -60,7 +60,7 @@
                 rownumbers: true,
                 loadFilter: function (data) {
                     if (data) {
-                        data = data.Body;
+                        data = data.Body || [];
                         for (var i = 0; i < data.length; i++) {
                             data[i].state = (data[i].IsLeaf === 1) ? "" : "closed";
                         }

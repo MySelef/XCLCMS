@@ -118,10 +118,20 @@
             });
 
             //文章分类
+            var request = XCLCMSWebApi.CreateRequest();
+            request.Body = {};
+            request.Body.Code = "ArticleType";
+            var reqJSON = JSON.stringify(request);
             _this.Elements.selArticleType.combotree({
-                url: XCLCMSPageGlobalConfig.RootURL + "SysDicCommon/GetEasyUITreeByCode?code=ArticleType",
+                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/GetEasyUITreeByCode?json=" + reqJSON,
+                method: 'get',
                 checkbox: true,
-                onlyLeafCheck: true
+                onlyLeafCheck: true,
+                loadFilter: function (data) {
+                    if (data) {
+                        return data.Body || [];
+                    }
+                }
             });
 
             //combox初始值

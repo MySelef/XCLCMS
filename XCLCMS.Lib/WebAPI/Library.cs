@@ -162,6 +162,21 @@ namespace XCLCMS.Lib.WebAPI
             return response.Body;
         }
 
+        /// <summary>
+        /// 根据SysDicID查询其子项
+        /// </summary>
+        public static List<XCLCMS.Data.Model.SysDic> SysDicAPI_GetChildListByID(string userToken, long sysDicID)
+        {
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(userToken);
+            request.Body = sysDicID;
+            var response = XCLCMS.Lib.WebAPI.SysDicAPI.GetChildListByID(request);
+            if (null == response)
+            {
+                return null;
+            }
+            return response.Body;
+        }
+
         #endregion SysDicAPI相关
 
         #region SysFunctionAPI相关

@@ -47,10 +47,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
         [HttpPost]
         public ActionResult LogonSubmit(FormCollection form)
         {
-            string userName = (form["txtUserName"] ?? "").Trim();
-            string pwd = form["txtPwd"] ?? "";
             string code = (form["txtValidCode"] ?? "").Trim();
-
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             if (!string.Equals(Convert.ToString(Session[ValidCodeSessionName]), code, StringComparison.OrdinalIgnoreCase))
             {
@@ -58,31 +55,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
                 return Json(msgModel);
             }
 
-            XCLCMS.Data.BLL.UserInfo userBLL = new Data.BLL.UserInfo();
-            XCLCMS.Data.Model.UserInfo userModel = userBLL.GetModel(userName, XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5(pwd));
-            if (null == userModel)
-            {
-                msgModel.Message = string.Format("用户名或密码不正确！", userName);
-            }
-            else if (!string.Equals(userModel.UserState, XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.N.ToString()))
-            {
-                msgModel.Message = string.Format("用户名{0}已被禁用！", userName);
-            }
-            else
-            {
-                XCLCMS.Lib.Login.LoginHelper.SetLogInfo(XCLCMS.Lib.Login.LoginHelper.LoginType.ON, userModel);
-                msgModel.IsSuccess = true;
-            }
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity();
+            request.Body.UserName = (form["txtUserName"] ?? "").Trim();
+            request.Body.Pwd = form["txtPwd"] ?? "";
+            var response = XCLCMS.Lib.WebAPI.OpenAPI.LogonCheck(request);
 
-            //写入日志
-            XCLNetLogger.Log.WriteLog(new XCLNetLogger.Model.LogModel()
-            {
-                LogType = XCLCMS.Data.CommonHelper.EnumType.LogTypeEnum.LOGIN.ToString(),
-                LogLevel = XCLNetLogger.Config.LogConfig.LogLevel.INFO,
-                Title = string.Format("用户{0}，尝试登录系统{1}", userName, msgModel.IsSuccess ? "成功" : "失败")
-            });
-
-            return Json(msgModel);
+            return Json(response);
         }
     }
 }

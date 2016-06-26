@@ -43,9 +43,16 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
 
             #endregion 初始化查询条件
 
-            XCLCMS.Data.BLL.View.v_Article bll = new Data.BLL.View.v_Article();
-            viewModel.ArticleList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[ArticleID]", "[ArticleID] desc");
-            viewModel.PagerModel = base.PageParamsInfo;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.PageListConditionEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.PageListConditionEntity()
+            {
+                PagerInfoSimple = base.PageParamsInfo.ToPagerInfoSimple(),
+                Where = strWhere
+            };
+            var response = XCLCMS.Lib.WebAPI.ArticleAPI.PageList(request).Body;
+            viewModel.ArticleList = response.ResultList;
+            viewModel.PagerModel = response.PagerInfo;
+
             return View("~/Views/Article/ArticleList.cshtml", viewModel);
         }
 
@@ -58,9 +65,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
         {
             long articleID = XCLNetTools.StringHander.FormHelper.GetLong("ArticleID");
 
-            var objectAttachmentBLL = new XCLCMS.Data.BLL.ObjectAttachment();
-            XCLCMS.Data.BLL.Article articleBLL = new Data.BLL.Article();
-            XCLCMS.Data.BLL.View.v_Article bll = new Data.BLL.View.v_Article();
             XCLCMS.View.AdminWeb.Models.Article.ArticleAddVM viewModel = new XCLCMS.View.AdminWeb.Models.Article.ArticleAddVM();
 
             switch (base.CurrentHandleType)
@@ -73,12 +77,25 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
-                    viewModel.Article = bll.GetModel(articleID);
-                    var attLst = objectAttachmentBLL.GetModelList(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.ART, viewModel.Article.ArticleID);
-                    if (null != attLst && attLst.Count > 0)
+                    var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
+                    request.Body = articleID;
+                    var response = XCLCMS.Lib.WebAPI.ArticleAPI.Detail(request);
+
+                    viewModel.Article = response.Body;
+
+                    //获取附件列表
+                    var attRequest = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Attachment.GetObjectAttachmentListEntity>(base.UserToken);
+                    attRequest.Body = new Data.WebAPIEntity.RequestEntity.Attachment.GetObjectAttachmentListEntity()
                     {
-                        viewModel.AttachmentIDList = attLst.Select(k => k.FK_AttachmentID).ToList();
+                        ObjectID = viewModel.Article.ArticleID,
+                        ObjectType = XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.ART.ToString()
+                    };
+                    var attResponse = XCLCMS.Lib.WebAPI.AttachmentAPI.GetObjectAttachmentList(attRequest);
+                    if (null != attResponse.Body && attResponse.Body.Count > 0)
+                    {
+                        viewModel.AttachmentIDList = attResponse.Body.Select(k => k.AttachmentID).ToList();
                     }
+
                     viewModel.FormAction = Url.Action("UpdateSubmit", "Article");
                     break;
             }
@@ -123,23 +140,34 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleView)]
         public ActionResult Show()
         {
-            var bll = new XCLCMS.Data.BLL.View.v_Article();
-            var attachmentBLL = new XCLCMS.Data.BLL.Attachment();
-            var objAttachMentBLL = new XCLCMS.Data.BLL.ObjectAttachment();
             var viewModel = new XCLCMS.View.AdminWeb.Models.Article.ArticleShowVM();
-            viewModel.Article = bll.GetModel(XCLNetTools.StringHander.FormHelper.GetLong("articleID")) ?? new Data.Model.View.v_Article();
 
-            viewModel.MainImgList = attachmentBLL.GetList(new List<long>() {
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
+            request.Body = XCLNetTools.StringHander.FormHelper.GetLong("articleID");
+            var response = XCLCMS.Lib.WebAPI.ArticleAPI.Detail(request);
+
+            viewModel.Article = response.Body ?? new Data.Model.View.v_Article();
+
+            //获取主图列表
+            var mainImgRequest = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Attachment.GetAttachmentListByIDListEntity>(base.UserToken);
+            mainImgRequest.Body = new Data.WebAPIEntity.RequestEntity.Attachment.GetAttachmentListByIDListEntity();
+            mainImgRequest.Body.AttachmentIDList = new List<long>() {
                 viewModel.Article.MainImage1.GetValueOrDefault(),
                 viewModel.Article.MainImage2.GetValueOrDefault(),
                 viewModel.Article.MainImage3.GetValueOrDefault()
-            });
+            };
+            var mainImgResponse = XCLCMS.Lib.WebAPI.AttachmentAPI.GetAttachmentListByIDList(mainImgRequest);
+            viewModel.MainImgList = mainImgResponse.Body;
 
-            var attList = objAttachMentBLL.GetModelList(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.ART, viewModel.Article.ArticleID);
-            if (null != attList && attList.Count > 0)
+            //获取附件列表
+            var attRequest = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Attachment.GetObjectAttachmentListEntity>(base.UserToken);
+            attRequest.Body = new Data.WebAPIEntity.RequestEntity.Attachment.GetObjectAttachmentListEntity()
             {
-                viewModel.AttactmentList = attachmentBLL.GetList(attList.Select(k => k.FK_AttachmentID).ToList());
-            }
+                ObjectID = viewModel.Article.ArticleID,
+                ObjectType = XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.ART.ToString()
+            };
+            var attResponse = XCLCMS.Lib.WebAPI.AttachmentAPI.GetObjectAttachmentList(attRequest);
+            viewModel.AttactmentList = attResponse.Body;
             return View("~/Views/Article/ArticleShow.cshtml", viewModel);
         }
 
@@ -198,6 +226,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
             viewModel.Article.URLOpenType = XCLNetTools.StringHander.FormHelper.GetString("selURLOpenType");
             viewModel.Article.VerifyState = XCLNetTools.StringHander.FormHelper.GetString("selVerifyState");
             viewModel.Article.ViewCount = XCLNetTools.StringHander.FormHelper.GetInt("txtViewCount");
+            viewModel.Article.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantID");
+            viewModel.Article.FK_MerchantAppID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantAppID");
 
             return viewModel;
         }
@@ -213,7 +243,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
             var viewModel = this.GetViewModel(fm);
             var model = new XCLCMS.Data.Model.Article();
             model.ArticleContentType = viewModel.Article.ArticleContentType;
-            model.ArticleID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.ART);
+            model.ArticleID = XCLCMS.Lib.WebAPI.Library.CommonAPI_GenerateID(base.UserToken, new Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity() {
+                IDType= Data.CommonHelper.EnumType.IDTypeEnum.ART.ToString()
+            });
             model.ArticleState = viewModel.Article.ArticleState;
             model.AuthorName = viewModel.Article.AuthorName;
             model.BadCount = viewModel.Article.BadCount;
@@ -259,62 +291,17 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
             model.URLOpenType = viewModel.Article.URLOpenType;
             model.VerifyState = viewModel.Article.VerifyState;
             model.ViewCount = viewModel.Article.ViewCount;
+            model.FK_MerchantAppID = viewModel.Article.FK_MerchantAppID;
+            model.FK_MerchantID = viewModel.Article.FK_MerchantID;
 
-            var articleContext = new Data.BLL.Strategy.Article.ArticleContext();
-            articleContext.CurrentUserInfo = base.CurrentUserModel;
-            articleContext.Article = model;
-            articleContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.ADD;
-            articleContext.ArticleTypeIDList = viewModel.ArticleTypeIDList;
-            articleContext.ArticleAttachmentIDList = viewModel.AttachmentIDList;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.AddOrUpdateEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.Article.AddOrUpdateEntity();
+            request.Body.Article = model;
+            request.Body.ArticleAttachmentIDList = viewModel.AttachmentIDList;
+            request.Body.ArticleTypeIDList = viewModel.ArticleTypeIDList;
+            var response = XCLCMS.Lib.WebAPI.ArticleAPI.Add(request);
 
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
-                new XCLCMS.Data.BLL.Strategy.Article.Article(),
-                new XCLCMS.Data.BLL.Strategy.Article.ObjectAttachment(),
-                new XCLCMS.Data.BLL.Strategy.Article.ArticleType()
-            });
-            strategy.Execute(articleContext);
-
-            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
-            {
-                msgModel.Message = "添加成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = strategy.ResultMessage;
-                msgModel.IsSuccess = false;
-                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "添加文章信息失败", strategy.ResultMessage);
-            }
-
-            return Json(msgModel);
-        }
-
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleDel)]
-        public override ActionResult DelSubmit(FormCollection fm)
-        {
-            XCLCMS.Data.BLL.Article bll = new Data.BLL.Article();
-            XCLCMS.Data.Model.Article model = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            long[] ids = XCLNetTools.Common.DataTypeConvert.GetLongArrayByStringArray(XCLNetTools.StringHander.FormHelper.GetString("ArticleIds").Split(','));
-            if (null != ids && ids.Length > 0)
-            {
-                for (int i = 0; i < ids.Length; i++)
-                {
-                    model = bll.GetModel(ids[i]);
-                    if (null != model)
-                    {
-                        model.UpdaterID = base.CurrentUserModel.UserInfoID;
-                        model.UpdaterName = base.CurrentUserModel.UserName;
-                        model.UpdateTime = DateTime.Now;
-                        model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.R.ToString();
-                        bll.Update(model);
-                    }
-                }
-            }
-            msgModel.IsSuccess = true;
-            msgModel.IsRefresh = true;
-            msgModel.Message = "删除成功！";
-            return Json(msgModel);
+            return Json(response);
         }
 
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleEdit)]
@@ -322,9 +309,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
         {
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
 
-            var bll = new XCLCMS.Data.BLL.Article();
             var viewModel = this.GetViewModel(fm);
-            var model = bll.GetModel(viewModel.Article.ArticleID);
+            var model = new XCLCMS.Data.Model.Article();
+            model.ArticleID = viewModel.Article.ArticleID;
 
             model.ArticleContentType = viewModel.Article.ArticleContentType;
             model.ArticleState = viewModel.Article.ArticleState;
@@ -368,34 +355,17 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
             model.URLOpenType = viewModel.Article.URLOpenType;
             model.VerifyState = viewModel.Article.VerifyState;
             model.ViewCount = viewModel.Article.ViewCount;
+            model.FK_MerchantAppID = viewModel.Article.FK_MerchantAppID;
+            model.FK_MerchantID = viewModel.Article.FK_MerchantID;
 
-            var articleContext = new Data.BLL.Strategy.Article.ArticleContext();
-            articleContext.CurrentUserInfo = base.CurrentUserModel;
-            articleContext.Article = model;
-            articleContext.HandleType = Data.BLL.Strategy.StrategyLib.HandleType.UPDATE;
-            articleContext.ArticleTypeIDList = viewModel.ArticleTypeIDList;
-            articleContext.ArticleAttachmentIDList = viewModel.AttachmentIDList;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.AddOrUpdateEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.Article.AddOrUpdateEntity();
+            request.Body.Article = model;
+            request.Body.ArticleAttachmentIDList = viewModel.AttachmentIDList;
+            request.Body.ArticleTypeIDList = viewModel.ArticleTypeIDList;
+            var response = XCLCMS.Lib.WebAPI.ArticleAPI.Update(request);
 
-            XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
-                new XCLCMS.Data.BLL.Strategy.Article.Article(),
-                new XCLCMS.Data.BLL.Strategy.Article.ObjectAttachment(),
-                new XCLCMS.Data.BLL.Strategy.Article.ArticleType()
-            });
-            strategy.Execute(articleContext);
-
-            if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
-            {
-                msgModel.Message = "修改成功！";
-                msgModel.IsSuccess = true;
-            }
-            else
-            {
-                msgModel.Message = strategy.ResultMessage;
-                msgModel.IsSuccess = false;
-                XCLNetLogger.Log.WriteLog(XCLNetLogger.Config.LogConfig.LogLevel.ERROR, "添加文章信息失败", strategy.ResultMessage);
-            }
-
-            return Json(msgModel);
+            return Json(response);
         }
     }
 }

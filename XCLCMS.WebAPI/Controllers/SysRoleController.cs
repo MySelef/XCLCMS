@@ -201,6 +201,20 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 获取当前SysRoleID所属的层级list
+        /// 如:根目录/子目录/文件
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysRoleSimple>> GetLayerListBySysRoleID(string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetLayerListBySysRoleIDEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysRoleSimple>>();
+            response.Body = this.sysRoleBLL.GetLayerListBySysRoleID(request.Body.SysRoleID);
+            response.IsSuccess = true;
+            return response;
+        }
+
+        /// <summary>
         /// 添加角色
         /// </summary>
         [HttpPost]

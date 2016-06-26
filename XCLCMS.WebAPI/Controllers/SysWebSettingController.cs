@@ -16,7 +16,7 @@ namespace XCLCMS.WebAPI.Controllers
     {
         private XCLCMS.Data.BLL.View.v_SysWebSetting vSysWebSettingBLL = new Data.BLL.View.v_SysWebSetting();
         private XCLCMS.Data.BLL.SysWebSetting sysWebSettingBLL = new Data.BLL.SysWebSetting();
-        private XCLCMS.Data.BLL.MerchantApp merchartAppBLL = new Data.BLL.MerchantApp();
+        private XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new Data.BLL.MerchantApp();
 
         /// <summary>
         /// 查询系统配置信息实体
@@ -143,7 +143,7 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //应用号与商户一致
-            if (!this.merchartAppBLL.IsTheSameMerchantInfoID(request.Body.FK_MerchantID, request.Body.FK_MerchantAppID))
+            if (!this.merchantAppBLL.IsTheSameMerchantInfoID(request.Body.FK_MerchantID, request.Body.FK_MerchantAppID))
             {
                 response.IsSuccess = false;
                 response.Message = "商户号与应用号不匹配，请核对后再试！";
@@ -203,7 +203,7 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //应用号与商户一致
-            if (!this.merchartAppBLL.IsTheSameMerchantInfoID(request.Body.FK_MerchantID, request.Body.FK_MerchantAppID))
+            if (!this.merchantAppBLL.IsTheSameMerchantInfoID(request.Body.FK_MerchantID, request.Body.FK_MerchantAppID))
             {
                 response.IsSuccess = false;
                 response.Message = "商户号与应用号不匹配，请核对后再试！";

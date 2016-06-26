@@ -6,7 +6,6 @@
 <form id="mainForm" action="@Model.FormAction" method="post">
     <input type="hidden" name="SysDicID" id="SysDicID" value="@Model.SysDicID" />
     <input type="hidden" name="ParentID" id="ParentID" value="@Model.ParentID" />
-    <input type="hidden" name="MerchantID" id="MerchantID" value="@Model.SysDic.FK_MerchantID" />
 
     <div class="XCLPanel">
         <div class="XCLPanelHeader XCLBolder">
@@ -57,9 +56,9 @@
                         }
 
                         <tr>
-                            <td class="XCLTitle">排序号：</td>
+                            <td class="XCLTitle">所属商户号：</td>
                             <td>
-                                <input type="text" id="txtSort" name="txtSort" class="easyui-numberbox" value="@Model.SysDic.Sort"/>
+                                <input type="text" class="easyui-numberbox" id="txtMerchantID" name="txtMerchantID" value="@Model.SysDic.FK_MerchantID" style="height:25px;" />
                             </td>
                             <td class="XCLTitle">所属应用号：</td>
                             <td>
@@ -68,8 +67,12 @@
                         </tr>
 
                         <tr>
+                            <td class="XCLTitle">排序号：</td>
+                            <td>
+                                <input type="text" id="txtSort" name="txtSort" class="easyui-numberbox" value="@Model.SysDic.Sort" />
+                            </td>
                             <td class="XCLTitle">备注：</td>
-                            <td colspan="3">
+                            <td>
                                 <textarea id="txtRemark" name="txtRemark">@Model.SysDic.Remark</textarea>
                             </td>
                         </tr>

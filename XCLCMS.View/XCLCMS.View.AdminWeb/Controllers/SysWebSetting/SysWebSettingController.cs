@@ -108,7 +108,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             base.AddSubmit(fm);
             XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM viewModel = this.GetViewModel(fm);
 
-            XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
             XCLCMS.Data.Model.SysWebSetting model = null;
             model = new Data.Model.SysWebSetting();
             model.CreaterID = base.CurrentUserModel.UserInfoID;
@@ -121,7 +120,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             model.KeyValue = viewModel.SysWebSetting.KeyValue;
             model.Remark = viewModel.SysWebSetting.Remark;
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
-            model.SysWebSettingID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.SET);
+            model.SysWebSettingID = XCLCMS.Lib.WebAPI.Library.CommonAPI_GenerateID(base.UserToken, new Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity()
+            {
+                IDType = Data.CommonHelper.EnumType.IDTypeEnum.SET.ToString()
+            }); 
             model.FK_MerchantAppID = viewModel.SysWebSetting.FK_MerchantAppID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysWebSetting>(base.UserToken);
@@ -138,9 +140,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             base.UpdateSubmit(fm);
             long sysWebSettingID = XCLNetTools.StringHander.FormHelper.GetLong("SysWebSettingID");
             XCLCMS.View.AdminWeb.Models.SysWebSetting.SysWebSettingAddVM viewModel = this.GetViewModel(fm);
-            XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
-            XCLCMS.Data.Model.SysWebSetting model = null;
-            model = bll.GetModel(sysWebSettingID);
+            XCLCMS.Data.Model.SysWebSetting model = new Data.Model.SysWebSetting();
+            model.SysWebSettingID = sysWebSettingID;
             model.KeyName = viewModel.SysWebSetting.KeyName;
             model.KeyValue = viewModel.SysWebSetting.KeyValue;
             model.UpdaterID = base.CurrentUserModel.UserInfoID;

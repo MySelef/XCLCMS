@@ -193,6 +193,33 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 获取当前SysFunctionID所属的层级list
+        /// 如:根目录/子目录/文件
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysFunctionSimple>> GetLayerListBySysFunctionId(string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetLayerListBySysFunctionIdEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysFunctionSimple>>();
+            response.Body = this.sysFunctionBLL.GetLayerListBySysFunctionId(request.Body.SysFunctionId);
+            response.IsSuccess = true;
+            return response;
+        }
+
+        /// <summary>
+        /// 获取指定角色的所有功能
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>> GetListByRoleID(string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>>();
+            response.Body = this.sysFunctionBLL.GetListByRoleID(request.Body);
+            response.IsSuccess = true;
+            return response;
+        }
+
+        /// <summary>
         /// 添加功能
         /// </summary>
         [HttpPost]

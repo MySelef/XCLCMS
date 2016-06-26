@@ -17,7 +17,7 @@ namespace XCLCMS.WebAPI.Controllers
         private XCLCMS.Data.BLL.UserInfo userInfoBLL = new XCLCMS.Data.BLL.UserInfo();
         private XCLCMS.Data.BLL.View.v_UserInfo vUserInfoBLL = new XCLCMS.Data.BLL.View.v_UserInfo();
         private XCLCMS.Data.BLL.Merchant merchantBLL = new XCLCMS.Data.BLL.Merchant();
-        private XCLCMS.Data.BLL.MerchantApp merchartAppBLL = new Data.BLL.MerchantApp();
+        private XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new Data.BLL.MerchantApp();
         private XCLCMS.Data.BLL.SysRole sysRoleBLL = new XCLCMS.Data.BLL.SysRole();
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //应用号与商户一致
-            if (!this.merchartAppBLL.IsTheSameMerchantInfoID(request.Body.UserInfo.FK_MerchantID, request.Body.UserInfo.FK_MerchantAppID))
+            if (!this.merchantAppBLL.IsTheSameMerchantInfoID(request.Body.UserInfo.FK_MerchantID, request.Body.UserInfo.FK_MerchantAppID))
             {
                 response.IsSuccess = false;
                 response.Message = "商户号与应用号不匹配，请核对后再试！";
@@ -237,7 +237,7 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //应用号与商户一致
-            if (!this.merchartAppBLL.IsTheSameMerchantInfoID(request.Body.UserInfo.FK_MerchantID, request.Body.UserInfo.FK_MerchantAppID))
+            if (!this.merchantAppBLL.IsTheSameMerchantInfoID(request.Body.UserInfo.FK_MerchantID, request.Body.UserInfo.FK_MerchantAppID))
             {
                 response.IsSuccess = false;
                 response.Message = "商户号与应用号不匹配，请核对后再试！";

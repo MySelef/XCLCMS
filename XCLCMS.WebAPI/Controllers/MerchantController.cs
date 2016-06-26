@@ -71,6 +71,19 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 获取商户类型
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<Dictionary<string,long>> GetMerchantTypeDic(string json)
+        {
+            var response = new APIResponseEntity<Dictionary<string, long>>();
+            response.Body = this.merchantBLL.GetMerchantTypeDic();
+            response.IsSuccess = true;
+            return response;
+        }
+
+
+        /// <summary>
         /// 判断商户名是否存在
         /// </summary>
         [HttpGet]

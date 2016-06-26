@@ -74,8 +74,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
         public ActionResult Add()
         {
             long userInfoId = XCLNetTools.StringHander.FormHelper.GetLong("userInfoId");
-
-            XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
+            
             XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM viewModel = new XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM();
             viewModel.UserInfo = new XCLCMS.Data.Model.UserInfo();
 
@@ -144,7 +143,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.Model.UserInfo model = new XCLCMS.Data.Model.UserInfo();
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            model.UserInfoID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.USR);
+            model.UserInfoID = XCLCMS.Lib.WebAPI.Library.CommonAPI_GenerateID(base.UserToken, new Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity()
+            {
+                IDType = Data.CommonHelper.EnumType.IDTypeEnum.USR.ToString()
+            });
             model.AccessToken = viewModel.UserInfo.AccessType;
             model.AccessType = viewModel.UserInfo.AccessType;
             model.Age = viewModel.UserInfo.Age;
@@ -189,9 +191,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             base.UpdateSubmit(fm);
             long userInfoId = XCLNetTools.StringHander.FormHelper.GetLong("userInfoId");
             XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM viewModel = this.GetViewModel(fm);
-            XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            XCLCMS.Data.Model.UserInfo model = userInfoBLL.GetModel(userInfoId);
+            XCLCMS.Data.Model.UserInfo model = new Data.Model.UserInfo();
+            model.UserInfoID=userInfoId;
             model.AccessToken = viewModel.UserInfo.AccessType;
             model.AccessType = viewModel.UserInfo.AccessType;
             model.Age = viewModel.UserInfo.Age;

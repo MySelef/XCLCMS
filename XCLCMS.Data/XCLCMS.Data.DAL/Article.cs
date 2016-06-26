@@ -56,6 +56,8 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "Comments", DbType.String, model.Comments);
             db.AddInParameter(dbCommand, "LinkUrl", DbType.AnsiString, model.LinkUrl);
             db.AddInParameter(dbCommand, "PublishTime", DbType.DateTime, model.PublishTime);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "FK_MerchantAppID", DbType.Int64, model.FK_MerchantAppID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
@@ -118,6 +120,8 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "Comments", DbType.String, model.Comments);
             db.AddInParameter(dbCommand, "LinkUrl", DbType.AnsiString, model.LinkUrl);
             db.AddInParameter(dbCommand, "PublishTime", DbType.DateTime, model.PublishTime);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "FK_MerchantAppID", DbType.Int64, model.FK_MerchantAppID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
@@ -162,8 +166,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.Article> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select ArticleID,Code,Title,SubTitle,AuthorName,FromInfo,ArticleType,Contents,Summary,MainImage,ViewCount,IsCanComment,CommentCount,GoodCount,MiddleCount,BadCount,HotCount,URLOpenType,ArticleState,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
-            strSql.Append(" FROM Article ");
+            strSql.Append("select * FROM Article ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

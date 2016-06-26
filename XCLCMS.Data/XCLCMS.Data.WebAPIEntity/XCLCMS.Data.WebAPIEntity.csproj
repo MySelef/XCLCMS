@@ -50,18 +50,27 @@
   <ItemGroup>
     <Compile Include="APIRequestEntity.cs" />
     <Compile Include="APIResponseEntity.cs" />
+    <Compile Include="RequestEntity\Article\AddOrUpdateEntity.cs" />
     <Compile Include="RequestEntity\Article\IsExistCodeEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestEntity\Attachment\GetAttachmentListByIDListEntity.cs" />
+    <Compile Include="RequestEntity\Attachment\GetObjectAttachmentListEntity.cs" />
+    <Compile Include="RequestEntity\Common\GenerateIDEntity.cs" />
     <Compile Include="RequestEntity\MerchantApp\IsExistMerchantAppNameEntity.cs" />
     <Compile Include="RequestEntity\Merchant\IsExistMerchantNameEntity.cs" />
+    <Compile Include="RequestEntity\Open\LogonCheckEntity.cs" />
     <Compile Include="RequestEntity\PageListConditionEntity.cs" />
+    <Compile Include="RequestEntity\SysDic\GetEasyUITreeByCodeEntity.cs" />
+    <Compile Include="RequestEntity\SysDic\GetLayerListBySysDicIDEntity.cs" />
     <Compile Include="RequestEntity\SysDic\IsExistSysDicCodeEntity.cs" />
     <Compile Include="RequestEntity\SysDic\IsExistSysDicNameInSameLevelEntity.cs" />
     <Compile Include="RequestEntity\SysFunction\GetAllJsonForEasyUITreeEntity.cs" />
+    <Compile Include="RequestEntity\SysFunction\GetLayerListBySysFunctionIdEntity.cs" />
     <Compile Include="RequestEntity\SysFunction\IsExistCodeEntity.cs" />
     <Compile Include="RequestEntity\SysFunction\IsExistFunctionNameInSameLevelEntity.cs" />
     <Compile Include="RequestEntity\SysLog\ClearConditionEntity.cs" />
     <Compile Include="RequestEntity\SysRole\GetAllJsonForEasyUITreeEntity.cs" />
+    <Compile Include="RequestEntity\SysRole\GetLayerListBySysRoleIDEntity.cs" />
     <Compile Include="RequestEntity\SysRole\IsExistCodeEntity.cs" />
     <Compile Include="RequestEntity\SysRole\IsExistRoleNameInSameLevelEntity.cs" />
     <Compile Include="RequestEntity\SysRole\AddOrUpdateEntity.cs" />

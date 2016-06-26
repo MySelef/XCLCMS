@@ -6,7 +6,6 @@
 <form id="mainForm" action="@Model.FormAction" method="post">
     <input type="hidden" name="SysRoleID" id="SysRoleID" value="@Model.SysRoleID" />
     <input type="hidden" name="ParentID" id="ParentID" value="@Model.ParentID" />
-    <input type="hidden" name="MerchantID" id="MerchantID" value="@Model.SysRole.FK_MerchantID" />
 
     <div class="XCLPanel">
         <div class="XCLPanelHeader XCLBolder">
@@ -30,6 +29,12 @@
                             <td class="XCLTitle" style="width: 20%"><span class="XCLRedBolder">*</span>角色名称：</td>
                             <td style="width: 80%">
                                 <textarea id="txtRoleName" name="txtRoleName" >@Model.SysRole.RoleName</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="XCLTitle">所属商户：</td>
+                            <td>
+                                <input type="text" class="easyui-numberbox" id="txtMerchantID" name="txtMerchantID" value="@Model.SysRole.FK_MerchantID" style="height:25px;" />
                             </td>
                         </tr>
                         <tr>

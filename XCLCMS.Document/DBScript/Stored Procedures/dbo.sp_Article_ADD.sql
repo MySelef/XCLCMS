@@ -1,7 +1,9 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 CREATE PROCEDURE [dbo].[sp_Article_ADD]
 @ArticleID bigint,
 @Code varchar(50),
@@ -35,6 +37,8 @@ CREATE PROCEDURE [dbo].[sp_Article_ADD]
 @Comments nvarchar(500),
 @LinkUrl varchar(300),
 @PublishTime datetime,
+@FK_MerchantID bigint,
+@FK_MerchantAppID bigint,
 @RecordState char(1),
 @CreateTime datetime,
 @CreaterID bigint,
@@ -48,15 +52,16 @@ CREATE PROCEDURE [dbo].[sp_Article_ADD]
 
  AS 
   BEGIN TRY
-	INSERT INTO [Article](
-	[ArticleID],[Code],[Title],[SubTitle],[AuthorName],[FromInfo],[ArticleContentType],[Contents],[Summary],[MainImage1],[MainImage2],[MainImage3],[ViewCount],[IsCanComment],[CommentCount],[GoodCount],[MiddleCount],[BadCount],[HotCount],[URLOpenType],[ArticleState],[VerifyState],[IsRecommend],[IsEssence],[IsTop],[TopBeginTime],[TopEndTime],[KeyWords],[Tags],[Comments],[LinkUrl],[PublishTime],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
-	)VALUES(
-	@ArticleID,@Code,@Title,@SubTitle,@AuthorName,@FromInfo,@ArticleContentType,@Contents,@Summary,@MainImage1,@MainImage2,@MainImage3,@ViewCount,@IsCanComment,@CommentCount,@GoodCount,@MiddleCount,@BadCount,@HotCount,@URLOpenType,@ArticleState,@VerifyState,@IsRecommend,@IsEssence,@IsTop,@TopBeginTime,@TopEndTime,@KeyWords,@Tags,@Comments,@LinkUrl,@PublishTime,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
-	)
+		INSERT INTO [Article](
+		[ArticleID],[Code],[Title],[SubTitle],[AuthorName],[FromInfo],[ArticleContentType],[Contents],[Summary],[MainImage1],[MainImage2],[MainImage3],[ViewCount],[IsCanComment],[CommentCount],[GoodCount],[MiddleCount],[BadCount],[HotCount],[URLOpenType],[ArticleState],[VerifyState],[IsRecommend],[IsEssence],[IsTop],[TopBeginTime],[TopEndTime],[KeyWords],[Tags],[Comments],[LinkUrl],[PublishTime],[FK_MerchantID],[FK_MerchantAppID],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
+		)VALUES(
+		@ArticleID,@Code,@Title,@SubTitle,@AuthorName,@FromInfo,@ArticleContentType,@Contents,@Summary,@MainImage1,@MainImage2,@MainImage3,@ViewCount,@IsCanComment,@CommentCount,@GoodCount,@MiddleCount,@BadCount,@HotCount,@URLOpenType,@ArticleState,@VerifyState,@IsRecommend,@IsEssence,@IsTop,@TopBeginTime,@TopEndTime,@KeyWords,@Tags,@Comments,@LinkUrl,@PublishTime,@FK_MerchantID,@FK_MerchantAppID,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
+		)
 		SET @ResultCode=1
 END TRY
 BEGIN CATCH
 	SET @ResultMessage= ERROR_MESSAGE() 
 	SET @ResultCode=0
 END CATCH
+
 GO

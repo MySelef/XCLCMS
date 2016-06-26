@@ -23,7 +23,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
         {
             long sysFunctionID = XCLNetTools.StringHander.FormHelper.GetLong("SysFunctionID");
 
-            XCLCMS.Data.BLL.SysFunction bll = new Data.BLL.SysFunction();
             XCLCMS.View.AdminWeb.Models.SysFunction.SysFunctionAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysFunction.SysFunctionAddVM();
 
             switch (base.CurrentHandleType)
@@ -48,7 +47,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
                     break;
             }
 
-            viewModel.PathList = bll.GetLayerListBySysFunctionId(sysFunctionID);
+            viewModel.PathList = XCLCMS.Lib.WebAPI.Library.SysFunctionAPI_GetLayerListBySysFunctionId(base.UserToken, new Data.WebAPIEntity.RequestEntity.SysFunction.GetLayerListBySysFunctionIdEntity()
+            {
+                SysFunctionId = sysFunctionID
+            });
 
             return View("~/Views/SysFunction/SysFunctionAdd.cshtml", viewModel);
         }
@@ -75,7 +77,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
             base.AddSubmit(fm);
             XCLCMS.View.AdminWeb.Models.SysFunction.SysFunctionAddVM viewModel = this.GetViewModel(fm);
 
-            XCLCMS.Data.BLL.SysFunction bll = new Data.BLL.SysFunction();
             XCLCMS.Data.Model.SysFunction model = null;
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
             model = new Data.Model.SysFunction();
@@ -89,7 +90,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
             model.FunctionName = viewModel.SysFunction.FunctionName;
             model.Remark = viewModel.SysFunction.Remark;
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
-            model.SysFunctionID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.FUN);
+            model.SysFunctionID = XCLCMS.Lib.WebAPI.Library.CommonAPI_GenerateID(base.UserToken, new Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity()
+            {
+                IDType = Data.CommonHelper.EnumType.IDTypeEnum.FUN.ToString()
+            });
             model.Code = viewModel.SysFunction.Code;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysFunction>(base.UserToken);
@@ -105,10 +109,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
         {
             base.UpdateSubmit(fm);
             XCLCMS.View.AdminWeb.Models.SysFunction.SysFunctionAddVM viewModel = this.GetViewModel(fm);
-            XCLCMS.Data.BLL.SysFunction bll = new Data.BLL.SysFunction();
-            XCLCMS.Data.Model.SysFunction model = null;
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            model = bll.GetModel(viewModel.SysFunctionID);
+            XCLCMS.Data.Model.SysFunction model = new Data.Model.SysFunction();
+            model.SysFunctionID = viewModel.SysFunctionID;
             model.FunctionName = viewModel.SysFunction.FunctionName;
             model.UpdaterID = base.CurrentUserModel.UserInfoID;
             model.UpdaterName = base.CurrentUserModel.UserName;

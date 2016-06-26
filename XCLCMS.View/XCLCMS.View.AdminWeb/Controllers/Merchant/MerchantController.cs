@@ -75,14 +75,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         public ActionResult Add()
         {
             long merchantId = XCLNetTools.StringHander.FormHelper.GetLong("merchantId");
-
-            XCLCMS.Data.BLL.SysDic dicBLL = new Data.BLL.SysDic();
-            XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
+            
             XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM viewModel = new XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM();
             viewModel.Merchant = new XCLCMS.Data.Model.Merchant();
 
-            var merchantTypeDic = merchantBLL.GetMerchantTypeDic();
-            var passTypeDic = dicBLL.GetPassTypeDic();
+            var merchantTypeDic = XCLCMS.Lib.WebAPI.Library.MerchantAPI_GetMerchantTypeDic(base.UserToken);
+            var passTypeDic = XCLCMS.Lib.WebAPI.Library.SysDicAPI_GetPassTypeDic(base.UserToken);
 
             switch (base.CurrentHandleType)
             {
@@ -174,7 +172,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         {
             XCLCMS.View.AdminWeb.Models.Merchant.MerchantAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.Model.Merchant model = new XCLCMS.Data.Model.Merchant();
-            model.MerchantID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.MER);
+            model.MerchantID = XCLCMS.Lib.WebAPI.Library.CommonAPI_GenerateID(base.UserToken, new Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity()
+            {
+                IDType = Data.CommonHelper.EnumType.IDTypeEnum.MER.ToString()
+            }); 
             model.Address = viewModel.Merchant.Address;
             model.ContactName = viewModel.Merchant.ContactName;
             model.CreaterID = base.CurrentUserModel.UserInfoID;

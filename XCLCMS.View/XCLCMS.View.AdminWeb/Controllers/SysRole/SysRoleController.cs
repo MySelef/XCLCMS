@@ -24,9 +24,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
         {
             long sysRoleID = XCLNetTools.StringHander.FormHelper.GetLong("SysRoleID");
 
-            var vSysRoleBLL = new XCLCMS.Data.BLL.View.v_SysRole();
-            XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
-            XCLCMS.Data.BLL.SysFunction functionBLL = new Data.BLL.SysFunction();
             XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM();
 
             switch (base.CurrentHandleType)
@@ -36,17 +33,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
                     viewModel.ParentID = sysRoleID;
                     viewModel.SysRoleID = -1;
                     viewModel.FormAction = Url.Action("AddSubmit", "SysRole");
-
-                    //添加时，若父节点为根节点，则该角色的商户号为当前用户的商户号；否则，则为父级的商户号
-                    if (vSysRoleBLL.IsRoot(sysRoleID))
-                    {
-                        viewModel.SysRole.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
-                    }
-                    else
-                    {
-                        viewModel.SysRole.FK_MerchantID = bll.GetModel(sysRoleID).FK_MerchantID;
-                    }
-
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
@@ -58,7 +44,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
                     viewModel.SysRole = response.Body;
                     viewModel.ParentID = response.Body.ParentID;
                     viewModel.SysRoleID = response.Body.SysRoleID;
-                    var roleHadFunctions = functionBLL.GetListByRoleID(sysRoleID);
+                    var roleHadFunctions = XCLCMS.Lib.WebAPI.Library.SysFunctionAPI_GetListByRoleID(base.UserToken, sysRoleID);
                     if (roleHadFunctions.IsNotNullOrEmpty())
                     {
                         viewModel.RoleFunctionIDList = roleHadFunctions.Select(m => m.SysFunctionID).ToList();
@@ -67,7 +53,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
                     break;
             }
 
-            viewModel.PathList = bll.GetLayerListBySysRoleID(sysRoleID);
+            viewModel.PathList = XCLCMS.Lib.WebAPI.Library.SysRoleAPI_GetLayerListBySysRoleID(base.UserToken, new Data.WebAPIEntity.RequestEntity.SysRole.GetLayerListBySysRoleIDEntity()
+            {
+                SysRoleID = sysRoleID
+            });
 
             return View("~/Views/SysRole/SysRoleAdd.cshtml", viewModel);
         }
@@ -86,7 +75,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             viewModel.SysRole.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.SysRole.Weight = XCLNetTools.Common.DataTypeConvert.ToIntNull(fm["txtWeight"]);
             viewModel.RoleFunctionIDList = XCLNetTools.StringHander.FormHelper.GetLongList("txtRoleFunction");
-            viewModel.SysRole.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("MerchantID");
+            viewModel.SysRole.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantID");
             return viewModel;
         }
 
@@ -97,7 +86,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             base.AddSubmit(fm);
             XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM viewModel = this.GetViewModel(fm);
 
-            XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
             XCLCMS.Data.Model.SysRole model = null;
             model = new Data.Model.SysRole();
             model.CreaterID = base.CurrentUserModel.UserInfoID;
@@ -110,7 +98,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             model.RoleName = viewModel.SysRole.RoleName;
             model.Remark = viewModel.SysRole.Remark;
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
-            model.SysRoleID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.RLE);
+            model.SysRoleID = XCLCMS.Lib.WebAPI.Library.CommonAPI_GenerateID(base.UserToken, new Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity()
+            {
+                IDType = Data.CommonHelper.EnumType.IDTypeEnum.RLE.ToString()
+            });
             model.Code = viewModel.SysRole.Code;
             model.Weight = viewModel.SysRole.Weight;
             model.FK_MerchantID = viewModel.SysRole.FK_MerchantID;
@@ -130,9 +121,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
         {
             base.UpdateSubmit(fm);
             XCLCMS.View.AdminWeb.Models.SysRole.SysRoleAddVM viewModel = this.GetViewModel(fm);
-            XCLCMS.Data.BLL.SysRole bll = new Data.BLL.SysRole();
-            XCLCMS.Data.Model.SysRole model = null;
-            model = bll.GetModel(viewModel.SysRoleID);
+            XCLCMS.Data.Model.SysRole model = new Data.Model.SysRole();
+            model.SysRoleID = viewModel.SysRoleID;
             model.RoleName = viewModel.SysRole.RoleName;
             model.UpdaterID = base.CurrentUserModel.UserInfoID;
             model.UpdaterName = base.CurrentUserModel.UserName;

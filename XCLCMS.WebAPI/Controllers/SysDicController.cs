@@ -13,7 +13,7 @@ namespace XCLCMS.WebAPI.Controllers
     /// </summary>
     public class SysDicController : BaseAPIController
     {
-        private XCLCMS.Data.BLL.MerchantApp merchartAppBLL = new Data.BLL.MerchantApp();
+        private XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new Data.BLL.MerchantApp();
         private XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
         private XCLCMS.Data.BLL.View.v_SysDic vSysDicBLL = new Data.BLL.View.v_SysDic();
 
@@ -114,6 +114,78 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 根据code来获取字典的easyui tree格式
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetEasyUITreeByCode([FromUri] string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByCodeEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>();
+            response.IsSuccess = true;
+
+            List<XCLNetTools.Entity.EasyUI.TreeItem> tree = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
+
+            if (string.IsNullOrEmpty(request.Body.Code))
+            {
+                response.IsSuccess = true;
+                response.Body = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
+                return response;
+            }
+
+            var rootModel = sysDicBLL.GetModelByCode(request.Body.Code);
+            if (null == rootModel)
+            {
+                response.IsSuccess = true;
+                response.Body = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
+                return response;
+            }
+
+            var allData = this.vSysDicBLL.GetAllUnderListByCode(request.Body.Code);
+            var rootLayer = allData.Where(k => k.ParentID == rootModel.SysDicID).ToList();
+            if (rootLayer.IsNotNullOrEmpty())
+            {
+                for (int idx = 0; idx < rootLayer.Count; idx++)
+                {
+                    var current = rootLayer[idx];
+
+                    tree.Add(new XCLNetTools.Entity.EasyUI.TreeItem()
+                    {
+                        ID = current.SysDicID.ToString(),
+                        Text = current.DicName
+                    });
+
+                    Action<XCLNetTools.Entity.EasyUI.TreeItem> getChildAction = null;
+                    getChildAction = new Action<XCLNetTools.Entity.EasyUI.TreeItem>((parentModel) =>
+                    {
+                        var childs = allData.Where(k => k.ParentID == Convert.ToInt64(parentModel.ID)).ToList();
+                        if (childs.IsNotNullOrEmpty())
+                        {
+                            parentModel.Children = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
+                            childs.ForEach(m =>
+                            {
+                                var treeItem = new XCLNetTools.Entity.EasyUI.TreeItem()
+                                {
+                                    ID = m.SysDicID.ToString(),
+                                    State = m.IsLeaf == 1 ? "open" : "closed",
+                                    Text = m.DicName
+                                };
+                                getChildAction(treeItem);
+                                parentModel.Children.Add(treeItem);
+                            });
+                        }
+                    });
+
+                    getChildAction(tree.Find(k => k.ID == current.SysDicID.ToString()));
+                }
+            }
+
+            response.IsSuccess = true;
+            response.Body = tree;
+
+            return response;
+        }
+
+        /// <summary>
         /// 查询所有字典列表
         /// </summary>
         [HttpGet]
@@ -131,6 +203,45 @@ namespace XCLCMS.WebAPI.Controllers
                 response.Body = response.Body.Where(k => k.FK_MerchantID <= 0 || k.FK_MerchantID == base.CurrentUserModel.FK_MerchantID).ToList();
             }
 
+            return response;
+        }
+
+        /// <summary>
+        /// 获取XCLCMS管理后台系统的菜单
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetSystemMenuModelList(string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<object>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>>();
+            response.Body = this.vSysDicBLL.GetSystemMenuModelList();
+            response.IsSuccess = true;
+            return response;
+        }
+
+        /// <summary>
+        /// 获取当前sysDicID所属的层级list
+        /// 如:根目录/子目录/文件
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysDicSimple>> GetLayerListBySysDicID(string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetLayerListBySysDicIDEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysDicSimple>>();
+            response.Body = this.sysDicBLL.GetLayerListBySysDicID(request.Body.SysDicID);
+            response.IsSuccess = true;
+            return response;
+        }
+
+        /// <summary>
+        /// 获取证件类型
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<Dictionary<string, long>> GetPassTypeDic(string json)
+        {
+            var response = new APIResponseEntity<Dictionary<string, long>>();
+            response.Body = this.sysDicBLL.GetPassTypeDic();
+            response.IsSuccess = true;
             return response;
         }
 
@@ -197,7 +308,7 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //应用号与商户一致
-            if (!this.merchartAppBLL.IsTheSameMerchantInfoID(request.Body.FK_MerchantID, request.Body.FK_MerchantAppID))
+            if (!this.merchantAppBLL.IsTheSameMerchantInfoID(request.Body.FK_MerchantID, request.Body.FK_MerchantAppID))
             {
                 response.IsSuccess = false;
                 response.Message = "商户号与应用号不匹配，请核对后再试！";
@@ -271,7 +382,7 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //应用号与商户一致
-            if (!this.merchartAppBLL.IsTheSameMerchantInfoID(request.Body.FK_MerchantID, request.Body.FK_MerchantAppID))
+            if (!this.merchantAppBLL.IsTheSameMerchantInfoID(request.Body.FK_MerchantID, request.Body.FK_MerchantAppID))
             {
                 response.IsSuccess = false;
                 response.Message = "商户号与应用号不匹配，请核对后再试！";

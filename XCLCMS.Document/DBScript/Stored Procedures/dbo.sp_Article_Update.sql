@@ -1,7 +1,9 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 
 
 CREATE PROCEDURE [dbo].[sp_Article_Update]
@@ -37,6 +39,8 @@ CREATE PROCEDURE [dbo].[sp_Article_Update]
 @Comments nvarchar(500),
 @LinkUrl varchar(300),
 @PublishTime datetime,
+@FK_MerchantID bigint,
+@FK_MerchantAppID bigint,
 @RecordState char(1),
 @CreateTime datetime,
 @CreaterID bigint,
@@ -49,10 +53,10 @@ CREATE PROCEDURE [dbo].[sp_Article_Update]
 @ResultMessage NVARCHAR(1000) OUTPUT
  AS 
   BEGIN TRY
-	UPDATE [Article] SET 
-	Code=@Code , Title=@Title,
-	[SubTitle] = @SubTitle,[AuthorName] = @AuthorName,[FromInfo] = @FromInfo,[ArticleContentType] = @ArticleContentType,[Contents] = @Contents,[Summary] = @Summary,[MainImage1] = @MainImage1,[MainImage2] = @MainImage2,[MainImage3] = @MainImage3,[ViewCount] = @ViewCount,[IsCanComment] = @IsCanComment,[CommentCount] = @CommentCount,[GoodCount] = @GoodCount,[MiddleCount] = @MiddleCount,[BadCount] = @BadCount,[HotCount] = @HotCount,[URLOpenType] = @URLOpenType,[ArticleState] = @ArticleState,[VerifyState] = @VerifyState,[IsRecommend] = @IsRecommend,[IsEssence] = @IsEssence,[IsTop] = @IsTop,[TopBeginTime] = @TopBeginTime,[TopEndTime] = @TopEndTime,[KeyWords] = @KeyWords,[Tags] = @Tags,[Comments] = @Comments,[LinkUrl] = @LinkUrl,[PublishTime] = @PublishTime,[RecordState] = @RecordState,[CreateTime] = @CreateTime,[CreaterID] = @CreaterID,[CreaterName] = @CreaterName,[UpdateTime] = @UpdateTime,[UpdaterID] = @UpdaterID,[UpdaterName] = @UpdaterName
-	WHERE ArticleID=@ArticleID 
+		UPDATE [Article] SET 
+		Code=@Code , Title=@Title , FK_MerchantID=@FK_MerchantID ,
+		[SubTitle] = @SubTitle,[AuthorName] = @AuthorName,[FromInfo] = @FromInfo,[ArticleContentType] = @ArticleContentType,[Contents] = @Contents,[Summary] = @Summary,[MainImage1] = @MainImage1,[MainImage2] = @MainImage2,[MainImage3] = @MainImage3,[ViewCount] = @ViewCount,[IsCanComment] = @IsCanComment,[CommentCount] = @CommentCount,[GoodCount] = @GoodCount,[MiddleCount] = @MiddleCount,[BadCount] = @BadCount,[HotCount] = @HotCount,[URLOpenType] = @URLOpenType,[ArticleState] = @ArticleState,[VerifyState] = @VerifyState,[IsRecommend] = @IsRecommend,[IsEssence] = @IsEssence,[IsTop] = @IsTop,[TopBeginTime] = @TopBeginTime,[TopEndTime] = @TopEndTime,[KeyWords] = @KeyWords,[Tags] = @Tags,[Comments] = @Comments,[LinkUrl] = @LinkUrl,[PublishTime] = @PublishTime,[FK_MerchantAppID] = @FK_MerchantAppID,[RecordState] = @RecordState,[CreateTime] = @CreateTime,[CreaterID] = @CreaterID,[CreaterName] = @CreaterName,[UpdateTime] = @UpdateTime,[UpdaterID] = @UpdaterID,[UpdaterName] = @UpdaterName
+		WHERE ArticleID=@ArticleID
 
 		SET @ResultCode=1
  END TRY

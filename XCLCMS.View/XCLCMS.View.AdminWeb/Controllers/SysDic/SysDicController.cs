@@ -26,15 +26,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
         public ActionResult Add()
         {
             long sysDicId = XCLNetTools.StringHander.FormHelper.GetLong("sysDicId");
-            var vSysDicBLL = new Data.BLL.View.v_SysDic();
-            XCLCMS.Data.BLL.SysDic bll = new Data.BLL.SysDic();
-            XCLCMS.Data.BLL.SysFunction functionBLL = new Data.BLL.SysFunction();
             XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM viewModel = new XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM();
 
             //判断当前字典是否属于【系统菜单】
             if (viewModel.SysDicCategory == XCLCMS.View.AdminWeb.Models.SysDic.SysDicCategoryEnum.None)
             {
-                var menus = new XCLCMS.Data.BLL.View.v_SysDic().GetSystemMenuModelList();
+                var menus = XCLCMS.Lib.WebAPI.Library.SysDicAPI_GetSystemMenuModelList(base.UserToken);
                 if (menus.IsNotNullOrEmpty())
                 {
                     if (menus.Exists(k => k.SysDicID == sysDicId || (k.ParentID == sysDicId && base.CurrentHandleType == Lib.Common.Comm.HandleType.ADD)))
@@ -51,16 +48,6 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                     viewModel.ParentID = sysDicId;
                     viewModel.SysDicID = -1;
                     viewModel.FormAction = Url.Action("AddSubmit", "SysDic");
-
-                    //添加时，若父节点为根节点，则该字典的商户号为当前用户的商户号；否则，则为父级的商户号
-                    if (vSysDicBLL.IsRoot(sysDicId))
-                    {
-                        viewModel.SysDic.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
-                    }
-                    else
-                    {
-                        viewModel.SysDic.FK_MerchantID = bll.GetModel(sysDicId).FK_MerchantID;
-                    }
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
@@ -76,7 +63,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                     break;
             }
 
-            viewModel.PathList = bll.GetLayerListBySysDicID(sysDicId);
+            viewModel.PathList = XCLCMS.Lib.WebAPI.Library.SysDicAPI_GetLayerListBySysDicID(base.UserToken, new Data.WebAPIEntity.RequestEntity.SysDic.GetLayerListBySysDicIDEntity()
+            {
+                SysDicID = sysDicId
+            });
 
             return View("~/Views/SysDic/SysDicAdd.cshtml", viewModel);
         }
@@ -97,7 +87,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             viewModel.SysDic.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.SysDic.FK_FunctionID = XCLNetTools.Common.DataTypeConvert.ToLongNull(fm["txtFunctionID"] ?? "");
             viewModel.SysDic.FK_MerchantAppID = XCLNetTools.Common.DataTypeConvert.ToLong(fm["txtMerchantAppID"]);
-            viewModel.SysDic.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("MerchantID");
+            viewModel.SysDic.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantID");
             return viewModel;
         }
 
@@ -124,7 +114,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             sysDicModel.Sort = viewModel.SysDic.Sort;
             sysDicModel.Remark = viewModel.SysDic.Remark;
             sysDicModel.FK_FunctionID = viewModel.SysDic.FK_FunctionID;
-            sysDicModel.SysDicID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.DIC);
+            sysDicModel.SysDicID = XCLCMS.Lib.WebAPI.Library.CommonAPI_GenerateID(base.UserToken, new Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity()
+            {
+                IDType = Data.CommonHelper.EnumType.IDTypeEnum.DIC.ToString()
+            });
             sysDicModel.FK_MerchantAppID = viewModel.SysDic.FK_MerchantAppID;
             sysDicModel.FK_MerchantID = viewModel.SysDic.FK_MerchantID;
 
@@ -142,8 +135,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             base.UpdateSubmit(fm);
             XCLCMS.View.AdminWeb.Models.SysDic.SysDicAddVM viewModel = this.GetViewModel(fm);
 
-            XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
-            XCLCMS.Data.Model.SysDic sysDicModel = sysDicBLL.GetModel(viewModel.SysDicID);
+            XCLCMS.Data.Model.SysDic sysDicModel = new Data.Model.SysDic();
+            sysDicModel.SysDicID = viewModel.SysDicID;
             sysDicModel.Code = viewModel.SysDic.Code;
             sysDicModel.UpdaterID = base.CurrentUserModel.UserInfoID;
             sysDicModel.UpdaterName = base.CurrentUserModel.UserName;

@@ -28,11 +28,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_ClearRubbishData)]
         public JsonResult ClearRubbishData()
         {
-            XCLCMS.Data.BLL.Common.Common.ClearRubbishData();
-            XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            msgModel.IsSuccess = true;
-            msgModel.Message = "垃圾数据清理成功！";
-            return Json(msgModel, JsonRequestBehavior.AllowGet);
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<object>(base.UserToken);
+            request.Body = new object();
+            var response = XCLCMS.Lib.WebAPI.CommonAPI.ClearRubbishData(request);
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -44,8 +43,14 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
         {
             var ids = (XCLNetTools.StringHander.FormHelper.GetString("FileID") ?? "").Split(',').ToList().ConvertAll(k => XCLNetTools.Common.DataTypeConvert.ToLong(k));
             XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
-            msgModel.CustomObject = new XCLCMS.Data.BLL.Attachment().GetList(ids);
-            msgModel.IsSuccess = true;
+
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Attachment.GetAttachmentListByIDListEntity>(base.UserToken);
+            request.Body = new Data.WebAPIEntity.RequestEntity.Attachment.GetAttachmentListByIDListEntity();
+            request.Body.AttachmentIDList = ids;
+            var response = XCLCMS.Lib.WebAPI.AttachmentAPI.GetAttachmentListByIDList(request);
+
+            msgModel.CustomObject = response.Body;
+            msgModel.IsSuccess = response.IsSuccess;
             return Json(msgModel, JsonRequestBehavior.AllowGet);
         }
     }

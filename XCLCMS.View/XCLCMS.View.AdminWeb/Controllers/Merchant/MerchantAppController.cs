@@ -68,8 +68,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         public ActionResult Add()
         {
             long merchantAppId = XCLNetTools.StringHander.FormHelper.GetLong("merchantAppId");
-
-            var merchantAppBLL = new Data.BLL.MerchantApp();
+            
             var viewModel = new XCLCMS.View.AdminWeb.Models.Merchant.MerchantAppAddVM();
             viewModel.MerchantApp = new Data.Model.MerchantApp();
 
@@ -122,9 +121,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
         public override ActionResult AddSubmit(FormCollection fm)
         {
             var viewModel = this.GetViewModel(fm);
-            XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new Data.BLL.MerchantApp();
             XCLCMS.Data.Model.MerchantApp model = new XCLCMS.Data.Model.MerchantApp();
-            model.MerchantAppID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.MEP);
+            model.MerchantAppID = XCLCMS.Lib.WebAPI.Library.CommonAPI_GenerateID(base.UserToken, new Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity()
+            {
+                IDType = Data.CommonHelper.EnumType.IDTypeEnum.MEP.ToString()
+            });
             model.FK_MerchantID = viewModel.MerchantApp.FK_MerchantID;
             model.MerchantAppName = viewModel.MerchantApp.MerchantAppName;
             model.CreaterID = base.CurrentUserModel.UserInfoID;
@@ -160,14 +161,14 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             base.UpdateSubmit(fm);
             long merchantAppId = XCLNetTools.StringHander.FormHelper.GetLong("merchantAppId");
             var viewModel = this.GetViewModel(fm);
-            var merchantAppBLL = new Data.BLL.MerchantApp();
-            var model = merchantAppBLL.GetModel(merchantAppId);
+            var model = new XCLCMS.Data.Model.MerchantApp();
+            model.MerchantAppID = viewModel.MerchantApp.MerchantAppID;
             model.FK_MerchantID = viewModel.MerchantApp.FK_MerchantID;
             model.MerchantAppName = viewModel.MerchantApp.MerchantAppName;
             model.Remark = viewModel.MerchantApp.Remark;
-            model.UpdaterID = model.CreaterID;
-            model.UpdaterName = model.CreaterName;
-            model.UpdateTime = model.CreateTime;
+            model.UpdaterID = base.CurrentUserModel.UserInfoID;
+            model.UpdaterName = base.CurrentUserModel.UserName;
+            model.UpdateTime = DateTime.Now;
             model.ResourceVersion = viewModel.MerchantApp.ResourceVersion;
             model.Email = viewModel.MerchantApp.Email;
             model.CopyRight = viewModel.MerchantApp.CopyRight;

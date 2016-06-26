@@ -26,6 +26,14 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 获取商户类型
+        /// </summary>
+        public static APIResponseEntity<Dictionary<string, long>> GetMerchantTypeDic(APIRequestEntity<object> request)
+        {
+            return Library.Request<object, Dictionary<string, long>>(request, "Merchant/GetMerchantTypeDic");
+        }
+
+        /// <summary>
         /// 判断商户名是否存在
         /// </summary>
         public static APIResponseEntity<bool> IsExistMerchantName(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.IsExistMerchantNameEntity> request)

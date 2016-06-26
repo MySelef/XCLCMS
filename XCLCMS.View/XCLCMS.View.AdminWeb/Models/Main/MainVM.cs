@@ -10,6 +10,6 @@ namespace XCLCMS.View.AdminWeb.Models.Main
         /// <summary>
         /// 主菜单
         /// </summary>
-        public List<XCLCMS.Data.Model.SysDic> MenuList { get; set; }
+        public List<XCLCMS.Data.Model.View.v_SysDic> MenuList { get; set; }
     }
 }

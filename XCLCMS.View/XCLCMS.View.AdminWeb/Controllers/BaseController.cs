@@ -22,8 +22,12 @@ namespace XCLCMS.View.AdminWeb.Controllers
 
             //主模板数据
             XCLCMS.View.AdminWeb.Models.Main.MainVM mainViewModel = new XCLCMS.View.AdminWeb.Models.Main.MainVM();
-            XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
-            var allMenuList = sysDicBLL.GetSysMenuList();
+
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<object>(base.UserToken);
+            request.Body = new object();
+            var response = XCLCMS.Lib.WebAPI.SysDicAPI.GetSystemMenuModelList(request);
+
+            var allMenuList = response.Body;
             if (allMenuList.IsNotNullOrEmpty())
             {
                 mainViewModel.MenuList = allMenuList.Where(k => k.FK_FunctionID == null || XCLCMS.Lib.Permission.PerHelper.HasPermission(base.UserID, (XCLCMS.Lib.Permission.Function.FunctionEnum)k.FK_FunctionID)).ToList();

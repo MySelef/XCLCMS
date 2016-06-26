@@ -49,6 +49,15 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 获取当前SysRoleID所属的层级list
+        /// 如:根目录/子目录/文件
+        /// </summary>
+        public static APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysRoleSimple>> GetLayerListBySysRoleID(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetLayerListBySysRoleIDEntity> request)
+        {
+            return Library.Request<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetLayerListBySysRoleIDEntity, List<XCLCMS.Data.Model.Custom.SysRoleSimple>>(request, "SysRole/GetLayerListBySysRoleID");
+        }
+
+        /// <summary>
         /// 添加角色
         /// </summary>
         public static APIResponseEntity<bool> Add(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity> request)

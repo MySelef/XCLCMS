@@ -49,6 +49,23 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 获取当前SysFunctionID所属的层级list
+        /// 如:根目录/子目录/文件
+        /// </summary>
+        public static APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysFunctionSimple>> GetLayerListBySysFunctionId(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetLayerListBySysFunctionIdEntity> request)
+        {
+            return Library.Request<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetLayerListBySysFunctionIdEntity, List<XCLCMS.Data.Model.Custom.SysFunctionSimple>>(request, "SysFunction/GetLayerListBySysFunctionId");
+        }
+
+        /// <summary>
+        /// 获取指定角色的所有功能
+        /// </summary>
+        public static APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>> GetListByRoleID(APIRequestEntity<long> request)
+        {
+            return Library.Request<long, List<XCLCMS.Data.Model.SysFunction>>(request, "SysFunction/GetListByRoleID");
+        }
+
+        /// <summary>
         /// 添加功能
         /// </summary>
         public static APIResponseEntity<bool> Add(APIRequestEntity<XCLCMS.Data.Model.SysFunction> request)

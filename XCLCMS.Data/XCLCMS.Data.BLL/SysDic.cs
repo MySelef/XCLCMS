@@ -92,14 +92,6 @@ namespace XCLCMS.Data.BLL
         }
 
         /// <summary>
-        /// 获取后台系统菜单
-        /// </summary>
-        public List<XCLCMS.Data.Model.SysDic> GetSysMenuList()
-        {
-            return this.GetChildListByCode(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.SysMenu.ToString());
-        }
-
-        /// <summary>
         /// 根据字典库code返回该 code子项dictionary
         /// key:DicName,value:DicValue
         /// </summary>

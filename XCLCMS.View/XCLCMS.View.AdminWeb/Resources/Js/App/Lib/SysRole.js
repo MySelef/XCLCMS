@@ -270,7 +270,7 @@
 
             var request = XCLCMSWebApi.CreateRequest();
             request.Body = {};
-            request.Body.MerchantID = $("#MerchantID").val();
+            request.Body.MerchantID = $("#txtMerchantID").val();
             var reqJSON=JSON.stringify(request);
 
             $obj.combotree({

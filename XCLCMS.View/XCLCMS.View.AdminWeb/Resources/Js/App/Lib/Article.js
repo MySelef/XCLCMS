@@ -55,11 +55,14 @@
             }
 
             art.dialog.confirm("您确定要删除此信息吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = ids;
+
                 $.XGoAjax({
                     target: $("#btnDel")[0],
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "Article/DelSubmit",
-                        data: { ArticleIds: ids.join(',') },
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Article/Delete",
+                        data: request,
                         type: "POST"
                     }
                 });
@@ -80,7 +83,7 @@
             selArticleType: null,//文章分类
             selArticleContentType: null,//文章内容类型
             selAuthorName: null,//作者
-            selFromInfo:null,//来源
+            selFromInfo: null,//来源
             Init: function () {
                 this.divContentNote = $("#divContentNote");
                 this.btnRandomCount = $("#btnRandomCount");
@@ -142,17 +145,20 @@
             var validator = $("form:first").validate({
                 rules: {
                     txtCode: {
-                        XCLCustomRemote: {
-                            url: XCLCMSPageGlobalConfig.RootURL + "ArticleCommon/IsExistCode",
-                            data: {
-                                code: function () {
-                                    return $("#txtCode").val();
-                                },
-                                articleID: function () {
-                                    return $("#ArticleID").val();
+                        XCLCustomRemote: function () {
+                            return {
+                                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Article/IsExistCode",
+                                data: {
+                                    "json": function () {
+                                        var request = XCLCMSWebApi.CreateRequest();
+                                        request.Body = {};
+                                        request.Body.Code = $("#txtCode").val();
+                                        request.Body.ArticleID = $("#ArticleID").val();
+                                        return JSON.stringify(request);
+                                    }
                                 }
-                            }
-                        }
+                            };
+                        },
                     },
                     txtTitle: { required: true }
                 }
@@ -171,14 +177,15 @@
          * 删除文章信息
          */
         Del: function () {
-            var id = $("#ArticleID").val();
-
             art.dialog.confirm("您确定要删除此信息吗？", function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = [$("#ArticleID").val()];
+
                 $.XGoAjax({
                     target: $("#btnDel")[0],
                     ajax: {
-                        url: XCLCMSPageGlobalConfig.RootURL + "Article/DelSubmit",
-                        data: { ArticleIds: id },
+                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Article/Delete",
+                        data: request,
                         type: "POST"
                     }
                 });

@@ -33,11 +33,44 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 根据code来获取字典的easyui tree格式
+        /// </summary>
+        public static APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetEasyUITreeByCode(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByCodeEntity> request)
+        {
+            return Library.Request<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByCodeEntity, List<XCLNetTools.Entity.EasyUI.TreeItem>>(request, "SysDic/GetEasyUITreeByCode");
+        }
+
+        /// <summary>
         /// 查询所有字典列表
         /// </summary>
         public static APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetList(APIRequestEntity<long> request)
         {
             return Library.Request<long, List<XCLCMS.Data.Model.View.v_SysDic>>(request, "SysDic/GetList");
+        }
+
+        /// <summary>
+        /// 获取XCLCMS管理后台系统的菜单
+        /// </summary>
+        public static APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetSystemMenuModelList(APIRequestEntity<object> request)
+        {
+            return Library.Request<object, List<XCLCMS.Data.Model.View.v_SysDic>>(request, "SysDic/GetSystemMenuModelList");
+        }
+
+        /// <summary>
+        /// 获取当前sysDicID所属的层级list
+        /// 如:根目录/子目录/文件
+        /// </summary>
+        public static APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysDicSimple>> GetLayerListBySysDicID(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetLayerListBySysDicIDEntity> request)
+        {
+            return Library.Request<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetLayerListBySysDicIDEntity, List<XCLCMS.Data.Model.Custom.SysDicSimple>>(request, "SysDic/GetLayerListBySysDicID");
+        }
+
+        /// <summary>
+        /// 获取证件类型
+        /// </summary>
+        public static APIResponseEntity<Dictionary<string, long>> GetPassTypeDic(APIRequestEntity<object> request)
+        {
+            return Library.Request<object, Dictionary<string, long>>(request, "SysDic/GetPassTypeDic");
         }
 
         /// <summary>

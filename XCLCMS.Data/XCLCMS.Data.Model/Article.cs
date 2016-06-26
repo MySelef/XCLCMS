@@ -45,6 +45,8 @@ namespace XCLCMS.Data.Model
         private string _comments;
         private string _linkurl;
         private DateTime? _publishtime;
+        private long _fk_merchantid = 0;
+        private long _fk_merchantappid = 0;
         private string _recordstate;
         private DateTime _createtime;
         private long _createrid;
@@ -339,6 +341,24 @@ namespace XCLCMS.Data.Model
         {
             set { _publishtime = value; }
             get { return _publishtime; }
+        }
+
+        /// <summary>
+        /// 所属商户号
+        /// </summary>
+        public long FK_MerchantID
+        {
+            set { _fk_merchantid = value; }
+            get { return _fk_merchantid; }
+        }
+
+        /// <summary>
+        /// 所属应用号
+        /// </summary>
+        public long FK_MerchantAppID
+        {
+            set { _fk_merchantappid = value; }
+            get { return _fk_merchantappid; }
         }
 
         /// <summary>

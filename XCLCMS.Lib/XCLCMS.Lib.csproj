@@ -133,9 +133,12 @@
     <Compile Include="SysWebSetting\Setting.cs" />
     <Compile Include="Model\SettingModel.cs" />
     <Compile Include="WebAPI\ArticleAPI.cs" />
+    <Compile Include="WebAPI\AttachmentAPI.cs" />
+    <Compile Include="WebAPI\CommonAPI.cs" />
     <Compile Include="WebAPI\Library.cs" />
     <Compile Include="WebAPI\MerchantAPI.cs" />
     <Compile Include="WebAPI\MerchantAppAPI.cs" />
+    <Compile Include="WebAPI\OpenAPI.cs" />
     <Compile Include="WebAPI\SysDicAPI.cs" />
     <Compile Include="WebAPI\SysFunctionAPI.cs" />
     <Compile Include="WebAPI\SysLogAPI.cs" />

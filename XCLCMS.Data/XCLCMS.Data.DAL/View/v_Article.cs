@@ -142,6 +142,11 @@ namespace XCLCMS.Data.DAL.View
                     where.Add("tb_Article.ArticleState=@ArticleState");
                     db.AddInParameter(dbCommand, "ArticleState", DbType.AnsiString, condition.ArticleState);
                 }
+                if (condition.MerchantID > 0)
+                {
+                    where.Add("tb_Article.FK_MerchantID=@FK_MerchantID");
+                    db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, condition.MerchantID);
+                }
             }
 
             if (where.Count > 0)

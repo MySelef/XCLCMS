@@ -26,6 +26,14 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 查询文章信息分页列表(简单分页)
+        /// </summary>
+        public static APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Article>> SimplePageList(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.SimplePageListEntity> request)
+        {
+            return Library.Request<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.SimplePageListEntity, XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Article>>(request, "Article/SimplePageList");
+        }
+
+        /// <summary>
         /// 检查文章code是否已存在
         /// </summary>
         public static APIResponseEntity<bool> IsExistCode(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.IsExistCodeEntity> request)

@@ -177,6 +177,21 @@ namespace XCLCMS.Lib.WebAPI
             return response.Body;
         }
 
+        /// <summary>
+        /// 递归获取指定SysDicID下的所有列表（不包含该SysDicID的记录）
+        /// </summary>
+        public static List<XCLCMS.Data.Model.View.v_SysDic> SysDicAPI_GetAllUnderListByID(string userToken, long sysDicID)
+        {
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(userToken);
+            request.Body = sysDicID;
+            var response = XCLCMS.Lib.WebAPI.SysDicAPI.GetAllUnderListByID(request);
+            if (null == response)
+            {
+                return null;
+            }
+            return response.Body;
+        }
+
         #endregion SysDicAPI相关
 
         #region SysFunctionAPI相关

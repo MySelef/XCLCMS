@@ -48,6 +48,14 @@ namespace XCLCMS.Data.BLL.View
         }
 
         /// <summary>
+        /// 递归获取指定SysDicID下的所有列表（不包含该SysDicID的记录）
+        /// </summary>
+        public List<XCLCMS.Data.Model.View.v_SysDic> GetAllUnderListByID(long sysDicID)
+        {
+            return dal.GetAllUnderListByID(sysDicID);
+        }
+
+        /// <summary>
         /// 获取所有系统菜单信息
         /// </summary>
         public List<XCLCMS.Data.Model.View.v_SysDic> GetSystemMenuModelList()

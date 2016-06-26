@@ -26,5 +26,10 @@ namespace XCLCMS.Data.Model.Custom
         /// 文章状态
         /// </summary>
         public string ArticleState { get; set; }
+
+        /// <summary>
+        /// 商户号
+        /// </summary>
+        public long? MerchantID { get; set; }
     }
 }

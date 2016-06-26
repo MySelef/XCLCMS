@@ -329,6 +329,19 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 递归获取指定SysDicID下的所有列表（不包含该SysDicID的记录）
+        /// </summary>
+        [HttpGet]
+        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetAllUnderListByID(string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>>();
+            response.Body = this.vSysDicBLL.GetAllUnderListByID(request.Body);
+            response.IsSuccess = true;
+            return response;
+        }
+
+        /// <summary>
         /// 添加字典
         /// </summary>
         [HttpPost]

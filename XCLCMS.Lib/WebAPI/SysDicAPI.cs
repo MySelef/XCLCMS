@@ -90,6 +90,14 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 递归获取指定SysDicID下的所有列表（不包含该SysDicID的记录）
+        /// </summary>
+        public static APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetAllUnderListByID(APIRequestEntity<long> request)
+        {
+            return Library.Request<long, List<XCLCMS.Data.Model.View.v_SysDic>>(request, "SysDic/GetAllUnderListByID");
+        }
+
+        /// <summary>
         /// 添加字典
         /// </summary>
         public static APIResponseEntity<bool> Add(APIRequestEntity<XCLCMS.Data.Model.SysDic> request)

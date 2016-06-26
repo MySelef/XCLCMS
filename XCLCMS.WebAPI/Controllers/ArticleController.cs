@@ -69,6 +69,22 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 查询文章信息分页列表(简单分页)
+        /// </summary>
+        [HttpGet]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleView)]
+        public APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Article>> SimplePageList([FromUri] string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.SimplePageListEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Article>>();
+            response.Body = new Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<Data.Model.View.v_Article>();
+            response.Body.ResultList = vArticleBLL.GetPageList(request.Body.PageInfo, request.Body.Condition);
+            response.Body.PagerInfo = request.Body.PageInfo;
+            response.IsSuccess = true;
+            return response;
+        }
+
+        /// <summary>
         /// 检查文章code是否已存在
         /// </summary>
         [HttpGet]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 
 namespace XCLCMS.Data.DAL.View
@@ -113,6 +114,10 @@ namespace XCLCMS.Data.DAL.View
 
             if (null != condition)
             {
+                if (null != condition.ArticleTypeIDList && condition.ArticleTypeIDList.Count > 0)
+                {
+                    condition.ArticleTypeIDList = condition.ArticleTypeIDList.Where(k => k > 0).Distinct().ToList();
+                }
                 if (null != condition.ArticleTypeIDList && condition.ArticleTypeIDList.Count > 0)
                 {
                     join_ArticleType = @"

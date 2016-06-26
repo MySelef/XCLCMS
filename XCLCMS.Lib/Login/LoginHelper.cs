@@ -116,6 +116,20 @@ namespace XCLCMS.Lib.Login
             return bll.GetModel(model.UserName, model.Pwd);
         }
 
+        /// <summary>
+        /// 获取内置用户的token
+        /// </summary>
+        public static string GetInnerUserToken()
+        {
+            XCLCMS.Data.BLL.UserInfo bll = new Data.BLL.UserInfo();
+            var model = bll.GetModel(XCLCMS.Data.CommonHelper.SystemDataConst.XInnerUserName);
+            if (null == model)
+            {
+                throw new System.Exception("内置用户不存在！");
+            }
+            return CreateUserToken(model.UserName, model.Pwd);
+        }
+
         #endregion 登录相关信息设置
     }
 }

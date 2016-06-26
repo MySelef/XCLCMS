@@ -443,7 +443,6 @@ namespace XCLCMS.WebAPI.Controllers
             #endregion 数据校验
 
             model.Code = request.Body.SysRole.Code;
-            model.RecordState = request.Body.SysRole.RecordState;
             model.Remark = request.Body.SysRole.Remark;
             model.RoleName = request.Body.SysRole.RoleName;
             model.Sort = request.Body.SysRole.Sort;

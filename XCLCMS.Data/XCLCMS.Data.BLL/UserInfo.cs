@@ -59,6 +59,14 @@ namespace XCLCMS.Data.BLL
         }
 
         /// <summary>
+        /// 根据用户名获取用户实体
+        /// </summary>
+        public XCLCMS.Data.Model.UserInfo GetModel(string userName)
+        {
+            return dal.GetModel(userName);
+        }
+
+        /// <summary>
         ///  增加一条数据
         /// </summary>
         public bool Add(XCLCMS.Data.Model.UserInfo model)

@@ -6,8 +6,8 @@
     public class SystemDataConst
     {
         /// <summary>
-        /// 系统内置用户名
+        /// 系统内置用户的用户名
         /// </summary>
-        public const string SysAdminUserName = "admin";
+        public const string XInnerUserName = "XInnerUser";
     }
 }

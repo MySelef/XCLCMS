@@ -131,6 +131,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
             model.Remark = viewModel.SysRole.Remark;
             model.Code = viewModel.SysRole.Code;
             model.Weight = viewModel.SysRole.Weight;
+            model.FK_MerchantID = viewModel.SysRole.FK_MerchantID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity>(base.UserToken);
             request.Body = new Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity();

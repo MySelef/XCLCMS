@@ -492,8 +492,7 @@ namespace XCLCMS.WebAPI.Controllers
             model.DicValue = request.Body.DicValue;
             model.FK_FunctionID = request.Body.FK_FunctionID;
             model.FK_MerchantAppID = request.Body.FK_MerchantAppID;
-            model.ParentID = request.Body.ParentID;
-            model.RecordState = request.Body.RecordState;
+            model.FK_MerchantID = request.Body.FK_MerchantID;
             model.Remark = request.Body.Remark;
             model.Sort = request.Body.Sort;
             model.UpdaterID = base.CurrentUserModel.UserInfoID;

@@ -86,6 +86,19 @@ namespace XCLCMS.Data.DAL
         }
 
         /// <summary>
+        /// 根据用户名获取用户实体
+        /// </summary>
+        public XCLCMS.Data.Model.UserInfo GetModel(string userName)
+        {
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 * from UserInfo where UserName=@UserName");
+            db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, userName);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+            var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.UserInfo>(ds.Tables[0]);
+            return null != lst && lst.Count > 0 ? lst[0] : null;
+        }
+
+        /// <summary>
         ///  增加一条数据
         /// </summary>
         public bool Add(XCLCMS.Data.Model.UserInfo model)

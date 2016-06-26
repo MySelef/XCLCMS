@@ -148,6 +148,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
             sysDicModel.Remark = viewModel.SysDic.Remark;
             sysDicModel.FK_FunctionID = viewModel.SysDic.FK_FunctionID;
             sysDicModel.FK_MerchantAppID = viewModel.SysDic.FK_MerchantAppID;
+            sysDicModel.FK_MerchantID = viewModel.SysDic.FK_MerchantID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysDic>(base.UserToken);
             request.Body = sysDicModel;

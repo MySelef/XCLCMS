@@ -314,8 +314,6 @@ namespace XCLCMS.WebAPI.Controllers
             #endregion 数据校验
 
             model.Code = request.Body.Code;
-            model.ParentID = request.Body.ParentID;
-            model.RecordState = request.Body.RecordState;
             model.Remark = request.Body.Remark;
             model.UpdaterID = base.CurrentUserModel.UserInfoID;
             model.UpdaterName = base.CurrentUserModel.UserName;

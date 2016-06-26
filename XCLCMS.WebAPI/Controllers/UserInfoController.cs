@@ -278,7 +278,6 @@ namespace XCLCMS.WebAPI.Controllers
             }
             model.QQ = request.Body.UserInfo.QQ;
             model.RealName = request.Body.UserInfo.RealName;
-            model.RecordState = request.Body.UserInfo.RecordState;
             model.Remark = request.Body.UserInfo.Remark;
             model.SexType = request.Body.UserInfo.SexType;
             model.Tel = request.Body.UserInfo.Tel;

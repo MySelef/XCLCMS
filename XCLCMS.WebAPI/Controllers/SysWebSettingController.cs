@@ -216,7 +216,6 @@ namespace XCLCMS.WebAPI.Controllers
             model.FK_MerchantID = request.Body.FK_MerchantID;
             model.KeyName = request.Body.KeyName;
             model.KeyValue = request.Body.KeyValue;
-            model.RecordState = request.Body.RecordState;
             model.Remark = request.Body.Remark;
             model.UpdaterID = base.CurrentUserModel.UserInfoID;
             model.UpdaterName = base.CurrentUserModel.UserName;

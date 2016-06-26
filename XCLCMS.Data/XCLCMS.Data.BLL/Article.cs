@@ -59,14 +59,6 @@ namespace XCLCMS.Data.BLL
         }
 
         /// <summary>
-        /// 获取文章类型
-        /// </summary>
-        public Dictionary<string, long> GetArticleTypeDic()
-        {
-            return new XCLCMS.Data.BLL.SysDic().GetDictionaryByCodeWithID(XCLCMS.Data.CommonHelper.SysDicConst.SysDicCodeEnum.ArticleType.ToString());
-        }
-
-        /// <summary>
         /// 判断指定code是否存在
         /// </summary>
         public bool IsExistCode(string code)

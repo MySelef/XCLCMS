@@ -29,14 +29,13 @@
                 </td>
                 <td>序号</td>
                 <td>文章ID</td>
+                <td>所属商户</td>
+                <td>所属应用</td>
                 <td>标题</td>
                 <td>作者</td>
                 <td>分类</td>
                 <td>来源</td>
                 <td>文章类型</td>
-                <td>浏览数</td>
-                <td>评论数</td>
-                <td>热度</td>
                 <td>文章状态</td>
                 <td>记录状态</td>
                 <td>创建时间</td>
@@ -58,14 +57,13 @@
                             <td align="center" class="XCLNoWrap">
                                 <a href="@Url.Action("Show","Article",new { ArticleID=m.ArticleID})" target="_blank">@m.ArticleID</a>
                             </td>
+                            <td>@m.MerchantName</td>
+                            <td>@m.MerchantAppName</td>
                             <td>@m.Title</td>
                             <td align="center">@m.AuthorName</td>
                             <td>@m.ArticleTypeNames</td>
                             <td align="center">@m.FromInfo</td>
                             <td align="center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum), m.ArticleContentType)</td>
-                            <td align="center">@m.ViewCount</td>
-                            <td align="center">@m.CommentCount</td>
-                            <td align="center">@m.HotCount</td>
                             <td align="center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.ArticleStateEnum), m.ArticleState)</td>
                             <td align="center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), m.RecordState)</td>
                             <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.CreateTime)</td>

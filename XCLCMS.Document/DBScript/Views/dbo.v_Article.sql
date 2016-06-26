@@ -7,6 +7,7 @@ GO
 
 
 
+
 CREATE VIEW [dbo].[v_Article] AS 
 
 WITH info AS (
@@ -64,7 +65,7 @@ WITH info AS (
 		WHERE aa.FK_ArticleID=a.ArticleID FOR XML PATH('')
 	) AS ArticleTypeNames
 	FROM dbo.Article AS a
-	LEFT JOIN dbo.Merchant AS b ON a.FK_MerchantID=b.MerchantName
+	LEFT JOIN dbo.Merchant AS b ON a.FK_MerchantID=b.MerchantID
 	LEFT JOIN dbo.MerchantApp AS c ON a.FK_MerchantAppID=c.MerchantAppID
 )
 SELECT 
@@ -115,6 +116,7 @@ a.MerchantAppName,
 SUBSTRING(a.ArticleTypeIDs,0,LEN(a.ArticleTypeIDs)) AS ArticleTypeIDs ,
 SUBSTRING(a.ArticleTypeNames,0,LEN(a.ArticleTypeNames)) AS ArticleTypeNames
 FROM info AS a
+
 
 
 

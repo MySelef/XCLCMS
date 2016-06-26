@@ -49,6 +49,14 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 根据条件获取字典的easy tree 列表
+        /// </summary>
+        public static APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetEasyUITreeByCondition(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByConditionEntity> request)
+        {
+            return Library.Request<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByConditionEntity, List<XCLNetTools.Entity.EasyUI.TreeItem>>(request, "SysDic/GetEasyUITreeByCondition");
+        }
+
+        /// <summary>
         /// 获取XCLCMS管理后台系统的菜单
         /// </summary>
         public static APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetSystemMenuModelList(APIRequestEntity<object> request)

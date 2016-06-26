@@ -15,6 +15,7 @@ namespace XCLCMS.WebAPI.Controllers
     {
         private XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new Data.BLL.MerchantApp();
         private XCLCMS.Data.BLL.SysDic sysDicBLL = new Data.BLL.SysDic();
+        private XCLCMS.Data.BLL.Merchant merchantBLL = new XCLCMS.Data.BLL.Merchant();
         private XCLCMS.Data.BLL.View.v_SysDic vSysDicBLL = new Data.BLL.View.v_SysDic();
 
         /// <summary>
@@ -203,6 +204,75 @@ namespace XCLCMS.WebAPI.Controllers
                 response.Body = response.Body.Where(k => k.FK_MerchantID <= 0 || k.FK_MerchantID == base.CurrentUserModel.FK_MerchantID).ToList();
             }
 
+            return response;
+        }
+
+        /// <summary>
+        /// 根据条件获取字典的easy tree 列表
+        /// </summary>
+        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetEasyUITreeByCondition([FromUri] string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByConditionEntity>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>();
+            response.IsSuccess = true;
+
+            List<XCLCMS.Data.Model.View.v_SysDic> allData = null;
+            List<XCLNetTools.Entity.EasyUI.TreeItem> tree = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
+
+            var merchantModel = this.merchantBLL.GetModel(request.Body.MerchantID);
+            if (null == merchantModel)
+            {
+                response.IsSuccess = false;
+                response.Message = "您指定的商户号无效！";
+                return response;
+            }
+
+            allData = this.vSysDicBLL.GetModelList("");
+
+            if (request.Body.MerchantID > 0 && null != allData && allData.Count > 0)
+            {
+                allData = allData.Where(k => k.FK_MerchantID <= 0 || k.FK_MerchantID == request.Body.MerchantID).ToList();
+            }
+
+            if (allData.IsNotNullOrEmpty())
+            {
+                var root = allData.Where(k => k.ParentID == 0).FirstOrDefault();//根节点
+                if (null != root)
+                {
+                    tree.Add(new XCLNetTools.Entity.EasyUI.TreeItem()
+                    {
+                        ID = root.SysDicID.ToString(),
+                        State = root.IsLeaf == 1 ? "open" : "closed",
+                        Text = root.DicName
+                    });
+
+                    Action<XCLNetTools.Entity.EasyUI.TreeItem> getChildAction = null;
+                    getChildAction = new Action<XCLNetTools.Entity.EasyUI.TreeItem>((parentModel) =>
+                    {
+                        var childs = allData.Where(k => k.ParentID == Convert.ToInt64(parentModel.ID)).ToList();
+                        if (childs.IsNotNullOrEmpty())
+                        {
+                            childs = childs.OrderBy(k => k.Sort).ToList();
+                            parentModel.Children = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
+                            childs.ForEach(m =>
+                            {
+                                var treeItem = new XCLNetTools.Entity.EasyUI.TreeItem()
+                                {
+                                    ID = m.SysDicID.ToString(),
+                                    State = m.IsLeaf == 1 ? "open" : "closed",
+                                    Text = m.DicName
+                                };
+                                getChildAction(treeItem);
+                                parentModel.Children.Add(treeItem);
+                            });
+                        }
+                    });
+
+                    //从根节点开始
+                    getChildAction(tree[0]);
+                }
+            }
+            response.Body = tree;
             return response;
         }
 

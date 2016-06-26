@@ -20,6 +20,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
             viewModel.Search = new XCLNetSearch.Search();
             viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("文章ID","ArticleID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("所属商户","FK_MerchantID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("所属应用","FK_MerchantAppID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("标题","Title|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("作者","AuthorName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("来源","FromInfo|string|text",""),

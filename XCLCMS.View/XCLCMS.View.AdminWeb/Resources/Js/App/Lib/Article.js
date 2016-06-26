@@ -118,19 +118,27 @@
             });
 
             //文章分类
-            var request = XCLCMSWebApi.CreateRequest();
-            request.Body = {};
-            request.Body.Code = "ArticleType";
-            var reqJSON = JSON.stringify(request);
-            _this.Elements.selArticleType.combotree({
-                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/GetEasyUITreeByCode?json=" + reqJSON,
-                method: 'get',
-                checkbox: true,
-                onlyLeafCheck: true,
-                loadFilter: function (data) {
-                    if (data) {
-                        return data.Body || [];
+            var initArticleTypeTree = function () {
+                var request = XCLCMSWebApi.CreateRequest();
+                request.Body = {};
+                request.Body.MerchantID = $("#txtMerchantID").val();
+                var reqJSON = JSON.stringify(request);
+                _this.Elements.selArticleType.combotree({
+                    url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/GetEasyUITreeByCondition?json=" + reqJSON,
+                    method: 'get',
+                    checkbox: true,
+                    onlyLeafCheck: true,
+                    loadFilter: function (data) {
+                        if (data) {
+                            return data.Body || [];
+                        }
                     }
+                });
+            };
+            initArticleTypeTree();
+            $("#txtMerchantID").numberbox({
+                onChange: function () {
+                    initArticleTypeTree();
                 }
             });
 

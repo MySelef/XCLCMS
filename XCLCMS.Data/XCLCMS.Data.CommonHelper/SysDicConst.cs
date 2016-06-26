@@ -28,12 +28,7 @@
             /// <summary>
             /// 证件类型
             /// </summary>
-            PassType,
-
-            /// <summary>
-            /// 文章类型
-            /// </summary>
-            ArticleType
+            PassType
         }
     }
 }

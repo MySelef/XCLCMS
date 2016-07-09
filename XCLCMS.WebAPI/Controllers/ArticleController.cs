@@ -42,6 +42,27 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 查询指定文章关联的其它文章信息
+        /// </summary>
+        [HttpGet]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleView)]
+        public APIResponseEntity<XCLCMS.Data.Model.Custom.ArticleRelationDetailModel> RelationDetail([FromUri] string json)
+        {
+            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
+            var response = new APIResponseEntity<XCLCMS.Data.Model.Custom.ArticleRelationDetailModel>();
+            var condition = new Data.Model.Custom.ArticleRelationDetailCondition()
+            {
+                ArticleID = request.Body,
+                IsASC = true,
+                ArticleRecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(),
+                TopCount = 10
+            };
+            response.Body = articleBLL.GetRelationDetail(condition);
+            response.IsSuccess = true;
+            return response;
+        }
+
+        /// <summary>
         /// 查询文章信息分页列表
         /// </summary>
         [HttpGet]

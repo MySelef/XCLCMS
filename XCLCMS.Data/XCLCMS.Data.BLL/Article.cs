@@ -66,6 +66,14 @@ namespace XCLCMS.Data.BLL
             return dal.IsExistCode(code);
         }
 
+        /// <summary>
+        /// 获取指定文章的相关联的其它文章信息
+        /// </summary>
+        public XCLCMS.Data.Model.Custom.ArticleRelationDetailModel GetRelationDetail(XCLCMS.Data.Model.Custom.ArticleRelationDetailCondition condition)
+        {
+            return dal.GetRelationDetail(condition);
+        }
+
         #endregion ExtensionMethod
     }
 }

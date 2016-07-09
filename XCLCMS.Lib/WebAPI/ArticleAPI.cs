@@ -18,6 +18,14 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 查询指定文章关联的其它文章信息
+        /// </summary>
+        public static APIResponseEntity<XCLCMS.Data.Model.Custom.ArticleRelationDetailModel> RelationDetail(APIRequestEntity<long> request)
+        {
+            return Library.Request<long, XCLCMS.Data.Model.Custom.ArticleRelationDetailModel>(request, "Article/RelationDetail");
+        }
+
+        /// <summary>
         /// 查询文章信息分页列表
         /// </summary>
         public static APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Article>> PageList(APIRequestEntity<PageListConditionEntity> request)

@@ -1,9 +1,11 @@
 ﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using RazorEngine.Templating;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
+using XCLNetTools.Generic;
 
 namespace XCLCMS.Data.DAL
 {
@@ -199,6 +201,44 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from Article where Code=@Code");
             db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
             return db.ExecuteScalar(dbCommand) != null;
+        }
+
+        /// <summary>
+        /// 获取指定文章的相关联的其它文章信息
+        /// </summary>
+        public XCLCMS.Data.Model.Custom.ArticleRelationDetailModel GetRelationDetail(XCLCMS.Data.Model.Custom.ArticleRelationDetailCondition condition)
+        {
+            var result = new XCLCMS.Data.Model.Custom.ArticleRelationDetailModel();
+            Database db = base.CreateDatabase();
+            string sql = RazorEngine.Engine.Razor.RunCompile(Properties.Resources.Article_GetRelationDetail, "XCLCMS.Data.DAL.Article.GetRelationDetail", null, new
+            {
+                ArticleRecordState = null == condition.ArticleRecordState ? string.Empty : " and tb_Article.RecordState=@ArticleRecordState",
+                MerchantID = condition.MerchantID.HasValue ? " and tb_Article.MerchantID=@MerchantID " : string.Empty,
+                MerchantAppID = condition.MerchantAppID.HasValue ? " and tb_Article.MerchantAppID=@MerchantAppID " : string.Empty
+            });
+            DbCommand dbCommand = db.GetSqlStringCommand(sql);
+            db.AddInParameter(dbCommand, "ArticleID", DbType.Int64, condition.ArticleID);
+            db.AddInParameter(dbCommand, "IsASC", DbType.Byte, condition.IsASC);
+            db.AddInParameter(dbCommand, "TopCount", DbType.Int32, condition.TopCount ?? 6);
+            db.AddInParameter(dbCommand, "ArticleRecordState", DbType.AnsiString, condition.ArticleRecordState);
+            db.AddInParameter(dbCommand, "MerchantID", DbType.Int64, condition.MerchantID);
+            db.AddInParameter(dbCommand, "MerchantAppID", DbType.Int64, condition.MerchantAppID);
+            var ds = db.ExecuteDataSet(dbCommand);
+            if (null != ds && null != ds.Tables && ds.Tables.Count == 3)
+            {
+                var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Article>(ds.Tables[0]);
+                if (lst.IsNotNullOrEmpty())
+                {
+                    result.PreArticle = lst[0];
+                }
+                lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Article>(ds.Tables[1]);
+                if (lst.IsNotNullOrEmpty())
+                {
+                    result.NextArticle = lst[0];
+                }
+                result.SameTypeArticleList = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Article>(ds.Tables[2]) as List<XCLCMS.Data.Model.Article>;
+            }
+            return result;
         }
 
         #endregion MethodEx

@@ -1,7 +1,11 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
+
+
 
 
 
@@ -11,10 +15,12 @@ CREATE FUNCTION [dbo].[fun_SysFunction_GetLayerListByID](@sysFunctionID BIGINT) 
 --如:根目录/子目录/文件
 
 WITH Info1 AS (
-	SELECT SysFunctionID, ParentID, FunctionName FROM dbo.SysFunction WHERE SysFunctionID=@sysFunctionID
+	SELECT SysFunctionID, ParentID, FunctionName FROM dbo.SysFunction  WITH(NOLOCK) WHERE SysFunctionID=@sysFunctionID
 	UNION ALL
-	SELECT a.SysFunctionID, a.ParentID,a.FunctionName FROM dbo.SysFunction AS a 
+	SELECT a.SysFunctionID, a.ParentID,a.FunctionName FROM dbo.SysFunction AS a  WITH(NOLOCK) 
 	INNER JOIN Info1 AS b ON a.SysFunctionID=b.ParentID
 )
 SELECT SysFunctionID, ParentID,FunctionName FROM Info1
+
+
 GO

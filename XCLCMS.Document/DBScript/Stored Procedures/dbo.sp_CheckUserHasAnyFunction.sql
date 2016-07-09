@@ -1,7 +1,9 @@
+
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
+
 
 
 
@@ -23,14 +25,15 @@ BEGIN
 		--该用户的所有角色的所有功能
 		SELECT
 		DISTINCT b.*
-		FROM dbo.SysUserRole AS a 
-		INNER JOIN dbo.SysRoleFunction AS b ON a.FK_UserInfoID=@UserInfoID AND a.RecordState='N' AND b.RecordState='N' AND a.FK_SysRoleID=b.FK_SysRoleID
+		FROM dbo.SysUserRole AS a  WITH(NOLOCK) 
+		INNER JOIN dbo.SysRoleFunction AS b  WITH(NOLOCK) ON a.FK_UserInfoID=@UserInfoID AND a.RecordState='N' AND b.RecordState='N' AND a.FK_SysRoleID=b.FK_SysRoleID
 	)
 	SELECT TOP 1 @IsPass=1 FROM Function_Info AS a
 	INNER JOIN UserRoleFunction_Info AS b ON a.FunctionID=b.FK_SysFunctionID
 	
 	RETURN
 END
+
 
 
 

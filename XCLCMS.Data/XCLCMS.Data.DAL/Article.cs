@@ -218,8 +218,8 @@ namespace XCLCMS.Data.DAL
             });
             DbCommand dbCommand = db.GetSqlStringCommand(sql);
             db.AddInParameter(dbCommand, "ArticleID", DbType.Int64, condition.ArticleID);
-            db.AddInParameter(dbCommand, "IsASC", DbType.Byte, condition.IsASC);
-            db.AddInParameter(dbCommand, "TopCount", DbType.Int32, condition.TopCount ?? 6);
+            db.AddInParameter(dbCommand, "IsASC", DbType.Byte, condition.IsASC ? 1 : 0);
+            db.AddInParameter(dbCommand, "TopCount", DbType.Int32, condition.TopCount ?? 10);
             db.AddInParameter(dbCommand, "ArticleRecordState", DbType.AnsiString, condition.ArticleRecordState);
             db.AddInParameter(dbCommand, "MerchantID", DbType.Int64, condition.MerchantID);
             db.AddInParameter(dbCommand, "MerchantAppID", DbType.Int64, condition.MerchantAppID);

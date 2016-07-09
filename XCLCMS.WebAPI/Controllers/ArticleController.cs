@@ -53,9 +53,9 @@ namespace XCLCMS.WebAPI.Controllers
             var condition = new Data.Model.Custom.ArticleRelationDetailCondition()
             {
                 ArticleID = request.Body,
-                IsASC = true,
+                IsASC = false,
                 ArticleRecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(),
-                TopCount = 10
+                TopCount = 6
             };
             response.Body = articleBLL.GetRelationDetail(condition);
             response.IsSuccess = true;

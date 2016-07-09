@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -224,9 +223,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionAdd)]
-        public APIResponseEntity<bool> Add(JObject obj)
+        public APIResponseEntity<bool> Add([FromBody] APIRequestEntity<XCLCMS.Data.Model.SysFunction> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.SysFunction>>();
             var response = new APIResponseEntity<bool>();
 
             #region 数据校验
@@ -274,9 +272,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionEdit)]
-        public APIResponseEntity<bool> Update(JObject obj)
+        public APIResponseEntity<bool> Update([FromBody] APIRequestEntity<XCLCMS.Data.Model.SysFunction> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.SysFunction>>();
             var response = new APIResponseEntity<bool>();
 
             #region 数据校验
@@ -339,9 +336,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionDel)]
-        public APIResponseEntity<bool> Delete(JObject obj)
+        public APIResponseEntity<bool> Delete([FromBody] APIRequestEntity<List<long>> request)
         {
-            var request = obj.ToObject<APIRequestEntity<List<long>>>();
             var response = new APIResponseEntity<bool>();
 
             if (null == request.Body || request.Body.Count == 0)
@@ -382,9 +378,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionDel)]
-        public APIResponseEntity<bool> DelChild(JObject obj)
+        public APIResponseEntity<bool> DelChild([FromBody] APIRequestEntity<long> request)
         {
-            var request = obj.ToObject<APIRequestEntity<long>>();
             var response = new APIResponseEntity<bool>();
 
             if (request.Body <= 0)

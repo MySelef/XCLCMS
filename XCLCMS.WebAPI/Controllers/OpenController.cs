@@ -15,9 +15,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 登录检查
         /// </summary>
         [HttpPost]
-        public APIResponseEntity<XCLCMS.Data.Model.UserInfo> LogonCheck(JObject obj)
+        public APIResponseEntity<XCLCMS.Data.Model.UserInfo> LogonCheck([FromBody] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity>>();
             var response = new APIResponseEntity<XCLCMS.Data.Model.UserInfo>();
 
             var userModel = userInfoBLL.GetModel(request.Body.UserName, XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5(request.Body.Pwd));

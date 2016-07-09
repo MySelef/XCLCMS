@@ -45,9 +45,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysLogDel)]
-        public APIResponseEntity<bool> Delete(JObject obj)
+        public APIResponseEntity<bool> Delete([FromBody] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysLog.ClearConditionEntity> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysLog.ClearConditionEntity>>();
             var response = new APIResponseEntity<bool>();
             if (this.sysLogBLL.ClearListByDateTime(request.Body.StartTime, request.Body.EndTime, base.IsOnlyCurrentMerchant ? base.CurrentUserModel.FK_MerchantID : 0))
             {

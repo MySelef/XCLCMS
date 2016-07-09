@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -111,9 +110,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAppAdd)]
-        public APIResponseEntity<bool> Add(JObject obj)
+        public APIResponseEntity<bool> Add([FromBody] APIRequestEntity<XCLCMS.Data.Model.MerchantApp> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.MerchantApp>>();
             var response = new APIResponseEntity<bool>();
 
             #region 数据校验
@@ -168,9 +166,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAppEdit)]
-        public APIResponseEntity<bool> Update(JObject obj)
+        public APIResponseEntity<bool> Update([FromBody] APIRequestEntity<XCLCMS.Data.Model.MerchantApp> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.MerchantApp>>();
             var response = new APIResponseEntity<bool>();
 
             #region 数据校验
@@ -233,9 +230,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAppDel)]
-        public APIResponseEntity<bool> Delete(JObject obj)
+        public APIResponseEntity<bool> Delete([FromBody] APIRequestEntity<List<long>> request)
         {
-            var request = obj.ToObject<APIRequestEntity<List<long>>>();
             var response = new APIResponseEntity<bool>();
 
             if (request.Body.IsNotNullOrEmpty())

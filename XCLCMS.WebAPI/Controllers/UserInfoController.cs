@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -101,9 +100,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserAdd)]
-        public APIResponseEntity<bool> Add(JObject obj)
+        public APIResponseEntity<bool> Add([FromBody] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity>>();
             var response = new APIResponseEntity<bool>();
 
             #region 数据校验
@@ -203,9 +201,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserEdit)]
-        public APIResponseEntity<bool> Update(JObject obj)
+        public APIResponseEntity<bool> Update([FromBody] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.UserInfo.AddOrUpdateEntity>>();
             var response = new APIResponseEntity<bool>();
 
             #region 数据校验
@@ -322,9 +319,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_UserDel)]
-        public APIResponseEntity<bool> Delete(JObject obj)
+        public APIResponseEntity<bool> Delete([FromBody] APIRequestEntity<List<long>> request)
         {
-            var request = obj.ToObject<APIRequestEntity<List<long>>>();
             var response = new APIResponseEntity<bool>();
 
             if (request.Body.IsNotNullOrEmpty())

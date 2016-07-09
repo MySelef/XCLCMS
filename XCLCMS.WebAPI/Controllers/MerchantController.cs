@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
@@ -74,14 +73,13 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取商户类型
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<Dictionary<string,long>> GetMerchantTypeDic(string json)
+        public APIResponseEntity<Dictionary<string, long>> GetMerchantTypeDic(string json)
         {
             var response = new APIResponseEntity<Dictionary<string, long>>();
             response.Body = this.merchantBLL.GetMerchantTypeDic();
             response.IsSuccess = true;
             return response;
         }
-
 
         /// <summary>
         /// 判断商户名是否存在
@@ -127,9 +125,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAdd)]
-        public APIResponseEntity<bool> Add(JObject obj)
+        public APIResponseEntity<bool> Add([FromBody] APIRequestEntity<XCLCMS.Data.Model.Merchant> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.Merchant>>();
             var response = new APIResponseEntity<bool>();
 
             #region 数据校验
@@ -222,9 +219,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantEdit)]
-        public APIResponseEntity<bool> Update(JObject obj)
+        public APIResponseEntity<bool> Update([FromBody] APIRequestEntity<XCLCMS.Data.Model.Merchant> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.Merchant>>();
             var response = new APIResponseEntity<bool>();
 
             #region 数据校验
@@ -303,9 +299,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantDel)]
-        public APIResponseEntity<bool> Delete(JObject obj)
+        public APIResponseEntity<bool> Delete([FromBody] APIRequestEntity<List<long>> request)
         {
-            var request = obj.ToObject<APIRequestEntity<List<long>>>();
             var response = new APIResponseEntity<bool>();
 
             if (request.Body.IsNotNullOrEmpty())

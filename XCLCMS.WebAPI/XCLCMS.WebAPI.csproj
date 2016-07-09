@@ -259,7 +259,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1263</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/XCLCMS.WebAPI</IISUrl>
+          <IISUrl>http://localhost/XCLCMS.WebAPI/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
           <IISAppRootUrl>http://localhost/XCLCMS.WebAPI</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

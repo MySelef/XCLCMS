@@ -210,6 +210,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// <summary>
         /// 根据条件获取字典的easy tree 列表
         /// </summary>
+        [HttpGet]
         public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetEasyUITreeByCondition([FromUri] string json)
         {
             var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByConditionEntity>>(System.Web.HttpUtility.UrlDecode(json));
@@ -346,9 +347,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicAdd)]
-        public APIResponseEntity<bool> Add(JObject obj)
+        public APIResponseEntity<bool> Add([FromBody] APIRequestEntity<XCLCMS.Data.Model.SysDic> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.SysDic>>();
             var response = new APIResponseEntity<bool>();
 
             #region 数据校验
@@ -432,9 +432,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicEdit)]
-        public APIResponseEntity<bool> Update(JObject obj)
+        public APIResponseEntity<bool> Update([FromBody] APIRequestEntity<XCLCMS.Data.Model.SysDic> request)
         {
-            var request = obj.ToObject<APIRequestEntity<XCLCMS.Data.Model.SysDic>>();
             var response = new APIResponseEntity<bool>();
 
             #region 数据校验
@@ -518,9 +517,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicDel)]
-        public APIResponseEntity<bool> Delete(JObject obj)
+        public APIResponseEntity<bool> Delete([FromBody] APIRequestEntity<List<long>> request)
         {
-            var request = obj.ToObject<APIRequestEntity<List<long>>>();
             var response = new APIResponseEntity<bool>();
 
             if (null == request.Body || request.Body.Count == 0)
@@ -576,9 +574,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicDel)]
-        public APIResponseEntity<bool> DelChild(JObject obj)
+        public APIResponseEntity<bool> DelChild([FromBody] APIRequestEntity<long> request)
         {
-            var request = obj.ToObject<APIRequestEntity<long>>();
             var response = new APIResponseEntity<bool>();
 
             if (request.Body <= 0)

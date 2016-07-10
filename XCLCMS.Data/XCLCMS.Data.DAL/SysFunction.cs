@@ -95,7 +95,7 @@ namespace XCLCMS.Data.DAL
         {
             XCLCMS.Data.Model.SysFunction model = new XCLCMS.Data.Model.SysFunction();
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from SysFunction where SysFunctionID=@SysFunctionID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from SysFunction  WITH(NOLOCK)  where SysFunctionID=@SysFunctionID");
             db.AddInParameter(dbCommand, "SysFunctionID", DbType.Int64, SysFunctionID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysFunction>(ds.Tables[0]);
@@ -109,7 +109,7 @@ namespace XCLCMS.Data.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select SysFunctionID,ParentID,FunctionName,Code,Remark,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
-            strSql.Append(" FROM SysFunction ");
+            strSql.Append(" FROM SysFunction  WITH(NOLOCK)  ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -130,7 +130,7 @@ namespace XCLCMS.Data.DAL
         public bool IsExistCode(string code)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from SysFunction where Code=@Code");
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from SysFunction  WITH(NOLOCK)  where Code=@Code");
             db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
             return db.ExecuteScalar(dbCommand) != null;
         }
@@ -163,11 +163,11 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.SysFunction> GetListByRoleID(long sysRoleID)
         {
             string strSql = @"WITH Info1 AS (
-	                                    SELECT DISTINCT a.FK_SysFunctionID FROM dbo.SysRoleFunction AS a WHERE RecordState='N' AND FK_SysRoleID=@SysRoleID
+	                                    SELECT DISTINCT a.FK_SysFunctionID FROM dbo.SysRoleFunction AS a  WITH(NOLOCK)  WHERE RecordState='N' AND FK_SysRoleID=@SysRoleID
                                     )
                                     SELECT
                                     a.*
-                                    FROM dbo.SysFunction AS a
+                                    FROM dbo.SysFunction AS a WITH(NOLOCK)  
                                     INNER JOIN Info1 AS b ON a.SysFunctionID=b.FK_SysFunctionID AND a.RecordState='N'
                                     ";
             Database db = base.CreateDatabase();
@@ -219,7 +219,7 @@ namespace XCLCMS.Data.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT
                                         a.*
-                                        FROM dbo.SysFunction AS a
+                                        FROM dbo.SysFunction AS a WITH(NOLOCK)  
                                         where ParentID=@ParentID and RecordState='N'
                                         ");
             Database db = base.CreateDatabase();

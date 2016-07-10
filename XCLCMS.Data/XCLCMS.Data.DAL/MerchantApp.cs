@@ -105,7 +105,7 @@ namespace XCLCMS.Data.DAL
         public XCLCMS.Data.Model.MerchantApp GetModel(long MerchantAppID)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from MerchantApp where MerchantAppID=@MerchantAppID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from MerchantApp  WITH(NOLOCK)  where MerchantAppID=@MerchantAppID");
             db.AddInParameter(dbCommand, "MerchantAppID", DbType.Int64, MerchantAppID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.MerchantApp>(ds.Tables[0]);
@@ -118,7 +118,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.MerchantApp> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM MerchantApp ");
+            strSql.Append("select * FROM MerchantApp WITH(NOLOCK)   ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -138,7 +138,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.MerchantApp> GetModelList(long merchantID)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from MerchantApp where FK_MerchantID=@FK_MerchantID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from MerchantApp  WITH(NOLOCK)  where FK_MerchantID=@FK_MerchantID");
             db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, merchantID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.MerchantApp>(ds.Tables[0]) as List<XCLCMS.Data.Model.MerchantApp>;
@@ -150,7 +150,7 @@ namespace XCLCMS.Data.DAL
         public bool IsExistMerchantAppName(string merchantAppName)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from MerchantApp where MerchantAppName=@MerchantAppName");
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from MerchantApp  WITH(NOLOCK)  where MerchantAppName=@MerchantAppName");
             db.AddInParameter(dbCommand, "MerchantAppName", DbType.AnsiString, merchantAppName);
             return db.ExecuteScalar(dbCommand) != null;
         }

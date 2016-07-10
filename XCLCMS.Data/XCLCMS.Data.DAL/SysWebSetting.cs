@@ -95,7 +95,7 @@ namespace XCLCMS.Data.DAL
         public XCLCMS.Data.Model.SysWebSetting GetModel(long SysWebSettingID)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from SysWebSetting where SysWebSettingID=@SysWebSettingID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from SysWebSetting  WITH(NOLOCK)  where SysWebSettingID=@SysWebSettingID");
             db.AddInParameter(dbCommand, "SysWebSettingID", DbType.Int64, SysWebSettingID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysWebSetting>(ds.Tables[0]);
@@ -108,7 +108,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.SysWebSetting> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM SysWebSetting ");
+            strSql.Append("select * FROM SysWebSetting WITH(NOLOCK)   ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -129,7 +129,7 @@ namespace XCLCMS.Data.DAL
         public bool IsExistKeyName(string keyName)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(" select top 1 1 from SysWebSetting where KeyName=@KeyName");
+            DbCommand dbCommand = db.GetSqlStringCommand(" select top 1 1 from SysWebSetting WITH(NOLOCK)   where KeyName=@KeyName");
             db.AddInParameter(dbCommand, "KeyName", DbType.AnsiString, keyName);
             return db.ExecuteScalar(dbCommand) != null;
         }

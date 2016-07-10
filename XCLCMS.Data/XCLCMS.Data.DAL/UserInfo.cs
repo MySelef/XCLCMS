@@ -23,7 +23,7 @@ namespace XCLCMS.Data.DAL
         public XCLCMS.Data.Model.UserInfo GetModel(long UserInfoID)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from UserInfo where UserInfoID=@UserInfoID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from UserInfo WITH(NOLOCK)   where UserInfoID=@UserInfoID");
             db.AddInParameter(dbCommand, "UserInfoID", DbType.Int64, UserInfoID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.UserInfo>(ds.Tables[0]);
@@ -36,7 +36,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.UserInfo> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM UserInfo ");
+            strSql.Append("select * FROM UserInfo WITH(NOLOCK)   ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -66,7 +66,7 @@ namespace XCLCMS.Data.DAL
         public bool IsExistUserName(string userName)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from UserInfo where UserName=@UserName");
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from UserInfo WITH(NOLOCK)   where UserName=@UserName");
             db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, userName);
             return db.ExecuteScalar(dbCommand) != null;
         }
@@ -77,7 +77,7 @@ namespace XCLCMS.Data.DAL
         public XCLCMS.Data.Model.UserInfo GetModel(string userName, string pwd)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 * from UserInfo where UserName=@UserName and Pwd=@Pwd");
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 * from UserInfo  WITH(NOLOCK)  where UserName=@UserName and Pwd=@Pwd");
             db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, userName);
             db.AddInParameter(dbCommand, "Pwd", DbType.AnsiString, pwd);
             DataSet ds = db.ExecuteDataSet(dbCommand);
@@ -91,7 +91,7 @@ namespace XCLCMS.Data.DAL
         public XCLCMS.Data.Model.UserInfo GetModel(string userName)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 * from UserInfo where UserName=@UserName");
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 * from UserInfo WITH(NOLOCK)   where UserName=@UserName");
             db.AddInParameter(dbCommand, "UserName", DbType.AnsiString, userName);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.UserInfo>(ds.Tables[0]);

@@ -23,7 +23,7 @@ namespace XCLCMS.Data.DAL
         public XCLCMS.Data.Model.SysDic GetModel(long SysDicID)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from SysDic where SysDicID=@SysDicID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from SysDic  WITH(NOLOCK)  where SysDicID=@SysDicID");
             db.AddInParameter(dbCommand, "SysDicID", DbType.Int64, SysDicID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysDic>(ds.Tables[0]);
@@ -36,7 +36,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.SysDic> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM SysDic ");
+            strSql.Append("select * FROM SysDic  WITH(NOLOCK)  ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -73,7 +73,7 @@ namespace XCLCMS.Data.DAL
         public bool IsExistCode(string code)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from SysDic where Code=@Code");
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from SysDic  WITH(NOLOCK)  where Code=@Code");
             db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
             return db.ExecuteScalar(dbCommand) != null;
         }
@@ -103,8 +103,8 @@ namespace XCLCMS.Data.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT
                                         b.*
-                                        FROM dbo.SysDic AS a
-                                        INNER JOIN dbo.SysDic AS b ON a.Code=@Code AND a.SysDicID=b.ParentID
+                                        FROM dbo.SysDic AS a WITH(NOLOCK)  
+                                        INNER JOIN dbo.SysDic AS b  WITH(NOLOCK)  ON a.Code=@Code AND a.SysDicID=b.ParentID
                                         where b.RecordState='N'
                                         ");
 
@@ -124,7 +124,7 @@ namespace XCLCMS.Data.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT
                                         a.*
-                                        FROM dbo.SysDic AS a
+                                        FROM dbo.SysDic AS a WITH(NOLOCK)  
                                         where ParentID=@ParentID and RecordState='N'
                                         ");
 
@@ -225,7 +225,7 @@ namespace XCLCMS.Data.DAL
             strSql.Append(@"SELECT
                                         top 1
                                         a.*
-                                        FROM dbo.SysDic AS a
+                                        FROM dbo.SysDic AS a WITH(NOLOCK)  
                                         where a.RecordState='N' and a.Code=@Code
                                         ");
 

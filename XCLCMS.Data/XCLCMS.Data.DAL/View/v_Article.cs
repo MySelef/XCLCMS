@@ -22,7 +22,7 @@ namespace XCLCMS.Data.DAL.View
         {
             XCLCMS.Data.Model.View.v_Article model = new XCLCMS.Data.Model.View.v_Article();
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from v_Article where ArticleID=@ArticleID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from v_Article WITH(NOLOCK)   where ArticleID=@ArticleID");
             db.AddInParameter(dbCommand, "ArticleID", DbType.Int64, ArticleID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
 
@@ -36,7 +36,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_Article> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM v_Article ");
+            strSql.Append("select * FROM v_Article  WITH(NOLOCK)  ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -121,8 +121,8 @@ namespace XCLCMS.Data.DAL.View
                 if (null != condition.ArticleTypeIDList && condition.ArticleTypeIDList.Count > 0)
                 {
                     join_ArticleType = @"
-                                                      inner join ArticleType as  tb_ArticleType on tb_Article.ArticleID=tb_ArticleType.FK_ArticleID
-                                                      inner join @TVP_ArticleTypeID as tvp_articleTypeID on tb_ArticleType.FK_TypeID=tvp_articleTypeID.ID
+                                                      inner join ArticleType as  tb_ArticleType  WITH(NOLOCK)  on tb_Article.ArticleID=tb_ArticleType.FK_ArticleID
+                                                      inner join @TVP_ArticleTypeID as tvp_articleTypeID  WITH(NOLOCK)  on tb_ArticleType.FK_TypeID=tvp_articleTypeID.ID
                                                 ";
 
                     dbCommand.Parameters.Add(new SqlParameter("TVP_ArticleTypeID", SqlDbType.Structured)

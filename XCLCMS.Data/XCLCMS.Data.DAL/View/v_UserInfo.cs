@@ -19,7 +19,7 @@ namespace XCLCMS.Data.DAL.View
         public XCLCMS.Data.Model.View.v_UserInfo GetModel(long UserInfoID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 * from v_UserInfo ");
+            strSql.Append("select  top 1 * from v_UserInfo  WITH(NOLOCK)  ");
             strSql.Append(" where UserInfoID=@UserInfoID ");
             XCLCMS.Data.Model.View.v_UserInfo model = new XCLCMS.Data.Model.View.v_UserInfo();
             Database db = base.CreateDatabase();
@@ -36,7 +36,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_UserInfo> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM v_UserInfo ");
+            strSql.Append("select * FROM v_UserInfo WITH(NOLOCK)   ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

@@ -22,7 +22,7 @@ namespace XCLCMS.Data.DAL.View
         public XCLCMS.Data.Model.View.v_SysFunction GetModel(long SysFunctionID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 * from v_SysFunction ");
+            strSql.Append("select  top 1 * from v_SysFunction  WITH(NOLOCK)  ");
             strSql.Append(" where SysFunctionID=@SysFunctionID ");
             XCLCMS.Data.Model.View.v_SysFunction model = new XCLCMS.Data.Model.View.v_SysFunction();
             Database db = base.CreateDatabase();
@@ -39,7 +39,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_SysFunction> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM v_SysFunction ");
+            strSql.Append("select * FROM v_SysFunction WITH(NOLOCK)   ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -60,7 +60,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_SysFunction> GetList(long parentID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * from v_SysFunction where ParentID=@ParentID");
+            strSql.Append("select * from v_SysFunction WITH(NOLOCK)   where ParentID=@ParentID");
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, parentID);

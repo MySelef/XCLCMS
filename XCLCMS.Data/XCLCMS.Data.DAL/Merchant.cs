@@ -122,7 +122,7 @@ namespace XCLCMS.Data.DAL
         public XCLCMS.Data.Model.Merchant GetModel(long MerchantID)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from Merchant where MerchantID=@MerchantID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from Merchant  WITH(NOLOCK)  where MerchantID=@MerchantID");
             db.AddInParameter(dbCommand, "MerchantID", DbType.Int64, MerchantID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Merchant>(ds.Tables[0]);
@@ -135,7 +135,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.Merchant> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM Merchant ");
+            strSql.Append("select * FROM Merchant  WITH(NOLOCK)  ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -155,7 +155,7 @@ namespace XCLCMS.Data.DAL
         public bool IsExistMerchantName(string merchantName)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from Merchant where MerchantName=@MerchantName");
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from Merchant  WITH(NOLOCK)  where MerchantName=@MerchantName");
             db.AddInParameter(dbCommand, "MerchantName", DbType.AnsiString, merchantName);
             return db.ExecuteScalar(dbCommand) != null;
         }

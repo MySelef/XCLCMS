@@ -154,7 +154,7 @@ namespace XCLCMS.Data.DAL
         {
             XCLCMS.Data.Model.Article model = new XCLCMS.Data.Model.Article();
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from Article where ArticleID=@ArticleID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from Article WITH(NOLOCK)   where ArticleID=@ArticleID");
             db.AddInParameter(dbCommand, "ArticleID", DbType.Int64, ArticleID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
 
@@ -168,7 +168,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.Article> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM Article ");
+            strSql.Append("select * FROM Article  WITH(NOLOCK)  ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -198,7 +198,7 @@ namespace XCLCMS.Data.DAL
         public bool IsExistCode(string code)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from Article where Code=@Code");
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from Article  WITH(NOLOCK)  where Code=@Code");
             db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
             return db.ExecuteScalar(dbCommand) != null;
         }
@@ -214,7 +214,8 @@ namespace XCLCMS.Data.DAL
             {
                 ArticleRecordState = null == condition.ArticleRecordState ? string.Empty : " and tb_Article.RecordState=@ArticleRecordState",
                 MerchantID = condition.MerchantID.HasValue ? " and tb_Article.MerchantID=@MerchantID " : string.Empty,
-                MerchantAppID = condition.MerchantAppID.HasValue ? " and tb_Article.MerchantAppID=@MerchantAppID " : string.Empty
+                MerchantAppID = condition.MerchantAppID.HasValue ? " and tb_Article.MerchantAppID=@MerchantAppID " : string.Empty,
+                IsASC=condition.IsASC
             });
             DbCommand dbCommand = db.GetSqlStringCommand(sql);
             db.AddInParameter(dbCommand, "ArticleID", DbType.Int64, condition.ArticleID);

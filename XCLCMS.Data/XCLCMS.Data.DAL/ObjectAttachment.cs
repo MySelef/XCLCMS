@@ -59,7 +59,7 @@ namespace XCLCMS.Data.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select ObjectType,FK_ObjectID,FK_AttachmentID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
-            strSql.Append(" FROM ObjectAttachment ");
+            strSql.Append(" FROM ObjectAttachment  WITH(NOLOCK)  ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -155,7 +155,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.ObjectAttachment> GetModelList(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum objectType, long objectID)
         {
             string sql = @"
-                select * from ObjectAttachment where ObjectType=@ObjectType and FK_ObjectID=@FK_ObjectID
+                select * from ObjectAttachment WITH(NOLOCK)   where ObjectType=@ObjectType and FK_ObjectID=@FK_ObjectID
             ";
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(sql);

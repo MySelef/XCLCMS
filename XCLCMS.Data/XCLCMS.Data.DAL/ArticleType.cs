@@ -58,7 +58,7 @@ namespace XCLCMS.Data.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select FK_ArticleID,FK_TypeID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
-            strSql.Append(" FROM ArticleType ");
+            strSql.Append(" FROM ArticleType  WITH(NOLOCK)  ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

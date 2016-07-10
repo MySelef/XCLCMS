@@ -117,7 +117,7 @@ namespace XCLCMS.Data.DAL
         {
             XCLCMS.Data.Model.Attachment model = new XCLCMS.Data.Model.Attachment();
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from Attachment where AttachmentID=@AttachmentID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from Attachment WITH(NOLOCK)   where AttachmentID=@AttachmentID");
             db.AddInParameter(dbCommand, "AttachmentID", DbType.Int64, AttachmentID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Attachment>(ds.Tables[0]);
@@ -130,7 +130,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.Attachment> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select *  FROM Attachment ");
+            strSql.Append("select *  FROM Attachment  WITH(NOLOCK)  ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -159,7 +159,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.Attachment> GetListByParentID(long parentId)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from Attachment where ParentID=@ParentID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from Attachment  WITH(NOLOCK)  where ParentID=@ParentID");
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, parentId);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Attachment>(ds.Tables[0]) as List<XCLCMS.Data.Model.Attachment>;
@@ -271,7 +271,7 @@ namespace XCLCMS.Data.DAL
             ids = ids.Distinct().ToList();
 
             string sql = @"
-                select a.* from Attachment as a
+                select a.* from Attachment as a WITH(NOLOCK)  
                 inner join @TVP_ID as b on a.AttachmentID=b.ID
             ";
 

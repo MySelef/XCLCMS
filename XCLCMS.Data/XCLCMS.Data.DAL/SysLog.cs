@@ -23,7 +23,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.SysLog> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM SysLog ");
+            strSql.Append("select * FROM SysLog  WITH(NOLOCK)  ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

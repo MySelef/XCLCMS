@@ -22,7 +22,7 @@ namespace XCLCMS.Data.DAL.View
         public XCLCMS.Data.Model.View.v_SysRole GetModel(long SysRoleID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 * from v_SysRole ");
+            strSql.Append("select  top 1 * from v_SysRole  WITH(NOLOCK)  ");
             strSql.Append(" where SysRoleID=@SysRoleID ");
             XCLCMS.Data.Model.View.v_SysRole model = new XCLCMS.Data.Model.View.v_SysRole();
             Database db = base.CreateDatabase();
@@ -39,7 +39,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_SysRole> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM v_SysRole ");
+            strSql.Append("select * FROM v_SysRole WITH(NOLOCK)   ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -59,7 +59,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_SysRole> GetList(long parentID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * from v_SysRole where ParentID=@ParentID order by Weight asc");
+            strSql.Append("select * from v_SysRole  WITH(NOLOCK)  where ParentID=@ParentID order by Weight asc");
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, parentID);
@@ -76,7 +76,7 @@ namespace XCLCMS.Data.DAL.View
             strSql.Append(@"SELECT
                                         top 1
                                         a.*
-                                        FROM dbo.v_SysRole AS a
+                                        FROM dbo.v_SysRole AS a WITH(NOLOCK)  
                                         where a.RecordState='N' and a.Code=@Code
                                         ");
 

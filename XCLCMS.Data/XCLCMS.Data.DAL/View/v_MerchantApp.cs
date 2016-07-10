@@ -23,7 +23,7 @@ namespace XCLCMS.Data.DAL.View
         {
             XCLCMS.Data.Model.View.v_MerchantApp model = new XCLCMS.Data.Model.View.v_MerchantApp();
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from v_MerchantApp where MerchantAppID=@MerchantAppID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from v_MerchantApp WITH(NOLOCK)   where MerchantAppID=@MerchantAppID");
             db.AddInParameter(dbCommand, "MerchantAppID", DbType.Int64, MerchantAppID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
 
@@ -37,7 +37,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_MerchantApp> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select *  FROM v_MerchantApp ");
+            strSql.Append("select *  FROM v_MerchantApp  WITH(NOLOCK)  ");
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             var ds = db.ExecuteDataSet(dbCommand);

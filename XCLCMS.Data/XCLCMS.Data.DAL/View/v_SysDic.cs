@@ -19,7 +19,7 @@ namespace XCLCMS.Data.DAL.View
         public XCLCMS.Data.Model.View.v_SysDic GetModel(long SysDicID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 * from v_SysDic ");
+            strSql.Append("select  top 1 * from v_SysDic  WITH(NOLOCK)  ");
             strSql.Append(" where SysDicID=@SysDicID ");
             XCLCMS.Data.Model.View.v_SysDic model = new XCLCMS.Data.Model.View.v_SysDic();
             Database db = base.CreateDatabase();
@@ -37,7 +37,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_SysDic> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM v_SysDic ");
+            strSql.Append("select * FROM v_SysDic  WITH(NOLOCK)  ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -58,7 +58,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_SysDic> GetList(long parentID)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from v_SysDic where ParentID=@ParentID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from v_SysDic  WITH(NOLOCK)  where ParentID=@ParentID");
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, parentID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.View.v_SysDic>(ds) as List<XCLCMS.Data.Model.View.v_SysDic>;

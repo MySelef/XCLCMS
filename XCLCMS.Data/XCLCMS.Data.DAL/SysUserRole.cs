@@ -25,7 +25,7 @@ namespace XCLCMS.Data.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select FK_UserInfoID,FK_SysRoleID,RecordState,CreateTime,CreaterID,CreaterName,UpdateTime,UpdaterID,UpdaterName ");
-            strSql.Append(" FROM SysUserRole ");
+            strSql.Append(" FROM SysUserRole  WITH(NOLOCK)  ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);

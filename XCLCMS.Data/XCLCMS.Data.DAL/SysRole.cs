@@ -101,7 +101,7 @@ namespace XCLCMS.Data.DAL
         {
             XCLCMS.Data.Model.SysRole model = new XCLCMS.Data.Model.SysRole();
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from SysRole where SysRoleID=@SysRoleID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from SysRole  WITH(NOLOCK)  where SysRoleID=@SysRoleID");
             db.AddInParameter(dbCommand, "SysRoleID", DbType.Int64, SysRoleID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysRole>(ds.Tables[0]);
@@ -114,7 +114,7 @@ namespace XCLCMS.Data.DAL
         public List<XCLCMS.Data.Model.SysRole> GetModelList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM SysRole ");
+            strSql.Append("select * FROM SysRole WITH(NOLOCK)   ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -135,8 +135,8 @@ namespace XCLCMS.Data.DAL
         {
             string strSql = @"SELECT
                                         a.*
-                                        FROM dbo.SysRole AS a
-                                        INNER JOIN dbo.SysUserRole AS b ON b.FK_UserInfoID=@FK_UserInfoID AND b.RecordState='N' AND a.RecordState='N' and a.SysRoleID=b.FK_SysRoleID";
+                                        FROM dbo.SysRole AS a WITH(NOLOCK)  
+                                        INNER JOIN dbo.SysUserRole AS b  WITH(NOLOCK)  ON b.FK_UserInfoID=@FK_UserInfoID AND b.RecordState='N' AND a.RecordState='N' and a.SysRoleID=b.FK_SysRoleID";
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             db.AddInParameter(dbCommand, "FK_UserInfoID", DbType.Int64, userId);
@@ -150,7 +150,7 @@ namespace XCLCMS.Data.DAL
         public bool IsExistCode(string code)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from SysRole where Code=@Code");
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from SysRole WITH(NOLOCK)   where Code=@Code");
             db.AddInParameter(dbCommand, "Code", DbType.AnsiString, code);
             return db.ExecuteScalar(dbCommand) != null;
         }
@@ -197,7 +197,7 @@ namespace XCLCMS.Data.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT
                                         a.*
-                                        FROM dbo.SysRole AS a
+                                        FROM dbo.SysRole AS a WITH(NOLOCK)  
                                         where ParentID=@ParentID and RecordState='N'
                                         ");
             Database db = base.CreateDatabase();
@@ -216,7 +216,7 @@ namespace XCLCMS.Data.DAL
             strSql.Append(@"SELECT
                                         top 1
                                         a.*
-                                        FROM dbo.SysRole AS a
+                                        FROM dbo.SysRole AS a WITH(NOLOCK)  
                                         where a.RecordState='N' and a.Code=@Code
                                         ");
 
@@ -240,7 +240,7 @@ namespace XCLCMS.Data.DAL
             }
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(@"
-                                                                                                        SELECT a.* FROM dbo.SysRole AS a
+                                                                                                        SELECT a.* FROM dbo.SysRole AS a WITH(NOLOCK)  
                                                                                                         INNER JOIN @TVP_RoleID AS b ON a.SysRoleID=b.ID
                                                                                                     ");
             dbCommand.Parameters.Add(new SqlParameter("@TVP_RoleID", SqlDbType.Structured)

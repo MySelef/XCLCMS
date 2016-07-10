@@ -1,11 +1,9 @@
-## 项目介绍页：[http://xucongli1989.github.io/XCLCMS/](http://xucongli1989.github.io/XCLCMS/) ##
-
 ### 简介
-XCLCMS是一个轻量级的CMS（内容管理系统），您可以免费使用它构建属于自己的博客、分类信息、企业展示等网站。
+XCLCMS是一个轻量级的CMS（内容管理系统）**后台管理系统**，您可以免费使用它构建属于自己的博客、分类信息、企业展示等网站。
 
 ### 软件架构
 1. 使用C# & ASP.NET MVC 5 构建
-2. 数据库使用MSSQL2008/2012
+2. 数据库使用MSSQL2012
 3. 界面框架使用jQuery easyUI
 
 ### MIT授权协议

@@ -43,20 +43,16 @@
 
             _this.TreeObj = $('#tableSysDicList');
             //加载列表树
+            var request = XCLCMSWebApi.CreateRequest();
+            request.Body = 0;
             _this.TreeObj.treegrid({
                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysDic/GetList',
-                queryParams: {
-                    json: function () {
-                        var request = XCLCMSWebApi.CreateRequest();
-                        request.Body = 0;
-                        return JSON.stringify(request);
-                    }
-                },
+                queryParams: request,
                 onBeforeExpand: function (node) {
-                    _this.TreeObj.treegrid('options').queryParams.json = (function () {
+                    _this.TreeObj.treegrid('options').queryParams = (function () {
                         var request = XCLCMSWebApi.CreateRequest();
                         request.Body = node.SysDicID;
-                        return JSON.stringify(request);
+                        return request;
                     })();
                 },
                 method: 'get',
@@ -282,10 +278,10 @@
             var request = XCLCMSWebApi.CreateRequest();
             request.Body = {};
             request.Body.MerchantID = $("#txtMerchantID").val();
-            var reqJSON = JSON.stringify(request);
 
             $obj.combotree({
-                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysFunction/GetAllJsonForEasyUITree?json=' + reqJSON,
+                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysFunction/GetAllJsonForEasyUITree',
+                queryParams: request,
                 method: 'get',
                 checkbox: true,
                 lines: true,
@@ -311,34 +307,26 @@
                     txtDicName: {
                         required: true,
                         XCLCustomRemote: function () {
+                            var request = XCLCMSWebApi.CreateRequest();
+                            request.Body = {};
+                            request.Body.SysDicName = $("#txtDicName").val();
+                            request.Body.ParentID = $("#ParentID").val();
+                            request.Body.SysDicID = $("#SysDicID").val();
                             return {
                                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/IsExistSysDicNameInSameLevel",
-                                data: {
-                                    "json": function () {
-                                        var request = XCLCMSWebApi.CreateRequest();
-                                        request.Body = {};
-                                        request.Body.SysDicName = $("#txtDicName").val();
-                                        request.Body.ParentID = $("#ParentID").val();
-                                        request.Body.SysDicID = $("#SysDicID").val();
-                                        return JSON.stringify(request);
-                                    }
-                                }
+                                data: request
                             };
                         }
                     },
                     txtCode: {
                         XCLCustomRemote: function () {
+                            var request = XCLCMSWebApi.CreateRequest();
+                            request.Body = {};
+                            request.Body.Code = $("#txtCode").val();
+                            request.Body.SysDicID = $("#SysDicID").val();
                             return {
                                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/IsExistSysDicCode",
-                                data: {
-                                    "json": function () {
-                                        var request = XCLCMSWebApi.CreateRequest();
-                                        request.Body = {};
-                                        request.Body.Code = $("#txtCode").val();
-                                        request.Body.SysDicID = $("#SysDicID").val();
-                                        return JSON.stringify(request);
-                                    }
-                                }
+                                data: request
                             }
                         }
                     }

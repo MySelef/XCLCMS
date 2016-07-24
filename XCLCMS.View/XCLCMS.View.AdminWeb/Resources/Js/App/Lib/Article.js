@@ -122,9 +122,9 @@
                 var request = XCLCMSWebApi.CreateRequest();
                 request.Body = {};
                 request.Body.MerchantID = $("#txtMerchantID").val();
-                var reqJSON = JSON.stringify(request);
                 _this.Elements.selArticleType.combotree({
-                    url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/GetEasyUITreeByCondition?json=" + reqJSON,
+                    url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/GetEasyUITreeByCondition",
+                    queryParams: request,
                     method: 'get',
                     checkbox: true,
                     onlyLeafCheck: true,
@@ -164,17 +164,13 @@
                 rules: {
                     txtCode: {
                         XCLCustomRemote: function () {
+                            var request = XCLCMSWebApi.CreateRequest();
+                            request.Body = {};
+                            request.Body.Code = $("#txtCode").val();
+                            request.Body.ArticleID = $("#ArticleID").val();
                             return {
                                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Article/IsExistCode",
-                                data: {
-                                    "json": function () {
-                                        var request = XCLCMSWebApi.CreateRequest();
-                                        request.Body = {};
-                                        request.Body.Code = $("#txtCode").val();
-                                        request.Body.ArticleID = $("#ArticleID").val();
-                                        return JSON.stringify(request);
-                                    }
-                                }
+                                data: request
                             };
                         },
                     },

@@ -116,10 +116,10 @@
             var request = XCLCMSWebApi.CreateRequest();
             request.Body = {};
             request.Body.MerchantID = $("#txtMerchantID").val();
-            var reqJSON = JSON.stringify(request);
 
             $obj.combotree({
-                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysRole/GetAllJsonForEasyUITree?json=' + reqJSON,
+                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysRole/GetAllJsonForEasyUITree',
+                queryParams: request,
                 method: 'get',
                 checkbox: true,
                 onlyLeafCheck: true,
@@ -145,12 +145,10 @@
                         XCLCustomRemote: function () {
                             return {
                                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "UserInfo/IsExistUserName",
-                                data: {
-                                    "json": function () {
-                                        var request = XCLCMSWebApi.CreateRequest();
-                                        request.Body = $("#txtUserName").val();
-                                        return JSON.stringify(request);
-                                    }
+                                data: function () {
+                                    var request = XCLCMSWebApi.CreateRequest();
+                                    request.Body = $("#txtUserName").val();
+                                    return request;
                                 }
                             };
                         },

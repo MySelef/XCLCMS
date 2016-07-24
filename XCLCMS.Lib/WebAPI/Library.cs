@@ -28,13 +28,13 @@ namespace XCLCMS.Lib.WebAPI
             APIResponseEntity<TResponse> response = new APIResponseEntity<TResponse>();
             try
             {
-                string requestURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebAPIServiceURL + path.Trim().Trim('/');
+                string requestURL = (XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebAPIServiceURL.Trim().Trim('/') + '/' + path.Trim().Trim('/')).Trim('?');
                 var httpClient = new HttpClient();
                 var httpRequest = new HttpRequestMessage();
-                string requestJson = JsonConvert.SerializeObject(request);
+                string requestJson = XCLNetTools.Serialize.Lib.ConvertJsonToUrlParameters(JsonConvert.SerializeObject(request));
                 if (isGet)
                 {
-                    httpRequest.RequestUri = new Uri(requestURL + "?json=" + System.Web.HttpUtility.UrlEncode(requestJson));
+                    httpRequest.RequestUri = new Uri(requestURL + (requestURL.IndexOf('?') >= 0 ? "&" : "?") + requestJson);
                     httpRequest.Method = HttpMethod.Get;
                 }
                 else

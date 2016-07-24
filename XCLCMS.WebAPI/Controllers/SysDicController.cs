@@ -23,9 +23,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicView)]
-        public APIResponseEntity<XCLCMS.Data.Model.SysDic> Detail([FromUri] string json)
+        public APIResponseEntity<XCLCMS.Data.Model.SysDic> Detail([FromUri] APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<XCLCMS.Data.Model.SysDic>();
             response.Body = this.sysDicBLL.GetModel(request.Body);
             response.IsSuccess = true;
@@ -44,9 +43,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断字典的唯一标识是否已经存在
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<bool> IsExistSysDicCode([FromUri] string json)
+        public APIResponseEntity<bool> IsExistSysDicCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.IsExistSysDicCodeEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.IsExistSysDicCodeEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<bool>();
             response.IsSuccess = true;
             response.Message = "该字典标识可以使用！";
@@ -80,9 +78,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断字典名，在同一级别中是否存在
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<bool> IsExistSysDicNameInSameLevel([FromUri] string json)
+        public APIResponseEntity<bool> IsExistSysDicNameInSameLevel([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.IsExistSysDicNameInSameLevelEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.IsExistSysDicNameInSameLevelEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<bool>();
             response.IsSuccess = true;
             response.Message = "该字典名可以使用！";
@@ -118,9 +115,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据code来获取字典的easyui tree格式
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetEasyUITreeByCode([FromUri] string json)
+        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetEasyUITreeByCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByCodeEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByCodeEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>();
             response.IsSuccess = true;
 
@@ -191,9 +187,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicView)]
-        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetList(string json)
+        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetList([FromUri] APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>>();
             response.Body = this.vSysDicBLL.GetList(request.Body);
             response.IsSuccess = true;
@@ -211,9 +206,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据条件获取字典的easy tree 列表
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetEasyUITreeByCondition([FromUri] string json)
+        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetEasyUITreeByCondition([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByConditionEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByConditionEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>();
             response.IsSuccess = true;
 
@@ -281,9 +275,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取XCLCMS管理后台系统的菜单
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetSystemMenuModelList(string json)
+        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetSystemMenuModelList([FromUri] APIRequestEntity<object> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<object>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>>();
             response.Body = this.vSysDicBLL.GetSystemMenuModelList();
             response.IsSuccess = true;
@@ -294,9 +287,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据SysDicID查询其子项
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLCMS.Data.Model.SysDic>> GetChildListByID(string json)
+        public APIResponseEntity<List<XCLCMS.Data.Model.SysDic>> GetChildListByID([FromUri] APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.SysDic>>();
             response.Body = this.sysDicBLL.GetChildListByID(request.Body);
             response.IsSuccess = true;
@@ -308,9 +300,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 如:根目录/子目录/文件
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysDicSimple>> GetLayerListBySysDicID(string json)
+        public APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysDicSimple>> GetLayerListBySysDicID([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetLayerListBySysDicIDEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetLayerListBySysDicIDEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysDicSimple>>();
             response.Body = this.sysDicBLL.GetLayerListBySysDicID(request.Body.SysDicID);
             response.IsSuccess = true;
@@ -321,7 +312,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取证件类型
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<Dictionary<string, long>> GetPassTypeDic(string json)
+        public APIResponseEntity<Dictionary<string, long>> GetPassTypeDic([FromUri] APIRequestEntity<object> request)
         {
             var response = new APIResponseEntity<Dictionary<string, long>>();
             response.Body = this.sysDicBLL.GetPassTypeDic();
@@ -333,9 +324,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 递归获取指定SysDicID下的所有列表（不包含该SysDicID的记录）
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetAllUnderListByID(string json)
+        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>> GetAllUnderListByID([FromUri] APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>>();
             response.Body = this.vSysDicBLL.GetAllUnderListByID(request.Body);
             response.IsSuccess = true;

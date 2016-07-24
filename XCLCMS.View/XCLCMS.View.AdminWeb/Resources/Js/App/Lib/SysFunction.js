@@ -38,20 +38,16 @@
 
             _this.TreeObj = $('#tableSysFunctionList');
             //加载列表树
+            var request = XCLCMSWebApi.CreateRequest();
+            request.Body = 0;
             _this.TreeObj.treegrid({
                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysFunction/GetList',
-                queryParams: {
-                    json: function () {
-                        var request = XCLCMSWebApi.CreateRequest();
-                        request.Body = 0;
-                        return JSON.stringify(request);
-                    }
-                },
+                queryParams: request,
                 onBeforeExpand: function (node) {
-                    _this.TreeObj.treegrid('options').queryParams.json = (function () {
+                    _this.TreeObj.treegrid('options').queryParams = (function () {
                         var request = XCLCMSWebApi.CreateRequest();
                         request.Body = node.SysFunctionID;
-                        return JSON.stringify(request);
+                        return request;
                     })();
                 },
                 method: 'get',
@@ -254,34 +250,26 @@
                     txtFunctionName: {
                         required: true,
                         XCLCustomRemote: function () {
+                            var request = XCLCMSWebApi.CreateRequest();
+                            request.Body = {};
+                            request.Body.FunctionName = $("#txtFunctionName").val();
+                            request.Body.ParentID = $("#ParentID").val();
+                            request.Body.SysFunctionID = $("#SysFunctionID").val();
                             return {
                                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysFunction/IsExistFunctionNameInSameLevel",
-                                data: {
-                                    "json": function () {
-                                        var request = XCLCMSWebApi.CreateRequest();
-                                        request.Body = {};
-                                        request.Body.FunctionName = $("#txtFunctionName").val();
-                                        request.Body.ParentID = $("#ParentID").val();
-                                        request.Body.SysFunctionID = $("#SysFunctionID").val();
-                                        return JSON.stringify(request);
-                                    }
-                                }
+                                data: request
                             };
                         }
                     },
                     txtCode: {
                         XCLCustomRemote: function () {
+                            var request = XCLCMSWebApi.CreateRequest();
+                            request.Body = {};
+                            request.Body.Code = $("#txtCode").val();
+                            request.Body.SysFunctionID = $("#SysFunctionID").val();
                             return {
                                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysFunction/IsExistCode",
-                                data: {
-                                    "json": function () {
-                                        var request = XCLCMSWebApi.CreateRequest();
-                                        request.Body = {};
-                                        request.Body.Code = $("#txtCode").val();
-                                        request.Body.SysFunctionID = $("#SysFunctionID").val();
-                                        return JSON.stringify(request);
-                                    }
-                                }
+                                data: request
                             };
                         }
                     }

@@ -38,20 +38,16 @@
 
             _this.TreeObj = $('#tableSysRoleList');
             //加载列表树
+            var request = XCLCMSWebApi.CreateRequest();
+            request.Body = 0;
             _this.TreeObj.treegrid({
                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysRole/GetList',
-                queryParams: {
-                    json: function () {
-                        var request = XCLCMSWebApi.CreateRequest();
-                        request.Body = 0;
-                        return JSON.stringify(request);
-                    }
-                },
+                queryParams: request,
                 onBeforeExpand: function (node) {
-                    _this.TreeObj.treegrid('options').queryParams.json = (function () {
+                    _this.TreeObj.treegrid('options').queryParams = (function () {
                         var request = XCLCMSWebApi.CreateRequest();
                         request.Body = node.SysRoleID;
-                        return JSON.stringify(request);
+                        return request;
                     })();
                 },
                 method: 'get',
@@ -278,10 +274,10 @@
             var request = XCLCMSWebApi.CreateRequest();
             request.Body = {};
             request.Body.MerchantID = $("#txtMerchantID").val();
-            var reqJSON = JSON.stringify(request);
 
             $obj.combotree({
-                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysFunction/GetAllJsonForEasyUITree?json=' + reqJSON,
+                url: XCLCMSPageGlobalConfig.WebAPIServiceURL + 'SysFunction/GetAllJsonForEasyUITree',
+                queryParams: request,
                 method: 'get',
                 checkbox: true,
                 lines: true,
@@ -305,29 +301,25 @@
                         required: true,
                         XCLCustomRemote: {
                             url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysRole/IsExistRoleNameInSameLevel",
-                            data: {
-                                "json": function () {
-                                    var request = XCLCMSWebApi.CreateRequest();
-                                    request.Body = {};
-                                    request.Body.RoleName = $("#txtRoleName").val();
-                                    request.Body.ParentID = $("#ParentID").val();
-                                    request.Body.SysRoleID = $("#SysRoleID").val();
-                                    return JSON.stringify(request);
-                                }
+                            data: function () {
+                                var request = XCLCMSWebApi.CreateRequest();
+                                request.Body = {};
+                                request.Body.RoleName = $("#txtRoleName").val();
+                                request.Body.ParentID = $("#ParentID").val();
+                                request.Body.SysRoleID = $("#SysRoleID").val();
+                                return request;
                             }
                         }
                     },
                     txtCode: {
                         XCLCustomRemote: {
                             url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysRole/IsExistCode",
-                            data: {
-                                "json": function () {
-                                    var request = XCLCMSWebApi.CreateRequest();
-                                    request.Body = {};
-                                    request.Body.Code = $("#txtCode").val();
-                                    request.Body.SysRoleID = $("#SysRoleID").val();
-                                    return JSON.stringify(request);
-                                }
+                            data: function () {
+                                var request = XCLCMSWebApi.CreateRequest();
+                                request.Body = {};
+                                request.Body.Code = $("#txtCode").val();
+                                request.Body.SysRoleID = $("#SysRoleID").val();
+                                return request;
                             }
                         }
                     },

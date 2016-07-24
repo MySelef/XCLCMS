@@ -103,17 +103,13 @@
                     txtMerchantName: {
                         required: true,
                         XCLCustomRemote: function () {
+                            var request = XCLCMSWebApi.CreateRequest();
+                            request.Body = {};
+                            request.Body.MerchantName = $("#txtMerchantName").val();
+                            request.Body.MerchantID = $("#MerchantID").val();
                             return {
                                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Merchant/IsExistMerchantName",
-                                data: {
-                                    "json": function () {
-                                        var request = XCLCMSWebApi.CreateRequest();
-                                        request.Body = {};
-                                        request.Body.MerchantName = $("#txtMerchantName").val();
-                                        request.Body.MerchantID = $("#MerchantID").val();
-                                        return JSON.stringify(request);
-                                    }
-                                }
+                                data: request
                             };
                         }
                     },
@@ -237,17 +233,13 @@
                     txtMerchantAppName: {
                         required: true,
                         XCLCustomRemote: function () {
+                            var request = XCLCMSWebApi.CreateRequest();
+                            request.Body = {};
+                            request.Body.MerchantAppName = $("#txtMerchantAppName").val();
+                            request.Body.MerchantAppID = $("#MerchantAppID").val();
                             return {
                                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "MerchantApp/IsExistMerchantAppName",
-                                data: {
-                                    "json": function () {
-                                        var request = XCLCMSWebApi.CreateRequest();
-                                        request.Body = {};
-                                        request.Body.MerchantAppName = $("#txtMerchantAppName").val();
-                                        request.Body.MerchantAppID = $("#MerchantAppID").val();
-                                        return JSON.stringify(request);
-                                    }
-                                }
+                                data: request
                             };
                         }
                     }

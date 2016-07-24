@@ -23,9 +23,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleView)]
-        public APIResponseEntity<XCLCMS.Data.Model.View.v_Article> Detail([FromUri] string json)
+        public APIResponseEntity<XCLCMS.Data.Model.View.v_Article> Detail([FromUri] APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<XCLCMS.Data.Model.View.v_Article>();
             response.Body = vArticleBLL.GetModel(request.Body);
             response.IsSuccess = true;
@@ -45,9 +44,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleView)]
-        public APIResponseEntity<XCLCMS.Data.Model.Custom.ArticleRelationDetailModel> RelationDetail([FromUri] string json)
+        public APIResponseEntity<XCLCMS.Data.Model.Custom.ArticleRelationDetailModel> RelationDetail([FromUri] APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<XCLCMS.Data.Model.Custom.ArticleRelationDetailModel>();
             var condition = new Data.Model.Custom.ArticleRelationDetailCondition()
             {
@@ -66,9 +64,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleView)]
-        public APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Article>> PageList([FromUri] string json)
+        public APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Article>> PageList([FromUri] APIRequestEntity<PageListConditionEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<PageListConditionEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var pager = request.Body.PagerInfoSimple.ToPagerInfo();
             var response = new APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Article>>();
             response.Body = new Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<Data.Model.View.v_Article>();
@@ -93,9 +90,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_ArticleView)]
-        public APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Article>> SimplePageList([FromUri] string json)
+        public APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Article>> SimplePageList([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.SimplePageListEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.SimplePageListEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_Article>>();
             response.Body = new Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<Data.Model.View.v_Article>();
             response.Body.ResultList = vArticleBLL.GetPageList(request.Body.PageInfo, request.Body.Condition);
@@ -108,11 +104,10 @@ namespace XCLCMS.WebAPI.Controllers
         /// 检查文章code是否已存在
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<bool> IsExistCode([FromUri] string json)
+        public APIResponseEntity<bool> IsExistCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.IsExistCodeEntity> request)
         {
             #region 初始化
 
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.IsExistCodeEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<bool>()
             {
                 IsSuccess = true,

@@ -21,9 +21,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleView)]
-        public APIResponseEntity<XCLCMS.Data.Model.SysFunction> Detail([FromUri] string json)
+        public APIResponseEntity<XCLCMS.Data.Model.SysFunction> Detail([FromUri] APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<XCLCMS.Data.Model.SysFunction>();
             response.Body = this.sysFunctionBLL.GetModel(request.Body);
             response.IsSuccess = true;
@@ -34,9 +33,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断功能标识是否已经存在
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<bool> IsExistCode([FromUri] string json)
+        public APIResponseEntity<bool> IsExistCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.IsExistCodeEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.IsExistCodeEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<bool>();
             response.IsSuccess = true;
             response.Message = "该标识可以使用！";
@@ -69,9 +67,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断功能名，在同一级别中是否存在
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<bool> IsExistFunctionNameInSameLevel([FromUri] string json)
+        public APIResponseEntity<bool> IsExistFunctionNameInSameLevel([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.IsExistFunctionNameInSameLevelEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.IsExistFunctionNameInSameLevelEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<bool>();
             response.IsSuccess = true;
             response.Message = "该功能名可以使用！";
@@ -108,9 +105,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView)]
-        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysFunction>> GetList(string json)
+        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysFunction>> GetList([FromUri]  APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysFunction>>();
             response.Body = this.vSysFunctionBLL.GetList(request.Body);
             response.IsSuccess = true;
@@ -122,9 +118,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView)]
-        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetAllJsonForEasyUITree([FromUri] string json)
+        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetAllJsonForEasyUITree([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetAllJsonForEasyUITreeEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetAllJsonForEasyUITreeEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>();
             response.IsSuccess = true;
 
@@ -196,9 +191,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 如:根目录/子目录/文件
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysFunctionSimple>> GetLayerListBySysFunctionId(string json)
+        public APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysFunctionSimple>> GetLayerListBySysFunctionId([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetLayerListBySysFunctionIdEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetLayerListBySysFunctionIdEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysFunctionSimple>>();
             response.Body = this.sysFunctionBLL.GetLayerListBySysFunctionId(request.Body.SysFunctionId);
             response.IsSuccess = true;
@@ -209,9 +203,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取指定角色的所有功能
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>> GetListByRoleID(string json)
+        public APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>> GetListByRoleID([FromUri] APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>>();
             response.Body = this.sysFunctionBLL.GetListByRoleID(request.Body);
             response.IsSuccess = true;

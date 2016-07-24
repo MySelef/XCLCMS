@@ -21,9 +21,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleView)]
-        public APIResponseEntity<XCLCMS.Data.Model.SysRole> Detail([FromUri] string json)
+        public APIResponseEntity<XCLCMS.Data.Model.SysRole> Detail([FromUri] APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<XCLCMS.Data.Model.SysRole>();
             response.Body = this.sysRoleBLL.GetModel(request.Body);
             response.IsSuccess = true;
@@ -42,9 +41,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断角色标识是否已经存在
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<bool> IsExistCode([FromUri] string json)
+        public APIResponseEntity<bool> IsExistCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.IsExistCodeEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.IsExistCodeEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<bool>();
             response.IsSuccess = true;
             response.Message = "该标识可以使用！";
@@ -77,9 +75,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断角色名，在同一级别中是否存在
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<bool> IsExistRoleNameInSameLevel([FromUri] string json)
+        public APIResponseEntity<bool> IsExistRoleNameInSameLevel([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.IsExistRoleNameInSameLevelEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.IsExistRoleNameInSameLevelEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<bool>();
             response.IsSuccess = true;
             response.Message = "该角色名可以使用！";
@@ -113,9 +110,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleView)]
-        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysRole>> GetList(string json)
+        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysRole>> GetList([FromUri]  APIRequestEntity<long> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<long>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysRole>>();
             response.Body = this.vSysRoleBLL.GetList(request.Body);
             response.IsSuccess = true;
@@ -133,9 +129,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取easyui tree格式的所有角色json
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetAllJsonForEasyUITree([FromUri] string json)
+        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetAllJsonForEasyUITree([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetAllJsonForEasyUITreeEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetAllJsonForEasyUITreeEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>();
             response.IsSuccess = true;
 
@@ -205,9 +200,8 @@ namespace XCLCMS.WebAPI.Controllers
         /// 如:根目录/子目录/文件
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysRoleSimple>> GetLayerListBySysRoleID(string json)
+        public APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysRoleSimple>> GetLayerListBySysRoleID([FromUri]  APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetLayerListBySysRoleIDEntity> request)
         {
-            var request = Newtonsoft.Json.JsonConvert.DeserializeObject<APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetLayerListBySysRoleIDEntity>>(System.Web.HttpUtility.UrlDecode(json));
             var response = new APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysRoleSimple>>();
             response.Body = this.sysRoleBLL.GetLayerListBySysRoleID(request.Body.SysRoleID);
             response.IsSuccess = true;

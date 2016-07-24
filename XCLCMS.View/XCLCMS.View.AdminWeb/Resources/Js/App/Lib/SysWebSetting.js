@@ -88,14 +88,12 @@
                         XCLCustomRemote: function () {
                             return {
                                 url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysWebSetting/IsExistKeyName",
-                                data: {
-                                    "json": function () {
-                                        var request = XCLCMSWebApi.CreateRequest();
-                                        request.Body = {};
-                                        request.Body.KeyName = $("#txtKeyName").val();
-                                        request.Body.SysWebSettingID = $("#SysWebSettingID").val();
-                                        return JSON.stringify(request);
-                                    }
+                                data: function () {
+                                    var request = XCLCMSWebApi.CreateRequest();
+                                    request.Body = {};
+                                    request.Body.KeyName = $("#txtKeyName").val();
+                                    request.Body.SysWebSettingID = $("#SysWebSettingID").val();
+                                    return request;
                                 }
                             };
                         }

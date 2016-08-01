@@ -31,10 +31,10 @@ namespace XCLCMS.Lib.WebAPI
                 string requestURL = (XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebAPIServiceURL.Trim().Trim('/') + '/' + path.Trim().Trim('/')).Trim('?');
                 var httpClient = new HttpClient();
                 var httpRequest = new HttpRequestMessage();
-                string requestJson = XCLNetTools.Serialize.Lib.ConvertJsonToUrlParameters(JsonConvert.SerializeObject(request));
+                string requestJson = JsonConvert.SerializeObject(request);
                 if (isGet)
                 {
-                    httpRequest.RequestUri = new Uri(requestURL + (requestURL.IndexOf('?') >= 0 ? "&" : "?") + requestJson);
+                    httpRequest.RequestUri = new Uri(requestURL + (requestURL.IndexOf('?') >= 0 ? "&" : "?") + XCLNetTools.Serialize.Lib.ConvertJsonToUrlParameters(requestJson));
                     httpRequest.Method = HttpMethod.Get;
                 }
                 else

@@ -30,6 +30,7 @@
                         <input type="checkbox" class="XCLTableCheckAll" value="" />
                     </td>
                     <td>序号</td>
+                    <td>所属商户ID</td>
                     <td>商户应用ID</td>
                     <td>所属商户</td>
                     <td>商户应用名</td>
@@ -55,6 +56,9 @@
                                 <td align="center"><input type="checkbox" class="XCLTableCheckItem" value="@m.MerchantAppID" /></td>
                                 <td align="center">
                                     @(Model.PagerModel.StartIndex + i)
+                                </td>
+                                <td>
+                                    @m.FK_MerchantID
                                 </td>
                                 <td>
                                     @m.MerchantAppID

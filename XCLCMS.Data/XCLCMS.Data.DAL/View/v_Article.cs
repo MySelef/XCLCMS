@@ -122,7 +122,7 @@ namespace XCLCMS.Data.DAL.View
                 {
                     join_ArticleType = @"
                                                       inner join ArticleType as  tb_ArticleType  WITH(NOLOCK)  on tb_Article.ArticleID=tb_ArticleType.FK_ArticleID
-                                                      inner join @TVP_ArticleTypeID as tvp_articleTypeID  WITH(NOLOCK)  on tb_ArticleType.FK_TypeID=tvp_articleTypeID.ID
+                                                      inner join @TVP_ArticleTypeID as tvp_articleTypeID  on tb_ArticleType.FK_TypeID=tvp_articleTypeID.ID
                                                 ";
 
                     dbCommand.Parameters.Add(new SqlParameter("TVP_ArticleTypeID", SqlDbType.Structured)

@@ -40,6 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="DBScript\RedGate.ssc" />
+    <None Include="XCLCMS.xmind" />
     <None Include="数据库备份\XCLCMS.bak" />
     <None Include="后台登录图片.psd" />
     <None Include="数据库文档\XCLCMS.chm" />

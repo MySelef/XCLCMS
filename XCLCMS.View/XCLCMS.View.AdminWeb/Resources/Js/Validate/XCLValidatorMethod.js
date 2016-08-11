@@ -28,6 +28,10 @@ $.validator.addMethod("XCLCustomRemote", function (value, element, ajaxOption) {
     };
     ajaxOption = $.extend(defaults, ajaxOption);
 
+    if (typeof (ajaxOption.data) === 'function') {
+        ajaxOption.data = ajaxOption.data();
+    }
+
     $(element).removeData("XCLCustomMsg");
 
     var result = {};

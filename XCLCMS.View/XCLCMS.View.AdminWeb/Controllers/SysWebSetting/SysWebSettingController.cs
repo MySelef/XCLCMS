@@ -29,6 +29,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
                 new XCLNetSearch.SearchFieldInfo("名称","KeyName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("值","KeyValue|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("说明","Remark|string|text",""),
+                new XCLNetSearch.SearchFieldInfo("记录状态","RecordState|string|select",XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum))),
                 new XCLNetSearch.SearchFieldInfo("创建时间","CreateTime|dateTime|text",""),
                 new XCLNetSearch.SearchFieldInfo("创建者名","CreaterName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("更新时间","UpdateTime|dateTime|text",""),

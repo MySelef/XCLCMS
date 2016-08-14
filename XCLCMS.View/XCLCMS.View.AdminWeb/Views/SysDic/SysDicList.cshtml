@@ -20,7 +20,6 @@
             @if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicDel))
             {
                 <div id="menu_SysDic_del" data-options="iconCls:'icon-cancel'">删除节点</div>
-                <div id="menu_SysDic_delSub" data-options="iconCls:'icon-cancel'">清空子节点</div>
             }
         </div>
     </div>
@@ -32,7 +31,9 @@
     </div>
     <div class="XCLPanelBody">
         <ul>
-            <li>1、在配置系统菜单时，根据需要，为其配置一个功能权限，便于不同角色的用户显示不同的菜单。</li>
+            <li>1、在配置系统菜单时，根据需要，为其配置一个功能权限，便于不同角色的用户显示不同的菜单</li>
+            <li>2、只能操作层级2中的内容</li>
+            <li>3、当新的商户被添加后，此列表会出现该商户的字典主节点</li>
         </ul>
     </div>
 </div>

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -366,11 +365,19 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //父字典是否存在
-            var parentNodeModel = this.sysDicBLL.GetModel(request.Body.ParentID);
+            var parentNodeModel = this.vSysDicBLL.GetModel(request.Body.ParentID);
             if (null == parentNodeModel)
             {
                 response.IsSuccess = false;
                 response.Message = "父字典不存在！";
+                return response;
+            }
+
+            //父字典层级必须>=2
+            if (parentNodeModel.NodeLevel < 2)
+            {
+                response.IsSuccess = false;
+                response.Message = "父字典层级必须>=2！";
                 return response;
             }
 
@@ -383,7 +390,7 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //当前用户只能加在自己的商户号下面
-            if (!this.vSysDicBLL.IsRoot(parentNodeModel.SysDicID))
+            if (!this.vSysDicBLL.IsRoot(parentNodeModel.SysDicID.Value))
             {
                 if (parentNodeModel.FK_MerchantID != request.Body.FK_MerchantID)
                 {
@@ -456,6 +463,14 @@ namespace XCLCMS.WebAPI.Controllers
                     response.Message = string.Format("字典唯一标识【{0}】已存在！", request.Body.Code);
                     return response;
                 }
+            }
+
+            //被修改的节点的层级必须>2
+            if (this.vSysDicBLL.GetModel(request.Body.SysDicID).NodeLevel <= 2)
+            {
+                response.IsSuccess = false;
+                response.Message = "被修改的节点的层级必须>2！";
+                return response;
             }
 
             //限制商户
@@ -535,9 +550,21 @@ namespace XCLCMS.WebAPI.Controllers
                 }
             }
 
+            foreach (var k in request.Body)
+            {
+                //只能删除层级>2的节点
+                var sysDicModel = this.vSysDicBLL.GetModel(k);
+                if (sysDicModel.NodeLevel <= 2)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "只能删除层级>2的节点！";
+                    return response;
+                }
+            }
+
             int successCount = 0;
 
-            request.Body.ForEach(id =>
+            foreach (var id in request.Body)
             {
                 var sysDicModel = sysDicBLL.GetModel(id);
                 if (null != sysDicModel)
@@ -551,57 +578,10 @@ namespace XCLCMS.WebAPI.Controllers
                         successCount++;
                     }
                 }
-            });
+            }
 
             response.IsSuccess = true;
             response.Message = string.Format("已成功删除【{0}】条记录！", successCount);
-
-            return response;
-        }
-
-        /// <summary>
-        /// 删除指定字典的所有节点
-        /// </summary>
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicDel)]
-        public APIResponseEntity<bool> DelChild([FromBody] APIRequestEntity<long> request)
-        {
-            var response = new APIResponseEntity<bool>();
-
-            if (request.Body <= 0)
-            {
-                response.IsSuccess = false;
-                response.Message = "请指定要删除所有子节点的字典ID！";
-                return response;
-            }
-
-            if (base.IsOnlyCurrentMerchant)
-            {
-                var sysDicModel = sysDicBLL.GetModel(request.Body);
-                if (null != sysDicModel && sysDicModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
-                {
-                    response.IsSuccess = false;
-                    response.Message = "只能删除属于自己的商户节点！";
-                    return response;
-                }
-            }
-
-            response.IsSuccess = this.sysDicBLL.DelChild(new Data.Model.SysDic()
-            {
-                SysDicID = request.Body,
-                UpdaterID = base.CurrentUserModel.UserInfoID,
-                UpdaterName = base.CurrentUserModel.UserName,
-                UpdateTime = DateTime.Now
-            });
-
-            if (response.IsSuccess)
-            {
-                response.Message = "成功删除所有子节点！";
-            }
-            else
-            {
-                response.Message = "删除所有子节点失败！";
-            }
 
             return response;
         }

@@ -18,15 +18,12 @@
             menu_SysDic_edit: null,
             //tree右键菜单_删除节点
             menu_SysDic_del: null,
-            //tree右键菜单_清空子节点
-            menu_SysDic_delSub: null,
             Init: function () {
                 this.menu_SysDic = $("#menu_SysDic");
                 this.menu_SysDic_refresh = $("#menu_SysDic_refresh");
                 this.menu_SysDic_add = $("#menu_SysDic_add");
                 this.menu_SysDic_edit = $("#menu_SysDic_edit");
                 this.menu_SysDic_del = $("#menu_SysDic_del");
-                this.menu_SysDic_delSub = $("#menu_SysDic_delSub");
             }
         },
 
@@ -87,20 +84,17 @@
                 ]],
                 onContextMenu: function (e, row) {
                     e.preventDefault();
+                    _this.Elements.menu_SysDic_add.show();
                     _this.Elements.menu_SysDic_del.show();
                     _this.Elements.menu_SysDic_edit.show();
-                    _this.Elements.menu_SysDic_delSub.show();
 
-                    if (row.IsRoot) {
-                        //根节点隐藏部分菜单
+                    if (row.NodeLevel < 2) {
                         _this.Elements.menu_SysDic_add.hide();
                         _this.Elements.menu_SysDic_del.hide();
                         _this.Elements.menu_SysDic_edit.hide();
-                        _this.Elements.menu_SysDic_delSub.hide();
-                    }
-                    if (row.IsLeaf == 1) {
-                        //叶子节点隐藏部分菜单
-                        _this.Elements.menu_SysDic_delSub.hide();
+                    } else if (row.NodeLevel == 2) {
+                        _this.Elements.menu_SysDic_del.hide();
+                        _this.Elements.menu_SysDic_edit.hide();
                     }
 
                     $(this).treegrid('select', row.SysDicID);
@@ -127,10 +121,6 @@
             //删除
             _this.Elements.menu_SysDic_del.on("click", function () {
                 _this.Del();
-            });
-            //清空子节点
-            _this.Elements.menu_SysDic_delSub.on("click", function () {
-                _this.Clear();
             });
         },
         /**
@@ -207,34 +197,6 @@
                     }
                 });
             }, function () { });
-        },
-        /**
-         * 清空子节点
-         */
-        Clear: function () {
-            var _this = this;
-            var ids = _this.GetSelectedIds();
-            art.dialog.confirm("您确定要清空此节点的所有子节点吗？", function () {
-                var request = XCLCMSWebApi.CreateRequest();
-                request.Body = ids[0];
-
-                $.XGoAjax({
-                    ajax: {
-                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/DelChild",
-                        data: request,
-                        type: "POST"
-                    },
-                    postSuccess: function () {
-                        var parent = _this.TreeObj.treegrid("getParent", ids[0]);
-                        if (parent) {
-                            _this.TreeObj.treegrid("reload", parent.SysDicID);
-                        } else {
-                            _this.Refresh();
-                        }
-                    }
-                });
-            }, function () {
-            });
         },
         /**
          * 刷新列表

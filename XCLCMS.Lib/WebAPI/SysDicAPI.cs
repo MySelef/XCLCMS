@@ -120,13 +120,5 @@ namespace XCLCMS.Lib.WebAPI
         {
             return Library.Request<List<long>, bool>(request, "SysDic/Delete", false);
         }
-
-        /// <summary>
-        /// 删除指定字典的所有节点
-        /// </summary>
-        public static APIResponseEntity<bool> DelChild(APIRequestEntity<long> request)
-        {
-            return Library.Request<long, bool>(request, "SysDic/DelChild", false);
-        }
     }
 }

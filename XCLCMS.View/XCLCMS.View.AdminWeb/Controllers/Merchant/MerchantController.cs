@@ -46,12 +46,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                 new XCLNetSearch.SearchFieldInfo("更新时间","UpdateTime|dateTime|text",""),
                 new XCLNetSearch.SearchFieldInfo("更新人名","UpdaterName|string|text","")
             };
-            string strWhere = string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString());
-            string strSearch = viewModel.Search.StrSQL;
-            if (!string.IsNullOrEmpty(strSearch))
-            {
-                strWhere = string.Format("{0} and ({1})", strWhere, strSearch);
-            }
+            string strWhere = viewModel.Search.StrSQL;
 
             #endregion 初始化查询条件
 
@@ -87,6 +82,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
                     viewModel.Merchant = new Data.Model.Merchant();
+                    viewModel.Merchant.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                     viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Entity.SetOptionEntity()
                     {
                         IsNeedPleaseSelect = true
@@ -133,6 +129,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                     break;
             }
 
+            viewModel.RecordStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), new XCLNetTools.Entity.SetOptionEntity()
+            {
+                IsNeedPleaseSelect = false,
+                DefaultValue = viewModel.Merchant.RecordState
+            });
+
             return View("~/Views/Merchant/MerchantAdd.cshtml", viewModel);
         }
 
@@ -161,6 +163,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             viewModel.Merchant.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.Merchant.Tel = (fm["txtTel"] ?? "").Trim();
             viewModel.Merchant.MerchantSystemType = fm["selMerchantSystemType"];
+            viewModel.Merchant.RecordState = fm["selRecordState"];
             return viewModel;
         }
 
@@ -194,7 +197,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.PassNumber = viewModel.Merchant.PassNumber;
             model.FK_PassType = viewModel.Merchant.FK_PassType;
             model.QQ = viewModel.Merchant.QQ;
-            model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
+            model.RecordState = viewModel.Merchant.RecordState;
             model.RegisterTime = viewModel.Merchant.RegisterTime;
             model.Remark = viewModel.Merchant.Remark;
             model.Tel = viewModel.Merchant.Tel;
@@ -243,6 +246,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.UpdaterName = model.CreaterName;
             model.UpdateTime = model.CreateTime;
             model.MerchantSystemType = viewModel.Merchant.MerchantSystemType;
+            model.RecordState = viewModel.Merchant.RecordState;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.Merchant>(base.UserToken);
             request.Body = model;

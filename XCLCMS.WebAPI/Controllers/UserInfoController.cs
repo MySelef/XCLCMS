@@ -257,6 +257,7 @@ namespace XCLCMS.WebAPI.Controllers
 
             #endregion 数据校验
 
+            model.RecordState = request.Body.UserInfo.RecordState;
             model.AccessToken = request.Body.UserInfo.AccessToken;
             model.AccessType = request.Body.UserInfo.AccessType;
             model.Age = request.Body.UserInfo.Age;

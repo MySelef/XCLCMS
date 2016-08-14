@@ -11,5 +11,10 @@
         /// 商户应用model
         /// </summary>
         public XCLCMS.Data.Model.MerchantApp MerchantApp { get; set; }
+
+        /// <summary>
+        /// 记录状态select的options
+        /// </summary>
+        public string RecordStateOptions { get; set; }
     }
 }

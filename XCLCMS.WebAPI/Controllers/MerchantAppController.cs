@@ -197,6 +197,7 @@ namespace XCLCMS.WebAPI.Controllers
 
             #endregion 数据校验
 
+            model.RecordState = request.Body.RecordState;
             model.CopyRight = request.Body.CopyRight;
             model.MerchantAppName = request.Body.MerchantAppName;
             model.MetaDescription = request.Body.MetaDescription;

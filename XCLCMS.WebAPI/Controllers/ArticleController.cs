@@ -406,6 +406,7 @@ namespace XCLCMS.WebAPI.Controllers
 
             #endregion 数据校验
 
+            model.RecordState = request.Body.Article.RecordState;
             model.ArticleContentType = request.Body.Article.ArticleContentType;
             model.ArticleState = request.Body.Article.ArticleState;
             model.AuthorName = request.Body.Article.AuthorName;

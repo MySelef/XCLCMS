@@ -36,12 +36,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
                 new XCLNetSearch.SearchFieldInfo("更新时间","UpdateTime|dateTime|text",""),
                 new XCLNetSearch.SearchFieldInfo("更新人名","UpdaterName|string|text","")
             };
-            string strWhere = string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString());
-            string strSearch = viewModel.Search.StrSQL;
-            if (!string.IsNullOrEmpty(strSearch))
-            {
-                strWhere = string.Format("{0} and ({1})", strWhere, strSearch);
-            }
+            string strWhere = viewModel.Search.StrSQL;
 
             #endregion 初始化查询条件
 
@@ -77,6 +72,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
                     viewModel.FormAction = Url.Action("AddSubmit", "Article");
                     viewModel.Article.PublishTime = DateTime.Now.Date;
                     viewModel.Article.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
+                    viewModel.Article.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
@@ -132,6 +128,11 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
             {
                 IsNeedPleaseSelect = false,
                 DefaultValue = viewModel.Article.VerifyState
+            });
+            viewModel.RecordStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), new XCLNetTools.Entity.SetOptionEntity()
+            {
+                IsNeedPleaseSelect = false,
+                DefaultValue = viewModel.Article.RecordState
             });
 
             return View("~/Views/Article/ArticleAdd.cshtml", viewModel);
@@ -204,6 +205,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
             viewModel.Article.IsTop = XCLNetTools.StringHander.FormHelper.GetString("ckIsTop");
             viewModel.Article.KeyWords = XCLNetTools.StringHander.FormHelper.GetString("txtKeyWords");
             viewModel.Article.LinkUrl = XCLNetTools.StringHander.FormHelper.GetString("txtLinkUrl");
+            viewModel.Article.RecordState = XCLNetTools.StringHander.FormHelper.GetString("selRecordState");
 
             if (null != mainImageIDList && mainImageIDList.Count > 0)
             {
@@ -246,8 +248,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
             var viewModel = this.GetViewModel(fm);
             var model = new XCLCMS.Data.Model.Article();
             model.ArticleContentType = viewModel.Article.ArticleContentType;
-            model.ArticleID = XCLCMS.Lib.WebAPI.Library.CommonAPI_GenerateID(base.UserToken, new Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity() {
-                IDType= Data.CommonHelper.EnumType.IDTypeEnum.ART.ToString()
+            model.ArticleID = XCLCMS.Lib.WebAPI.Library.CommonAPI_GenerateID(base.UserToken, new Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity()
+            {
+                IDType = Data.CommonHelper.EnumType.IDTypeEnum.ART.ToString()
             });
             model.ArticleState = viewModel.Article.ArticleState;
             model.AuthorName = viewModel.Article.AuthorName;
@@ -281,7 +284,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
             model.MainImage3 = viewModel.Article.MainImage3;
             model.MiddleCount = viewModel.Article.MiddleCount;
             model.PublishTime = viewModel.Article.PublishTime;
-            model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
+            model.RecordState = viewModel.Article.RecordState;
             model.SubTitle = viewModel.Article.SubTitle;
             model.Summary = viewModel.Article.Summary;
             model.Tags = viewModel.Article.Tags;
@@ -316,6 +319,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
             var model = new XCLCMS.Data.Model.Article();
             model.ArticleID = viewModel.Article.ArticleID;
 
+            model.RecordState = viewModel.Article.RecordState;
             model.ArticleContentType = viewModel.Article.ArticleContentType;
             model.ArticleState = viewModel.Article.ArticleState;
             model.AuthorName = viewModel.Article.AuthorName;

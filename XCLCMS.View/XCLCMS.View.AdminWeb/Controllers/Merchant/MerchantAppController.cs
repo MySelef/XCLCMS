@@ -39,12 +39,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                 new XCLNetSearch.SearchFieldInfo("更新时间","UpdateTime|dateTime|text",""),
                 new XCLNetSearch.SearchFieldInfo("更新人名","UpdaterName|string|text","")
             };
-            string strWhere = string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString());
-            string strSearch = viewModel.Search.StrSQL;
-            if (!string.IsNullOrEmpty(strSearch))
-            {
-                strWhere = string.Format("{0} and ({1})", strWhere, strSearch);
-            }
+            string strWhere =  viewModel.Search.StrSQL;
 
             #endregion 初始化查询条件
 
@@ -77,6 +72,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             {
                 case XCLCMS.Lib.Common.Comm.HandleType.ADD:
                     viewModel.MerchantApp = new Data.Model.MerchantApp();
+                    viewModel.MerchantApp.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "MerchantApp");
                     break;
 
@@ -89,6 +85,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                     viewModel.FormAction = Url.Action("UpdateSubmit", "MerchantApp");
                     break;
             }
+
+            viewModel.RecordStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), new XCLNetTools.Entity.SetOptionEntity()
+            {
+                IsNeedPleaseSelect = false,
+                DefaultValue = viewModel.MerchantApp.RecordState
+            });
 
             return View("~/Views/Merchant/MerchantAppAdd.cshtml", viewModel);
         }
@@ -111,6 +113,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             viewModel.MerchantApp.MetaKeyWords = XCLNetTools.StringHander.FormHelper.GetString("txtMetaKeyWords");
             viewModel.MerchantApp.MetaTitle = XCLNetTools.StringHander.FormHelper.GetString("txtMetaTitle");
             viewModel.MerchantApp.WebURL = XCLNetTools.StringHander.FormHelper.GetString("txtWebURL");
+            viewModel.MerchantApp.RecordState = XCLNetTools.StringHander.FormHelper.GetString("selRecordState");
             return viewModel;
         }
 
@@ -132,7 +135,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.CreaterID = base.CurrentUserModel.UserInfoID;
             model.CreaterName = base.CurrentUserModel.UserName;
             model.CreateTime = DateTime.Now;
-            model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
+            model.RecordState = viewModel.MerchantApp.RecordState;
             model.Remark = viewModel.MerchantApp.Remark;
             model.UpdaterID = model.CreaterID;
             model.UpdaterName = model.CreaterName;
@@ -177,6 +180,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.MetaKeyWords = viewModel.MerchantApp.MetaKeyWords;
             model.MetaTitle = viewModel.MerchantApp.MetaTitle;
             model.WebURL = viewModel.MerchantApp.WebURL;
+            model.RecordState = viewModel.MerchantApp.RecordState;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.MerchantApp>(base.UserToken);
             request.Body = model;

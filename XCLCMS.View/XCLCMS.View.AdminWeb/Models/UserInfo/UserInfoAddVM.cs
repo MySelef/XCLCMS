@@ -21,5 +21,10 @@ namespace XCLCMS.View.AdminWeb.Models.UserInfo
         /// 角色id list
         /// </summary>
         public List<long> UserRoleIDs { get; set; }
+
+        /// <summary>
+        /// 记录状态 select的options
+        /// </summary>
+        public string RecordStateOptions { get; set; }
     }
 }

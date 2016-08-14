@@ -277,6 +277,7 @@ namespace XCLCMS.WebAPI.Controllers
 
             #endregion 数据校验
 
+            model.RecordState = request.Body.RecordState;
             model.MerchantSystemType = request.Body.MerchantSystemType;
             model.Address = request.Body.Address;
             model.ContactName = request.Body.ContactName;

@@ -116,13 +116,9 @@
                     </td>
                     <td class="XCLTitle">记录状态：</td>
                     <td>
-                        @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
-                        {
-                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString())
-                        }
-                        else {
-                            @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), Model.UserInfo.RecordState.ToString())
-                        }
+                        <select id="selRecordState" name="selRecordState">
+                            @Html.Raw(Model.RecordStateOptions)
+                        </select>
                     </td>
                 </tr>
             </table>

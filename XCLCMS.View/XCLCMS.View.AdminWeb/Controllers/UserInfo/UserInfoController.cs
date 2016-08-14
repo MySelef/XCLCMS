@@ -45,12 +45,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
                 new XCLNetSearch.SearchFieldInfo("更新时间","UpdateTime|dateTime|text",""),
                 new XCLNetSearch.SearchFieldInfo("更新人名","UpdaterName|string|text","")
             };
-            string strWhere = string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString());
-            string strSearch = viewModel.Search.StrSQL;
-            if (!string.IsNullOrEmpty(strSearch))
-            {
-                strWhere = string.Format("{0} and ({1})", strWhere, strSearch);
-            }
+            string strWhere = viewModel.Search.StrSQL;
 
             #endregion 初始化查询条件
 
@@ -75,7 +70,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
         public ActionResult Add()
         {
             long userInfoId = XCLNetTools.StringHander.FormHelper.GetLong("userInfoId");
-            
+
             XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM viewModel = new XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM();
             viewModel.UserInfo = new XCLCMS.Data.Model.UserInfo();
 
@@ -87,6 +82,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
                     viewModel.UserInfo.UserState = XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.N.ToString();
                     viewModel.UserInfo.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
                     viewModel.FormAction = Url.Action("AddSubmit", "UserInfo");
+                    viewModel.UserInfo.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                     break;
 
                 case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
@@ -103,6 +99,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
                     }
                     break;
             }
+
+            viewModel.RecordStateOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), new XCLNetTools.Entity.SetOptionEntity()
+            {
+                IsNeedPleaseSelect = false,
+                DefaultValue = viewModel.UserInfo.RecordState
+            });
 
             return View("~/Views/UserInfo/UserInfoAdd.cshtml", viewModel);
         }
@@ -130,6 +132,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             viewModel.UserInfo.UserState = (fm["selUserState"] ?? "").Trim();
             viewModel.UserInfo.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantID");
             viewModel.UserInfo.FK_MerchantAppID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantAppID");
+            viewModel.UserInfo.RecordState = XCLNetTools.StringHander.FormHelper.GetString("selRecordState");
             viewModel.UserRoleIDs = XCLNetTools.StringHander.FormHelper.GetLongList("txtUserRoleIDs");
             return viewModel;
         }
@@ -164,7 +167,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             model.Pwd = XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5(string.IsNullOrEmpty(viewModel.UserInfo.Pwd) ? XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserDefaultPwd : viewModel.UserInfo.Pwd);
             model.QQ = viewModel.UserInfo.QQ;
             model.RealName = viewModel.UserInfo.RealName;
-            model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
+            model.RecordState = viewModel.UserInfo.RecordState;
             model.Remark = viewModel.UserInfo.Remark;
             model.SexType = viewModel.UserInfo.SexType;
             model.Tel = viewModel.UserInfo.Tel;
@@ -193,7 +196,8 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             long userInfoId = XCLNetTools.StringHander.FormHelper.GetLong("userInfoId");
             XCLCMS.View.AdminWeb.Models.UserInfo.UserInfoAddVM viewModel = this.GetViewModel(fm);
             XCLCMS.Data.Model.UserInfo model = new Data.Model.UserInfo();
-            model.UserInfoID=userInfoId;
+            model.UserInfoID = userInfoId;
+            model.RecordState = viewModel.UserInfo.RecordState;
             model.AccessToken = viewModel.UserInfo.AccessType;
             model.AccessType = viewModel.UserInfo.AccessType;
             model.Age = viewModel.UserInfo.Age;

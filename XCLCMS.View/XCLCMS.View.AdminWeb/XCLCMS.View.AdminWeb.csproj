@@ -188,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\AppSettings.config" />
+    <Content Include="favicon.ico" />
     <Content Include="Resources\Css\Base.css" />
     <Content Include="Resources\Css\Login.css" />
     <Content Include="Resources\Images\document.png" />
@@ -639,6 +640,7 @@
     <Content Include="Resources\Js\textEllipsis\jquery.textEllipsis.js" />
     <Content Include="Resources\Js\Validate\jquery.validate.js" />
     <Content Include="Resources\Js\Validate\XCLValidatorMethod.js" />
+    <Content Include="Resources\Js\Validate\zh-cn.js" />
     <Content Include="Resources\Js\WdatePicker\calendar.js" />
     <Content Include="Resources\Js\WdatePicker\lang\en.js" />
     <Content Include="Resources\Js\WdatePicker\lang\zh-cn.js" />

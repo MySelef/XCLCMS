@@ -181,6 +181,14 @@ label.XCLValidError {
     margin: 5px;
 }
 
+.XCLBgWarn {
+    background-color: #f8f1da;
+}
+
+.XCLBgError {
+    background-color: #fcdfdf;
+}
+
 .XCLPager {
     height: 30px;
     margin-top: 20px;

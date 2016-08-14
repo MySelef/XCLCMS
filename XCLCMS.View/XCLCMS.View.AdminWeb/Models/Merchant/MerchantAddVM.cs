@@ -31,5 +31,10 @@
         /// 是否系统内置 select的options
         /// </summary>
         public string MerchantSystemTypeOptions { get; set; }
+
+        /// <summary>
+        /// 记录状态select的options
+        /// </summary>
+        public string RecordStateOptions { get; set; }
     }
 }

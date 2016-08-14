@@ -92,6 +92,10 @@
                         _this.Elements.menu_SysRole_edit.hide();
                     }
 
+                    if (row.MerchantSystemType == 'SYS') {
+                        _this.Elements.menu_SysRole_del.hide();
+                    }
+
                     $(this).treegrid('select', row.SysRoleID);
                     _this.Elements.menu_SysRole.menu('show', {
                         left: e.pageX,

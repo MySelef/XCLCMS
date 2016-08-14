@@ -547,6 +547,13 @@ namespace XCLCMS.WebAPI.Controllers
                         return response;
                     }
 
+                    if (this.merchantBLL.GetModel(sysRoleModel.FK_MerchantID).MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.SYS.ToString())
+                    {
+                        response.IsSuccess = false;
+                        response.Message = "不能删除系统内置商户的角色信息！";
+                        return response;
+                    }
+
                     //删除
                     sysRoleModel.UpdaterID = base.CurrentUserModel.UserInfoID;
                     sysRoleModel.UpdaterName = base.CurrentUserModel.UserName;

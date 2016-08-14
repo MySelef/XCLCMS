@@ -157,6 +157,7 @@ namespace XCLCMS.WebAPI.Controllers
                 if (flag)
                 {
                     var rootRole = sysRoleBLL.GetRootModel();
+                    var sysRoleId = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.RLE);
                     flag = sysRoleBLL.Add(new Data.Model.SysRole()
                     {
                         CreaterID = base.CurrentUserModel.UserInfoID,
@@ -169,8 +170,26 @@ namespace XCLCMS.WebAPI.Controllers
                         UpdaterID = base.CurrentUserModel.UserInfoID,
                         UpdaterName = base.CurrentUserModel.UserName,
                         UpdateTime = DateTime.Now,
-                        SysRoleID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.RLE)
+                        SysRoleID = sysRoleId
                     });
+
+                    if (flag)
+                    {
+                        flag = sysRoleBLL.Add(new Data.Model.SysRole()
+                        {
+                            CreaterID = base.CurrentUserModel.UserInfoID,
+                            CreaterName = base.CurrentUserModel.UserName,
+                            FK_MerchantID = request.Body.MerchantID,
+                            ParentID = sysRoleId,
+                            RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(),
+                            CreateTime = DateTime.Now,
+                            RoleName = XCLCMS.Data.CommonHelper.SysRoleConst.DefaultRoleName,
+                            UpdaterID = base.CurrentUserModel.UserInfoID,
+                            UpdaterName = base.CurrentUserModel.UserName,
+                            UpdateTime = DateTime.Now,
+                            SysRoleID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.RLE)
+                        });
+                    }
                 }
 
                 //初始化字典库节点
@@ -208,6 +227,7 @@ namespace XCLCMS.WebAPI.Controllers
             {
                 response.Message = "商户信息添加失败！";
             }
+
             return response;
         }
 

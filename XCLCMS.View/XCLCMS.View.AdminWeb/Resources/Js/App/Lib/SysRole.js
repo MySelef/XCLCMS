@@ -15,15 +15,12 @@
             menu_SysRole_edit: null,
             //tree右键菜单_删除节点
             menu_SysRole_del: null,
-            //tree右键菜单_清空子节点
-            menu_SysRole_delSub: null,
             Init: function () {
                 this.menu_SysRole = $("#menu_SysRole");
                 this.menu_SysRole_refresh = $("#menu_SysRole_refresh");
                 this.menu_SysRole_add = $("#menu_SysRole_add");
                 this.menu_SysRole_edit = $("#menu_SysRole_edit");
                 this.menu_SysRole_del = $("#menu_SysRole_del");
-                this.menu_SysRole_delSub = $("#menu_SysRole_delSub");
             }
         },
 
@@ -83,18 +80,16 @@
                     _this.Elements.menu_SysRole_add.show();
                     _this.Elements.menu_SysRole_del.show();
                     _this.Elements.menu_SysRole_edit.show();
-                    _this.Elements.menu_SysRole_delSub.show();
 
-                    if (row.IsRoot) {
-                        //根节点隐藏部分菜单
+                    if (row.NodeLevel == 3) {
+                        _this.Elements.menu_SysRole_add.hide();
+                    } else if (row.NodeLevel == 2) {
+                        _this.Elements.menu_SysRole_del.hide();
+                        _this.Elements.menu_SysRole_edit.hide();
+                    } else {
                         _this.Elements.menu_SysRole_add.hide();
                         _this.Elements.menu_SysRole_del.hide();
                         _this.Elements.menu_SysRole_edit.hide();
-                        _this.Elements.menu_SysRole_delSub.hide();
-                    }
-                    if (row.IsLeaf == 1) {
-                        //叶子节点隐藏部分菜单
-                        _this.Elements.menu_SysRole_delSub.hide();
                     }
 
                     $(this).treegrid('select', row.SysRoleID);
@@ -121,10 +116,6 @@
             //删除
             _this.Elements.menu_SysRole_del.on("click", function () {
                 _this.Del();
-            });
-            //清空子节点
-            _this.Elements.menu_SysRole_delSub.on("click", function () {
-                _this.Clear();
             });
         },
         /**
@@ -202,32 +193,6 @@
                     }
                 });
             }, function () { });
-        },
-        /**
-         * 清空子节点
-         */
-        Clear: function () {
-            var _this = this;
-            var ids = _this.GetSelectedIds();
-            art.dialog.confirm("您确定要清空此节点的所有子节点吗？", function () {
-                var request = XCLCMSWebApi.CreateRequest();
-                request.Body = ids[0];
-                $.XGoAjax({
-                    ajax: {
-                        url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysRole/DelChild",
-                        data: request,
-                        type: "POST"
-                    }, postSuccess: function () {
-                        var parent = _this.TreeObj.treegrid("getParent", ids[0]);
-                        if (parent) {
-                            _this.TreeObj.treegrid("reload", parent.SysRoleID);
-                        } else {
-                            _this.Refresh();
-                        }
-                    }
-                });
-            }, function () {
-            });
         },
         /**
          * 刷新列表

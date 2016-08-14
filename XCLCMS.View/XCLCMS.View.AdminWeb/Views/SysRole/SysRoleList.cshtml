@@ -22,12 +22,25 @@
             @if(XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID,XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleDel))
             {
                 <div id="menu_SysRole_del" data-options="iconCls:'icon-cancel'">删除节点</div>
-                <div id="menu_SysRole_delSub" data-options="iconCls:'icon-cancel'">清空子节点</div>
             }
         </div>
     </div>
 </div>
 </form>
+
+<div class="XCLPanel" style="margin-top: 5px;">
+    <div class="XCLPanelHeader XCLBolder">
+        操作说明：
+    </div>
+    <div class="XCLPanelBody">
+        <ul>
+            <li>1、首次添加商户信息后，此列表会自动添加一个该商户专属的角色节点信息，并自动添加一个默认角色</li>
+            <li>2、新增的角色层级只能为3，也就是只能在第2层级上添加子节点</li>
+            <li>3、只能对第3层级上的节点进行修改或删除操作</li>
+            <li>4、第3层级的节点应该至少有一条记录</li>
+        </ul>
+    </div>
+</div>
 
 <script type="text/javascript">
     require(["Lib/SysRole"], function (sysRole) {

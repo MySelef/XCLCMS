@@ -20,5 +20,10 @@
             /// </summary>
             MerchantMainRole
         }
+
+        /// <summary>
+        /// 默认角色名
+        /// </summary>
+        public const string DefaultRoleName = "默认角色";
     }
 }

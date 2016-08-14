@@ -269,11 +269,19 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //父角色是否存在
-            var parentNodeModel = this.sysRoleBLL.GetModel(request.Body.SysRole.ParentID);
+            var parentNodeModel = this.vSysRoleBLL.GetModel(request.Body.SysRole.ParentID);
             if (null == parentNodeModel)
             {
                 response.IsSuccess = false;
                 response.Message = "父角色不存在！";
+                return response;
+            }
+
+            //父节点必须为第2层级
+            if (parentNodeModel.NodeLevel != 2)
+            {
+                response.IsSuccess = false;
+                response.Message = "父节点必须为第2层级节点！";
                 return response;
             }
 
@@ -286,7 +294,7 @@ namespace XCLCMS.WebAPI.Controllers
             }
 
             //子角色与父角色必须在同一商户中
-            if (!this.vSysRoleBLL.IsRoot(parentNodeModel.SysRoleID))
+            if (!this.vSysRoleBLL.IsRoot(parentNodeModel.SysRoleID.Value))
             {
                 if (parentNodeModel.FK_MerchantID != request.Body.SysRole.FK_MerchantID)
                 {
@@ -380,6 +388,15 @@ namespace XCLCMS.WebAPI.Controllers
             {
                 response.IsSuccess = false;
                 response.Message = "无效的商户号！";
+                return response;
+            }
+
+            //只能修改商户主角色节点下面的角色信息（层级为3的节点）
+            var vSysRoleModel = this.vSysRoleBLL.GetModel(request.Body.SysRole.SysRoleID);
+            if (vSysRoleModel.NodeLevel != 3)
+            {
+                response.IsSuccess = false;
+                response.Message = "只能修改商户主角色节点下面的角色信息（层级为3的节点）！";
                 return response;
             }
 
@@ -503,13 +520,34 @@ namespace XCLCMS.WebAPI.Controllers
                 }
             }
 
+            foreach (var k in request.Body)
+            {
+                //只能删除商户主节点下面的角色（层级为3的节点）
+                var sysRoleModel = this.vSysRoleBLL.GetModel(k);
+                if (sysRoleModel.NodeLevel != 3)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "只能删除商户主节点下面的角色（层级为3的节点）！";
+                    return response;
+                }
+            }
+
             int successCount = 0;
 
-            request.Body.ForEach(id =>
+            foreach (var id in request.Body)
             {
                 var sysRoleModel = this.sysRoleBLL.GetModel(id);
                 if (null != sysRoleModel)
                 {
+                    //商户至少要保留一个角色
+                    if (this.vSysRoleBLL.GetCountByMerchantID(sysRoleModel.FK_MerchantID) <= 1)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = "商户至少要保留一个角色！";
+                        return response;
+                    }
+
+                    //删除
                     sysRoleModel.UpdaterID = base.CurrentUserModel.UserInfoID;
                     sysRoleModel.UpdaterName = base.CurrentUserModel.UserName;
                     sysRoleModel.UpdateTime = DateTime.Now;
@@ -519,57 +557,10 @@ namespace XCLCMS.WebAPI.Controllers
                         successCount++;
                     }
                 }
-            });
+            }
 
             response.IsSuccess = true;
             response.Message = string.Format("已成功删除【{0}】条记录！", successCount);
-
-            return response;
-        }
-
-        /// <summary>
-        /// 删除指定角色的所有节点
-        /// </summary>
-        [HttpPost]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleDel)]
-        public APIResponseEntity<bool> DelChild([FromBody] APIRequestEntity<long> request)
-        {
-            var response = new APIResponseEntity<bool>();
-
-            if (request.Body <= 0)
-            {
-                response.IsSuccess = false;
-                response.Message = "请指定要删除所有子节点的角色ID！";
-                return response;
-            }
-
-            if (base.IsOnlyCurrentMerchant)
-            {
-                var sysRoleModel = sysRoleBLL.GetModel(request.Body);
-                if (null != sysRoleModel && sysRoleModel.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
-                {
-                    response.IsSuccess = false;
-                    response.Message = "只能删除属于自己的商户节点！";
-                    return response;
-                }
-            }
-
-            response.IsSuccess = this.sysRoleBLL.DelChild(new Data.Model.SysRole()
-            {
-                SysRoleID = request.Body,
-                UpdaterID = base.CurrentUserModel.UserInfoID,
-                UpdaterName = base.CurrentUserModel.UserName,
-                UpdateTime = DateTime.Now
-            });
-
-            if (response.IsSuccess)
-            {
-                response.Message = "成功删除所有子节点！";
-            }
-            else
-            {
-                response.Message = "删除所有子节点失败！";
-            }
 
             return response;
         }

@@ -80,13 +80,5 @@ namespace XCLCMS.Lib.WebAPI
         {
             return Library.Request<List<long>, bool>(request, "SysRole/Delete", false);
         }
-
-        /// <summary>
-        /// 删除指定角色的所有节点
-        /// </summary>
-        public static APIResponseEntity<bool> DelChild(APIRequestEntity<long> request)
-        {
-            return Library.Request<long, bool>(request, "SysRole/DelChild", false);
-        }
     }
 }

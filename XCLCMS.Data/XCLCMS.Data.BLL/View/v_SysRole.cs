@@ -63,6 +63,23 @@ namespace XCLCMS.Data.BLL.View
             return false;
         }
 
+        /// <summary>
+        /// 返回商户下的所有角色
+        /// </summary>
+        public List<XCLCMS.Data.Model.View.v_SysRole> GetListByMerchantID(long merchantID)
+        {
+            return dal.GetListByMerchantID(merchantID);
+        }
+
+        /// <summary>
+        /// 返回商户下的所有角色数量
+        /// </summary>
+        public int GetCountByMerchantID(long merchantID)
+        {
+            var lst = this.GetListByMerchantID(merchantID);
+            return null == lst ? 0 : lst.Count;
+        }
+
         #endregion ExtensionMethod
     }
 }

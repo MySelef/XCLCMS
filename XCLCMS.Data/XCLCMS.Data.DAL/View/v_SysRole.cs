@@ -76,7 +76,7 @@ namespace XCLCMS.Data.DAL.View
             strSql.Append(@"SELECT
                                         top 1
                                         a.*
-                                        FROM dbo.v_SysRole AS a WITH(NOLOCK)  
+                                        FROM dbo.v_SysRole AS a WITH(NOLOCK)
                                         where a.RecordState='N' and a.Code=@Code
                                         ");
 
@@ -87,6 +87,21 @@ namespace XCLCMS.Data.DAL.View
 
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.View.v_SysRole>(ds.Tables[0]);
             return null != lst && lst.Count > 0 ? lst[0] : null;
+        }
+
+        /// <summary>
+        /// 返回商户下的所有角色
+        /// </summary>
+        public List<XCLCMS.Data.Model.View.v_SysRole> GetListByMerchantID(long merchantID)
+        {
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand(@"
+                SELECT * FROM dbo.v_SysRole WITH(NOLOCK) WHERE RecordState='N' AND FK_MerchantID=@FK_MerchantID AND NodeLevel=3
+                ORDER BY Weight ASC
+            ");
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, merchantID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.View.v_SysRole>(ds) as List<XCLCMS.Data.Model.View.v_SysRole>;
         }
 
         #endregion MethodEx

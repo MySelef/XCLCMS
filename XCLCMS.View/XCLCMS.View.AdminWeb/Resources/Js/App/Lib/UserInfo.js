@@ -89,8 +89,10 @@
         Elements: {
             //用户所属于的角色输入框对象
             txtUserRoleIDs: null,
+            txtMerchantID: null,
             Init: function () {
                 this.txtUserRoleIDs = $("#txtUserRoleIDs");
+                this.txtMerchantID = $("#txtMerchantID");
             }
         },
         Init: function () {
@@ -98,10 +100,15 @@
             _this.Elements.Init();
             _this.InitValidator();
 
-            _this.CreateSysRoleTree(_this.Elements.txtUserRoleIDs);
-
             $("#btnDel").on("click", function () {
                 return _this.Del();
+            });
+
+            _this.CreateSysRoleTree(_this.Elements.txtUserRoleIDs);
+            _this.Elements.txtMerchantID.numberbox({
+                onChange: function () {
+                    _this.CreateSysRoleTree(_this.Elements.txtUserRoleIDs);
+                }
             });
         },
         /**

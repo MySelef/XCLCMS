@@ -147,10 +147,9 @@ namespace XCLCMS.WebAPI.Controllers
 
             allData = this.vSysRoleBLL.GetModelList("");
 
-            //限制商户
-            if (base.IsOnlyCurrentMerchant && null != allData && allData.Count > 0)
+            if (request.Body.MerchantID > 0)
             {
-                allData = allData.Where(k => k.FK_MerchantID <= 0 || k.FK_MerchantID == base.CurrentUserModel.FK_MerchantID).ToList();
+                allData = allData.Where(k => k.FK_MerchantID <= 0 || k.FK_MerchantID == request.Body.MerchantID).ToList();
             }
 
             if (allData.IsNotNullOrEmpty())

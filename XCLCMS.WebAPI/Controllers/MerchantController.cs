@@ -146,6 +146,10 @@ namespace XCLCMS.WebAPI.Controllers
 
             #endregion 数据校验
 
+            var sysRoleId = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.RLE);
+            var subSysRoleId = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.RLE);
+            var sysDicID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.DIC);
+
             using (var scope = new TransactionScope())
             {
                 bool flag = false;
@@ -156,8 +160,9 @@ namespace XCLCMS.WebAPI.Controllers
                 //初始化角色节点
                 if (flag)
                 {
+                    //添加根角色节点
                     var rootRole = sysRoleBLL.GetRootModel();
-                    var sysRoleId = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.RLE);
+
                     flag = sysRoleBLL.Add(new Data.Model.SysRole()
                     {
                         CreaterID = base.CurrentUserModel.UserInfoID,
@@ -172,24 +177,6 @@ namespace XCLCMS.WebAPI.Controllers
                         UpdateTime = DateTime.Now,
                         SysRoleID = sysRoleId
                     });
-
-                    if (flag)
-                    {
-                        flag = sysRoleBLL.Add(new Data.Model.SysRole()
-                        {
-                            CreaterID = base.CurrentUserModel.UserInfoID,
-                            CreaterName = base.CurrentUserModel.UserName,
-                            FK_MerchantID = request.Body.MerchantID,
-                            ParentID = sysRoleId,
-                            RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(),
-                            CreateTime = DateTime.Now,
-                            RoleName = XCLCMS.Data.CommonHelper.SysRoleConst.DefaultRoleName,
-                            UpdaterID = base.CurrentUserModel.UserInfoID,
-                            UpdaterName = base.CurrentUserModel.UserName,
-                            UpdateTime = DateTime.Now,
-                            SysRoleID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.RLE)
-                        });
-                    }
                 }
 
                 //初始化字典库节点
@@ -205,7 +192,7 @@ namespace XCLCMS.WebAPI.Controllers
                         FK_MerchantID = request.Body.MerchantID,
                         ParentID = rootDic.SysDicID,
                         RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(),
-                        SysDicID = XCLCMS.Data.BLL.Common.Common.GenerateID(Data.CommonHelper.EnumType.IDTypeEnum.DIC),
+                        SysDicID = sysDicID,
                         UpdaterID = base.CurrentUserModel.UserInfoID,
                         UpdaterName = base.CurrentUserModel.UserName,
                         UpdateTime = DateTime.Now
@@ -217,6 +204,29 @@ namespace XCLCMS.WebAPI.Controllers
                 {
                     scope.Complete();
                 }
+            }
+
+            //添加商户默认角色
+            if (response.IsSuccess)
+            {
+                XCLCMS.Lib.WebAPI.Library.SysRoleAPI_Add(request.UserToken, new Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity()
+                {
+                    SysRole = new Data.Model.SysRole()
+                    {
+                        CreaterID = base.CurrentUserModel.UserInfoID,
+                        CreaterName = base.CurrentUserModel.UserName,
+                        FK_MerchantID = request.Body.MerchantID,
+                        ParentID = sysRoleId,
+                        RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString(),
+                        CreateTime = DateTime.Now,
+                        RoleName = XCLCMS.Data.CommonHelper.SysRoleConst.DefaultRoleName,
+                        UpdaterID = base.CurrentUserModel.UserInfoID,
+                        UpdaterName = base.CurrentUserModel.UserName,
+                        UpdateTime = DateTime.Now,
+                        SysRoleID = subSysRoleId
+                    },
+                    FunctionIdList = request.Body.MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.NOR.ToString() ? XCLCMS.Lib.Permission.PerHelper.GetNormalMerchantFunctionIDList() : null
+                });
             }
 
             if (response.Body)

@@ -247,6 +247,21 @@ namespace XCLCMS.Lib.WebAPI
             return response.Body;
         }
 
+        /// <summary>
+        /// 添加角色
+        /// </summary>
+        public static bool SysRoleAPI_Add(string userToken, XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity entity)
+        {
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity>(userToken);
+            request.Body = entity;
+            var response = XCLCMS.Lib.WebAPI.SysRoleAPI.Add(request);
+            if (null == response)
+            {
+                return false;
+            }
+            return response.Body;
+        }
+
         #endregion SysRoleAPI 相关
     }
 }

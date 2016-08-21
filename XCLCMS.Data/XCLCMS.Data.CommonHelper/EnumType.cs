@@ -485,7 +485,13 @@ namespace XCLCMS.Data.CommonHelper
             /// 商户应用 MerchantApp
             /// </summary>
             [Description("商户应用")]
-            MEP
+            MEP,
+
+            /// <summary>
+            /// 友情链接 FriendLinks
+            /// </summary>
+            [Description("友情链接")]
+            LIK
         }
 
         #endregion ID生成

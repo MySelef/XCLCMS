@@ -15,6 +15,7 @@ namespace XCLCMS.WebAPI.Controllers
     {
         public XCLCMS.Data.BLL.FriendLinks friendLinksBLL = new XCLCMS.Data.BLL.FriendLinks();
         public XCLCMS.Data.BLL.View.v_FriendLinks vFriendLinksBLL = new XCLCMS.Data.BLL.View.v_FriendLinks();
+        private XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
 
         /// <summary>
         /// 查询友情链接信息实体
@@ -114,6 +115,15 @@ namespace XCLCMS.WebAPI.Controllers
 
             request.Body.Title = (request.Body.Title ?? "").Trim();
 
+            //商户必须存在
+            var merchant = this.merchantBLL.GetModel(request.Body.FK_MerchantID);
+            if (null == merchant)
+            {
+                response.IsSuccess = false;
+                response.Message = "无效的商户号！";
+                return response;
+            }
+
             if (string.IsNullOrWhiteSpace(request.Body.Title))
             {
                 response.IsSuccess = false;
@@ -160,6 +170,15 @@ namespace XCLCMS.WebAPI.Controllers
             {
                 response.IsSuccess = false;
                 response.Message = "请指定有效的友情链接信息！";
+                return response;
+            }
+
+            //商户必须存在
+            var merchant = this.merchantBLL.GetModel(request.Body.FK_MerchantID);
+            if (null == merchant)
+            {
+                response.IsSuccess = false;
+                response.Message = "无效的商户号！";
                 return response;
             }
 

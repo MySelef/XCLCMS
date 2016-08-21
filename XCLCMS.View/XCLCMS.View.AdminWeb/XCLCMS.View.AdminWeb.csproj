@@ -154,6 +154,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Common\CommonController.cs" />
     <Compile Include="Controllers\Common\OtherController.cs" />
+    <Compile Include="Controllers\FriendLinks\FriendLinksController.cs" />
     <Compile Include="Controllers\Home\DefaultController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Merchant\MerchantAppController.cs" />
@@ -170,6 +171,8 @@
     <Compile Include="Models\Article\ArticleAddVM.cs" />
     <Compile Include="Models\Article\ArticleListVM.cs" />
     <Compile Include="Models\Article\ArticleShowVM.cs" />
+    <Compile Include="Models\FriendLinks\FriendLinksAddVM.cs" />
+    <Compile Include="Models\FriendLinks\FriendLinksListVM.cs" />
     <Compile Include="Models\Main\MainVM.cs" />
     <Compile Include="Models\Merchant\MerchantAddVM.cs" />
     <Compile Include="Models\Merchant\MerchantAppAddVM.cs" />
@@ -213,6 +216,7 @@
     <Content Include="Resources\Js\App\Lib\Article.js" />
     <Content Include="Resources\Js\App\Lib\Common.js" />
     <Content Include="Resources\Js\App\Lib\EasyUI.js" />
+    <Content Include="Resources\Js\App\Lib\FriendLinks.js" />
     <Content Include="Resources\Js\App\Lib\Home.js" />
     <Content Include="Resources\Js\App\Lib\Login.js" />
     <Content Include="Resources\Js\App\Lib\MainMaster.js" />
@@ -692,6 +696,8 @@
     <Content Include="Views\Article\ArticleShow.cshtml" />
     <Content Include="Views\Merchant\MerchantAppList.cshtml" />
     <Content Include="Views\Merchant\MerchantAppAdd.cshtml" />
+    <Content Include="Views\FriendLinks\Index.cshtml" />
+    <Content Include="Views\FriendLinks\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

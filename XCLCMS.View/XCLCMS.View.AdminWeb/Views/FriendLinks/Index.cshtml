@@ -1,0 +1,104 @@
+﻿@{
+    Layout = "~/Views/MasterView/Main.cshtml";
+}
+@model XCLCMS.View.AdminWeb.Models.FriendLinks.FriendLinksListVM
+
+<form>
+
+    <div class="XCLPanel" style="margin-top:5px;">
+        <div class="XCLPanelHeader">
+            @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.FriendLinks_Add))
+            {
+                <a href="@(string.Format("{0}FriendLinks/Add",XCLNetTools.StringHander.Common.RootUri))" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+            }
+            @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.FriendLinks_Edit))
+            {
+                <a href="@(string.Format("{0}FriendLinks/Add",XCLNetTools.StringHander.Common.RootUri))" id="btnUpdate" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a>
+            }
+            @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.FriendLinks_Del))
+            {
+                <a href="javascript:void(0);" id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除</a>
+            }
+        </div>
+        <div class="XCLPanelBody">
+            <div>
+                @Html.Raw(Model.Search.XCLNetSearchHTML())
+            </div>
+            <table class="XCLTableList">
+                <tr class="XCLTableHeader XCLTableNoHover">
+                    <td>
+                        <input type="checkbox" class="XCLTableCheckAll" value="" />
+                    </td>
+                    <td>序号</td>
+                    <td>友链ID</td>
+                    <td>所属商户</td>
+                    <td>所属应用</td>
+                    <td>标题</td>
+                    <td>描述</td>
+                    <td>链接地址</td>
+                    <td>联系人名</td>
+                    <td>电子邮件</td>
+                    <td>QQ</td>
+                    <td>手机号</td>
+                    <td>其它联系方式</td>
+                    <td>备注</td>
+                    <td>记录状态</td>
+                    <td>创建时间</td>
+                    <td>更新时间</td>
+                </tr>
+                @{
+                    if (Model.FriendLinksList.IsNotNullOrEmpty())
+                    {
+                        for (int i = 0; i < Model.FriendLinksList.Count; i++)
+                        {
+                            var m = Model.FriendLinksList[i];
+                            <tr>
+                                <td align="center"><input type="checkbox" class="XCLTableCheckItem" value="@m.FriendLinkID" /></td>
+                                <td align="center">
+                                    @(Model.PagerModel.StartIndex + i)
+                                </td>
+                                <td align="center">
+                                    @m.FriendLinkID
+                                </td>
+                                <td align="center">
+                                    @m.MerchantName
+                                </td>
+                                <td>@m.MerchantAppName</td>
+                                <td>@m.Title</td>
+                                <td>@m.Description</td>
+                                <td>@m.URL</td>
+                                <td>@m.ContactName</td>
+                                <td>@m.Email</td>
+                                <td>@m.QQ</td>
+                                <td>@m.Tel</td>
+                                <td>@m.OtherContact</td>
+                                <td>@m.Remark</td>
+                                <td align="center" class="@(XCLCMS.View.AdminWeb.Common.WebCommon.GetRecordStateClass(m.RecordState))">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), m.RecordState)</td>
+                                <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.CreateTime)</td>
+                                <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.UpdateTime)</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="100" align="center">
+                                暂无数据！
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+
+            @Html.Partial("~/Views/UserControl/XCLPager.cshtml", Model.PagerModel)
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    require(["Lib/FriendLinks"], function (friendLinks) {
+        $(function () {
+            friendLinks.FriendLinksList.Init();
+        });
+    });
+</script>

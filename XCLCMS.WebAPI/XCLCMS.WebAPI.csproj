@@ -154,6 +154,7 @@
     <Compile Include="Controllers\AttachmentController.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\FriendLinksController.cs" />
     <Compile Include="Controllers\MerchantAppController.cs" />
     <Compile Include="Controllers\MerchantController.cs" />
     <Compile Include="Controllers\OpenController.cs" />

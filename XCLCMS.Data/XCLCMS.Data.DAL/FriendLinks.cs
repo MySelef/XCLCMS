@@ -134,5 +134,20 @@ namespace XCLCMS.Data.DAL
         }
 
         #endregion Method
+
+        #region MethodEx
+
+        /// <summary>
+        /// 判断指定Title是否存在
+        /// </summary>
+        public bool IsExistTitle(string title)
+        {
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from FriendLinks  WITH(NOLOCK)  where Title=@Title");
+            db.AddInParameter(dbCommand, "Title", DbType.AnsiString, title);
+            return db.ExecuteScalar(dbCommand) != null;
+        }
+
+        #endregion MethodEx
     }
 }

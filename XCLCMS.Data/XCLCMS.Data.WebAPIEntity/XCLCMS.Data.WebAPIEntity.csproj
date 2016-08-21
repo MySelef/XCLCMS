@@ -57,6 +57,7 @@
     <Compile Include="RequestEntity\Attachment\GetAttachmentListByIDListEntity.cs" />
     <Compile Include="RequestEntity\Attachment\GetObjectAttachmentListEntity.cs" />
     <Compile Include="RequestEntity\Common\GenerateIDEntity.cs" />
+    <Compile Include="RequestEntity\FriendLinks\IsExistTitleEntity.cs" />
     <Compile Include="RequestEntity\MerchantApp\IsExistMerchantAppNameEntity.cs" />
     <Compile Include="RequestEntity\Merchant\IsExistMerchantNameEntity.cs" />
     <Compile Include="RequestEntity\Open\LogonCheckEntity.cs" />

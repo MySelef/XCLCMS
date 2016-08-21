@@ -275,6 +275,30 @@ namespace XCLCMS.Lib.Permission
             /// </summary>
             [Description("数据过滤-仅限当前商户")]
             SysFun_DataFilter_OnlyCurrentMerchant = 400188,
+
+            /// <summary>
+            ///友情链接管理-友情链接添加
+            /// </summary>
+            [Description("友情链接管理-友情链接添加")]
+            FriendLinks_Add = 400190,
+
+            /// <summary>
+            ///友情链接管理-友情链接删除
+            /// </summary>
+            [Description("友情链接管理-友情链接删除")]
+            FriendLinks_Del = 400191,
+
+            /// <summary>
+            ///友情链接管理-友情链接修改
+            /// </summary>
+            [Description("友情链接管理-友情链接修改")]
+            FriendLinks_Edit = 400192,
+
+            /// <summary>
+            ///友情链接管理-友情链接查看
+            /// </summary>
+            [Description("友情链接管理-友情链接查看")]
+            FriendLinks_View = 400193,
         }
     }
 }

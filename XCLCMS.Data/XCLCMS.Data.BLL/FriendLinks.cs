@@ -41,5 +41,17 @@ namespace XCLCMS.Data.BLL
         }
 
         #endregion BasicMethod
+
+        #region MethodEx
+
+        /// <summary>
+        /// 判断指定Title是否存在
+        /// </summary>
+        public bool IsExistTitle(string title)
+        {
+            return dal.IsExistTitle(title);
+        }
+
+        #endregion MethodEx
     }
 }

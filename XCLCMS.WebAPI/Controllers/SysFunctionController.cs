@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using XCLCMS.Data.WebAPIEntity;
 using XCLNetTools.Generic;
@@ -21,83 +22,92 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_SysRoleView)]
-        public APIResponseEntity<XCLCMS.Data.Model.SysFunction> Detail([FromUri] APIRequestEntity<long> request)
+        public async Task<APIResponseEntity<XCLCMS.Data.Model.SysFunction>> Detail([FromUri] APIRequestEntity<long> request)
         {
-            var response = new APIResponseEntity<XCLCMS.Data.Model.SysFunction>();
-            response.Body = this.sysFunctionBLL.GetModel(request.Body);
-            response.IsSuccess = true;
-            return response;
+            return await Task.Run(() =>
+            {
+                var response = new APIResponseEntity<XCLCMS.Data.Model.SysFunction>();
+                response.Body = this.sysFunctionBLL.GetModel(request.Body);
+                response.IsSuccess = true;
+                return response;
+            });
         }
 
         /// <summary>
         /// 判断功能标识是否已经存在
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<bool> IsExistCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.IsExistCodeEntity> request)
+        public async Task<APIResponseEntity<bool>> IsExistCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.IsExistCodeEntity> request)
         {
-            var response = new APIResponseEntity<bool>();
-            response.IsSuccess = true;
-            response.Message = "该标识可以使用！";
-
-            XCLCMS.Data.Model.SysFunction model = null;
-            if (request.Body.SysFunctionID > 0)
+            return await Task.Run(() =>
             {
-                model = sysFunctionBLL.GetModel(request.Body.SysFunctionID);
-                if (null != model)
+                var response = new APIResponseEntity<bool>();
+                response.IsSuccess = true;
+                response.Message = "该标识可以使用！";
+
+                XCLCMS.Data.Model.SysFunction model = null;
+                if (request.Body.SysFunctionID > 0)
                 {
-                    if (string.Equals(request.Body.Code, model.Code, StringComparison.OrdinalIgnoreCase))
+                    model = sysFunctionBLL.GetModel(request.Body.SysFunctionID);
+                    if (null != model)
                     {
-                        return response;
+                        if (string.Equals(request.Body.Code, model.Code, StringComparison.OrdinalIgnoreCase))
+                        {
+                            return response;
+                        }
                     }
                 }
-            }
-            if (!string.IsNullOrEmpty(request.Body.Code))
-            {
-                bool isExist = sysFunctionBLL.IsExistCode(request.Body.Code);
-                if (isExist)
+                if (!string.IsNullOrEmpty(request.Body.Code))
                 {
-                    response.IsSuccess = false;
-                    response.Message = "该标识名已存在！";
+                    bool isExist = sysFunctionBLL.IsExistCode(request.Body.Code);
+                    if (isExist)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = "该标识名已存在！";
+                    }
                 }
-            }
-            return response;
+                return response;
+            });
         }
 
         /// <summary>
         /// 判断功能名，在同一级别中是否存在
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<bool> IsExistFunctionNameInSameLevel([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.IsExistFunctionNameInSameLevelEntity> request)
+        public async Task<APIResponseEntity<bool>> IsExistFunctionNameInSameLevel([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.IsExistFunctionNameInSameLevelEntity> request)
         {
-            var response = new APIResponseEntity<bool>();
-            response.IsSuccess = true;
-            response.Message = "该功能名可以使用！";
-
-            XCLCMS.Data.Model.SysFunction model = null;
-
-            if (request.Body.SysFunctionID > 0)
+            return await Task.Run(() =>
             {
-                model = sysFunctionBLL.GetModel(request.Body.SysFunctionID);
-                if (null != model)
+                var response = new APIResponseEntity<bool>();
+                response.IsSuccess = true;
+                response.Message = "该功能名可以使用！";
+
+                XCLCMS.Data.Model.SysFunction model = null;
+
+                if (request.Body.SysFunctionID > 0)
                 {
-                    if (string.Equals(request.Body.FunctionName, model.FunctionName, StringComparison.OrdinalIgnoreCase))
+                    model = sysFunctionBLL.GetModel(request.Body.SysFunctionID);
+                    if (null != model)
                     {
-                        return response;
+                        if (string.Equals(request.Body.FunctionName, model.FunctionName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            return response;
+                        }
                     }
                 }
-            }
 
-            List<XCLCMS.Data.Model.SysFunction> lst = sysFunctionBLL.GetChildListByID(request.Body.ParentID);
-            if (lst.IsNotNullOrEmpty())
-            {
-                if (lst.Exists(k => string.Equals(k.FunctionName, request.Body.FunctionName, StringComparison.OrdinalIgnoreCase)))
+                List<XCLCMS.Data.Model.SysFunction> lst = sysFunctionBLL.GetChildListByID(request.Body.ParentID);
+                if (lst.IsNotNullOrEmpty())
                 {
-                    response.IsSuccess = false;
-                    response.Message = "该功能名在当前层级中已存在！";
+                    if (lst.Exists(k => string.Equals(k.FunctionName, request.Body.FunctionName, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        response.IsSuccess = false;
+                        response.Message = "该功能名在当前层级中已存在！";
+                    }
                 }
-            }
 
-            return response;
+                return response;
+            });
         }
 
         /// <summary>
@@ -105,12 +115,15 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView)]
-        public APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysFunction>> GetList([FromUri]  APIRequestEntity<long> request)
+        public async Task<APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysFunction>>> GetList([FromUri]  APIRequestEntity<long> request)
         {
-            var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysFunction>>();
-            response.Body = this.vSysFunctionBLL.GetList(request.Body);
-            response.IsSuccess = true;
-            return response;
+            return await Task.Run(() =>
+            {
+                var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysFunction>>();
+                response.Body = this.vSysFunctionBLL.GetList(request.Body);
+                response.IsSuccess = true;
+                return response;
+            });
         }
 
         /// <summary>
@@ -118,72 +131,75 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpGet]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionView)]
-        public APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>> GetAllJsonForEasyUITree([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetAllJsonForEasyUITreeEntity> request)
+        public async Task<APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>> GetAllJsonForEasyUITree([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetAllJsonForEasyUITreeEntity> request)
         {
-            var response = new APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>();
-            response.IsSuccess = true;
-
-            List<XCLCMS.Data.Model.View.v_SysFunction> allData = null;
-            List<XCLNetTools.Entity.EasyUI.TreeItem> tree = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
-
-            var merchantModel = this.merchantBLL.GetModel(request.Body.MerchantID);
-            if (null == merchantModel)
+            return await Task.Run(() =>
             {
-                response.IsSuccess = false;
-                response.Message = "您指定的商户号无效！";
-                return response;
-            }
+                var response = new APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>();
+                response.IsSuccess = true;
 
-            //根据情况，是否只显示普通商户的功能权限以供选择
-            if (merchantModel.MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.NOR.ToString())
-            {
-                allData = XCLCMS.Lib.Permission.PerHelper.GetNormalMerchantFunctionTreeList();
-            }
-            else
-            {
-                //所有权限功能
-                allData = this.vSysFunctionBLL.GetModelList("");
-            }
+                List<XCLCMS.Data.Model.View.v_SysFunction> allData = null;
+                List<XCLNetTools.Entity.EasyUI.TreeItem> tree = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
 
-            if (allData.IsNotNullOrEmpty())
-            {
-                var root = allData.Where(k => k.ParentID == 0).FirstOrDefault();//根节点
-                if (null != root)
+                var merchantModel = this.merchantBLL.GetModel(request.Body.MerchantID);
+                if (null == merchantModel)
                 {
-                    tree.Add(new XCLNetTools.Entity.EasyUI.TreeItem()
-                    {
-                        ID = root.SysFunctionID.ToString(),
-                        State = root.IsLeaf == 1 ? "open" : "closed",
-                        Text = root.FunctionName
-                    });
-
-                    Action<XCLNetTools.Entity.EasyUI.TreeItem> getChildAction = null;
-                    getChildAction = new Action<XCLNetTools.Entity.EasyUI.TreeItem>((parentModel) =>
-                    {
-                        var childs = allData.Where(k => k.ParentID == Convert.ToInt64(parentModel.ID)).ToList();
-                        if (childs.IsNotNullOrEmpty())
-                        {
-                            parentModel.Children = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
-                            childs.ForEach(m =>
-                            {
-                                var treeItem = new XCLNetTools.Entity.EasyUI.TreeItem()
-                                {
-                                    ID = m.SysFunctionID.ToString(),
-                                    State = m.IsLeaf == 1 ? "open" : "closed",
-                                    Text = m.FunctionName
-                                };
-                                getChildAction(treeItem);
-                                parentModel.Children.Add(treeItem);
-                            });
-                        }
-                    });
-
-                    //从根节点开始
-                    getChildAction(tree[0]);
+                    response.IsSuccess = false;
+                    response.Message = "您指定的商户号无效！";
+                    return response;
                 }
-            }
-            response.Body = tree;
-            return response;
+
+                //根据情况，是否只显示普通商户的功能权限以供选择
+                if (merchantModel.MerchantSystemType == XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum.NOR.ToString())
+                {
+                    allData = XCLCMS.Lib.Permission.PerHelper.GetNormalMerchantFunctionTreeList();
+                }
+                else
+                {
+                    //所有权限功能
+                    allData = this.vSysFunctionBLL.GetModelList("");
+                }
+
+                if (allData.IsNotNullOrEmpty())
+                {
+                    var root = allData.Where(k => k.ParentID == 0).FirstOrDefault();//根节点
+                    if (null != root)
+                    {
+                        tree.Add(new XCLNetTools.Entity.EasyUI.TreeItem()
+                        {
+                            ID = root.SysFunctionID.ToString(),
+                            State = root.IsLeaf == 1 ? "open" : "closed",
+                            Text = root.FunctionName
+                        });
+
+                        Action<XCLNetTools.Entity.EasyUI.TreeItem> getChildAction = null;
+                        getChildAction = new Action<XCLNetTools.Entity.EasyUI.TreeItem>((parentModel) =>
+                        {
+                            var childs = allData.Where(k => k.ParentID == Convert.ToInt64(parentModel.ID)).ToList();
+                            if (childs.IsNotNullOrEmpty())
+                            {
+                                parentModel.Children = new List<XCLNetTools.Entity.EasyUI.TreeItem>();
+                                childs.ForEach(m =>
+                                {
+                                    var treeItem = new XCLNetTools.Entity.EasyUI.TreeItem()
+                                    {
+                                        ID = m.SysFunctionID.ToString(),
+                                        State = m.IsLeaf == 1 ? "open" : "closed",
+                                        Text = m.FunctionName
+                                    };
+                                    getChildAction(treeItem);
+                                    parentModel.Children.Add(treeItem);
+                                });
+                            }
+                        });
+
+                        //从根节点开始
+                        getChildAction(tree[0]);
+                    }
+                }
+                response.Body = tree;
+                return response;
+            });
         }
 
         /// <summary>
@@ -191,24 +207,30 @@ namespace XCLCMS.WebAPI.Controllers
         /// 如:根目录/子目录/文件
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysFunctionSimple>> GetLayerListBySysFunctionId([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetLayerListBySysFunctionIdEntity> request)
+        public async Task<APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysFunctionSimple>>> GetLayerListBySysFunctionId([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetLayerListBySysFunctionIdEntity> request)
         {
-            var response = new APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysFunctionSimple>>();
-            response.Body = this.sysFunctionBLL.GetLayerListBySysFunctionId(request.Body.SysFunctionId);
-            response.IsSuccess = true;
-            return response;
+            return await Task.Run(() =>
+            {
+                var response = new APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysFunctionSimple>>();
+                response.Body = this.sysFunctionBLL.GetLayerListBySysFunctionId(request.Body.SysFunctionId);
+                response.IsSuccess = true;
+                return response;
+            });
         }
 
         /// <summary>
         /// 获取指定角色的所有功能
         /// </summary>
         [HttpGet]
-        public APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>> GetListByRoleID([FromUri] APIRequestEntity<long> request)
+        public async Task<APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>>> GetListByRoleID([FromUri] APIRequestEntity<long> request)
         {
-            var response = new APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>>();
-            response.Body = this.sysFunctionBLL.GetListByRoleID(request.Body);
-            response.IsSuccess = true;
-            return response;
+            return await Task.Run(() =>
+            {
+                var response = new APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>>();
+                response.Body = this.sysFunctionBLL.GetListByRoleID(request.Body);
+                response.IsSuccess = true;
+                return response;
+            });
         }
 
         /// <summary>
@@ -216,48 +238,51 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionAdd)]
-        public APIResponseEntity<bool> Add([FromBody] APIRequestEntity<XCLCMS.Data.Model.SysFunction> request)
+        public async Task<APIResponseEntity<bool>> Add([FromBody] APIRequestEntity<XCLCMS.Data.Model.SysFunction> request)
         {
-            var response = new APIResponseEntity<bool>();
-
-            #region 数据校验
-
-            request.Body.FunctionName = (request.Body.FunctionName ?? "").Trim();
-            request.Body.Code = (request.Body.Code ?? "").Trim();
-
-            //字典名必填
-            if (string.IsNullOrEmpty(request.Body.FunctionName))
+            return await Task.Run(() =>
             {
-                response.IsSuccess = false;
-                response.Message = "请提供功能名！";
-                return response;
-            }
+                var response = new APIResponseEntity<bool>();
 
-            //若有code，则判断是否唯一
-            if (!string.IsNullOrEmpty(request.Body.Code))
-            {
-                if (this.sysFunctionBLL.IsExistCode(request.Body.Code))
+                #region 数据校验
+
+                request.Body.FunctionName = (request.Body.FunctionName ?? "").Trim();
+                request.Body.Code = (request.Body.Code ?? "").Trim();
+
+                //字典名必填
+                if (string.IsNullOrEmpty(request.Body.FunctionName))
                 {
                     response.IsSuccess = false;
-                    response.Message = string.Format("功能唯一标识【{0}】已存在！", request.Body.Code);
+                    response.Message = "请提供功能名！";
                     return response;
                 }
-            }
 
-            #endregion 数据校验
+                //若有code，则判断是否唯一
+                if (!string.IsNullOrEmpty(request.Body.Code))
+                {
+                    if (this.sysFunctionBLL.IsExistCode(request.Body.Code))
+                    {
+                        response.IsSuccess = false;
+                        response.Message = string.Format("功能唯一标识【{0}】已存在！", request.Body.Code);
+                        return response;
+                    }
+                }
 
-            if (this.sysFunctionBLL.Add(request.Body))
-            {
-                response.IsSuccess = true;
-                response.Message = "添加成功！";
-            }
-            else
-            {
-                response.IsSuccess = false;
-                response.Message = "添加失败！";
-            }
+                #endregion 数据校验
 
-            return response;
+                if (this.sysFunctionBLL.Add(request.Body))
+                {
+                    response.IsSuccess = true;
+                    response.Message = "添加成功！";
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "添加失败！";
+                }
+
+                return response;
+            });
         }
 
         /// <summary>
@@ -265,63 +290,66 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionEdit)]
-        public APIResponseEntity<bool> Update([FromBody] APIRequestEntity<XCLCMS.Data.Model.SysFunction> request)
+        public async Task<APIResponseEntity<bool>> Update([FromBody] APIRequestEntity<XCLCMS.Data.Model.SysFunction> request)
         {
-            var response = new APIResponseEntity<bool>();
-
-            #region 数据校验
-
-            var model = this.sysFunctionBLL.GetModel(request.Body.SysFunctionID);
-            if (null == model)
+            return await Task.Run(() =>
             {
-                response.IsSuccess = false;
-                response.Message = "请指定有效的功能信息！";
-                return response;
-            }
+                var response = new APIResponseEntity<bool>();
 
-            request.Body.FunctionName = (request.Body.FunctionName ?? "").Trim();
-            request.Body.Code = (request.Body.Code ?? "").Trim();
+                #region 数据校验
 
-            //功能名必填
-            if (string.IsNullOrEmpty(request.Body.FunctionName))
-            {
-                response.IsSuccess = false;
-                response.Message = "请提供功能名！";
-                return response;
-            }
-
-            //若有code，则判断是否唯一
-            if (!string.IsNullOrEmpty(request.Body.Code))
-            {
-                if (!string.Equals(model.Code, request.Body.Code) && this.sysFunctionBLL.IsExistCode(request.Body.Code))
+                var model = this.sysFunctionBLL.GetModel(request.Body.SysFunctionID);
+                if (null == model)
                 {
                     response.IsSuccess = false;
-                    response.Message = string.Format("功能唯一标识【{0}】已存在！", request.Body.Code);
+                    response.Message = "请指定有效的功能信息！";
                     return response;
                 }
-            }
 
-            #endregion 数据校验
+                request.Body.FunctionName = (request.Body.FunctionName ?? "").Trim();
+                request.Body.Code = (request.Body.Code ?? "").Trim();
 
-            model.Code = request.Body.Code;
-            model.Remark = request.Body.Remark;
-            model.UpdaterID = base.CurrentUserModel.UserInfoID;
-            model.UpdaterName = base.CurrentUserModel.UserName;
-            model.UpdateTime = DateTime.Now;
-            model.FunctionName = request.Body.FunctionName;
+                //功能名必填
+                if (string.IsNullOrEmpty(request.Body.FunctionName))
+                {
+                    response.IsSuccess = false;
+                    response.Message = "请提供功能名！";
+                    return response;
+                }
 
-            if (this.sysFunctionBLL.Update(model))
-            {
-                response.IsSuccess = true;
-                response.Message = "修改成功！";
-            }
-            else
-            {
-                response.IsSuccess = false;
-                response.Message = "修改失败！";
-            }
+                //若有code，则判断是否唯一
+                if (!string.IsNullOrEmpty(request.Body.Code))
+                {
+                    if (!string.Equals(model.Code, request.Body.Code) && this.sysFunctionBLL.IsExistCode(request.Body.Code))
+                    {
+                        response.IsSuccess = false;
+                        response.Message = string.Format("功能唯一标识【{0}】已存在！", request.Body.Code);
+                        return response;
+                    }
+                }
 
-            return response;
+                #endregion 数据校验
+
+                model.Code = request.Body.Code;
+                model.Remark = request.Body.Remark;
+                model.UpdaterID = base.CurrentUserModel.UserInfoID;
+                model.UpdaterName = base.CurrentUserModel.UserName;
+                model.UpdateTime = DateTime.Now;
+                model.FunctionName = request.Body.FunctionName;
+
+                if (this.sysFunctionBLL.Update(model))
+                {
+                    response.IsSuccess = true;
+                    response.Message = "修改成功！";
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "修改失败！";
+                }
+
+                return response;
+            });
         }
 
         /// <summary>
@@ -329,41 +357,44 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionDel)]
-        public APIResponseEntity<bool> Delete([FromBody] APIRequestEntity<List<long>> request)
+        public async Task<APIResponseEntity<bool>> Delete([FromBody] APIRequestEntity<List<long>> request)
         {
-            var response = new APIResponseEntity<bool>();
-
-            if (null == request.Body || request.Body.Count == 0)
+            return await Task.Run(() =>
             {
-                response.IsSuccess = false;
-                response.Message = "请指定要删除的功能ID！";
-                return response;
-            }
+                var response = new APIResponseEntity<bool>();
 
-            request.Body = request.Body.Distinct().ToList();
-
-            int successCount = 0;
-
-            request.Body.ForEach(id =>
-            {
-                var sysDicModel = this.sysFunctionBLL.GetModel(id);
-                if (null != sysDicModel)
+                if (null == request.Body || request.Body.Count == 0)
                 {
-                    sysDicModel.UpdaterID = base.CurrentUserModel.UserInfoID;
-                    sysDicModel.UpdaterName = base.CurrentUserModel.UserName;
-                    sysDicModel.UpdateTime = DateTime.Now;
-                    sysDicModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString();
-                    if (this.sysFunctionBLL.Update(sysDicModel))
-                    {
-                        successCount++;
-                    }
+                    response.IsSuccess = false;
+                    response.Message = "请指定要删除的功能ID！";
+                    return response;
                 }
+
+                request.Body = request.Body.Distinct().ToList();
+
+                int successCount = 0;
+
+                request.Body.ForEach(id =>
+                {
+                    var sysDicModel = this.sysFunctionBLL.GetModel(id);
+                    if (null != sysDicModel)
+                    {
+                        sysDicModel.UpdaterID = base.CurrentUserModel.UserInfoID;
+                        sysDicModel.UpdaterName = base.CurrentUserModel.UserName;
+                        sysDicModel.UpdateTime = DateTime.Now;
+                        sysDicModel.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.D.ToString();
+                        if (this.sysFunctionBLL.Update(sysDicModel))
+                        {
+                            successCount++;
+                        }
+                    }
+                });
+
+                response.IsSuccess = true;
+                response.Message = string.Format("已成功删除【{0}】条记录！", successCount);
+
+                return response;
             });
-
-            response.IsSuccess = true;
-            response.Message = string.Format("已成功删除【{0}】条记录！", successCount);
-
-            return response;
         }
 
         /// <summary>
@@ -371,35 +402,38 @@ namespace XCLCMS.WebAPI.Controllers
         /// </summary>
         [HttpPost]
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysFunctionDel)]
-        public APIResponseEntity<bool> DelChild([FromBody] APIRequestEntity<long> request)
+        public async Task<APIResponseEntity<bool>> DelChild([FromBody] APIRequestEntity<long> request)
         {
-            var response = new APIResponseEntity<bool>();
-
-            if (request.Body <= 0)
+            return await Task.Run(() =>
             {
-                response.IsSuccess = false;
-                response.Message = "请指定要删除所有子节点的功能ID！";
+                var response = new APIResponseEntity<bool>();
+
+                if (request.Body <= 0)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "请指定要删除所有子节点的功能ID！";
+                    return response;
+                }
+
+                response.IsSuccess = this.sysFunctionBLL.DelChild(new Data.Model.SysFunction()
+                {
+                    SysFunctionID = request.Body,
+                    UpdaterID = base.CurrentUserModel.UserInfoID,
+                    UpdaterName = base.CurrentUserModel.UserName,
+                    UpdateTime = DateTime.Now
+                });
+
+                if (response.IsSuccess)
+                {
+                    response.Message = "成功删除所有子节点！";
+                }
+                else
+                {
+                    response.Message = "删除所有子节点失败！";
+                }
+
                 return response;
-            }
-
-            response.IsSuccess = this.sysFunctionBLL.DelChild(new Data.Model.SysFunction()
-            {
-                SysFunctionID = request.Body,
-                UpdaterID = base.CurrentUserModel.UserInfoID,
-                UpdaterName = base.CurrentUserModel.UserName,
-                UpdateTime = DateTime.Now
             });
-
-            if (response.IsSuccess)
-            {
-                response.Message = "成功删除所有子节点！";
-            }
-            else
-            {
-                response.Message = "删除所有子节点失败！";
-            }
-
-            return response;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Compression;
 using System.Web.Mvc;
 
 namespace XCLCMS.Lib.Base
@@ -322,6 +323,22 @@ namespace XCLCMS.Lib.Base
             else
             {
                 ViewBag.Description = string.Format("{0}—{1}", ViewBag.Description, this.CurrentApplicationMerchantApp.MetaDescription);
+            }
+            //gzip压缩
+            var acceptEncoding = (filterContext.HttpContext.Request.Headers["Accept-Encoding"] ?? "").ToLower();
+            if (!string.IsNullOrEmpty(acceptEncoding))
+            {
+                var response = filterContext.HttpContext.Response;
+                if (acceptEncoding.Contains("gzip"))
+                {
+                    response.AppendHeader("Content-encoding", "gzip");
+                    response.Filter = new GZipStream(response.Filter, CompressionMode.Compress);
+                }
+                else if (acceptEncoding.Contains("deflate"))
+                {
+                    response.AppendHeader("Content-encoding", "deflate");
+                    response.Filter = new DeflateStream(response.Filter, CompressionMode.Compress);
+                }
             }
         }
 

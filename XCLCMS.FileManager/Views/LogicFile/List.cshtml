@@ -34,6 +34,8 @@
                     <input type="checkbox" class="xcheckgroup checkAllCurrent xcheckValue" value="" />
                 </th>
                 <th class="text-center">序号</th>
+                <th class="text-center">所属商户ID</th>
+                <th class="text-center">所属商户名</th>
                 <th class="text-center">文件ID</th>
                 <th class="text-center">主文件ID</th>
                 <th class="text-center">标题</th>
@@ -61,6 +63,9 @@
                             <td class="text-center">
                                 @(Model.PagerModel.StartIndex + i)
                             </td>
+
+                            <td class="text-center">@m.FK_MerchantID</td>
+                            <td class="text-center">@m.MerchantName</td>
 
                             <td class="text-center"><a href="@Url.Action("Show", "LogicFile", new { AttachmentID = m.AttachmentID })" target="_blank">@m.AttachmentID</a></td>
                             <td class="text-center">

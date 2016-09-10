@@ -8,12 +8,22 @@
     <div>
         <table class="table table-bordered">
             <tr>
-                <td class="text-right" width="10%">文件ID：</td>
+                <td class="text-right" width="10%">所属商户ID：</td>
                 <td width="40%">
+                    @Model.Attachment.FK_MerchantID
+                </td>
+                <td class="text-right" width="10%">所属商户名：</td>
+                <td width="40%">
+                    @Model.Attachment.MerchantName
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">文件ID：</td>
+                <td>
                     @Model.Attachment.AttachmentID
                 </td>
-                <td class="text-right" width="10%">主文件ID：</td>
-                <td width="40%">
+                <td class="text-right">主文件ID：</td>
+                <td>
                     @Model.Attachment.ParentID
                 </td>
             </tr>

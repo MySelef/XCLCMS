@@ -23,6 +23,7 @@ namespace XCLCMS.FileManager.Controllers
             viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("文件ID","AttachmentID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("主文件ID","ParentID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("所属商户","FK_MerchantID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("标题","Title|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("文件名","OriginFileName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("查看类型","ViewType|string|text",""),
@@ -41,18 +42,17 @@ namespace XCLCMS.FileManager.Controllers
                 new XCLNetSearch.SearchFieldInfo("更新时间","UpdateTime|dateTime|text",""),
                 new XCLNetSearch.SearchFieldInfo("更新人名","UpdaterName|string|text","")
             };
-            string strWhere = string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString());
-            string strSearch = viewModel.Search.StrSQL;
-            if (!string.IsNullOrEmpty(strSearch))
-            {
-                strWhere = string.Format("{0} and ({1})", strWhere, strSearch);
-            }
+            string strWhere = XCLNetTools.DataBase.SQLLibrary.JoinWithAnd(new List<string>() {
+                     string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()),
+                     viewModel.Search.StrSQL,
+                     XCLCMS.Lib.Permission.PerHelper.IsOnlyCurrentMerchant(base.UserID)?string.Format("FK_MerchantID={0}",base.CurrentUserModel.FK_MerchantID):string.Empty
+                 });
 
             #endregion 初始化查询条件
 
-            XCLCMS.Data.BLL.Attachment bll = new Data.BLL.Attachment();
+            XCLCMS.Data.BLL.View.v_Attachment vBll = new Data.BLL.View.v_Attachment();
             base.PageParamsInfo.PageSize = 15;
-            viewModel.AttachmentList = bll.GetPageList(base.PageParamsInfo, strWhere, "", "[AttachmentID]", "[AttachmentID] desc");
+            viewModel.AttachmentList = vBll.GetPageList(base.PageParamsInfo, strWhere, "", "[AttachmentID]", "[AttachmentID] desc");
             viewModel.PagerModel = base.PageParamsInfo;
             return View(viewModel);
         }
@@ -64,9 +64,17 @@ namespace XCLCMS.FileManager.Controllers
         public ActionResult Show()
         {
             var bll = new XCLCMS.Data.BLL.Attachment();
+            var vBll = new XCLCMS.Data.BLL.View.v_Attachment();
             XCLCMS.FileManager.Models.LogicFile.ShowVM viewModel = new Models.LogicFile.ShowVM();
             viewModel.AttachmentID = XCLNetTools.StringHander.FormHelper.GetLong("AttachmentID");
-            viewModel.Attachment = bll.GetModel(viewModel.AttachmentID) ?? new Data.Model.Attachment();
+            viewModel.Attachment = vBll.GetModel(viewModel.AttachmentID) ?? new Data.Model.View.v_Attachment();
+            if (XCLCMS.Lib.Permission.PerHelper.IsOnlyCurrentMerchant(base.UserID))
+            {
+                if (viewModel.Attachment.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+                {
+                    throw new Exception("只能查看自己的商户数据！");
+                }
+            }
             if (viewModel.Attachment.AttachmentID > 0)
             {
                 viewModel.SubAttachmentList = bll.GetCorrelativeList(viewModel.Attachment.AttachmentID);
@@ -80,10 +88,17 @@ namespace XCLCMS.FileManager.Controllers
         [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FileManager_LogicFileUpdate)]
         public ActionResult Update()
         {
-            var bll = new XCLCMS.Data.BLL.Attachment();
+            var vBll = new XCLCMS.Data.BLL.View.v_Attachment();
             XCLCMS.FileManager.Models.LogicFile.UpdateVM viewModel = new Models.LogicFile.UpdateVM();
             viewModel.AttachmentID = XCLNetTools.StringHander.FormHelper.GetLong("AttachmentID");
-            viewModel.Attachment = bll.GetModel(viewModel.AttachmentID) ?? new Data.Model.Attachment();
+            viewModel.Attachment = vBll.GetModel(viewModel.AttachmentID) ?? new Data.Model.View.v_Attachment();
+            if (XCLCMS.Lib.Permission.PerHelper.IsOnlyCurrentMerchant(base.UserID))
+            {
+                if (viewModel.Attachment.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+                {
+                    throw new Exception("只能查看自己的商户数据！");
+                }
+            }
             return View(viewModel);
         }
 
@@ -102,6 +117,15 @@ namespace XCLCMS.FileManager.Controllers
                 msg.IsSuccess = false;
                 msg.Message = "未找到该记录！";
                 return Json(msg);
+            }
+            if (XCLCMS.Lib.Permission.PerHelper.IsOnlyCurrentMerchant(base.UserID))
+            {
+                if (model.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+                {
+                    msg.IsSuccess = false;
+                    msg.Message = "只能操作自己商户的数据！";
+                    return Json(msg);
+                }
             }
             model.Title = XCLNetTools.StringHander.FormHelper.GetString("Title");
             model.Description = XCLNetTools.StringHander.FormHelper.GetString("Description");
@@ -136,6 +160,23 @@ namespace XCLCMS.FileManager.Controllers
                 msg.Message = "请指定要删除的记录！";
                 return Json(msg);
             }
+
+            if (XCLCMS.Lib.Permission.PerHelper.IsOnlyCurrentMerchant(base.UserID))
+            {
+                foreach (var id in ids)
+                {
+                    var model = bll.GetModel(id);
+                    if (null == model)
+                    {
+                        continue;
+                    }
+                    if (model.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+                    {
+                        throw new Exception("只能删除自己的商户数据！");
+                    }
+                }
+            }
+
             if (bll.Delete(ids, base.ContextModel))
             {
                 msg.IsSuccess = true;

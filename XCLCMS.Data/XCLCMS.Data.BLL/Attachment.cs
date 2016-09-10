@@ -51,14 +51,6 @@ namespace XCLCMS.Data.BLL
         #region ExtensionMethod
 
         /// <summary>
-        /// 分页列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.Attachment> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
-        {
-            return dal.GetPageList(pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
-        }
-
-        /// <summary>
         /// 获取指定id的子记录信息
         /// </summary>
         public List<XCLCMS.Data.Model.Attachment> GetListByParentID(long parentId)

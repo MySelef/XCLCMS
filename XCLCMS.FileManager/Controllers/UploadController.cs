@@ -170,6 +170,7 @@ namespace XCLCMS.FileManager.Controllers
             model.URL = relativePath;
             model.ViewCount = settingModel.ViewCount;
             model.ViewType = settingModel.ViewType;
+            model.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
             return bll.Add(model) ? model.AttachmentID : 0;
         }
     }

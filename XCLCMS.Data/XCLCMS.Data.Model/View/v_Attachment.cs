@@ -1,20 +1,20 @@
 ﻿using System;
 
-namespace XCLCMS.Data.Model
+namespace XCLCMS.Data.Model.View
 {
     /// <summary>
-    /// 附件表
+    /// v_Attachment:实体类(属性说明自动提取数据库字段的描述信息)
     /// </summary>
     [Serializable]
-    public partial class Attachment
+    public partial class v_Attachment
     {
-        public Attachment()
+        public v_Attachment()
         { }
 
         #region Model
 
         private long _attachmentid;
-        private long _parentid = 0;
+        private long _parentid;
         private string _originfilename;
         private string _filename;
         private string _title;
@@ -25,10 +25,10 @@ namespace XCLCMS.Data.Model
         private string _description;
         private int _downloadcount;
         private int _viewcount;
-        private decimal _filesize = 0M;
-        private int _imgwidth = 0;
-        private int _imgheight = 0;
-        private long _fk_merchantid = 0;
+        private decimal _filesize;
+        private int _imgwidth;
+        private int _imgheight;
+        private long _fk_merchantid;
         private string _recordstate;
         private DateTime _createtime;
         private long _createrid;
@@ -36,9 +36,10 @@ namespace XCLCMS.Data.Model
         private DateTime _updatetime;
         private long _updaterid;
         private string _updatername;
+        private string _merchantname;
 
         /// <summary>
-        /// AttachmentID
+        ///
         /// </summary>
         public long AttachmentID
         {
@@ -47,7 +48,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 主附件ID
+        ///
         /// </summary>
         public long ParentID
         {
@@ -56,7 +57,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 原始文件名
+        ///
         /// </summary>
         public string OriginFileName
         {
@@ -74,7 +75,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 附件标题
+        ///
         /// </summary>
         public string Title
         {
@@ -83,7 +84,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 附件查看类型(AttachmentViewTypeEnum)
+        ///
         /// </summary>
         public string ViewType
         {
@@ -92,7 +93,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 附件格式类型(AttachmentFormatTypeEnum)
+        ///
         /// </summary>
         public string FormatType
         {
@@ -101,7 +102,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 附件扩展名(不含点)
+        ///
         /// </summary>
         public string Ext
         {
@@ -110,7 +111,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 相对路径
+        ///
         /// </summary>
         public string URL
         {
@@ -119,7 +120,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 描述信息
+        ///
         /// </summary>
         public string Description
         {
@@ -128,7 +129,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 下载数
+        ///
         /// </summary>
         public int DownLoadCount
         {
@@ -137,7 +138,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 查看数
+        ///
         /// </summary>
         public int ViewCount
         {
@@ -146,7 +147,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 附件大小（kb）
+        ///
         /// </summary>
         public decimal FileSize
         {
@@ -155,7 +156,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 图片宽度（如果是图片）
+        ///
         /// </summary>
         public int ImgWidth
         {
@@ -164,7 +165,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 图片高度（如果是图片）
+        ///
         /// </summary>
         public int ImgHeight
         {
@@ -173,7 +174,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 所属商户号
+        ///
         /// </summary>
         public long FK_MerchantID
         {
@@ -182,7 +183,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 记录状态(RecordStateEnum)
+        ///
         /// </summary>
         public string RecordState
         {
@@ -191,7 +192,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 创建时间
+        ///
         /// </summary>
         public DateTime CreateTime
         {
@@ -200,7 +201,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 创建者ID
+        ///
         /// </summary>
         public long CreaterID
         {
@@ -209,7 +210,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 创建者名
+        ///
         /// </summary>
         public string CreaterName
         {
@@ -218,7 +219,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 更新时间
+        ///
         /// </summary>
         public DateTime UpdateTime
         {
@@ -227,7 +228,7 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 更新人ID
+        ///
         /// </summary>
         public long UpdaterID
         {
@@ -236,12 +237,21 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 更新人名
+        ///
         /// </summary>
         public string UpdaterName
         {
             set { _updatername = value; }
             get { return _updatername; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string MerchantName
+        {
+            set { _merchantname = value; }
+            get { return _merchantname; }
         }
 
         #endregion Model

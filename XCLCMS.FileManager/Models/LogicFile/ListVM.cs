@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace XCLCMS.FileManager.Models.LogicFile
 {
@@ -31,6 +27,6 @@ namespace XCLCMS.FileManager.Models.LogicFile
         /// <summary>
         /// 文件信息列表
         /// </summary>
-        public List<XCLCMS.Data.Model.Attachment> AttachmentList { get; set; }
+        public List<XCLCMS.Data.Model.View.v_Attachment> AttachmentList { get; set; }
     }
 }

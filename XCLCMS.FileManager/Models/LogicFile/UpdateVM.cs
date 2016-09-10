@@ -10,6 +10,6 @@ namespace XCLCMS.FileManager.Models.LogicFile
     {
         public long AttachmentID { get; set; }
 
-        public XCLCMS.Data.Model.Attachment Attachment { get; set; }
+        public XCLCMS.Data.Model.View.v_Attachment Attachment { get; set; }
     }
 }

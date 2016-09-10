@@ -42,6 +42,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "FileSize", DbType.Decimal, model.FileSize);
             db.AddInParameter(dbCommand, "ImgWidth", DbType.Int32, model.ImgWidth);
             db.AddInParameter(dbCommand, "ImgHeight", DbType.Int32, model.ImgHeight);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
@@ -87,6 +88,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "FileSize", DbType.Decimal, model.FileSize);
             db.AddInParameter(dbCommand, "ImgWidth", DbType.Int32, model.ImgWidth);
             db.AddInParameter(dbCommand, "ImgHeight", DbType.Int32, model.ImgHeight);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
             db.AddInParameter(dbCommand, "RecordState", DbType.AnsiString, model.RecordState);
             db.AddInParameter(dbCommand, "CreateTime", DbType.DateTime, model.CreateTime);
             db.AddInParameter(dbCommand, "CreaterID", DbType.Int64, model.CreaterID);
@@ -143,15 +145,6 @@ namespace XCLCMS.Data.DAL
         #endregion Method
 
         #region MethodEx
-
-        /// <summary>
-        /// 分页数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.Attachment> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
-        {
-            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("Attachment", pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
-            return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Attachment>(dt) as List<XCLCMS.Data.Model.Attachment>;
-        }
 
         /// <summary>
         /// 获取指定id的子记录信息
@@ -271,7 +264,7 @@ namespace XCLCMS.Data.DAL
             ids = ids.Distinct().ToList();
 
             string sql = @"
-                select a.* from Attachment as a WITH(NOLOCK)  
+                select a.* from Attachment as a WITH(NOLOCK)
                 inner join @TVP_ID as b on a.AttachmentID=b.ID
             ";
 
@@ -286,7 +279,7 @@ namespace XCLCMS.Data.DAL
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Attachment>(ds.Tables[0]) as List<XCLCMS.Data.Model.Attachment>;
         }
-        
+
         #endregion MethodEx
     }
 }

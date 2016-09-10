@@ -5,29 +5,31 @@ SET ANSI_NULLS ON
 GO
 
 
+
 CREATE PROCEDURE [dbo].[sp_Attachment_ADD]
-@AttachmentID BIGINT,
-@ParentID BIGINT,
+@AttachmentID bigint,
+@ParentID bigint,
 @OriginFileName varchar(500),
-@FileName VARCHAR(500),
-@Title NVARCHAR(200),
-@ViewType CHAR(3),
-@FormatType CHAR(3),
-@Ext VARCHAR(10),
-@URL VARCHAR(1000),
-@Description NVARCHAR(2000),
-@DownLoadCount INT,
-@ViewCount INT,
-@FileSize DECIMAL(18,2),
-@ImgWidth INT,
-@ImgHeight INT,
-@RecordState CHAR(1),
-@CreateTime DATETIME,
-@CreaterID BIGINT,
-@CreaterName NVARCHAR(50),
-@UpdateTime DATETIME,
-@UpdaterID BIGINT,
-@UpdaterName NVARCHAR(50),
+@FileName varchar(500),
+@Title nvarchar(200),
+@ViewType char(3),
+@FormatType char(3),
+@Ext varchar(10),
+@URL varchar(1000),
+@Description nvarchar(2000),
+@DownLoadCount int,
+@ViewCount int,
+@FileSize decimal(18,2),
+@ImgWidth int,
+@ImgHeight int,
+@FK_MerchantID bigint,
+@RecordState char(1),
+@CreateTime datetime,
+@CreaterID bigint,
+@CreaterName nvarchar(50),
+@UpdateTime datetime,
+@UpdaterID bigint,
+@UpdaterName nvarchar(50),
 
 @ResultCode INT OUTPUT,
 @ResultMessage NVARCHAR(1000) OUTPUT
@@ -35,9 +37,9 @@ CREATE PROCEDURE [dbo].[sp_Attachment_ADD]
  AS 
  BEGIN TRY
 	INSERT INTO [Attachment](
-	[AttachmentID],[ParentID],[OriginFileName],[FileName],[Title],[ViewType],[FormatType],[Ext],[URL],[Description],[DownLoadCount],[ViewCount],[FileSize],[ImgWidth],[ImgHeight],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
+	[AttachmentID],[ParentID],[OriginFileName],[FileName],[Title],[ViewType],[FormatType],[Ext],[URL],[Description],[DownLoadCount],[ViewCount],[FileSize],[ImgWidth],[ImgHeight],[FK_MerchantID],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
 	)VALUES(
-	@AttachmentID,@ParentID,@OriginFileName,@FileName,@Title,@ViewType,@FormatType,@Ext,@URL,@Description,@DownLoadCount,@ViewCount,@FileSize,@ImgWidth,@ImgHeight,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
+	@AttachmentID,@ParentID,@OriginFileName,@FileName,@Title,@ViewType,@FormatType,@Ext,@URL,@Description,@DownLoadCount,@ViewCount,@FileSize,@ImgWidth,@ImgHeight,@FK_MerchantID,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
 	)
 
 	SET @ResultCode=1
@@ -46,6 +48,7 @@ BEGIN CATCH
 	SET @ResultMessage= ERROR_MESSAGE() 
 	SET @ResultCode=0
 END CATCH
+
 
 
 GO

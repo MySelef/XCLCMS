@@ -17,7 +17,14 @@
                     </td>
                     <td class="XCLTitle" style="width: 10%">值：</td>
                     <td style="width: 25%">
-                        <textarea id="txtKeyValue" name="txtKeyValue">@Model.SysWebSetting.KeyValue</textarea>
+                        开发环境：<br />
+                        <textarea id="txtKeyValue" name="txtKeyValue" style="height:30px;">@Model.SysWebSetting.KeyValue</textarea>
+                        <br />测试环境：<br />
+                        <textarea id="txtTestKeyValue" name="txtTestKeyValue" style="height:30px;">@Model.SysWebSetting.TestKeyValue</textarea>
+                        <br />UAT环境：<br />
+                        <textarea id="txtUATKeyValue" name="txtUATKeyValue" style="height:30px;">@Model.SysWebSetting.UATKeyValue</textarea>
+                        <br />生产环境：<br />
+                        <textarea id="txtPrdKeyValue" name="txtPrdKeyValue" style="height:30px;">@Model.SysWebSetting.PrdKeyValue</textarea>
                     </td>
                     <td class="XCLTitle" style="width: 10%">所属应用：</td>
                     <td style="width: 25%">

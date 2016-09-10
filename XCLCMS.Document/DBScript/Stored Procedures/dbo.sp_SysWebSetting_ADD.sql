@@ -6,10 +6,14 @@ GO
 
 
 
+
 CREATE PROCEDURE [dbo].[sp_SysWebSetting_ADD]
 @SysWebSettingID bigint,
 @KeyName varchar(100),
 @KeyValue varchar(2000),
+@TestKeyValue varchar(2000),
+@UATKeyValue varchar(2000),
+@PrdKeyValue varchar(2000),
 @Remark varchar(1000),
 @FK_MerchantID bigint,
 @FK_MerchantAppID bigint,
@@ -29,9 +33,9 @@ BEGIN
  
 	BEGIN TRY
 		INSERT INTO [SysWebSetting](
-		[SysWebSettingID],[KeyName],[KeyValue],[Remark],[FK_MerchantID],[FK_MerchantAppID],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
+		[SysWebSettingID],[KeyName],[KeyValue],[TestKeyValue],[UATKeyValue],[PrdKeyValue],[Remark],[FK_MerchantID],[FK_MerchantAppID],[RecordState],[CreateTime],[CreaterID],[CreaterName],[UpdateTime],[UpdaterID],[UpdaterName]
 		)VALUES(
-		@SysWebSettingID,@KeyName,@KeyValue,@Remark,@FK_MerchantID,@FK_MerchantAppID,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
+		@SysWebSettingID,@KeyName,@KeyValue,@TestKeyValue,@UATKeyValue,@PrdKeyValue,@Remark,@FK_MerchantID,@FK_MerchantAppID,@RecordState,@CreateTime,@CreaterID,@CreaterName,@UpdateTime,@UpdaterID,@UpdaterName
 		)
 
 		SET @ResultCode=1
@@ -42,6 +46,7 @@ BEGIN
 	END CATCH 
 
 END
+
 
 
 GO

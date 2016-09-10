@@ -16,6 +16,9 @@ namespace XCLCMS.Data.Model.View
         private long _syswebsettingid;
         private string _keyname;
         private string _keyvalue;
+        private string _testkeyvalue;
+        private string _uatkeyvalue;
+        private string _prdkeyvalue;
         private string _remark;
         private long _fk_merchantid;
         private long _fk_merchantappid;
@@ -54,6 +57,33 @@ namespace XCLCMS.Data.Model.View
         {
             set { _keyvalue = value; }
             get { return _keyvalue; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string TestKeyValue
+        {
+            set { _testkeyvalue = value; }
+            get { return _testkeyvalue; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string UATKeyValue
+        {
+            set { _uatkeyvalue = value; }
+            get { return _uatkeyvalue; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string PrdKeyValue
+        {
+            set { _prdkeyvalue = value; }
+            get { return _prdkeyvalue; }
         }
 
         /// <summary>

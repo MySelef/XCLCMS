@@ -16,6 +16,9 @@ namespace XCLCMS.Data.Model
         private long _syswebsettingid;
         private string _keyname;
         private string _keyvalue;
+        private string _testkeyvalue;
+        private string _uatkeyvalue;
+        private string _prdkeyvalue;
         private string _remark;
         private long _fk_merchantid = 0;
         private long _fk_merchantappid = 0;
@@ -46,12 +49,39 @@ namespace XCLCMS.Data.Model
         }
 
         /// <summary>
-        /// 值
+        /// 开发环境值
         /// </summary>
         public string KeyValue
         {
             set { _keyvalue = value; }
             get { return _keyvalue; }
+        }
+
+        /// <summary>
+        /// 测试环境值
+        /// </summary>
+        public string TestKeyValue
+        {
+            set { _testkeyvalue = value; }
+            get { return _testkeyvalue; }
+        }
+
+        /// <summary>
+        /// UAT环境值
+        /// </summary>
+        public string UATKeyValue
+        {
+            set { _uatkeyvalue = value; }
+            get { return _uatkeyvalue; }
+        }
+
+        /// <summary>
+        /// 生产环境值
+        /// </summary>
+        public string PrdKeyValue
+        {
+            set { _prdkeyvalue = value; }
+            get { return _prdkeyvalue; }
         }
 
         /// <summary>

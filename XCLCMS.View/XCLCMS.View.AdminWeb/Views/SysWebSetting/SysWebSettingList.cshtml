@@ -6,79 +6,105 @@
 
 <form>
 
-<div class="XCLPanel" style="margin-top:5px;">
-    <div class="XCLPanelHeader">
-        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingAdd)) {
-            <a href="@(string.Format("{0}SysWebSetting/Add",XCLNetTools.StringHander.Common.RootUri))" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
-        }
-        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingEdit)) {
-            <a href="@(string.Format("{0}SysWebSetting/Add",XCLNetTools.StringHander.Common.RootUri))" id="btnUpdate" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a>
-        }
-        @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingDel)) {
-            <a href="javascript:void(0);" id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除</a>
-        }
-    </div>
-    <div class="XCLPanelBody">
-        <div>
-            @Html.Raw(Model.Search.XCLNetSearchHTML())
+    <div class="XCLPanel" style="margin-top:5px;">
+        <div class="XCLPanelHeader">
+            @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingAdd))
+            {
+                <a href="@(string.Format("{0}SysWebSetting/Add",XCLNetTools.StringHander.Common.RootUri))" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+            }
+            @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingEdit))
+            {
+                <a href="@(string.Format("{0}SysWebSetting/Add",XCLNetTools.StringHander.Common.RootUri))" id="btnUpdate" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a>
+            }
+            @if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingDel))
+            {
+                <a href="javascript:void(0);" id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除</a>
+            }
         </div>
-        <table class="XCLTableList">
-            <tr class="XCLTableHeader XCLTableNoHover">
-                <td>
-                    <input type="checkbox" class="XCLTableCheckAll" value="" />
-                </td>
-                <td>序号</td>
-                <td>配置ID</td>
-                <td>所属商户</td>
-                <td>所属应用</td>
-                <td>名称</td>
-                <td>说明</td>
-                <td>值</td>
-                <td>记录状态</td>
-                <td>创建时间</td>
-                <td>创建者名</td>
-                <td>更新时间</td>
-                <td>更新人名</td>
-            </tr>
-            @{
-                if (Model.SysWebSettingList.IsNotNullOrEmpty())
-                {
-                    for (int i = 0; i < Model.SysWebSettingList.Count; i++)
+        <div class="XCLPanelBody">
+            <div>
+                @Html.Raw(Model.Search.XCLNetSearchHTML())
+            </div>
+            <table class="XCLTableList">
+                <tr class="XCLTableHeader XCLTableNoHover">
+                    <td>
+                        <input type="checkbox" class="XCLTableCheckAll" value="" />
+                    </td>
+                    <td>序号</td>
+                    <td>配置ID</td>
+                    <td>所属商户</td>
+                    <td>所属应用</td>
+                    <td>名称</td>
+                    <td>说明</td>
+                    <td>值</td>
+                    <td>记录状态</td>
+                    <td>创建时间</td>
+                    <td>创建者名</td>
+                    <td>更新时间</td>
+                    <td>更新人名</td>
+                </tr>
+                @{
+                    if (Model.SysWebSettingList.IsNotNullOrEmpty())
                     {
-                        var m = Model.SysWebSettingList[i];
+                        for (int i = 0; i < Model.SysWebSettingList.Count; i++)
+                        {
+                            var m = Model.SysWebSettingList[i];
+                            <tr>
+                                <td align="center"><input type="checkbox" class="XCLTableCheckItem" value="@m.SysWebSettingID" /></td>
+                                <td align="center">
+                                    @(Model.PagerModel.StartIndex + i)
+                                </td>
+                                <td align="center" class="XCLNoWrap">@m.SysWebSettingID</td>
+                                <td>@m.MerchantName</td>
+                                <td>@m.MerchantAppName</td>
+                                <td>@m.KeyName</td>
+                                <td>@m.Remark</td>
+                                <td>
+                                    @if (m.KeyValue == m.PrdKeyValue && m.KeyValue == m.TestKeyValue && m.KeyValue == m.UATKeyValue)
+                                    {
+                                        @m.KeyValue
+                                    }
+                                    else
+                                    {
+                                        <span class="XCLRed">开发环境：</span>
+                                        @m.KeyValue
+                                        <br />
+                                        <span class="XCLRed">
+                                            测试环境：
+                                        </span>
+                                        @m.TestKeyValue
+                                        <br />
+                                        <span class="XCLRed">
+                                            UAT环境：
+                                        </span>
+                                        @m.UATKeyValue
+                                        <br />
+                                        <span class="XCLRed">生产环境：</span>
+                                        @m.PrdKeyValue
+                                    }
+                                </td>
+                                <td align="center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), m.RecordState)</td>
+                                <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.CreateTime)</td>
+                                <td align="center">@m.CreaterName</td>
+                                <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.UpdateTime)</td>
+                                <td align="center">@m.UpdaterName</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
                         <tr>
-                            <td align="center"><input type="checkbox" class="XCLTableCheckItem" value="@m.SysWebSettingID" /></td>
-                            <td align="center">
-                                @(Model.PagerModel.StartIndex+i)
+                            <td colspan="100" align="center">
+                                暂无数据！
                             </td>
-                            <td align="center" class="XCLNoWrap">@m.SysWebSettingID</td>
-                            <td>@m.MerchantName</td>
-                            <td>@m.MerchantAppName</td>
-                            <td>@m.KeyName</td>
-                            <td>@m.Remark</td>
-                            <td>@m.KeyValue</td>
-                            <td align="center">@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), m.RecordState)</td>
-                            <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.CreateTime)</td>
-                            <td align="center">@m.CreaterName</td>
-                            <td align="center">@string.Format("{0:yyyy-MM-dd HH:mm:ss}", m.UpdateTime)</td>
-                            <td align="center">@m.UpdaterName</td>
                         </tr>
                     }
                 }
-                else
-                {
-                    <tr>
-                        <td colspan="100" align="center">
-                            暂无数据！
-                        </td>
-                    </tr>
-                }
-            }
-        </table>
+            </table>
 
-        @Html.Partial("~/Views/UserControl/XCLPager.cshtml", Model.PagerModel)
+            @Html.Partial("~/Views/UserControl/XCLPager.cshtml", Model.PagerModel)
+        </div>
     </div>
-</div>
 </form>
 
 <script type="text/javascript">

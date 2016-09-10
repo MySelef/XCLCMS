@@ -27,7 +27,10 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
                 new XCLNetSearch.SearchFieldInfo("所属商户名","MerchantName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("所属应用名","MerchantAppName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("名称","KeyName|string|text",""),
-                new XCLNetSearch.SearchFieldInfo("值","KeyValue|string|text",""),
+                new XCLNetSearch.SearchFieldInfo("开发环境值","KeyValue|string|text",""),
+                new XCLNetSearch.SearchFieldInfo("测试环境值","TestKeyValue|string|text",""),
+                new XCLNetSearch.SearchFieldInfo("UAT环境值","UATKeyValue|string|text",""),
+                new XCLNetSearch.SearchFieldInfo("生产环境值","PrdKeyValue|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("说明","Remark|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("记录状态","RecordState|string|select",XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum))),
                 new XCLNetSearch.SearchFieldInfo("创建时间","CreateTime|dateTime|text",""),
@@ -97,6 +100,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             viewModel.SysWebSetting = new Data.Model.SysWebSetting();
             viewModel.SysWebSetting.KeyName = (fm["txtKeyName"] ?? "").Trim();
             viewModel.SysWebSetting.KeyValue = (fm["txtKeyValue"] ?? "").Trim();
+            viewModel.SysWebSetting.TestKeyValue = (fm["txtTestKeyValue"] ?? "").Trim();
+            viewModel.SysWebSetting.UATKeyValue = (fm["txtUATKeyValue"] ?? "").Trim();
+            viewModel.SysWebSetting.PrdKeyValue = (fm["txtPrdKeyValue"] ?? "").Trim();
             viewModel.SysWebSetting.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.SysWebSetting.FK_MerchantAppID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantAppID");
             return viewModel;
@@ -119,12 +125,15 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             model.UpdateTime = DateTime.Now;
             model.KeyName = viewModel.SysWebSetting.KeyName;
             model.KeyValue = viewModel.SysWebSetting.KeyValue;
+            model.TestKeyValue = viewModel.SysWebSetting.TestKeyValue;
+            model.UATKeyValue = viewModel.SysWebSetting.UATKeyValue;
+            model.PrdKeyValue = viewModel.SysWebSetting.PrdKeyValue;
             model.Remark = viewModel.SysWebSetting.Remark;
             model.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
             model.SysWebSettingID = XCLCMS.Lib.WebAPI.Library.CommonAPI_GenerateID(base.UserToken, new Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity()
             {
                 IDType = Data.CommonHelper.EnumType.IDTypeEnum.SET.ToString()
-            }); 
+            });
             model.FK_MerchantAppID = viewModel.SysWebSetting.FK_MerchantAppID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysWebSetting>(base.UserToken);
@@ -145,6 +154,9 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             model.SysWebSettingID = sysWebSettingID;
             model.KeyName = viewModel.SysWebSetting.KeyName;
             model.KeyValue = viewModel.SysWebSetting.KeyValue;
+            model.TestKeyValue = viewModel.SysWebSetting.TestKeyValue;
+            model.UATKeyValue = viewModel.SysWebSetting.UATKeyValue;
+            model.PrdKeyValue = viewModel.SysWebSetting.PrdKeyValue;
             model.UpdaterID = base.CurrentUserModel.UserInfoID;
             model.UpdaterName = base.CurrentUserModel.UserName;
             model.UpdateTime = DateTime.Now;

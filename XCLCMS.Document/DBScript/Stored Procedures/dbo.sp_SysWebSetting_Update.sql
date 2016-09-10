@@ -6,10 +6,14 @@ GO
 
 
 
+
 CREATE PROCEDURE [dbo].[sp_SysWebSetting_Update]
 @SysWebSettingID bigint,
 @KeyName varchar(100),
 @KeyValue varchar(2000),
+@TestKeyValue varchar(2000),
+@UATKeyValue varchar(2000),
+@PrdKeyValue varchar(2000),
 @Remark varchar(1000),
 @FK_MerchantID bigint,
 @FK_MerchantAppID bigint,
@@ -28,8 +32,8 @@ CREATE PROCEDURE [dbo].[sp_SysWebSetting_Update]
 BEGIN 
 	BEGIN TRY 
 		UPDATE [SysWebSetting] SET 
-		KeyName=@KeyName , FK_MerchantID=@FK_MerchantID, 
-		[KeyValue] = @KeyValue,[Remark] = @Remark,[FK_MerchantAppID] = @FK_MerchantAppID,[RecordState] = @RecordState,[CreateTime] = @CreateTime,[CreaterID] = @CreaterID,[CreaterName] = @CreaterName,[UpdateTime] = @UpdateTime,[UpdaterID] = @UpdaterID,[UpdaterName] = @UpdaterName
+		 KeyName=@KeyName , FK_MerchantID=@FK_MerchantID ,
+		[KeyValue] = @KeyValue,[TestKeyValue] = @TestKeyValue,[UATKeyValue] = @UATKeyValue,[PrdKeyValue] = @PrdKeyValue,[Remark] = @Remark,[FK_MerchantAppID] = @FK_MerchantAppID,[RecordState] = @RecordState,[CreateTime] = @CreateTime,[CreaterID] = @CreaterID,[CreaterName] = @CreaterName,[UpdateTime] = @UpdateTime,[UpdaterID] = @UpdaterID,[UpdaterName] = @UpdaterName
 		WHERE SysWebSettingID=@SysWebSettingID
 
 		SET @ResultCode=1
@@ -42,6 +46,7 @@ BEGIN
 END
 
  
+
 
 
 

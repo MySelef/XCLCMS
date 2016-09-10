@@ -3,9 +3,12 @@ CREATE TABLE [dbo].[SysWebSetting]
 [SysWebSettingID] [bigint] NOT NULL,
 [KeyName] [varchar] (100) COLLATE Chinese_PRC_CI_AS NOT NULL,
 [KeyValue] [varchar] (2000) COLLATE Chinese_PRC_CI_AS NULL,
+[TestKeyValue] [varchar] (2000) COLLATE Chinese_PRC_CI_AS NULL,
+[UATKeyValue] [varchar] (2000) COLLATE Chinese_PRC_CI_AS NULL,
+[PrdKeyValue] [varchar] (2000) COLLATE Chinese_PRC_CI_AS NULL,
 [Remark] [varchar] (1000) COLLATE Chinese_PRC_CI_AS NULL,
-[FK_MerchantID] [bigint] NOT NULL CONSTRAINT [DF__tmp_ms_xx__FK_Me__3CBF0154] DEFAULT ((0)),
-[FK_MerchantAppID] [bigint] NOT NULL CONSTRAINT [DF__tmp_ms_xx__FK_Me__3DB3258D] DEFAULT ((0)),
+[FK_MerchantID] [bigint] NOT NULL CONSTRAINT [DF__tmp_ms_xx__FK_Me__08D548FA] DEFAULT ((0)),
+[FK_MerchantAppID] [bigint] NOT NULL CONSTRAINT [DF__tmp_ms_xx__FK_Me__09C96D33] DEFAULT ((0)),
 [RecordState] [char] (1) COLLATE Chinese_PRC_CI_AS NOT NULL,
 [CreateTime] [datetime] NOT NULL,
 [CreaterID] [bigint] NOT NULL,
@@ -45,7 +48,10 @@ GO
 EXEC sp_addextendedproperty N'MS_Description', '键', 'SCHEMA', N'dbo', 'TABLE', N'SysWebSetting', 'COLUMN', N'KeyName'
 GO
 
-EXEC sp_addextendedproperty N'MS_Description', '值', 'SCHEMA', N'dbo', 'TABLE', N'SysWebSetting', 'COLUMN', N'KeyValue'
+EXEC sp_addextendedproperty N'MS_Description', '开发环境值', 'SCHEMA', N'dbo', 'TABLE', N'SysWebSetting', 'COLUMN', N'KeyValue'
+GO
+
+EXEC sp_addextendedproperty N'MS_Description', '生产环境值', 'SCHEMA', N'dbo', 'TABLE', N'SysWebSetting', 'COLUMN', N'PrdKeyValue'
 GO
 
 EXEC sp_addextendedproperty N'MS_Description', '记录状态(RecordStateEnum)', 'SCHEMA', N'dbo', 'TABLE', N'SysWebSetting', 'COLUMN', N'RecordState'
@@ -55,6 +61,12 @@ EXEC sp_addextendedproperty N'MS_Description', '备注', 'SCHEMA', N'dbo', 'TABL
 GO
 
 EXEC sp_addextendedproperty N'MS_Description', 'SysWebSettingID', 'SCHEMA', N'dbo', 'TABLE', N'SysWebSetting', 'COLUMN', N'SysWebSettingID'
+GO
+
+EXEC sp_addextendedproperty N'MS_Description', '测试环境值', 'SCHEMA', N'dbo', 'TABLE', N'SysWebSetting', 'COLUMN', N'TestKeyValue'
+GO
+
+EXEC sp_addextendedproperty N'MS_Description', 'UAT环境值', 'SCHEMA', N'dbo', 'TABLE', N'SysWebSetting', 'COLUMN', N'UATKeyValue'
 GO
 
 EXEC sp_addextendedproperty N'MS_Description', '更新人ID', 'SCHEMA', N'dbo', 'TABLE', N'SysWebSetting', 'COLUMN', N'UpdaterID'

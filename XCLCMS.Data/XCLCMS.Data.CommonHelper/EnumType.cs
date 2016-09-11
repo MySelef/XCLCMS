@@ -491,7 +491,13 @@ namespace XCLCMS.Data.CommonHelper
             /// 友情链接 FriendLinks
             /// </summary>
             [Description("友情链接")]
-            LIK
+            LIK,
+
+            /// <summary>
+            /// 标签 Tag
+            /// </summary>
+            [Description("标签")]
+            TAG
         }
 
         #endregion ID生成

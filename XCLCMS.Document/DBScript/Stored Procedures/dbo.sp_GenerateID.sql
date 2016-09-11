@@ -21,6 +21,7 @@ GO
 
 
 
+
 CREATE PROC [dbo].[sp_GenerateID](
 	@ResultCode INT OUTPUT,
 	@ResultMessage NVARCHAR(1000) OUTPUT,
@@ -96,6 +97,12 @@ BEGIN
 			SELECT @IDValue=ISNULL(MAX(IDValue),100)+1 FROM dbo.GenerateID WHERE IDType=@IDType
 			SET @IDCode=CAST('901'+CAST(@IDValue AS VARCHAR) AS BIGINT)		
 		END
+		--标签
+		ELSE IF(@IDType='TAG')
+		BEGIN
+			SELECT @IDValue=ISNULL(MAX(IDValue),100)+1 FROM dbo.GenerateID WHERE IDType=@IDType
+			SET @IDCode=CAST('902'+CAST(@IDValue AS VARCHAR) AS BIGINT)		
+		END
 		
 		INSERT INTO dbo.GenerateID ( IDType, IDValue,IDCode,CreateTime, Remark ) VALUES(@IDType,@IDValue,@IDCode,GETDATE(),@Remark)	
 	
@@ -113,6 +120,7 @@ BEGIN
 
 	
 END
+
 
 
 

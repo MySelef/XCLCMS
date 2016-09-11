@@ -32,9 +32,6 @@ namespace XCLCMS.Data.BLL.Strategy.Article
 
             try
             {
-                //删除附件关系
-                bll.Delete(CommonHelper.EnumType.ObjectTypeEnum.ART, articleContext.Article.ArticleID);
-
                 //添加附件关系
                 flag = bll.Add(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.ART, articleContext.Article.ArticleID, articleContext.ArticleAttachmentIDList, new Model.Custom.ContextModel()
                 {

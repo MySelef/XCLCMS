@@ -58,11 +58,13 @@
     <Compile Include="Merchant.cs" />
     <Compile Include="MerchantApp.cs" />
     <Compile Include="ObjectAttachment.cs" />
+    <Compile Include="ObjectTag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strategy\Article\Article.cs" />
     <Compile Include="Strategy\Article\ArticleContext.cs" />
     <Compile Include="Strategy\Article\ArticleType.cs" />
     <Compile Include="Strategy\Article\ObjectAttachment.cs" />
+    <Compile Include="Strategy\Article\Tags.cs" />
     <Compile Include="Strategy\BaseContext.cs" />
     <Compile Include="Strategy\BaseStrategy.cs" />
     <Compile Include="Strategy\ExecuteStrategy.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="SysRoleFunction.cs" />
     <Compile Include="SysUserRole.cs" />
     <Compile Include="SysWebSetting.cs" />
+    <Compile Include="Tags.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="View\v_Article.cs" />
     <Compile Include="View\v_Attachment.cs" />

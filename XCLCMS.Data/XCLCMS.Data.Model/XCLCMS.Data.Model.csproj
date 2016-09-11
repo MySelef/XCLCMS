@@ -55,11 +55,13 @@
     <Compile Include="Custom\SysDicSimple.cs" />
     <Compile Include="Custom\SysFunctionSimple.cs" />
     <Compile Include="Custom\SysRoleSimple.cs" />
+    <Compile Include="Custom\Tags_IsExistCondition.cs" />
     <Compile Include="FriendLinks.cs" />
     <Compile Include="GenerateID.cs" />
     <Compile Include="Merchant.cs" />
     <Compile Include="MerchantApp.cs" />
     <Compile Include="ObjectAttachment.cs" />
+    <Compile Include="ObjectTag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysDic.cs" />
     <Compile Include="SysFunction.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="SysRoleFunction.cs" />
     <Compile Include="SysUserRole.cs" />
     <Compile Include="SysWebSetting.cs" />
+    <Compile Include="Tags.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="View\v_Article.cs" />
     <Compile Include="View\v_Attachment.cs" />

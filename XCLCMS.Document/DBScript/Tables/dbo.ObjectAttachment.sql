@@ -11,6 +11,8 @@ CREATE TABLE [dbo].[ObjectAttachment]
 [UpdaterID] [bigint] NOT NULL,
 [UpdaterName] [nvarchar] (50) COLLATE Chinese_PRC_CI_AS NULL
 ) ON [PRIMARY]
+ALTER TABLE [dbo].[ObjectAttachment] ADD 
+CONSTRAINT [PK_OBJECTATTACHMENT] PRIMARY KEY CLUSTERED  ([ObjectType], [FK_ObjectID], [FK_AttachmentID]) ON [PRIMARY]
 GO
 CREATE NONCLUSTERED INDEX [IX_ObjectType] ON [dbo].[ObjectAttachment] ([ObjectType]) ON [PRIMARY]
 GO

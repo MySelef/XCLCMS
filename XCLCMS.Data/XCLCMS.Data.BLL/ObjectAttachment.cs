@@ -15,14 +15,6 @@ namespace XCLCMS.Data.BLL
         #region BasicMethod
 
         /// <summary>
-        /// 增加一条数据
-        /// </summary>
-        public bool Add(XCLCMS.Data.Model.ObjectAttachment model)
-        {
-            return dal.Add(model);
-        }
-
-        /// <summary>
         /// 获得数据列表
         /// </summary>
         public List<XCLCMS.Data.Model.ObjectAttachment> GetModelList(string strWhere)
@@ -51,7 +43,7 @@ namespace XCLCMS.Data.BLL
         }
 
         /// <summary>
-        /// 批量添加
+        /// 批量添加（先删再加）
         /// </summary>
         public bool Add(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum objectType, long objectID, List<long> attachmentIDList, XCLCMS.Data.Model.Custom.ContextModel context = null)
         {

@@ -22,8 +22,8 @@ namespace XCLCMS.Data.DAL
         /// </summary>
         public bool Add(XCLCMS.Data.Model.ObjectTag model)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetStoredProcCommand("ObjectTag_ADD");
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetStoredProcCommand("sp_ObjectTag_ADD");
             db.AddInParameter(dbCommand, "ObjectType", DbType.AnsiString, model.ObjectType);
             db.AddInParameter(dbCommand, "FK_ObjectID", DbType.Int64, model.FK_ObjectID);
             db.AddInParameter(dbCommand, "FK_TagsID", DbType.Int64, model.FK_TagsID);

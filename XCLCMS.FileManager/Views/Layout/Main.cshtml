@@ -43,15 +43,17 @@
                         <li activeReg="/Upload/"><a href="@Url.Action("Index","Upload")">上传新的文件</a></li>
                     }
                 </ul>
-                
+
                 @if (null != CurrentUserModel)
                 {
                     <p class="navbar-text" style="float:right;">
-                        您好，@(string.Format("{0}（{1}）", CurrentUserModel.UserName, CurrentUserModel.RoleName))  <a href="@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_LogOutURL">安全退出</a>
+                        您好，@(string.Format("{0}（{1}）", CurrentUserModel.UserName, CurrentUserModel.RoleName))
+                        <a href="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_LogOnURL)" target="_blank">后台管理</a>
                         &nbsp;&nbsp;&nbsp;
+                        <a href="@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_LogOutURL">安全退出</a>
                     </p>
                 }
-                
+
             </div>
         </div>
     </nav>

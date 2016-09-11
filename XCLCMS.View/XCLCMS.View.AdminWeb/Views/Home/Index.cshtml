@@ -1,25 +1,17 @@
 ﻿@{
     Layout = "~/Views/MasterView/Main.cshtml";
-    }
+}
 <div class="XCLPanel" style="margin-top:5px;">
-    <div class="XCLPanelHeader">
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">Search</a>
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'" style="width:80px">Print</a>
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px">Reload</a>
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help'" style="width:80px">Help</a>
-    </div>
     <div class="XCLPanelBody">
-        <table id="tt" class="easyui-datagrid" style="width:100%;height:auto;" rownumbers="true" pagination="true">
-            <thead>
-                <tr>
-                    <th field="itemid" width="80">Item ID</th>
-                    <th field="productid" width="120">Product ID</th>
-                    <th field="listprice" width="80" align="right">List Price</th>
-                    <th field="unitcost" width="80" align="right">Unit Cost</th>
-                    <th field="attr1" width="200">Attribute</th>
-                    <th field="status" width="60" align="center">Stauts</th>
-                </tr>
-            </thead>
-        </table>
+        <ul>
+            <li>欢迎使用XCLCMS后台管理系统</li>
+            <li>本系统从2014年10月开始构建，至今已有【@((long)(DateTime.Now - new DateTime(2014, 10, 1)).TotalDays)】天。</li>
+            <li>
+                GitHub：<a href="https://github.com/xucongli1989/XCLCMS" target="_blank">https://github.com/xucongli1989/XCLCMS</a>
+            </li>
+            <li>
+                Email：<a href="mailto:80213876@qq.com" target="_blank">80213876@qq.com</a>
+            </li>
+        </ul>
     </div>
 </div>

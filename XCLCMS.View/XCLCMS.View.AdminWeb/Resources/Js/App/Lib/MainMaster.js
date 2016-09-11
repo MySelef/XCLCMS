@@ -39,14 +39,14 @@
                 }
             });
 
-            //鼠标移出菜单时，回到当前选中的菜单
-            $DivMenuTabs.on("mouseleave", function () {
-                var $currentItem = $(this).find(".XCLRedBolder");
-                if (!($currentItem.is(":visible"))) {
-                    var index = $currentItem.closest(".panel").index();
-                    $DivMenuTabs.tabs('select', index);
-                }
-            });
+            ////鼠标移出菜单时，回到当前选中的菜单
+            //$DivMenuTabs.on("mouseleave", function () {
+            //    var $currentItem = $(this).find(".XCLRedBolder");
+            //    if (!($currentItem.is(":visible"))) {
+            //        var index = $currentItem.closest(".panel").index();
+            //        $DivMenuTabs.tabs('select', index);
+            //    }
+            //});
         },
         /**
         * 向form标签中追加附加信息

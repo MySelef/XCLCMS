@@ -32,7 +32,7 @@ namespace XCLCMS.Data.BLL.Strategy.Article
 
             bool flag = false;
 
-            var tagNameLst = (articleContext.Article.Tags ?? "").Split(',').ToList().Where(k => !string.IsNullOrWhiteSpace(k)).Select(k => k.Trim().ToLower()).Distinct().ToList();
+            var tagNameLst = (articleContext.Article.Tags ?? "").Replace('，', ',').Split(',').ToList().Where(k => !string.IsNullOrWhiteSpace(k)).Select(k => k.Trim().ToLower()).Distinct().ToList();
 
             if (null == tagNameLst || tagNameLst.Count == 0)
             {
@@ -68,14 +68,16 @@ namespace XCLCMS.Data.BLL.Strategy.Article
                 var addResult = bll.Add(tagLst);
 
                 //添加文章标签对应关系
-                if (addResult.IsSuccess && null != addResult.Result && addResult.Result.Count > 0)
+                if (addResult.IsSuccess && null != addResult.Result && null != addResult.Result.TagIdList && addResult.Result.TagIdList.Count > 0)
                 {
-                    objTagBLL.Add(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.ART, articleContext.Article.ArticleID, addResult.Result, new Model.Custom.ContextModel()
+                    objTagBLL.Add(XCLCMS.Data.CommonHelper.EnumType.ObjectTypeEnum.ART, articleContext.Article.ArticleID, addResult.Result.TagIdList, new Model.Custom.ContextModel()
                     {
                         UserInfoID = articleContext.CurrentUserInfo.UserInfoID,
                         UserName = articleContext.CurrentUserInfo.UserName
                     });
                 }
+
+                flag = addResult.IsSuccess;
             }
             catch (Exception ex)
             {

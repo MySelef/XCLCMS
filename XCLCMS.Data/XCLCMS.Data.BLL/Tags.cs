@@ -44,17 +44,17 @@ namespace XCLCMS.Data.BLL
         #region Extends
 
         /// <summary>
-        /// 判断标签是否存在
+        /// 得到一个对象实体
         /// </summary>
-        public bool IsExist(Tags_IsExistCondition condition)
+        public XCLCMS.Data.Model.Tags GetModel(Tags_IsExistCondition condition)
         {
-            return dal.IsExist(condition);
+            return dal.GetModel(condition);
         }
 
         /// <summary>
-        /// 批量添加tags
+        /// 批量添加tags，并返回添加成功的tagid列表
         /// </summary>
-        public XCLNetTools.Entity.MethodResult<List<long>> Add(List<XCLCMS.Data.Model.Tags> lst)
+        public XCLNetTools.Entity.MethodResult<Tags_AddMethodResult> Add(List<XCLCMS.Data.Model.Tags> lst)
         {
             return dal.Add(lst);
         }

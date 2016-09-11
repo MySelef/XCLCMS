@@ -286,10 +286,11 @@ namespace XCLCMS.WebAPI.Controllers
                 articleContext.ArticleAttachmentIDList = request.Body.ArticleAttachmentIDList;
 
                 XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
-                new XCLCMS.Data.BLL.Strategy.Article.Article(),
-                new XCLCMS.Data.BLL.Strategy.Article.ObjectAttachment(),
-                new XCLCMS.Data.BLL.Strategy.Article.ArticleType()
-            });
+                    new XCLCMS.Data.BLL.Strategy.Article.Article(),
+                    new XCLCMS.Data.BLL.Strategy.Article.ObjectAttachment(),
+                    new XCLCMS.Data.BLL.Strategy.Article.ArticleType(),
+                    new XCLCMS.Data.BLL.Strategy.Article.Tags()
+                });
                 strategy.Execute(articleContext);
 
                 if (strategy.Result != Data.BLL.Strategy.StrategyLib.ResultEnum.FAIL)
@@ -482,7 +483,8 @@ namespace XCLCMS.WebAPI.Controllers
                 XCLCMS.Data.BLL.Strategy.ExecuteStrategy strategy = new Data.BLL.Strategy.ExecuteStrategy(new List<Data.BLL.Strategy.BaseStrategy>() {
                 new XCLCMS.Data.BLL.Strategy.Article.Article(),
                 new XCLCMS.Data.BLL.Strategy.Article.ObjectAttachment(),
-                new XCLCMS.Data.BLL.Strategy.Article.ArticleType()
+                new XCLCMS.Data.BLL.Strategy.Article.ArticleType(),
+                new XCLCMS.Data.BLL.Strategy.Article.Tags()
             });
                 strategy.Execute(articleContext);
 

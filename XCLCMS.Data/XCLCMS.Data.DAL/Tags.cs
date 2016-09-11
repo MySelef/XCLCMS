@@ -106,26 +106,31 @@ namespace XCLCMS.Data.DAL
         #region Extends
 
         /// <summary>
-        /// 判断标签是否存在
+        /// 得到一个对象实体
         /// </summary>
-        public bool IsExist(Tags_IsExistCondition condition)
+        public XCLCMS.Data.Model.Tags GetModel(Tags_IsExistCondition condition)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from tags with(nolock) where TagName=@TagName and FK_MerchantID=@FK_MerchantID and FK_MerchantAppID=@FK_MerchantAppID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 * from tags with(nolock) where TagName=@TagName and FK_MerchantID=@FK_MerchantID and FK_MerchantAppID=@FK_MerchantAppID");
             db.AddInParameter(dbCommand, "TagName", DbType.String, condition.TagName);
             db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, condition.FK_MerchantID);
             db.AddInParameter(dbCommand, "FK_MerchantAppID", DbType.Int64, condition.FK_MerchantAppID);
-            var obj = db.ExecuteScalar(dbCommand);
-            return null != obj;
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+            var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Tags>(ds.Tables[0]);
+            return null != lst && lst.Count > 0 ? lst[0] : null;
         }
 
         /// <summary>
         /// 批量添加tags，并返回添加成功的tagid列表
         /// </summary>
-        public XCLNetTools.Entity.MethodResult<List<long>> Add(List<XCLCMS.Data.Model.Tags> lst)
+        public XCLNetTools.Entity.MethodResult<Tags_AddMethodResult> Add(List<XCLCMS.Data.Model.Tags> lst)
         {
-            var result = new XCLNetTools.Entity.MethodResult<List<long>>();
-            result.Result = new List<long>();
+            var result = new XCLNetTools.Entity.MethodResult<Tags_AddMethodResult>();
+            result.Result = new Tags_AddMethodResult()
+            {
+                AddedTagIdList = new List<long>(),
+                ExistTagIdList = new List<long>()
+            };
             if (null == lst || lst.Count == 0)
             {
                 result.IsSuccess = true;
@@ -137,20 +142,22 @@ namespace XCLCMS.Data.DAL
             foreach (var m in lst)
             {
                 //判断标签是否存在
-                if (this.IsExist(new Tags_IsExistCondition()
+                var model = this.GetModel((new Tags_IsExistCondition()
                 {
                     FK_MerchantAppID = m.FK_MerchantAppID,
                     FK_MerchantID = m.FK_MerchantID,
                     TagName = m.TagName
-                }))
+                }));
+                if (null != model)
                 {
+                    result.Result.ExistTagIdList.Add(model.TagsID);
                     continue;
                 }
 
                 //添加标签
                 if (this.Add(m))
                 {
-                    result.Result.Add(m.TagsID);
+                    result.Result.AddedTagIdList.Add(m.TagsID);
                 }
             }
 

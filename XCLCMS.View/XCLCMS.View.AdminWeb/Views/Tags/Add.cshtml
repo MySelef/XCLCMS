@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Views/MasterView/Main.cshtml";
+}
+@model XCLCMS.View.AdminWeb.Models.Tags.TagsAddVM
+
+<form id="mainForm" action="@Model.FormAction" method="post">
+    <input type="hidden" id="TagsID" name="TagsID" value="@Model.Tags.TagsID" />
+
+    <div class="XCLAccordion" style="border-top: none;">
+        <div class="XCLAccordionHeader">1、基本信息：</div>
+        <div class="XCLAccordionBody">
+            <table class="XCLTableEdit">
+                <tr>
+                    <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>标签名：</td>
+                    <td style="width: 25%">
+                        <input type="text" name="txtTagName" value="@Model.Tags.TagName" />
+                    </td>
+                    <td class="XCLTitle" style="width: 10%">描述：</td>
+                    <td style="width: 25%">
+                        <textarea name="txtDescription">@Model.Tags.Description</textarea>
+                    </td>
+                    <td class="XCLTitle" style="width: 10%"></td>
+                    <td style="width: 25%">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle">所属商户号：</td>
+                    <td>
+                        <input type="text" class="easyui-numberbox" id="txtMerchantID" name="txtMerchantID" value="@Model.Tags.FK_MerchantID" />
+                    </td>
+                    <td class="XCLTitle">所属应用号：</td>
+                    <td><input type="text" class="easyui-numberbox" id="txtMerchantAppID" name="txtMerchantAppID" value="@Model.Tags.FK_MerchantAppID" /></td>
+                    <td class="XCLTitle">记录状态：</td>
+                    <td>
+                        <select name="selRecordState">
+                            @Html.Raw(Model.RecordStateOptions)
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="XCLHandBar">
+            <a href="@XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+            @switch ((XCLCMS.Lib.Common.Comm.HandleType)ViewBag.CurrentHandleType)
+            {
+                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存配置</a>
+                    break;
+                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
+                    if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.Tags_Del))
+                    {
+                        <a id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删 除</a>
+                    }
+                    break;
+            }
+        </div>
+    </div>
+</form>
+
+<div class="XCLPanel" style="margin-top: 5px;">
+    <div class="XCLPanelHeader XCLBolder">
+        操作说明：
+    </div>
+    <div class="XCLPanelBody">
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(["Lib/Tags"], function (Tags) {
+        $(function () {
+            Tags.TagsAdd.Init();
+        });
+    });
+</script>

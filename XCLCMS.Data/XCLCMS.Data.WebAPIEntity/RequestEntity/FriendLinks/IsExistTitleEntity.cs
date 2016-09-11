@@ -12,5 +12,11 @@ namespace XCLCMS.Data.WebAPIEntity.RequestEntity.FriendLinks
 
         [DataMember]
         public long FriendLinkID { get; set; }
+
+        [DataMember]
+        public long MerchantID { get; set; }
+
+        [DataMember]
+        public long MerchantAppID { get; set; }
     }
 }

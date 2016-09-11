@@ -299,6 +299,30 @@ namespace XCLCMS.Lib.Permission
             /// </summary>
             [Description("友情链接管理-友情链接查看")]
             FriendLinks_View = 400193,
+
+            /// <summary>
+            ///标签管理-标签信息查看
+            /// </summary>
+            [Description("标签管理-标签信息查看")]
+            Tags_View = 400195,
+
+            /// <summary>
+            ///标签管理-标签信息删除
+            /// </summary>
+            [Description("标签管理-标签信息删除")]
+            Tags_Del = 400196,
+
+            /// <summary>
+            ///标签管理-标签信息添加
+            /// </summary>
+            [Description("标签管理-标签信息添加")]
+            Tags_Add = 400197,
+
+            /// <summary>
+            ///标签管理-标签信息修改
+            /// </summary>
+            [Description("标签管理-标签信息修改")]
+            Tags_Edit = 400198,
         }
     }
 }

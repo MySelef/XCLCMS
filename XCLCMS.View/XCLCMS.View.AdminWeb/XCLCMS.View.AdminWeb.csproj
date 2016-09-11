@@ -164,6 +164,7 @@
     <Compile Include="Controllers\SysLog\SysLogController.cs" />
     <Compile Include="Controllers\SysRole\SysRoleController.cs" />
     <Compile Include="Controllers\SysWebSetting\SysWebSettingController.cs" />
+    <Compile Include="Controllers\Tags\TagsController.cs" />
     <Compile Include="Controllers\UserInfo\UserInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -184,6 +185,8 @@
     <Compile Include="Models\SysRole\SysRoleAddVM.cs" />
     <Compile Include="Models\SysWebSetting\SysWebSettingAddVM.cs" />
     <Compile Include="Models\SysWebSetting\SysWebSettingListVM.cs" />
+    <Compile Include="Models\Tags\TagsAddVM.cs" />
+    <Compile Include="Models\Tags\TagsListVM.cs" />
     <Compile Include="Models\UserControl\FileSelectVM.cs" />
     <Compile Include="Models\UserInfo\UserInfoAddVM.cs" />
     <Compile Include="Models\UserInfo\UserInfoListVM.cs" />
@@ -226,6 +229,7 @@
     <Content Include="Resources\Js\App\Lib\SysLog.js" />
     <Content Include="Resources\Js\App\Lib\SysRole.js" />
     <Content Include="Resources\Js\App\Lib\SysWebSetting.js" />
+    <Content Include="Resources\Js\App\Lib\Tags.js" />
     <Content Include="Resources\Js\App\Lib\UserInfo.js" />
     <Content Include="Resources\Js\App\main.js" />
     <Content Include="Resources\Js\App\require.js" />
@@ -698,6 +702,8 @@
     <Content Include="Views\Merchant\MerchantAppAdd.cshtml" />
     <Content Include="Views\FriendLinks\Index.cshtml" />
     <Content Include="Views\FriendLinks\Add.cshtml" />
+    <Content Include="Views\Tags\Index.cshtml" />
+    <Content Include="Views\Tags\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -79,6 +79,7 @@
     <Compile Include="RequestEntity\SysRole\IsExistRoleNameInSameLevelEntity.cs" />
     <Compile Include="RequestEntity\SysRole\AddOrUpdateEntity.cs" />
     <Compile Include="RequestEntity\SysWebSetting\IsExistKeyNameEntity.cs" />
+    <Compile Include="RequestEntity\Tags\IsExistTagNameEntity.cs" />
     <Compile Include="RequestEntity\UserInfo\AddOrUpdateEntity.cs" />
     <Compile Include="ResponseEntity\PageListResponseEntity.cs" />
   </ItemGroup>

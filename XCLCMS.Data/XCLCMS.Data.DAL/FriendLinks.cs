@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
+using XCLCMS.Data.Model.Custom;
 
 namespace XCLCMS.Data.DAL
 {
@@ -138,14 +139,26 @@ namespace XCLCMS.Data.DAL
         #region MethodEx
 
         /// <summary>
-        /// 判断指定Title是否存在
+        /// 判断指定标题是否存在
         /// </summary>
-        public bool IsExistTitle(string title)
+        public bool IsExist(FriendLinks_TitleCondition condition)
+        {
+            return null != this.GetModel(condition);
+        }
+
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public XCLCMS.Data.Model.FriendLinks GetModel(FriendLinks_TitleCondition condition)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from FriendLinks  WITH(NOLOCK)  where Title=@Title");
-            db.AddInParameter(dbCommand, "Title", DbType.AnsiString, title);
-            return db.ExecuteScalar(dbCommand) != null;
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 * from FriendLinks with(nolock) where Title=@Title and FK_MerchantID=@FK_MerchantID and FK_MerchantAppID=@FK_MerchantAppID");
+            db.AddInParameter(dbCommand, "Title", DbType.String, condition.Title);
+            db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, condition.FK_MerchantID);
+            db.AddInParameter(dbCommand, "FK_MerchantAppID", DbType.Int64, condition.FK_MerchantAppID);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+            var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.FriendLinks>(ds.Tables[0]);
+            return null != lst && lst.Count > 0 ? lst[0] : null;
         }
 
         #endregion MethodEx

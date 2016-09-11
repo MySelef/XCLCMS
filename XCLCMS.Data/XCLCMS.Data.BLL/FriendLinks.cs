@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using XCLCMS.Data.Model.Custom;
 
 namespace XCLCMS.Data.BLL
 {
@@ -45,11 +46,19 @@ namespace XCLCMS.Data.BLL
         #region MethodEx
 
         /// <summary>
-        /// 判断指定Title是否存在
+        /// 判断指定标题是否存在
         /// </summary>
-        public bool IsExistTitle(string title)
+        public bool IsExist(FriendLinks_TitleCondition condition)
         {
-            return dal.IsExistTitle(title);
+            return dal.IsExist(condition);
+        }
+
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public XCLCMS.Data.Model.FriendLinks GetModel(FriendLinks_TitleCondition condition)
+        {
+            return dal.GetModel(condition);
         }
 
         #endregion MethodEx

@@ -91,7 +91,7 @@ namespace XCLCMS.WebAPI.Controllers
                     var model = friendLinksBLL.GetModel(request.Body.FriendLinkID);
                     if (null != model)
                     {
-                        if (string.Equals(request.Body.Title, model.Title, StringComparison.OrdinalIgnoreCase))
+                        if (string.Equals(request.Body.Title, model.Title, StringComparison.OrdinalIgnoreCase) && request.Body.MerchantAppID == model.FK_MerchantAppID && request.Body.MerchantID == model.FK_MerchantID)
                         {
                             return response;
                         }
@@ -100,7 +100,12 @@ namespace XCLCMS.WebAPI.Controllers
 
                 if (!string.IsNullOrEmpty(request.Body.Title))
                 {
-                    bool isExist = friendLinksBLL.IsExistTitle(request.Body.Title);
+                    bool isExist = friendLinksBLL.IsExist(new Data.Model.Custom.FriendLinks_TitleCondition()
+                    {
+                        Title = request.Body.Title,
+                        FK_MerchantAppID = request.Body.MerchantAppID,
+                        FK_MerchantID = request.Body.MerchantID
+                    });
                     if (isExist)
                     {
                         response.IsSuccess = false;
@@ -143,7 +148,12 @@ namespace XCLCMS.WebAPI.Controllers
                     return response;
                 }
 
-                if (this.friendLinksBLL.IsExistTitle(request.Body.Title))
+                if (this.friendLinksBLL.IsExist(new Data.Model.Custom.FriendLinks_TitleCondition()
+                {
+                    Title = request.Body.Title,
+                    FK_MerchantAppID = request.Body.FK_MerchantAppID,
+                    FK_MerchantID = request.Body.FK_MerchantID
+                }))
                 {
                     response.IsSuccess = false;
                     response.Message = string.Format("友情链接标题【{0}】已存在！", request.Body.Title);
@@ -199,7 +209,12 @@ namespace XCLCMS.WebAPI.Controllers
 
                 if (!string.Equals(model.Title, request.Body.Title))
                 {
-                    if (this.friendLinksBLL.IsExistTitle(request.Body.Title))
+                    if (this.friendLinksBLL.IsExist(new Data.Model.Custom.FriendLinks_TitleCondition()
+                    {
+                        Title = request.Body.Title,
+                        FK_MerchantAppID = request.Body.FK_MerchantAppID,
+                        FK_MerchantID = request.Body.FK_MerchantID
+                    }))
                     {
                         response.IsSuccess = false;
                         response.Message = string.Format("友情链接标题【{0}】已存在！", request.Body.Title);

@@ -51,12 +51,13 @@
     <Compile Include="Custom\ArticleRelationDetailModel.cs" />
     <Compile Include="Custom\ArticleSearchCondition.cs" />
     <Compile Include="Custom\ContextModel.cs" />
+    <Compile Include="Custom\FriendLinks_TitleCondition.cs" />
     <Compile Include="Custom\ProcedureResultModel.cs" />
     <Compile Include="Custom\SysDicSimple.cs" />
     <Compile Include="Custom\SysFunctionSimple.cs" />
     <Compile Include="Custom\SysRoleSimple.cs" />
     <Compile Include="Custom\Tags_AddMethodResult.cs" />
-    <Compile Include="Custom\Tags_IsExistCondition.cs" />
+    <Compile Include="Custom\Tags_NameCondition.cs" />
     <Compile Include="FriendLinks.cs" />
     <Compile Include="GenerateID.cs" />
     <Compile Include="Merchant.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="View\v_SysFunction.cs" />
     <Compile Include="View\v_SysRole.cs" />
     <Compile Include="View\v_SysWebSetting.cs" />
+    <Compile Include="View\v_Tags.cs" />
     <Compile Include="View\v_UserInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

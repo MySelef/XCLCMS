@@ -106,9 +106,17 @@ namespace XCLCMS.Data.DAL
         #region Extends
 
         /// <summary>
+        /// 判断指定标签是否存在
+        /// </summary>
+        public bool IsExist(Tags_NameCondition condition)
+        {
+            return null != this.GetModel(condition);
+        }
+
+        /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public XCLCMS.Data.Model.Tags GetModel(Tags_IsExistCondition condition)
+        public XCLCMS.Data.Model.Tags GetModel(Tags_NameCondition condition)
         {
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand("select top 1 * from tags with(nolock) where TagName=@TagName and FK_MerchantID=@FK_MerchantID and FK_MerchantAppID=@FK_MerchantAppID");
@@ -142,7 +150,7 @@ namespace XCLCMS.Data.DAL
             foreach (var m in lst)
             {
                 //判断标签是否存在
-                var model = this.GetModel((new Tags_IsExistCondition()
+                var model = this.GetModel((new Tags_NameCondition()
                 {
                     FK_MerchantAppID = m.FK_MerchantAppID,
                     FK_MerchantID = m.FK_MerchantID,

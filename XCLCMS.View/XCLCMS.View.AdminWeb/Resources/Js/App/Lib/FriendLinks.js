@@ -117,6 +117,8 @@
                                     request.Body = {};
                                     request.Body.Title = $("input[name='txtTitle']").val();
                                     request.Body.FriendLinkID = $("input[name='FriendLinkID']").val();
+                                    request.Body.MerchantID = $("input[name='txtMerchantID']").val();
+                                    request.Body.MerchantAppID = $("input[name='txtMerchantAppID']").val();
                                     return request;
                                 }
                             };

@@ -11,6 +11,9 @@ GO
 
 
 
+
+
+
 CREATE PROC [dbo].[sp_ClearRubbishData] AS
 BEGIN
 
@@ -74,6 +77,16 @@ BEGIN
 	LEFT JOIN dbo.Article AS b ON a.FK_ArticleID=b.ArticleID
 	WHERE b.ArticleID IS NULL
 
+	/*****************Tags*****************/
+	DELETE FROM dbo.Tags WHERE RecordState<>'N'
+
+	/*****************ObjectTag*****************/
+	DELETE FROM dbo.ObjectTag FROM dbo.ObjectTag AS a
+	LEFT JOIN dbo.Article AS b ON a.ObjectType='ART'  AND a.FK_ObjectID=b.ArticleID
+	LEFT JOIN dbo.Tags AS c ON a.FK_TagsID=c.TagsID
+	WHERE b.ArticleID IS NULL OR b.RecordState<>'N' OR c.TagsID IS NULL
+
+
 	/*****************MerchantApp*****************/
 	DELETE FROM dbo.MerchantApp WHERE RecordState<>'N'
 
@@ -83,7 +96,14 @@ BEGIN
 	/*****************SysWebSetting*****************/
 	DELETE FROM dbo.SysWebSetting WHERE RecordState<>'N'
 
+
+	/*****************FriendLinks*****************/
+	DELETE FROM dbo.FriendLinks WHERE RecordState<>'N'
+
 END
+
+
+
 
 
 

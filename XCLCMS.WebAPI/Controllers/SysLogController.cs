@@ -35,7 +35,11 @@ namespace XCLCMS.WebAPI.Controllers
                 });
                 }
 
-                response.Body.ResultList = sysLogBLL.GetPageList(pager, request.Body.Where, "", "[SysLogID]", "[SysLogID] desc");
+                response.Body.ResultList = sysLogBLL.GetPageList(pager, new XCLNetTools.Entity.SqlPagerConditionEntity()
+                {
+                    OrderBy = "[SysLogID] desc",
+                    Where = request.Body.Where
+                });
                 response.Body.PagerInfo = pager;
                 response.IsSuccess = true;
                 return response;

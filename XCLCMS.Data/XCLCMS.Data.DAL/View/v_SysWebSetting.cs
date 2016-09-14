@@ -53,9 +53,10 @@ namespace XCLCMS.Data.DAL.View
         /// <summary>
         /// 分页数据列表
         /// </summary>
-        public List<XCLCMS.Data.Model.View.v_SysWebSetting> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public List<XCLCMS.Data.Model.View.v_SysWebSetting> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, XCLNetTools.Entity.SqlPagerConditionEntity condition)
         {
-            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("v_SysWebSetting", pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
+            condition.TableName = "v_SysWebSetting";
+            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList(pageInfo, condition);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.View.v_SysWebSetting>(dt) as List<XCLCMS.Data.Model.View.v_SysWebSetting>;
         }
 

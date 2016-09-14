@@ -64,7 +64,11 @@ namespace XCLCMS.WebAPI.Controllers
                 });
                 }
 
-                response.Body.ResultList = vtagsBLL.GetPageList(pager, request.Body.Where, "", "[TagsID]", "[TagsID] desc");
+                response.Body.ResultList = vtagsBLL.GetPageList(pager, new XCLNetTools.Entity.SqlPagerConditionEntity()
+                {
+                    OrderBy = "[TagsID] desc",
+                    Where = request.Body.Where
+                });
                 response.Body.PagerInfo = pager;
                 response.IsSuccess = true;
                 return response;

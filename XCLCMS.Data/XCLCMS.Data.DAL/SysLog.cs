@@ -41,9 +41,10 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 分页数据列表
         /// </summary>
-        public List<XCLCMS.Data.Model.SysLog> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public List<XCLCMS.Data.Model.SysLog> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, XCLNetTools.Entity.SqlPagerConditionEntity condition)
         {
-            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("SysLog", pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
+            condition.TableName = "SysLog";
+            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList( pageInfo,condition);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.SysLog>(dt) as List<XCLCMS.Data.Model.SysLog>;
         }
 

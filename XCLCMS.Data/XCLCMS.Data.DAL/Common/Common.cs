@@ -11,31 +11,20 @@ namespace XCLCMS.Data.DAL.Common
     public class Common
     {
         /// <summary>
-        /// 分页(可按非主键排序)
+        /// 分页
         /// </summary>
-        /// <param name="tableName">表名</param>
-        /// <param name="pageInfo">分页参数信息</param>
-        /// <param name="strWhere"> 查询条件 (注意: 不要加 where)</param>
-        /// <param name="fieldName">列名，若为空，则取所有列</param>
-        ///<param name="fieldKey">主键名</param>
-        ///<param name="fieldOrder">排序字段，可加DESC/ASC</param>
-        /// <returns>DataTable</returns>
-        public static DataTable GetPageList(string tableName, XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public static DataTable GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, XCLNetTools.Entity.SqlPagerConditionEntity condition)
         {
-            Database db = new XCLCMS.Data.DAL.Common.BaseDAL().CreateDatabase();
-            DbCommand dbCommand = db.GetStoredProcCommand("sp_Pager");
-            db.AddOutParameter(dbCommand, "RecordCount", DbType.Int32, 4);
-            db.AddOutParameter(dbCommand, "PageCount", DbType.Int32, 4);
+            condition.PageIndex = pageInfo.PageIndex;
+            condition.PageSize = pageInfo.PageSize;
 
-            db.AddInParameter(dbCommand, "PageSize", DbType.Int32, pageInfo.PageSize);
-            db.AddInParameter(dbCommand, "PageCurrent", DbType.Int32, pageInfo.PageIndex);
-            db.AddInParameter(dbCommand, "tbname", DbType.String, tableName);
-            db.AddInParameter(dbCommand, "FieldShow", DbType.String, fieldName);
-            db.AddInParameter(dbCommand, "Where", DbType.String, strWhere);
-            db.AddInParameter(dbCommand, "FieldOrder", DbType.String, fieldOrder);
-            db.AddInParameter(dbCommand, "FieldKey", DbType.String, fieldKey);
-            DataSet ds = db.ExecuteDataSet(dbCommand);
-            pageInfo.RecordCount = XCLNetTools.Common.DataTypeConvert.ToInt(dbCommand.Parameters["@RecordCount"].Value);
+            var db = new XCLCMS.Data.DAL.Common.BaseDAL().CreateDatabase();
+            string strSql = XCLNetTools.DataBase.SQLLibrary.CreatePagerQuerySqlString(condition);
+            var dbCommand = db.GetSqlStringCommand(strSql);
+            db.AddOutParameter(dbCommand, "TotalCount", DbType.Int32, 4);
+
+            var ds = db.ExecuteDataSet(dbCommand);
+            pageInfo.RecordCount = XCLNetTools.Common.DataTypeConvert.ToInt(dbCommand.Parameters["@TotalCount"].Value);
             return null != ds && ds.Tables.Count > 0 ? ds.Tables[0] : null;
         }
 

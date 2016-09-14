@@ -66,7 +66,11 @@ namespace XCLCMS.WebAPI.Controllers
                 });
                 }
 
-                response.Body.ResultList = vUserInfoBLL.GetPageList(pager, request.Body.Where, "", "[UserInfoID]", "[UserInfoID] desc");
+                response.Body.ResultList = vUserInfoBLL.GetPageList(pager, new XCLNetTools.Entity.SqlPagerConditionEntity()
+                {
+                    OrderBy = "[UserInfoID] desc",
+                    Where = request.Body.Where
+                });
                 response.Body.PagerInfo = pager;
                 response.IsSuccess = true;
                 return response;

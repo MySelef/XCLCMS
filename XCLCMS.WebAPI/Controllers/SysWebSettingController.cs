@@ -59,12 +59,16 @@ namespace XCLCMS.WebAPI.Controllers
                 if (base.IsOnlyCurrentMerchant)
                 {
                     request.Body.Where = XCLNetTools.DataBase.SQLLibrary.JoinWithAnd(new List<string>() {
-                    request.Body.Where,
-                    string.Format("FK_MerchantID={0}",base.CurrentUserModel.FK_MerchantID)
-                });
+                        request.Body.Where,
+                        string.Format("FK_MerchantID={0}",base.CurrentUserModel.FK_MerchantID)
+                    });
                 }
 
-                response.Body.ResultList = vSysWebSettingBLL.GetPageList(pager, request.Body.Where, "", "[SysWebSettingID]", "[KeyName] asc");
+                response.Body.ResultList = vSysWebSettingBLL.GetPageList(pager, new XCLNetTools.Entity.SqlPagerConditionEntity()
+                {
+                    OrderBy = "[KeyName] asc",
+                    Where = request.Body.Where
+                });
                 response.Body.PagerInfo = pager;
                 response.IsSuccess = true;
                 return response;

@@ -53,9 +53,10 @@ namespace XCLCMS.Data.DAL.View
         /// <summary>
         /// 分页数据列表
         /// </summary>
-        public List<XCLCMS.Data.Model.View.v_UserInfo> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public List<XCLCMS.Data.Model.View.v_UserInfo> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, XCLNetTools.Entity.SqlPagerConditionEntity condition)
         {
-            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("v_UserInfo", pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
+            condition.TableName = "v_UserInfo";
+            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList(pageInfo, condition);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.View.v_UserInfo>(dt) as List<XCLCMS.Data.Model.View.v_UserInfo>;
         }
 

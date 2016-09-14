@@ -30,9 +30,9 @@ namespace XCLCMS.Data.BLL
         /// <summary>
         /// 分页数据列表
         /// </summary>
-        public List<XCLCMS.Data.Model.SysLog> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public List<XCLCMS.Data.Model.SysLog> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, XCLNetTools.Entity.SqlPagerConditionEntity condition)
         {
-            return dal.GetPageList(pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
+            return dal.GetPageList(pageInfo, condition);
         }
 
         /// <summary>

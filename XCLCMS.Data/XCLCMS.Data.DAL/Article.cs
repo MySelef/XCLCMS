@@ -186,9 +186,10 @@ namespace XCLCMS.Data.DAL
         /// <summary>
         /// 分页数据列表
         /// </summary>
-        public List<XCLCMS.Data.Model.Article> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public List<XCLCMS.Data.Model.Article> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, XCLNetTools.Entity.SqlPagerConditionEntity condition)
         {
-            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList("Article", pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
+            condition.TableName = "Article";
+            DataTable dt = XCLCMS.Data.DAL.Common.Common.GetPageList(pageInfo, condition);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.Article>(dt) as List<XCLCMS.Data.Model.Article>;
         }
 

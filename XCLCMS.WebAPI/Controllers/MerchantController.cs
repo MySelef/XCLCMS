@@ -67,7 +67,11 @@ namespace XCLCMS.WebAPI.Controllers
                 });
                 }
 
-                response.Body.ResultList = vMerchantBLL.GetPageList(pager, request.Body.Where, "", "[MerchantID]", "[MerchantID] desc");
+                response.Body.ResultList = vMerchantBLL.GetPageList(pager, new XCLNetTools.Entity.SqlPagerConditionEntity()
+                {
+                    OrderBy = "[MerchantID] desc",
+                    Where = request.Body.Where
+                });
                 response.Body.PagerInfo = pager;
                 response.IsSuccess = true;
                 return response;

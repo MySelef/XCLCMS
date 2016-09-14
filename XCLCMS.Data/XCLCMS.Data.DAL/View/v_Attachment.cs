@@ -21,9 +21,10 @@ namespace XCLCMS.Data.DAL.View
         /// <summary>
         /// 分页数据列表
         /// </summary>
-        public List<XCLCMS.Data.Model.View.v_Attachment> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, string strWhere, string fieldName, string fieldKey, string fieldOrder)
+        public List<XCLCMS.Data.Model.View.v_Attachment> GetPageList(XCLNetTools.Entity.PagerInfo pageInfo, XCLNetTools.Entity.SqlPagerConditionEntity condition)
         {
-            var dt = XCLCMS.Data.DAL.Common.Common.GetPageList("v_Attachment", pageInfo, strWhere, fieldName, fieldKey, fieldOrder);
+            condition.TableName = "v_Attachment";
+            var dt = XCLCMS.Data.DAL.Common.Common.GetPageList(pageInfo, condition);
             return XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.View.v_Attachment>(dt) as List<XCLCMS.Data.Model.View.v_Attachment>;
         }
     }

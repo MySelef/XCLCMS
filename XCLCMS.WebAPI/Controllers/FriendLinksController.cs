@@ -64,7 +64,11 @@ namespace XCLCMS.WebAPI.Controllers
                 });
                 }
 
-                response.Body.ResultList = vFriendLinksBLL.GetPageList(pager, request.Body.Where, "", "[FriendLinkID]", "[FriendLinkID] desc");
+                response.Body.ResultList = vFriendLinksBLL.GetPageList(pager, new XCLNetTools.Entity.SqlPagerConditionEntity()
+                {
+                    OrderBy = "[FriendLinkID] desc",
+                    Where = request.Body.Where
+                });
                 response.Body.PagerInfo = pager;
                 response.IsSuccess = true;
                 return response;

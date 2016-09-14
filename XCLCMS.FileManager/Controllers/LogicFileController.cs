@@ -52,7 +52,11 @@ namespace XCLCMS.FileManager.Controllers
 
             XCLCMS.Data.BLL.View.v_Attachment vBll = new Data.BLL.View.v_Attachment();
             base.PageParamsInfo.PageSize = 15;
-            viewModel.AttachmentList = vBll.GetPageList(base.PageParamsInfo, strWhere, "", "[AttachmentID]", "[AttachmentID] desc");
+            viewModel.AttachmentList = vBll.GetPageList(base.PageParamsInfo, new XCLNetTools.Entity.SqlPagerConditionEntity()
+            {
+                OrderBy = "[AttachmentID] desc",
+                Where = strWhere
+            });
             viewModel.PagerModel = base.PageParamsInfo;
             return View(viewModel);
         }

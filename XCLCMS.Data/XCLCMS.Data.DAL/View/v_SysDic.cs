@@ -58,7 +58,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_SysDic> GetList(long parentID)
         {
             Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand("select * from v_SysDic  WITH(NOLOCK)  where ParentID=@ParentID");
+            DbCommand dbCommand = db.GetSqlStringCommand("select * from v_SysDic  WITH(NOLOCK)  where ParentID=@ParentID order by sort asc");
             db.AddInParameter(dbCommand, "ParentID", DbType.Int64, parentID);
             DataSet ds = db.ExecuteDataSet(dbCommand);
             return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.View.v_SysDic>(ds) as List<XCLCMS.Data.Model.View.v_SysDic>;
@@ -94,7 +94,7 @@ namespace XCLCMS.Data.DAL.View
         public List<XCLCMS.Data.Model.View.v_SysDic> GetSystemMenuModelList()
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append(@"SELECT * FROM dbo.fun_SysDic_GetAllUnderListByCode('SysMenu')");
+            strSql.Append(@"SELECT * FROM dbo.fun_SysDic_GetAllUnderListByCode('SysMenu') order by sort asc");
             Database db = base.CreateDatabase();
             DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
             DataSet ds = db.ExecuteDataSet(dbCommand);

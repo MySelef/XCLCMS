@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
+using XCLCMS.Data.WebAPIEntity;
 
 namespace XCLCMS.Lib.Filters.API
 {
@@ -19,7 +18,18 @@ namespace XCLCMS.Lib.Filters.API
         /// </summary>
         public Task ExecuteExceptionFilterAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                XCLNetLogger.Log.WriteLog(actionExecutedContext.Exception);
+                actionExecutedContext.Response = new System.Net.Http.HttpResponseMessage()
+                {
+                    Content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(new APIResponseEntity<object>()
+                    {
+                        IsSuccess = false,
+                        Message = actionExecutedContext.Exception.Message
+                    }), System.Text.Encoding.UTF8)
+                };
+            });
         }
     }
 }

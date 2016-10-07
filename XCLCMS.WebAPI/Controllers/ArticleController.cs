@@ -256,6 +256,14 @@ namespace XCLCMS.WebAPI.Controllers
                     return response;
                 }
 
+                //如果内容类型为链接，则必须指定链接地址
+                if (string.IsNullOrWhiteSpace(request.Body.Article.LinkUrl) && string.Equals(request.Body.Article.ArticleContentType, XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum.URL.ToString(), StringComparison.OrdinalIgnoreCase))
+                {
+                    response.IsSuccess = false;
+                    response.Message = "请指定跳转链接地址！";
+                    return response;
+                }
+
                 //code是否被占用
                 if (!string.IsNullOrEmpty(request.Body.Article.Code) && this.articleBLL.IsExistCode(request.Body.Article.Code))
                 {
@@ -403,6 +411,14 @@ namespace XCLCMS.WebAPI.Controllers
                 {
                     response.IsSuccess = false;
                     response.Message = "请指定文章标题！";
+                    return response;
+                }
+
+                //如果内容类型为链接，则必须指定链接地址
+                if (string.IsNullOrWhiteSpace(request.Body.Article.LinkUrl) && string.Equals(request.Body.Article.ArticleContentType, XCLCMS.Data.CommonHelper.EnumType.ArticleContentTypeEnum.URL.ToString(), StringComparison.OrdinalIgnoreCase))
+                {
+                    response.IsSuccess = false;
+                    response.Message = "请指定跳转链接地址！";
                     return response;
                 }
 

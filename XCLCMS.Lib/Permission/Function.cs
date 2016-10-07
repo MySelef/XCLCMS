@@ -323,6 +323,30 @@ namespace XCLCMS.Lib.Permission
             /// </summary>
             [Description("标签管理-标签信息修改")]
             Tags_Edit = 400198,
+
+            /// <summary>
+            ///广告位管理-广告位查看
+            /// </summary>
+            [Description("广告位管理-广告位查看")]
+            Ads_View = 400200,
+
+            /// <summary>
+            ///广告位管理-广告位删除
+            /// </summary>
+            [Description("广告位管理-广告位删除")]
+            Ads_Del = 400201,
+
+            /// <summary>
+            ///广告位管理-广告位添加
+            /// </summary>
+            [Description("广告位管理-广告位添加")]
+            Ads_Add = 400202,
+
+            /// <summary>
+            ///广告位管理-广告位修改
+            /// </summary>
+            [Description("广告位管理-广告位修改")]
+            Ads_Edit = 400203,
         }
     }
 }

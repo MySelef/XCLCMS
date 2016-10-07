@@ -1,9 +1,7 @@
 ﻿using Microsoft.Practices.EnterpriseLibrary.Data;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Text;
 using XCLCMS.Data.Model.Custom;
 
 namespace XCLCMS.Data.DAL
@@ -115,23 +113,6 @@ namespace XCLCMS.Data.DAL
 
             var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.FriendLinks>(ds.Tables[0]);
             return null != lst && lst.Count > 0 ? lst[0] : null;
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.FriendLinks> GetModelList(string strWhere)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("select * FROM FriendLinks  WITH(NOLOCK)  ");
-            if (strWhere.Trim() != "")
-            {
-                strSql.Append(" where " + strWhere);
-            }
-            Database db = base.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql.ToString());
-            var ds = db.ExecuteDataSet(dbCommand);
-            return XCLNetTools.Generic.ListHelper.DataSetToList<XCLCMS.Data.Model.FriendLinks>(ds) as List<XCLCMS.Data.Model.FriendLinks>;
         }
 
         #endregion Method

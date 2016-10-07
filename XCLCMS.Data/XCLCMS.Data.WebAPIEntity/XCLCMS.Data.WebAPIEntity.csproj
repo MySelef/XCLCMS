@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="APIRequestEntity.cs" />
     <Compile Include="APIResponseEntity.cs" />
+    <Compile Include="RequestEntity\Ads\IsExistCodeEntity.cs" />
     <Compile Include="RequestEntity\Article\AddOrUpdateEntity.cs" />
     <Compile Include="RequestEntity\Article\IsExistCodeEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

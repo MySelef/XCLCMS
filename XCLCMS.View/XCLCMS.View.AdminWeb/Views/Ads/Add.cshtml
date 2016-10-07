@@ -1,0 +1,141 @@
+﻿@{
+    Layout = "~/Views/MasterView/Main.cshtml";
+}
+@model XCLCMS.View.AdminWeb.Models.Ads.AdsAddVM
+
+<form id="mainForm" action="@Model.FormAction" method="post">
+    <input type="hidden" id="AdsID" name="AdsID" value="@Model.Ads.AdsID" />
+
+    <div class="XCLAccordion" style="border-top: none;">
+        <div class="XCLAccordionHeader">1、基本信息：</div>
+        <div class="XCLAccordionBody">
+            <table class="XCLTableEdit">
+                <tr>
+                    <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>标题：</td>
+                    <td style="width: 25%">
+                        <input type="text" name="txtTitle" value="@Model.Ads.Title" />
+                    </td>
+                    <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>唯一标识：</td>
+                    <td style="width: 25%">
+                        <input type="text" name="txtCode" value="@Model.Ads.Code" />
+                    </td>
+                    <td class="XCLTitle" style="width: 10%">类型：</td>
+                    <td style="width: 25%">
+                        <select name="selAdsType">@Html.Raw(Model.AdsTypeOptions)</select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle">内容：</td>
+                    <td>
+                        <textarea name="txtContents">@Model.Ads.Contents</textarea>
+                    </td>
+                    <td class="XCLTitle">宽度：</td>
+                    <td>
+                        <input type="text"  class="easyui-numberbox"  style="height:25px;" name="txtAdWidth" value="@Model.Ads.AdWidth" />
+                    </td>
+                    <td class="XCLTitle">高度：</td>
+                    <td>
+                        <input type="text"  class="easyui-numberbox"  style="height:25px;" name="txtAdHeight" value="@Model.Ads.AdHeight" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle">链接地址：</td>
+                    <td>
+                        <input type="text" name="txtURL" value="@Model.Ads.URL" />
+                    </td>
+                    <td class="XCLTitle">打开方式：</td>
+                    <td>
+                        <select name="selURLOpenType">@Html.Raw(Model.URLOpenTypeOptions)</select>
+                    </td>
+                    <td class="XCLTitle">起止时间：</td>
+                    <td>
+                        <input type="text" name="txtStartTime"  value="@string.Format("{0:yyyy-MM-dd HH:mm}",Model.Ads.StartTime)" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'}); return false;"  />
+                        ~
+                        <input type="text" name="txtEndTime" value="@string.Format("{0:yyyy-MM-dd HH:mm}",Model.Ads.EndTime)" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'}); return false;"  />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle">昵称：</td>
+                    <td>
+                        <input type="text" name="txtNickName" value="@Model.Ads.NickName" />
+                    </td>
+                    <td class="XCLTitle">电子邮件：</td>
+                    <td>
+                        <input type="text" name="txtEmail" value="@Model.Ads.Email" />
+                    </td>
+                    <td class="XCLTitle">QQ：</td>
+                    <td>
+                        <input type="text" name="txtQQ" value="@Model.Ads.QQ" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle">手机号：</td>
+                    <td>
+                        <input type="text" name="txtTel" value="@Model.Ads.Tel" />
+                    </td>
+                    <td class="XCLTitle">其它联系方式：</td>
+                    <td>
+                        <input type="text" name="txtOtherContact" value="@Model.Ads.OtherContact" />
+                    </td>
+                    <td class="XCLTitle">备注：</td>
+                    <td>
+                        <input type="text" name="txtRemark" value="@Model.Ads.Remark" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle">所属商户号：</td>
+                    <td>
+                        <input type="text" class="easyui-numberbox" id="txtMerchantID" name="txtMerchantID" value="@Model.Ads.FK_MerchantID" />
+                    </td>
+                    <td class="XCLTitle">所属应用号：</td>
+                    <td><input type="text" class="easyui-numberbox" id="txtMerchantAppID" name="txtMerchantAppID" value="@Model.Ads.FK_MerchantAppID" /></td>
+                    <td class="XCLTitle">记录状态：</td>
+                    <td>
+                        <select name="selRecordState">
+                            @Html.Raw(Model.RecordStateOptions)
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="XCLHandBar">
+            <a href="@XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+            @switch ((XCLCMS.Lib.Common.Comm.HandleType)ViewBag.CurrentHandleType)
+            {
+                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+                    break;
+                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
+                    if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.Ads_Del))
+                    {
+                        <a id="btnDel" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删 除</a>
+                    }
+                    break;
+            }
+        </div>
+    </div>
+</form>
+
+<div class="XCLPanel" style="margin-top: 5px;">
+    <div class="XCLPanelHeader XCLBolder">
+        操作说明：
+    </div>
+    <div class="XCLPanelBody">
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(["Lib/Ads"], function (Ads) {
+        $(function () {
+            Ads.AdsAdd.Init();
+        });
+    });
+</script>

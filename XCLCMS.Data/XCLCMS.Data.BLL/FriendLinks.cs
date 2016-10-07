@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using XCLCMS.Data.Model.Custom;
+﻿using XCLCMS.Data.Model.Custom;
 
 namespace XCLCMS.Data.BLL
 {
@@ -31,14 +30,6 @@ namespace XCLCMS.Data.BLL
         public XCLCMS.Data.Model.FriendLinks GetModel(long ArticleID)
         {
             return dal.GetModel(ArticleID);
-        }
-
-        /// <summary>
-        /// 获得数据列表
-        /// </summary>
-        public List<XCLCMS.Data.Model.FriendLinks> GetModelList(string strWhere)
-        {
-            return dal.GetModelList(strWhere);
         }
 
         #endregion BasicMethod

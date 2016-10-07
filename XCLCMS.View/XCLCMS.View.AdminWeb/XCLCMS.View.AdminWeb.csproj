@@ -150,6 +150,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Common\WebCommon.cs" />
+    <Compile Include="Controllers\Ads\AdsController.cs" />
     <Compile Include="Controllers\Article\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Common\CommonController.cs" />
@@ -169,6 +170,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Ads\TagsAddVM.cs" />
+    <Compile Include="Models\Ads\TagsListVM.cs" />
     <Compile Include="Models\Article\ArticleAddVM.cs" />
     <Compile Include="Models\Article\ArticleListVM.cs" />
     <Compile Include="Models\Article\ArticleShowVM.cs" />
@@ -217,6 +220,7 @@
     <Content Include="Resources\Images\sky-shine.jpg" />
     <Content Include="Resources\Images\titlepg.png" />
     <Content Include="Resources\Js\App\config.js" />
+    <Content Include="Resources\Js\App\Lib\Ads.js" />
     <Content Include="Resources\Js\App\Lib\Article.js" />
     <Content Include="Resources\Js\App\Lib\Common.js" />
     <Content Include="Resources\Js\App\Lib\EasyUI.js" />
@@ -705,6 +709,8 @@
     <Content Include="Views\FriendLinks\Add.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
     <Content Include="Views\Tags\Add.cshtml" />
+    <Content Include="Views\Ads\Add.cshtml" />
+    <Content Include="Views\Ads\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

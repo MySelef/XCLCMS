@@ -497,7 +497,13 @@ namespace XCLCMS.Data.CommonHelper
             /// 标签 Tag
             /// </summary>
             [Description("标签")]
-            TAG
+            TAG,
+
+            /// <summary>
+            /// 广告位 Ads
+            /// </summary>
+            [Description("广告位")]
+            ADS
         }
 
         #endregion ID生成

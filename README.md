@@ -2,9 +2,21 @@
 XCLCMS是一个轻量级的CMS（内容管理系统）**后台管理系统**，您可以免费使用它构建属于自己的博客、分类信息、企业展示等网站。
 
 ### 软件架构
-1. 使用C# & ASP.NET MVC 5 构建
+1. 使用C# & ASP.NET MVC 5 构建（.Net Framework 4.5）
 2. 数据库使用MSSQL2012
 3. 界面框架使用jQuery easyUI
+
+### 项目结构
+1. XCLCMS.Data.BLL：业务层
+2. XCLCMS.Data.CommonHelper：数据层公共处理
+3. XCLCMS.Data.DAL：数据库访问层
+4. XCLCMS.Data.Model：数据实体层
+5. XCLCMS.Data.WebAPIEntity：Web Api数据实体层
+6. XCLCMS.Document：项目文档相关
+7. XCLCMS.FileManager：文件管理与上传
+8. XCLCMS.Lib：前台业务公共处理
+9. XCLCMS.View.AdminWeb：后台管理系统web站点（项目的入口）
+10. XCLCMS.WebAPI：Web Api提供层
 
 ### MIT授权协议
 1. 被授权人权利：被授权人有权利使用、复制、修改、合并、出版发行、散布、再授权及贩售软件及软件的副本。被授权人可根据程式的需要修改许可协议为适当的内容。

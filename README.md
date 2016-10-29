@@ -31,7 +31,7 @@ XCLCMS是一个轻量级的CMS（内容管理系统）**后台管理系统**，�
 - V1.0版本进度：80%
 
 ### 当前计划
-[点此查看]（https://github.com/xucongli1989/XCLCMS/projects/1）
+[点此查看](https://github.com/xucongli1989/XCLCMS/projects/1)
 
 ### 贡献者
 1. xucongli1989

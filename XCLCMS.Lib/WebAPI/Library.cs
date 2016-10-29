@@ -44,7 +44,10 @@ namespace XCLCMS.Lib.WebAPI
                     httpRequest.Content = new StringContent(requestJson);
                     httpRequest.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 }
-                httpRequest.Headers.Add(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName, request.UserToken);
+                if (!string.IsNullOrWhiteSpace(request.UserToken))
+                {
+                    httpRequest.Headers.Add(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName, request.UserToken);
+                }
                 httpRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var res = httpClient.SendAsync(httpRequest).Result.Content.ReadAsStringAsync().Result;
                 if (!string.IsNullOrEmpty(res))
@@ -71,7 +74,7 @@ namespace XCLCMS.Lib.WebAPI
             request.ClientIP = XCLNetTools.Common.IPHelper.GetClientIP();
             request.UserToken = userToken;
             request.Url = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
-            request.AppID= XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
+            request.AppID = XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
             return request;
         }
 

@@ -61,7 +61,7 @@ namespace XCLCMS.Lib.Common
             request.Body = new Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity();
             request.Body.UserToken = loginString;
             var response = XCLCMS.Lib.WebAPI.OpenAPI.LogonCheck(request);
-            if (null != response && response.IsSuccess)
+            if (null != response && response.IsSuccess && null != response.Body && null != response.Body.UserInfo)
             {
                 return response.Body;
             }

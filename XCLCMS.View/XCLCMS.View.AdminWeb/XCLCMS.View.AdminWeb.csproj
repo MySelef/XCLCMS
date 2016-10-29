@@ -669,6 +669,7 @@
     <Content Include="Resources\Js\XGoAjax\XGoAjax.js" />
     <Content Include="Resources\Js\XGoAjax\XGoAjaxTemplate.js" />
     <Content Include="Resources\Js\XJsTool.js" />
+    <Content Include="robots.txt" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\MasterView\Footer.cshtml" />
     <Content Include="Views\MasterView\Header.cshtml" />

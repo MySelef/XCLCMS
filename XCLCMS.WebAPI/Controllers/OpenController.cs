@@ -22,8 +22,6 @@ namespace XCLCMS.WebAPI.Controllers
             return await Task.Run(() =>
             {
                 var response = new APIResponseEntity<XCLCMS.Data.Model.Custom.UserInfoDetailModel>();
-                response.Body = new Data.Model.Custom.UserInfoDetailModel();
-
                 XCLCMS.Data.Model.UserInfo userModel = null;
                 if (string.IsNullOrWhiteSpace(request.Body.UserToken))
                 {
@@ -49,6 +47,7 @@ namespace XCLCMS.WebAPI.Controllers
                 else
                 {
                     response.IsSuccess = true;
+                    response.Body = new Data.Model.Custom.UserInfoDetailModel();
                     //用户基本信息
                     response.Body.UserInfo = userModel;
                     //登录令牌

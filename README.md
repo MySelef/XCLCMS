@@ -27,9 +27,9 @@ XCLCMS是一个轻量级的CMS（内容管理系统）**后台管理系统**，�
 [我的ABC](http://www.wodeabc.com)
 
 ### 进度
-- 开始编码于：2014-10
-- V1.0版本进度：80%
-- 当前计划：[点此查看](https://github.com/xucongli1989/XCLCMS/projects/1)
+- 开始编码于：2014年10月
+- V1.0版本已完成：80%
+- 当前计划安排：[点此查看](https://github.com/xucongli1989/XCLCMS/projects/1)
 
 ### 贡献者
 1. xucongli1989

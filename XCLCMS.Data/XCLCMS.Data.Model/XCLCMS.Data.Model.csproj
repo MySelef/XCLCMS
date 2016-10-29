@@ -59,6 +59,8 @@
     <Compile Include="Custom\SysRoleSimple.cs" />
     <Compile Include="Custom\Tags_AddMethodResult.cs" />
     <Compile Include="Custom\Tags_NameCondition.cs" />
+    <Compile Include="Custom\UserInfoDetailModel.cs" />
+    <Compile Include="Custom\UserNamePwd.cs" />
     <Compile Include="FriendLinks.cs" />
     <Compile Include="GenerateID.cs" />
     <Compile Include="Merchant.cs" />

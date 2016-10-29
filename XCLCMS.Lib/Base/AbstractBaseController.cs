@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO.Compression;
 using System.Web.Mvc;
 
@@ -9,6 +10,7 @@ namespace XCLCMS.Lib.Base
     /// </summary>
     public abstract class AbstractBaseController : Controller
     {
+        private XCLCMS.Data.Model.Custom.UserInfoDetailModel _currentUserInfoDetailModel = null;
         private XCLCMS.Data.Model.UserInfo _currentUserModel = null;
         private XCLCMS.Data.Model.Custom.ContextModel _contextModel = null;
         private string _userToken = null;
@@ -17,9 +19,23 @@ namespace XCLCMS.Lib.Base
         private XCLCMS.Data.Model.MerchantApp _currentUserMerchantApp = null;
         private XCLCMS.Data.Model.Merchant _currentUserMerchant = null;
         private XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
-        private XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new XCLCMS.Data.BLL.MerchantApp();
 
         #region 当前登录用户相关
+
+        /// <summary>
+        /// 当前登录用户详情
+        /// </summary>
+        public XCLCMS.Data.Model.Custom.UserInfoDetailModel CurrentUserInfoDetailModel
+        {
+            get
+            {
+                if (null == this._currentUserInfoDetailModel)
+                {
+                    this._currentUserInfoDetailModel = XCLCMS.Lib.Login.LoginHelper.GetUserInfoFromLoginInfo();
+                }
+                return this._currentUserInfoDetailModel;
+            }
+        }
 
         /// <summary>
         /// 当前登录的用户实体
@@ -30,7 +46,7 @@ namespace XCLCMS.Lib.Base
             {
                 if (this._currentUserModel == null)
                 {
-                    this._currentUserModel = XCLCMS.Lib.Login.LoginHelper.GetUserInfoFromLoginInfo();
+                    this._currentUserModel = null == this.CurrentUserInfoDetailModel ? null : this.CurrentUserInfoDetailModel.UserInfo;
                 }
                 return this._currentUserModel;
             }
@@ -48,36 +64,17 @@ namespace XCLCMS.Lib.Base
         }
 
         /// <summary>
-        /// 当前用户标识
+        /// 当前用户登录令牌
         /// </summary>
         public string UserToken
         {
             get
             {
-                if (!string.IsNullOrEmpty(this._userToken))
+                if (string.IsNullOrWhiteSpace(this._userToken))
                 {
-                    return this._userToken;
-                }
-                if (null != this.CurrentUserModel)
-                {
-                    this._userToken = XCLCMS.Lib.Login.LoginHelper.CreateUserToken(this.CurrentUserModel.UserName, this.CurrentUserModel.Pwd);
+                    this._userToken = null == this.CurrentUserInfoDetailModel ? null : this.CurrentUserInfoDetailModel.Token;
                 }
                 return this._userToken;
-            }
-        }
-
-        /// <summary>
-        /// 当前用户所属的商户应用实体
-        /// </summary>
-        public XCLCMS.Data.Model.MerchantApp CurrentUserMerchantApp
-        {
-            get
-            {
-                if (null == this._currentUserMerchantApp)
-                {
-                    this._currentUserMerchantApp = null == this.CurrentUserModel ? null : this.merchantAppBLL.GetModel(this.CurrentUserModel.FK_MerchantAppID);
-                }
-                return this._currentUserMerchantApp;
             }
         }
 
@@ -90,9 +87,24 @@ namespace XCLCMS.Lib.Base
             {
                 if (null == this._currentUserMerchant)
                 {
-                    this._currentUserMerchant = null == this.CurrentUserModel ? null : this.merchantBLL.GetModel(this.CurrentUserModel.FK_MerchantID);
+                    this._currentUserMerchant = null == this.CurrentUserInfoDetailModel ? null : this.CurrentUserInfoDetailModel.Merchant;
                 }
                 return this._currentUserMerchant;
+            }
+        }
+
+        /// <summary>
+        /// 当前用户所属的商户应用实体
+        /// </summary>
+        public XCLCMS.Data.Model.MerchantApp CurrentUserMerchantApp
+        {
+            get
+            {
+                if (null == this._currentUserMerchantApp)
+                {
+                    this._currentUserMerchantApp = null == this.CurrentUserInfoDetailModel ? null : this.CurrentUserInfoDetailModel.MerchantApp;
+                }
+                return this._currentUserMerchantApp;
             }
         }
 

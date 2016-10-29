@@ -30,7 +30,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
         /// </summary>
         public ActionResult LogOut()
         {
-            XCLCMS.Lib.Login.LoginHelper.SetLogInfo(Lib.Login.LoginHelper.LoginType.OFF, null);
+            XCLCMS.Lib.Login.LoginHelper.SetLogInfo(XCLNetTools.Enum.CommonEnum.LoginTypeEnum.OFF, null);
             return RedirectToRoute("LoginShortURL");
         }
 
@@ -62,7 +62,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
             var response = XCLCMS.Lib.WebAPI.OpenAPI.LogonCheck(request);
             if (null != response && response.IsSuccess)
             {
-                XCLCMS.Lib.Login.LoginHelper.SetLogInfo(XCLCMS.Lib.Login.LoginHelper.LoginType.ON, response.Body);
+                XCLCMS.Lib.Login.LoginHelper.SetLogInfo(XCLNetTools.Enum.CommonEnum.LoginTypeEnum.ON, response.Body.Token);
             }
 
             return Json(response);

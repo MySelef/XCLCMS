@@ -3976,6 +3976,21 @@
             sql server
             </summary>
         </member>
+        <member name="T:XCLNetTools.Enum.CommonEnum.LoginTypeEnum">
+            <summary>
+            登录退出类型枚举
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.LoginTypeEnum.ON">
+            <summary>
+            登录
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.LoginTypeEnum.OFF">
+            <summary>
+            退出
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Enum.EnumHelper">
             <summary>
             枚举帮助类

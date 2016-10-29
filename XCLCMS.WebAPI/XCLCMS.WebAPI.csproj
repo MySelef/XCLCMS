@@ -166,9 +166,13 @@
     <Compile Include="Controllers\SysWebSettingController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
+    <Compile Include="Filters\APIExceptionFilter.cs" />
+    <Compile Include="Filters\APIPermissionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Library\Common.cs" />
+    <Compile Include="Library\EncryptHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

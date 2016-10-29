@@ -36,7 +36,8 @@ namespace XCLCMS.Lib.Filters
             string actionName = Convert.ToString(req.RouteData.Values["action"]);
 
             bool flag = false;
-            this.UserInfo = XCLCMS.Lib.Login.LoginHelper.GetUserInfoFromLoginInfo();
+            var detail = XCLCMS.Lib.Login.LoginHelper.GetUserInfoFromLoginInfo();
+            this.UserInfo = null == detail ? null : detail.UserInfo;
             if (null != this.UserInfo)
             {
                 flag = true;

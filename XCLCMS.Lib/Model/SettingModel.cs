@@ -5,8 +5,6 @@
     /// </summary>
     public class SettingModel
     {
-        public string Common_DESKey { get; set; }
-        public string Common_PwdKey { get; set; }
         public string Common_UserDefaultPwd { get; set; }
         public string Common_UserLoginFlagName { get; set; }
         public string Common_WebAPIServiceURL { get; set; }

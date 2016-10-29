@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Filters;
 using XCLCMS.Data.WebAPIEntity;
 
-namespace XCLCMS.Lib.Filters.API
+namespace XCLCMS.WebAPI.Filters
 {
     /// <summary>
     /// API异常处理

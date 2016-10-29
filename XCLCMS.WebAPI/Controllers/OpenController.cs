@@ -10,18 +10,32 @@ namespace XCLCMS.WebAPI.Controllers
     public class OpenController : BaseAPIController
     {
         private XCLCMS.Data.BLL.UserInfo userInfoBLL = new XCLCMS.Data.BLL.UserInfo();
+        private XCLCMS.Data.BLL.Merchant merchantBLL = new XCLCMS.Data.BLL.Merchant();
+        private XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new XCLCMS.Data.BLL.MerchantApp();
 
         /// <summary>
-        /// 登录检查
+        /// 登录
         /// </summary>
         [HttpPost]
-        public async Task<APIResponseEntity<XCLCMS.Data.Model.UserInfo>> LogonCheck([FromBody] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity> request)
+        public async Task<APIResponseEntity<XCLCMS.Data.Model.Custom.UserInfoDetailModel>> LogonCheck([FromBody] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity> request)
         {
             return await Task.Run(() =>
             {
-                var response = new APIResponseEntity<XCLCMS.Data.Model.UserInfo>();
+                var response = new APIResponseEntity<XCLCMS.Data.Model.Custom.UserInfoDetailModel>();
+                response.Body = new Data.Model.Custom.UserInfoDetailModel();
 
-                var userModel = userInfoBLL.GetModel(request.Body.UserName, XCLCMS.Lib.Encrypt.EncryptHelper.EncryptStringMD5(request.Body.Pwd));
+                XCLCMS.Data.Model.UserInfo userModel = null;
+                if (string.IsNullOrWhiteSpace(request.Body.UserToken))
+                {
+                    //用户名和密码登录
+                    userModel = userInfoBLL.GetModel(request.Body.UserName, XCLCMS.WebAPI.Library.EncryptHelper.EncryptStringMD5(request.Body.Pwd));
+                }
+                else
+                {
+                    //token登录
+                    userModel = XCLCMS.WebAPI.Library.Common.GetUserInfoByUserToken(request.Body.UserToken);
+                }
+
                 if (null == userModel)
                 {
                     response.Message = string.Format("用户名或密码不正确！", request.Body.UserName);
@@ -34,8 +48,19 @@ namespace XCLCMS.WebAPI.Controllers
                 }
                 else
                 {
-                    response.Body = userModel;
                     response.IsSuccess = true;
+                    //用户基本信息
+                    response.Body.UserInfo = userModel;
+                    //登录令牌
+                    response.Body.Token = XCLCMS.WebAPI.Library.EncryptHelper.CreateToken(new Data.Model.Custom.UserNamePwd()
+                    {
+                        UserName = userModel.UserName,
+                        Pwd = userModel.Pwd
+                    });
+                    //所在商户
+                    response.Body.Merchant = this.merchantBLL.GetModel(userModel.FK_MerchantID);
+                    //所在商户应用
+                    response.Body.MerchantApp = this.merchantAppBLL.GetModel(userModel.FK_MerchantAppID);
                 }
 
                 //写入日志

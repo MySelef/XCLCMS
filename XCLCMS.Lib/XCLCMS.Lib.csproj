@@ -111,20 +111,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\AdminBaseController.cs" />
-    <Compile Include="Base\API\AbstractBaseAPIController.cs" />
-    <Compile Include="Base\API\AdminBaseAPIController.cs" />
     <Compile Include="Base\FileManagerBaseController.cs" />
     <Compile Include="Base\AbstractBaseController.cs" />
     <Compile Include="Common\Comm.cs" />
     <Compile Include="Common\Tool.cs" />
-    <Compile Include="Encrypt\EncryptHelper.cs" />
-    <Compile Include="Filters\API\APIExceptionFilter.cs" />
-    <Compile Include="Filters\API\APIPermissionFilter.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\FunctionFilter.cs" />
     <Compile Include="Filters\PermissionFilter.cs" />
     <Compile Include="Login\LoginHelper.cs" />
-    <Compile Include="Login\UserLoginInfoModel.cs" />
     <Compile Include="Model\CommonModel.cs" />
     <Compile Include="Model\PageGlobalConfig.cs" />
     <Compile Include="Permission\Function.cs" />

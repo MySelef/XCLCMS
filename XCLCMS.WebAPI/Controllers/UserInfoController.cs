@@ -126,6 +126,10 @@ namespace XCLCMS.WebAPI.Controllers
                     return response;
                 }
                 request.Body.UserInfo.UserName = (request.Body.UserInfo.UserName ?? "").Trim();
+                if (!string.IsNullOrWhiteSpace(request.Body.UserInfo.Pwd))
+                {
+                    request.Body.UserInfo.Pwd = XCLCMS.WebAPI.Library.EncryptHelper.EncryptStringMD5(request.Body.UserInfo.Pwd);
+                }
 
                 //商户必须存在
                 var merchant = this.merchantBLL.GetModel(request.Body.UserInfo.FK_MerchantID);
@@ -239,6 +243,10 @@ namespace XCLCMS.WebAPI.Controllers
                 }
 
                 request.Body.UserInfo.UserName = (request.Body.UserInfo.UserName ?? "").Trim();
+                if (!string.IsNullOrWhiteSpace(request.Body.UserInfo.Pwd))
+                {
+                    request.Body.UserInfo.Pwd = XCLCMS.WebAPI.Library.EncryptHelper.EncryptStringMD5(request.Body.UserInfo.Pwd);
+                }
 
                 //商户必须存在
                 var merchant = this.merchantBLL.GetModel(request.Body.UserInfo.FK_MerchantID);

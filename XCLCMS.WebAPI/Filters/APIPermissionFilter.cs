@@ -2,7 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.Controllers;
 
-namespace XCLCMS.Lib.Filters.API
+namespace XCLCMS.WebAPI.Filters
 {
     /// <summary>
     /// web api 权限验证
@@ -37,7 +37,7 @@ namespace XCLCMS.Lib.Filters.API
                 token = tokenHeaders.First();
             }
 
-            this.UserInfo = XCLCMS.Lib.Login.LoginHelper.GetUserInfoByUserToken(token);
+            this.UserInfo = XCLCMS.WebAPI.Library.Common.GetUserInfoByUserToken(token);
 
             if (null == this.UserInfo)
             {

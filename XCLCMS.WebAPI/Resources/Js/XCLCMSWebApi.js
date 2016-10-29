@@ -13,6 +13,7 @@
     lib.CreateRequest = function () {
         var req = new _request();
         req.UserToken = XCLCMSPageGlobalConfig.UserToken;
+        req.AppID = XCLCMSPageGlobalConfig.AppID;
         return req;
     };
 

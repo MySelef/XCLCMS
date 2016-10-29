@@ -71,6 +71,7 @@ namespace XCLCMS.Lib.WebAPI
             request.ClientIP = XCLNetTools.Common.IPHelper.GetClientIP();
             request.UserToken = userToken;
             request.Url = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
+            request.AppID= XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
             return request;
         }
 

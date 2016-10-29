@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO.Compression;
 using System.Web.Mvc;
 
@@ -18,7 +17,6 @@ namespace XCLCMS.Lib.Base
         private XCLCMS.Data.Model.Merchant _currentApplicationMerchant = null;
         private XCLCMS.Data.Model.MerchantApp _currentUserMerchantApp = null;
         private XCLCMS.Data.Model.Merchant _currentUserMerchant = null;
-        private XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
 
         #region 当前登录用户相关
 
@@ -31,7 +29,7 @@ namespace XCLCMS.Lib.Base
             {
                 if (null == this._currentUserInfoDetailModel)
                 {
-                    this._currentUserInfoDetailModel = XCLCMS.Lib.Login.LoginHelper.GetUserInfoFromLoginInfo();
+                    this._currentUserInfoDetailModel = XCLCMS.Lib.Common.LoginHelper.GetUserInfoFromLoginInfo();
                 }
                 return this._currentUserInfoDetailModel;
             }
@@ -140,7 +138,7 @@ namespace XCLCMS.Lib.Base
             {
                 if (null == this._currentApplicationMerchantApp)
                 {
-                    this._currentApplicationMerchantApp = XCLCMS.Lib.Common.Comm.CurrentApplicationMerchantApp;
+                    this._currentApplicationMerchantApp = null == this.CurrentUserInfoDetailModel ? null : this.CurrentUserInfoDetailModel.ApplicationMerchantApp;
                 }
                 return this._currentApplicationMerchantApp;
             }
@@ -155,7 +153,7 @@ namespace XCLCMS.Lib.Base
             {
                 if (null == this._currentApplicationMerchant)
                 {
-                    this._currentApplicationMerchant = this.merchantBLL.GetModel(this.CurrentApplicationMerchantApp.FK_MerchantID);
+                    this._currentApplicationMerchant = null == this.CurrentUserInfoDetailModel ? null : this.CurrentUserInfoDetailModel.ApplicationMerchant;
                 }
                 return this._currentApplicationMerchant;
             }
@@ -284,6 +282,7 @@ namespace XCLCMS.Lib.Base
 
             //页面全局配置信息
             var pageConfig = new XCLCMS.Lib.Model.PageGlobalConfig();
+            pageConfig.AppID = XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
             if (null != commonModel)
             {
                 pageConfig.IsLogOn = commonModel.IsLogOn;

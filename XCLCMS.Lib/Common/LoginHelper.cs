@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace XCLCMS.Lib.Login
+namespace XCLCMS.Lib.Common
 {
     /// <summary>
     /// 登录相关

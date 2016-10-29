@@ -18,7 +18,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
         /// </summary>
         public ActionResult Logon()
         {
-            if (XCLCMS.Lib.Login.LoginHelper.IsLogOn)
+            if (XCLCMS.Lib.Common.LoginHelper.IsLogOn)
             {
                 return RedirectToAction("Index", "Default");
             }
@@ -30,7 +30,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
         /// </summary>
         public ActionResult LogOut()
         {
-            XCLCMS.Lib.Login.LoginHelper.SetLogInfo(XCLNetTools.Enum.CommonEnum.LoginTypeEnum.OFF, null);
+            XCLCMS.Lib.Common.LoginHelper.SetLogInfo(XCLNetTools.Enum.CommonEnum.LoginTypeEnum.OFF, null);
             return RedirectToRoute("LoginShortURL");
         }
 
@@ -55,14 +55,14 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
                 return Json(msgModel);
             }
 
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity>(XCLCMS.Lib.Login.LoginHelper.GetInnerUserToken());
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
             request.Body = new Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity();
             request.Body.UserName = (form["txtUserName"] ?? "").Trim();
             request.Body.Pwd = form["txtPwd"] ?? "";
             var response = XCLCMS.Lib.WebAPI.OpenAPI.LogonCheck(request);
             if (null != response && response.IsSuccess)
             {
-                XCLCMS.Lib.Login.LoginHelper.SetLogInfo(XCLNetTools.Enum.CommonEnum.LoginTypeEnum.ON, response.Body.Token);
+                XCLCMS.Lib.Common.LoginHelper.SetLogInfo(XCLNetTools.Enum.CommonEnum.LoginTypeEnum.ON, response.Body.Token);
             }
 
             return Json(response);

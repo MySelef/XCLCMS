@@ -123,23 +123,6 @@ namespace XCLCMS.Lib.Common
             return new XCLNetTools.MVC.JsonResultFormat() { Data = data, JsonRequestBehavior = jsonRequestBehavior };
         }
 
-        /// <summary>
-        /// 获取当前应用实体
-        /// </summary>
-        public static XCLCMS.Data.Model.MerchantApp CurrentApplicationMerchantApp
-        {
-            get
-            {
-                var appId = XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
-                var model = new XCLCMS.Data.BLL.MerchantApp().GetModel(appId);
-                if (null == model)
-                {
-                    throw new Exception("此应用未配置AppID信息！");
-                }
-                return model;
-            }
-        }
-
         #endregion 其它
     }
 }

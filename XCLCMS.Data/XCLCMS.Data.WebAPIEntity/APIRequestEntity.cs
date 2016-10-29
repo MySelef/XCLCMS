@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
 
 namespace XCLCMS.Data.WebAPIEntity
@@ -40,5 +39,11 @@ namespace XCLCMS.Data.WebAPIEntity
         /// </summary>
         [DataMember]
         public TBody Body { get; set; }
+
+        /// <summary>
+        /// 应用程序商户应用号
+        /// </summary>
+        [DataMember]
+        public long AppID { get; set; }
     }
 }

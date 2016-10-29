@@ -118,7 +118,7 @@
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\FunctionFilter.cs" />
     <Compile Include="Filters\PermissionFilter.cs" />
-    <Compile Include="Login\LoginHelper.cs" />
+    <Compile Include="Common\LoginHelper.cs" />
     <Compile Include="Model\CommonModel.cs" />
     <Compile Include="Model\PageGlobalConfig.cs" />
     <Compile Include="Permission\Function.cs" />

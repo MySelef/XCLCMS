@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XCLCMS.Data.WebAPIEntity.RequestEntity.Open
 {
@@ -21,11 +17,13 @@ namespace XCLCMS.Data.WebAPIEntity.RequestEntity.Open
         /// </summary>
         [DataMember]
         public string UserName { get; set; }
+
         /// <summary>
         /// 密码（明文）
         /// </summary>
         [DataMember]
         public string Pwd { get; set; }
+
         /// <summary>
         /// 已有令牌
         /// </summary>

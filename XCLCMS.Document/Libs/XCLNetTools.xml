@@ -3991,6 +3991,31 @@
             退出
             </summary>
         </member>
+        <member name="T:XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum">
+            <summary>
+            系统所属环境枚举
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum.DEV">
+            <summary>
+            开发环境
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum.FAT">
+            <summary>
+            测试环境
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum.UAT">
+            <summary>
+            UAT环境
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum.PRD">
+            <summary>
+            生产环境
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Enum.EnumHelper">
             <summary>
             枚举帮助类

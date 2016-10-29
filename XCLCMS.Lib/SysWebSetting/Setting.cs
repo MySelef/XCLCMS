@@ -25,19 +25,19 @@ namespace XCLCMS.Lib.SysWebSetting
                 kv.Key = m.KeyName;
                 switch (sysEnv)
                 {
-                    case Common.Comm.SysEnvironmentEnum.FAT:
+                    case XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum.FAT:
                         kv.Value = m.TestKeyValue;
                         break;
 
-                    case Common.Comm.SysEnvironmentEnum.PRD:
+                    case XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum.PRD:
                         kv.Value = m.PrdKeyValue;
                         break;
 
-                    case Common.Comm.SysEnvironmentEnum.UAT:
+                    case XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum.UAT:
                         kv.Value = m.UATKeyValue;
                         break;
 
-                    case Common.Comm.SysEnvironmentEnum.DEV:
+                    case XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum.DEV:
                     default:
                         kv.Value = m.KeyValue;
                         break;

@@ -68,42 +68,16 @@ namespace XCLCMS.Lib.Common
         #region 环境相关
 
         /// <summary>
-        /// 系统所属环境枚举
-        /// </summary>
-        public enum SysEnvironmentEnum
-        {
-            /// <summary>
-            /// 开发环境
-            /// </summary>
-            DEV,
-
-            /// <summary>
-            /// 测试环境
-            /// </summary>
-            FAT,
-
-            /// <summary>
-            /// UAT环境
-            /// </summary>
-            UAT,
-
-            /// <summary>
-            /// 生产环境
-            /// </summary>
-            PRD
-        }
-
-        /// <summary>
         /// 获取当前系统所处环境
         /// </summary>
-        public static SysEnvironmentEnum GetCurrentEnvironment()
+        public static XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum GetCurrentEnvironment()
         {
             string val = XCLNetTools.XML.ConfigClass.GetConfigString("SysEnvironment");
             if (string.IsNullOrWhiteSpace(val))
             {
                 throw new Exception("当前系统没有配置环境节点信息！");
             }
-            return (SysEnvironmentEnum)Enum.Parse(typeof(SysEnvironmentEnum), val.Trim().ToUpper());
+            return (XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum)Enum.Parse(typeof(XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum), val.Trim().ToUpper());
         }
 
         #endregion 环境相关

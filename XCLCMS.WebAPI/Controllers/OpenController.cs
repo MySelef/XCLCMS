@@ -60,15 +60,6 @@ namespace XCLCMS.WebAPI.Controllers
                     response.Body.Merchant = this.merchantBLL.GetModel(userModel.FK_MerchantID);
                     //所在商户应用
                     response.Body.MerchantApp = this.merchantAppBLL.GetModel(userModel.FK_MerchantAppID);
-                    //应用程序所属应用
-                    if (request.AppID > 0)
-                    {
-                        response.Body.ApplicationMerchantApp = this.merchantAppBLL.GetModel(request.AppID);
-                        if (null != response.Body.ApplicationMerchantApp)
-                        {
-                            response.Body.ApplicationMerchant = this.merchantBLL.GetModel(response.Body.ApplicationMerchantApp.FK_MerchantID);
-                        }
-                    }
                 }
 
                 //写入日志

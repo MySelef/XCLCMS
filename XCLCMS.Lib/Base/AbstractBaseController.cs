@@ -138,7 +138,7 @@ namespace XCLCMS.Lib.Base
             {
                 if (null == this._currentApplicationMerchantApp)
                 {
-                    this._currentApplicationMerchantApp = null == this.CurrentUserInfoDetailModel ? null : this.CurrentUserInfoDetailModel.ApplicationMerchantApp;
+                    this._currentApplicationMerchantApp = XCLCMS.Lib.Common.Comm.GetCurrentApplicationMerchantApp();
                 }
                 return this._currentApplicationMerchantApp;
             }
@@ -153,7 +153,7 @@ namespace XCLCMS.Lib.Base
             {
                 if (null == this._currentApplicationMerchant)
                 {
-                    this._currentApplicationMerchant = null == this.CurrentUserInfoDetailModel ? null : this.CurrentUserInfoDetailModel.ApplicationMerchant;
+                    this._currentApplicationMerchant = XCLCMS.Lib.Common.Comm.GetCurrentApplicationMerchant();
                 }
                 return this._currentApplicationMerchant;
             }

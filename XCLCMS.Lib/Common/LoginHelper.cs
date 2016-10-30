@@ -79,7 +79,7 @@ namespace XCLCMS.Lib.Common
             {
                 throw new System.Exception("内置用户不存在！");
             }
-            return string.Format("{0}^{1}", model.UserName, model.Pwd);
+            return XCLNetTools.Encrypt.DESEncrypt.Encrypt(string.Format("{0}^{1}", model.UserName, model.Pwd), "XCL1989");
         }
     }
 }

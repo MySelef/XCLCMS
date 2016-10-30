@@ -24,15 +24,5 @@
         /// 用户所属商户应用
         /// </summary>
         public XCLCMS.Data.Model.MerchantApp MerchantApp { get; set; }
-
-        /// <summary>
-        /// 当前应用程序所属商户
-        /// </summary>
-        public XCLCMS.Data.Model.Merchant ApplicationMerchant { get; set; }
-
-        /// <summary>
-        /// 当前应用程序所属商户应用
-        /// </summary>
-        public XCLCMS.Data.Model.MerchantApp ApplicationMerchantApp { get; set; }
     }
 }

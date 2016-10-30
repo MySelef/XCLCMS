@@ -97,6 +97,52 @@ namespace XCLCMS.Lib.Common
             return new XCLNetTools.MVC.JsonResultFormat() { Data = data, JsonRequestBehavior = jsonRequestBehavior };
         }
 
+        /// <summary>
+        /// 获取当前应用程序的商户实体
+        /// </summary>
+        public static XCLCMS.Data.Model.Merchant GetCurrentApplicationMerchant()
+        {
+            XCLCMS.Data.Model.Merchant model = null;
+            var appModel = XCLCMS.Lib.Common.Comm.GetCurrentApplicationMerchantApp();
+            if (null != appModel)
+            {
+                var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+                request.Body = appModel.FK_MerchantID;
+                var response = XCLCMS.Lib.WebAPI.MerchantAPI.Detail(request);
+                if (null != response)
+                {
+                    model = response.Body;
+                }
+            }
+            return model;
+        }
+
+        /// <summary>
+        /// 获取当前应用程序的商户应用实体
+        /// </summary>
+        public static XCLCMS.Data.Model.MerchantApp GetCurrentApplicationMerchantApp()
+        {
+            var appId = XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
+            if (appId <= 0)
+            {
+                throw new Exception("请给当前应用程序配置AppID信息！");
+            }
+            XCLCMS.Data.Model.MerchantApp model = null;
+
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            request.Body = appId;
+            var response = XCLCMS.Lib.WebAPI.MerchantAppAPI.Detail(request);
+            if (null != response)
+            {
+                model = response.Body;
+            }
+            if (null == model)
+            {
+                throw new Exception(string.Format("当前应用程序AppID（{0}）无效！", appId));
+            }
+            return model;
+        }
+
         #endregion 其它
     }
 }

@@ -23,5 +23,20 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
         {
             return Redirect(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_FileUploadURL);
         }
+
+        /// <summary>
+        /// 404页面
+        /// </summary>
+        public ActionResult Error404()
+        {
+            return View("~/Views/Common/Error.cshtml", new XCLNetTools.Message.MessageModel()
+            {
+                ErrorCode = "404",
+                IsSuccess = false,
+                Message = "您访问的页面不存在！",
+                FromUrl = XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl,
+                Url = XCLNetTools.StringHander.FormHelper.GetString("aspxerrorpath")
+            });
+        }
     }
 }

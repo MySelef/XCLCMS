@@ -66,7 +66,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
 
             switch (base.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.Article = new Data.Model.View.v_Article();
                     viewModel.Article.IsCanComment = XCLCMS.Data.CommonHelper.EnumType.YesNoEnum.Y.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "Article");
@@ -75,7 +75,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Article
                     viewModel.Article.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                     break;
 
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = articleID;
                     var response = XCLCMS.Lib.WebAPI.ArticleAPI.Detail(request);

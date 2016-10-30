@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using XCLCMS.Data.WebAPIEntity.RequestEntity;
 
 namespace XCLCMS.Lib.Common
 {
@@ -14,8 +15,17 @@ namespace XCLCMS.Lib.Common
         /// </summary>
         private static List<XCLNetTools.Entity.KeyValue> GetAllSettings()
         {
-            XCLCMS.Data.BLL.SysWebSetting bll = new Data.BLL.SysWebSetting();
-            var settingList = bll.GetModelList(string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString()));
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<PageListConditionEntity>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            request.Body = new PageListConditionEntity();
+            request.Body.Where = string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString());
+            request.Body.PagerInfoSimple = new XCLNetTools.Entity.PagerInfoSimple(1, Int32.MaxValue - 1, 0);
+            var response = XCLCMS.Lib.WebAPI.SysWebSettingAPI.PageList(request);
+
+            List<XCLCMS.Data.Model.View.v_SysWebSetting> settingList = null;
+            if (null != response && null != response.Body)
+            {
+                settingList = response.Body.ResultList;
+            }
 
             var sysEnv = XCLCMS.Lib.Common.Comm.GetCurrentEnvironment();
             var lst = new List<XCLNetTools.Entity.KeyValue>();

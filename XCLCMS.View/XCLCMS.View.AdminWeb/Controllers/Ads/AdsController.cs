@@ -78,14 +78,14 @@ namespace XCLCMS.View.AdminWeb.Controllers.Ads
 
             switch (base.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.Ads = new Data.Model.Ads();
                     viewModel.FormAction = Url.Action("AddSubmit", "Ads");
                     viewModel.Ads.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
                     viewModel.Ads.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                     break;
 
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = AdsID;
                     var response = XCLCMS.Lib.WebAPI.AdsAPI.Detail(request);

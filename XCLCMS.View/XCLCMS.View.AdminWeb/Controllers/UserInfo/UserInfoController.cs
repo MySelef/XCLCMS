@@ -76,7 +76,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
 
             switch (base.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.UserInfo = new Data.Model.UserInfo();
                     viewModel.UserInfo.SexType = XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum.M.ToString();
                     viewModel.UserInfo.UserState = XCLCMS.Data.CommonHelper.EnumType.UserStateEnum.N.ToString();
@@ -85,7 +85,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
                     viewModel.UserInfo.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                     break;
 
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = userInfoId;
                     var response = XCLCMS.Lib.WebAPI.UserInfoAPI.Detail(request);

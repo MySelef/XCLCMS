@@ -8,46 +8,6 @@ namespace XCLCMS.Lib.Common
     /// </summary>
     public class Comm
     {
-        #region 页面操作
-
-        /// <summary>
-        /// 页面操作类型
-        /// </summary>
-        public enum HandleType
-        {
-            /// <summary>
-            /// 添加
-            /// </summary>
-            ADD,
-
-            /// <summary>
-            /// 删除
-            /// </summary>
-            DEL,
-
-            /// <summary>
-            /// 更新
-            /// </summary>
-            UPDATE,
-
-            /// <summary>
-            /// 导入
-            /// </summary>
-            INPUT,
-
-            /// <summary>
-            /// 导出
-            /// </summary>
-            OUTPUT,
-
-            /// <summary>
-            /// 其它
-            /// </summary>
-            OTHER
-        }
-
-        #endregion 页面操作
-
         #region 缓存相关
 
         /// <summary>
@@ -75,7 +35,7 @@ namespace XCLCMS.Lib.Common
             string val = XCLNetTools.XML.ConfigClass.GetConfigString("SysEnvironment");
             if (string.IsNullOrWhiteSpace(val))
             {
-                throw new Exception("当前系统没有配置环境节点信息！");
+                throw new ArgumentNullException("SysEnvironment", "appSettings中缺少环境节点配置信息！");
             }
             return (XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum)Enum.Parse(typeof(XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum), val.Trim().ToUpper());
         }
@@ -125,20 +85,20 @@ namespace XCLCMS.Lib.Common
             var appId = XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
             if (appId <= 0)
             {
-                throw new Exception("请给当前应用程序配置AppID信息！");
+                throw new ArgumentNullException("AppID", "appSettings中缺少商户应用号配置信息！");
             }
             XCLCMS.Data.Model.MerchantApp model = null;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
             request.Body = appId;
             var response = XCLCMS.Lib.WebAPI.MerchantAppAPI.Detail(request);
-            if (null != response)
+            if (null != response && null != response.Body && response.IsSuccess)
             {
                 model = response.Body;
             }
-            if (null == model)
+            else
             {
-                throw new Exception(string.Format("当前应用程序AppID（{0}）无效！", appId));
+                throw new Exception(string.Format("当前应用程序AppID（{0}）信息获取失败！{1}", appId, response.Message));
             }
             return model;
         }

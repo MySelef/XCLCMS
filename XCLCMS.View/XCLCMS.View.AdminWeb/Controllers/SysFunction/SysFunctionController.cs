@@ -27,14 +27,14 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysFunction
 
             switch (base.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.SysFunction = new Data.Model.SysFunction();
                     viewModel.ParentID = sysFunctionID;
                     viewModel.SysFunctionID = -1;
                     viewModel.FormAction = Url.Action("AddSubmit", "SysFunction");
                     break;
 
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
 
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = sysFunctionID;

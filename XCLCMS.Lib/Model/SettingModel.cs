@@ -16,11 +16,6 @@
         public string Common_UserLoginFlagName { get; set; }
 
         /// <summary>
-        /// web api 请求路径
-        /// </summary>
-        public string Common_WebAPIServiceURL { get; set; }
-
-        /// <summary>
         /// 后台系统退出地址
         /// </summary>
         public string Admin_LogOutURL { get; set; }

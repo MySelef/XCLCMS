@@ -73,12 +73,12 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
 
             switch (base.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.SysWebSetting = new Data.Model.SysWebSetting();
                     viewModel.FormAction = Url.Action("AddSubmit", "SysWebSetting");
                     break;
 
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = sysWebSettingID;
                     var response = XCLCMS.Lib.WebAPI.SysWebSettingAPI.Detail(request);

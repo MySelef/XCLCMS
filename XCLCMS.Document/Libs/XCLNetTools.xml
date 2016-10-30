@@ -4016,6 +4016,41 @@
             生产环境
             </summary>
         </member>
+        <member name="T:XCLNetTools.Enum.CommonEnum.HandleTypeEnum">
+            <summary>
+            页面操作类型枚举
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.HandleTypeEnum.DEL">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE">
+            <summary>
+            更新
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.HandleTypeEnum.INPUT">
+            <summary>
+            导入
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.HandleTypeEnum.OUTPUT">
+            <summary>
+            导出
+            </summary>
+        </member>
+        <member name="F:XCLNetTools.Enum.CommonEnum.HandleTypeEnum.OTHER">
+            <summary>
+            其它
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Enum.EnumHelper">
             <summary>
             枚举帮助类

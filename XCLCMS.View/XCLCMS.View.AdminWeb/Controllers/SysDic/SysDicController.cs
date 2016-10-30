@@ -34,7 +34,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                 var menus = XCLCMS.Lib.WebAPI.Library.SysDicAPI_GetSystemMenuModelList(base.UserToken);
                 if (menus.IsNotNullOrEmpty())
                 {
-                    if (menus.Exists(k => k.SysDicID == sysDicId || (k.ParentID == sysDicId && base.CurrentHandleType == Lib.Common.Comm.HandleType.ADD)))
+                    if (menus.Exists(k => k.SysDicID == sysDicId || (k.ParentID == sysDicId && base.CurrentHandleType == XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD)))
                     {
                         viewModel.SysDicCategory = XCLCMS.View.AdminWeb.Models.SysDic.SysDicCategoryEnum.SysMenu;
                     }
@@ -43,7 +43,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
 
             switch (base.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.SysDic = new Data.Model.SysDic();
                     viewModel.ParentID = sysDicId;
                     viewModel.SysDicID = -1;
@@ -51,7 +51,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysDic
                     viewModel.SysDic.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
                     break;
 
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
 
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = sysDicId;

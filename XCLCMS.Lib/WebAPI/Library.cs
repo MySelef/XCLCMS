@@ -28,7 +28,12 @@ namespace XCLCMS.Lib.WebAPI
             APIResponseEntity<TResponse> response = new APIResponseEntity<TResponse>();
             try
             {
-                string requestURL = (XCLCMS.Lib.Common.Setting.SettingModel.Common_WebAPIServiceURL.Trim().Trim('/') + '/' + path.Trim().Trim('/')).Trim('?');
+                string webAPIServiceURL = XCLNetTools.XML.ConfigClass.GetConfigString("WebAPIServiceURL");
+                if (string.IsNullOrWhiteSpace(webAPIServiceURL))
+                {
+                    throw new ArgumentNullException("WebAPIServiceURL", "appSettings中缺少配置项：WebAPIServiceURL！");
+                }
+                string requestURL = (webAPIServiceURL.Trim().Trim('/') + '/' + path.Trim().Trim('/')).Trim('?');
                 var httpClient = new HttpClient();
                 var httpRequest = new HttpRequestMessage();
                 string requestJson = JsonConvert.SerializeObject(request);

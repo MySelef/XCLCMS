@@ -13,7 +13,7 @@
             {
                 System.Text.StringBuilder str = new System.Text.StringBuilder();
                 str.Append(string.Join("-&gt;", Model.PathList.Select(k => k.RoleName).ToArray()));
-                if (null != ViewBag.CurrentHandleType && ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                if (null != ViewBag.CurrentHandleType && ViewBag.CurrentHandleType == XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD)
                 {
                     str.Append("-&gt;");
                 }
@@ -64,7 +64,7 @@
                         <tr>
                             <td class="XCLTitle">记录状态：</td>
                             <td>
-                                @if (ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                                @if (ViewBag.CurrentHandleType == XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD)
                                 {
                                     @XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum), XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString())
                                 }
@@ -77,12 +77,12 @@
                 </div>
 
                 <div class="XCLHandBar">
-                    @switch ((XCLCMS.Lib.Common.Comm.HandleType)ViewBag.CurrentHandleType)
+                    @switch ((XCLNetTools.Enum.CommonEnum.HandleTypeEnum)ViewBag.CurrentHandleType)
                     {
-                        case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                        case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                             <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保 存</a>
                             break;
-                        case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                        case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
                             <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
                             break;
                     }

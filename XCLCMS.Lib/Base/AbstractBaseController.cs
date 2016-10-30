@@ -171,17 +171,17 @@ namespace XCLCMS.Lib.Base
         /// <summary>
         /// 当前页面操作类型
         /// </summary>
-        public XCLCMS.Lib.Common.Comm.HandleType CurrentHandleType
+        public XCLNetTools.Enum.CommonEnum.HandleTypeEnum CurrentHandleType
         {
             get
             {
-                XCLCMS.Lib.Common.Comm.HandleType type = XCLCMS.Lib.Common.Comm.HandleType.ADD;
+                XCLNetTools.Enum.CommonEnum.HandleTypeEnum type = XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD;
                 string handleType = XCLNetTools.StringHander.FormHelper.GetString("HandleType").ToUpper();
                 if (!string.IsNullOrEmpty(handleType))
                 {
                     if (!Enum.TryParse(handleType, out type))
                     {
-                        type = XCLCMS.Lib.Common.Comm.HandleType.OTHER;
+                        type = XCLNetTools.Enum.CommonEnum.HandleTypeEnum.OTHER;
                     }
                 }
                 return type;
@@ -296,7 +296,7 @@ namespace XCLCMS.Lib.Base
             pageConfig.UserToken = this.UserToken;
             pageConfig.FileManagerFileListURL = XCLCMS.Lib.Common.Setting.SettingModel.FileManager_FileListURL;
             pageConfig.FileManagerLogicFileListURL = XCLCMS.Lib.Common.Setting.SettingModel.FileManager_LogicFileListURL;
-            pageConfig.WebAPIServiceURL = XCLCMS.Lib.Common.Setting.SettingModel.Common_WebAPIServiceURL;
+            pageConfig.WebAPIServiceURL = XCLNetTools.XML.ConfigClass.GetConfigString("WebAPIServiceURL");
             pageConfig.EnumConfig = string.Empty;
             ViewBag.PageGlobalConfigJSON = string.Format("var XCLCMSPageGlobalConfig={0};XCLCMSPageGlobalConfig.EnumConfig={1};", Newtonsoft.Json.JsonConvert.SerializeObject(pageConfig), XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson);
         }

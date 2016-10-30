@@ -64,14 +64,14 @@ namespace XCLCMS.View.AdminWeb.Controllers.Tags
 
             switch (base.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.Tags = new Data.Model.Tags();
                     viewModel.FormAction = Url.Action("AddSubmit", "Tags");
                     viewModel.Tags.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
                     viewModel.Tags.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                     break;
 
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = TagsID;
                     var response = XCLCMS.Lib.WebAPI.TagsAPI.Detail(request);

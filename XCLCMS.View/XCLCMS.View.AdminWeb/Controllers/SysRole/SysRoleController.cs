@@ -28,7 +28,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
 
             switch (base.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.SysRole = new Data.Model.SysRole();
                     viewModel.ParentID = sysRoleID;
                     viewModel.SysRoleID = -1;
@@ -36,7 +36,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysRole
                     viewModel.SysRole.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
                     break;
 
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
 
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = sysRoleID;

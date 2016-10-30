@@ -70,13 +70,13 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
             switch (base.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.MerchantApp = new Data.Model.MerchantApp();
                     viewModel.MerchantApp.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                     viewModel.FormAction = Url.Action("AddSubmit", "MerchantApp");
                     break;
 
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = merchantAppId;
                     var response = XCLCMS.Lib.WebAPI.MerchantAppAPI.Detail(request);

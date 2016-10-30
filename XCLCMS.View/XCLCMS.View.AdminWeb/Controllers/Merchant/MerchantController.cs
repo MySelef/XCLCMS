@@ -80,7 +80,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
 
             switch (base.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.Merchant = new Data.Model.Merchant();
                     viewModel.Merchant.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                     viewModel.MerchantTypeOptions = XCLNetTools.Control.HtmlControl.Lib.GetOptions(merchantTypeDic, new XCLNetTools.Entity.SetOptionEntity()
@@ -99,7 +99,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                     viewModel.FormAction = Url.Action("AddSubmit", "Merchant");
                     break;
 
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
 
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = merchantId;

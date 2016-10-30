@@ -107,12 +107,12 @@
 
         <div class="XCLHandBar">
             <a href="@XCLCMS.View.AdminWeb.Common.WebCommon.RefferUrl" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
-            @switch ((XCLCMS.Lib.Common.Comm.HandleType)ViewBag.CurrentHandleType)
+            @switch ((XCLNetTools.Enum.CommonEnum.HandleTypeEnum)ViewBag.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
                     break;
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
                     <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存修改</a>
                     if (XCLCMS.Lib.Permission.PerHelper.HasPermission(ViewBag.UserID, XCLCMS.Lib.Permission.Function.FunctionEnum.Ads_Del))
                     {

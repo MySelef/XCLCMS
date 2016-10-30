@@ -13,7 +13,7 @@
             {
                 System.Text.StringBuilder str = new System.Text.StringBuilder();
                 str.Append(string.Join("-&gt;", Model.PathList.Select(k => k.DicName).ToArray()));
-                if (null != ViewBag.CurrentHandleType && ViewBag.CurrentHandleType == XCLCMS.Lib.Common.Comm.HandleType.ADD)
+                if (null != ViewBag.CurrentHandleType && ViewBag.CurrentHandleType == XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD)
                 {
                     str.Append("-&gt;");
                 }

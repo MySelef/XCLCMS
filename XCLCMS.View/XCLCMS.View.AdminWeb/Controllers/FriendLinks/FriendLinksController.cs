@@ -71,14 +71,14 @@ namespace XCLCMS.View.AdminWeb.Controllers.FriendLinks
 
             switch (base.CurrentHandleType)
             {
-                case XCLCMS.Lib.Common.Comm.HandleType.ADD:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.FriendLinks = new Data.Model.FriendLinks();
                     viewModel.FormAction = Url.Action("AddSubmit", "FriendLinks");
                     viewModel.FriendLinks.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
                     viewModel.FriendLinks.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
                     break;
 
-                case XCLCMS.Lib.Common.Comm.HandleType.UPDATE:
+                case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.UPDATE:
                     var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(base.UserToken);
                     request.Body = friendLinkID;
                     var response = XCLCMS.Lib.WebAPI.FriendLinksAPI.Detail(request);

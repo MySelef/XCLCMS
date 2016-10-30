@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web;
 using XCLCMS.Data.WebAPIEntity;
 
 namespace XCLCMS.Lib.WebAPI
@@ -78,7 +79,11 @@ namespace XCLCMS.Lib.WebAPI
             APIRequestEntity<TRequest> request = new APIRequestEntity<TRequest>();
             request.ClientIP = XCLNetTools.Common.IPHelper.GetClientIP();
             request.UserToken = userToken;
-            request.Url = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
+            try
+            {
+                request.Url = HttpContext.Current.Request.Url.AbsoluteUri;
+            }
+            catch { }
             request.AppID = XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
             return request;
         }

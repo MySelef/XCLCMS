@@ -55,7 +55,7 @@ namespace XCLCMS.Lib.Filters
             {
                 XCLNetTools.Message.MessageModel msgModel = new XCLNetTools.Message.MessageModel();
                 msgModel.IsRedirect = true;
-                msgModel.RedirectURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_LogOnURL;
+                msgModel.RedirectURL = XCLCMS.Lib.Common.Setting.SettingModel.Admin_LogOnURL;
                 msgModel.Message = "登录信息验证失败，请重新登录！";
                 filterContext.Result = new JsonResult()
                 {
@@ -65,7 +65,7 @@ namespace XCLCMS.Lib.Filters
             }
             else
             {
-                filterContext.Result = new RedirectResult(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_LogOnURL);
+                filterContext.Result = new RedirectResult(XCLCMS.Lib.Common.Setting.SettingModel.Admin_LogOnURL);
             }
         }
 

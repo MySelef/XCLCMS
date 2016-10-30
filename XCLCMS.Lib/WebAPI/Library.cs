@@ -28,7 +28,7 @@ namespace XCLCMS.Lib.WebAPI
             APIResponseEntity<TResponse> response = new APIResponseEntity<TResponse>();
             try
             {
-                string requestURL = (XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebAPIServiceURL.Trim().Trim('/') + '/' + path.Trim().Trim('/')).Trim('?');
+                string requestURL = (XCLCMS.Lib.Common.Setting.SettingModel.Common_WebAPIServiceURL.Trim().Trim('/') + '/' + path.Trim().Trim('/')).Trim('?');
                 var httpClient = new HttpClient();
                 var httpRequest = new HttpRequestMessage();
                 string requestJson = JsonConvert.SerializeObject(request);

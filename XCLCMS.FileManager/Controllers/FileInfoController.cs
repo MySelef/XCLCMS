@@ -18,12 +18,12 @@ namespace XCLCMS.FileManager.Controllers
             viewModel.CurrentDirectory = HttpUtility.UrlDecode(XCLNetTools.StringHander.FormHelper.GetString("dir"));
             if (string.IsNullOrEmpty(viewModel.CurrentDirectory))
             {
-                viewModel.CurrentDirectory = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath;
+                viewModel.CurrentDirectory = XCLCMS.Lib.Common.Setting.SettingModel.FileManager_UploadPath;
             }
             viewModel.CurrentDirectory = viewModel.CurrentDirectory.TrimEnd('/') + '/';
 
             viewModel.DirectoryNavigation = new List<XCLNetTools.Entity.TextValue>();
-            var navArray = viewModel.CurrentDirectory.TrimStart(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath.ToCharArray()).Trim('/').Split('/');
+            var navArray = viewModel.CurrentDirectory.TrimStart(XCLCMS.Lib.Common.Setting.SettingModel.FileManager_UploadPath.ToCharArray()).Trim('/').Split('/');
             StringBuilder link = new StringBuilder();
             for (int i = 0; i < navArray.Length; i++)
             {
@@ -32,7 +32,7 @@ namespace XCLCMS.FileManager.Controllers
                 viewModel.DirectoryNavigation.Add(new XCLNetTools.Entity.TextValue()
                 {
                     Text = s,
-                    Value = string.Format("{0}{1}", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath, link.ToString())
+                    Value = string.Format("{0}{1}", XCLCMS.Lib.Common.Setting.SettingModel.FileManager_UploadPath, link.ToString())
                 });
             }
 
@@ -56,7 +56,7 @@ namespace XCLCMS.FileManager.Controllers
 
             XCLNetTools.Message.MessageModel msg = new XCLNetTools.Message.MessageModel();
 
-            msg.CustomObject = XCLNetTools.FileHandler.FileDirectory.GetFileList(viewModel.CurrentDirectory, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath, XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath.Replace("~/", XCLNetTools.StringHander.Common.RootUri));
+            msg.CustomObject = XCLNetTools.FileHandler.FileDirectory.GetFileList(viewModel.CurrentDirectory, XCLCMS.Lib.Common.Setting.SettingModel.FileManager_UploadPath, XCLCMS.Lib.Common.Setting.SettingModel.FileManager_UploadPath.Replace("~/", XCLNetTools.StringHander.Common.RootUri));
             msg.IsSuccess = true;
 
             return new XCLNetTools.MVC.JsonResultFormat()
@@ -89,7 +89,7 @@ namespace XCLCMS.FileManager.Controllers
                 }
                 p = System.Web.HttpUtility.UrlDecode(m);
                 //安全起见，删除前判断是否为指定的目录
-                if (p.IndexOf(Server.MapPath(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_UploadPath)) >= 0)
+                if (p.IndexOf(Server.MapPath(XCLCMS.Lib.Common.Setting.SettingModel.FileManager_UploadPath)) >= 0)
                 {
                     XCLNetTools.FileHandler.ComFile.DeleteFile(p);
                     XCLNetTools.FileHandler.FileDirectory.DelTree(p);

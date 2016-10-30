@@ -28,8 +28,8 @@ namespace XCLCMS.Lib.Common
             {
                 //退出
                 case XCLNetTools.Enum.CommonEnum.LoginTypeEnum.OFF:
-                    XCLNetTools.Http.CookieHelper.DelCookies(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName);
-                    context.Session.Remove(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName);
+                    XCLNetTools.Http.CookieHelper.DelCookies(XCLCMS.Lib.Common.Setting.SettingModel.Common_UserLoginFlagName);
+                    context.Session.Remove(XCLCMS.Lib.Common.Setting.SettingModel.Common_UserLoginFlagName);
                     break;
                 //登录
                 case XCLNetTools.Enum.CommonEnum.LoginTypeEnum.ON:
@@ -37,8 +37,8 @@ namespace XCLCMS.Lib.Common
                     {
                         throw new System.Exception("必须指定用户的登录令牌信息！");
                     }
-                    XCLNetTools.Http.CookieHelper.SetCookies(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName, userToken, 30);
-                    context.Session[XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName] = userToken;
+                    XCLNetTools.Http.CookieHelper.SetCookies(XCLCMS.Lib.Common.Setting.SettingModel.Common_UserLoginFlagName, userToken, 30);
+                    context.Session[XCLCMS.Lib.Common.Setting.SettingModel.Common_UserLoginFlagName] = userToken;
                     break;
             }
         }
@@ -48,10 +48,10 @@ namespace XCLCMS.Lib.Common
         /// </summary>
         public static XCLCMS.Data.Model.Custom.UserInfoDetailModel GetUserInfoFromLoginInfo()
         {
-            string loginString = HttpContext.Current.Session[XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName] as string;
+            string loginString = HttpContext.Current.Session[XCLCMS.Lib.Common.Setting.SettingModel.Common_UserLoginFlagName] as string;
             if (string.IsNullOrEmpty(loginString))
             {
-                loginString = XCLNetTools.Http.CookieHelper.GetCookies(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserLoginFlagName);
+                loginString = XCLNetTools.Http.CookieHelper.GetCookies(XCLCMS.Lib.Common.Setting.SettingModel.Common_UserLoginFlagName);
             }
             if (string.IsNullOrEmpty(loginString))
             {

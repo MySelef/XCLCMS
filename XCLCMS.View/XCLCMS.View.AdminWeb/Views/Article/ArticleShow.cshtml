@@ -82,7 +82,7 @@
                                 @foreach (var m in Model.MainImgList)
                                 {
                                     <li>
-                                        <a href="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_OpenAPI_ShowAttachmentURL)/@m.AttachmentID" target="_blank">@m.OriginFileName</a>
+                                        <a href="@(XCLCMS.Lib.Common.Setting.SettingModel.FileManager_OpenAPI_ShowAttachmentURL)/@m.AttachmentID" target="_blank">@m.OriginFileName</a>
                                         （@m.FileSize KB）
                                     </li>
                                 }
@@ -135,7 +135,7 @@
                                 @foreach (var m in Model.AttactmentList)
                                 {
                                     <li>
-                                        <a href="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_OpenAPI_ShowAttachmentURL)/@m.AttachmentID" target="_blank">@m.OriginFileName</a>
+                                        <a href="@(XCLCMS.Lib.Common.Setting.SettingModel.FileManager_OpenAPI_ShowAttachmentURL)/@m.AttachmentID" target="_blank">@m.OriginFileName</a>
                                         （@m.FileSize KB）
                                     </li>
                                 }

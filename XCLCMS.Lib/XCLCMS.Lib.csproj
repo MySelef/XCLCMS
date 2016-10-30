@@ -124,7 +124,7 @@
     <Compile Include="Permission\Function.cs" />
     <Compile Include="Permission\PerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SysWebSetting\Setting.cs" />
+    <Compile Include="Common\Setting.cs" />
     <Compile Include="Model\SettingModel.cs" />
     <Compile Include="WebAPI\AdsAPI.cs" />
     <Compile Include="WebAPI\ArticleAPI.cs" />

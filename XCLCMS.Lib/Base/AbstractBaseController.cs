@@ -294,9 +294,9 @@ namespace XCLCMS.Lib.Base
             }
             pageConfig.RootURL = XCLNetTools.StringHander.Common.RootUri;
             pageConfig.UserToken = this.UserToken;
-            pageConfig.FileManagerFileListURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_FileListURL;
-            pageConfig.FileManagerLogicFileListURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_LogicFileListURL;
-            pageConfig.WebAPIServiceURL = XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_WebAPIServiceURL;
+            pageConfig.FileManagerFileListURL = XCLCMS.Lib.Common.Setting.SettingModel.FileManager_FileListURL;
+            pageConfig.FileManagerLogicFileListURL = XCLCMS.Lib.Common.Setting.SettingModel.FileManager_LogicFileListURL;
+            pageConfig.WebAPIServiceURL = XCLCMS.Lib.Common.Setting.SettingModel.Common_WebAPIServiceURL;
             pageConfig.EnumConfig = string.Empty;
             ViewBag.PageGlobalConfigJSON = string.Format("var XCLCMSPageGlobalConfig={0};XCLCMSPageGlobalConfig.EnumConfig={1};", Newtonsoft.Json.JsonConvert.SerializeObject(pageConfig), XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson);
         }

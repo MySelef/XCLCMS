@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace XCLCMS.Lib.SysWebSetting
+namespace XCLCMS.Lib.Common
 {
     /// <summary>
     /// 获取站点配置

@@ -164,7 +164,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.UserInfo
             model.Email = viewModel.UserInfo.Email;
             model.NickName = viewModel.UserInfo.NickName;
             model.OtherContact = viewModel.UserInfo.OtherContact;
-            model.Pwd = string.IsNullOrEmpty(viewModel.UserInfo.Pwd) ? XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Common_UserDefaultPwd : viewModel.UserInfo.Pwd;
+            model.Pwd = string.IsNullOrEmpty(viewModel.UserInfo.Pwd) ? XCLCMS.Lib.Common.Setting.SettingModel.Common_UserDefaultPwd : viewModel.UserInfo.Pwd;
             model.QQ = viewModel.UserInfo.QQ;
             model.RealName = viewModel.UserInfo.RealName;
             model.RecordState = viewModel.UserInfo.RecordState;

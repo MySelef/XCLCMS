@@ -9,7 +9,7 @@
 <script type="text/html" id="temp@(Model.ID)">
     {{each FileList as m i}}
     <li style="margin:5px;">
-        <a href="@(XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_OpenAPI_ShowAttachmentURL)/{{m.AttachmentID}}" target="_blank">{{m.OriginFileName}}</a>
+        <a href="@(XCLCMS.Lib.Common.Setting.SettingModel.FileManager_OpenAPI_ShowAttachmentURL)/{{m.AttachmentID}}" target="_blank">{{m.OriginFileName}}</a>
         （{{m.FileSize}} KB）
         <a href="javascript:void(0);" class="delSelectedFile XCLRedBolder">×</a>
         <input type="hidden" name="@Model.TxtName" value="{{m.AttachmentID}}" />

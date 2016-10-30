@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <td class="text-right">文件名：</td>
-                    <td><a href="@((Model.Attachment.URL??"").Replace("~/",XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_RootURL))" target="_blank">@Model.Attachment.FileName</a></td>
+                    <td><a href="@((Model.Attachment.URL??"").Replace("~/",XCLCMS.Lib.Common.Setting.SettingModel.FileManager_RootURL))" target="_blank">@Model.Attachment.FileName</a></td>
                     <td class="text-right">查看类型：</td>
                     <td>@XCLNetTools.Enum.EnumHelper.GetEnumDescriptionByText(typeof(XCLCMS.Data.CommonHelper.EnumType.AttachmentViewTypeEnum), Model.Attachment.ViewType)</td>
                 </tr>

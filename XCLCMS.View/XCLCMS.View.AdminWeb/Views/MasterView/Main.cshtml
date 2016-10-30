@@ -31,7 +31,7 @@
         <div class="XCLPanel" style="border-bottom:none;">
             <div class="XCLPanelHeader">
                 @if(null!=CurrentUserModel){
-                    @:您好，@(string.Format("{0}（{1}）",CurrentUserModel.UserName,CurrentUserModel.RoleName))  <a href="@XCLCMS.Lib.SysWebSetting.Setting.SettingModel.Admin_LogOutURL">安全退出</a>
+                    @:您好，@(string.Format("{0}（{1}）",CurrentUserModel.UserName,CurrentUserModel.RoleName))  <a href="@XCLCMS.Lib.Common.Setting.SettingModel.Admin_LogOutURL">安全退出</a>
                     @:&nbsp;&nbsp;&nbsp;
                 }
                 @if (null != ViewBag.CurrentUserMerchant) {

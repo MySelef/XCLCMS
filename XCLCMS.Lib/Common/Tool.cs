@@ -65,7 +65,7 @@ namespace XCLCMS.Lib.Common
             {
                 throw new Exception("未指定参数：relativeUrl！");
             }
-            return System.Web.HttpUtility.UrlDecode(relativeUrl).Trim().Replace("~/", XCLCMS.Lib.SysWebSetting.Setting.SettingModel.FileManager_RootURL);
+            return System.Web.HttpUtility.UrlDecode(relativeUrl).Trim().Replace("~/", XCLCMS.Lib.Common.Setting.SettingModel.FileManager_RootURL);
         }
 
         #endregion 文件管理相关

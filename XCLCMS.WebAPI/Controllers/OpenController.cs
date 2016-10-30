@@ -73,5 +73,20 @@ namespace XCLCMS.WebAPI.Controllers
                 return response;
             });
         }
+
+        /// <summary>
+        /// 根据用户名和密码生成登录令牌
+        /// </summary>
+        [HttpPost]
+        public async Task<APIResponseEntity<object>> CreateUserToken([FromBody] APIRequestEntity<XCLCMS.Data.Model.Custom.UserNamePwd> request)
+        {
+            return await Task.Run(() =>
+            {
+                var response = new APIResponseEntity<object>();
+                response.Body = XCLCMS.WebAPI.Library.EncryptHelper.CreateToken(request.Body);
+                response.IsSuccess = true;
+                return response;
+            });
+        }
     }
 }

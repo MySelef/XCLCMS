@@ -9,7 +9,7 @@ namespace XCLCMS.View.AdminWeb.Controllers
     /// </summary>
     [XCLCMS.Lib.Filters.ExceptionFilter()]
     [XCLCMS.Lib.Filters.PermissionFilter(IsMustLogin = true)]
-    public class BaseController : XCLCMS.Lib.Base.AdminBaseController
+    public class BaseController : XCLCMS.Lib.Base.AbstractBaseController
     {
         #region 拦截器
 

@@ -5,7 +5,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Common
     /// <summary>
     /// 其它开放的Controller
     /// </summary>
-    public class OtherController : XCLCMS.Lib.Base.AdminBaseController
+    public class OtherController : XCLCMS.Lib.Base.AbstractBaseController
     {
         /// <summary>
         /// 跳转至文件管理页

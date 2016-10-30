@@ -43,6 +43,22 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 根据code查询其子项
+        /// </summary>
+        [HttpGet]
+        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicView)]
+        public async Task<APIResponseEntity<List<XCLCMS.Data.Model.SysDic>>> GetChildListByCode([FromUri] APIRequestEntity<string> request)
+        {
+            return await Task.Run(() =>
+            {
+                var response = new APIResponseEntity<List<XCLCMS.Data.Model.SysDic>>();
+                response.Body = this.sysDicBLL.GetChildListByCode(request.Body);
+                response.IsSuccess = true;
+                return response;
+            });
+        }
+
+        /// <summary>
         /// 判断字典的唯一标识是否已经存在
         /// </summary>
         [HttpGet]

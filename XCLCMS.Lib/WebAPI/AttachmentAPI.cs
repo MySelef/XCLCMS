@@ -9,6 +9,14 @@ namespace XCLCMS.Lib.WebAPI
     public static class AttachmentAPI
     {
         /// <summary>
+        /// 查询附件信息实体
+        /// </summary>
+        public static APIResponseEntity<XCLCMS.Data.Model.Attachment> Detail(APIRequestEntity<long> request)
+        {
+            return Library.Request<long, XCLCMS.Data.Model.Attachment>(request, "Attachment/Detail");
+        }
+
+        /// <summary>
         /// 根据附件关系信息查询附件列表
         /// </summary>
         public static APIResponseEntity<List<XCLCMS.Data.Model.Attachment>> GetObjectAttachmentList(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Attachment.GetObjectAttachmentListEntity> request)

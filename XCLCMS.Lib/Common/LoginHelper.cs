@@ -73,13 +73,14 @@ namespace XCLCMS.Lib.Common
         /// </summary>
         public static string GetInnerUserToken()
         {
-            XCLCMS.Data.BLL.UserInfo bll = new Data.BLL.UserInfo();
-            var model = bll.GetModel(XCLCMS.Data.CommonHelper.SystemDataConst.XInnerUserName);
-            if (null == model)
-            {
-                throw new System.Exception("内置用户不存在！");
-            }
-            return XCLNetTools.Encrypt.DESEncrypt.Encrypt(string.Format("{0}^{1}", model.UserName, model.Pwd), "XCL1989");
+            //XCLCMS.Data.BLL.UserInfo bll = new Data.BLL.UserInfo();
+            //var model = bll.GetModel(XCLCMS.Data.CommonHelper.SystemDataConst.XInnerUserName);
+            //if (null == model)
+            //{
+            //    throw new System.Exception("内置用户不存在！");
+            //}
+            //return XCLNetTools.Encrypt.DESEncrypt.Encrypt(string.Format("{0}^{1}", model.UserName, model.Pwd), "XCL1989");
+            return "81764D3578735718E4856BB6937201226D7F1E9267423752C3C5BA69C81F6B097C8899569E3BDAF3F8504C30FDDDDC6A";
         }
     }
 }

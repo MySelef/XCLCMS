@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace XCLCMS.Lib.Permission
@@ -19,27 +18,14 @@ namespace XCLCMS.Lib.Permission
         #region 角色相关
 
         /// <summary>
-        /// 获取角色列表
-        /// </summary>
-        public static List<XCLCMS.Data.Model.SysRole> GetRoleList()
-        {
-            return new XCLCMS.Data.BLL.SysRole().GetModelList("");
-        }
-
-        /// <summary>
-        /// 获取功能列表
-        /// </summary>
-        public static List<XCLCMS.Data.Model.View.v_SysFunction> GetFunctionList()
-        {
-            return new XCLCMS.Data.BLL.View.v_SysFunction().GetModelList("");
-        }
-
-        /// <summary>
         /// 获取指定用户的角色
         /// </summary>
         public static List<XCLCMS.Data.Model.SysRole> GetRoleByUserID(long userId)
         {
-            return new XCLCMS.Data.BLL.SysRole().GetListByUserID(userId);
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            request.Body = userId;
+            var response = XCLCMS.Lib.WebAPI.SysRoleAPI.GetRoleByUserID(request);
+            return null == response ? null : response.Body;
         }
 
         /// <summary>
@@ -47,30 +33,10 @@ namespace XCLCMS.Lib.Permission
         /// </summary>
         public static List<XCLCMS.Data.Model.View.v_SysFunction> GetNormalMerchantFunctionTreeList()
         {
-            var bll = new XCLCMS.Data.BLL.SysFunction();
-            var roleBLL = new XCLCMS.Data.BLL.View.v_SysRole();
-            var roleModel = roleBLL.GetModelByCode(XCLCMS.Data.CommonHelper.SysRoleConst.SysRoleCodeEnum.MerchantMainRole.ToString());
-            if (null == roleModel)
-            {
-                throw new Exception("请指定普通商户所有功能主角色！");
-            }
-            var allFuns = GetFunctionList();
-            var funLst = bll.GetListByRoleID(roleModel.SysRoleID.Value);
-            var resultId = new List<long>();
-
-            if (null != funLst && funLst.Count > 0)
-            {
-                funLst.ForEach(k =>
-                {
-                    var lst = bll.GetLayerListBySysFunctionId(k.SysFunctionID);
-                    if (null != lst && lst.Count > 0)
-                    {
-                        resultId.AddRange(lst.Select(m => m.SysFunctionID));
-                    }
-                });
-            }
-            resultId = resultId.Distinct().ToList();
-            return allFuns.Where(k => resultId.Contains(k.SysFunctionID.Value)).ToList() ?? new List<Data.Model.View.v_SysFunction>();
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<object>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            request.Body = new object();
+            var response = XCLCMS.Lib.WebAPI.SysFunctionAPI.GetNormalMerchantFunctionTreeList(request);
+            return null == response ? null : response.Body;
         }
 
         /// <summary>
@@ -96,13 +62,16 @@ namespace XCLCMS.Lib.Permission
         /// </summary>
         public static bool HasAnyPermission(long userId, List<XCLCMS.Lib.Permission.Function.FunctionEnum> functionList)
         {
-            bool flag = false;
-            if (null != functionList && functionList.Count > 0)
+            if (null == functionList || functionList.Count == 0)
             {
-                List<long> funList = functionList.Select(k => (long)k).ToList();
-                flag = new XCLCMS.Data.BLL.SysFunction().CheckUserHasAnyFunction(userId, funList);
+                return false;
             }
-            return flag;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.HasAnyPermissionEntity>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            request.Body = new Data.WebAPIEntity.RequestEntity.SysFunction.HasAnyPermissionEntity();
+            request.Body.UserId = userId;
+            request.Body.FunctionIDList = functionList.Select(k => (long)k).ToList();
+            var response = XCLCMS.Lib.WebAPI.SysFunctionAPI.HasAnyPermission(request);
+            return null != response && response.Body;
         }
 
         /// <summary>

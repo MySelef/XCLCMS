@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace XCLCMS.Lib.Common
@@ -20,7 +21,16 @@ namespace XCLCMS.Lib.Common
             {
                 str.Append("<option value=''>--请选择--</option>");
             }
-            var lst = new XCLCMS.Data.BLL.SysDic().GetChildListByCode(code);
+
+            List<XCLCMS.Data.Model.SysDic> lst = null;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<object>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            request.Body = code;
+            var response = XCLCMS.Lib.WebAPI.SysDicAPI.GetChildListByCode(request);
+            if (null != response)
+            {
+                lst = response.Body;
+            }
+
             if (null != lst && lst.Count > 0)
             {
                 lst.ForEach(m =>
@@ -51,7 +61,14 @@ namespace XCLCMS.Lib.Common
             {
                 return null;
             }
-            var model = new XCLCMS.Data.BLL.Attachment().GetModel(id);
+            XCLCMS.Data.Model.Attachment model = null;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            request.Body = id;
+            var response = XCLCMS.Lib.WebAPI.AttachmentAPI.Detail(request);
+            if (null != response)
+            {
+                model = response.Body;
+            }
             return null != model ? GetAttachmentAbsoluteURL(model.URL) : null;
         }
 
@@ -63,7 +80,7 @@ namespace XCLCMS.Lib.Common
         {
             if (string.IsNullOrWhiteSpace(relativeUrl))
             {
-                throw new Exception("未指定参数：relativeUrl！");
+                throw new ArgumentNullException("relativeUrl", "必须指定参数：relativeUrl！");
             }
             return System.Web.HttpUtility.UrlDecode(relativeUrl).Trim().Replace("~/", XCLCMS.Lib.Common.Setting.SettingModel.FileManager_RootURL);
         }

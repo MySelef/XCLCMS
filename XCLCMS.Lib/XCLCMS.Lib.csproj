@@ -146,10 +146,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XCLCMS.Data\XCLCMS.Data.BLL\XCLCMS.Data.BLL.csproj">
-      <Project>{054ca0f2-19e8-4121-ab61-e89bb52c0b7c}</Project>
-      <Name>XCLCMS.Data.BLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\XCLCMS.Data\XCLCMS.Data.CommonHelper\XCLCMS.Data.CommonHelper.csproj">
       <Project>{4f53bbd2-fcdc-403d-9546-281cda981cf8}</Project>
       <Name>XCLCMS.Data.CommonHelper</Name>

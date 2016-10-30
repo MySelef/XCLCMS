@@ -16,6 +16,29 @@ namespace XCLCMS.WebAPI.Controllers
         private XCLCMS.Data.BLL.ObjectAttachment objectAttachmentBLL = new XCLCMS.Data.BLL.ObjectAttachment();
 
         /// <summary>
+        /// 查询附件信息实体
+        /// </summary>
+        [HttpGet]
+        public async Task<APIResponseEntity<XCLCMS.Data.Model.Attachment>> Detail([FromUri] APIRequestEntity<long> request)
+        {
+            return await Task.Run(() =>
+            {
+                var response = new APIResponseEntity<XCLCMS.Data.Model.Attachment>();
+                response.Body = attachmentBLL.GetModel(request.Body);
+                response.IsSuccess = true;
+
+                //限制商户
+                if (base.IsOnlyCurrentMerchant && null != response.Body && response.Body.FK_MerchantID != base.CurrentUserModel.FK_MerchantID)
+                {
+                    response.Body = null;
+                    response.IsSuccess = false;
+                }
+
+                return response;
+            });
+        }
+
+        /// <summary>
         /// 根据附件关系信息查询附件列表
         /// </summary>
         [HttpGet]

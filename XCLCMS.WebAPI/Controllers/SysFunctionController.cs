@@ -16,6 +16,7 @@ namespace XCLCMS.WebAPI.Controllers
         private XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
         private XCLCMS.Data.BLL.SysFunction sysFunctionBLL = new Data.BLL.SysFunction();
         private XCLCMS.Data.BLL.View.v_SysFunction vSysFunctionBLL = new Data.BLL.View.v_SysFunction();
+        private XCLCMS.Data.BLL.View.v_SysRole vSysRoleBLL = new XCLCMS.Data.BLL.View.v_SysRole();
 
         /// <summary>
         /// 查询功能信息实体
@@ -229,6 +230,55 @@ namespace XCLCMS.WebAPI.Controllers
                 var response = new APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>>();
                 response.Body = this.sysFunctionBLL.GetListByRoleID(request.Body);
                 response.IsSuccess = true;
+                return response;
+            });
+        }
+
+        /// <summary>
+        /// 获取普通商户的所有功能数据源列表
+        /// </summary>
+        [HttpGet]
+        public async Task<APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysFunction>>> GetNormalMerchantFunctionTreeList([FromUri] APIRequestEntity<object> request)
+        {
+            return await Task.Run(() =>
+            {
+                var response = new APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysFunction>>();
+                var roleModel = this.vSysRoleBLL.GetModelByCode(XCLCMS.Data.CommonHelper.SysRoleConst.SysRoleCodeEnum.MerchantMainRole.ToString());
+                if (null == roleModel)
+                {
+                    throw new Exception("请指定普通商户所有功能主角色！");
+                }
+                var allFuns = this.vSysFunctionBLL.GetModelList("");
+                var funLst = this.sysFunctionBLL.GetListByRoleID(roleModel.SysRoleID.Value);
+                var resultId = new List<long>();
+                if (null != funLst && funLst.Count > 0)
+                {
+                    funLst.ForEach(k =>
+                    {
+                        var lst = this.sysFunctionBLL.GetLayerListBySysFunctionId(k.SysFunctionID);
+                        if (null != lst && lst.Count > 0)
+                        {
+                            resultId.AddRange(lst.Select(m => m.SysFunctionID));
+                        }
+                    });
+                }
+                resultId = resultId.Distinct().ToList();
+                response.Body = allFuns.Where(k => resultId.Contains(k.SysFunctionID.Value)).ToList() ?? new List<Data.Model.View.v_SysFunction>();
+                response.IsSuccess = true;
+                return response;
+            });
+        }
+
+        /// <summary>
+        /// 判断指定用户是否至少拥有权限组中的某个权限
+        /// </summary>
+        [HttpGet]
+        public async Task<APIResponseEntity<bool>> HasAnyPermission([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.HasAnyPermissionEntity> request)
+        {
+            return await Task.Run(() =>
+            {
+                var response = new APIResponseEntity<bool>();
+                response.Body = this.sysFunctionBLL.CheckUserHasAnyFunction(request.Body.UserId, request.Body.FunctionIDList);
                 return response;
             });
         }

@@ -66,6 +66,22 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 获取普通商户的所有功能数据源列表
+        /// </summary>
+        public static APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysFunction>> GetNormalMerchantFunctionTreeList(APIRequestEntity<object> request)
+        {
+            return Library.Request<object, List<XCLCMS.Data.Model.View.v_SysFunction>>(request, "SysFunction/GetNormalMerchantFunctionTreeList");
+        }
+
+        /// <summary>
+        /// 判断指定用户是否至少拥有权限组中的某个权限
+        /// </summary>
+        public static APIResponseEntity<bool> HasAnyPermission(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.HasAnyPermissionEntity> request)
+        {
+            return Library.Request<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.HasAnyPermissionEntity, bool>(request, "SysFunction/HasAnyPermission");
+        }
+
+        /// <summary>
         /// 添加功能
         /// </summary>
         public static APIResponseEntity<bool> Add(APIRequestEntity<XCLCMS.Data.Model.SysFunction> request)

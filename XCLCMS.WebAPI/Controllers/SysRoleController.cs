@@ -16,6 +16,7 @@ namespace XCLCMS.WebAPI.Controllers
         private XCLCMS.Data.BLL.SysRole sysRoleBLL = new Data.BLL.SysRole();
         private XCLCMS.Data.BLL.View.v_SysRole vSysRoleBLL = new Data.BLL.View.v_SysRole();
         private XCLCMS.Data.BLL.Merchant merchantBLL = new XCLCMS.Data.BLL.Merchant();
+        private XCLCMS.Data.BLL.View.v_SysFunction vSysFunctionBLL = new XCLCMS.Data.BLL.View.v_SysFunction();
 
         /// <summary>
         /// 查询角色信息实体
@@ -227,6 +228,21 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 获取指定用户的角色
+        /// </summary>
+        [HttpGet]
+        public async Task<APIResponseEntity<List<XCLCMS.Data.Model.SysRole>>> GetRoleByUserID([FromUri] APIRequestEntity<long> request)
+        {
+            return await Task.Run(() =>
+            {
+                var response = new APIResponseEntity<List<XCLCMS.Data.Model.SysRole>>();
+                response.Body = this.sysRoleBLL.GetListByUserID(request.Body);
+                response.IsSuccess = true;
+                return response;
+            });
+        }
+
+        /// <summary>
         /// 添加角色
         /// </summary>
         [HttpPost]
@@ -236,7 +252,7 @@ namespace XCLCMS.WebAPI.Controllers
             return await Task.Run(() =>
             {
                 var response = new APIResponseEntity<bool>();
-                var allLeafFunctionIds = XCLCMS.Lib.Permission.PerHelper.GetFunctionList().Where(k => k.IsLeaf == 1).Select(k => (long)k.SysFunctionID).ToList();
+                var allLeafFunctionIds = this.vSysFunctionBLL.GetModelList("").Where(k => k.IsLeaf == 1).Select(k => (long)k.SysFunctionID).ToList();
 
                 #region 数据校验
 
@@ -379,7 +395,7 @@ namespace XCLCMS.WebAPI.Controllers
             return await Task.Run(() =>
             {
                 var response = new APIResponseEntity<bool>();
-                var allLeafFunctionIds = XCLCMS.Lib.Permission.PerHelper.GetFunctionList().Where(k => k.IsLeaf == 1).Select(k => (long)k.SysFunctionID).ToList();
+                var allLeafFunctionIds = this.vSysFunctionBLL.GetModelList("").Where(k => k.IsLeaf == 1).Select(k => (long)k.SysFunctionID).ToList();
 
                 #region 数据校验
 

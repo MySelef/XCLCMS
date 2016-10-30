@@ -58,6 +58,14 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 获取指定用户的角色
+        /// </summary>
+        public static APIResponseEntity<List<XCLCMS.Data.Model.SysRole>> GetRoleByUserID(APIRequestEntity<long> request)
+        {
+            return Library.Request<long, List<XCLCMS.Data.Model.SysRole>>(request, "SysRole/GetRoleByUserID");
+        }
+
+        /// <summary>
         /// 添加角色
         /// </summary>
         public static APIResponseEntity<bool> Add(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity> request)

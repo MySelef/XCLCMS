@@ -17,6 +17,14 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 根据code查询其子项
+        /// </summary>
+        public static APIResponseEntity<List<XCLCMS.Data.Model.SysDic>> GetChildListByCode(APIRequestEntity<object> request)
+        {
+            return Library.Request<object, List<XCLCMS.Data.Model.SysDic>>(request, "SysDic/GetChildListByCode");
+        }
+
+        /// <summary>
         /// 判断字典的唯一标识是否已经存在
         /// </summary>
         public static APIResponseEntity<bool> IsExistSysDicCode(APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.IsExistSysDicCodeEntity> request)

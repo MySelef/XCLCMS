@@ -71,6 +71,7 @@
     <Compile Include="RequestEntity\SysDic\IsExistSysDicNameInSameLevelEntity.cs" />
     <Compile Include="RequestEntity\SysFunction\GetAllJsonForEasyUITreeEntity.cs" />
     <Compile Include="RequestEntity\SysFunction\GetLayerListBySysFunctionIdEntity.cs" />
+    <Compile Include="RequestEntity\SysFunction\HasAnyPermissionEntity.cs" />
     <Compile Include="RequestEntity\SysFunction\IsExistCodeEntity.cs" />
     <Compile Include="RequestEntity\SysFunction\IsExistFunctionNameInSameLevelEntity.cs" />
     <Compile Include="RequestEntity\SysLog\ClearConditionEntity.cs" />

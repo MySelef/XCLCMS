@@ -22,6 +22,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             viewModel.Search = new XCLNetSearch.Search();
             viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("商户应用ID","MerchantAppID|number|text",""),
+                new XCLNetSearch.SearchFieldInfo("商户应用Key","AppKey|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("商户应用名","MerchantAppName|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("所属商户ID","FK_MerchantID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("所属商户名","MerchantName|string|text",""),

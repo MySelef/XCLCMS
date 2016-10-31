@@ -5,8 +5,20 @@
     /// </summary>
     public class EncryptHelper
     {
-        private const string PwdKey = "XCL1989";
-        private const string DESKey = "XCL1989";
+        /// <summary>
+        /// 用户登录密码key
+        /// </summary>
+        public const string PwdKey = "XCL1989";
+
+        /// <summary>
+        /// 商户应用号加密key
+        /// </summary>
+        public const string MerchantAppIDMd5Key = "58A67359841F484F";
+
+        /// <summary>
+        /// 通用des加密key
+        /// </summary>
+        public const string DESKey = "XCL1989";
 
         /// <summary>
         /// 给字符串md5加密（使用key）
@@ -17,15 +29,23 @@
         }
 
         /// <summary>
-        /// 判断md5明文和密文是否匹配
+        /// 给字符串md5加密（使用key）
         /// </summary>
-        public static bool EncryptStringMD5IsEqual(string str, string md5Str)
+        public static string EncryptStringMD5(string str, string key)
         {
-            return XCLNetTools.Encrypt.MD5.IsEqualMD5(str, md5Str, PwdKey);
+            return XCLNetTools.Encrypt.MD5.EncodeMD5(str, key);
         }
 
         /// <summary>
-        /// des加密(已带key)
+        /// 判断使用md5明文和密文是否匹配
+        /// </summary>
+        public static bool EncryptStringMD5IsEqual(string str, string md5Str, string key)
+        {
+            return XCLNetTools.Encrypt.MD5.IsEqualMD5(str, md5Str, key);
+        }
+
+        /// <summary>
+        /// 通用des加密(已带key)
         /// </summary>
         public static string EncryptStringDES(string str)
         {
@@ -33,7 +53,7 @@
         }
 
         /// <summary>
-        /// des 解密
+        /// 通用des 解密
         /// </summary>
         public static string DecryptStringDES(string desString)
         {

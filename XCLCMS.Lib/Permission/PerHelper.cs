@@ -22,7 +22,7 @@ namespace XCLCMS.Lib.Permission
         /// </summary>
         public static List<XCLCMS.Data.Model.SysRole> GetRoleByUserID(long userId)
         {
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>();
             request.Body = userId;
             var response = XCLCMS.Lib.WebAPI.SysRoleAPI.GetRoleByUserID(request);
             return null == response ? null : response.Body;
@@ -33,7 +33,7 @@ namespace XCLCMS.Lib.Permission
         /// </summary>
         public static List<XCLCMS.Data.Model.View.v_SysFunction> GetNormalMerchantFunctionTreeList()
         {
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<object>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<object>();
             request.Body = new object();
             var response = XCLCMS.Lib.WebAPI.SysFunctionAPI.GetNormalMerchantFunctionTreeList(request);
             return null == response ? null : response.Body;
@@ -66,7 +66,7 @@ namespace XCLCMS.Lib.Permission
             {
                 return false;
             }
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.HasAnyPermissionEntity>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.HasAnyPermissionEntity>();
             request.Body = new Data.WebAPIEntity.RequestEntity.SysFunction.HasAnyPermissionEntity();
             request.Body.UserId = userId;
             request.Body.FunctionIDList = functionList.Select(k => (long)k).ToList();

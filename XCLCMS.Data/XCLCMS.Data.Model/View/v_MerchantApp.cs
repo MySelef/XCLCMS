@@ -16,6 +16,7 @@ namespace XCLCMS.Data.Model.View
         private long _merchantappid;
         private string _merchantappname;
         private long _fk_merchantid;
+        private string _appkey;
         private string _resourceversion;
         private string _email;
         private string _copyright;
@@ -59,6 +60,15 @@ namespace XCLCMS.Data.Model.View
         {
             set { _fk_merchantid = value; }
             get { return _fk_merchantid; }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string AppKey
+        {
+            set { _appkey = value; }
+            get { return _appkey; }
         }
 
         /// <summary>

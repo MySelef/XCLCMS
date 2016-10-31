@@ -23,7 +23,7 @@ namespace XCLCMS.Lib.Common
             }
 
             List<XCLCMS.Data.Model.SysDic> lst = null;
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<object>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<object>();
             request.Body = code;
             var response = XCLCMS.Lib.WebAPI.SysDicAPI.GetChildListByCode(request);
             if (null != response)

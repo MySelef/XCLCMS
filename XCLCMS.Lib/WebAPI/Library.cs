@@ -29,12 +29,7 @@ namespace XCLCMS.Lib.WebAPI
             APIResponseEntity<TResponse> response = new APIResponseEntity<TResponse>();
             try
             {
-                string webAPIServiceURL = XCLNetTools.XML.ConfigClass.GetConfigString("WebAPIServiceURL");
-                if (string.IsNullOrWhiteSpace(webAPIServiceURL))
-                {
-                    throw new ArgumentNullException("WebAPIServiceURL", "appSettings中缺少配置项：WebAPIServiceURL！");
-                }
-                string requestURL = (webAPIServiceURL.Trim().Trim('/') + '/' + path.Trim().Trim('/')).Trim('?');
+                string requestURL = (XCLCMS.Lib.Common.Comm.WebAPIServiceURL.Trim().Trim('/') + '/' + path.Trim().Trim('/')).Trim('?');
                 var httpClient = new HttpClient();
                 var httpRequest = new HttpRequestMessage();
                 string requestJson = JsonConvert.SerializeObject(request);
@@ -84,8 +79,17 @@ namespace XCLCMS.Lib.WebAPI
                 request.Url = HttpContext.Current.Request.Url.AbsoluteUri;
             }
             catch { }
-            request.AppID = XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
+            request.AppID = XCLCMS.Lib.Common.Comm.AppID;
             return request;
+        }
+
+        /// <summary>
+        /// 创建request对象
+        /// </summary>
+        /// <returns>request对象</returns>
+        public static APIRequestEntity<TRequest> CreateRequest<TRequest>() where TRequest : new()
+        {
+            return CreateRequest<TRequest>(null);
         }
 
         #endregion 基础

@@ -18,6 +18,14 @@ namespace XCLCMS.Lib.WebAPI
         }
 
         /// <summary>
+        /// 根据加密后的AppKey查询商户信息
+        /// </summary>
+        public static APIResponseEntity<XCLCMS.Data.Model.Custom.MerchantAppInfoModel> DetailByAppKey(APIRequestEntity<object> request)
+        {
+            return Library.Request<object, XCLCMS.Data.Model.Custom.MerchantAppInfoModel>(request, "MerchantApp/DetailByAppKey");
+        }
+
+        /// <summary>
         /// 查询商户应用信息分页列表
         /// </summary>
         public static APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_MerchantApp>> PageList(APIRequestEntity<PageListConditionEntity> request)
@@ -38,7 +46,7 @@ namespace XCLCMS.Lib.WebAPI
         /// </summary>
         public static APIResponseEntity<bool> Add(APIRequestEntity<XCLCMS.Data.Model.MerchantApp> request)
         {
-            return Library.Request<XCLCMS.Data.Model.MerchantApp, bool>(request, "MerchantApp/Add",false);
+            return Library.Request<XCLCMS.Data.Model.MerchantApp, bool>(request, "MerchantApp/Add", false);
         }
 
         /// <summary>
@@ -46,7 +54,7 @@ namespace XCLCMS.Lib.WebAPI
         /// </summary>
         public static APIResponseEntity<bool> Update(APIRequestEntity<XCLCMS.Data.Model.MerchantApp> request)
         {
-            return Library.Request<XCLCMS.Data.Model.MerchantApp, bool>(request, "MerchantApp/Update",false);
+            return Library.Request<XCLCMS.Data.Model.MerchantApp, bool>(request, "MerchantApp/Update", false);
         }
 
         /// <summary>
@@ -54,7 +62,7 @@ namespace XCLCMS.Lib.WebAPI
         /// </summary>
         public static APIResponseEntity<bool> Delete(APIRequestEntity<List<long>> request)
         {
-            return Library.Request<List<long>, bool>(request, "MerchantApp/Delete",false);
+            return Library.Request<List<long>, bool>(request, "MerchantApp/Delete", false);
         }
     }
 }

@@ -27,6 +27,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "MerchantAppID", DbType.Int64, model.MerchantAppID);
             db.AddInParameter(dbCommand, "MerchantAppName", DbType.AnsiString, model.MerchantAppName);
             db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "AppKey", DbType.AnsiString, model.AppKey);
             db.AddInParameter(dbCommand, "ResourceVersion", DbType.AnsiString, model.ResourceVersion);
             db.AddInParameter(dbCommand, "Email", DbType.AnsiString, model.Email);
             db.AddInParameter(dbCommand, "CopyRight", DbType.AnsiString, model.CopyRight);
@@ -68,6 +69,7 @@ namespace XCLCMS.Data.DAL
             db.AddInParameter(dbCommand, "MerchantAppID", DbType.Int64, model.MerchantAppID);
             db.AddInParameter(dbCommand, "MerchantAppName", DbType.AnsiString, model.MerchantAppName);
             db.AddInParameter(dbCommand, "FK_MerchantID", DbType.Int64, model.FK_MerchantID);
+            db.AddInParameter(dbCommand, "AppKey", DbType.AnsiString, model.AppKey);
             db.AddInParameter(dbCommand, "ResourceVersion", DbType.AnsiString, model.ResourceVersion);
             db.AddInParameter(dbCommand, "Email", DbType.AnsiString, model.Email);
             db.AddInParameter(dbCommand, "CopyRight", DbType.AnsiString, model.CopyRight);
@@ -153,6 +155,19 @@ namespace XCLCMS.Data.DAL
             DbCommand dbCommand = db.GetSqlStringCommand("select top 1 1 from MerchantApp  WITH(NOLOCK)  where MerchantAppName=@MerchantAppName");
             db.AddInParameter(dbCommand, "MerchantAppName", DbType.AnsiString, merchantAppName);
             return db.ExecuteScalar(dbCommand) != null;
+        }
+
+        /// <summary>
+        /// 根据appkey查询实体
+        /// </summary>
+        public XCLCMS.Data.Model.MerchantApp GetModel(string appKey)
+        {
+            Database db = base.CreateDatabase();
+            DbCommand dbCommand = db.GetSqlStringCommand("select top 1 * from MerchantApp  WITH(NOLOCK)  where AppKey=@AppKey");
+            db.AddInParameter(dbCommand, "AppKey", DbType.AnsiString, appKey);
+            DataSet ds = db.ExecuteDataSet(dbCommand);
+            var lst = XCLNetTools.Generic.ListHelper.DataTableToList<XCLCMS.Data.Model.MerchantApp>(ds.Tables[0]);
+            return null != lst && lst.Count > 0 ? lst[0] : null;
         }
 
         #endregion Extend Method

@@ -25,7 +25,7 @@ namespace XCLCMS.Lib.Common
 
         #endregion 缓存相关
 
-        #region 环境相关
+        #region 配置相关
 
         /// <summary>
         /// 获取当前系统所处环境
@@ -40,7 +40,71 @@ namespace XCLCMS.Lib.Common
             return (XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum)Enum.Parse(typeof(XCLNetTools.Enum.CommonEnum.SysEnvironmentEnum), val.Trim().ToUpper());
         }
 
-        #endregion 环境相关
+        /// <summary>
+        /// 获取当前应用ID
+        /// </summary>
+        public static long AppID
+        {
+            get
+            {
+                var id = XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
+                if (id <= 0)
+                {
+                    throw new ArgumentNullException("AppID", "请在配置文件中配置有效的AppID！");
+                }
+                return id;
+            }
+        }
+
+        /// <summary>
+        /// 获取当前应用AppKey
+        /// </summary>
+        public static string AppKey
+        {
+            get
+            {
+                var str = XCLNetTools.XML.ConfigClass.GetConfigString("AppKey");
+                if (string.IsNullOrWhiteSpace(str))
+                {
+                    throw new ArgumentNullException("AppKey", "请在配置文件中配置有效的AppKey！");
+                }
+                return str;
+            }
+        }
+
+        /// <summary>
+        /// 获取当前应用WebAPIJsUrl
+        /// </summary>
+        public static string WebAPIJsUrl
+        {
+            get
+            {
+                var str = XCLNetTools.XML.ConfigClass.GetConfigString("WebAPIJsUrl");
+                if (string.IsNullOrWhiteSpace(str))
+                {
+                    throw new ArgumentNullException("WebAPIJsUrl", "请在配置文件中配置有效的WebAPIJsUrl！");
+                }
+                return str;
+            }
+        }
+
+        /// <summary>
+        /// 获取当前应用WebAPIServiceURL
+        /// </summary>
+        public static string WebAPIServiceURL
+        {
+            get
+            {
+                var str = XCLNetTools.XML.ConfigClass.GetConfigString("WebAPIServiceURL");
+                if (string.IsNullOrWhiteSpace(str))
+                {
+                    throw new ArgumentNullException("WebAPIServiceURL", "请在配置文件中配置有效的WebAPIServiceURL！");
+                }
+                return str;
+            }
+        }
+
+        #endregion 配置相关
 
         #region 其它
 
@@ -62,19 +126,7 @@ namespace XCLCMS.Lib.Common
         /// </summary>
         public static XCLCMS.Data.Model.Merchant GetCurrentApplicationMerchant()
         {
-            XCLCMS.Data.Model.Merchant model = null;
-            var appModel = XCLCMS.Lib.Common.Comm.GetCurrentApplicationMerchantApp();
-            if (null != appModel)
-            {
-                var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
-                request.Body = appModel.FK_MerchantID;
-                var response = XCLCMS.Lib.WebAPI.MerchantAPI.Detail(request);
-                if (null != response)
-                {
-                    model = response.Body;
-                }
-            }
-            return model;
+            return XCLCMS.Lib.Common.Comm.GetCurrentApplicationMerchantAppInfo().Merchant;
         }
 
         /// <summary>
@@ -82,23 +134,25 @@ namespace XCLCMS.Lib.Common
         /// </summary>
         public static XCLCMS.Data.Model.MerchantApp GetCurrentApplicationMerchantApp()
         {
-            var appId = XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
-            if (appId <= 0)
-            {
-                throw new ArgumentNullException("AppID", "appSettings中缺少商户应用号配置信息！");
-            }
-            XCLCMS.Data.Model.MerchantApp model = null;
+            return XCLCMS.Lib.Common.Comm.GetCurrentApplicationMerchantAppInfo().MerchantApp;
+        }
 
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
-            request.Body = appId;
-            var response = XCLCMS.Lib.WebAPI.MerchantAppAPI.Detail(request);
-            if (null != response && null != response.Body && response.IsSuccess)
+        /// <summary>
+        /// 获取当前应用程序的商户应用信息
+        /// </summary>
+        public static XCLCMS.Data.Model.Custom.MerchantAppInfoModel GetCurrentApplicationMerchantAppInfo()
+        {
+            XCLCMS.Data.Model.Custom.MerchantAppInfoModel model = null;
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<object>();
+            request.Body = XCLCMS.Lib.Common.Comm.AppKey;
+            var response = XCLCMS.Lib.WebAPI.MerchantAppAPI.DetailByAppKey(request);
+            if (null != response && null != response.Body && null != response.Body.Merchant && null != response.Body.MerchantApp)
             {
                 model = response.Body;
             }
             else
             {
-                throw new Exception(string.Format("当前应用程序AppID（{0}）信息获取失败！{1}", appId, response.Message));
+                throw new Exception("商户应用信息获取失败，请配置有效的AppKey！");
             }
             return model;
         }

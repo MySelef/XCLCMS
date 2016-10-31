@@ -83,6 +83,14 @@ namespace XCLCMS.Data.BLL
             return appModel.FK_MerchantID == merchantID;
         }
 
+        /// <summary>
+        /// 根据appkey查询实体
+        /// </summary>
+        public XCLCMS.Data.Model.MerchantApp GetModel(string appKey)
+        {
+            return dal.GetModel(appKey);
+        }
+
         #endregion Extend Method
     }
 }

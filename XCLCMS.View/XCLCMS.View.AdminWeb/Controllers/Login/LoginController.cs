@@ -55,7 +55,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Login
                 return Json(msgModel);
             }
 
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity>();
             request.Body = new Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity();
             request.Body.UserName = (form["txtUserName"] ?? "").Trim();
             request.Body.Pwd = form["txtPwd"] ?? "";

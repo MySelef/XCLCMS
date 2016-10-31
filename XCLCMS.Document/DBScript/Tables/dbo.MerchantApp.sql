@@ -3,6 +3,7 @@ CREATE TABLE [dbo].[MerchantApp]
 [MerchantAppID] [bigint] NOT NULL,
 [MerchantAppName] [varchar] (100) COLLATE Chinese_PRC_CI_AS NULL,
 [FK_MerchantID] [bigint] NOT NULL,
+[AppKey] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL,
 [ResourceVersion] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL,
 [Email] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL,
 [CopyRight] [varchar] (2000) COLLATE Chinese_PRC_CI_AS NULL,
@@ -21,8 +22,13 @@ CREATE TABLE [dbo].[MerchantApp]
 ) ON [PRIMARY]
 ALTER TABLE [dbo].[MerchantApp] ADD 
 CONSTRAINT [PK_MERCHANTAPP] PRIMARY KEY CLUSTERED  ([MerchantAppID]) ON [PRIMARY]
+CREATE UNIQUE NONCLUSTERED INDEX [IX_AppKey] ON [dbo].[MerchantApp] ([AppKey]) ON [PRIMARY]
+
 GO
 EXEC sp_addextendedproperty N'MS_Description', '商户应用表', 'SCHEMA', N'dbo', 'TABLE', N'MerchantApp', NULL, NULL
+GO
+
+EXEC sp_addextendedproperty N'MS_Description', '商户应用key', 'SCHEMA', N'dbo', 'TABLE', N'MerchantApp', 'COLUMN', N'AppKey'
 GO
 
 EXEC sp_addextendedproperty N'MS_Description', '底部版权信息', 'SCHEMA', N'dbo', 'TABLE', N'MerchantApp', 'COLUMN', N'CopyRight'

@@ -282,7 +282,7 @@ namespace XCLCMS.Lib.Base
 
             //页面全局配置信息
             var pageConfig = new XCLCMS.Lib.Model.PageGlobalConfig();
-            pageConfig.AppID = XCLNetTools.Common.DataTypeConvert.ToLong(XCLNetTools.XML.ConfigClass.GetConfigString("AppID"));
+            pageConfig.AppID = XCLCMS.Lib.Common.Comm.AppID;
             if (null != commonModel)
             {
                 pageConfig.IsLogOn = commonModel.IsLogOn;
@@ -296,7 +296,7 @@ namespace XCLCMS.Lib.Base
             pageConfig.UserToken = this.UserToken;
             pageConfig.FileManagerFileListURL = XCLCMS.Lib.Common.Setting.SettingModel.FileManager_FileListURL;
             pageConfig.FileManagerLogicFileListURL = XCLCMS.Lib.Common.Setting.SettingModel.FileManager_LogicFileListURL;
-            pageConfig.WebAPIServiceURL = XCLNetTools.XML.ConfigClass.GetConfigString("WebAPIServiceURL");
+            pageConfig.WebAPIServiceURL = XCLCMS.Lib.Common.Comm.WebAPIServiceURL;
             pageConfig.EnumConfig = string.Empty;
             ViewBag.PageGlobalConfigJSON = string.Format("var XCLCMSPageGlobalConfig={0};XCLCMSPageGlobalConfig.EnumConfig={1};", Newtonsoft.Json.JsonConvert.SerializeObject(pageConfig), XCLCMS.Data.CommonHelper.EnumHelper.GetAllEnumJson);
         }

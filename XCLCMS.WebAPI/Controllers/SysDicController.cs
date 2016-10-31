@@ -46,7 +46,6 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据code查询其子项
         /// </summary>
         [HttpGet]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysDicView)]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.SysDic>>> GetChildListByCode([FromUri] APIRequestEntity<string> request)
         {
             return await Task.Run(() =>

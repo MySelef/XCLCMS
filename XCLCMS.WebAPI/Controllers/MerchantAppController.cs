@@ -43,6 +43,42 @@ namespace XCLCMS.WebAPI.Controllers
         }
 
         /// <summary>
+        /// 根据加密后的AppKey查询商户信息
+        /// </summary>
+        [HttpGet]
+        public async Task<APIResponseEntity<XCLCMS.Data.Model.Custom.MerchantAppInfoModel>> DetailByAppKey([FromUri] APIRequestEntity<object> request)
+        {
+            return await Task.Run(() =>
+            {
+                var response = new APIResponseEntity<XCLCMS.Data.Model.Custom.MerchantAppInfoModel>();
+
+                if (string.IsNullOrWhiteSpace(Convert.ToString(request.Body)))
+                {
+                    response.IsSuccess = false;
+                    response.Message = "请提供需要查询的AppKey！";
+                    return response;
+                }
+
+                response.Body = new Data.Model.Custom.MerchantAppInfoModel();
+                response.Body.MerchantApp = this.merchantAppBLL.GetModel(Convert.ToString(request.Body));
+                if (null != response.Body.MerchantApp)
+                {
+                    response.Body.Merchant = this.merchantBLL.GetModel(response.Body.MerchantApp.FK_MerchantID);
+                }
+
+                if (null == response.Body.Merchant || null == response.Body.MerchantApp)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "请提供正确的AppKey！";
+                    return response;
+                }
+
+                response.IsSuccess = true;
+                return response;
+            });
+        }
+
+        /// <summary>
         /// 查询商户应用信息分页列表
         /// </summary>
         [HttpGet]
@@ -130,6 +166,7 @@ namespace XCLCMS.WebAPI.Controllers
                 #region 数据校验
 
                 request.Body.MerchantAppName = (request.Body.MerchantAppName ?? "").Trim();
+                request.Body.AppKey = XCLCMS.WebAPI.Library.EncryptHelper.EncryptStringMD5(request.Body.MerchantAppID.ToString(), XCLCMS.WebAPI.Library.EncryptHelper.MerchantAppIDMd5Key);
 
                 if (string.IsNullOrWhiteSpace(request.Body.MerchantAppName))
                 {
@@ -216,6 +253,7 @@ namespace XCLCMS.WebAPI.Controllers
 
                 #endregion 数据校验
 
+                model.AppKey = XCLCMS.WebAPI.Library.EncryptHelper.EncryptStringMD5(request.Body.MerchantAppID.ToString(), XCLCMS.WebAPI.Library.EncryptHelper.MerchantAppIDMd5Key);
                 model.RecordState = request.Body.RecordState;
                 model.CopyRight = request.Body.CopyRight;
                 model.MerchantAppName = request.Body.MerchantAppName;

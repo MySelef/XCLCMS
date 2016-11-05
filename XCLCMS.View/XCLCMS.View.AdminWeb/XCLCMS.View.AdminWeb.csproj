@@ -712,6 +712,9 @@
     <Content Include="Views\Tags\Add.cshtml" />
     <Content Include="Views\Ads\Add.cshtml" />
     <Content Include="Views\Ads\Index.cshtml" />
+    <Content Include="Config\AppSettings.config.tpl" />
+    <Content Include="Config\XConfigGen-Config.json" />
+    <Content Include="Config\XConfigGen.bat" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -775,6 +778,10 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>copy /y $(ProjectDir)\..\..\XCLCMS.Document\Libs\EnterpriseLibrary\*.*  $(ProjectDir)\bin\</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

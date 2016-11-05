@@ -1,0 +1,23 @@
+    {
+        "configs": {
+            "appSettings": {
+                "name": "appSettings配置信息",
+                "cfg": [
+                    {
+                        "source": "D:\\MyData\\MyGit\\GitHub\\XCLCMS\\XCLCMS.View\\XCLCMS.View.AdminWeb\\Config\\AppSettings.config.tpl",
+                        "target": "D:\\MyData\\MyGit\\GitHub\\XCLCMS\\XCLCMS.View\\XCLCMS.View.AdminWeb\\Config\\AppSettings.config"
+                    }
+                ],
+                "val": {
+                    "DEV": {
+                        "WebAPIJsUrl": "http://localhost/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js",
+                        "WebAPIServiceURL": "http://localhost/XCLCMS.WebAPI/api/"
+                    },
+                    "PRD": {
+                        "WebAPIJsUrl": "http://www.wodeabc.com/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js",
+                        "WebAPIServiceURL": "http://www.wodeabc.com/XCLCMS.WebAPI/api/"
+                    }
+                }
+            }
+        }
+    }

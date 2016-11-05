@@ -1,0 +1,1 @@
+gulp --gulpfile %XConfigGenPath% --xconfig  "D:\\MyData\\MyGit\\GitHub\\XCLCMS\\XCLCMS.View\\XCLCMS.View.AdminWeb\\Config\\XConfigGen-Config.json"

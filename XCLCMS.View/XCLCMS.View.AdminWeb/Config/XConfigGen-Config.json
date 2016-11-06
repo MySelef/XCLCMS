@@ -4,8 +4,8 @@
                 "name": "appSettings配置信息",
                 "cfg": [
                     {
-                        "source": "D:\\MyData\\MyGit\\GitHub\\XCLCMS\\XCLCMS.View\\XCLCMS.View.AdminWeb\\Config\\AppSettings.config.tpl",
-                        "target": "D:\\MyData\\MyGit\\GitHub\\XCLCMS\\XCLCMS.View\\XCLCMS.View.AdminWeb\\Config\\AppSettings.config"
+                        "source": "${ROOT_PATH}AppSettings.config.tpl",
+                        "target": "${ROOT_PATH}AppSettings.config"
                     }
                 ],
                 "val": {

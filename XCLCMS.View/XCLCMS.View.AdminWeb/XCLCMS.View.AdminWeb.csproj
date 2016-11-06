@@ -196,7 +196,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\AppSettings.config" />
+    <Content Include="Config\AppSettings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Resources\Css\Base.css" />
     <Content Include="Resources\Css\Login.css" />
@@ -688,13 +690,16 @@
     <Content Include="Views\SysWebSetting\SysWebSettingAdd.cshtml" />
     <Content Include="Views\SysFunction\SysFunctionList.cshtml" />
     <Content Include="Views\SysFunction\SysFunctionAdd.cshtml" />
-    <Content Include="Config\XCLNetLogger.config" />
+    <Content Include="Config\XCLNetLogger.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\SysLog\SysLogList.cshtml" />
     <Content Include="Views\Common\Error.cshtml" />
     <Content Include="Views\Article\ArticleList.cshtml" />
     <Content Include="Views\Article\ArticleAdd.cshtml" />
     <Content Include="Config\ConnectionStrings.config">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\SysRole\SysRoleList.cshtml" />
     <Content Include="Views\SysRole\SysRoleAdd.cshtml" />
@@ -712,8 +717,12 @@
     <Content Include="Views\Tags\Add.cshtml" />
     <Content Include="Views\Ads\Add.cshtml" />
     <Content Include="Views\Ads\Index.cshtml" />
-    <Content Include="Config\AppSettings.config.tpl" />
-    <Content Include="Config\XConfigGen-Config.json" />
+    <Content Include="Config\AppSettings.config.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\XConfigGen-Config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Config\XConfigGen.bat" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -780,8 +789,7 @@
     <PostBuildEvent>copy /y $(ProjectDir)\..\..\XCLCMS.Document\Libs\EnterpriseLibrary\*.*  $(ProjectDir)\bin\</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>$(ProjectDir)\Config\XConfigGen.bat</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

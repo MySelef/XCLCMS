@@ -1,0 +1,23 @@
+    {
+        "configs": {
+            "appSettings": {
+                "name": "appSettings配置信息",
+                "cfg": [
+                    {
+                        "source": "${ROOT_PATH}AppSettings.config.tpl",
+                        "target": "${ROOT_PATH}AppSettings.config"
+                    }
+                ],
+                "val": {
+                    "DEV": {
+                        "WebAPIJsUrl": "http://localhost/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js",
+                        "WebAPIServiceURL": "http://localhost/XCLCMS.WebAPI/api/"
+                    },
+                    "PRD": {
+                        "WebAPIJsUrl": "http://www.wodeabc.com/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js",
+                        "WebAPIServiceURL": "http://www.wodeabc.com/XCLCMS.WebAPI/api/"
+                    }
+                }
+            }
+        }
+    }

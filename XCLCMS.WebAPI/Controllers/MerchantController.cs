@@ -228,7 +228,7 @@ namespace XCLCMS.WebAPI.Controllers
                 //添加商户默认角色
                 if (response.IsSuccess)
                 {
-                    XCLCMS.Lib.WebAPI.Library.SysRoleAPI_Add(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken(), new Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity()
+                    XCLCMS.Lib.WebAPI.Library.SysRoleAPI_Add(request.UserToken, new Data.WebAPIEntity.RequestEntity.SysRole.AddOrUpdateEntity()
                     {
                         SysRole = new Data.Model.SysRole()
                         {

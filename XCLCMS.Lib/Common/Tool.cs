@@ -62,7 +62,7 @@ namespace XCLCMS.Lib.Common
                 return null;
             }
             XCLCMS.Data.Model.Attachment model = null;
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<long>();
             request.Body = id;
             var response = XCLCMS.Lib.WebAPI.AttachmentAPI.Detail(request);
             if (null != response)

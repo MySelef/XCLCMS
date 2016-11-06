@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace XCLCMS.WebAPI.Controllers
     {
         #region 当前登录用户相关
 
+        private XCLCMS.Data.BLL.UserInfo userInfoBLL = new Data.BLL.UserInfo();
         private XCLCMS.Data.Model.UserInfo _currentUserModel = null;
         private XCLCMS.Data.Model.Custom.ContextModel _contextModel = null;
 
@@ -26,15 +28,27 @@ namespace XCLCMS.WebAPI.Controllers
         {
             get
             {
-                if (this._currentUserModel == null)
+                if (null != this._currentUserModel)
                 {
-                    string token = null;
-                    var tokenHeaders = base.ActionContext.Request.Headers.GetValues(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName);
+                    return this._currentUserModel;
+                }
+
+                //从请求头中获取用户登录信息
+                string token = null;
+                IEnumerable<string> tokenHeaders = null;
+                if (base.ActionContext.Request.Headers.TryGetValues(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName, out tokenHeaders))
+                {
                     if (null != tokenHeaders && tokenHeaders.Count() > 0)
                     {
                         token = tokenHeaders.First();
+                        this._currentUserModel = XCLCMS.WebAPI.Library.Common.GetUserInfoByUserToken(token);
                     }
-                    this._currentUserModel = XCLCMS.WebAPI.Library.Common.GetUserInfoByUserToken(token);
+                }
+
+                //如果当前是匿名用户，则使用内置用户作为当前接口的登录用户
+                if (string.IsNullOrWhiteSpace(token))
+                {
+                    this._currentUserModel = this.userInfoBLL.GetModel(XCLCMS.Data.CommonHelper.SystemDataConst.XInnerUserName);
                 }
                 return this._currentUserModel;
             }

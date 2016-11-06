@@ -46,7 +46,6 @@ namespace XCLCMS.WebAPI.Controllers
         /// 查询系统配置分页列表
         /// </summary>
         [HttpGet]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_Set_SysWebSettingView)]
         public async Task<APIResponseEntity<XCLCMS.Data.WebAPIEntity.ResponseEntity.PageListResponseEntity<XCLCMS.Data.Model.View.v_SysWebSetting>>> PageList([FromUri] APIRequestEntity<PageListConditionEntity> request)
         {
             return await Task.Run(() =>

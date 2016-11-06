@@ -15,7 +15,7 @@ namespace XCLCMS.Lib.Common
         /// </summary>
         private static List<XCLNetTools.Entity.KeyValue> GetAllSettings()
         {
-            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<PageListConditionEntity>(XCLCMS.Lib.Common.LoginHelper.GetInnerUserToken());
+            var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<PageListConditionEntity>();
             request.Body = new PageListConditionEntity();
             request.Body.Where = string.Format("RecordState='{0}'", XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString());
             request.Body.PagerInfoSimple = new XCLNetTools.Entity.PagerInfoSimple(1, Int32.MaxValue - 1, 0);
@@ -25,6 +25,11 @@ namespace XCLCMS.Lib.Common
             if (null != response && null != response.Body)
             {
                 settingList = response.Body.ResultList;
+            }
+
+            if (null == settingList || settingList.Count == 0)
+            {
+                throw new Exception("系统配置信息获取失败！");
             }
 
             var sysEnv = XCLCMS.Lib.Common.Comm.GetCurrentEnvironment();

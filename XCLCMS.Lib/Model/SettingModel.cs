@@ -11,11 +11,6 @@
         public string Common_UserDefaultPwd { get; set; }
 
         /// <summary>
-        /// 登录信息的session名 or Cookie名
-        /// </summary>
-        public string Common_UserLoginFlagName { get; set; }
-
-        /// <summary>
         /// 后台系统退出地址
         /// </summary>
         public string Admin_LogOutURL { get; set; }

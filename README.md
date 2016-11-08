@@ -57,7 +57,7 @@ XCLCMS是一个轻量级的CMS（内容管理系统）**后台管理系统**，�
 
 **捐赠方式：**
 
-
+![](https://raw.githubusercontent.com/xucongli1989/XCLCMS/master/XCLCMS.Document/Img/pay.png)
 
 ## 预览图：
 

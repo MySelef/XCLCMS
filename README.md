@@ -51,13 +51,16 @@ XCLCMS是一个轻量级的CMS（内容管理系统）**后台管理系统**，�
 > 
 > 有关本项目的所有问题均可以发邮件或提issue来共同解决。
 
-**捐赠信息：**
-
-> 2016-10-19：*民顺  &yen;1（微信流水尾号：94308336）
 
 **捐赠方式：**
 
 ![](https://raw.githubusercontent.com/xucongli1989/XCLCMS/master/XCLCMS.Document/Img/pay.png)
+
+
+**感谢捐赠者：**
+
+> 2016-10-19：*民顺  &yen;1（微信流水尾号：94308336）
+
 
 ## 预览图：
 

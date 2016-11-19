@@ -112,7 +112,6 @@
   <ItemGroup>
     <Compile Include="Base\AbstractBaseController.cs" />
     <Compile Include="Common\Comm.cs" />
-    <Compile Include="Common\Tool.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\FunctionFilter.cs" />
     <Compile Include="Filters\PermissionFilter.cs" />

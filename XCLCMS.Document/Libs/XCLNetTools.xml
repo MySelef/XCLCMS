@@ -4148,6 +4148,12 @@
             <param name="val">要判断的值</param>
             <returns>true：在范围内；false：已超出范围</returns>
         </member>
+        <member name="M:XCLNetTools.Enum.EnumHelper.GetEnumJson(System.Type)">
+            <summary>
+            将指定class中的所有枚举转为json字符串
+            示例：public class Test{public enum EE{a,b,c}}  ====》  {"EE":{"a":"","b":"","c":""}}
+            </summary>
+        </member>
         <member name="T:XCLNetTools.FileHandler.Bookmark">
             <summary>
             浏览器书签文件操作类
@@ -5710,6 +5716,11 @@
             <param name="page">当前页面指针，一般为this</param>
             <param name="msg">提示信息</param>
             <param name="url">跳转的目标URL</param>
+        </member>
+        <member name="M:XCLNetTools.Javascript.Jscript.StringToConst(System.String)">
+            <summary>
+            将多行模式的字符串字符串转js常量
+            </summary>
         </member>
         <member name="T:XCLNetTools.StringHander.Common">
              <summary>

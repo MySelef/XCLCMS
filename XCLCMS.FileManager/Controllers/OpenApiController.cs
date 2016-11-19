@@ -33,7 +33,7 @@ namespace XCLCMS.FileManager.Controllers
                 XCLNetTools.StringHander.Common.ResponseClearWrite("文件路径不存在！");
                 return null;
             }
-            return Redirect(XCLCMS.Lib.Common.Tool.GetAttachmentAbsoluteURL(path));
+            return Redirect(XCLCMS.Lib.Common.Comm.GetAttachmentAbsoluteURL(path));
         }
     }
 }

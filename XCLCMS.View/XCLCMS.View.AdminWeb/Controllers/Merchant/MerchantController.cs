@@ -23,7 +23,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             viewModel.Search.TypeList = new List<XCLNetSearch.SearchFieldInfo>() {
                 new XCLNetSearch.SearchFieldInfo("商户ID","MerchantID|number|text",""),
                 new XCLNetSearch.SearchFieldInfo("商户名","MerchantName|string|text",""),
-                new XCLNetSearch.SearchFieldInfo("商户类型","FK_MerchantType|number|select",XCLCMS.Lib.Common.Tool.GetSysDicOptionsByCode("MerchantType")),
+                new XCLNetSearch.SearchFieldInfo("商户类型","FK_MerchantType|number|select",XCLCMS.Lib.Common.Comm.GetSysDicOptionsByCode("MerchantType")),
                 new XCLNetSearch.SearchFieldInfo("商户系统类型","MerchantSystemType|string|select",XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.MerchantSystemTypeEnum))),
                 new XCLNetSearch.SearchFieldInfo("绑定的域名","Domain|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("联系人","ContactName|string|text",""),
@@ -31,7 +31,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                 new XCLNetSearch.SearchFieldInfo("固话","Landline|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("电子邮件","Email|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("QQ","QQ|string|text",""),
-                new XCLNetSearch.SearchFieldInfo("证件类型","FK_PassType|number|select",XCLCMS.Lib.Common.Tool.GetSysDicOptionsByCode("PassType")),
+                new XCLNetSearch.SearchFieldInfo("证件类型","FK_PassType|number|select",XCLCMS.Lib.Common.Comm.GetSysDicOptionsByCode("PassType")),
                 new XCLNetSearch.SearchFieldInfo("证件号","PassNumber|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("地址","Address|string|text",""),
                 new XCLNetSearch.SearchFieldInfo("其它联系信息","OtherContact|string|text",""),

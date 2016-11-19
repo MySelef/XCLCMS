@@ -24,7 +24,7 @@ namespace XCLCMS.Lib.WebAPI
         /// <param name="path">请求路径</param>
         /// <param name="isGet">是否为get请求，默认为get</param>
         /// <returns>请求结果</returns>
-        public static APIResponseEntity<TResponse> Request<TRequest, TResponse>(APIRequestEntity<TRequest> request, string path, bool isGet = true) where TRequest : new() where TResponse : new()
+        public static APIResponseEntity<TResponse> Request<TRequest, TResponse>(APIRequestEntity<TRequest> request, string path, bool isGet = true)
         {
             APIResponseEntity<TResponse> response = new APIResponseEntity<TResponse>();
             try
@@ -69,16 +69,15 @@ namespace XCLCMS.Lib.WebAPI
         /// 创建request对象
         /// </summary>
         /// <returns>request对象</returns>
-        public static APIRequestEntity<TRequest> CreateRequest<TRequest>(string userToken) where TRequest : new()
+        public static APIRequestEntity<TRequest> CreateRequest<TRequest>(string userToken)
         {
             APIRequestEntity<TRequest> request = new APIRequestEntity<TRequest>();
             request.ClientIP = XCLNetTools.Common.IPHelper.GetClientIP();
             request.UserToken = userToken;
-            try
+            if (null != HttpContext.Current && null != HttpContext.Current.Request && null != HttpContext.Current.Request.Url)
             {
                 request.Url = HttpContext.Current.Request.Url.AbsoluteUri;
             }
-            catch { }
             request.AppID = XCLCMS.Lib.Common.Comm.AppID;
             return request;
         }
@@ -87,7 +86,7 @@ namespace XCLCMS.Lib.WebAPI
         /// 创建request对象
         /// </summary>
         /// <returns>request对象</returns>
-        public static APIRequestEntity<TRequest> CreateRequest<TRequest>() where TRequest : new()
+        public static APIRequestEntity<TRequest> CreateRequest<TRequest>()
         {
             return CreateRequest<TRequest>(null);
         }

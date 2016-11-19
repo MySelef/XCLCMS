@@ -724,6 +724,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\XConfigGen.bat" />
+    <Content Include="Config\ConnectionStrings.config.tpl" />
+    <Content Include="Config\XCLNetLogger.config.tpl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

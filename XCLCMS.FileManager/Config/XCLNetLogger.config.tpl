@@ -3,7 +3,7 @@
 <XCLNetLoggerConfig>
   <DBConfig>
     <SQLType>MSSQL</SQLType>
-    <ConnectionString>Server=XCL-PC\SQL2012;Database=XCLCMS;User Id=sa;Password=sa1989;</ConnectionString>
+    <ConnectionString>${config.dbConnectionString}</ConnectionString>
     <CommandText>
       declare @SysLogID bigint=0
       declare @FK_MerchantID bigint=600104

@@ -1,23 +1,57 @@
-    {
-        "configs": {
-            "appSettings": {
-                "name": "appSettings配置信息",
-                "cfg": [
-                    {
-                        "source": "${ROOT_PATH}AppSettings.config.tpl",
-                        "target": "${ROOT_PATH}AppSettings.config"
-                    }
-                ],
-                "val": {
-                    "DEV": {
-                        "WebAPIJsUrl": "http://localhost/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js",
-                        "WebAPIServiceURL": "http://localhost/XCLCMS.WebAPI/api/"
-                    },
-                    "PRD": {
-                        "WebAPIJsUrl": "http://www.wodeabc.com/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js",
-                        "WebAPIServiceURL": "http://www.wodeabc.com/XCLCMS.WebAPI/api/"
-                    }
-                }
-            }
+{
+  "configs": {
+    "appSettings": {
+      "name": "appSettings配置信息",
+      "cfg": [
+        {
+          "source": "${ROOT_PATH}AppSettings.config.tpl",
+          "target": "${ROOT_PATH}AppSettings.config"
         }
+      ],
+      "val": {
+        "DEV": {
+          "WebAPIJsUrl": "http://localhost/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js",
+          "WebAPIServiceURL": "http://localhost/XCLCMS.WebAPI/api/"
+        },
+        "PRD": {
+          "WebAPIJsUrl": "http://www.wodeabc.com/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js",
+          "WebAPIServiceURL": "http://www.wodeabc.com/XCLCMS.WebAPI/api/"
+        }
+      }
+    },
+    "connectionString": {
+      "name": "数据库连接配置信息",
+      "cfg": [
+        {
+          "source": "${ROOT_PATH}ConnectionStrings.config.tpl",
+          "target": "${ROOT_PATH}ConnectionStrings.config"
+        }
+      ],
+      "val": {
+        "DEV": {
+          "dbConnectionString": "Server=XCL-PC\\\\SQL2012;Database=XCLCMS;User Id=sa;Password=sa1989;"
+        },
+        "PRD": {
+          "dbConnectionString": "Data Source=127.0.0.1;Initial Catalog=XCLCMS;Integrated Security=True;"
+        }
+      }
+    },
+    "XCLNetLogger": {
+      "name": "XCLNetLogger日志记录组件配置信息",
+      "cfg": [
+        {
+          "source": "${ROOT_PATH}XCLNetLogger.config.tpl",
+          "target": "${ROOT_PATH}XCLNetLogger.config"
+        }
+      ],
+      "val": {
+        "DEV": {
+          "dbConnectionString": "Server=XCL-PC\\\\SQL2012;Database=XCLCMS;User Id=sa;Password=sa1989;"
+        },
+        "PRD": {
+          "dbConnectionString": "Data Source=127.0.0.1;Initial Catalog=XCLCMS;Integrated Security=True;"
+        }
+      }
     }
+  }
+}

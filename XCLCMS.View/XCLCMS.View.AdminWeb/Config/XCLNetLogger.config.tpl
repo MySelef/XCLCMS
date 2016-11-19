@@ -3,11 +3,11 @@
 <XCLNetLoggerConfig>
   <DBConfig>
     <SQLType>MSSQL</SQLType>
-    <ConnectionString>Server=XCL-PC\SQL2012;Database=XCLCMS;User Id=sa;Password=sa1989;</ConnectionString>
+    <ConnectionString>${config.dbConnectionString}</ConnectionString>
     <CommandText>
       declare @SysLogID bigint=0
       declare @FK_MerchantID bigint=600104
-      declare @FK_MerchantAppID bigint=900114
+      declare @FK_MerchantAppID bigint=900104
       EXEC [sp_SysLog_ADD] @SysLogID,@LogLevel,@LogType,@RefferUrl,@Url,@Code,@Title,@Contents,@ClientIP,@Remark,@FK_MerchantID,@FK_MerchantAppID,@CreateTime
     </CommandText>
     <CommandTimeOut>3</CommandTimeOut>

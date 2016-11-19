@@ -18,8 +18,8 @@ namespace XCLCMS.FileManager
             //XCLNetLogger配置信息
             XCLNetLogger.Config.LogConfig.SetConfig(Server.MapPath("~/Config/XCLNetLogger.config"));
 
-            XCLNetTools.FileHandler.FileDirectory.MakeDirectory(XCLNetTools.FileHandler.ComFile.MapPath(XCLCMS.Lib.Common.Setting.SettingModel.FileManager_UploadPath));
-            XCLNetTools.FileHandler.FileDirectory.MakeDirectory(XCLNetTools.FileHandler.ComFile.MapPath(XCLCMS.Lib.Common.Setting.SettingModel.FileManager_UploadPathTemp));
+            XCLNetTools.FileHandler.FileDirectory.MakeDirectory(XCLNetTools.FileHandler.ComFile.MapPath(XCLCMS.FileManager.Common.Library.FileManager_UploadPath));
+            XCLNetTools.FileHandler.FileDirectory.MakeDirectory(XCLNetTools.FileHandler.ComFile.MapPath(XCLCMS.FileManager.Common.Library.FileManager_UploadPathTemp));
         }
     }
 }

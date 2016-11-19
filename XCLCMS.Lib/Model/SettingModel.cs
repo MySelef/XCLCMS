@@ -21,16 +21,6 @@
         public string Admin_LogOnURL { get; set; }
 
         /// <summary>
-        /// 文件管理中的文件上传目录
-        /// </summary>
-        public string FileManager_UploadPath { get; set; }
-
-        /// <summary>
-        /// 文件管理器中的临时文件上传路径
-        /// </summary>
-        public string FileManager_UploadPathTemp { get; set; }
-
-        /// <summary>
         /// 文件管理根路径
         /// </summary>
         public string FileManager_RootURL { get; set; }

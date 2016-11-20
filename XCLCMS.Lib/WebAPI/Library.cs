@@ -45,22 +45,21 @@ namespace XCLCMS.Lib.WebAPI
                     httpRequest.Content = new StringContent(requestJson);
                     httpRequest.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 }
-                if (!string.IsNullOrWhiteSpace(request.UserToken))
-                {
-                    httpRequest.Headers.Add(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName, request.UserToken);
-                }
                 httpRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var res = httpClient.SendAsync(httpRequest).Result.Content.ReadAsStringAsync().Result;
                 if (!string.IsNullOrEmpty(res))
                 {
                     response = Newtonsoft.Json.JsonConvert.DeserializeObject<APIResponseEntity<TResponse>>(res);
                 }
+                if (null != response && response.IsException)
+                {
+                    throw new Exception(response.Message);
+                }
             }
             catch (Exception ex)
             {
                 XCLNetLogger.Log.WriteLog(ex);
-                response.IsSuccess = false;
-                response.Message = ex.Message;
+                throw;
             }
             return response;
         }
@@ -69,7 +68,7 @@ namespace XCLCMS.Lib.WebAPI
         /// 创建request对象
         /// </summary>
         /// <returns>request对象</returns>
-        public static APIRequestEntity<TRequest> CreateRequest<TRequest>(string userToken)
+        public static APIRequestEntity<TRequest> CreateRequest<TRequest>(string userToken = null)
         {
             APIRequestEntity<TRequest> request = new APIRequestEntity<TRequest>();
             request.ClientIP = XCLNetTools.Common.IPHelper.GetClientIP();
@@ -79,16 +78,8 @@ namespace XCLCMS.Lib.WebAPI
                 request.Url = HttpContext.Current.Request.Url.AbsoluteUri;
             }
             request.AppID = XCLCMS.Lib.Common.Comm.AppID;
+            request.AppKey = XCLCMS.Lib.Common.Comm.AppKey;
             return request;
-        }
-
-        /// <summary>
-        /// 创建request对象
-        /// </summary>
-        /// <returns>request对象</returns>
-        public static APIRequestEntity<TRequest> CreateRequest<TRequest>()
-        {
-            return CreateRequest<TRequest>(null);
         }
 
         #endregion 基础

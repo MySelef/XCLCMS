@@ -81,6 +81,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断用户名是否存在
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistUserName([FromUri] APIRequestEntity<string> request)
         {
             return await Task.Run(() =>

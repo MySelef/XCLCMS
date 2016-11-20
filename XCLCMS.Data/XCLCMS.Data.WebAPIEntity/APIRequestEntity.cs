@@ -45,5 +45,11 @@ namespace XCLCMS.Data.WebAPIEntity
         /// </summary>
         [DataMember]
         public long AppID { get; set; }
+
+        /// <summary>
+        /// 应用程序AppKey
+        /// </summary>
+        [DataMember]
+        public string AppKey { get; set; }
     }
 }

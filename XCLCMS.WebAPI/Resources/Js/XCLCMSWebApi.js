@@ -18,10 +18,4 @@
     };
 
     window.XCLCMSWebApi = lib;
-
-    $(function () {
-        $.ajaxSetup({
-            headers: { "XCLCMSWebAPIHeader": XCLCMSPageGlobalConfig.UserToken }
-        });
-    });
 })();

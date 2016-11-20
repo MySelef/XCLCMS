@@ -14,6 +14,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 生成ID号
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<long>> GenerateID([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Common.GenerateIDEntity> request)
         {
             return await Task.Run(() =>

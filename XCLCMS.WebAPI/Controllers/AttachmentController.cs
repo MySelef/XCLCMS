@@ -19,6 +19,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 查询附件信息实体
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<XCLCMS.Data.Model.Attachment>> Detail([FromUri] APIRequestEntity<long> request)
         {
             return await Task.Run(() =>
@@ -42,6 +43,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据附件关系信息查询附件列表
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.Attachment>>> GetObjectAttachmentList([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Attachment.GetObjectAttachmentListEntity> request)
         {
             return await Task.Run(() =>
@@ -63,6 +65,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据文件id，查询文件详情列表
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.Attachment>>> GetAttachmentListByIDList([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Attachment.GetAttachmentListByIDListEntity> request)
         {
             return await Task.Run(() =>

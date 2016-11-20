@@ -17,6 +17,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 登录
         /// </summary>
         [HttpPost]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<XCLCMS.Data.Model.Custom.UserInfoDetailModel>> LogonCheck([FromBody] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Open.LogonCheckEntity> request)
         {
             return await Task.Run(() =>
@@ -78,6 +79,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据用户名和密码生成登录令牌
         /// </summary>
         [HttpPost]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<object>> CreateUserToken([FromBody] APIRequestEntity<XCLCMS.Data.Model.Custom.UserNamePwd> request)
         {
             return await Task.Run(() =>

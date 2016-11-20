@@ -46,6 +46,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断角色标识是否已经存在
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.IsExistCodeEntity> request)
         {
             return await Task.Run(() =>
@@ -83,6 +84,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断角色名，在同一级别中是否存在
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistRoleNameInSameLevel([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.IsExistRoleNameInSameLevelEntity> request)
         {
             return await Task.Run(() =>
@@ -143,6 +145,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取easyui tree格式的所有角色json
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>> GetAllJsonForEasyUITree([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetAllJsonForEasyUITreeEntity> request)
         {
             return await Task.Run(() =>
@@ -216,6 +219,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 如:根目录/子目录/文件
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysRoleSimple>>> GetLayerListBySysRoleID([FromUri]  APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysRole.GetLayerListBySysRoleIDEntity> request)
         {
             return await Task.Run(() =>
@@ -231,6 +235,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取指定用户的角色
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.SysRole>>> GetRoleByUserID([FromUri] APIRequestEntity<long> request)
         {
             return await Task.Run(() =>

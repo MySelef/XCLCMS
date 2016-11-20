@@ -38,6 +38,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断功能标识是否已经存在
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.IsExistCodeEntity> request)
         {
             return await Task.Run(() =>
@@ -75,6 +76,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断功能名，在同一级别中是否存在
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistFunctionNameInSameLevel([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.IsExistFunctionNameInSameLevelEntity> request)
         {
             return await Task.Run(() =>
@@ -208,6 +210,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 如:根目录/子目录/文件
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysFunctionSimple>>> GetLayerListBySysFunctionId([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.GetLayerListBySysFunctionIdEntity> request)
         {
             return await Task.Run(() =>
@@ -223,6 +226,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取指定角色的所有功能
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.SysFunction>>> GetListByRoleID([FromUri] APIRequestEntity<long> request)
         {
             return await Task.Run(() =>
@@ -238,6 +242,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取普通商户的所有功能数据源列表
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysFunction>>> GetNormalMerchantFunctionTreeList([FromUri] APIRequestEntity<object> request)
         {
             return await Task.Run(() =>
@@ -273,6 +278,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断指定用户是否至少拥有权限组中的某个权限
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> HasAnyPermission([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysFunction.HasAnyPermissionEntity> request)
         {
             return await Task.Run(() =>

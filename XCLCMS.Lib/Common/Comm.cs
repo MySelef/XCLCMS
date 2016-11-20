@@ -194,11 +194,6 @@ namespace XCLCMS.Lib.Common
         public static readonly string GetAllEnumJson = XCLNetTools.Enum.EnumHelper.GetEnumJson(typeof(XCLCMS.Data.CommonHelper.EnumType));
 
         /// <summary>
-        /// web api 用户token名
-        /// </summary>
-        public const string WebAPIUserTokenHeaderName = "XCLCMSWebAPIHeader";
-
-        /// <summary>
         /// 重写json
         /// </summary>
         public static JsonResult XCLJsonResult(object data, JsonRequestBehavior jsonRequestBehavior = JsonRequestBehavior.DenyGet)

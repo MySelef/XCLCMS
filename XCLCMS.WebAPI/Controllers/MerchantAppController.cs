@@ -46,6 +46,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据加密后的AppKey查询商户信息
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<XCLCMS.Data.Model.Custom.MerchantAppInfoModel>> DetailByAppKey([FromUri] APIRequestEntity<object> request)
         {
             return await Task.Run(() =>
@@ -115,7 +116,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断商户应用名是否存在
         /// </summary>
         [HttpGet]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantAppView)]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistMerchantAppName([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.MerchantApp.IsExistMerchantAppNameEntity> request)
         {
             return await Task.Run(() =>

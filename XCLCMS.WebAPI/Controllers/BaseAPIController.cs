@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -34,22 +32,23 @@ namespace XCLCMS.WebAPI.Controllers
                 }
 
                 //从请求头中获取用户登录信息
-                string token = null;
-                IEnumerable<string> tokenHeaders = null;
-                if (base.ActionContext.Request.Headers.TryGetValues(XCLCMS.Lib.Common.Comm.WebAPIUserTokenHeaderName, out tokenHeaders))
+                var bodyModel = XCLCMS.WebAPI.Library.Common.GetInfoFromActionContext(base.ActionContext);
+                if (null == bodyModel)
                 {
-                    if (null != tokenHeaders && tokenHeaders.Count() > 0)
-                    {
-                        token = tokenHeaders.First();
-                        this._currentUserModel = XCLCMS.WebAPI.Library.Common.GetUserInfoByUserToken(token);
-                    }
+                    return this._currentUserModel;
                 }
 
-                //如果当前是匿名用户，则使用内置用户作为当前接口的登录用户
-                if (string.IsNullOrWhiteSpace(token))
+                if (string.IsNullOrWhiteSpace(bodyModel.UserToken))
                 {
+                    //如果当前是匿名用户，则使用内置用户作为当前接口的登录用户
                     this._currentUserModel = this.userInfoBLL.GetModel(XCLCMS.Data.CommonHelper.SystemDataConst.XInnerUserName);
                 }
+                else
+                {
+                    //从token中获取用户信息
+                    this._currentUserModel = XCLCMS.WebAPI.Library.Common.GetUserInfoByUserToken(bodyModel.UserToken);
+                }
+
                 return this._currentUserModel;
             }
         }

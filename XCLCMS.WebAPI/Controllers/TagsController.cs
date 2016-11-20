@@ -79,7 +79,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断标签是否存在
         /// </summary>
         [HttpGet]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.Tags_View)]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistTagName([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Tags.IsExistTagNameEntity> request)
         {
             return await Task.Run(() =>

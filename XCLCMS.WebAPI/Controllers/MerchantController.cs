@@ -82,6 +82,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取商户类型
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<Dictionary<string, long>>> GetMerchantTypeDic([FromUri] APIRequestEntity<object> request)
         {
             return await Task.Run(() =>
@@ -97,7 +98,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断商户名是否存在
         /// </summary>
         [HttpGet]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.SysFun_UserAdmin_MerchantView)]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistMerchantName([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Merchant.IsExistMerchantNameEntity> request)
         {
             return await Task.Run(() =>

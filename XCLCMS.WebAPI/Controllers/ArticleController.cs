@@ -121,6 +121,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 检查文章code是否已存在
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Article.IsExistCodeEntity> request)
         {
             return await Task.Run(() =>

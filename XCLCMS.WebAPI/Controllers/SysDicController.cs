@@ -46,6 +46,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据code查询其子项
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.SysDic>>> GetChildListByCode([FromUri] APIRequestEntity<string> request)
         {
             return await Task.Run(() =>
@@ -61,6 +62,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断字典的唯一标识是否已经存在
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistSysDicCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.IsExistSysDicCodeEntity> request)
         {
             return await Task.Run(() =>
@@ -99,6 +101,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断字典名，在同一级别中是否存在
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistSysDicNameInSameLevel([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.IsExistSysDicNameInSameLevelEntity> request)
         {
             return await Task.Run(() =>
@@ -139,6 +142,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据code来获取字典的easyui tree格式
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>> GetEasyUITreeByCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByCodeEntity> request)
         {
             return await Task.Run(() =>
@@ -236,6 +240,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据条件获取字典的easy tree 列表
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLNetTools.Entity.EasyUI.TreeItem>>> GetEasyUITreeByCondition([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetEasyUITreeByConditionEntity> request)
         {
             return await Task.Run(() =>
@@ -308,6 +313,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取XCLCMS管理后台系统的菜单
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>>> GetSystemMenuModelList([FromUri] APIRequestEntity<object> request)
         {
             return await Task.Run(() =>
@@ -323,6 +329,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 根据SysDicID查询其子项
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.SysDic>>> GetChildListByID([FromUri] APIRequestEntity<long> request)
         {
             return await Task.Run(() =>
@@ -339,6 +346,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 如:根目录/子目录/文件
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.Custom.SysDicSimple>>> GetLayerListBySysDicID([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.SysDic.GetLayerListBySysDicIDEntity> request)
         {
             return await Task.Run(() =>
@@ -354,6 +362,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 获取证件类型
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<Dictionary<string, long>>> GetPassTypeDic([FromUri] APIRequestEntity<object> request)
         {
             return await Task.Run(() =>
@@ -369,6 +378,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 递归获取指定SysDicID下的所有列表（不包含该SysDicID的记录）
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<List<XCLCMS.Data.Model.View.v_SysDic>>> GetAllUnderListByID([FromUri] APIRequestEntity<long> request)
         {
             return await Task.Run(() =>

@@ -79,7 +79,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 判断友情链接标题是否存在
         /// </summary>
         [HttpGet]
-        [XCLCMS.Lib.Filters.FunctionFilter(Function = XCLCMS.Lib.Permission.Function.FunctionEnum.FriendLinks_View)]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistTitle([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.FriendLinks.IsExistTitleEntity> request)
         {
             return await Task.Run(() =>

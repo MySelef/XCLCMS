@@ -79,6 +79,7 @@ namespace XCLCMS.WebAPI.Controllers
         /// 检查广告code是否已存在
         /// </summary>
         [HttpGet]
+        [XCLCMS.WebAPI.Filters.APIOpenPermissionFilter]
         public async Task<APIResponseEntity<bool>> IsExistCode([FromUri] APIRequestEntity<XCLCMS.Data.WebAPIEntity.RequestEntity.Ads.IsExistCodeEntity> request)
         {
             return await Task.Run(() =>

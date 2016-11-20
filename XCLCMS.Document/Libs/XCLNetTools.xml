@@ -5558,6 +5558,11 @@
             自定义输出对象
             </summary>
         </member>
+        <member name="P:XCLNetTools.Message.MessageModel.IsException">
+            <summary>
+            是否为异常
+            </summary>
+        </member>
         <member name="T:XCLNetTools.Message.Log">
             <summary>
             消息日志

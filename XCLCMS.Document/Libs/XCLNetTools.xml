@@ -100,6 +100,11 @@
             http(s)地址正则
             </summary>
         </member>
+        <member name="F:XCLNetTools.Common.Consts.RegMD5_32Uppercase">
+            <summary>
+            md5正则（32位大写）
+            </summary>
+        </member>
         <member name="F:XCLNetTools.Common.Consts.WeekName">
             <summary>
             星期名

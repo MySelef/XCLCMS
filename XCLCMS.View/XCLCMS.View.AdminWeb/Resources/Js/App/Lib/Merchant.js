@@ -242,6 +242,9 @@
                                 data: request
                             };
                         }
+                    },
+                    txtAppKey: {
+                        required: true
                     }
                 }
             });

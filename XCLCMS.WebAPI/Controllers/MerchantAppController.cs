@@ -166,12 +166,26 @@ namespace XCLCMS.WebAPI.Controllers
                 #region 数据校验
 
                 request.Body.MerchantAppName = (request.Body.MerchantAppName ?? "").Trim();
-                request.Body.AppKey = XCLCMS.WebAPI.Library.EncryptHelper.EncryptStringMD5(request.Body.MerchantAppID.ToString(), XCLCMS.WebAPI.Library.EncryptHelper.MerchantAppIDMd5Key);
+                request.Body.AppKey = (request.Body.AppKey ?? "").Trim().ToUpper();
 
                 if (string.IsNullOrWhiteSpace(request.Body.MerchantAppName))
                 {
                     response.IsSuccess = false;
                     response.Message = "请提供商户应用名！";
+                    return response;
+                }
+
+                if (!XCLNetTools.Common.Consts.RegMD5_32Uppercase.IsMatch(request.Body.AppKey))
+                {
+                    response.IsSuccess = false;
+                    response.Message = "请提供有效的AppKey（32位大写MD5值）！";
+                    return response;
+                }
+
+                if (null != this.merchantAppBLL.GetModel(request.Body.AppKey))
+                {
+                    response.IsSuccess = false;
+                    response.Message = string.Format("AppKey：{0}，已经被占用了！", request.Body.AppKey);
                     return response;
                 }
 
@@ -223,6 +237,8 @@ namespace XCLCMS.WebAPI.Controllers
             {
                 var response = new APIResponseEntity<bool>();
 
+                request.Body.AppKey = (request.Body.AppKey ?? "").Trim().ToUpper();
+
                 #region 数据校验
 
                 var model = merchantAppBLL.GetModel(request.Body.MerchantAppID);
@@ -230,6 +246,20 @@ namespace XCLCMS.WebAPI.Controllers
                 {
                     response.IsSuccess = false;
                     response.Message = "请指定有效的商户应用信息！";
+                    return response;
+                }
+
+                if (!XCLNetTools.Common.Consts.RegMD5_32Uppercase.IsMatch(request.Body.AppKey))
+                {
+                    response.IsSuccess = false;
+                    response.Message = "请提供有效的AppKey（32位大写MD5值）！";
+                    return response;
+                }
+
+                if (!string.Equals(request.Body.AppKey, model.AppKey, StringComparison.OrdinalIgnoreCase) && null != this.merchantAppBLL.GetModel(request.Body.AppKey))
+                {
+                    response.IsSuccess = false;
+                    response.Message = string.Format("AppKey：{0}，已经被占用了！", request.Body.AppKey);
                     return response;
                 }
 
@@ -253,7 +283,7 @@ namespace XCLCMS.WebAPI.Controllers
 
                 #endregion 数据校验
 
-                model.AppKey = XCLCMS.WebAPI.Library.EncryptHelper.EncryptStringMD5(request.Body.MerchantAppID.ToString(), XCLCMS.WebAPI.Library.EncryptHelper.MerchantAppIDMd5Key);
+                model.AppKey = request.Body.AppKey;
                 model.RecordState = request.Body.RecordState;
                 model.CopyRight = request.Body.CopyRight;
                 model.MerchantAppName = request.Body.MerchantAppName;

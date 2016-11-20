@@ -74,6 +74,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
                 case XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD:
                     viewModel.MerchantApp = new Data.Model.MerchantApp();
                     viewModel.MerchantApp.RecordState = XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString();
+                    viewModel.MerchantApp.AppKey = Guid.NewGuid().ToString("N").ToUpper();
                     viewModel.FormAction = Url.Action("AddSubmit", "MerchantApp");
                     break;
 
@@ -115,6 +116,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             viewModel.MerchantApp.MetaTitle = XCLNetTools.StringHander.FormHelper.GetString("txtMetaTitle");
             viewModel.MerchantApp.WebURL = XCLNetTools.StringHander.FormHelper.GetString("txtWebURL");
             viewModel.MerchantApp.RecordState = XCLNetTools.StringHander.FormHelper.GetString("selRecordState");
+            viewModel.MerchantApp.AppKey = XCLNetTools.StringHander.FormHelper.GetString("txtAppKey");
             return viewModel;
         }
 
@@ -148,6 +150,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.MetaKeyWords = viewModel.MerchantApp.MetaKeyWords;
             model.MetaTitle = viewModel.MerchantApp.MetaTitle;
             model.WebURL = viewModel.MerchantApp.WebURL;
+            model.AppKey = viewModel.MerchantApp.AppKey;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.MerchantApp>(base.UserToken);
             request.Body = model;
@@ -182,6 +185,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.Merchant
             model.MetaTitle = viewModel.MerchantApp.MetaTitle;
             model.WebURL = viewModel.MerchantApp.WebURL;
             model.RecordState = viewModel.MerchantApp.RecordState;
+            model.AppKey = viewModel.MerchantApp.AppKey;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.MerchantApp>(base.UserToken);
             request.Body = model;

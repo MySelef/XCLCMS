@@ -11,11 +11,6 @@
         public const string PwdKey = "XCL1989";
 
         /// <summary>
-        /// 商户应用号加密key
-        /// </summary>
-        public const string MerchantAppIDMd5Key = "58A67359841F484F";
-
-        /// <summary>
         /// 通用des加密key
         /// </summary>
         public const string DESKey = "XCL1989";

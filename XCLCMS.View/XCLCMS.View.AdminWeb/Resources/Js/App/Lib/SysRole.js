@@ -185,7 +185,7 @@
                 $.XGoAjax({
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysRole/Delete",
-                        data: request,
+                        data: JSON.stringify(request),
                         type: "POST"
                     },
                     postSuccess: function (ops, data) {

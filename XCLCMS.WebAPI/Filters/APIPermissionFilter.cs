@@ -55,9 +55,15 @@ namespace XCLCMS.WebAPI.Filters
 
             #region 应用AppKey校验
 
-            if (null == this.merchantAppBLL.GetModel(bodyModel.AppID, bodyModel.AppKey))
+            var merchantAppModel = this.merchantAppBLL.GetModel(bodyModel.AppID, bodyModel.AppKey);
+            if (null == merchantAppModel)
             {
                 this.unauthorizedResponse.Message = "应用AppID、AppKey校验失败，系统已阻止您的访问！";
+                return false;
+            }
+            if (merchantAppModel.RecordState != XCLCMS.Data.CommonHelper.EnumType.RecordStateEnum.N.ToString())
+            {
+                this.unauthorizedResponse.Message = string.Format("应用号【{0}】已被禁用，系统已阻止您的访问！", merchantAppModel.MerchantAppID);
                 return false;
             }
 

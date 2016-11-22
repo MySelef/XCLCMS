@@ -184,7 +184,7 @@
                 $.XGoAjax({
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysFunction/Delete",
-                        data: request,
+                        data: JSON.stringify(request),
                         type: "POST"
                     },
                     postSuccess: function () {
@@ -209,7 +209,7 @@
                 $.XGoAjax({
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysFunction/DelChild",
-                        data: request,
+                        data: JSON.stringify(request),
                         type: "POST"
                     },
                     postSuccess: function () {

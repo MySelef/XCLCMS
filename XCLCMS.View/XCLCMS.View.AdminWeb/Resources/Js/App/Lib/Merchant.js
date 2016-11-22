@@ -67,7 +67,7 @@
                     target: $("#btnDel")[0],
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Merchant/Delete",
-                        data: request,
+                        data: JSON.stringify(request),
                         type: "POST"
                     }
                 });
@@ -135,7 +135,7 @@
                     target: $("#btnDel")[0],
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "Merchant/Delete",
-                        data: request,
+                        data: JSON.stringify(request),
                         type: "POST"
                     }
                 });
@@ -205,7 +205,7 @@
                     target: $("#btnDel")[0],
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "MerchantApp/Delete",
-                        data: request,
+                        data: JSON.stringify(request),
                         type: "POST"
                     }
                 });
@@ -266,7 +266,7 @@
                     target: $("#btnDel")[0],
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "MerchantApp/Delete",
-                        data: request,
+                        data: JSON.stringify(request),
                         type: "POST"
                     }
                 });

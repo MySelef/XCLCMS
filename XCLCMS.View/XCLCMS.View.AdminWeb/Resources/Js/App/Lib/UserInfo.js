@@ -68,7 +68,7 @@
                     target: $("#btnDel")[0],
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "UserInfo/Delete",
-                        data: request,
+                        data: JSON.stringify(request),
                         type: "POST"
                     }
                 });
@@ -186,7 +186,7 @@
                     target: $("#btnDel")[0],
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "UserInfo/Delete",
-                        data: request,
+                        data: JSON.stringify(request),
                         type: "POST"
                     }
                 });

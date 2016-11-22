@@ -68,7 +68,7 @@
                     target: $("#btnDel")[0],
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "FriendLinks/Delete",
-                        data: request,
+                        data: JSON.stringify(request),
                         type: "POST"
                     }
                 });
@@ -146,7 +146,7 @@
                     target: $("#btnDel")[0],
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "FriendLinks/Delete",
-                        data: request,
+                        data: JSON.stringify(request),
                         type: "POST"
                     }
                 });

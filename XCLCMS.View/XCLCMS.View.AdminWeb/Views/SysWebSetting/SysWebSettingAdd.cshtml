@@ -11,12 +11,12 @@
         <div class="XCLAccordionBody">
             <table class="XCLTableEdit">
                 <tr>
-                    <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>名称：</td>
-                    <td style="width: 25%">
+                    <td class="XCLTitle" ><span class="XCLRedBolder">*</span>名称：</td>
+                    <td >
                         <textarea id="txtKeyName" name="txtKeyName">@Model.SysWebSetting.KeyName</textarea>
                     </td>
-                    <td class="XCLTitle" style="width: 10%">值：</td>
-                    <td style="width: 25%">
+                    <td class="XCLTitle" >值：</td>
+                    <td >
                         开发环境：<br />
                         <textarea id="txtKeyValue" name="txtKeyValue" style="height:30px;">@Model.SysWebSetting.KeyValue</textarea>
                         <br />测试环境：<br />
@@ -26,8 +26,8 @@
                         <br />生产环境：<br />
                         <textarea id="txtPrdKeyValue" name="txtPrdKeyValue" style="height:30px;">@Model.SysWebSetting.PrdKeyValue</textarea>
                     </td>
-                    <td class="XCLTitle" style="width: 10%">所属应用：</td>
-                    <td style="width: 25%">
+                    <td class="XCLTitle" >所属应用：</td>
+                    <td >
                         <input type="text" name="txtMerchantAppID" value="@Model.SysWebSetting.FK_MerchantAppID" />
                     </td>
                 </tr>

@@ -11,8 +11,8 @@
         <div class="XCLAccordionBody">
             <table class="XCLTableEdit">
                 <tr>
-                    <td class="XCLTitle" style="width: 10%">@Html.Raw(ViewBag.CurrentHandleType == XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD?@"<span class=""XCLRedBolder"">*</span>":"")用户名：</td>
-                    <td style="width: 25%">
+                    <td class="XCLTitle">@Html.Raw(ViewBag.CurrentHandleType == XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD ? @"<span class=""XCLRedBolder"">*</span>" : "")用户名：</td>
+                    <td>
                         @if (ViewBag.CurrentHandleType == XCLNetTools.Enum.CommonEnum.HandleTypeEnum.ADD)
                         {
                             <input type="text" id="txtUserName" name="txtUserName" value="@Model.UserInfo.UserName" />
@@ -24,12 +24,12 @@
                             @Model.UserInfo.UserName
                         }
                     </td>
-                    <td class="XCLTitle" style="width: 10%">真实姓名：</td>
-                    <td style="width: 25%">
+                    <td class="XCLTitle">真实姓名：</td>
+                    <td>
                         <input type="text" id="txtRealName" name="txtRealName" value="@Model.UserInfo.RealName" />
                     </td>
-                    <td class="XCLTitle" style="width: 10%">昵称：</td>
-                    <td style="width: 25%">
+                    <td class="XCLTitle">昵称：</td>
+                    <td>
                         <input type="text" id="txtNickName" name="txtNickName" value="@Model.UserInfo.NickName" />
                     </td>
                 </tr>
@@ -67,9 +67,10 @@
                     <td class="XCLTitle"><span class="XCLRedBolder">*</span>性别：</td>
                     <td>
                         <select id="selSexType" name="selSexType">
-                            @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum), new XCLNetTools.Entity.SetOptionEntity() {
-                                DefaultValue=Model.UserInfo.SexType
-                            }))
+                            @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserSexTypeEnum), new XCLNetTools.Entity.SetOptionEntity()
+                       {
+                           DefaultValue = Model.UserInfo.SexType
+                       }))
                         </select>
                     </td>
                 </tr>
@@ -80,7 +81,7 @@
                     </td>
                     <td class="XCLTitle">年龄：</td>
                     <td>
-                        <input type="text" id="txtAge" name="txtAge" class="easyui-numberbox" value="@Model.UserInfo.Age"  style="height:25px;" />
+                        <input type="text" id="txtAge" name="txtAge" class="easyui-numberbox" value="@Model.UserInfo.Age" style="height:25px;" />
                     </td>
                     <td class="XCLTitle">手机号：</td>
                     <td>
@@ -109,9 +110,10 @@
                     <td class="XCLTitle"><span class="XCLRedBolder">*</span>用户状态：</td>
                     <td>
                         <select id="selUserState" name="selUserState">
-                            @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserStateEnum), new XCLNetTools.Entity.SetOptionEntity() {
-                                DefaultValue=Model.UserInfo.UserState
-                            }))
+                            @Html.Raw(XCLNetTools.Control.HtmlControl.Lib.GetOptions(typeof(XCLCMS.Data.CommonHelper.EnumType.UserStateEnum), new XCLNetTools.Entity.SetOptionEntity()
+                       {
+                           DefaultValue = Model.UserInfo.UserState
+                       }))
                         </select>
                     </td>
                     <td class="XCLTitle">记录状态：</td>
@@ -130,14 +132,14 @@
             <div class="XCLAccordionBody">
                 <table class="XCLTableEdit">
                     <tr>
-                        <td class="XCLTitle" style="width: 10%">分配用户角色：</td>
-                        <td style="width: 25%">
+                        <td class="XCLTitle">分配用户角色：</td>
+                        <td>
                             <input id="txtUserRoleIDs" name="txtUserRoleIDs" style="width:300px;height:25px;" xcl-data-value="@(null == Model.UserRoleIDs ? "" : string.Join(",", Model.UserRoleIDs.ToArray()))" multiple />
                         </td>
-                        <td style="width: 10%"></td>
-                        <td style="width: 25%"></td>
-                        <td style="width: 10%"></td>
-                        <td style="width: 25%"></td>
+                        <td class="XCLTitle"></td>
+                        <td></td>
+                        <td class="XCLTitle"></td>
+                        <td></td>
                     </tr>
                 </table>
             </div>

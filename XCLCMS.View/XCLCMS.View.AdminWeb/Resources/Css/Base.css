@@ -154,6 +154,7 @@ a {
         text-align: right;
         font-weight: bolder;
         font-size: 14px;
+        width:10%;
     }
 
     .XCLTableEdit .XCLTableHeader {

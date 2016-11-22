@@ -11,18 +11,18 @@
         <div class="XCLAccordionBody">
             <table class="XCLTableEdit">
                 <tr>
-                    <td class="XCLTitle" style="width: 10%"><span class="XCLRedBolder">*</span>商户名：</td>
-                    <td style="width: 25%">
+                    <td class="XCLTitle" ><span class="XCLRedBolder">*</span>商户名：</td>
+                    <td >
                         <input type="text" id="txtMerchantName" name="txtMerchantName" value="@Model.Merchant.MerchantName" />
                     </td>
-                    <td class="XCLTitle" style="width: 10%">商户类型：</td>
-                    <td style="width: 25%">
+                    <td class="XCLTitle" >商户类型：</td>
+                    <td >
                         <select id="selMerchantType" name="selMerchantType">
                             @Html.Raw(Model.MerchantTypeOptions)
                         </select>
                     </td>
-                    <td class="XCLTitle" style="width: 10%">域名：</td>
-                    <td style="width: 25%">
+                    <td class="XCLTitle" >域名：</td>
+                    <td >
                         <input type="text" id="txtDomain" name="txtDomain" value="@Model.Merchant.Domain" />
                     </td>
                 </tr>

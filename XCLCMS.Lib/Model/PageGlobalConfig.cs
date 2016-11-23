@@ -14,6 +14,11 @@ namespace XCLCMS.Lib.Model
         public long AppID { get; set; }
 
         /// <summary>
+        /// 当前应用程序的应用Key
+        /// </summary>
+        public string AppKey { get; set; }
+
+        /// <summary>
         /// 用户ID
         /// </summary>
         public long UserID { get; set; }

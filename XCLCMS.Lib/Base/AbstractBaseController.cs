@@ -290,6 +290,7 @@ namespace XCLCMS.Lib.Base
                 {
                     pageConfig.UserID = commonModel.CurrentUserModel.UserInfoID;
                     pageConfig.UserName = commonModel.CurrentUserModel.UserName;
+                    pageConfig.AppKey = XCLCMS.Lib.Common.Comm.AppKey;
                 }
             }
             pageConfig.RootURL = XCLNetTools.StringHander.Common.RootUri;

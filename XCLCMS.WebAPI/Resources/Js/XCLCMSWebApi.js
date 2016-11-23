@@ -14,6 +14,7 @@
         var req = new _request();
         req.UserToken = XCLCMSPageGlobalConfig.UserToken;
         req.AppID = XCLCMSPageGlobalConfig.AppID;
+        req.AppKey = XCLCMSPageGlobalConfig.AppKey;
         return req;
     };
 

@@ -697,10 +697,6 @@
     <Content Include="Views\Common\Error.cshtml" />
     <Content Include="Views\Article\ArticleList.cshtml" />
     <Content Include="Views\Article\ArticleAdd.cshtml" />
-    <Content Include="Config\ConnectionStrings.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\SysRole\SysRoleList.cshtml" />
     <Content Include="Views\SysRole\SysRoleAdd.cshtml" />
     <Content Include="Views\Merchant\MerchantList.cshtml" />
@@ -724,7 +720,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\XConfigGen.bat" />
-    <Content Include="Config\ConnectionStrings.config.tpl" />
     <Content Include="Config\XCLNetLogger.config.tpl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

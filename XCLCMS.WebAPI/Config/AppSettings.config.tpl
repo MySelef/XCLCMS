@@ -2,8 +2,8 @@
 <appSettings>
     <add key="owin:AutomaticAppStartup" value="false" />
 
-    <add key="AppID" value="900120" />
-    <add key="AppKey" value="DC013C390DE0455CA027F61623EC52DF" />
+    <add key="AppID" value="${config.AppID}" />
+    <add key="AppKey" value="${config.AppKey}" />
     <add key="WebAPIServiceURL" value="${config.WebAPIServiceURL}" />
 
     <!--当前系统所在环境（XCLCMS.Lib.Common.Comm.SysEnvironmentEnum）-->

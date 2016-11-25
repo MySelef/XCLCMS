@@ -6,8 +6,8 @@
     <ConnectionString>${config.dbConnectionString}</ConnectionString>
     <CommandText>
       declare @SysLogID bigint=0
-      declare @FK_MerchantID bigint=600104
-      declare @FK_MerchantAppID bigint=900114
+      declare @FK_MerchantID bigint=${config.MerchantID}
+      declare @FK_MerchantAppID bigint=${config.MerchantAppID}
       EXEC [sp_SysLog_ADD] @SysLogID,@LogLevel,@LogType,@RefferUrl,@Url,@Code,@Title,@Contents,@ClientIP,@Remark,@FK_MerchantID,@FK_MerchantAppID,@CreateTime
     </CommandText>
     <CommandTimeOut>3</CommandTimeOut>

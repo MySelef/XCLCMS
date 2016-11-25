@@ -5,8 +5,8 @@
     <add key="ClientValidationEnabled" value="true" />
     <add key="UnobtrusiveJavaScriptEnabled" value="true" />
     <!--应用号-->
-    <add key="AppID" value="900114" />
-    <add key="AppKey" value="2D15542BFB2548B841DDB3D8C03B5090" />
+    <add key="AppID" value="${config.AppID}" />
+    <add key="AppKey" value="${config.AppKey}" />
     <add key="WebAPIJsUrl" value="${config.WebAPIJsUrl}" />
     <add key="WebAPIServiceURL" value="${config.WebAPIServiceURL}" />
 

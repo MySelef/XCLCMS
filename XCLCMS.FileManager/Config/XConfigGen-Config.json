@@ -10,12 +10,16 @@
       ],
       "val": {
         "DEV": {
+          "AppID": 900114,
+          "AppKey": "2D15542BFB2548B841DDB3D8C03B5090",
           "WebAPIJsUrl": "http://localhost/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js",
           "WebAPIServiceURL": "http://localhost/XCLCMS.WebAPI/api/"
         },
         "PRD": {
-          "WebAPIJsUrl": "http://www.wodeabc.com/XCLCMS.WebAPI/Resources/Js/XCLCMSWebApi.js",
-          "WebAPIServiceURL": "http://www.wodeabc.com/XCLCMS.WebAPI/api/"
+          "AppID": 900114,
+          "AppKey": "2D15542BFB2548B841DDB3D8C03B5090",
+          "WebAPIJsUrl": "http://cms.wodeabc.com/api/Resources/Js/XCLCMSWebApi.js",
+          "WebAPIServiceURL": "http://cms.wodeabc.com/api/api/"
         }
       }
     },
@@ -46,9 +50,13 @@
       ],
       "val": {
         "DEV": {
+          "MerchantID": 600104,
+          "MerchantAppID": 900114,
           "dbConnectionString": "Server=XCL-PC\\\\SQL2012;Database=XCLCMS;User Id=sa;Password=sa1989;"
         },
         "PRD": {
+          "MerchantID": 600104,
+          "MerchantAppID": 900114,
           "dbConnectionString": "Data Source=127.0.0.1;Initial Catalog=XCLCMS;Integrated Security=True;"
         }
       }

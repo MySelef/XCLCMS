@@ -26,7 +26,8 @@ namespace XCLCMS.WebAPI.Filters
                     Content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(new APIResponseEntity<object>()
                     {
                         IsSuccess = false,
-                        Message = actionExecutedContext.Exception.Message
+                        Message = actionExecutedContext.Exception.Message,
+                        MessageMore=actionExecutedContext.Exception.StackTrace
                     }), System.Text.Encoding.UTF8)
                 };
             });

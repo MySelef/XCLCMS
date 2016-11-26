@@ -17,6 +17,7 @@ namespace XCLCMS.WebAPI.Controllers
         private XCLCMS.Data.BLL.View.v_SysWebSetting vSysWebSettingBLL = new Data.BLL.View.v_SysWebSetting();
         private XCLCMS.Data.BLL.SysWebSetting sysWebSettingBLL = new Data.BLL.SysWebSetting();
         private XCLCMS.Data.BLL.MerchantApp merchantAppBLL = new Data.BLL.MerchantApp();
+        private XCLCMS.Data.BLL.Merchant merchantBLL = new Data.BLL.Merchant();
 
         /// <summary>
         /// 查询系统配置信息实体
@@ -130,7 +131,15 @@ namespace XCLCMS.WebAPI.Controllers
                 #region 数据校验
 
                 request.Body.KeyName = (request.Body.KeyName ?? "").Trim();
-                request.Body.FK_MerchantID = base.CurrentUserModel.FK_MerchantID;
+
+                //商户必须存在
+                var merchant = this.merchantBLL.GetModel(request.Body.FK_MerchantID);
+                if (null == merchant)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "无效的商户号！";
+                    return response;
+                }
 
                 if (string.IsNullOrWhiteSpace(request.Body.KeyName))
                 {
@@ -194,7 +203,16 @@ namespace XCLCMS.WebAPI.Controllers
                 if (null == model)
                 {
                     response.IsSuccess = false;
-                    response.Message = "请指定有效的商户信息！";
+                    response.Message = "请指定有效的配置信息！";
+                    return response;
+                }
+
+                //商户必须存在
+                var merchant = this.merchantBLL.GetModel(request.Body.FK_MerchantID);
+                if (null == merchant)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "无效的商户号！";
                     return response;
                 }
 

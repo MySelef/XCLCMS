@@ -10,9 +10,10 @@ GO
 
 
 
+
 CREATE PROC [dbo].[sp_CheckUserHasAnyFunction](
 	--验证某个用户是否拥有指定功能列表中的某个功能权限
-	@IsPass TINYINT OUTPUT,--0：验证通过  1：验证不通过
+	@IsPass TINYINT OUTPUT,--0：验证不通过  1：验证通过
 	@UserInfoID BIGINT,--用户ID
 	@FunctionListTable TVP_IDTable READONLY --要验证的功能列表，long 
 ) AS 
@@ -33,6 +34,7 @@ BEGIN
 	
 	RETURN
 END
+
 
 
 

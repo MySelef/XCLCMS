@@ -105,6 +105,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             viewModel.SysWebSetting.PrdKeyValue = (fm["txtPrdKeyValue"] ?? "").Trim();
             viewModel.SysWebSetting.Remark = (fm["txtRemark"] ?? "").Trim();
             viewModel.SysWebSetting.FK_MerchantAppID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantAppID");
+            viewModel.SysWebSetting.FK_MerchantID = XCLNetTools.StringHander.FormHelper.GetLong("txtMerchantID");
             return viewModel;
         }
 
@@ -135,6 +136,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
                 IDType = Data.CommonHelper.EnumType.IDTypeEnum.SET.ToString()
             });
             model.FK_MerchantAppID = viewModel.SysWebSetting.FK_MerchantAppID;
+            model.FK_MerchantID = viewModel.SysWebSetting.FK_MerchantID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysWebSetting>(base.UserToken);
             request.Body = model;
@@ -162,6 +164,7 @@ namespace XCLCMS.View.AdminWeb.Controllers.SysWebSetting
             model.UpdateTime = DateTime.Now;
             model.Remark = viewModel.SysWebSetting.Remark;
             model.FK_MerchantAppID = viewModel.SysWebSetting.FK_MerchantAppID;
+            model.FK_MerchantID = viewModel.SysWebSetting.FK_MerchantID;
 
             var request = XCLCMS.Lib.WebAPI.Library.CreateRequest<XCLCMS.Data.Model.SysWebSetting>(base.UserToken);
             request.Body = model;

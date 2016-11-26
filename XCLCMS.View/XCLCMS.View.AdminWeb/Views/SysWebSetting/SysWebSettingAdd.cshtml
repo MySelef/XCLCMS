@@ -26,10 +26,21 @@
                         <br />生产环境：<br />
                         <textarea id="txtPrdKeyValue" name="txtPrdKeyValue" style="height:30px;">@Model.SysWebSetting.PrdKeyValue</textarea>
                     </td>
-                    <td class="XCLTitle" >所属应用：</td>
-                    <td >
+                    <td class="XCLTitle" ></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td class="XCLTitle"><span class="XCLRedBolder">*</span>所属商户：</td>
+                    <td>
+                        <input type="text" name="txtMerchantID" value="@Model.SysWebSetting.FK_MerchantID" />
+                    </td>
+                    <td class="XCLTitle">所属应用：</td>
+                    <td>
                         <input type="text" name="txtMerchantAppID" value="@Model.SysWebSetting.FK_MerchantAppID" />
                     </td>
+                    <td class="XCLTitle"></td>
+                    <td></td>
                 </tr>
 
                 <tr>

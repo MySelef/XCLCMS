@@ -58,6 +58,7 @@
                     target: $("#btnDel")[0],
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysWebSetting/Delete",
+                        contentType: "application/json",
                         data: JSON.stringify(request),
                         type: "POST"
                     }
@@ -118,6 +119,7 @@
                     target: $("#btnDel")[0],
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysWebSetting/Delete",
+                        contentType: "application/json",
                         data: JSON.stringify(request),
                         type: "POST"
                     }

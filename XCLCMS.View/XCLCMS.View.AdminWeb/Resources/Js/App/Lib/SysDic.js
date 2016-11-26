@@ -185,6 +185,7 @@
                 $.XGoAjax({
                     ajax: {
                         url: XCLCMSPageGlobalConfig.WebAPIServiceURL + "SysDic/Delete",
+                        contentType: "application/json",
                         data: JSON.stringify(request),
                         type: "POST"
                     },

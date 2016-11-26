@@ -26,7 +26,7 @@ XCLCMS是一个轻量级的CMS（内容管理系统）**后台管理系统**，�
 
 ## 部署说明
 
-请参见部署说明文档
+[请参见部署说明文档](https://github.com/xucongli1989/XCLCMS/blob/master/%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2.md)
 
 ## 案例
 [我的ABC](http://www.wodeabc.com)
